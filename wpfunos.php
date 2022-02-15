@@ -1,13 +1,6 @@
 <?php
 
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
- *
  * @link              https://efraim.cat
  * @since             1.0.0
  * @package           Wpfunos
@@ -16,19 +9,18 @@
  * Plugin Name:       wpfunos
  * Plugin URI:        https://efraim.cat
  * Description:       Funcionalidades para funos.es
- * Version:           1.5.6
+ * Version:           1.5.7
  * Author:            Efraim Bayarri
  * Author URI:        https://efraim.cat
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wpfunos
  * Domain Path:       /languages
- * Requires PHP: 			7.4
- * Requires at least: 5.8.3
- * Tested up to: 5.9
+ * Requires PHP: 	  7.4
+ * Requires at least: 5.9
+ * Tested up to: 	  5.9
  */
 
-// If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -38,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WPFUNOS_VERSION', '1.5.6' );
+define( 'WPFUNOS_VERSION', '1.5.7' );
 
 /**
  * The code that runs during plugin activation.

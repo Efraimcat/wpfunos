@@ -9,6 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package    WpFunos
  * @subpackage WpFunos/public/partials
  */
+$tel = str_replace(" ","",$_GET['telefonoEmpresa']);
+$tel = str_replace("-","",$tel);
+$_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+$tel = str_replace(" ","",$_GET['telefonoUsuario']);
+$tel = str_replace("-","",$tel);
+$_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
 ?>
 <div class="elementor-container elementor-column-gap-default">
 	<div class="elementor-row">

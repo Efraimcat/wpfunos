@@ -55,6 +55,7 @@ class Wpfunos_Public {
 		add_shortcode( 'wpfunos-resultados-estrellas', array( $this, 'wpfunosResultadosEstrellasShortcode' ));
 		add_shortcode( 'wpfunos-acciones-botones-confirmado', array( $this, 'wpfunosAccionesBotonesConfirmadoShortcode' ));
 		add_shortcode( 'wpfunos-resultados-detalles', array( $this, 'wpfunosResultadosDetallesShortcode' ));
+		add_shortcode( 'wpfunos-resultados-detalles-comentarios', array( $this, 'wpfunosResultadosDetallesComentariosShortcode' ));
 		add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
 		add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
 		add_action( 'wpfunos_new_log', array( $this, 'wpfunosNewLog' ), 10, 1 );
@@ -90,7 +91,7 @@ class Wpfunos_Public {
 	/*********************************/
 	/*****  SHORTCODES          ******/
 	/*********************************/
-
+	
 	/**
 	 * Shortcode [wpfunos-resultados]
 	 */
@@ -171,7 +172,7 @@ class Wpfunos_Public {
 						break;
 				}
 				break;
-// FUTURO
+// FUTURO				
 			case '7':	//Sexo
 				switch($respuesta[2]){
 					case '1':
@@ -187,7 +188,7 @@ class Wpfunos_Public {
 				break;
 		}
 	}
-
+	
 	/**
 	 * Shortcode [wpfunos-resultados-empresa]
 	 */
@@ -221,16 +222,18 @@ class Wpfunos_Public {
 	 * Shortcode [wpfunos-resultados-telefono-servicio]
 	 */
 	 public function wpfunosResultadosTelefonoServicioShortcode( $atts, $content = "" ) {
-	 	return $_GET['telefonoEmpresa'];
+		$tel = str_replace(" ","",$_GET['telefonoEmpresa']);
+		$tel = str_replace("-","",$tel);
+		return substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
 	 }
-
+	
 	/**
 	 * Shortcode [wpfunos-resultados-llamar-telefono-servicio]
 	 */
 	 public function wpfunosResultadosLamarTelefonoServicioShortcode( $atts, $content = "" ) {
 		 return '<a href="tel:' . $_GET['telefono'] . '">Llamar</a>';
 	 }
-
+	
 	/**
 	* Shortcode [wpfunos-compara-inicio]
 	*https://funos.es/compara-precios-resultados?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=1&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
@@ -245,7 +248,7 @@ class Wpfunos_Public {
 			$poblacion = ucwords( $_GET['direccion'] );
 			$id=0;
 			$args = array(
-		  		'post_type' => 'cpostales_wpfunos',	//
+		  		'post_type' => 'cpostales_wpfunos',	// 
 		  		'meta_key' =>  $this->plugin_name . '_cpostalesPoblacion',
 		  		'meta_value' => $poblacion,
 			);
@@ -276,7 +279,7 @@ class Wpfunos_Public {
 			$poblacion = ucwords( $_GET['direccion'] );
 			$id=0;
 			$args = array(
-		  		'post_type' => 'cpostales_wpfunos',	//
+		  		'post_type' => 'cpostales_wpfunos',	// 
 		  		'meta_key' =>  $this->plugin_name . '_cpostalesPoblacion',
 		  		'meta_value' => $poblacion,
 			);
@@ -289,10 +292,10 @@ class Wpfunos_Public {
 			wp_reset_postdata();
 			$_GET['CP'] = get_post_meta( $id, 'wpfunos_cpostalesCodigo', true );
 		}
-
+	
 		require_once 'partials/' . $this->plugin_name . '-public-ComparaInicioFuturoShortcode-display.php';
 	}
-
+	
 	/**
 	* Shortcode [wpfunos-compara-correo]
 	*/
@@ -303,7 +306,7 @@ class Wpfunos_Public {
 		if($IDusuario == 0) return;
 		require_once 'partials/' . $this->plugin_name . '-public-ComparaResultadosShortcode-display.php';
 	}
-
+	
 	/**
 	* Shortcode [wpfunos-compara-futuro-resultados]
 	*/
@@ -361,11 +364,52 @@ class Wpfunos_Public {
 		if( $_GET['desgloseVelatorioDescuento'] == '%' ) $_GET['desgloseVelatorioDescuento'] = '';
 		if( $_GET['desgloseCeremoniaDescuento'] == '%' ) $_GET['desgloseCeremoniaDescuento'] = '';
 	}
+	
+	/**
+	* Shortcode [wpfunos-resultados-detalles-comentarios]
+	*/
+	public function wpfunosResultadosDetallesComentariosShortcode( $atts, $content = "" ) {
+		$respuesta = (explode(',',$_GET['seleccionUsuario']));
+
+		echo '<h4><strong>¿Qué está incluido en Precio base?</strong></h4>';
+		echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPrecioBaseComentario', true ) );
+		if( $respuesta[3] == 1 ) {
+			echo '<h4><strong>¿Qué está incluido en entierro?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDestino_1Comentario', true ) );
+		}
+		if( $respuesta[3] == 2 ) {
+			echo '<h4><strong>¿Qué está incluido en incineración?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDestino_2Comentario', true ) );
+		}
+		if( $respuesta[4] == 1 ) {
+			echo '<h4><strong>¿Qué está incluido en ataúd gama económica?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioAtaud_1Comentario', true ) );
+		}
+		if( $respuesta[4] == 2 ) {
+			echo '<h4><strong>¿Qué está incluido en ataúd gama media?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioAtaud_2Comentario', true ) );
+		}
+		echo '<h4><strong>¿Qué está incluido en velatorio?</strong></h4>';
+		if( $respuesta[5] == 1 ) echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioComentario', true ) );
+		if( $respuesta[5] == 2 ) echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioNoComentario', true ) );
+		if( $respuesta[6] == 2 ) {
+			echo '<h4><strong>¿Qué está incluido en ceremonia Sólo la sala?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_1Comentario', true ) );
+		}
+		if( $respuesta[6] == 3 ) {
+			echo '<h4><strong>¿Qué está incluido en ceremonia civil?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_2Comentario', true ) );
+		}
+		if( $respuesta[6] == 4 ) {
+			echo '<h4><strong>¿Qué está incluido en ceremonia religiosa?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_3Comentario', true ) );
+		}
+	}
 
 	/*********************************/
 	/*****  HOOKS               ******/
 	/*********************************/
-
+	
 	/**
 	* Hook Elementor Form New Record
 	*
@@ -424,7 +468,7 @@ class Wpfunos_Public {
 		//
 		// ToDo: Comprobar si "cuando" es futuro y cambiar destino de la página de datos a la página de datos de futuro. Hacer que la redirección sea dinámica y apunte acorde con los datos.
 		//
-		if( strlen( $fields['Telefono']) > 3 ){
+		if( strlen( $fields['Telefono']) > 3 ){ 
 			$post_id = wp_insert_post($my_post);
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Nuevo Usuario: ' . $this->dumpPOST( $this->getUserIP() ));
@@ -446,22 +490,22 @@ class Wpfunos_Public {
    	 * Hook Elementor Form Validate entry
    	 *
    	 * add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
-   	 *
-   	 * #13-Feb-2022 13:26:43: $field:
+   	 * 
+   	 * #13-Feb-2022 13:26:43: $field: 
    	 * [id] = String: 'nacimiento'
    	 * [type] = String: 'text'
    	 * [title] = String: 'Año de nacimiento'
    	 * [value] = Number: 1957
    	 * [raw_value] = Number: 1957
    	 * [required] = TRUE
-   	 *
+   	 * 
    	 * https://dev.to/renzoster/validate-form-fields-in-elementor-54cl
    	 */
    	public function wpfunosFormValidation($record, $ajax_handler){
 		if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
 			if( (int)$field['value'] < 1920 || (int)$field['value'] > 2010){
 				$ajax_handler->add_error( $field['id'], 'Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990' );
-       		}
+       		} 
      	}
 		if( $field = $this->wpfunos_elementor_get_field( 'Telefono', $record ) ){
 			if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $field['value'] ) ) {
@@ -480,7 +524,7 @@ class Wpfunos_Public {
       	}
       	return current( $fields );
   	}
-
+	
 	/**
 	* Entrada acción usuario
 	*
@@ -539,7 +583,7 @@ class Wpfunos_Public {
 		);
 		//$IDusuario = $this->wpfunosGetUserid($referencia);
 		//if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('$IDusuario: ' . $this->dumpPOST($IDusuario));
-		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) {
+		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) { 
 			$post_id = wp_insert_post($my_post);
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Nuevo usuario: ' . $this->dumpPOST( $this->getUserIP() ));
@@ -594,7 +638,7 @@ class Wpfunos_Public {
 			//wp_mail ( get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ), get_option('wpfunos_asuntoCorreoBoton2Lead') , $mensaje, $headers );
 		}
 	}
-
+	
 	/**
 	 * Hook filter ID usuario página resultados
 	 *
@@ -741,7 +785,7 @@ class Wpfunos_Public {
 	/*********************************/
 	/*****                      ******/
 	/*********************************/
-
+	
 	/**
 	 * ID usuario página resultados
 	 *
@@ -789,6 +833,14 @@ class Wpfunos_Public {
 		return array( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioPrecio, $servicioDescuento, $desglose );
 	}
 
+	/**
+	 * Formatear texto comentarios
+	 */
+	public function wpfunosFormatoComentario( $customfield_content ){
+  		$customfield_content = apply_filters( 'the_content', $customfield_content );
+  		$customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content );
+  		return $customfield_content;
+	}
 	/*********************************/
 	/*****  UTILIDADES          ******/
 	/*********************************/

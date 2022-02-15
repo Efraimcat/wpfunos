@@ -91,7 +91,7 @@ class Wpfunos_Admin {
 	/*********************************/
 	/*****  CRON                ******/
 	/*********************************/
-
+	
 	/**
 	 * Register the Cron Job.
 	 */
@@ -115,7 +115,7 @@ class Wpfunos_Admin {
 	/*********************************/
 	/*****  MENUS               ******/
 	/*********************************/
-
+	
 	/**
 	 * Admin menu.
  	 */
@@ -175,7 +175,7 @@ class Wpfunos_Admin {
 	/*********************************/
 	/*****  REGISTRAR CAMPOS    ******/
 	/*********************************/
-
+	
 	/**
 	 * Registro de campos registros de wordpress
 	 */
@@ -230,7 +230,7 @@ class Wpfunos_Admin {
 	/*********************************/
 	/*****  DISPLAY MENUS       ******/
 	/*********************************/
-
+	
 	/**
 	 * Display Admin settings display name.
 	 */
@@ -269,11 +269,11 @@ class Wpfunos_Admin {
 		<hr />
 		<?php
 	}
-
+	
 	/*********************************/
 	/*****  METABOXES  CPT      ******/
 	/*********************************/
-
+	
 	/**
 	 * Custom Post Type Metaboxes
 	 */
@@ -306,7 +306,7 @@ class Wpfunos_Admin {
 	/*********************************/
 	/*****  SALVAR DATOS META CPT ****/
 	/*********************************/
-
+	
 	/**
 	 * Metabox Save fields
 	 */
@@ -352,7 +352,7 @@ class Wpfunos_Admin {
 		if (! current_user_can('manage_options')) return;
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-aseguradoras-fields.php';
 	}
-
+	
 	/*********************************/
 	/*****  CPT                 ******/
 	/*********************************/
@@ -520,7 +520,7 @@ class Wpfunos_Admin {
 	/*********************************/
 	/*****  MOSTRAR METABOXES   ******/
 	/*********************************/
-
+	
 	/**
 	* Add fields to Metabox
 	*/
@@ -548,7 +548,7 @@ class Wpfunos_Admin {
 	/*********************************/
 	/*****  RENDERS             ******/
 	/*********************************/
-
+	
 	/**
 	 * Custom Post Type Metabox Render fields.
 	 */
@@ -602,15 +602,15 @@ class Wpfunos_Admin {
 		$settings  = array('wpautop' => false,);
 		wp_editor( $content, $editor_id, $settings );
 	}
-
+	
 	/** **/
 	/** **/
 	/** **/
-
+	
 	/*********************************/
 	/*****  UTILIDADES          ******/
 	/*********************************/
-
+	
 	/**
  	 * Cron job maintenance tasks.
  	 */

@@ -174,6 +174,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  $servicioDespedida_3ProxComentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDespedida_3ProxComentario'] );
  $servicioDespedida_3FuturoComentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDespedida_3FuturoComentario'] );
 
+ $servicioPosiblesExtras = wp_kses_post( $_POST[$this->plugin_name . '_servicioPosiblesExtras'] );
+
  update_post_meta($post_id, $this->plugin_name . '_servicioNombre', $servicioNombre);
  update_post_meta($post_id, $this->plugin_name . '_servicioPoblacion', $servicioPoblacion);
  update_post_meta($post_id, $this->plugin_name . '_servicioDireccion', $servicioDireccion);
@@ -335,3 +337,5 @@ if ( ! defined( 'ABSPATH' ) ) {
  update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3Comentario', $servicioDespedida_3Comentario);
  update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3ProxComentario', $servicioDespedida_3ProxComentario);
  update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3FuturoComentario', $servicioDespedida_3FuturoComentario);
+
+update_post_meta($post_id, $this->plugin_name . '_servicioPosiblesExtras', $servicioPosiblesExtras);
