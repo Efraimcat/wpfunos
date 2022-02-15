@@ -662,13 +662,17 @@ class Wpfunos_Public {
 	public function wpfunosResultCorreoAdmin( ){
 		$headers[] = 'Content-Type: text/html; charset=UTF-8';
 		if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Admin')){
-			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton1Admin.php';
+			$mensaje = get_option('wpfunos_mensajeCorreoBoton1Admin');
+			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
+//			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton1Admin.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Admin' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton1Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Admin' ) ;
 			wp_mail ( get_option('wpfunos_mailCorreoBoton1Admin'), get_option('wpfunos_asuntoCorreoBoton1Admin') , $mensaje, $headers );
 		}
 		if($_GET['accion'] == 2 && get_option($this->plugin_name . '_activarCorreoBoton2Admin')){
-			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton2Admin.php';
+			$mensaje = get_option('wpfunos_mensajeCorreoBoton2Admin');
+			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
+//			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton2Admin.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Admin' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton2Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Admin' ) ;
 			wp_mail ( get_option('wpfunos_mailCorreoBoton2Admin'), get_option('wpfunos_asuntoCorreoBoton2Admin') , $mensaje, $headers );
@@ -683,13 +687,17 @@ class Wpfunos_Public {
 	public function wpfunosResultCorreoLead( ){
 		$headers[] = 'Content-Type: text/html; charset=UTF-8';
 		if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Lead')){
-			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton1Lead.php';
+			$mensaje = get_option('wpfunos_mensajeCorreoBoton1Lead');
+			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
+//			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton1Lead.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton1Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Lead' ) ;
 			//wp_mail (  get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton1Lead') , $mensaje, $headers );
 		}
 		if($_GET['accion'] == 2 && get_option($this->plugin_name . '_activarCorreoBoton2Lead')){
-			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton2Lead.php';
+			$mensaje = get_option('wpfunos_mensajeCorreoBoton2Lead');
+			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
+//			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton2Lead.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton2Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Lead' ) ;
 			//wp_mail ( get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ), get_option('wpfunos_asuntoCorreoBoton2Lead') , $mensaje, $headers );
@@ -902,7 +910,7 @@ class Wpfunos_Public {
 											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
 											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
 
-        	    	    					<input class="wpfunos-boton-detalles" type="submit" value="Detalles" style="background-color: #1d40d3; font-size: 12px;">
+        	    	    					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 12px;">
 										</form>
 									</div>
 								</div>

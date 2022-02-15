@@ -27,6 +27,13 @@ $mensaje = str_replace( '[desgloseBaseNombre]' , $_GET['desgloseBaseNombre'] , $
 $mensaje = str_replace( '[desgloseBasePrecio]' , $_GET['desgloseBasePrecio'] , $mensaje );
 $mensaje = str_replace( '[desgloseBaseDescuento]' , $_GET['desgloseBaseDescuento'] , $mensaje );
 $mensaje = str_replace( '[desgloseBaseTotal]' , $_GET['desgloseBaseTotal'] , $mensaje );
+if( $_GET['desgloseBaseDescuento'] != ''){
+	$mensaje = str_replace( '[TotaldesgloseBaseTotal]' , 
+							 $_GET['desgloseBasePrecio'] . ' Dto ' . $_GET['desgloseBaseDescuento'] . 'Total ' . $_GET['desgloseBaseTotal'] , 
+							 $mensaje );	
+}else{
+	$mensaje = str_replace( '[TotaldesgloseBaseTotal]' , $_GET['desgloseBasePrecio'] , $mensaje );
+}
 
 $mensaje = str_replace( '[desgloseDestinoNombre]' , $_GET['desgloseDestinoNombre'] , $mensaje );
 $mensaje = str_replace( '[desgloseDestinoPrecio]' , $_GET['desgloseDestinoPrecio'] , $mensaje );

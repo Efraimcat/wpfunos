@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 add_settings_section(
 	'wpfunos_mail4_section',    							// ID used to identify this section and with which to register options
-	'Correo al servicio Lead Botón "Lamar"',        // Title to be displayed on the administration page
+	'Correo Lead a la funeraria/aseguradora. Botón "Llamar"',        // Title to be displayed on the administration page
 	array( $this, 'wpfunos_display_mail_account' ), 		// Callback used to render the description of the section
 	'wpfunos_mail_settings'                 				// Page on which to add this section of options
  );

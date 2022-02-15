@@ -16,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
   * [seleccion] = String: 'Passatge Alt del Turó- 26- 08041 Barcelona- España, 20, 2, 2, 2, 1, 3'
   * [idUsuario] = Number: 21936
   */
-
 $comentariosBase = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPrecioBaseComentario', true ) );
 $respuesta = (explode(',',$_GET['seleccion']));
 $ubicacion = strtr($respuesta[0],"+",",");
@@ -30,8 +29,7 @@ if( $respuesta[5] == 2  && strlen( get_post_meta( $_GET['servicio'], $this->plug
 if( $respuesta[6] == 2 ) $comentariosDespedida = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_1Comentario', true ) );
 if( $respuesta[6] == 3 ) $comentariosDespedida = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_2Comentario', true ) );
 if( $respuesta[6] == 4 ) $comentariosDespedida = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_3Comentario', true ) );
-	
-$mensaje = get_option('wpfunos_mensajeCorreoBoton1Admin');
+
 $mensaje = str_replace( '[nombreUsuario]' , $_GET['nombreUsuario'] , $mensaje );
 $mensaje = str_replace( '[nombreServicio]' , $_GET['desgloseBaseNombre'] , $mensaje );
 $mensaje = str_replace( '[precio]' , $_GET['precio'] , $mensaje );

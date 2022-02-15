@@ -22,6 +22,7 @@ $mensaje = str_replace( '[nombreServicio]' , $_GET['desgloseBaseNombre'] , $mens
 $mensaje = str_replace( '[precio]' , $_GET['precio'] , $mensaje );
 $mensaje = str_replace( '[telefono]' , $_GET['telefono'] , $mensaje );
 $mensaje = str_replace( '[referencia]' , $_GET['referencia'] , $mensaje );
+$mensaje = str_replace( '[Email]' , $_GET['Email'] , $mensaje );
 
 $mensaje = str_replace( '[desgloseBaseNombre]' , $_GET['desgloseBaseNombre'] , $mensaje );
 $mensaje = str_replace( '[desgloseBasePrecio]' , $_GET['desgloseBasePrecio'] , $mensaje );

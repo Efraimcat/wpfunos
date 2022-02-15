@@ -259,13 +259,14 @@ class Wpfunos_Admin {
 		?>
 		<hr/>
 		<p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes varialbles:', 'wpfunos'); ?></p>
-		<p>[nombreServicio], [telefono], [precio], [nombreUsuario], </p>
-		<p>[desgloseBaseNombre], [desgloseBasePrecio], [desgloseBaseDescuento],[desgloseBaseTotal]</p>
-		<p>[desgloseDestinoNombre], [desgloseDestinoPrecio], [desgloseDestinoDescuento], [desgloseDestinoTotal]</p>
-		<p>[desgloseAtaudNombre],[desgloseAtaudPrecio], [desgloseAtaudDescuento], [desgloseAtaudTotal]</p>
-		<p>[desgloseVelatorioNombre], [desgloseVelatorioPrecio], [desgloseVelatorioDescuento], [desgloseVelatorioTotal]</p>
-		<p>[desgloseCeremoniaNombre], [desgloseCeremoniaPrecio], [desgloseCeremoniaDescuento], [desgloseCeremoniaTotal]</p>
-		<p>[desgloseDescuentoGenerico], [desgloseDescuentoGenericoPrecio], [desgloseDescuentoGenericoDescuento],[desgloseDescuentoGenericoTotal]</p>
+		<p>[nombreServicio], [telefono], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
+		<p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
+		<p>[desgloseDestinoNombre], [TotaldesgloseDestinoTotal] = ( <i>[desgloseDestinoPrecio] + [desgloseDestinoDescuento] + [desgloseDestinoTotal]</i> )</p>
+		<p>[desgloseAtaudNombre], [TotaldesgloseAtaudTotal] = ( <i>[desgloseAtaudPrecio] + [desgloseAtaudDescuento] + [desgloseAtaudTotal]</i> )</p>
+		<p>[desgloseVelatorioNombre], [TotaldesgloseVelatorioTotal] = ( <i>[desgloseVelatorioPrecio] + [desgloseVelatorioDescuento] + [desgloseVelatorioTotal]</i> )</p>
+		<p>[desgloseCeremoniaNombre], [TotaldesgloseCeremoniaTotal] = ( <i>[desgloseCeremoniaPrecio] + [desgloseCeremoniaDescuento] + [desgloseCeremoniaTotal]</i> )</p>
+		<p>[desgloseDescuentoGenerico], [TotaldesgloseGenericoTotal] = ( <i>[desgloseDescuentoGenericoPrecio] + [desgloseDescuentoGenericoDescuento] + [desgloseDescuentoGenericoTotal]</i> )</p>
+		<p>[comentariosBase], [comentariosDestino], [comentariosAtaud], [comentariosVelatorio], [comentariosDespedida]</p>
 		<hr />
 		<?php
 	}
