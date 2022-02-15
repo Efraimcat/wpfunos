@@ -62,8 +62,8 @@ class Wpfunos_Public {
 		add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
-		add_filter( 'wpfunos_get_userid', array( $this, 'wpfunosGetUserid' ) );
 		add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
+		add_filter( 'wpfunos_get_userid', array( $this, 'wpfunosGetUserid' ) );
 		add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
 		add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 3 );
 		add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 3 );
@@ -262,7 +262,27 @@ class Wpfunos_Public {
 			$_GET['CP'] = get_post_meta( $id, 'wpfunos_cpostalesCodigo', true );
 		}
 		//
-		require_once 'partials/' . $this->plugin_name . '-public-ComparaInicioShortcode-display.php';
+		//require_once 'partials/' . $this->plugin_name . '-public-ComparaInicioShortcode-display.php';
+		//
+		?>
+		<section class="elementor-section elementor-inner-section elementor-element elementor-element-8f7e7d5 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="8f7e7d5" data-element_type="section">
+  			<div class="elementor-container elementor-column-gap-default">
+    			<div class="elementor-row">
+      				<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-d218a25" data-id="d218a25" data-element_type="column">
+        				<div class="elementor-column-wrap elementor-element-populated">
+          					<div class="elementor-widget-wrap">
+            					<div class="elementor-element elementor-element-cfdfb78 elementor-align-center elementor-widget elementor-widget-button" data-id="cfdfb78" data-element_type="widget" data-widget_type="button.default">
+              						<div class="elementor-widget-container">
+                						<?php echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') ); ?>
+              						</div>
+            					</div>
+          					</div>
+        				</div>
+      				</div>
+    			</div>
+  			</div>
+		</section>
+		<?php
 	}
 
 	/**
@@ -292,8 +312,28 @@ class Wpfunos_Public {
 			wp_reset_postdata();
 			$_GET['CP'] = get_post_meta( $id, 'wpfunos_cpostalesCodigo', true );
 		}
-	
-		require_once 'partials/' . $this->plugin_name . '-public-ComparaInicioFuturoShortcode-display.php';
+		//
+		// require_once 'partials/' . $this->plugin_name . '-public-ComparaInicioFuturoShortcode-display.php';
+		//
+		?>
+		<section class="elementor-section elementor-inner-section elementor-element elementor-element-8f7e7d5 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="8f7e7d5" data-element_type="section">
+  			<div class="elementor-container elementor-column-gap-default">
+    			<div class="elementor-row">
+      				<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-d218a25" data-id="d218a25" data-element_type="column">
+        				<div class="elementor-column-wrap elementor-element-populated">
+          					<div class="elementor-widget-wrap">
+            					<div class="elementor-element elementor-element-cfdfb78 elementor-align-center elementor-widget elementor-widget-button" data-id="cfdfb78" data-element_type="widget" data-widget_type="button.default">
+              						<div class="elementor-widget-container">
+                						<?php echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatosFuturo') ); ?>
+              						</div>
+            					</div>
+          					</div>
+        				</div>
+      				</div>
+    			</div>
+  			</div>
+		</section>
+		<?php
 	}
 	
 	/**
@@ -304,7 +344,12 @@ class Wpfunos_Public {
 		if (!isset($_GET['referencia'])) return;
 		$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
 		if($IDusuario == 0) return;
-		require_once 'partials/' . $this->plugin_name . '-public-ComparaResultadosShortcode-display.php';
+		//
+		// require_once 'partials/' . $this->plugin_name . '-public-ComparaResultadosShortcode-display.php';
+		// 
+		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosCabecera') );
+		echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
+		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosPie') );
 	}
 	
 	/**
@@ -315,7 +360,12 @@ class Wpfunos_Public {
 		if (!isset($_GET['referencia'])) return;
 		$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
 		if($IDusuario == 0) return;
-		require_once 'partials/' . $this->plugin_name . '-public-ComparaResultadosFuturoShortcode-display.php';
+		//
+		// require_once 'partials/' . $this->plugin_name . '-public-ComparaResultadosFuturoShortcode-display.php';
+		// 
+		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosFuturoCabecera') );
+		echo do_shortcode( get_option('wpfunos_formGeoMyWpFuturo') );
+		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosFuturoPie') );
 	}
 
 	/**
@@ -370,7 +420,6 @@ class Wpfunos_Public {
 	*/
 	public function wpfunosResultadosDetallesComentariosShortcode( $atts, $content = "" ) {
 		$respuesta = (explode(',',$_GET['seleccionUsuario']));
-
 		echo '<h4><strong>¿Qué está incluido en Precio base?</strong></h4>';
 		echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPrecioBaseComentario', true ) );
 		if( $respuesta[3] == 1 ) {
@@ -389,9 +438,14 @@ class Wpfunos_Public {
 			echo '<h4><strong>¿Qué está incluido en ataúd gama media?</strong></h4>';
 			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioAtaud_2Comentario', true ) );
 		}
-		echo '<h4><strong>¿Qué está incluido en velatorio?</strong></h4>';
-		if( $respuesta[5] == 1 ) echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioComentario', true ) );
-		if( $respuesta[5] == 2 ) echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioNoComentario', true ) );
+		if( $respuesta[5] == 1  && strlen( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioComentario', true ) ) > 0 ){ 
+			echo '<h4><strong>¿Qué está incluido en velatorio?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioComentario', true ) );
+		}
+		if( $respuesta[5] == 2  && strlen( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioNoComentario', true ) ) > 0 ){ 
+			echo '<h4><strong>¿Qué está incluido en velatorio?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioNoComentario', true ) );
+		}
 		if( $respuesta[6] == 2 ) {
 			echo '<h4><strong>¿Qué está incluido en ceremonia Sólo la sala?</strong></h4>';
 			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_1Comentario', true ) );
@@ -428,6 +482,9 @@ class Wpfunos_Public {
 		}
 		// if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Fields: ' . $this->dumpPOST($fields));
 		if( $this->wpfunosGetUserid( $fields['referencia'] ) != 0 ) {mt_srand(mktime()); $fields['referencia'] = 'funos-'.(string)mt_rand(); }
+		$tel = str_replace(" ","", $fields['Telefono'] );
+		$tel = str_replace("-","",$tel);
+		$fields['Telefono'] =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
 		if( $form_name == 'FormularioDatos' ){
 			$my_post = array(
     			'post_title' => $fields['referencia'],
@@ -533,14 +590,14 @@ class Wpfunos_Public {
 	public function wpfunosResultUserEntry(){
 		// if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Fields: ' . $this->dumpPOST($_POST));
 		mt_srand(mktime());
-		$referencia = 'funos-'.(string)mt_rand();
+		$_GET['referencia'] = 'funos-'.(string)mt_rand();
 		$my_post = array(
-   			'post_title' => $referencia,
+   			'post_title' => $_GET['referencia'],
 			'post_type' => 'usuarios_wpfunos',
 			'post_status'  => 'publish',
 			'meta_input'   => array(
 				$this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-				$this->plugin_name . '_userReferencia' => sanitize_text_field( $referencia ),
+				$this->plugin_name . '_userReferencia' => sanitize_text_field( $_GET['referencia'] ),
 				$this->plugin_name . '_userName' => sanitize_text_field( $_GET['nombreUsuario'] ),
 				$this->plugin_name . '_userPhone' => sanitize_text_field( $_GET['telefonoUsuario'] ),
 				$this->plugin_name . '_userSeleccion' => sanitize_text_field( $_GET['seleccion']),
@@ -581,19 +638,19 @@ class Wpfunos_Public {
 				$this->plugin_name . '_userDesgloseDescuentoGenericoTotal' => sanitize_text_field( $_GET['ddesgloseDescuentoGenericoTotal']),
 			),
 		);
-		//$IDusuario = $this->wpfunosGetUserid($referencia);
+		//$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
 		//if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('$IDusuario: ' . $this->dumpPOST($IDusuario));
 		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) { 
 			$post_id = wp_insert_post($my_post);
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Nuevo usuario: ' . $this->dumpPOST( $this->getUserIP() ));
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('ID: ' . $this->dumpPOST( $post_id ));
-			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $referencia ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $_GET['referencia'] ));
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('telefonoUsuario: ' . $this->dumpPOST( $_GET['telefonoUsuario'] ));
 		}else{
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Error 2 Nuevo Usuario: ' . $this->dumpPOST( $this->getUserIP() ));
-			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $referencia ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $_GET['referencia'] ));
 		}
 	}
 
@@ -645,7 +702,112 @@ class Wpfunos_Public {
 	 * add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
 	 */
 	public function wpfunosGetResults( $postID, $userID ){
-		require 'partials/' . $this->plugin_name . '-public-ComparaResultadosGetResults.php';
+		//
+		// require 'partials/' . $this->plugin_name . '-public-ComparaResultadosGetResults.php';
+		// 
+		$NA = false;
+ 		$ecologico = false;
+ 		$preciototal = (int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBase', true );
+ 		$preciodescuento = 0;
+ 		if( (int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBaseDescuento', true ) > 0 ){
+   			$preciodescuento = $preciototal - ( $preciototal*((int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBaseDescuento', true )/100) );
+ 		}else{
+   			$preciodescuento = $preciototal ;
+ 		}
+		//	Servicio
+		//	nombre
+		//	Precio
+		//	descuento
+		//	total
+ 		$wpfservicio[] = array('Base',
+   			get_post_meta( $postID, $this->plugin_name . '_servicioNombre', true ),
+   			$preciototal,
+   			(int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBaseDescuento', true ),
+   			$preciodescuento
+ 		);
+		//
+		//$wpfunos_confirmado[] = array( $postID, $wpfResultados[0], $wpfResultados[1] );
+		//
+ 		$seleccion = get_post_meta( $userID, 'wpfunos_userSeleccion', true );
+ 		$CP = get_post_meta( $userID, 'wpfunos_userCP', true );
+ 		$respuesta = (explode(',',$seleccion));
+
+ 		// Destino
+ 		switch($respuesta[3]){
+   			case '1':
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Precio', true ),
+	       			get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Nombre', true ) );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Nombre', true ) );
+     			break;
+   			case '3';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_3Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDestino_3Descuento', true ), $NA, $preciototal, $preciodescuento , get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Nombre', true ) );
+				break;
+ 		}
+ 		$wpfservicio[] = array('Destino', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+
+ 		// Ataud
+ 		switch($respuesta[4]){
+   			case '1':
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Nombre', true ) );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Nombre', true ) );
+     			break;
+   			case '3';
+     			list( $NA, $preciototal, $preciodescuento , $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Nombre', true ) );
+     			break;
+ 		}
+ 		$wpfservicio[] = array('Ataud', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+
+ 		// Velatorio
+ 		switch($respuesta[5]){
+   			case '1':
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioPrecio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioDescuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNombre', true ) );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNoPrecio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNoDescuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNoNombre', true ) );
+     			break;
+ 		}
+ 		$wpfservicio[] = array('Velatorio', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+
+ 		// Ceremonia
+ 		switch($respuesta[6]){
+   			case '1';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = 
+       				$this->wpfunos_case( $postID, '0', '', $NA, $preciototal, $preciodescuento, 'Sin ceremonia' );
+     			break;		 
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_1Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_1Nombre', true ) );
+     			break;
+   			case '3';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_2Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_2Nombre', true ) );
+     			break;
+   			case '4';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Nombre', true ) );
+     			break;
+ 		}
+ 		$wpfservicio[] = array('Ceremonia', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+
+ 		// Descuento genérico
+ 		if( (int)get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true ) > 0 ) $preciodescuento -= $preciodescuento*((int)get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true )/100);
+ 		$wpfservicio[] = array('Descuento genérico', 'Descuento genérico', $preciototal, get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true ), $preciodescuento);
+
+ 		// if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Desglose : ' . $this->dumpPOST( $wpfservicio ));
+
+ 		// Array resultados
+ 		$resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio ) ;
 		return $resultados;
 	}
 
@@ -683,8 +845,191 @@ class Wpfunos_Public {
 				}else{
 					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuento') ) ;
 				}
-				require 'partials/' . $this->plugin_name . '-public-ComparaResultadosDetalles-display.php';
-				require 'partials/' . $this->plugin_name . '-public-ComparaResultadosBotonesConfirmado-display.php';
+				//
+				//require 'partials/' . $this->plugin_name . '-public-ComparaResultadosDetalles-display.php';
+				//
+				?>
+				<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-row">
+						<div class="elementor-column-wrap">
+							<div class="elementor-widget-wrap">
+								<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
+									<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
+										<form target="POPUPW" action="/compara-precios-acciones-detalles-popup" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
+											<input type="hidden" name="accion" id="accion" value="1" >
+                							<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
+											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+											<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
+											<input type="hidden" name="seleccionUsuario" id="seleccionUsuario" value="<?php echo $_GET['seleccionUsuario']?>" >
+                							<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
+											<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
+                							<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
+                							<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_GET['idUsuario']?>" >
+											<input type="hidden" name="precio" id="precio" value="<?php echo $_GET['precio']?>" >
+											<input type="hidden" name="preciodescuento" id="preciodescuento" value="<?php echo $_GET['preciodescuento']?>" >
+
+											<input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
+											<input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
+											<input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
+
+											<input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $value[3][0][1] ?>" >
+											<input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo number_format($value[3][0][2], 0, ',', '.') . '€' ?>" >
+                							<input type="hidden" name="desgloseBaseDescuento" id="desgloseBaseDescuento" value="<?php echo $value[3][0][3] . '%' ?>" >
+											<input type="hidden" name="desgloseBaseTotal" id="desgloseBaseTotal" value="<?php echo number_format($value[3][0][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseDestinoNombre" id="desgloseDestinoNombre" value="<?php echo $value[3][1][1] ?>" >
+											<input type="hidden" name="desgloseDestinoPrecio" id="desgloseDestinoPrecio" value="<?php echo number_format($value[3][1][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseDestinoDescuento" id="desgloseDestinoDescuento" value="<?php echo $value[3][1][3] . '%' ?>" >
+											<input type="hidden" name="desgloseDestinoTotal" id="desgloseDestinoTotal" value="<?php echo number_format($value[3][1][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseAtaudNombre" id="desgloseAtaudNombre" value="<?php echo $value[3][2][1] ?>" >
+											<input type="hidden" name="desgloseAtaudPrecio" id="desgloseAtaudPrecio" value="<?php echo number_format($value[3][2][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseAtaudDescuento" id="desgloseAtaudDescuento" value="<?php echo $value[3][2][3] . '%' ?>" >
+											<input type="hidden" name="desgloseAtaudTotal" id="desgloseAtaudTotal" value="<?php echo number_format($value[3][2][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseVelatorioNombre" id="desgloseVelatorioNombre" value="<?php echo $value[3][3][1] ?>" >
+											<input type="hidden" name="desgloseVelatorioPrecio" id="desgloseVelatorioPrecio" value="<?php echo number_format($value[3][3][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseVelatorioDescuento" id="desgloseVelatorioDescuento" value="<?php echo $value[3][3][3] . '%' ?>" >
+											<input type="hidden" name="desgloseVelatorioTotal" id="desgloseVelatorioTotal" value="<?php echo number_format($value[3][3][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseCeremoniaNombre" id="desgloseCeremoniaNombre" value="<?php echo $value[3][4][1] ?>" >
+											<input type="hidden" name="desgloseCeremoniaPrecio" id="desgloseCeremoniaPrecio" value="<?php echo number_format($value[3][4][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseCeremoniaDescuento" id="desgloseCeremoniaDescuento" value="<?php echo $value[3][4][3] . '%' ?>" >
+											<input type="hidden" name="desgloseCeremoniaTotal" id="desgloseCeremoniaTotal" value="<?php echo number_format($value[3][4][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseDescuentoGenerico" id="desgloseDescuentoGenerico" value="<?php echo $value[3][5][1] ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoPrecio" id="desgloseDescuentoGenericoPrecio" value="<?php echo number_format($value[3][5][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
+
+        	    	    					<input class="wpfunos-boton-detalles" type="submit" value="Detalles" style="background-color: #1d40d3; font-size: 12px;">
+										</form>
+									</div>
+								</div>
+        					</div>
+	      				</div>
+  					</div>
+				</div>
+				<?php
+				//
+				// require 'partials/' . $this->plugin_name . '-public-ComparaResultadosBotonesConfirmado-display.php';
+				//
+				$tel = str_replace(" ","",$_GET['telefonoEmpresa']);
+				$tel = str_replace("-","",$tel);
+				$_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+				$tel = str_replace(" ","",$_GET['telefonoUsuario']);
+				$tel = str_replace("-","",$tel);
+				$_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+				?>
+				<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-row">
+						<div class="elementor-column-wrap">
+							<div class="elementor-widget-wrap">
+								<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
+									<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
+										<form target="POPUPW" action="/compara-precios-acciones-llamen-popup" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
+											<input type="hidden" name="accion" id="accion" value="1" >
+											<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
+											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+											<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
+											<input type="hidden" name="precio" id="precio" value="<?php echo $_GET['precio']?>" >
+											<input type="hidden" name="preciodescuento" id="preciodescuento" value="<?php echo $_GET['preciodescuento']?>" >
+											<input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
+											<input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
+											<input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
+               								<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
+											<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
+											<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
+               								<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_GET['idUsuario']?>" >
+
+											<input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $value[3][0][1] ?>" >
+											<input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo number_format($value[3][0][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseBaseDescuento" id="desgloseBaseDescuento" value="<?php echo $value[3][0][3] . '%' ?>" >
+											<input type="hidden" name="desgloseBaseTotal" id="desgloseBaseTotal" value="<?php echo number_format($value[3][0][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseDestinoNombre" id="desgloseDestinoNombre" value="<?php echo $value[3][1][1] ?>" >
+											<input type="hidden" name="desgloseDestinoPrecio" id="desgloseDestinoPrecio" value="<?php echo number_format($value[3][1][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseDestinoDescuento" id="desgloseDestinoDescuento" value="<?php echo $value[3][1][3] . '%' ?>" >
+											<input type="hidden" name="desgloseDestinoTotal" id="desgloseDestinoTotal" value="<?php echo number_format($value[3][1][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseAtaudNombre" id="desgloseAtaudNombre" value="<?php echo $value[3][2][1] ?>" >
+											<input type="hidden" name="desgloseAtaudPrecio" id="desgloseAtaudPrecio" value="<?php echo number_format($value[3][2][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseAtaudDescuento" id="desgloseAtaudDescuento" value="<?php echo $value[3][2][3] . '%' ?>" >
+											<input type="hidden" name="desgloseAtaudTotal" id="desgloseAtaudTotal" value="<?php echo number_format($value[3][2][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseVelatorioNombre" id="desgloseVelatorioNombre" value="<?php echo $value[3][3][1] ?>" >
+											<input type="hidden" name="desgloseVelatorioPrecio" id="desgloseVelatorioPrecio" value="<?php echo number_format($value[3][3][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseVelatorioDescuento" id="desgloseVelatorioDescuento" value="<?php echo $value[3][3][3] . '%' ?>" >
+											<input type="hidden" name="desgloseVelatorioTotal" id="desgloseVelatorioTotal" value="<?php echo number_format($value[3][3][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseCeremoniaNombre" id="desgloseCeremoniaNombre" value="<?php echo $value[3][4][1] ?>" >
+											<input type="hidden" name="desgloseCeremoniaPrecio" id="desgloseCeremoniaPrecio" value="<?php echo number_format($value[3][4][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseCeremoniaDescuento" id="desgloseCeremoniaDescuento" value="<?php echo $value[3][4][3] . '%' ?>" >
+											<input type="hidden" name="desgloseCeremoniaTotal" id="desgloseCeremoniaTotal" value="<?php echo number_format($value[3][4][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseDescuentoGenerico" id="desgloseDescuentoGenerico" value="<?php echo $value[3][5][1] ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoPrecio" id="desgloseDescuentoGenericoPrecio" value="<?php echo number_format($value[3][5][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
+
+       	    	    						<input type="submit" value="Quiero que me llamen" style="background-color: #1d40d3; font-size: 12px;">
+										</form>
+									</div>
+           							<div class="wpfunos-boton-llamar">
+										<form target="POPUPW" action="/compara-precios-acciones-llamar-popup" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
+											<input type="hidden" name="accion" id="accion" value="2" >
+											<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
+											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
+											<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
+											<input type="hidden" name="precio" id="precio" value="<?php echo $_GET['precio']?>" >
+											<input type="hidden" name="preciodescuento" id="preciodescuento" value="<?php echo $_GET['preciodescuento']?>" >
+											<input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
+											<input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
+											<input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
+               								<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
+											<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
+											<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
+               								<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_GET['idUsuario']?>" >
+
+											<input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $value[3][0][1] ?>" >
+											<input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo number_format($value[3][0][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseBaseDescuento" id="desgloseBaseDescuento" value="<?php echo $value[3][0][3] . '%' ?>" >
+											<input type="hidden" name="desgloseBaseTotal" id="desgloseBaseTotal" value="<?php echo number_format($value[3][0][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseDestinoNombre" id="desgloseDestinoNombre" value="<?php echo $value[3][1][1] ?>" >
+											<input type="hidden" name="desgloseDestinoPrecio" id="desgloseDestinoPrecio" value="<?php echo number_format($value[3][1][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseDestinoDescuento" id="desgloseDestinoDescuento" value="<?php echo $value[3][1][3] . '%' ?>" >
+											<input type="hidden" name="desgloseDestinoTotal" id="desgloseDestinoTotal" value="<?php echo number_format($value[3][1][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseAtaudNombre" id="desgloseAtaudNombre" value="<?php echo $value[3][2][1] ?>" >
+											<input type="hidden" name="desgloseAtaudPrecio" id="desgloseAtaudPrecio" value="<?php echo number_format($value[3][2][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseAtaudDescuento" id="desgloseAtaudDescuento" value="<?php echo $value[3][2][3] . '%' ?>" >
+											<input type="hidden" name="desgloseAtaudTotal" id="desgloseAtaudTotal" value="<?php echo number_format($value[3][2][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseVelatorioNombre" id="desgloseVelatorioNombre" value="<?php echo $value[3][3][1] ?>" >
+											<input type="hidden" name="desgloseVelatorioPrecio" id="desgloseVelatorioPrecio" value="<?php echo number_format($value[3][3][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseVelatorioDescuento" id="desgloseVelatorioDescuento" value="<?php echo $value[3][3][3] . '%' ?>" >
+											<input type="hidden" name="desgloseVelatorioTotal" id="desgloseVelatorioTotal" value="<?php echo number_format($value[3][3][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseCeremoniaNombre" id="desgloseCeremoniaNombre" value="<?php echo $value[3][4][1] ?>" >
+											<input type="hidden" name="desgloseCeremoniaPrecio" id="desgloseCeremoniaPrecio" value="<?php echo number_format($value[3][4][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseCeremoniaDescuento" id="desgloseCeremoniaDescuento" value="<?php echo $value[3][4][3] . '%' ?>" >
+											<input type="hidden" name="desgloseCeremoniaTotal" id="desgloseCeremoniaTotal" value="<?php echo number_format($value[3][4][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseDescuentoGenerico" id="desgloseDescuentoGenerico" value="<?php echo $value[3][5][1] ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoPrecio" id="desgloseDescuentoGenericoPrecio" value="<?php echo number_format($value[3][5][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
+
+       	        							<input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 12px;">
+           	  							</form>
+           							</div>
+								</div>
+       						</div>
+      					</div>
+  					</div>
+				</div>
+				<?php
 				if($value[1] == $value[2]){
 					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosInferior') ) ;
 				}else{
@@ -714,8 +1059,72 @@ class Wpfunos_Public {
 				$_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
 				$_GET['preciodescuento'] = '';
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
-				require 'partials/' . $this->plugin_name . '-public-ComparaResultadosDetalles-display.php';
-				?></div><?php
+				//
+				// require 'partials/' . $this->plugin_name . '-public-ComparaResultadosDetalles-display.php';
+				//
+				?>
+				<div class="elementor-container elementor-column-gap-default">
+					<div class="elementor-row">
+						<div class="elementor-column-wrap">
+							<div class="elementor-widget-wrap">
+								<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
+									<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
+										<form target="POPUPW" action="/compara-precios-acciones-detalles-popup" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
+											<input type="hidden" name="accion" id="accion" value="1" >
+                							<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
+											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+											<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
+											<input type="hidden" name="seleccionUsuario" id="seleccionUsuario" value="<?php echo $_GET['seleccionUsuario']?>" >
+                							<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
+											<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
+                							<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
+                							<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_GET['idUsuario']?>" >
+											<input type="hidden" name="precio" id="precio" value="<?php echo $_GET['precio']?>" >
+											<input type="hidden" name="preciodescuento" id="preciodescuento" value="<?php echo $_GET['preciodescuento']?>" >
+
+											<input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
+											<input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
+											<input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
+
+											<input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $value[3][0][1] ?>" >
+											<input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo number_format($value[3][0][2], 0, ',', '.') . '€' ?>" >
+                							<input type="hidden" name="desgloseBaseDescuento" id="desgloseBaseDescuento" value="<?php echo $value[3][0][3] . '%' ?>" >
+											<input type="hidden" name="desgloseBaseTotal" id="desgloseBaseTotal" value="<?php echo number_format($value[3][0][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseDestinoNombre" id="desgloseDestinoNombre" value="<?php echo $value[3][1][1] ?>" >
+											<input type="hidden" name="desgloseDestinoPrecio" id="desgloseDestinoPrecio" value="<?php echo number_format($value[3][1][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseDestinoDescuento" id="desgloseDestinoDescuento" value="<?php echo $value[3][1][3] . '%' ?>" >
+											<input type="hidden" name="desgloseDestinoTotal" id="desgloseDestinoTotal" value="<?php echo number_format($value[3][1][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseAtaudNombre" id="desgloseAtaudNombre" value="<?php echo $value[3][2][1] ?>" >
+											<input type="hidden" name="desgloseAtaudPrecio" id="desgloseAtaudPrecio" value="<?php echo number_format($value[3][2][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseAtaudDescuento" id="desgloseAtaudDescuento" value="<?php echo $value[3][2][3] . '%' ?>" >
+											<input type="hidden" name="desgloseAtaudTotal" id="desgloseAtaudTotal" value="<?php echo number_format($value[3][2][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseVelatorioNombre" id="desgloseVelatorioNombre" value="<?php echo $value[3][3][1] ?>" >
+											<input type="hidden" name="desgloseVelatorioPrecio" id="desgloseVelatorioPrecio" value="<?php echo number_format($value[3][3][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseVelatorioDescuento" id="desgloseVelatorioDescuento" value="<?php echo $value[3][3][3] . '%' ?>" >
+											<input type="hidden" name="desgloseVelatorioTotal" id="desgloseVelatorioTotal" value="<?php echo number_format($value[3][3][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseCeremoniaNombre" id="desgloseCeremoniaNombre" value="<?php echo $value[3][4][1] ?>" >
+											<input type="hidden" name="desgloseCeremoniaPrecio" id="desgloseCeremoniaPrecio" value="<?php echo number_format($value[3][4][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseCeremoniaDescuento" id="desgloseCeremoniaDescuento" value="<?php echo $value[3][4][3] . '%' ?>" >
+											<input type="hidden" name="desgloseCeremoniaTotal" id="desgloseCeremoniaTotal" value="<?php echo number_format($value[3][4][4], 0, ',', '.') . '€' ?>" >
+
+											<input type="hidden" name="desgloseDescuentoGenerico" id="desgloseDescuentoGenerico" value="<?php echo $value[3][5][1] ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoPrecio" id="desgloseDescuentoGenericoPrecio" value="<?php echo number_format($value[3][5][2], 0, ',', '.') . '€' ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
+											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
+
+        	    	    					<input class="wpfunos-boton-detalles" type="submit" value="Detalles" style="background-color: #1d40d3; font-size: 12px;">
+										</form>
+									</div>
+								</div>
+        					</div>
+	      				</div>
+  					</div>
+				</div>
+				</div><?php
 			}
 		}
 	}
@@ -753,7 +1162,7 @@ class Wpfunos_Public {
 		if( !$wpfResultados[2] && get_post_meta( $postID, 'wpfunos_servicioPrecioConfirmado', true ) == true && $wpfResultados[0] != 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )){
 			// if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('1-Confirmado : ' .  );
 			// print_r ($wpfResultados[3]);
-			$wpfunos_confirmado[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3] );
+			$wpfunos_confirmado[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3], $postID );
 		}
 		return  $wpfunos_confirmado;
 	}
@@ -765,7 +1174,7 @@ class Wpfunos_Public {
 	 */
 	public function wpfunosResultadosSinConfirmar( $wpfResultados, $wpfunos_sinconfirmar, $postID ){
 		if( !$wpfResultados[2] && get_post_meta( $postID, 'wpfunos_servicioPrecioConfirmado', true ) != true && $wpfResultados[0] != 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )) {
-			$wpfunos_sinconfirmar[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3] );
+			$wpfunos_sinconfirmar[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3], $postID );
 		}
 		return $wpfunos_sinconfirmar;
 	}
@@ -777,7 +1186,7 @@ class Wpfunos_Public {
 	 */
 	public function wpfunosResultadosSinPrecio( $wpfResultados, $wpfunos_sinprecio, $postID ){
 		if( !$wpfResultados[2] && $wpfResultados[0] == 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )){
-			$wpfunos_sinprecio[] = array( $postID, 0, 0 );
+			$wpfunos_sinprecio[] = array( $postID, 0, 0, $postID );
 		}
 		return $wpfunos_sinprecio;
 	}
