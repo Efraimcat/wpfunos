@@ -48,6 +48,7 @@ class Wpfunos_Admin {
 		add_action('init', array( $this, 'aseguradoras_custom_post_type' ));
 		add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
 		add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
+		add_action('admin_init', array( $this, 'registerAndBuildFieldsPagina' ));				// Página inicial
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsDatos' ));				// Compara Datos
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsResultados' )); 			// Compara Resultados cabecera y Pie
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsConfirmado' )); 			// Compara Resultados Confirmado superior e inferior
@@ -182,6 +183,9 @@ class Wpfunos_Admin {
 	public function registerAndBuildFields() {
 	    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFields.php';
 	}
+	public function registerAndBuildFieldsPagina() {
+      require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildPagina.php';
+	}
 	public function registerAndBuildMail() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail.php';
 	}
@@ -237,8 +241,11 @@ class Wpfunos_Admin {
 	public function wpfunos_display_general_account() {
 	    ?><p><?php esc_html_e('Si está activo guarda los datos del debug en ficheros en /wp-contenet/uploads/wpfunos-logs/ y los muestra en la pestaña "logs".', 'wpfunos'); ?></p><?php
 	}
+	public function wpfunos_display_general_account_pagina() {
+	    ?><p><?php esc_html_e('Página del Comparador.', 'wpfunos'); ?></p><?php
+	}
 	public function wpfunos_display_general_account_datos() {
-	    ?><p><?php esc_html_e('Página del formulario de datos.', 'wpfunos'); ?></p><?php
+	    ?><p><?php esc_html_e('Plantilla del formulario de datos.', 'wpfunos'); ?></p><?php
 	}
 	public function wpfunos_display_general_account_resultados() {
 	    ?><p><?php esc_html_e('Cabecera y pie de la página de resultados.', 'wpfunos'); ?></p><?php

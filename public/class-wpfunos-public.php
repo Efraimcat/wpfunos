@@ -42,16 +42,13 @@ class Wpfunos_Public {
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		add_shortcode( 'wpfunos-compara-inicio', array( $this, 'wpfunosComparaInicioShortcode' ));
+		add_shortcode( 'wpfunos-page-switch', array( $this, 'wpfunosResultadosPageSwitchShortcode' ));
 		add_shortcode( 'wpfunos-compara-futuro-inicio', array( $this, 'wpfunosComparaInicioFuturoShortcode' ));
-		add_shortcode( 'wpfunos-compara-resultados', array( $this, 'wpfunosComparaResultadosShortcode' ));
-		add_shortcode( 'wpfunos-compara-futuro-resultados', array( $this, 'wpfunosComparaResultadosFuturoShortcode' ));
 		add_shortcode( 'wpfunos-resultados', array( $this, 'wpfunosResultadosShortcode' ));
 		add_shortcode( 'wpfunos-resultados-empresa', array( $this, 'wpfunosResultadosEmpresaShortcode' ));
 		add_shortcode( 'wpfunos-resultados-telefono-usuario', array( $this, 'wpfunosResultadosTelefonoUsuarioShortcode' ));
 		add_shortcode( 'wpfunos-resultados-telefono-servicio', array( $this, 'wpfunosResultadosTelefonoServicioShortcode' ));
 		add_shortcode( 'wpfunos-resultados-llamar-telefono-servicio', array( $this, 'wpfunosResultadosLamarTelefonoServicioShortcode' ));
-		add_shortcode( 'wpfunos-resultados-acciones', array( $this, 'wpfunosResultadosAccionesShortcode' ));
 		add_shortcode( 'wpfunos-resultados-estrellas', array( $this, 'wpfunosResultadosEstrellasShortcode' ));
 		add_shortcode( 'wpfunos-acciones-botones-confirmado', array( $this, 'wpfunosAccionesBotonesConfirmadoShortcode' ));
 		add_shortcode( 'wpfunos-resultados-detalles', array( $this, 'wpfunosResultadosDetallesShortcode' ));
@@ -91,7 +88,50 @@ class Wpfunos_Public {
 	/*********************************/
 	/*****  SHORTCODES          ******/
 	/*********************************/
+	// https://funos.es/compara-precios-nueva?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
 	
+	/**
+	 * Shortcode [wpfunos-page-switch]
+	 */
+	public function wpfunosResultadosPageSwitchShortcode(){
+		if( !$_GET['form'] && !$_GET['referencia'] ){
+			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
+		}elseif( !$_GET['referencia'] ){
+			$_GET['direccion'] = $_GET['address'][0];
+			$_GET['tipo'] = $_GET['post'][0];
+			mt_srand(mktime());
+			$_GET['referencia'] = 'funos-'.(string)mt_rand();
+			// CP = 'undefined'
+			if( $_GET['CP'] == 'undefined' || $_GET['CP'] == '' ){
+				$poblacion = ucwords( $_GET['direccion'] );
+				$id=0;
+				$args = array(
+		  			'post_type' => 'cpostales_wpfunos',	//
+		  			'meta_key' =>  $this->plugin_name . '_cpostalesPoblacion',
+		  			'meta_value' => $poblacion,
+				);
+				$my_query = new WP_Query( $args );
+				if ( $my_query->have_posts() ) :
+		  			while ( $my_query->have_posts() ) : $my_query->the_post();
+		    			$id = get_the_ID();
+		  			endwhile;
+				endif;
+				wp_reset_postdata();
+				$_GET['CP'] = get_post_meta( $id, 'wpfunos_cpostalesCodigo', true );
+			}
+			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') );
+		}elseif( $_GET['referencia']){
+			$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
+			if($IDusuario == 0){  
+				echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
+			}else{
+				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosCabecera') );
+				echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
+				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosPie') );
+			}
+		}
+	}
+		
 	/**
 	 * Shortcode [wpfunos-resultados]
 	 */
@@ -106,86 +146,44 @@ class Wpfunos_Public {
 		switch ( $a[boton] ) {
 			case '1':	//cuando
 				switch($respuesta[2]){
-					case '1':
-						esc_html_e( 'Ahora mismo' );
-						break;
-					case '2';
-						esc_html_e( 'Proximamente' );
-						break;
-					case '3';
-						esc_html_e( 'En el futuro' );
-						break;
+					case '1': esc_html_e( 'Ahora mismo' ); break;
+					case '2'; esc_html_e( 'Proximamente' ); break;
+					case '3'; esc_html_e( 'En el futuro' ); break;
 				}
 				break;
 			case '2':	//población
-				esc_html_e( $respuesta[0] );
-				break;
+				esc_html_e( $respuesta[0] ); break;
 			case '3':	//Destino
 				switch($respuesta[3]){
-					case '1':
-						esc_html_e( 'Entierro' );
-						break;
-					case '2';
-						esc_html_e( 'Incineración' );
-						break;
-					case '3';
-						esc_html_e( 'Traslado' );
-						break;
+					case '1': esc_html_e( 'Entierro' ); break;
+					case '2'; esc_html_e( 'Incineración' ); break;
+					case '3'; esc_html_e( 'Traslado' ); break;
 				}
 				break;
 			case '4':	//Ataúd
 				switch($respuesta[4]){
-					case '1':
-						esc_html_e( 'Económico' );
-						break;
-					case '2';
-						esc_html_e( 'Gama media' );
-						break;
-					case '3';
-						esc_html_e( 'Premium' );
-						break;
+					case '1': esc_html_e( 'Económico' ); break;
+					case '2'; esc_html_e( 'Gama media' ); break;
+					case '3'; esc_html_e( 'Premium' ); break;
 				}
 				break;
 			case '5':	//Velatorio
 				switch($respuesta[5]){
-					case '1':
-						esc_html_e( 'Si' );
-						break;
-					case '2';
-						esc_html_e( 'No' );
-						break;
+					case '1': esc_html_e( 'Si' ); break;
+					case '2'; esc_html_e( 'No' ); break;
 				}
 				break;
 			case '6':	//Despedida
 				switch($respuesta[6]){
-					case '1':
-						esc_html_e( 'No' );
-						break;
-					case '2';
-						esc_html_e( 'Solo sala' );
-						break;
-					case '3';
-						esc_html_e( 'Ceremonia civil' );
-						break;
-					case '4';
-						esc_html_e( 'Ceremonia Religiosa' );
-						break;
+					case '1': esc_html_e( 'No' ); break;
+					case '2'; esc_html_e( 'Solo sala' ); break;
+					case '3'; esc_html_e( 'Ceremonia civil' ); break;
+					case '4'; esc_html_e( 'Ceremonia Religiosa' ); break;
 				}
 				break;
 // FUTURO				
-			case '7':	//Sexo
-				switch($respuesta[2]){
-					case '1':
-						esc_html_e( 'Hombre' );
-						break;
-					case '2';
-						esc_html_e( 'Mujer' );
-						break;
-				}
-				break;
-			case '8':	//Año de nacimiento
-				esc_html_e( $respuesta[3] );
-				break;
+			case '7': switch($respuesta[2]){ case '1': esc_html_e( 'Hombre' ); break; case '2'; esc_html_e( 'Mujer' ); break; } break; //Sexo
+			case '8': esc_html_e( $respuesta[3] );break; //Año de nacimiento
 		}
 	}
 	
@@ -197,17 +195,9 @@ class Wpfunos_Public {
 			 'boton'=>'',
 		), $atts );
 	 	switch ( $a[boton] ) {
-		 case 'logo':	//logo
-			 echo $_GET['logo'] ;
-			 break;
-		 case 'confirmado':
-			 echo $_GET['confirmado'] ;
-			 break;
-		case 'mapa':
-			 $idempresa = $_GET['servicio'];
-			 $shortcode = '[gmw_single_location object="post" object_id="' . $idempresa . '" elements="distance,map,address,directions_link" units="k" map_height="300px" map_width="100%"]';
-			 echo do_shortcode($shortcode);
-			 break;
+		 	case 'logo': echo $_GET['logo'] ; break;
+		 	case 'confirmado': echo $_GET['confirmado'] ; break;
+			case 'mapa': $idempresa = $_GET['servicio']; $shortcode = '[gmw_single_location object="post" object_id="' . $idempresa . '" elements="distance,map,address,directions_link" units="k" map_height="300px" map_width="100%"]'; echo do_shortcode($shortcode); break;
 	 	}
  	}
 
@@ -235,124 +225,6 @@ class Wpfunos_Public {
 	 }
 	
 	/**
-	* Shortcode [wpfunos-compara-inicio]
-	*https://funos.es/compara-precios-resultados?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=1&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
-	*/
-	public function wpfunosComparaInicioShortcode( $atts, $content = "" ) {
-		$_GET['direccion'] = $_GET['address'][0];
-		$_GET['tipo'] = $_GET['post'][0];
-		mt_srand(mktime());
-		$_GET['referencia'] = 'funos-'.(string)mt_rand();
-		// CP = 'undefined'
-		if( $_GET['CP'] == 'undefined' || $_GET['CP'] == '' ){
-			$poblacion = ucwords( $_GET['direccion'] );
-			$id=0;
-			$args = array(
-		  		'post_type' => 'cpostales_wpfunos',	// 
-		  		'meta_key' =>  $this->plugin_name . '_cpostalesPoblacion',
-		  		'meta_value' => $poblacion,
-			);
-			$my_query = new WP_Query( $args );
-			if ( $my_query->have_posts() ) :
-		  		while ( $my_query->have_posts() ) : $my_query->the_post();
-		    		$id = get_the_ID();
-		  		endwhile;
-			endif;
-			wp_reset_postdata();
-			$_GET['CP'] = get_post_meta( $id, 'wpfunos_cpostalesCodigo', true );
-		}
-		//
-		//require_once 'partials/' . $this->plugin_name . '-public-ComparaInicioShortcode-display.php';
-		//
-		?>
-		<section class="elementor-section elementor-inner-section elementor-element elementor-element-8f7e7d5 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="8f7e7d5" data-element_type="section">
-  			<div class="elementor-container elementor-column-gap-default">
-    			<div class="elementor-row">
-      				<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-d218a25" data-id="d218a25" data-element_type="column">
-        				<div class="elementor-column-wrap elementor-element-populated">
-          					<div class="elementor-widget-wrap">
-            					<div class="elementor-element elementor-element-cfdfb78 elementor-align-center elementor-widget elementor-widget-button" data-id="cfdfb78" data-element_type="widget" data-widget_type="button.default">
-              						<div class="elementor-widget-container">
-                						<?php echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') ); ?>
-              						</div>
-            					</div>
-          					</div>
-        				</div>
-      				</div>
-    			</div>
-  			</div>
-		</section>
-		<?php
-	}
-
-	/**
-	* Shortcode [wpfunos-compara-futuro-inicio]
-	*https://funos.es/compara-precios-resultados-futuro?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=1&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
-	*/
-	public function wpfunosComparaInicioFuturoShortcode( $atts, $content = "" ) {
-		$_GET['direccion'] = $_GET['address'][0];
-		$_GET['tipo'] = $_GET['post'][0];
-		mt_srand(mktime());
-		$_GET['referencia'] = 'funos-'.(string)mt_rand();
-		// CP = 'undefined'
-		if( $_GET['CP'] == 'undefined' || $_GET['CP'] == '' ){
-			$poblacion = ucwords( $_GET['direccion'] );
-			$id=0;
-			$args = array(
-		  		'post_type' => 'cpostales_wpfunos',	// 
-		  		'meta_key' =>  $this->plugin_name . '_cpostalesPoblacion',
-		  		'meta_value' => $poblacion,
-			);
-			$my_query = new WP_Query( $args );
-			if ( $my_query->have_posts() ) :
-		  		while ( $my_query->have_posts() ) : $my_query->the_post();
-		    		$id = get_the_ID();
-		  		endwhile;
-			endif;
-			wp_reset_postdata();
-			$_GET['CP'] = get_post_meta( $id, 'wpfunos_cpostalesCodigo', true );
-		}
-		//
-		// require_once 'partials/' . $this->plugin_name . '-public-ComparaInicioFuturoShortcode-display.php';
-		//
-		?>
-		<section class="elementor-section elementor-inner-section elementor-element elementor-element-8f7e7d5 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="8f7e7d5" data-element_type="section">
-  			<div class="elementor-container elementor-column-gap-default">
-    			<div class="elementor-row">
-      				<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-d218a25" data-id="d218a25" data-element_type="column">
-        				<div class="elementor-column-wrap elementor-element-populated">
-          					<div class="elementor-widget-wrap">
-            					<div class="elementor-element elementor-element-cfdfb78 elementor-align-center elementor-widget elementor-widget-button" data-id="cfdfb78" data-element_type="widget" data-widget_type="button.default">
-              						<div class="elementor-widget-container">
-                						<?php echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatosFuturo') ); ?>
-              						</div>
-            					</div>
-          					</div>
-        				</div>
-      				</div>
-    			</div>
-  			</div>
-		</section>
-		<?php
-	}
-	
-	/**
-	* Shortcode [wpfunos-compara-correo]
-	*/
-	public function wpfunosComparaResultadosShortcode( $atts, $content = "" ) {
-		// if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Resultados $_GET: ' . $this->dumpPOST($_GET));
-		if (!isset($_GET['referencia'])) return;
-		$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
-		if($IDusuario == 0) return;
-		//
-		// require_once 'partials/' . $this->plugin_name . '-public-ComparaResultadosShortcode-display.php';
-		// 
-		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosCabecera') );
-		echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
-		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosPie') );
-	}
-	
-	/**
 	* Shortcode [wpfunos-compara-futuro-resultados]
 	*/
 	public function wpfunosComparaResultadosFuturoShortcode( $atts, $content = "" ) {
@@ -360,19 +232,9 @@ class Wpfunos_Public {
 		if (!isset($_GET['referencia'])) return;
 		$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
 		if($IDusuario == 0) return;
-		//
-		// require_once 'partials/' . $this->plugin_name . '-public-ComparaResultadosFuturoShortcode-display.php';
-		// 
 		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosFuturoCabecera') );
 		echo do_shortcode( get_option('wpfunos_formGeoMyWpFuturo') );
 		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosFuturoPie') );
-	}
-
-	/**
-	* Shortcode [wpfunos-resultados-acciones]
-	*/
-	public function wpfunosResultadosAccionesShortcode( $atts, $content = "" ) {
-
 	}
 
 	/**
@@ -522,9 +384,6 @@ class Wpfunos_Public {
 				),
 			);
 		}
-		//
-		// ToDo: Comprobar si "cuando" es futuro y cambiar destino de la página de datos a la página de datos de futuro. Hacer que la redirección sea dinámica y apunte acorde con los datos.
-		//
 		if( strlen( $fields['Telefono']) > 3 ){ 
 			$post_id = wp_insert_post($my_post);
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
@@ -664,7 +523,6 @@ class Wpfunos_Public {
 		if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Admin')){
 			$mensaje = get_option('wpfunos_mensajeCorreoBoton1Admin');
 			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
-//			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton1Admin.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Admin' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton1Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Admin' ) ;
 			wp_mail ( get_option('wpfunos_mailCorreoBoton1Admin'), get_option('wpfunos_asuntoCorreoBoton1Admin') , $mensaje, $headers );
@@ -672,7 +530,6 @@ class Wpfunos_Public {
 		if($_GET['accion'] == 2 && get_option($this->plugin_name . '_activarCorreoBoton2Admin')){
 			$mensaje = get_option('wpfunos_mensajeCorreoBoton2Admin');
 			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
-//			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton2Admin.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Admin' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton2Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Admin' ) ;
 			wp_mail ( get_option('wpfunos_mailCorreoBoton2Admin'), get_option('wpfunos_asuntoCorreoBoton2Admin') , $mensaje, $headers );
@@ -689,7 +546,6 @@ class Wpfunos_Public {
 		if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Lead')){
 			$mensaje = get_option('wpfunos_mensajeCorreoBoton1Lead');
 			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
-//			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton1Lead.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton1Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Lead' ) ;
 			//wp_mail (  get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton1Lead') , $mensaje, $headers );
@@ -697,7 +553,6 @@ class Wpfunos_Public {
 		if($_GET['accion'] == 2 && get_option($this->plugin_name . '_activarCorreoBoton2Lead')){
 			$mensaje = get_option('wpfunos_mensajeCorreoBoton2Lead');
 			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
-//			require 'partials/mensajes/' . $this->plugin_name . '-ResultadosAcciones-MailBoton2Lead.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton2Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Lead' ) ;
 			//wp_mail ( get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ), get_option('wpfunos_asuntoCorreoBoton2Lead') , $mensaje, $headers );
@@ -710,9 +565,6 @@ class Wpfunos_Public {
 	 * add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
 	 */
 	public function wpfunosGetResults( $postID, $userID ){
-		//
-		// require 'partials/' . $this->plugin_name . '-public-ComparaResultadosGetResults.php';
-		// 
 		$NA = false;
  		$ecologico = false;
  		$preciototal = (int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBase', true );
@@ -853,9 +705,6 @@ class Wpfunos_Public {
 				}else{
 					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuento') ) ;
 				}
-				//
-				//require 'partials/' . $this->plugin_name . '-public-ComparaResultadosDetalles-display.php';
-				//
 				?>
 				<div class="elementor-container elementor-column-gap-default">
 					<div class="elementor-row">
@@ -919,9 +768,6 @@ class Wpfunos_Public {
   					</div>
 				</div>
 				<?php
-				//
-				// require 'partials/' . $this->plugin_name . '-public-ComparaResultadosBotonesConfirmado-display.php';
-				//
 				$tel = str_replace(" ","",$_GET['telefonoEmpresa']);
 				$tel = str_replace("-","",$tel);
 				$_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
@@ -1067,9 +913,6 @@ class Wpfunos_Public {
 				$_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
 				$_GET['preciodescuento'] = '';
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
-				//
-				// require 'partials/' . $this->plugin_name . '-public-ComparaResultadosDetalles-display.php';
-				//
 				?>
 				<div class="elementor-container elementor-column-gap-default">
 					<div class="elementor-row">
@@ -1124,7 +967,7 @@ class Wpfunos_Public {
 											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
 											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
 
-        	    	    					<input class="wpfunos-boton-detalles" type="submit" value="Detalles" style="background-color: #1d40d3; font-size: 12px;">
+        	    	    					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 12px;">
 										</form>
 									</div>
 								</div>

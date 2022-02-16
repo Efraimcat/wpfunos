@@ -45,7 +45,11 @@
 		<?php gmw_search_form_taxonomies( $gmw ); ?>		
 				
 		<?php do_action( 'gmw_search_form_before_distance', $gmw ); ?>
-					
+		
+		<p>
+			Encuentra funerarias en un radio de
+		</p>
+		
         <?php gmw_search_form_radius( $gmw ); ?>
             
         <?php gmw_search_form_units( $gmw ); ?>

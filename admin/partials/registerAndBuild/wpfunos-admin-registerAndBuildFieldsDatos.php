@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
  	add_settings_section(
 		'wpfunos_general_datos_section',    						// ID used to identify this section and with which to register options
-		'<strong>Página formulario datos</strong>',                           		// Title to be displayed on the administration page
+		'<strong>Plantilla formulario datos</strong>',              // Title to be displayed on the administration page
 		array( $this, 'wpfunos_display_general_account_datos' ), 	// Callback used to render the description of the section
 		'wpfunos_general_settings'                 					// Page on which to add this section of options
 	);
