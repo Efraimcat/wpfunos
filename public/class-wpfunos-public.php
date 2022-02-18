@@ -42,8 +42,8 @@ class Wpfunos_Public {
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		add_shortcode( 'wpfunos-page-switch', array( $this, 'wpfunosResultadosPageSwitchShortcode' ));
-		add_shortcode( 'wpfunos-compara-futuro-inicio', array( $this, 'wpfunosComparaInicioFuturoShortcode' ));
+		add_shortcode( 'wpfunos-page-switch', array( $this, 'wpfunosServiciosPageSwitchShortcode' ));
+		add_shortcode( 'wpfunos-aseguradoras-page-switch', array( $this, 'wpfunosAseguradorasPageSwitchShortcode' ));
 		add_shortcode( 'wpfunos-resultados', array( $this, 'wpfunosResultadosShortcode' ));
 		add_shortcode( 'wpfunos-resultados-empresa', array( $this, 'wpfunosResultadosEmpresaShortcode' ));
 		add_shortcode( 'wpfunos-resultados-telefono-usuario', array( $this, 'wpfunosResultadosTelefonoUsuarioShortcode' ));
@@ -53,6 +53,10 @@ class Wpfunos_Public {
 		add_shortcode( 'wpfunos-acciones-botones-confirmado', array( $this, 'wpfunosAccionesBotonesConfirmadoShortcode' ));
 		add_shortcode( 'wpfunos-resultados-detalles', array( $this, 'wpfunosResultadosDetallesShortcode' ));
 		add_shortcode( 'wpfunos-resultados-detalles-comentarios', array( $this, 'wpfunosResultadosDetallesComentariosShortcode' ));
+		add_shortcode( 'wpfunos-pagina-servicios', array( $this, 'wpfunosPaginaServiciosShortcode' ));
+		add_shortcode( 'wpfunos-pagina-aseguradoras', array( $this, 'wpfunosPaginaAseguradorasShortcode' ));
+		add_shortcode( 'wpfunos-pagina-resultados-servicios', array( $this, 'wpfunosPaginaResultadosServiciosShortcode' ));
+		add_shortcode( 'wpfunos-pagina-resultados-aseguradoras', array( $this, 'wpfunosPaginaResultadosAseguradorasShortcode' ));
 		add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
 		add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
 		add_action( 'wpfunos_new_log', array( $this, 'wpfunosNewLog' ), 10, 1 );
@@ -88,12 +92,11 @@ class Wpfunos_Public {
 	/*********************************/
 	/*****  SHORTCODES          ******/
 	/*********************************/
-	// https://funos.es/compara-precios-nueva?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
 	
 	/**
 	 * Shortcode [wpfunos-page-switch]
 	 */
-	public function wpfunosResultadosPageSwitchShortcode(){
+	public function wpfunosServiciosPageSwitchShortcode(){
 		if( !$_GET['form'] && !$_GET['referencia'] ){
 			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
 		}elseif( !$_GET['referencia'] ){
@@ -101,24 +104,7 @@ class Wpfunos_Public {
 			$_GET['tipo'] = $_GET['post'][0];
 			mt_srand(mktime());
 			$_GET['referencia'] = 'funos-'.(string)mt_rand();
-			// CP = 'undefined'
-			if( $_GET['CP'] == 'undefined' || $_GET['CP'] == '' ){
-				$poblacion = ucwords( $_GET['direccion'] );
-				$id=0;
-				$args = array(
-		  			'post_type' => 'cpostales_wpfunos',	//
-		  			'meta_key' =>  $this->plugin_name . '_cpostalesPoblacion',
-		  			'meta_value' => $poblacion,
-				);
-				$my_query = new WP_Query( $args );
-				if ( $my_query->have_posts() ) :
-		  			while ( $my_query->have_posts() ) : $my_query->the_post();
-		    			$id = get_the_ID();
-		  			endwhile;
-				endif;
-				wp_reset_postdata();
-				$_GET['CP'] = get_post_meta( $id, 'wpfunos_cpostalesCodigo', true );
-			}
+			$_GET['CP'] = $this->wpfunosCodigoPostal( $_GET['CP'], $_GET['direccion'] );
 			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') );
 		}elseif( $_GET['referencia']){
 			$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
@@ -131,7 +117,32 @@ class Wpfunos_Public {
 			}
 		}
 	}
+	
+	/**
+	 * Shortcode [wpfunos-aseguradoras-page-switch]
+	 */
+	public function wpfunosAseguradorasPageSwitchShortcode(){
+		if( !$_GET['form'] ){
+			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWpAseguradoras') );
+		}elseif( !$_GET['referencia'] ){
+			$_GET['direccion'] = $_GET['address'][0];
+			$_GET['tipo'] = $_GET['post'][0];
+			mt_srand(mktime());
+			$_GET['referencia'] = 'funos-'.(string)mt_rand();
+			$_GET['CP'] = $this->wpfunosCodigoPostal( $_GET['CP'], $_GET['direccion'] );
+			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatosAseguradoras') );
+		}elseif( $_GET['referencia']){
+			$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
+			if($IDusuario == 0){  
+				echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWpAseguradoras') );
+			}else{
+				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosAseguradorasCabecera') );
+				echo do_shortcode( get_option('wpfunos_formGeoMyWpAseguradoras') );
+				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosAseguradorasPie') );
+			}
+		}
 		
+	}
 	/**
 	 * Shortcode [wpfunos-resultados]
 	 */
@@ -225,19 +236,6 @@ class Wpfunos_Public {
 	 }
 	
 	/**
-	* Shortcode [wpfunos-compara-futuro-resultados]
-	*/
-	public function wpfunosComparaResultadosFuturoShortcode( $atts, $content = "" ) {
-		// if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Resultados $_GET: ' . $this->dumpPOST($_GET));
-		if (!isset($_GET['referencia'])) return;
-		$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
-		if($IDusuario == 0) return;
-		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosFuturoCabecera') );
-		echo do_shortcode( get_option('wpfunos_formGeoMyWpFuturo') );
-		echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosFuturoPie') );
-	}
-
-	/**
 	* Shortcode [wpfunos-acciones-botones-confirmado]
 	*/
 	public function wpfunosAccionesBotonesConfirmadoShortcode( $atts, $content = "" ) {
@@ -322,6 +320,36 @@ class Wpfunos_Public {
 		}
 	}
 
+	/**
+	* Shortcode [wpfunos-pagina-servicios]
+	*/
+	public function wpfunosPaginaServiciosShortcode( $atts, $content = "" ) {
+		return do_shortcode( get_option('wpfunos_paginaComparador') );
+	}
+	
+	/**
+	* Shortcode [wpfunos-pagina-aseguradoras]
+	*/
+	public function wpfunosPaginaAseguradorasShortcode( $atts, $content = "" ) {
+		return do_shortcode( get_option('wpfunos_paginaComparadorAseguradoras') );
+	}
+	
+	/**
+	* Shortcode [wpfunos-pagina-resultados-servicios]
+	* https://funos.es/compara-precios-nueva?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
+	*/
+	public function wpfunosPaginaResultadosServiciosShortcode( $atts, $content = "" ) {
+		echo get_option('wpfunos_paginaURLResultadosServicios');
+	}
+	
+	/**
+	* Shortcode [wpfunos-pagina-resultados-aseguradoras]
+	* https://funos.es/compara-precios-aseguradoras?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=3&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
+	*/
+	public function wpfunosPaginaResultadosAseguradorasShortcode( $atts, $content = "" ) {
+		echo get_option('wpfunos_paginaURLResultadosAseguradoras');
+	}
+	
 	/*********************************/
 	/*****  HOOKS               ******/
 	/*********************************/
@@ -712,7 +740,7 @@ class Wpfunos_Public {
 							<div class="elementor-widget-wrap">
 								<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
 									<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
-										<form target="POPUPW" action="/compara-precios-acciones-detalles-popup" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
+										<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
 											<input type="hidden" name="accion" id="accion" value="1" >
                 							<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
 											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
@@ -781,7 +809,7 @@ class Wpfunos_Public {
 							<div class="elementor-widget-wrap">
 								<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
 									<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
-										<form target="POPUPW" action="/compara-precios-acciones-llamen-popup" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
+										<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamen'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
 											<input type="hidden" name="accion" id="accion" value="1" >
 											<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
 											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
@@ -830,7 +858,7 @@ class Wpfunos_Public {
 										</form>
 									</div>
            							<div class="wpfunos-boton-llamar">
-										<form target="POPUPW" action="/compara-precios-acciones-llamar-popup" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
+										<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamar'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
 											<input type="hidden" name="accion" id="accion" value="2" >
 											<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
 											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
@@ -920,7 +948,7 @@ class Wpfunos_Public {
 							<div class="elementor-widget-wrap">
 								<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
 									<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
-										<form target="POPUPW" action="/compara-precios-acciones-detalles-popup" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
+										<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
 											<input type="hidden" name="accion" id="accion" value="1" >
                 							<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
 											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
@@ -1101,6 +1129,33 @@ class Wpfunos_Public {
   		$customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content );
   		return $customfield_content;
 	}
+	
+	/**
+	 * Buscar CP undefined
+	 */
+	public function  wpfunosCodigoPostal( $CodigoPostal, $Direccion ){
+		// CP = 'undefined'
+		if( $CodigoPostal == 'undefined' || $CodigoPostal == '' ){
+			$poblacion = ucwords( $Direccion );
+			$id=0;
+			$args = array(
+		  		'post_type' => 'cpostales_wpfunos',	//
+		  		'meta_key' =>  $this->plugin_name . '_cpostalesPoblacion',
+		  		'meta_value' => $poblacion,
+			);
+			$my_query = new WP_Query( $args );
+			if ( $my_query->have_posts() ) :
+		  		while ( $my_query->have_posts() ) : $my_query->the_post();
+		    		$id = get_the_ID();
+		  		endwhile;
+			endif;
+			wp_reset_postdata();
+			$CodigoPostal = get_post_meta( $id, 'wpfunos_cpostalesCodigo', true );
+		}
+		if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('$CodigoPostal : ' . $CodigoPostal );
+		return $CodigoPostal;
+	}
+	
 	/*********************************/
 	/*****  UTILIDADES          ******/
 	/*********************************/

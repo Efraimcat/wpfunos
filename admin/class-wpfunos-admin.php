@@ -242,7 +242,15 @@ class Wpfunos_Admin {
 	    ?><p><?php esc_html_e('Si está activo guarda los datos del debug en ficheros en /wp-contenet/uploads/wpfunos-logs/ y los muestra en la pestaña "logs".', 'wpfunos'); ?></p><?php
 	}
 	public function wpfunos_display_general_account_pagina() {
-	    ?><p><?php esc_html_e('Página del Comparador.', 'wpfunos'); ?></p><?php
+	    ?>
+		<p><?php esc_html_e('Página del Comparador.', 'wpfunos'); ?></p>
+		<p>
+		Ejemplo URL página resultados servicios: https://funos.es/compara-precios-nueva?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]	
+		</p>
+		<p>
+		Ejemplo URL página resultados aseguradoras: https://funos.es/compara-precios-aseguradoras?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=3&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
+		</p>
+		<?php
 	}
 	public function wpfunos_display_general_account_datos() {
 	    ?><p><?php esc_html_e('Plantilla del formulario de datos.', 'wpfunos'); ?></p><?php

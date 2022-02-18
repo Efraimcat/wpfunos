@@ -30,14 +30,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosDatos','name' => $this->plugin_name . '_seccionComparaPreciosDatos','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 	);
 // Sección Compara precios datos Futuro
-	add_settings_field($this->plugin_name . '_seccionComparaPreciosDatosFuturo',
-		esc_html__('Sección compara precios Datos Futuro', 'wpfunos'),
+	add_settings_field($this->plugin_name . '_seccionComparaPreciosDatosAseguradoras',
+		esc_html__('Sección compara precios Datos Aseguradoras', 'wpfunos'),
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_datos_section',
-		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosDatosFuturo','name' => $this->plugin_name . '_seccionComparaPreciosDatosFuturo','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosDatosAseguradoras','name' => $this->plugin_name . '_seccionComparaPreciosDatosAseguradoras','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 	);
 	
 	register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosDatos');
-	register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosDatosFuturo');
+	register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosDatosAseguradoras');
 

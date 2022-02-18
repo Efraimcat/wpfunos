@@ -28,17 +28,17 @@
 		while ( $gmw_query->have_posts() ) :
 			$gmw_query->the_post();
 			global $post;
-			$wpfResultados = apply_filters('wpfunos_get_results', $post->ID, $IDusuario );
-			$wpfunos_confirmado = apply_filters('wpfunos_results_confirmado', $wpfResultados, $wpfunos_confirmado, $post->ID );
-			$wpfunos_sinconfirmar = apply_filters('wpfunos_results_sinconfirmar', $wpfResultados, $wpfunos_sinconfirmar, $post->ID );
-			$wpfunos_sinprecio = apply_filters('wpfunos_results_sinprecio', $wpfResultados, $wpfunos_sinprecio, $post->ID );
+			//$wpfResultados = apply_filters('wpfunos_get_results', $post->ID, $IDusuario );
+			//$wpfunos_confirmado = apply_filters('wpfunos_results_confirmado', $wpfResultados, $wpfunos_confirmado, $post->ID );
+			//$wpfunos_sinconfirmar = apply_filters('wpfunos_results_sinconfirmar', $wpfResultados, $wpfunos_sinconfirmar, $post->ID );
+			//$wpfunos_sinprecio = apply_filters('wpfunos_results_sinprecio', $wpfResultados, $wpfunos_sinprecio, $post->ID );
 			?> <div class="clear"></div><?php
 		endwhile;
-		do_action( 'wpfunos_result_grid_confirmado', $wpfunos_confirmado );
-		do_action( 'wpfunos_result_grid_sinconfirmar', $wpfunos_sinconfirmar );
-		do_action( 'wpfunos_result_grid_sinprecio', $wpfunos_sinprecio );
+		//do_action( 'wpfunos_result_grid_confirmado', $wpfunos_confirmado );
+		//do_action( 'wpfunos_result_grid_sinconfirmar', $wpfunos_sinconfirmar );
+		//do_action( 'wpfunos_result_grid_sinprecio', $wpfunos_sinprecio );
 		?></ul></div><?php
-		?><div class="wpfunos-result-map"><?php gmw_results_map( $gmw );?></div><?php
+		gmw_results_map( $gmw );
 	else :
 		?><div class="gmw-no-results">
 			<?php gmw_no_results_message( $gmw ); ?>

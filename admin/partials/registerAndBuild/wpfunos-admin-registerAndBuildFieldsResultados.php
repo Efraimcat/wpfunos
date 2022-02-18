@@ -48,38 +48,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_formGeoMyWp','name' => $this->plugin_name . '_formGeoMyWp','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 	);
 
-// Sección Compara precios resultados cabecera Futuro
+// Sección Compara precios resultados cabecera Aseguradoras
  	add_settings_field(
-		$this->plugin_name . '_seccionComparaPreciosResultadosFuturoCabecera',
-		esc_html__('Sección compara precios Resultados Futuro Cabecera', 'wpfunos'),
+		$this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasCabecera',
+		esc_html__('Sección compara precios Resultados Aseguradoras Cabecera', 'wpfunos'),
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_resultados_section',
-		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosFuturoCabecera','name' => $this->plugin_name . '_seccionComparaPreciosResultadosFuturoCabecera','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasCabecera','name' => $this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasCabecera','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
  	);
-// Sección Compara precios resultados pie Futuro
+// Sección Compara precios resultados pie Aseguradoras
 	add_settings_field(
-		$this->plugin_name . '_seccionComparaPreciosResultadosFuturoPie',
-		esc_html__('Sección compara precios Resultados Futuro Pie', 'wpfunos'),
+		$this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasPie',
+		esc_html__('Sección compara precios Resultados Aseguradoras Pie', 'wpfunos'),
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_resultados_section',
-		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosFuturoPie','name' => $this->plugin_name . '_seccionComparaPreciosResultadosFuturoPie','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasPie','name' => $this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasPie','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
  	);
-// Formlario GEO-my-wp
+// Formlario GEO-my-wp Aseguradoras
 	add_settings_field(
-		$this->plugin_name . '_formGeoMyWpFuturo',
-		esc_html__('Formulario GEO my wp Futuro', 'wpfunos'),
+		$this->plugin_name . '_formGeoMyWpAseguradoras',
+		esc_html__('Formulario GEO my wp Aseguradoras', 'wpfunos'),
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_resultados_section',
-		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_formGeoMyWpFuturo','name' => $this->plugin_name . '_formGeoMyWpFuturo','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+		array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_formGeoMyWpAseguradoras','name' => $this->plugin_name . '_formGeoMyWpAseguradoras','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 	);
 
 	register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosCabecera');
 	register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosPie');
 	register_setting('wpfunos_general_settings', $this->plugin_name . '_formGeoMyWp');
-	register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosFuturoCabecera');
-	register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosFuturoPie');
-	register_setting('wpfunos_general_settings', $this->plugin_name . '_formGeoMyWpFuturo');
+	register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasCabecera');
+	register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasPie');
+	register_setting('wpfunos_general_settings', $this->plugin_name . '_formGeoMyWpAseguradoras');
 
