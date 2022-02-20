@@ -58,6 +58,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  $userDesgloseDescuentoGenericoDescuento = sanitize_text_field( $_POST[$this->plugin_name . '_userDesgloseDescuentoGenericoDescuento'] );
  $userDesgloseDescuentoGenericoTotal = sanitize_text_field( $_POST[$this->plugin_name . '_userDesgloseDescuentoGenericoTotal'] );
 
+ $userAPITipo = sanitize_text_field( $_POST[$this->plugin_name . '_userAPITipo'] );
+ $userAPIBody = sanitize_text_field( $_POST[$this->plugin_name . '_userAPIBody'] );
+ $userAPIMessage = sanitize_text_field( $_POST[$this->plugin_name . '_userAPIMessage'] );
+
 
  update_post_meta($post_id, $this->plugin_name . '_TimeStamp', $TimeStamp);
  update_post_meta($post_id, $this->plugin_name . '_userMail', $userMail);
@@ -103,3 +107,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  update_post_meta($post_id, $this->plugin_name . '_userDesgloseDescuentoGenericoPrecio', $userDesgloseDescuentoGenericoPrecio );
  update_post_meta($post_id, $this->plugin_name . '_userDesgloseDescuentoGenericoDescuento', $userDesgloseDescuentoGenericoDescuento );
  update_post_meta($post_id, $this->plugin_name . '_userDesgloseDescuentoGenericoTotal', $userDesgloseDescuentoGenericoTotal );
+
+ update_post_meta($post_id, $this->plugin_name . '_userAPITipo', $userAPITipo);
+ update_post_meta($post_id, $this->plugin_name . '_userAPIBody', $userAPIBody);
+ update_post_meta($post_id, $this->plugin_name . '_userAPIMessage', $userAPIMessage);

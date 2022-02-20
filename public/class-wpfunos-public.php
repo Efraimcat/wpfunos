@@ -273,6 +273,11 @@ class Wpfunos_Public {
 		if( $_GET['desgloseAtaudDescuento'] == '%' ) $_GET['desgloseAtaudDescuento'] = '';
 		if( $_GET['desgloseVelatorioDescuento'] == '%' ) $_GET['desgloseVelatorioDescuento'] = '';
 		if( $_GET['desgloseCeremoniaDescuento'] == '%' ) $_GET['desgloseCeremoniaDescuento'] = '';
+		
+		//
+		$this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLPreventiva'), 'Preventiva' , get_option( 'wpfunos_APIPreventivaCampainPreventiva') );
+		//
+		
 	}
 	
 	/**
@@ -447,7 +452,7 @@ class Wpfunos_Public {
    	 */
    	public function wpfunosFormValidation($record, $ajax_handler){
 		if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
-			if( (int)$field['value'] < 1920 || (int)$field['value'] > 2010){
+			if( (int)$field['value'] < date("Y") - 80 || (int)$field['value'] > date("Y") - 20 ){
 				$ajax_handler->add_error( $field['id'], 'Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990' );
        		} 
      	}
@@ -1156,6 +1161,100 @@ class Wpfunos_Public {
 		return $CodigoPostal;
 	}
 	
+	/**
+	 * Llamada API Preventiva $this->wpfunosLlamadaAPIPreventiva( 'https://fidelity.preventiva.com/ContactsImporter/api/Contact', 'Preventiva' );
+	 * 
+	 * "Nombre Y Apellidos"
+	 * "CP"
+	 * "Telefono 1"
+	 * "E-mail"
+	 * "Edad"
+	 * "Sexo"
+	 * "Id_lead"
+	 * "Id-cliente"
+	 * "FechaCarga"
+	 * "Direccion"
+	 */
+	public function wpfunosLlamadaAPIPreventiva( $URL, $Tipo, $campain ){
+		mt_srand(mktime());
+		$nuevareferencia = 'funos-'.(string)mt_rand();
+		$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
+		$seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
+		$CP = get_post_meta( $IDusuario, $this->plugin_name . '_userCP', true );
+		$respuesta = (explode(',',$seleccion));
+		switch($respuesta[2]){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
+		$edad =  date("Y") - (int)$respuesta[3];
+		$ubicacion = strtr($respuesta[0],"+",",");
+		//$_GET['Email']
+		//$_GET['telefonoUsuario']
+		//$_GET['nombreUsuario']
+		//
+        $headers = array( 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode( get_option( 'wpfunos_APIPreventivaUsuarioPreventiva') . ':' . get_option( 'wpfunos_APIPreventivaPasswordPreventiva')  ), );
+        $body = '{
+			"Telefono 1": "' . $_GET['telefonoUsuario'] . '",
+			"campain": "'. $campain .'",
+			"initDate": "20220221 090002",
+			"data": [
+				{"key": "Direccion", "value": "' . $ubicacion . '" },
+				{"key": "Nombre Y Apellidos", "value": "TEST ' . $_GET['nombreUsuario'] . '"},
+				{"key": "CP", "value": "' . $_GET['CPUsuario'] . '"},
+				{"key": "E-mail", "value": "' . $_GET['Email'] . '"},
+				{"key": "Edad", "value": "' . $edad . '"},
+				{"key": "Sexo", "value": "' . $sexo . '"},
+				{"key": "Id-cliente", "value": "' . $nuevareferencia . '"},
+				{"key": "FechaCarga", "value": "' . date("Y-m-d H:i:s") . '" },
+				{"key": "Id_lead", "value": "1" },
+			]
+		}';
+//        $request = wp_remote_post( $URL, array( 'headers' => $headers, 'body' => $body, 'timeout' => 45 ) );
+//        if ( is_wp_error($request) ) {
+//            esc_html_e('alguna cosa ha ido mal','wpfunos'); 
+//            esc_html_e(': ' . $request->get_error_message() );
+//			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs( 'Request: Error message: ' . $this->dump( $request->get_error_message() ) );
+//           return;
+//        }
+//        $message = json_decode( $request['body'] );
+        
+        if(get_option($this->plugin_name . '_Debug')){
+            $this->custom_logs( 'Request: $URL: ' . $this->dump($URL) );
+            $this->custom_logs( 'Request: $headers: ' . $this->dump($headers) );
+            $this->custom_logs( 'Request: $body: ' . $this->dump($body) );
+  //          $this->custom_logs( 'Request: $message: ' . $this->dump($message) );
+            $this->custom_logs( '----' );
+        }
+		
+		$my_post = array(
+   			'post_title' => $nuevareferencia,
+			'post_type' => 'usuarios_wpfunos',
+			'post_status'  => 'publish',
+			'meta_input'   => array(
+				$this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+				$this->plugin_name . '_userReferencia' => sanitize_text_field( $nuevareferencia ),
+				$this->plugin_name . '_userName' => sanitize_text_field( $_GET['nombreUsuario'] ),
+				$this->plugin_name . '_userPhone' => sanitize_text_field( $_GET['telefonoUsuario'] ),
+				$this->plugin_name . '_userSeleccion' => sanitize_text_field( $_GET['seleccion']),
+				$this->plugin_name . '_userAccion' => sanitize_text_field( '4' ),
+				$this->plugin_name . '_userCP' => sanitize_text_field( $_GET['CPUsuario']),
+				$this->plugin_name . '_userMail' => sanitize_text_field( $_GET['Email']),
+				$this->plugin_name . '_userAPITipo' => sanitize_text_field( $Tipo ),
+				$this->plugin_name . '_userAPIBody' => sanitize_text_field( $body),
+				$this->plugin_name . '_userAPIMessage' => sanitize_text_field( $message ),
+				),
+		);
+		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) { 
+			$post_id = wp_insert_post($my_post);
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Nueva API: ' . $this->dumpPOST( $this->getUserIP() ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('ID: ' . $this->dumpPOST( $post_id ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $nuevareferencia ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('telefonoUsuario: ' . $this->dumpPOST( $_GET['telefonoUsuario'] ));
+		}else{
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Error 3 Nueva API: ' . $this->dumpPOST( $this->getUserIP() ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $nuevareferencia ));
+		}
+	}
+
 	/*********************************/
 	/*****  UTILIDADES          ******/
 	/*********************************/

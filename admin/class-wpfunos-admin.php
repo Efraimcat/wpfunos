@@ -59,6 +59,7 @@ class Wpfunos_Admin {
 		add_action('admin_init', array( $this, 'registerAndBuildMail2' ));
 		add_action('admin_init', array( $this, 'registerAndBuildMail3' ));
 		add_action('admin_init', array( $this, 'registerAndBuildMail4' ));
+		add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
 		add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_funerarias_wpfunos', array( $this, 'setupfunerarias_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
@@ -127,6 +128,7 @@ class Wpfunos_Admin {
 		// add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración WpFunos', 'wpfunos'), esc_html__('Configuración', 'wpfunos'), 'administrator', $this->plugin_name . '-settings', array( $this, 'displayPluginAdminSettings' ));
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Correo WpFunos', 'wpfunos'), esc_html__('Correo', 'wpfunos'), 'administrator', $this->plugin_name . '-mail', array( $this, 'displayPluginAdminMail' ));
+		add_submenu_page( $this->plugin_name.'config', esc_html__('API Preventiva WpFunos', 'wpfunos'), esc_html__('API Preventiva', 'wpfunos'), 'administrator', $this->plugin_name . '-APIPreventiva', array( $this, 'displayPluginAdminAPIPreventiva' ));
 
 		if(get_option($this->plugin_name . '_Debug')){
 			add_submenu_page( $this->plugin_name.'config' , esc_html__('Logs WpFunos', 'wpfunos'),     esc_html__('Logs', 'wpfunos'),     'administrator', $this->plugin_name . '-logs',     array( $this, 'displayPluginAdminLogs' ));
@@ -153,7 +155,7 @@ class Wpfunos_Admin {
 	    require_once 'partials/' . $this->plugin_name . '-admin-settings-display.php';
 	}
 	/**
-	 * Settings menu display.
+	 * Mail menu display.
 	 */
 	public function displayPluginAdminMail() {
 		if (isset($_GET['error_message'])) {
@@ -163,7 +165,17 @@ class Wpfunos_Admin {
 		require_once 'partials/' . $this->plugin_name . '-admin-mail-display.php';
 	}
 	/**
-	 * Settings menu display.
+	 * Api Preventiva menu display.
+	 */
+	public function displayPluginAdminAPIPreventiva() {
+		if (isset($_GET['error_message'])) {
+			add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
+			do_action('admin_notices', sanitize_text_field($_GET['error_message']));
+		}
+		require_once 'partials/' . $this->plugin_name . '-admin-APIPreventiva-display.php';
+	}
+	/**
+	 * Logs menu display.
 	 */
 	public function displayPluginAdminLogs(){
 	    if (isset($_GET['error_message'])) {
@@ -197,6 +209,9 @@ class Wpfunos_Admin {
 	}
 	public function registerAndBuildMail4() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail4.php';
+	}
+	public function registerAndBuildAPIPreventiva() {
+		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIPreventiva.php';
 	}
 	public function registerAndBuildFieldsDatos() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDatos.php';
@@ -269,6 +284,9 @@ class Wpfunos_Admin {
 	}
 	public function wpfunos_display_general_account_sinprecio() {
 	    ?><p><?php esc_html_e('Plantilla de resultados sin precio', 'wpfunos'); ?></p><?php
+	}
+	public function wpfunos_display_APIPreventiva_account(){
+		
 	}
 	public function wpfunos_display_mail_account() {
 		?>
@@ -638,9 +656,12 @@ class Wpfunos_Admin {
  	    foreach ($files as $file) {
  	        if (substr($file, - 4) == '.log') {
  	            $this->custom_logs('Logfile: ' . $file . ' -> ' . date("d-m-Y H:i:s", filemtime( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file)));
+ 	            // if (time() > strtotime('+45 days', filemtime( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file))) {
  	            if (time() > strtotime('+1 week', filemtime( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file))) {
- 	                $this->custom_logs('Old logfile');
- 	                unlink( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file);
+ 	                // $this->custom_logs('Old logfile');
+ 	                // unlink( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file);
+ 	                $oldfile = $this->gzCompressFile($upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file);
+					$this->custom_logs('Old logfile: ' . $oldfile );
  	            }
  	        }
  	    }
@@ -706,4 +727,37 @@ class Wpfunos_Admin {
 	    fputs($open, $ban);
 	    fclose( $open );
 	}
+	
+	/**
+ 	* GZIPs a file on disk (appending .gz to the name)
+ 	*
+ 	* From http://stackoverflow.com/questions/6073397/how-do-you-create-a-gz-file-using-php
+ 	* Based on function by Kioob at:
+ 	* http://www.php.net/manual/en/function.gzwrite.php#34955
+ 	* 
+ 	* @param string $source Path to file that should be compressed
+ 	* @param integer $level GZIP compression level (default: 9)
+ 	* @return string New filename (with .gz appended) if success, or false if operation fails
+ 	*/
+	private function gzCompressFile($source, $level = 9){ 
+    	$dest = $source . '.gz'; 
+    	$mode = 'wb' . $level; 
+    	$error = false; 
+    	if ($fp_out = gzopen($dest, $mode)) { 
+        	if ($fp_in = fopen($source,'rb')) { 
+            	while (!feof($fp_in)) 
+                	gzwrite($fp_out, fread($fp_in, 1024 * 512)); 
+            	fclose($fp_in); 
+        	} else {
+            	$error = true; 
+        	}
+        	gzclose($fp_out); 
+    	} else {
+        	$error = true; 
+    	}
+    	if ($error)
+        	return false; 
+    	else
+        	return $dest; 
+	} 
 }

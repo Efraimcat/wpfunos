@@ -233,7 +233,26 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
 
-
+	<hr/>
+    
+    <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userAPITipo' ); ?>"> <?php esc_html_e('Tipo API', 'wpfunos');?></label> <?php
+        $this->wpfunos_render_settings_field(array(
+          'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPITipo','name' => $this->plugin_name . '_userAPITipo',
+            'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+      ));
+    ?></li>
+    <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userAPIBody' ); ?>"> <?php esc_html_e('Body API', 'wpfunos');?></label> <?php
+        $this->wpfunos_render_settings_field(array(
+          'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPIBody','name' => $this->plugin_name . '_userAPIBody',
+            'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+      ));
+    ?></li>
+    <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userAPIMessage' ); ?>"> <?php esc_html_e('Mensaje API', 'wpfunos');?></label> <?php
+        $this->wpfunos_render_settings_field(array(
+          'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPIMessage','name' => $this->plugin_name . '_userAPIMessage',
+            'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+      ));
+    ?></li>
 
 
 
