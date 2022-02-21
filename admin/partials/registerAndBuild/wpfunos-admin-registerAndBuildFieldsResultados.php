@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados cabecera
  	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultadosCabecera',
-		esc_html__('Sección compara precios Resultados Cabecera', 'wpfunos'),
+		'Sección compara precios Resultados Cabecera <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosCabecera)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_resultados_section',
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados pie
 	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultadosPie',
-		esc_html__('Sección compara precios Resultados Pie', 'wpfunos'),
+		'Sección compara precios Resultados Pie <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosPie)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_resultados_section',
@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Formlario GEO-my-wp
 	add_settings_field(
 		$this->plugin_name . '_formGeoMyWp',
-		esc_html__('Formulario GEO my wp', 'wpfunos'),
+		'Formulario GEO my wp <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_formGeoMyWp)</h6>', 
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_resultados_section',
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados cabecera Aseguradoras
  	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasCabecera',
-		esc_html__('Sección compara precios Resultados Aseguradoras Cabecera', 'wpfunos'),
+		'Sección compara precios Resultados Aseguradoras Cabecera <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosAseguradorasCabecera)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_resultados_section',
@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados pie Aseguradoras
 	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasPie',
-		esc_html__('Sección compara precios Resultados Aseguradoras Pie', 'wpfunos'),
+		'Sección compara precios Resultados Aseguradoras Pie <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosAseguradorasPie)</h6>', 
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_resultados_section',
@@ -69,7 +69,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Formlario GEO-my-wp Aseguradoras
 	add_settings_field(
 		$this->plugin_name . '_formGeoMyWpAseguradoras',
-		esc_html__('Formulario GEO my wp Aseguradoras', 'wpfunos'),
+		'Formulario GEO my wp Aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_formGeoMyWpAseguradoras)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_resultados_section',

@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados superior
 	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultados',
-   		esc_html__('Sección compara precios Resultados Superior', 'wpfunos'),
+   		'Sección compara precios Resultados Superior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultados)</h6>', 
    		array( $this, 'wpfunos_render_settings_field' ),
      	'wpfunos_general_settings',
      	'wpfunos_general_confirmado_section',
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados inferior
 	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultadosInferior',
-   		esc_html__('Sección compara precios Resultados Inferior', 'wpfunos'),
+   		'Sección compara precios Resultados Inferior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosInferior)</h6>',
    		array( $this, 'wpfunos_render_settings_field' ),
      	'wpfunos_general_settings',
      	'wpfunos_general_confirmado_section',

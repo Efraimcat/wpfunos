@@ -21,7 +21,7 @@ add_settings_section(
  );
 add_settings_field(
 	$this->plugin_name . '_APIPreventivaURLPreventiva',
-	esc_html__('URL API Preventiva', 'wpfunos'),
+	'URL API Preventiva <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaURLPreventiva)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_APIPreventiva_settings',
 	'wpfunos_APIPreventiva_section',
@@ -29,7 +29,7 @@ add_settings_field(
 );
 add_settings_field(
 	$this->plugin_name . '_APIPreventivaUsuarioPreventiva',
-	esc_html__('Usuario API Preventiva', 'wpfunos'),
+	'Usuario API Preventiva <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaUsuarioPreventiva)</h6>', 
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_APIPreventiva_settings',
 	'wpfunos_APIPreventiva_section',
@@ -37,7 +37,7 @@ add_settings_field(
 );
 add_settings_field(
 	$this->plugin_name . '_APIPreventivaPasswordPreventiva',
-	esc_html__('Password API Preventiva', 'wpfunos'),
+	'Password API Preventiva <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaPasswordPreventiva)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_APIPreventiva_settings',
 	'wpfunos_APIPreventiva_section',
@@ -45,15 +45,24 @@ add_settings_field(
 );
 add_settings_field(
 	$this->plugin_name . '_APIPreventivaCampainPreventiva',
-	esc_html__('Campaña API Preventiva', 'wpfunos'),
+	'Campaña API Preventiva <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaCampainPreventiva)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_APIPreventiva_settings',
 	'wpfunos_APIPreventiva_section',
 	array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_APIPreventivaCampainPreventiva','name' => $this->plugin_name . '_APIPreventivaCampainPreventiva','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 add_settings_field(
+ 	$this->plugin_name . '_APIPreventivaColdLeadPreventiva',
+ 	'Cold Lead API Preventiva <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaColdLeadPreventiva)</h6>',
+ 	array( $this, 'wpfunos_render_settings_field' ),
+ 	'wpfunos_APIPreventiva_settings',
+	'wpfunos_APIPreventiva_section',
+ 	array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_APIPreventivaColdLeadPreventiva','name' => $this->plugin_name . '_APIPreventivaColdLeadPreventiva','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
+
+add_settings_field(
 	$this->plugin_name . '_APIPreventivaURLElectium',
-	esc_html__('URL API Electium', 'wpfunos'),
+	'URL API Electium <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaURLElectium)</h6>', 
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_APIPreventiva_settings',
 	'wpfunos_APIPreventiva_section',
@@ -61,7 +70,7 @@ add_settings_field(
 );
 add_settings_field(
 	$this->plugin_name . '_APIPreventivaUsuarioElectium',
-	esc_html__('Usuario API Electium', 'wpfunos'),
+	'Usuario API Electium <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaUsuarioElectium)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_APIPreventiva_settings',
 	'wpfunos_APIPreventiva_section',
@@ -69,7 +78,7 @@ add_settings_field(
 );
 add_settings_field(
 	$this->plugin_name . '_APIPreventivaPasswordElectium',
-	esc_html__('Password API Electium', 'wpfunos'),
+	'Password API Electium <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaPasswordElectium)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_APIPreventiva_settings',
 	'wpfunos_APIPreventiva_section',
@@ -77,18 +86,29 @@ add_settings_field(
 );
 add_settings_field(
 	$this->plugin_name . '_APIPreventivaCampainElectium',
-	esc_html__('Campaña API Electium', 'wpfunos'),
+	'Campaña API Electium <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaCampainElectium)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_APIPreventiva_settings',
 	'wpfunos_APIPreventiva_section',
 	array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_APIPreventivaCampainElectium','name' => $this->plugin_name . '_APIPreventivaCampainElectium','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
+add_settings_field(
+ 	$this->plugin_name . '_APIPreventivaColdLeadElectium',
+ 	'Cold Lead API Electium <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaColdLeadElectium)</h6>',
+ 	array( $this, 'wpfunos_render_settings_field' ),
+ 	'wpfunos_APIPreventiva_settings',
+	'wpfunos_APIPreventiva_section',
+ 	array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_APIPreventivaColdLeadElectium','name' => $this->plugin_name . '_APIPreventivaColdLeadElectium','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaURLPreventiva');
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaUsuarioPreventiva');
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaPasswordPreventiva');
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaCampainPreventiva');
+register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaColdLeadPreventiva');
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaURLElectium');
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaUsuarioElectium');
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaPasswordElectium');
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaCampainElectium');
+register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaColdLeadElectium');
+

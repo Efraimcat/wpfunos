@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Debug
  add_settings_field($this->plugin_name . '_Debug',
-   esc_html__('Activar debug', 'wpfunos'),
+   'Activar debug <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_Debug)</h6>',
    array( $this, 'wpfunos_render_settings_field' ),
      'wpfunos_general_settings',
      'wpfunos_general_section',

@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados Descuento Superior
  	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultadosDescuento',
-		esc_html__('Sección compara precios Resultados Descuento Superior', 'wpfunos'),
+		'Sección compara precios Resultados Descuento Superior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosDescuento)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_confirmadodescuento_section',
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados Descuento Inferior
 	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultadosDescuentoInferior',
-   		esc_html__('Sección compara precios Resultados Descuento Inferior', 'wpfunos'),
+   		'Sección compara precios Resultados Descuento Inferior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosDescuentoInferior)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_confirmadodescuento_section',

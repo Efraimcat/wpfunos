@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados sin botones Superior
 	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultadosSin',
-		esc_html__('Sección compara precios Resultados Sin Confirmar Superior', 'wpfunos'),
+		'Sección compara precios Resultados Sin Confirmar Superior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosSin)</h6>',
    		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_sinconfirmar_section',
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Sección Compara precios resultados sin botones Inferior
 	add_settings_field(
 		$this->plugin_name . '_seccionComparaPreciosResultadosSinInferior',
-   		esc_html__('Sección compara precios Resultados Sin Confirmar Inferior', 'wpfunos'),
+   		'Sección compara precios Resultados Sin Confirmar Inferior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosSinInferior)</h6>',
    		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_sinconfirmar_section',

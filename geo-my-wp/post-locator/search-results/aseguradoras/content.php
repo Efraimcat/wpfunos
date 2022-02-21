@@ -24,6 +24,7 @@
 	$_GET['idUsuario'] = $IDusuario;
 	if ( $gmw_form->has_locations() ) :
 		?><div class="gmw-results"><?php
+		do_action('wpfunos_aseguradoras_cold_lead');
 		?><div class="clear"></div><ul class="gmw-posts-wrapper"><?php
 		while ( $gmw_query->have_posts() ) :
 			$gmw_query->the_post();

@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Página comparador
 	add_settings_field(
     $this->plugin_name . '_paginaComparador',
-		esc_html__('Página comparador', 'wpfunos'),
+		'Página comparador <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparador)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_pagina_section',
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Página detalles
 	add_settings_field(
     $this->plugin_name . '_paginaDetalles',
-		esc_html__('Página detalles', 'wpfunos'),
+		'Página detalles <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaDetalles)</h6>', 
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_pagina_section',
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Página Llamar
 	add_settings_field(
     $this->plugin_name . '_paginaLlamar',
-		esc_html__('Página llamar', 'wpfunos'),
+		'Página llamar <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaLlamar)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_pagina_section',
@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Página Llamen
 	add_settings_field(
     $this->plugin_name . '_paginaLlamen',
-		esc_html__('Página que me llamen', 'wpfunos'),
+		'Página que me llamen <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaLlamen)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_pagina_section',
@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // URL resultados servicios
 	add_settings_field(
     $this->plugin_name . '_paginaURLResultadosServicios',
-		esc_html__('URL página resultados servicios', 'wpfunos'),
+		'URL página resultados servicios <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaURLResultadosServicios)</h6>', 
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_pagina_section',
@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Formulario GEO my wp ubicación
 	add_settings_field
   ($this->plugin_name . '_paginaComparadorGeoMyWp',
-		esc_html__('Formulario GEO my wp ubicación', 'wpfunos'),
+		'Formulario GEO my wp ubicación <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorGeoMyWp)</h6>', 
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_pagina_section',
@@ -79,7 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Página comparador Aseguradoras
 	add_settings_field(
     $this->plugin_name . '_paginaComparadorAseguradoras',
-		esc_html__('Página comparador Aseguradoras', 'wpfunos'),
+		'Página comparador Aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorAseguradoras)</h6>', 
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_pagina_section',
@@ -88,7 +88,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // URL resultados aseguradoras
 	add_settings_field(
     $this->plugin_name . '_paginaURLResultadosAseguradoras',
-		esc_html__('URL página resultados aseguradoras', 'wpfunos'),
+		'URL página resultados aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaURLResultadosAseguradoras)</h6>', 
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_pagina_section',
@@ -97,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Formulario GEO my wp ubicación Aseguradoras
 	add_settings_field
   ($this->plugin_name . '_paginaComparadorGeoMyWpAseguradoras',
-		esc_html__('Formulario GEO my wp ubicación Aseguradoras', 'wpfunos'),
+		'Formulario GEO my wp ubicación Aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorGeoMyWpAseguradoras)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_pagina_section',

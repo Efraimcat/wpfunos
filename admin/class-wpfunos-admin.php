@@ -658,10 +658,9 @@ class Wpfunos_Admin {
  	            $this->custom_logs('Logfile: ' . $file . ' -> ' . date("d-m-Y H:i:s", filemtime( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file)));
  	            // if (time() > strtotime('+45 days', filemtime( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file))) {
  	            if (time() > strtotime('+1 week', filemtime( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file))) {
- 	                // $this->custom_logs('Old logfile');
- 	                // unlink( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file);
  	                $oldfile = $this->gzCompressFile($upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file);
 					$this->custom_logs('Old logfile: ' . $oldfile );
+					unlink( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file);
  	            }
  	        }
  	    }

@@ -12,6 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Wpfunos/public
  * @author     Efraim Bayarri <efraim@efraim.cat>
  */
+/**
+ * Acciones:
+ * 0 - Usuario visuliza resultados servicios
+ * 1 - Usuario puls botón "que me llamen" en resultados servicios
+ * 2 - Usuario puls botón "llamar" en resultados servicios
+ * 3 - Usuario visuliza resultados aseguradoras
+ * 4 - cold lead aseguradoras
+ */
 class Wpfunos_Public {
 
 	/**
@@ -64,6 +72,7 @@ class Wpfunos_Public {
 		add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
 		add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
+		add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
 		add_filter( 'wpfunos_get_userid', array( $this, 'wpfunosGetUserid' ) );
 		add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
 		add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 3 );
@@ -273,11 +282,6 @@ class Wpfunos_Public {
 		if( $_GET['desgloseAtaudDescuento'] == '%' ) $_GET['desgloseAtaudDescuento'] = '';
 		if( $_GET['desgloseVelatorioDescuento'] == '%' ) $_GET['desgloseVelatorioDescuento'] = '';
 		if( $_GET['desgloseCeremoniaDescuento'] == '%' ) $_GET['desgloseCeremoniaDescuento'] = '';
-		
-		//
-		$this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLPreventiva'), 'Preventiva' , get_option( 'wpfunos_APIPreventivaCampainPreventiva') );
-		//
-		
 	}
 	
 	/**
@@ -696,9 +700,7 @@ class Wpfunos_Public {
  		// Descuento genérico
  		if( (int)get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true ) > 0 ) $preciodescuento -= $preciodescuento*((int)get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true )/100);
  		$wpfservicio[] = array('Descuento genérico', 'Descuento genérico', $preciototal, get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true ), $preciodescuento);
-
  		// if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Desglose : ' . $this->dumpPOST( $wpfservicio ));
-
  		// Array resultados
  		$resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio ) ;
 		return $resultados;
@@ -738,185 +740,40 @@ class Wpfunos_Public {
 				}else{
 					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuento') ) ;
 				}
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
 				?>
-				<div class="elementor-container elementor-column-gap-default">
-					<div class="elementor-row">
-						<div class="elementor-column-wrap">
-							<div class="elementor-widget-wrap">
-								<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
-									<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
-										<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
-											<input type="hidden" name="accion" id="accion" value="1" >
-                							<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
-											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
-											<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
-											<input type="hidden" name="seleccionUsuario" id="seleccionUsuario" value="<?php echo $_GET['seleccionUsuario']?>" >
-                							<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
-											<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
-                							<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
-                							<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_GET['idUsuario']?>" >
-											<input type="hidden" name="precio" id="precio" value="<?php echo $_GET['precio']?>" >
-											<input type="hidden" name="preciodescuento" id="preciodescuento" value="<?php echo $_GET['preciodescuento']?>" >
-
-											<input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
-											<input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
-											<input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
-
-											<input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $value[3][0][1] ?>" >
-											<input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo number_format($value[3][0][2], 0, ',', '.') . '€' ?>" >
-                							<input type="hidden" name="desgloseBaseDescuento" id="desgloseBaseDescuento" value="<?php echo $value[3][0][3] . '%' ?>" >
-											<input type="hidden" name="desgloseBaseTotal" id="desgloseBaseTotal" value="<?php echo number_format($value[3][0][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseDestinoNombre" id="desgloseDestinoNombre" value="<?php echo $value[3][1][1] ?>" >
-											<input type="hidden" name="desgloseDestinoPrecio" id="desgloseDestinoPrecio" value="<?php echo number_format($value[3][1][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseDestinoDescuento" id="desgloseDestinoDescuento" value="<?php echo $value[3][1][3] . '%' ?>" >
-											<input type="hidden" name="desgloseDestinoTotal" id="desgloseDestinoTotal" value="<?php echo number_format($value[3][1][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseAtaudNombre" id="desgloseAtaudNombre" value="<?php echo $value[3][2][1] ?>" >
-											<input type="hidden" name="desgloseAtaudPrecio" id="desgloseAtaudPrecio" value="<?php echo number_format($value[3][2][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseAtaudDescuento" id="desgloseAtaudDescuento" value="<?php echo $value[3][2][3] . '%' ?>" >
-											<input type="hidden" name="desgloseAtaudTotal" id="desgloseAtaudTotal" value="<?php echo number_format($value[3][2][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseVelatorioNombre" id="desgloseVelatorioNombre" value="<?php echo $value[3][3][1] ?>" >
-											<input type="hidden" name="desgloseVelatorioPrecio" id="desgloseVelatorioPrecio" value="<?php echo number_format($value[3][3][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseVelatorioDescuento" id="desgloseVelatorioDescuento" value="<?php echo $value[3][3][3] . '%' ?>" >
-											<input type="hidden" name="desgloseVelatorioTotal" id="desgloseVelatorioTotal" value="<?php echo number_format($value[3][3][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseCeremoniaNombre" id="desgloseCeremoniaNombre" value="<?php echo $value[3][4][1] ?>" >
-											<input type="hidden" name="desgloseCeremoniaPrecio" id="desgloseCeremoniaPrecio" value="<?php echo number_format($value[3][4][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseCeremoniaDescuento" id="desgloseCeremoniaDescuento" value="<?php echo $value[3][4][3] . '%' ?>" >
-											<input type="hidden" name="desgloseCeremoniaTotal" id="desgloseCeremoniaTotal" value="<?php echo number_format($value[3][4][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseDescuentoGenerico" id="desgloseDescuentoGenerico" value="<?php echo $value[3][5][1] ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoPrecio" id="desgloseDescuentoGenericoPrecio" value="<?php echo number_format($value[3][5][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
-
-        	    	    					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 12px;">
-										</form>
-									</div>
-								</div>
-        					</div>
-	      				</div>
-  					</div>
-				</div>
+				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
+					<input type="hidden" name="accion" id="accion" value="1" >
+					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >											
+					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 12px;">
+				</form>
 				<?php
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
 				$tel = str_replace(" ","",$_GET['telefonoEmpresa']);
 				$tel = str_replace("-","",$tel);
 				$_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
 				$tel = str_replace(" ","",$_GET['telefonoUsuario']);
 				$tel = str_replace("-","",$tel);
 				$_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
 				?>
-				<div class="elementor-container elementor-column-gap-default">
-					<div class="elementor-row">
-						<div class="elementor-column-wrap">
-							<div class="elementor-widget-wrap">
-								<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
-									<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
-										<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamen'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
-											<input type="hidden" name="accion" id="accion" value="1" >
-											<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
-											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
-											<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
-											<input type="hidden" name="precio" id="precio" value="<?php echo $_GET['precio']?>" >
-											<input type="hidden" name="preciodescuento" id="preciodescuento" value="<?php echo $_GET['preciodescuento']?>" >
-											<input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
-											<input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
-											<input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
-               								<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
-											<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
-											<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
-               								<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_GET['idUsuario']?>" >
-
-											<input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $value[3][0][1] ?>" >
-											<input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo number_format($value[3][0][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseBaseDescuento" id="desgloseBaseDescuento" value="<?php echo $value[3][0][3] . '%' ?>" >
-											<input type="hidden" name="desgloseBaseTotal" id="desgloseBaseTotal" value="<?php echo number_format($value[3][0][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseDestinoNombre" id="desgloseDestinoNombre" value="<?php echo $value[3][1][1] ?>" >
-											<input type="hidden" name="desgloseDestinoPrecio" id="desgloseDestinoPrecio" value="<?php echo number_format($value[3][1][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseDestinoDescuento" id="desgloseDestinoDescuento" value="<?php echo $value[3][1][3] . '%' ?>" >
-											<input type="hidden" name="desgloseDestinoTotal" id="desgloseDestinoTotal" value="<?php echo number_format($value[3][1][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseAtaudNombre" id="desgloseAtaudNombre" value="<?php echo $value[3][2][1] ?>" >
-											<input type="hidden" name="desgloseAtaudPrecio" id="desgloseAtaudPrecio" value="<?php echo number_format($value[3][2][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseAtaudDescuento" id="desgloseAtaudDescuento" value="<?php echo $value[3][2][3] . '%' ?>" >
-											<input type="hidden" name="desgloseAtaudTotal" id="desgloseAtaudTotal" value="<?php echo number_format($value[3][2][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseVelatorioNombre" id="desgloseVelatorioNombre" value="<?php echo $value[3][3][1] ?>" >
-											<input type="hidden" name="desgloseVelatorioPrecio" id="desgloseVelatorioPrecio" value="<?php echo number_format($value[3][3][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseVelatorioDescuento" id="desgloseVelatorioDescuento" value="<?php echo $value[3][3][3] . '%' ?>" >
-											<input type="hidden" name="desgloseVelatorioTotal" id="desgloseVelatorioTotal" value="<?php echo number_format($value[3][3][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseCeremoniaNombre" id="desgloseCeremoniaNombre" value="<?php echo $value[3][4][1] ?>" >
-											<input type="hidden" name="desgloseCeremoniaPrecio" id="desgloseCeremoniaPrecio" value="<?php echo number_format($value[3][4][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseCeremoniaDescuento" id="desgloseCeremoniaDescuento" value="<?php echo $value[3][4][3] . '%' ?>" >
-											<input type="hidden" name="desgloseCeremoniaTotal" id="desgloseCeremoniaTotal" value="<?php echo number_format($value[3][4][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseDescuentoGenerico" id="desgloseDescuentoGenerico" value="<?php echo $value[3][5][1] ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoPrecio" id="desgloseDescuentoGenericoPrecio" value="<?php echo number_format($value[3][5][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
-
-       	    	    						<input type="submit" value="Quiero que me llamen" style="background-color: #1d40d3; font-size: 12px;">
-										</form>
-									</div>
-           							<div class="wpfunos-boton-llamar">
-										<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamar'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
-											<input type="hidden" name="accion" id="accion" value="2" >
-											<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
-											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
-											<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
-											<input type="hidden" name="precio" id="precio" value="<?php echo $_GET['precio']?>" >
-											<input type="hidden" name="preciodescuento" id="preciodescuento" value="<?php echo $_GET['preciodescuento']?>" >
-											<input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
-											<input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
-											<input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
-               								<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
-											<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
-											<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
-               								<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_GET['idUsuario']?>" >
-
-											<input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $value[3][0][1] ?>" >
-											<input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo number_format($value[3][0][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseBaseDescuento" id="desgloseBaseDescuento" value="<?php echo $value[3][0][3] . '%' ?>" >
-											<input type="hidden" name="desgloseBaseTotal" id="desgloseBaseTotal" value="<?php echo number_format($value[3][0][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseDestinoNombre" id="desgloseDestinoNombre" value="<?php echo $value[3][1][1] ?>" >
-											<input type="hidden" name="desgloseDestinoPrecio" id="desgloseDestinoPrecio" value="<?php echo number_format($value[3][1][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseDestinoDescuento" id="desgloseDestinoDescuento" value="<?php echo $value[3][1][3] . '%' ?>" >
-											<input type="hidden" name="desgloseDestinoTotal" id="desgloseDestinoTotal" value="<?php echo number_format($value[3][1][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseAtaudNombre" id="desgloseAtaudNombre" value="<?php echo $value[3][2][1] ?>" >
-											<input type="hidden" name="desgloseAtaudPrecio" id="desgloseAtaudPrecio" value="<?php echo number_format($value[3][2][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseAtaudDescuento" id="desgloseAtaudDescuento" value="<?php echo $value[3][2][3] . '%' ?>" >
-											<input type="hidden" name="desgloseAtaudTotal" id="desgloseAtaudTotal" value="<?php echo number_format($value[3][2][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseVelatorioNombre" id="desgloseVelatorioNombre" value="<?php echo $value[3][3][1] ?>" >
-											<input type="hidden" name="desgloseVelatorioPrecio" id="desgloseVelatorioPrecio" value="<?php echo number_format($value[3][3][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseVelatorioDescuento" id="desgloseVelatorioDescuento" value="<?php echo $value[3][3][3] . '%' ?>" >
-											<input type="hidden" name="desgloseVelatorioTotal" id="desgloseVelatorioTotal" value="<?php echo number_format($value[3][3][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseCeremoniaNombre" id="desgloseCeremoniaNombre" value="<?php echo $value[3][4][1] ?>" >
-											<input type="hidden" name="desgloseCeremoniaPrecio" id="desgloseCeremoniaPrecio" value="<?php echo number_format($value[3][4][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseCeremoniaDescuento" id="desgloseCeremoniaDescuento" value="<?php echo $value[3][4][3] . '%' ?>" >
-											<input type="hidden" name="desgloseCeremoniaTotal" id="desgloseCeremoniaTotal" value="<?php echo number_format($value[3][4][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseDescuentoGenerico" id="desgloseDescuentoGenerico" value="<?php echo $value[3][5][1] ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoPrecio" id="desgloseDescuentoGenericoPrecio" value="<?php echo number_format($value[3][5][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
-
-       	        							<input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 12px;">
-           	  							</form>
-           							</div>
-								</div>
-       						</div>
-      					</div>
-  					</div>
+				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamen'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
+					<input type="hidden" name="accion" id="accion" value="1" >
+					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+					<input type="submit" value="Quiero que me llamen" style="background-color: #1d40d3; font-size: 12px;">
+				</form>
 				</div>
+				<div class="wpfunos-boton-llamar">
+				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamar'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
+					<input type="hidden" name="accion" id="accion" value="2" >					
+					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
+					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+					<input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 12px;">
+				</form>
 				<?php
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
 				if($value[1] == $value[2]){
 					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosInferior') ) ;
 				}else{
@@ -946,69 +803,17 @@ class Wpfunos_Public {
 				$_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
 				$_GET['preciodescuento'] = '';
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
 				?>
-				<div class="elementor-container elementor-column-gap-default">
-					<div class="elementor-row">
-						<div class="elementor-column-wrap">
-							<div class="elementor-widget-wrap">
-								<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
-									<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
-										<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
-											<input type="hidden" name="accion" id="accion" value="1" >
-                							<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
-											<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
-											<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
-											<input type="hidden" name="seleccionUsuario" id="seleccionUsuario" value="<?php echo $_GET['seleccionUsuario']?>" >
-                							<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
-											<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
-                							<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
-                							<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_GET['idUsuario']?>" >
-											<input type="hidden" name="precio" id="precio" value="<?php echo $_GET['precio']?>" >
-											<input type="hidden" name="preciodescuento" id="preciodescuento" value="<?php echo $_GET['preciodescuento']?>" >
-
-											<input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
-											<input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
-											<input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
-
-											<input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $value[3][0][1] ?>" >
-											<input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo number_format($value[3][0][2], 0, ',', '.') . '€' ?>" >
-                							<input type="hidden" name="desgloseBaseDescuento" id="desgloseBaseDescuento" value="<?php echo $value[3][0][3] . '%' ?>" >
-											<input type="hidden" name="desgloseBaseTotal" id="desgloseBaseTotal" value="<?php echo number_format($value[3][0][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseDestinoNombre" id="desgloseDestinoNombre" value="<?php echo $value[3][1][1] ?>" >
-											<input type="hidden" name="desgloseDestinoPrecio" id="desgloseDestinoPrecio" value="<?php echo number_format($value[3][1][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseDestinoDescuento" id="desgloseDestinoDescuento" value="<?php echo $value[3][1][3] . '%' ?>" >
-											<input type="hidden" name="desgloseDestinoTotal" id="desgloseDestinoTotal" value="<?php echo number_format($value[3][1][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseAtaudNombre" id="desgloseAtaudNombre" value="<?php echo $value[3][2][1] ?>" >
-											<input type="hidden" name="desgloseAtaudPrecio" id="desgloseAtaudPrecio" value="<?php echo number_format($value[3][2][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseAtaudDescuento" id="desgloseAtaudDescuento" value="<?php echo $value[3][2][3] . '%' ?>" >
-											<input type="hidden" name="desgloseAtaudTotal" id="desgloseAtaudTotal" value="<?php echo number_format($value[3][2][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseVelatorioNombre" id="desgloseVelatorioNombre" value="<?php echo $value[3][3][1] ?>" >
-											<input type="hidden" name="desgloseVelatorioPrecio" id="desgloseVelatorioPrecio" value="<?php echo number_format($value[3][3][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseVelatorioDescuento" id="desgloseVelatorioDescuento" value="<?php echo $value[3][3][3] . '%' ?>" >
-											<input type="hidden" name="desgloseVelatorioTotal" id="desgloseVelatorioTotal" value="<?php echo number_format($value[3][3][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseCeremoniaNombre" id="desgloseCeremoniaNombre" value="<?php echo $value[3][4][1] ?>" >
-											<input type="hidden" name="desgloseCeremoniaPrecio" id="desgloseCeremoniaPrecio" value="<?php echo number_format($value[3][4][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseCeremoniaDescuento" id="desgloseCeremoniaDescuento" value="<?php echo $value[3][4][3] . '%' ?>" >
-											<input type="hidden" name="desgloseCeremoniaTotal" id="desgloseCeremoniaTotal" value="<?php echo number_format($value[3][4][4], 0, ',', '.') . '€' ?>" >
-
-											<input type="hidden" name="desgloseDescuentoGenerico" id="desgloseDescuentoGenerico" value="<?php echo $value[3][5][1] ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoPrecio" id="desgloseDescuentoGenericoPrecio" value="<?php echo number_format($value[3][5][2], 0, ',', '.') . '€' ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
-											<input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
-
-        	    	    					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 12px;">
-										</form>
-									</div>
-								</div>
-        					</div>
-	      				</div>
-  					</div>
-				</div>
-				</div><?php
+				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
+					<input type="hidden" name="accion" id="accion" value="1" >
+					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 12px;">
+				</form>
+				<?php
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
+				?></div><?php
 			}
 		}
 	}
@@ -1037,6 +842,26 @@ class Wpfunos_Public {
 		}
 	}
 
+	/**
+	 * Hook Cold Lead Aseguradoras
+	 *
+	 * add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
+	 */
+	public function wpfunosAseguradorasColdLead( ){
+		$IDusuario = $this->wpfunosGetUserid( $_GET['referencia'] );
+		$seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
+		$CP = get_post_meta( $IDusuario, $this->plugin_name . '_userCP', true );
+		$seguro = get_post_meta( $IDusuario, $this->plugin_name . '_userSeguro', true );
+		$respuesta = (explode(',',$seleccion));
+		//Si|1 , No|2
+		if( $seguro == 1 && get_option( 'wpfunos_APIPreventivaColdLeadPreventiva') ){
+			$this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLPreventiva'), 'Preventiva Cold' , get_option( 'wpfunos_APIPreventivaCampainPreventiva'), 4 );
+		}elseif( $seguro == 2 && get_option( 'wpfunos_APIPreventivaColdLeadElectium') ){
+			$this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLElectium'), 'Electium Cold' , get_option( 'wpfunos_APIPreventivaCampainElectium'), 4 );
+		}
+		
+  	}
+	
 	/**
 	 * Hook array resultados confirmados
 	 *
@@ -1163,66 +988,58 @@ class Wpfunos_Public {
 	
 	/**
 	 * Llamada API Preventiva $this->wpfunosLlamadaAPIPreventiva( 'https://fidelity.preventiva.com/ContactsImporter/api/Contact', 'Preventiva' );
-	 * 
-	 * "Nombre Y Apellidos"
-	 * "CP"
-	 * "Telefono 1"
-	 * "E-mail"
-	 * "Edad"
-	 * "Sexo"
-	 * "Id_lead"
-	 * "Id-cliente"
-	 * "FechaCarga"
-	 * "Direccion"
 	 */
-	public function wpfunosLlamadaAPIPreventiva( $URL, $Tipo, $campain ){
+	public function wpfunosLlamadaAPIPreventiva( $URL, $tipo, $campain, $accion ){
+		$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
+		if( strlen( $_GET['telefonoUsuario'] ) > 3  || $IDusuario == 0 ) return;
+		$local_time  = current_datetime();
+		$current_time = $local_time->getTimestamp() + $local_time->getOffset();
+		$fecha = gmdate("Ymd His",$current_time);
 		mt_srand(mktime());
 		$nuevareferencia = 'funos-'.(string)mt_rand();
-		$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
-		$seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
 		$CP = get_post_meta( $IDusuario, $this->plugin_name . '_userCP', true );
+		$email = get_post_meta( $IDusuario, $this->plugin_name . '_userMail', true );
+		$nombre = get_post_meta( $IDusuario, $this->plugin_name . '_userName', true );
+		$telefono =  str_replace(' ','', get_post_meta( $IDusuario, $this->plugin_name . '_userPhone', true ) ) ;
+		$seguro = get_post_meta( $IDusuario, $this->plugin_name . '_userSeguro', true );
+		$seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
 		$respuesta = (explode(',',$seleccion));
 		switch($respuesta[2]){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
 		$edad =  date("Y") - (int)$respuesta[3];
 		$ubicacion = strtr($respuesta[0],"+",",");
-		//$_GET['Email']
-		//$_GET['telefonoUsuario']
-		//$_GET['nombreUsuario']
 		//
-        $headers = array( 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode( get_option( 'wpfunos_APIPreventivaUsuarioPreventiva') . ':' . get_option( 'wpfunos_APIPreventivaPasswordPreventiva')  ), );
+		$headers = array( 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode( get_option( 'wpfunos_APIPreventivaUsuarioPreventiva') . ':' . get_option( 'wpfunos_APIPreventivaPasswordPreventiva')  ), );
         $body = '{
-			"Telefono 1": "' . $_GET['telefonoUsuario'] . '",
+			"phone": "' . $telefono . '",
 			"campain": "'. $campain .'",
-			"initDate": "20220221 090002",
+			"initDate": "' . $fecha .'",
 			"data": [
 				{"key": "Direccion", "value": "' . $ubicacion . '" },
-				{"key": "Nombre Y Apellidos", "value": "TEST ' . $_GET['nombreUsuario'] . '"},
-				{"key": "CP", "value": "' . $_GET['CPUsuario'] . '"},
-				{"key": "E-mail", "value": "' . $_GET['Email'] . '"},
+				{"key": "Nombre Y Apellidos", "value": "TEST ' . $nombre . '"},
+				{"key": "CP", "value": "' . $CP . '"},
+				{"key": "E-mail", "value": "' . $email . '"},
 				{"key": "Edad", "value": "' . $edad . '"},
 				{"key": "Sexo", "value": "' . $sexo . '"},
 				{"key": "Id-cliente", "value": "' . $nuevareferencia . '"},
-				{"key": "FechaCarga", "value": "' . date("Y-m-d H:i:s") . '" },
-				{"key": "Id_lead", "value": "1" },
 			]
 		}';
-//        $request = wp_remote_post( $URL, array( 'headers' => $headers, 'body' => $body, 'timeout' => 45 ) );
-//        if ( is_wp_error($request) ) {
-//            esc_html_e('alguna cosa ha ido mal','wpfunos'); 
-//            esc_html_e(': ' . $request->get_error_message() );
-//			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs( 'Request: Error message: ' . $this->dump( $request->get_error_message() ) );
-//           return;
-//        }
-//        $message = json_decode( $request['body'] );
-        
-        if(get_option($this->plugin_name . '_Debug')){
-            $this->custom_logs( 'Request: $URL: ' . $this->dump($URL) );
-            $this->custom_logs( 'Request: $headers: ' . $this->dump($headers) );
-            $this->custom_logs( 'Request: $body: ' . $this->dump($body) );
-  //          $this->custom_logs( 'Request: $message: ' . $this->dump($message) );
-            $this->custom_logs( '----' );
+        $request = wp_remote_post( $URL, array( 'headers' => $headers, 'body' => $body, 'timeout' => 45 ) );
+        if ( is_wp_error($request) ) {
+            esc_html_e('alguna cosa ha ido mal','wpfunos'); 
+            esc_html_e(': ' . $request->get_error_message() );
+			$this->custom_logs('==============');
+			//$this->custom_logs( 'Request: Usuario: ' . $this->dump( get_option( 'wpfunos_APIPreventivaUsuarioPreventiva') ) );
+			//$this->custom_logs( 'Request: Clave: ' . $this->dump( get_option( 'wpfunos_APIPreventivaPasswordPreventiva') ) );
+			$this->custom_logs( 'Request: Error message: ' . $this->dump( $request->get_error_message() ) );
+			$this->custom_logs('==============');
+           return;
         }
-		
+        $message = json_decode( $request['body'] );
+		$this->custom_logs('==============');
+		$this->custom_logs( 'Request: $URL: ' . $this->dump($URL) );
+		$this->custom_logs( 'Request: $headers: ' . $this->dump($headers) );
+		$this->custom_logs( 'Request: $body: ' . $this->dump($body) );
+		$this->custom_logs( 'Request: $message: ' . $this->dump($message) );
 		$my_post = array(
    			'post_title' => $nuevareferencia,
 			'post_type' => 'usuarios_wpfunos',
@@ -1230,13 +1047,14 @@ class Wpfunos_Public {
 			'meta_input'   => array(
 				$this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
 				$this->plugin_name . '_userReferencia' => sanitize_text_field( $nuevareferencia ),
-				$this->plugin_name . '_userName' => sanitize_text_field( $_GET['nombreUsuario'] ),
-				$this->plugin_name . '_userPhone' => sanitize_text_field( $_GET['telefonoUsuario'] ),
-				$this->plugin_name . '_userSeleccion' => sanitize_text_field( $_GET['seleccion']),
-				$this->plugin_name . '_userAccion' => sanitize_text_field( '4' ),
-				$this->plugin_name . '_userCP' => sanitize_text_field( $_GET['CPUsuario']),
-				$this->plugin_name . '_userMail' => sanitize_text_field( $_GET['Email']),
-				$this->plugin_name . '_userAPITipo' => sanitize_text_field( $Tipo ),
+				$this->plugin_name . '_userName' => sanitize_text_field( $nombre ),
+				$this->plugin_name . '_userPhone' => sanitize_text_field( $telefono ),
+				$this->plugin_name . '_userSeleccion' => sanitize_text_field( $seleccion ),
+				$this->plugin_name . '_userAccion' => sanitize_text_field( $accion ),
+				$this->plugin_name . '_userCP' => sanitize_text_field( $CP ),
+				$this->plugin_name . '_userMail' => sanitize_text_field( $email ),
+				$this->plugin_name . '_userSeguro' => sanitize_text_field( $seguro ),
+				$this->plugin_name . '_userAPITipo' => sanitize_text_field( $tipo ),
 				$this->plugin_name . '_userAPIBody' => sanitize_text_field( $body),
 				$this->plugin_name . '_userAPIMessage' => sanitize_text_field( $message ),
 				),
@@ -1247,7 +1065,7 @@ class Wpfunos_Public {
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Nueva API: ' . $this->dumpPOST( $this->getUserIP() ));
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('ID: ' . $this->dumpPOST( $post_id ));
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $nuevareferencia ));
-			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('telefonoUsuario: ' . $this->dumpPOST( $_GET['telefonoUsuario'] ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('telefonoUsuario: ' . $this->dumpPOST( $telefono ));
 		}else{
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Error 3 Nueva API: ' . $this->dumpPOST( $this->getUserIP() ));

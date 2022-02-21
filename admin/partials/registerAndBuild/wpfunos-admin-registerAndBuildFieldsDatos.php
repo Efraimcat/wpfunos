@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Sección Compara precios datos
 	add_settings_field($this->plugin_name . '_seccionComparaPreciosDatos',
-		esc_html__('Sección compara precios Datos', 'wpfunos'),
+		'Sección compara precios Datos <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosDatos )</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_datos_section',
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	);
 // Sección Compara precios datos Futuro
 	add_settings_field($this->plugin_name . '_seccionComparaPreciosDatosAseguradoras',
-		esc_html__('Sección compara precios Datos Aseguradoras', 'wpfunos'),
+		'Sección compara precios Datos Aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosDatosAseguradoras)</h6>',
 		array( $this, 'wpfunos_render_settings_field' ),
 		'wpfunos_general_settings',
 		'wpfunos_general_datos_section',
