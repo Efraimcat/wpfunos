@@ -22,7 +22,7 @@ add_settings_section('wpfunos_mail_section',    				// ID used to identify this 
 // Activar Mail Correo Boton 1 Admin
  add_settings_field(
  	$this->plugin_name . '_activarCorreoBoton1Admin',
- 	esc_html__('Activar Correo Boton 1 Admin', 'wpfunos'),
+ 	'Activar Correo Boton 1 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoBoton1Admin)</h6>',
  	array( $this, 'wpfunos_render_settings_field' ),
  	'wpfunos_mail_settings',
  	'wpfunos_mail_section',
@@ -31,7 +31,7 @@ add_settings_section('wpfunos_mail_section',    				// ID used to identify this 
 // Destino Mail Correo Boton 1 Admin
 add_settings_field(
 	$this->plugin_name . '_mailCorreoBoton1Admin',
-	esc_html__('Mail Correo Boton 1 Admin', 'wpfunos'),
+	'Mail Correo Boton 1 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBoton1Admin)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_mail_settings',
 	'wpfunos_mail_section',
@@ -40,7 +40,7 @@ add_settings_field(
 // Destino Mail Correo Cco Boton 1 Admin
 add_settings_field(
 	$this->plugin_name . '_mailCorreoCcoBoton1Admin',
-	esc_html__('Mail Correo Cco Boton 1 Admin', 'wpfunos'),
+	'Mail Correo Cco Boton 1 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoBoton1Admin)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_mail_settings',
 	'wpfunos_mail_section',
@@ -49,7 +49,7 @@ add_settings_field(
 // Destino Mail Correo Bcc Boton 1 Admin
 add_settings_field(
 	$this->plugin_name . '_mailCorreoBccBoton1Admin',
-	esc_html__('Mail Correo Bcc Boton 1 Admin', 'wpfunos'),
+	'Mail Correo Bcc Boton 1 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccBoton1Admin)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_mail_settings',
 	'wpfunos_mail_section',
@@ -58,7 +58,7 @@ add_settings_field(
 // Asunto Mail Correo Boton 1 Admin
 add_settings_field(
 	$this->plugin_name . '_asuntoCorreoBoton1Admin',
-	esc_html__('Asunto Correo Boton 1 Admin', 'wpfunos'),
+	'Asunto Correo Boton 1 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreoBoton1Admin)</h6>',
 	array( $this, 'wpfunos_render_settings_field' ),
 	'wpfunos_mail_settings',
 	'wpfunos_mail_section',
@@ -67,7 +67,7 @@ add_settings_field(
 // Mensaje Mail Correo Boton 1 Admin
 add_settings_field(
 	$this->plugin_name . '_mensajeCorreoBoton1Admin',
-	esc_html__('Mensaje Correo Boton 1 Admin', 'wpfunos'),
+	'Mensaje Correo Boton 1 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoBoton1Admin)</h6>',
 	array( $this, 'wpfunos_intro_render' ),
 	'wpfunos_mail_settings',
     'wpfunos_mail_section',

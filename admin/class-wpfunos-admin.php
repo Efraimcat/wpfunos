@@ -60,6 +60,7 @@ class Wpfunos_Admin {
 		add_action('admin_init', array( $this, 'registerAndBuildMail3' ));
 		add_action('admin_init', array( $this, 'registerAndBuildMail4' ));
 		add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
+		add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
 		add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_funerarias_wpfunos', array( $this, 'setupfunerarias_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
@@ -213,6 +214,9 @@ class Wpfunos_Admin {
 	public function registerAndBuildAPIPreventiva() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIPreventiva.php';
 	}
+	public function registerAndBuildCorreoAPIPreventiva() {
+		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailPreventiva.php';
+	}
 	public function registerAndBuildFieldsDatos() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDatos.php';
 	}
@@ -303,7 +307,14 @@ class Wpfunos_Admin {
 		<hr />
 		<?php
 	}
-	
+	public function wpfunos_display_mail_account_Preventiva() {
+		?>
+		<hr/>
+		<p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes varialbles:', 'wpfunos'); ?></p>
+		<p>[nombreUsuario], [telefono], [Email], [referencia], [CPUsuario], [ubicacion], [seguro], [sexo],  [edad], [tipoAPI]</p>
+		<hr />
+		<?php
+	}
 	/*********************************/
 	/*****  METABOXES  CPT      ******/
 	/*********************************/
@@ -334,7 +345,7 @@ class Wpfunos_Admin {
 	public function setupaseguradoras_wpfunosMetaboxes(){
 		 /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
 		 add_meta_box('aseguradoras_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'aseguradoras_wpfunos_data_meta_box'), 'aseguradoras_wpfunos', 'normal', 'high' );
-		 remove_meta_box('wpseo_meta', 'aseguradors_wpfunos', 'normal');
+		 remove_meta_box('wpseo_meta', 'aseguradoras_wpfunos', 'normal');
 	}
 
 	/*********************************/
