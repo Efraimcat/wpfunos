@@ -56,20 +56,6 @@
 				
 		<?php gmw_search_form_taxonomies( $gmw ); ?>		
 				
-		<?php do_action( 'gmw_search_form_before_distance', $gmw ); ?>
-		
-		<div id="wpfunos-search-form-mensaje-radius">
-			Encuentra aseguradoras en un radio de
-		</div>
-		
-		<div id="wpfunos-search-form-radius">
-        
-			<?php gmw_search_form_radius( $gmw ); ?>
-        
-			<?php gmw_search_form_units( $gmw ); ?>
-			
-		</div>
-            		
 		<div id="wpfunos-search-form-submit">
 			
 			<?php gmw_search_form_submit_button( $gmw ); ?>

@@ -43,6 +43,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
  </li>
  <li class="aseguradoras_wpfunos_list">	
+	 <label for="<?php esc_html_e($this->plugin_name . '_aseguradorasColdLead' ); ?>"> <?php esc_html_e('Cold Lead', 'wpfunos');?></label> <?php
+        $this->wpfunos_render_settings_field(array(
+          'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_aseguradorasColdLead','name' => $this->plugin_name . '_aseguradorasColdLead',
+          'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID
+    ));
+	?>
     <label for="<?php esc_html_e($this->plugin_name . '_aseguradorasActivo' ); ?>"> <?php esc_html_e('Activo', 'wpfunos');?></label> <?php
         $this->wpfunos_render_settings_field(array(
           'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_aseguradorasActivo','name' => $this->plugin_name . '_aseguradorasActivo',
@@ -55,6 +61,26 @@ if ( ! defined( 'ABSPATH' ) ) {
           'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID
     ));
 	?>
+	<label for="<?php esc_html_e($this->plugin_name . '_aseguradorasTipoSeguro' ); ?>"> <?php esc_html_e('Tipo de Seguro', 'wpfunos');?></label> <?php
+		$this->wpfunos_render_settings_field(array(
+          'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_aseguradorasTipoSeguro','name' => $this->plugin_name . '_aseguradorasTipoSeguro',
+          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID
+    ));
+	?>
+	<label for="<?php esc_html_e($this->plugin_name . '_aseguradorasOrden' ); ?>"> <?php esc_html_e('Orden', 'wpfunos');?></label> <?php
+		$this->wpfunos_render_settings_field(array(
+          'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_aseguradorasOrden','name' => $this->plugin_name . '_aseguradorasOrden',
+          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID
+    ));
+	?>
+	<?php
+	$notes_aseguradorasNotas = get_post_meta( $post->ID, $this->plugin_name . '_aseguradorasNotas', true );
+ 	$args_aseguradorasNotas = array( 'textarea_name' => $this->plugin_name . '_aseguradorasNotas', 'wpautop' => false, ); 
+	?>
+	<li><label for="'.$this->plugin_name.'_aseguradorasNotas" style="font-size: 32px;">Notas Aseguradora</label>
+   		<?php	wp_editor( $notes_aseguradorasNotas, $this->plugin_name . '_aseguradorasNotas',$args_aseguradorasNotas); ?>
+ 	</li> 
+	 
  </li>
 
 

@@ -46,8 +46,10 @@ class Wpfunos_Admin {
 		add_action('init', array( $this, 'servicios_custom_post_type' ));
 		add_action('init', array( $this, 'codigospostales_custom_post_type' ));
 		add_action('init', array( $this, 'aseguradoras_custom_post_type' ));
+		add_action('init', array( $this, 'tipos_seguro_custom_post_type' ));
 		add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
 		add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
+		add_action('admin_init', array( $this, 'registerAndBuildFieldsAseguradoras' ));			// Compara Debug
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsPagina' ));				// Página inicial
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsDatos' ));				// Compara Datos
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsResultados' )); 			// Compara Resultados cabecera y Pie
@@ -66,13 +68,15 @@ class Wpfunos_Admin {
 		add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_cpostales_wpfunos', array( $this, 'setupcpostales_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_aseguradoras_wpfunos', array( $this, 'setupaseguradoras_wpfunosMetaboxes' ));
+		add_action('add_meta_boxes_tipos_seguro_wpfunos', array( $this, 'setuptiposseguro_wpfunosMetaboxes' ));
 		add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
 		add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
 		add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
 		add_action('save_post_cpostales_wpfunos', array( $this, 'savecpostales_wpfunosMetaBoxData' ));
 		add_action('save_post_aseguradoras_wpfunos', array( $this, 'saveaseguradoras_wpfunosMetaBoxData' ));
+		add_action('save_post_tipos_seguro_wpfunos', array( $this, 'savetiposeguro_wpfunosMetaBoxData' ));
 	}
-
+	
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
@@ -116,6 +120,11 @@ class Wpfunos_Admin {
 	}
 
 	/*********************************/
+	/*****  SHORTCODES          ******/
+	/*********************************/
+
+	
+	/*********************************/
 	/*****  MENUS               ******/
 	/*********************************/
 	
@@ -127,7 +136,8 @@ class Wpfunos_Admin {
 		add_menu_page( 'WpFunos', 'WpFunos', 'administrator', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
 		add_menu_page( 'WpFunos Config', 'WpFunos Config', 'administrator', $this->plugin_name.'config', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
 		// add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
-		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración WpFunos', 'wpfunos'), esc_html__('Configuración', 'wpfunos'), 'administrator', $this->plugin_name . '-settings', array( $this, 'displayPluginAdminSettings' ));
+		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', $this->plugin_name . '-settings', array( $this, 'displayPluginAdminSettings' ));
+		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', $this->plugin_name . '-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Correo WpFunos', 'wpfunos'), esc_html__('Correo', 'wpfunos'), 'administrator', $this->plugin_name . '-mail', array( $this, 'displayPluginAdminMail' ));
 		add_submenu_page( $this->plugin_name.'config', esc_html__('API Preventiva WpFunos', 'wpfunos'), esc_html__('API Preventiva', 'wpfunos'), 'administrator', $this->plugin_name . '-APIPreventiva', array( $this, 'displayPluginAdminAPIPreventiva' ));
 
@@ -156,6 +166,17 @@ class Wpfunos_Admin {
 	    require_once 'partials/' . $this->plugin_name . '-admin-settings-display.php';
 	}
 	/**
+	 * Aseguradoras menu display.
+	 */
+	public function displayPluginAdminAseguradoras() {
+	    if (isset($_GET['error_message'])) {
+	        add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
+	        do_action('admin_notices', sanitize_text_field($_GET['error_message']));
+	    }
+	    require_once 'partials/' . $this->plugin_name . '-admin-aseguradoras-display.php';
+	}
+	
+	/**
 	 * Mail menu display.
 	 */
 	public function displayPluginAdminMail() {
@@ -180,7 +201,7 @@ class Wpfunos_Admin {
 	 */
 	public function displayPluginAdminLogs(){
 	    if (isset($_GET['error_message'])) {
-	        add_action('admin_notices', array( $this, 'eccocarSettingsMessages' ));
+	        add_action('admin_notices', array( $this, 'wpfunosSettingsMessages' ));
 	        do_action('admin_notices', sanitize_text_field($_GET['error_message']));
 	    }
 	    require_once 'partials/' . $this->plugin_name . '-admin-logs-display.php';
@@ -195,6 +216,9 @@ class Wpfunos_Admin {
 	 */
 	public function registerAndBuildFields() {
 	    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFields.php';
+	}
+	public function registerAndBuildFieldsAseguradoras() {
+	    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAseguradoras.php';
 	}
 	public function registerAndBuildFieldsPagina() {
       require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildPagina.php';
@@ -259,6 +283,9 @@ class Wpfunos_Admin {
 	 */
 	public function wpfunos_display_general_account() {
 	    ?><p><?php esc_html_e('Si está activo guarda los datos del debug en ficheros en /wp-contenet/uploads/wpfunos-logs/ y los muestra en la pestaña "logs".', 'wpfunos'); ?></p><?php
+	}
+	public function wpfunos_display_aseguradoras_account() {
+		?><p><?php esc_html_e('Configuración de las aseguradoras.', 'wpfunos'); ?></p><?php
 	}
 	public function wpfunos_display_general_account_pagina() {
 	    ?>
@@ -347,7 +374,12 @@ class Wpfunos_Admin {
 		 add_meta_box('aseguradoras_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'aseguradoras_wpfunos_data_meta_box'), 'aseguradoras_wpfunos', 'normal', 'high' );
 		 remove_meta_box('wpseo_meta', 'aseguradoras_wpfunos', 'normal');
 	}
-
+	public function setuptiposseguro_wpfunosMetaboxes(){
+		 /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
+		 add_meta_box('tipos_seguro_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'tipos_seguro_wpfunos_data_meta_box'), 'tipos_seguro_wpfunos', 'normal', 'high' );
+		 remove_meta_box('wpseo_meta', 'tipos_seguro_wpfunos', 'normal');
+	}
+	
 	/*********************************/
 	/*****  SALVAR DATOS META CPT ****/
 	/*********************************/
@@ -396,6 +428,13 @@ class Wpfunos_Admin {
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
 		if (! current_user_can('manage_options')) return;
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-aseguradoras-fields.php';
+	}
+	public function savetiposeguro_wpfunosMetaBoxData( $post_id ){
+		if (! isset($_POST[$this->plugin_name . '_tipos_seguro_wpfunos_meta_box_nonce'])) return;
+		if (! wp_verify_nonce($_POST[$this->plugin_name . '_tipos_seguro_wpfunos_meta_box_nonce'], $this->plugin_name . '_tipos_seguro_wpfunos_meta_box')) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (! current_user_can('manage_options')) return;
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tipos-seguro-fields.php';
 	}
 	
 	/*********************************/
@@ -561,6 +600,38 @@ class Wpfunos_Admin {
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'aseguradoras_wpfunos', $customPostTypeArgs );
 	}
+	public function tipos_seguro_custom_post_type(){
+		$customPostTypeArgs = array(
+			'label' => esc_html__('Tipos de seguro', 'wpfunos'),
+			'labels'=>
+			array(
+					'name' => esc_html__('Tipos de seguro', 'wpfunos'),
+					'singular_name' => esc_html__('Tipo de seguro', 'wpfunos'),
+					'add_new' => esc_html__('Añadir tipo de seguro', 'wpfunos'),
+					'add_new_item' => esc_html__('Añadir nuevo tipo de seguro', 'wpfunos'),
+					'edit_item' => esc_html__('Editar tipo de seguro', 'wpfunos'),
+					'new_item' => esc_html__('Nuevo tipo de seguro', 'wpfunos'),
+					'view_item' => esc_html__('Ver tipo de seguro', 'wpfunos'),
+					'search_items' => esc_html__('Buscar tipo de seguro', 'wpfunos'),
+					'not_found' => esc_html__('No se encontraron tipos de seguro', 'wpfunos'),
+					'not_found_in_trash' => esc_html__('No se encontraron tipos de seguro en la papelera', 'wpfunos'),
+					'menu_name' => esc_html__('Tipos de seguro', 'wpfunos'),
+					'name_admin_bar' => esc_html__('Tipos de seguro', 'wpfunos'),
+			),
+			'public'=>false,
+			'description' => esc_html__('Tipos de seguro', 'wpfunos'),
+			'exclude_from_search' => true,
+			'show_ui' => true,
+			'show_in_menu' => $this->plugin_name,
+			'supports'=>array('title', 'custom_fields'),
+			'capability_type' => 'post',
+			'capabilities' => array('create_posts' => true),
+			'map_meta_cap' => true,
+			'taxonomies'=>array()
+		);
+		// Post type, $args - the Post Type string can be MAX 20 characters
+		register_post_type( 'tipos_seguro_wpfunos', $customPostTypeArgs );
+	}
 
 	/*********************************/
 	/*****  MOSTRAR METABOXES   ******/
@@ -588,6 +659,10 @@ class Wpfunos_Admin {
 	public function aseguradoras_wpfunos_data_meta_box($post){
 		wp_nonce_field( $this->plugin_name.'_aseguradoras_wpfunos_meta_box', $this->plugin_name.'_aseguradoras_wpfunos_meta_box_nonce' );
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-aseguradoras-display.php';
+	}
+	public function tipos_seguro_wpfunos_data_meta_box($post){
+		wp_nonce_field( $this->plugin_name.'_tipos_seguro_wpfunos_meta_box', $this->plugin_name.'_tipos_seguro_wpfunos_meta_box_nonce' );
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tipos-seguro-display.php';
 	}
 
 	/*********************************/

@@ -71,12 +71,9 @@ class Wpfunos_Public {
 		add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
-		add_action( 'wpfunos_result_grid_electium', array( $this, 'wpfunosResultGridElectium' ), 10, 1 );
-		add_action( 'wpfunos_result_grid_prima_unica', array( $this, 'wpfunosResultGridPrimaUnica' ), 10, 1 );
-		add_action( 'wpfunos_result_grid_prima_natural', array( $this, 'wpfunosResultGridPrimaNatural' ), 10, 1 );
-		add_action( 'wpfunos_result_grid_prima_nivelada', array( $this, 'wpfunosResultGridPrimaNivelada' ), 10, 1 );
 		add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
 		add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
+		add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
 		add_filter( 'wpfunos_get_userid', array( $this, 'wpfunosGetUserid' ) );
 		add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
 		add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 3 );
@@ -144,9 +141,7 @@ class Wpfunos_Public {
 			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatosAseguradoras') );
 		}elseif( isset( $_GET['referencia'] ) ){
 			$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
-			if($IDusuario == 0){  
-				echo do_shortcode( get_option('wpfunos_paginaComparadorAseguradoras') );
-			}else{
+			if($IDusuario != 0){  
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosAseguradorasCabecera') );
 				echo do_shortcode( get_option('wpfunos_formGeoMyWpAseguradoras') );
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosAseguradorasPie') );
@@ -336,7 +331,7 @@ class Wpfunos_Public {
 			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_3Comentario', true ) );
 		}
 	}
-
+	
 	/**
 	* Shortcode [wpfunos-pagina-servicios]
 	*/
@@ -849,70 +844,6 @@ class Wpfunos_Public {
 	}
 
 	/**
-	 * Hook mostrar entrada Electium
-	 *
-	 * add_action( 'wpfunos_result_grid_electium', array( $this, 'wpfunosResultGridElectium' ), 10, 1 );
-	 */
-	public function wpfunosResultGridElectium( $wpfunos_electium ){
-		if(count($wpfunos_electium) != 0){
-			?><div class="wpfunos-titulo"><p></p><center><h2>Electium</h2></center></div><?php
-			foreach ($wpfunos_electium as $value) {
-				?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
-				
-				?></div><?php
-			}
-		}
-	}
-	
-	/**
-	 * Hook mostrar entrada Prima Única
-	 *
-	 * add_action( 'wpfunos_result_grid_prima_unica', array( $this, 'wpfunosResultGridPrimaUnica' ), 10, 1 );
-	 */
-	public function wpfunosResultGridPrimaUnica( $wpfunos_prima_unica ){
-		if(count($wpfunos_prima_unica) != 0){
-			?><div class="wpfunos-titulo"><p></p><center><h2>Seguros de prima única</h2></center></div><?php
-			foreach ($wpfunos_prima_unica as $value) {
-				?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
-				
-				?></div><?php
-			}
-		}		
-	}
-	
-	/**
-	 * Hook mostrar entrada Prima Natural
-	 *
-	 * add_action( 'wpfunos_result_grid_prima_natural', array( $this, 'wpfunosResultGridPrimaNatural' ), 10, 1 );
-	 */
-	public function wpfunosResultGridPrimaNatural( $wpfunos_prima_natural ){
-		if(count($wpfunos_prima_natural) != 0){
-			?><div class="wpfunos-titulo"><p></p><center><h2>Seguros de prima natural</h2></center></div><?php
-			foreach ($wpfunos_prima_natural as $value) {
-				?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
-				
-				?></div><?php
-			}
-		}		
-	}
-	
-	/**
-	 * Hook mostrar entrada Prima Nivelada
-	 *
-	 * add_action( 'wpfunos_result_grid_prima_nivelada', array( $this, 'wpfunosResultGridPrimaNivelada' ), 10, 1 );
-	 */
-	public function wpfunosResultGridPrimaNivelada( $wpfunos_prima_nivelada ){
-		if(count($wpfunos_prima_nivelada) != 0){
-			?><div class="wpfunos-titulo"><p></p><center><h2>Seguros de prima nivelada</h2></center></div><?php
-			foreach ($wpfunos_prima_nivelada as $value) {
-				?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
-				
-				?></div><?php
-			}
-		}		
-	}
-	
-	/**
 	 * Hook Cold Lead Aseguradoras
 	 *
 	 * add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
@@ -931,6 +862,75 @@ class Wpfunos_Public {
 		}
 		
   	}
+	
+	/**
+	 * Hook Resultados Aseguradoras
+	 *
+	 * add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
+	 */
+	public function wpfunosAseguradorasResultados( ){
+		//$IDusuario = apply_filters('wpfunos_get_userid', $_GET['referencia']);
+		//$seleccion = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
+		//$respuesta = (explode(',',$seleccion));
+		//switch($respuesta[2]){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
+		//$_GET['edad'] =  date("Y") - (int)$respuesta[3];
+		//$_GET['telefonoUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
+		//$_GET['seleccionUsuario'] = $seleccion;
+		//$_GET['CPUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userCP', true );
+		//$_GET['nombreUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userName', true );
+		//$_GET['Email'] = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
+		//$_GET['idUsuario'] = $IDusuario;
+		//$_GET['seguro'] = get_post_meta( $IDusuario, 'wpfunos_userSeguro', true );
+		$args = array(
+			'post_status' => 'publish',
+			'post_type' => 'tipos_seguro_wpfunos',
+			'meta_key' => 'wpfunos_tipoSeguroOrden',
+			'orderby' => 'meta_value_num',
+			'meta_type' => 'TEXT',
+			'order' => 'ASC'
+		);
+		$my_query = new WP_Query( $args );
+		if ( $my_query->have_posts() ) :
+			while ( $my_query->have_posts() ) : $my_query->the_post();
+				$temp_query = $wp_query;  // store it
+				$IDtipo = get_the_ID();
+				?><div class="wpfunos-titulo-aseguradoras"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
+				$args = array(
+					'post_status' => 'publish',
+          			'post_type' => 'aseguradoras_wpfunos',
+                    'meta_query' => array(
+                        array(
+                            'key'     => 'wpfunos_aseguradorasTipoSeguro',
+                            'value'   => $IDtipo,
+                            'compare' => 'IN',
+                        ),
+                    ),
+					'meta_key'   => 'wpfunos_aseguradorasOrden',
+					'orderby'    => 'meta_value_num',
+          			"order" => 'ASC'
+              	);
+    			$wp_query = new WP_Query($args);
+    			while ($wp_query->have_posts()) : $wp_query->the_post();
+					$IDaseguradora = get_the_ID();
+					if( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasActivo', true ) ){
+						?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
+						$_GET['nombre'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNombre', true );
+						echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	
+						?><div class="wpfunos-busqueda-aseguradoras-inferior"><?php
+						echo  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true );
+						?></div></div><?php
+					}
+        		endwhile;
+				if (isset($wp_query)) $wp_query = $temp_query; // restore loop
+				?> <div class="clear"></div><?php
+				?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
+				$_GET['argumentario'] = get_post_meta( $IDtipo, 'wpfunos_tipoSeguroComentario', true );
+				echo do_shortcode( get_option('wpfunos_seccionAseguradorasArgumentario') );
+				?></div><?php
+			endwhile;
+		endif;
+		wp_reset_postdata();
+	}
 	
 	/**
 	 * Hook array resultados confirmados
