@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?></li>
 	<?php
 	$notes_tipoSeguroComentario = get_post_meta( $post->ID, $this->plugin_name . '_tipoSeguroComentario', true );
- 	$args_tipoSeguroComentario = array( 'textarea_name' => $this->plugin_name . '_tipoSeguroComentario', );
+ 	$args_tipoSeguroComentario = array( 'textarea_name' => $this->plugin_name . '_tipoSeguroComentario',  'wpautop' => false,);
 	?>
  	<li><label for="'.$this->plugin_name.'_tipoSeguroComentario" style="font-size: 32px;">Notas</label>
    		<?php	wp_editor( $notes_tipoSeguroComentario, $this->plugin_name . '_tipoSeguroComentario',$args_tipoSeguroComentario); ?>

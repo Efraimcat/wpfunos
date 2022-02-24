@@ -17,18 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wrap">
 	<h2><?php esc_html_e( get_admin_page_title() .' '.$this->version); ?></h2>
 	<?php settings_errors(); ?>
-	<h3><?php esc_html_e( 'Configuración WpFunos', 'wpfunos' )?></h3>
+	<h3><?php esc_html_e( 'Directorios WpFunos', 'wpfunos' )?></h3>
 	<img
 		src="<?php esc_html_e( plugin_dir_url( __DIR__ ) . 'img/' ); ?>funos-logo-450x450.png"
 		alt="nic-app" width="350" height="350">
 	<hr />
-	<p><strong>Configuración</strong></p>
+	<p><strong>Directorio</strong></p>
 		<ul>
-			<li><strong>Configuración servicios</strong>: Parámetros de la página de búsqueda de servicios.</li>
-			<li><strong>Configuración aseguradoras</strong>: Paŕámetros de la búsqueda de seguros.</li>
-			<li><strong>Configuración correo</strong>: Definición de direcciones de envio, asunto y cuerpo entre otros de los correo que envia Funos.</li>
-			<li><strong>Configuración API Preventiva</strong>: Paŕámetros de la conexión a los WebServices de Preventiva.</li>
-			<li><strong>Logs</strong>: Consulta de los ficheros de log de la aplicación.</li>
+			<li>Configuración parámetros directorio</li>
 		</ul>
 		<hr/>
 	<div id="wpfunos-intro">

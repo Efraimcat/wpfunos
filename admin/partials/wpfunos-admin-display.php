@@ -25,10 +25,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p><strong>Bases de datos de funos.es</strong></p>
 		<ul>
 			<li>Usuarios</li>
-			<li>Funererias</li>
 			<li>Servicios</li>
-			<li>Códigos postales</li>
 			<li>Aseguradoras</li>
+			<li>Tipos de seguro</li>
+			<li>Códigos postales</li>
+			<li>Funerarias</li>
 		</ul>
 		<hr/>
 	<div id="wpfunos-intro">

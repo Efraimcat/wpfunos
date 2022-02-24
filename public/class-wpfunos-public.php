@@ -918,6 +918,24 @@ class Wpfunos_Public {
 						echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	
 						?><div class="wpfunos-busqueda-aseguradoras-inferior"><?php
 						echo  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true );
+						require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
+						?>
+						<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamenAseguradora'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
+							<input type="hidden" name="accion" id="accion" value="1" >
+							<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+							<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+							<input type="submit" value="Quiero que me llamen" style="background-color: #1d40d3; font-size: 14px;">
+						</form>
+						</div>
+						<div class="wpfunos-boton-llamar">
+						<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamarAseguradora'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
+							<input type="hidden" name="accion" id="accion" value="2" >					
+							<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
+							<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+							<input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 14px;">
+						</form>
+						<?php
+						require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';		
 						?></div></div><?php
 					}
         		endwhile;
@@ -1062,6 +1080,7 @@ class Wpfunos_Public {
 		$local_time  = current_datetime();
 		$current_time = $local_time->getTimestamp() + $local_time->getOffset();
 		$fecha = gmdate("Ymd His",$current_time);
+		$fechacarga = gmdate("Y-m-d H:i:s",$current_time);
 		mt_srand(mktime());
 		$nuevareferencia = 'funos-'.(string)mt_rand();
 		$CP = get_post_meta( $IDusuario, $this->plugin_name . '_userCP', true );
@@ -1078,16 +1097,17 @@ class Wpfunos_Public {
 		$headers = array( 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode( get_option( 'wpfunos_APIPreventivaUsuarioPreventiva') . ':' . get_option( 'wpfunos_APIPreventivaPasswordPreventiva')  ), );
         $body = '{
 			"phone": "' . $telefono . '",
-			"campain": "'. $campain .'",
+			"campaign": "'. $campain .'",
 			"initDate": "' . $fecha .'",
 			"data": [
 				{"key": "Direccion", "value": "' . $ubicacion . '" },
-				{"key": "Nombre Y Apellidos", "value": "TEST ' . $nombre . '"},
+				{"key": "Nombre Y Apellidos", "value": "' . $nombre . '"},
 				{"key": "CP", "value": "' . $CP . '"},
 				{"key": "E-mail", "value": "' . $email . '"},
 				{"key": "Edad", "value": "' . $edad . '"},
 				{"key": "Sexo", "value": "' . $sexo . '"},
-				{"key": "Id-cliente", "value": "' . $nuevareferencia . '"},
+				{"key": "Id_cliente", "value": "' . $nuevareferencia . '"},
+				{"key": "FechaCarga", "value": "' . $fechacarga . '"}
 			]
 		}';
 		$this->custom_logs('==============');
@@ -1099,14 +1119,12 @@ class Wpfunos_Public {
             esc_html_e('alguna cosa ha ido mal','wpfunos'); 
             esc_html_e(': ' . $request->get_error_message() );
 			$this->custom_logs('==============');
-			//$this->custom_logs( 'Request: Usuario: ' . $this->dump( get_option( 'wpfunos_APIPreventivaUsuarioPreventiva') ) );
-			//$this->custom_logs( 'Request: Clave: ' . $this->dump( get_option( 'wpfunos_APIPreventivaPasswordPreventiva') ) );
 			$this->custom_logs( 'Request: Error message: ' . $this->dump( $request->get_error_message() ) );
 			$this->custom_logs('==============');
            return;
         }
-        $message = json_decode( $request['body'] );
 		$this->custom_logs( 'Request: $request: ' . $this->dump($request) );
+		$codigo = json_decode( $request['code'] );
 		$my_post = array(
    			'post_title' => $nuevareferencia,
 			'post_type' => 'usuarios_wpfunos',
@@ -1115,7 +1133,7 @@ class Wpfunos_Public {
 				$this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
 				$this->plugin_name . '_userReferencia' => sanitize_text_field( $nuevareferencia ),
 				$this->plugin_name . '_userName' => sanitize_text_field( $nombre ),
-				$this->plugin_name . '_userPhone' => sanitize_text_field( $telefono ),
+				$this->plugin_name . '_userPhone' => sanitize_text_field( substr($telefono,0,3).' '. substr($telefono,3,2).' '. substr($telefono,5,2).' '. substr($telefono,7,2) ),
 				$this->plugin_name . '_userSeleccion' => sanitize_text_field( $seleccion ),
 				$this->plugin_name . '_userAccion' => sanitize_text_field( $accion ),
 				$this->plugin_name . '_userCP' => sanitize_text_field( $CP ),
@@ -1123,10 +1141,10 @@ class Wpfunos_Public {
 				$this->plugin_name . '_userSeguro' => sanitize_text_field( $seguro ),
 				$this->plugin_name . '_userAPITipo' => sanitize_text_field( $tipo ),
 				$this->plugin_name . '_userAPIBody' => sanitize_text_field( $body),
-				$this->plugin_name . '_userAPIMessage' => sanitize_text_field( $message ),
+				$this->plugin_name . '_userAPIMessage' => $request,
 				),
 		);
-		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) { 
+		if( !strrpos($request,'Conflict') ){
 			$post_id = wp_insert_post($my_post);
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Nueva API: ' . $this->dumpPOST( $this->getUserIP() ));
