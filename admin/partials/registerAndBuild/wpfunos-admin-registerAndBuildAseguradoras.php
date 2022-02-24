@@ -19,6 +19,25 @@ add_settings_section('wpfunos_aseguradoras_section',    		// ID used to identify
    'wpfunos_aseguradoras_settings'                 				// Page on which to add this section of options
  );
 
+// Página llamar
+	add_settings_field(
+		$this->plugin_name . '_paginaAseguradorasLlamar',
+   		'Página aseguradoras llamar <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaAseguradorasLlamar)</h6>', 
+   		array( $this, 'wpfunos_render_settings_field' ),
+     	'wpfunos_aseguradoras_settings',
+     	'wpfunos_aseguradoras_section',
+     	array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_paginaAseguradorasLlamar','name' => $this->plugin_name . '_paginaAseguradorasLlamar','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+ 	);
+// Página que me llamen
+	add_settings_field(
+		$this->plugin_name . '_paginaAseguradorasLlamen',
+   		'Página aseguradoras qque me llamen <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaAseguradorasLlamen)</h6>', 
+   		array( $this, 'wpfunos_render_settings_field' ),
+     	'wpfunos_aseguradoras_settings',
+     	'wpfunos_aseguradoras_section',
+     	array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_paginaAseguradorasLlamen','name' => $this->plugin_name . '_paginaAseguradorasLlamen','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+ 	);
+
 // Sección Aseguradoras preciossuperior
 	add_settings_field(
 		$this->plugin_name . '_seccionAseguradorasPrecio',
@@ -38,5 +57,8 @@ add_settings_section('wpfunos_aseguradoras_section',    		// ID used to identify
      	array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionAseguradorasArgumentario','name' => $this->plugin_name . '_seccionAseguradorasArgumentario','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
  	);
 
+
+	register_setting('wpfunos_aseguradoras_settings', $this->plugin_name . '_paginaAseguradorasLlamar');
+	register_setting('wpfunos_aseguradoras_settings', $this->plugin_name . '_paginaAseguradorasLlamen');
 	register_setting('wpfunos_aseguradoras_settings', $this->plugin_name . '_seccionAseguradorasPrecio');
 	register_setting('wpfunos_aseguradoras_settings', $this->plugin_name . '_seccionAseguradorasArgumentario');

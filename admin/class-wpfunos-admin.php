@@ -47,6 +47,10 @@ class Wpfunos_Admin {
 		add_action('init', array( $this, 'codigospostales_custom_post_type' ));
 		add_action('init', array( $this, 'aseguradoras_custom_post_type' ));
 		add_action('init', array( $this, 'tipos_seguro_custom_post_type' ));
+		add_action('init', array( $this, 'directorio_funeraria_custom_post_type' ));
+		add_action('init', array( $this, 'directorio_cementerio_custom_post_type' ));
+		add_action('init', array( $this, 'directorio_tanatorio_custom_post_type' ));
+		add_action('init', array( $this, 'directorio_crematorio_custom_post_type' ));
 		add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
 		add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsAseguradoras' ));			// Compara Debug
@@ -69,12 +73,20 @@ class Wpfunos_Admin {
 		add_action('add_meta_boxes_cpostales_wpfunos', array( $this, 'setupcpostales_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_aseguradoras_wpfunos', array( $this, 'setupaseguradoras_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_tipos_seguro_wpfunos', array( $this, 'setuptiposseguro_wpfunosMetaboxes' ));
+		add_action('add_meta_boxes_funeraria_d_wpfunos', array( $this, 'setupfunerariadirectorio_wpfunosMetaboxes' ));
+		add_action('add_meta_boxes_cementerio_d_wpfunos', array( $this, 'setupcementeriodirectorio_wpfunosMetaboxes' ));
+		add_action('add_meta_boxes_tanatorio_d_wpfunos', array( $this, 'setuptanatoriodirectorio_wpfunosMetaboxes' ));
+		add_action('add_meta_boxes_crematorio_d_wpfunos', array( $this, 'setupcrematoriodirectorio_wpfunosMetaboxes' ));
 		add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
 		add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
 		add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
 		add_action('save_post_cpostales_wpfunos', array( $this, 'savecpostales_wpfunosMetaBoxData' ));
 		add_action('save_post_aseguradoras_wpfunos', array( $this, 'saveaseguradoras_wpfunosMetaBoxData' ));
 		add_action('save_post_tipos_seguro_wpfunos', array( $this, 'savetiposeguro_wpfunosMetaBoxData' ));
+		add_action('save_post_funeraria_d_wpfunos', array( $this, 'savefunerariadirectorio_wpfunosMetaBoxData' ));
+		add_action('save_post_cementerio_d_wpfunos', array( $this, 'savecementeriodirectorio_wpfunosMetaBoxData' ));
+		add_action('save_post_tanatorio_d_wpfunos', array( $this, 'savetanatoriodirectorio_wpfunosMetaBoxData' ));
+		add_action('save_post_crematorio_d_wpfunos', array( $this, 'savecrematoriodirectorio_wpfunosMetaBoxData' ));
 	}
 	
 	/**
@@ -141,9 +153,8 @@ class Wpfunos_Admin {
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', $this->plugin_name . '-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración correo WpFunos', 'wpfunos'), esc_html__('Configuración correo', 'wpfunos'), 'administrator', $this->plugin_name . '-mail', array( $this, 'displayPluginAdminMail' ));
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración API Preventiva WpFunos', 'wpfunos'), esc_html__('Configuracción API Preventiva', 'wpfunos'), 'administrator', $this->plugin_name . '-APIPreventiva', array( $this, 'displayPluginAdminAPIPreventiva' ));
-
 		if(get_option($this->plugin_name . '_Debug')){
-			add_submenu_page( $this->plugin_name.'config' , esc_html__('Logs WpFunos', 'wpfunos'),     esc_html__('Logs', 'wpfunos'),     'administrator', $this->plugin_name . '-logs',     array( $this, 'displayPluginAdminLogs' ));
+			add_submenu_page( $this->plugin_name.'config' , esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', $this->plugin_name . '-logs', array( $this, 'displayPluginAdminLogs' ));
 		}
 	}
 
@@ -384,6 +395,26 @@ class Wpfunos_Admin {
 		 add_meta_box('tipos_seguro_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'tipos_seguro_wpfunos_data_meta_box'), 'tipos_seguro_wpfunos', 'normal', 'high' );
 		 remove_meta_box('wpseo_meta', 'tipos_seguro_wpfunos', 'normal');
 	}
+	public function setupfunerariadirectorio_wpfunosMetaboxes(){
+		/* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
+		add_meta_box('funeraria_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'funeraria_directorio_wpfunos_data_meta_box'), 'funeraria_d_wpfunos', 'normal', 'high' );
+		remove_meta_box('wpseo_meta', 'funeraria_d_wpfunos', 'normal');
+	}
+	public function setupcementeriodirectorio_wpfunosMetaboxes(){
+		/* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
+		add_meta_box('cementerio_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'cementerio_directorio_wpfunos_data_meta_box'), 'cementerio_d_wpfunos', 'normal', 'high' );
+		remove_meta_box('wpseo_meta', 'cementerio_d_wpfunos', 'normal');
+	}
+	public function setuptanatoriodirectorio_wpfunosMetaboxes(){
+		/* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
+		add_meta_box('tanatorio_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'tanatorio_directorio_wpfunos_data_meta_box'), 'tanatorio_d_wpfunos', 'normal', 'high' );
+		remove_meta_box('wpseo_meta', 'tanatorio_d_wpfunos', 'normal');
+	}
+	public function setupcrematoriodirectorio_wpfunosMetaboxes(){
+		/* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
+		add_meta_box('crematorio_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'crematorio_directorio_wpfunos_data_meta_box'), 'crematorio_d_wpfunos', 'normal', 'high' );
+		remove_meta_box('wpseo_meta', 'crematorio_d_wpfunos', 'normal');
+	}
 	
 	/*********************************/
 	/*****  SALVAR DATOS META CPT ****/
@@ -440,6 +471,35 @@ class Wpfunos_Admin {
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
 		if (! current_user_can('manage_options')) return;
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tipos-seguro-fields.php';
+	}
+	
+	public function savefunerariadirectorio_wpfunosMetaBoxData( $post_id ){
+		if (! isset($_POST[$this->plugin_name . '_funeraria_directorio_wpfunos_meta_box_nonce'])) return;
+		if (! wp_verify_nonce($_POST[$this->plugin_name . '_funeraria_directorio_wpfunos_meta_box_nonce'], $this->plugin_name . '_funeraria_directorio_wpfunos_meta_box')) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (! current_user_can('manage_options')) return;
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-funeraria-directorio-fields.php';
+	}
+	public function savecementeriodirectorio_wpfunosMetaBoxData( $post_id ){
+		if (! isset($_POST[$this->plugin_name . '_cementerio_directorio_wpfunos_meta_box_nonce'])) return;
+		if (! wp_verify_nonce($_POST[$this->plugin_name . '_cementerio_directorio_wpfunos_meta_box_nonce'], $this->plugin_name . '_cementerio_directorio_wpfunos_meta_box')) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (! current_user_can('manage_options')) return;
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-cementerio-directorio-fields.php';
+	}
+	public function savetanatoriodirectorio_wpfunosMetaBoxData( $post_id ){
+		if (! isset($_POST[$this->plugin_name . '_tanatorio_directorio_wpfunos_meta_box_nonce'])) return;
+		if (! wp_verify_nonce($_POST[$this->plugin_name . '_tanatorio_directorio_wpfunos_meta_box_nonce'], $this->plugin_name . '_tanatorio_directorio_wpfunos_meta_box')) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (! current_user_can('manage_options')) return;
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tanatorio-directorio-fields.php';
+	}
+	public function savecrematoriodirectorio_wpfunosMetaBoxData( $post_id ){
+		if (! isset($_POST[$this->plugin_name . '_crematorio_directorio_wpfunos_meta_box_nonce'])) return;
+		if (! wp_verify_nonce($_POST[$this->plugin_name . '_crematorio_directorio_wpfunos_meta_box_nonce'], $this->plugin_name . '_crematorio_directorio_wpfunos_meta_box')) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (! current_user_can('manage_options')) return;
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-crematorio-directorio-fields.php';
 	}
 	
 	/*********************************/
@@ -637,6 +697,134 @@ class Wpfunos_Admin {
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'tipos_seguro_wpfunos', $customPostTypeArgs );
 	}
+	public function directorio_funeraria_custom_post_type(){
+		$customPostTypeArgs = array(
+			'label' => esc_html__('Funeraria Directorio', 'wpfunos'),
+			'labels'=>
+			array(
+					'name' => esc_html__('Funerarias', 'wpfunos'),
+					'singular_name' => esc_html__('Funeraria', 'wpfunos'),
+					'add_new' => esc_html__('Añadir funeraria al directorio', 'wpfunos'),
+					'add_new_item' => esc_html__('Añadir nueva funeraria al directorio', 'wpfunos'),
+					'edit_item' => esc_html__('Editar funeraria del directorio', 'wpfunos'),
+					'new_item' => esc_html__('Nueva funeraria del directorio', 'wpfunos'),
+					'view_item' => esc_html__('Ver funeraria del directorio', 'wpfunos'),
+					'search_items' => esc_html__('Buscar funeraria del directorio', 'wpfunos'),
+					'not_found' => esc_html__('No se encontraron funerarias del directorio', 'wpfunos'),
+					'not_found_in_trash' => esc_html__('No se encontraron funerarias del directorio en la papelera', 'wpfunos'),
+					'menu_name' => esc_html__('Funerarias del directorio', 'wpfunos'),
+					'name_admin_bar' => esc_html__('Funerarias del direcctorio', 'wpfunos'),
+			),
+			'public'=>false,
+			'description' => esc_html__('Funerarias', 'wpfunos'),
+			'exclude_from_search' => true,
+			'show_ui' => true,
+			'show_in_menu' => $this->plugin_name.'directorio',
+			'supports'=>array('title', 'custom_fields'),
+			'capability_type' => 'post',
+			'capabilities' => array('create_posts' => true),
+			'map_meta_cap' => true,
+			'taxonomies'=>array()
+		);
+		// Post type, $args - the Post Type string can be MAX 20 characters
+		register_post_type( 'funeraria_d_wpfunos', $customPostTypeArgs );
+	}
+	public function directorio_cementerio_custom_post_type(){
+		$customPostTypeArgs = array(
+			'label' => esc_html__('Funeraria Directorio', 'wpfunos'),
+			'labels'=>
+			array(
+					'name' => esc_html__('Cementerios', 'wpfunos'),
+					'singular_name' => esc_html__('Cementerio', 'wpfunos'),
+					'add_new' => esc_html__('Añadir cementerio al directorio', 'wpfunos'),
+					'add_new_item' => esc_html__('Añadir nuevo cementerio al directorio', 'wpfunos'),
+					'edit_item' => esc_html__('Editar cementerio del directorio', 'wpfunos'),
+					'new_item' => esc_html__('Nuevo cementerio del directorio', 'wpfunos'),
+					'view_item' => esc_html__('Ver cementerio del directorio', 'wpfunos'),
+					'search_items' => esc_html__('Buscar cementerio del directorio', 'wpfunos'),
+					'not_found' => esc_html__('No se encontraron cementerios del directorio', 'wpfunos'),
+					'not_found_in_trash' => esc_html__('No se encontraron cementerios del directorio en la papelera', 'wpfunos'),
+					'menu_name' => esc_html__('Cementerios del directorio', 'wpfunos'),
+					'name_admin_bar' => esc_html__('Cementerios del direcctorio', 'wpfunos'),
+			),
+			'public'=>false,
+			'description' => esc_html__('Cementerios', 'wpfunos'),
+			'exclude_from_search' => true,
+			'show_ui' => true,
+			'show_in_menu' => $this->plugin_name.'directorio',
+			'supports'=>array('title', 'custom_fields'),
+			'capability_type' => 'post',
+			'capabilities' => array('create_posts' => true),
+			'map_meta_cap' => true,
+			'taxonomies'=>array()
+		);
+		// Post type, $args - the Post Type string can be MAX 20 characters
+		register_post_type( 'cementerio_d_wpfunos', $customPostTypeArgs );
+	}
+	public function directorio_tanatorio_custom_post_type(){
+		$customPostTypeArgs = array(
+			'label' => esc_html__('Tanatorio Directorio', 'wpfunos'),
+			'labels'=>
+			array(
+					'name' => esc_html__('Tanatorios', 'wpfunos'),
+					'singular_name' => esc_html__('Tanatorio', 'wpfunos'),
+					'add_new' => esc_html__('Añadir tanatorio al directorio', 'wpfunos'),
+					'add_new_item' => esc_html__('Añadir nuevo tanatorio al directorio', 'wpfunos'),
+					'edit_item' => esc_html__('Editar tanatorio del directorio', 'wpfunos'),
+					'new_item' => esc_html__('Nuevo tanatorio del directorio', 'wpfunos'),
+					'view_item' => esc_html__('Ver tanatorio del directorio', 'wpfunos'),
+					'search_items' => esc_html__('Buscar tanatorio del directorio', 'wpfunos'),
+					'not_found' => esc_html__('No se encontraron tanatorios del directorio', 'wpfunos'),
+					'not_found_in_trash' => esc_html__('No se encontraron tanatorios del directorio en la papelera', 'wpfunos'),
+					'menu_name' => esc_html__('Tanatorios del directorio', 'wpfunos'),
+					'name_admin_bar' => esc_html__('Tanatorios del direcctorio', 'wpfunos'),
+			),
+			'public'=>false,
+			'description' => esc_html__('Tanatorios', 'wpfunos'),
+			'exclude_from_search' => true,
+			'show_ui' => true,
+			'show_in_menu' => $this->plugin_name.'directorio',
+			'supports'=>array('title', 'custom_fields'),
+			'capability_type' => 'post',
+			'capabilities' => array('create_posts' => true),
+			'map_meta_cap' => true,
+			'taxonomies'=>array()
+		);
+		// Post type, $args - the Post Type string can be MAX 20 characters
+		register_post_type( 'tanatorio_d_wpfunos', $customPostTypeArgs );
+	}
+	public function directorio_crematorio_custom_post_type(){
+		$customPostTypeArgs = array(
+			'label' => esc_html__('Crematorio Directorio', 'wpfunos'),
+			'labels'=>
+			array(
+					'name' => esc_html__('Crematorios', 'wpfunos'),
+					'singular_name' => esc_html__('Crematorio', 'wpfunos'),
+					'add_new' => esc_html__('Añadir crematorio al directorio', 'wpfunos'),
+					'add_new_item' => esc_html__('Añadir nuevo crematorio al directorio', 'wpfunos'),
+					'edit_item' => esc_html__('Editar crematorio del directorio', 'wpfunos'),
+					'new_item' => esc_html__('Nuevo crematorio del directorio', 'wpfunos'),
+					'view_item' => esc_html__('Ver crematorio del directorio', 'wpfunos'),
+					'search_items' => esc_html__('Buscar crematorio del directorio', 'wpfunos'),
+					'not_found' => esc_html__('No se encontraron crematorios del directorio', 'wpfunos'),
+					'not_found_in_trash' => esc_html__('No se encontraron crematorios del directorio en la papelera', 'wpfunos'),
+					'menu_name' => esc_html__('Crematorios del directorio', 'wpfunos'),
+					'name_admin_bar' => esc_html__('Crematorios del direcctorio', 'wpfunos'),
+			),
+			'public'=>false,
+			'description' => esc_html__('Crematorios', 'wpfunos'),
+			'exclude_from_search' => true,
+			'show_ui' => true,
+			'show_in_menu' => $this->plugin_name.'directorio',
+			'supports'=>array('title', 'custom_fields'),
+			'capability_type' => 'post',
+			'capabilities' => array('create_posts' => true),
+			'map_meta_cap' => true,
+			'taxonomies'=>array()
+		);
+		// Post type, $args - the Post Type string can be MAX 20 characters
+		register_post_type( 'crematorio_d_wpfunos', $customPostTypeArgs );
+	}
 
 	/*********************************/
 	/*****  MOSTRAR METABOXES   ******/
@@ -669,7 +857,23 @@ class Wpfunos_Admin {
 		wp_nonce_field( $this->plugin_name.'_tipos_seguro_wpfunos_meta_box', $this->plugin_name.'_tipos_seguro_wpfunos_meta_box_nonce' );
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tipos-seguro-display.php';
 	}
-
+	public function funeraria_directorio_wpfunos_data_meta_box($post){
+		wp_nonce_field( $this->plugin_name.'_funeraria_directorio_wpfunos_meta_box', $this->plugin_name.'_funeraria_directorio_wpfunos_meta_box_nonce' );
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-funeraria-directorio-display.php';
+	}
+	public function cementerio_directorio_wpfunos_data_meta_box($post){
+		wp_nonce_field( $this->plugin_name.'_cementerio_directorio_wpfunos_meta_box', $this->plugin_name.'_cementerio_directorio_wpfunos_meta_box_nonce' );
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-cementerio-directorio-display.php';
+	}
+	public function tanatorio_directorio_wpfunos_data_meta_box($post){
+		wp_nonce_field( $this->plugin_name.'_tanatorio_directorio_wpfunos_meta_box', $this->plugin_name.'_tanatorio_directorio_wpfunos_meta_box_nonce' );
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tanatorio-directorio-display.php';
+	}
+	public function crematorio_directorio_wpfunos_data_meta_box($post){
+		wp_nonce_field( $this->plugin_name.'_crematorio_directorio_wpfunos_meta_box', $this->plugin_name.'_crematorio_directorio_wpfunos_meta_box_nonce' );
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-crematorio-directorio-display.php';
+	}
+	
 	/*********************************/
 	/*****  RENDERS             ******/
 	/*********************************/
