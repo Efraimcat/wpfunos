@@ -59,6 +59,7 @@ class Wpfunos_Public {
 		add_shortcode( 'wpfunos-resultados-llamar-telefono-servicio', array( $this, 'wpfunosResultadosLamarTelefonoServicioShortcode' ));
 		add_shortcode( 'wpfunos-resultados-estrellas', array( $this, 'wpfunosResultadosEstrellasShortcode' ));
 		add_shortcode( 'wpfunos-acciones-botones-confirmado', array( $this, 'wpfunosAccionesBotonesConfirmadoShortcode' ));
+		add_shortcode( 'wpfunos-acciones-botones-aseguradora', array( $this, 'wpfunosAccionesBotonesAseguradoraShortcode' ));
 		add_shortcode( 'wpfunos-resultados-detalles', array( $this, 'wpfunosResultadosDetallesShortcode' ));
 		add_shortcode( 'wpfunos-resultados-detalles-comentarios', array( $this, 'wpfunosResultadosDetallesComentariosShortcode' ));
 		add_shortcode( 'wpfunos-pagina-servicios', array( $this, 'wpfunosPaginaServiciosShortcode' ));
@@ -72,6 +73,7 @@ class Wpfunos_Public {
 		add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
 		add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
+		add_action( 'wpfunos_aseguradora_user_entry', array( $this, 'wpfunosAseguradoraUserEntry' ), 10, 1 );
 		add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
 		add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
 		add_filter( 'wpfunos_get_userid', array( $this, 'wpfunosGetUserid' ) );
@@ -253,6 +255,22 @@ class Wpfunos_Public {
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Error 3 Nuevo Usuario: ' . $this->dumpPOST( $this->getUserIP() ));
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $fields['referencia'] ));
+		}
+	}
+	
+	/**
+	* Shortcode [wpfunos-acciones-botones-aseguradora]
+	*/
+	public function wpfunosAccionesBotonesAseguradoraShortcode( $atts, $content = "" ) {
+		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) {
+			$this->wpfunosAseguradoraUserEntry();
+			//$this->wpfunosResultUserEntry();
+			//$this->wpfunosResultCorreoAdmin();
+			//$this->wpfunosResultCorreoLead();
+		}else{
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Error 4 Nuevo Usuario: ' . $this->dumpPOST( $this->getUserIP() ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $_GET['referencia'] ));
 		}
 	}
 
@@ -550,7 +568,47 @@ class Wpfunos_Public {
 			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $_GET['referencia'] ));
 		}
 	}
-
+	
+	/**
+	* Entrada acción usuario
+	*
+	* add_action( 'wpfunos_aseguradora_user_entry', array( $this, 'wpfunosAseguradoraUserEntry' ), 10, 1 );
+	*/
+	public function wpfunosAseguradoraUserEntry(){
+		mt_srand(mktime());
+		$_GET['referencia'] = 'funos-'.(string)mt_rand();
+		$my_post = array(
+   			'post_title' => $_GET['referencia'],
+			'post_type' => 'usuarios_wpfunos',
+			'post_status'  => 'publish',
+			'meta_input'   => array(
+				$this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+				$this->plugin_name . '_userReferencia' => sanitize_text_field( $_GET['referencia'] ),
+				$this->plugin_name . '_userName' => sanitize_text_field( $_GET['nombreUsuario'] ),
+				$this->plugin_name . '_userPhone' => sanitize_text_field( $_GET['telefonoUsuario'] ),
+				$this->plugin_name . '_userCP' => sanitize_text_field( $_GET['CPUsuario']),
+				$this->plugin_name . '_userAccion' => sanitize_text_field( $_GET['accion']),
+				$this->plugin_name . '_userSeleccion' => sanitize_text_field( $_GET['seleccionUsuario']),
+				$this->plugin_name . '_userMail' => sanitize_text_field( $_GET['Email']),
+				$this->plugin_name . '_userServicio' => sanitize_text_field( $_GET['nombre']),			
+				$this->plugin_name . '_userSeguro' => sanitize_text_field( $_GET['seguro']),			
+				
+			),
+		);
+		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) { 
+			$post_id = wp_insert_post($my_post);
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Nuevo usuario: ' . $this->dumpPOST( $this->getUserIP() ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('ID: ' . $this->dumpPOST( $post_id ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $_GET['referencia'] ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('telefonoUsuario: ' . $this->dumpPOST( $_GET['telefonoUsuario'] ));
+		}else{
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('==============');
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Error 5 Nuevo Usuario: ' . $this->dumpPOST( $this->getUserIP() ));
+			if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('referencia: ' . $this->dumpPOST( $_GET['referencia'] ));
+		}
+	}
+	
 	/**
 	* Entrada acción usuario Correo Admin
 	*
@@ -770,6 +828,7 @@ class Wpfunos_Public {
 				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamar'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
 					<input type="hidden" name="accion" id="accion" value="2" >					
 					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
+					<input type="hidden" name="wpfunos-hacer-llamada" id="wpfunos-hacer-llamada" value="1" >
 					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
 					<input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 14px;">
 				</form>
@@ -869,18 +928,18 @@ class Wpfunos_Public {
 	 * add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
 	 */
 	public function wpfunosAseguradorasResultados( ){
-		//$IDusuario = apply_filters('wpfunos_get_userid', $_GET['referencia']);
-		//$seleccion = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
-		//$respuesta = (explode(',',$seleccion));
-		//switch($respuesta[2]){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
-		//$_GET['edad'] =  date("Y") - (int)$respuesta[3];
-		//$_GET['telefonoUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
-		//$_GET['seleccionUsuario'] = $seleccion;
-		//$_GET['CPUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userCP', true );
-		//$_GET['nombreUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userName', true );
-		//$_GET['Email'] = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
-		//$_GET['idUsuario'] = $IDusuario;
-		//$_GET['seguro'] = get_post_meta( $IDusuario, 'wpfunos_userSeguro', true );
+		$IDusuario = apply_filters('wpfunos_get_userid', $_GET['referencia']);
+		$_GET['telefonoUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
+		$seleccion = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
+		$respuesta = (explode(',',$seleccion));
+		switch($respuesta[2]){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
+		$_GET['edad'] =  date("Y") - (int)$respuesta[3];
+		$_GET['seleccionUsuario'] = $seleccion;
+		$_GET['CPUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userCP', true );
+		$_GET['nombreUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userName', true );
+		$_GET['Email'] = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
+		$_GET['idUsuario'] = $IDusuario;
+		$_GET['seguro'] = get_post_meta( $IDusuario, 'wpfunos_userSeguro', true );
 		$args = array(
 			'post_status' => 'publish',
 			'post_type' => 'tipos_seguro_wpfunos',
@@ -915,27 +974,47 @@ class Wpfunos_Public {
 					if( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasActivo', true ) ){
 						?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
 						$_GET['nombre'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNombre', true );
-						echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	
+						$_GET['telefonoEmpresa'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasTelefono', true );
+						$_GET['logo'] = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo', true ) ,'full' );
+						echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	// cabecera con logo
 						?><div class="wpfunos-busqueda-aseguradoras-inferior"><?php
+						// ToDo: sustituir [precio] en wpfunos_aseguradorasNotas
 						echo  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true );
-						require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
+						require 'partials/' . $this->plugin_name . '-aseguradoras-botones-cabecera-display.php';
 						?>
-						<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamenAseguradora'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
-							<input type="hidden" name="accion" id="accion" value="1" >
+						<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaAseguradorasLlamen'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
+							<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
+							<input type="hidden" name="accion" id="accion" value="5" >
+							<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
 							<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
-							<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+							<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
+							<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
+							<input type="hidden" name="seleccionUsuario" id="seleccionUsuario" value="<?php echo $_GET['seleccionUsuario']?>" >
+							<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
+							<input type="hidden" name="nombre" id="nombre" value="<?php echo $_GET['nombre']?>" >
+							<input type="hidden" name="seguro" id="seguro" value="<?php echo $_GET['seguro']?>" >
+
 							<input type="submit" value="Quiero que me llamen" style="background-color: #1d40d3; font-size: 14px;">
 						</form>
 						</div>
 						<div class="wpfunos-boton-llamar">
-						<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamarAseguradora'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
-							<input type="hidden" name="accion" id="accion" value="2" >					
+						<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaAseguradorasLlamar'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
+							<input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
+							<input type="hidden" name="accion" id="accion" value="6" >	
+							<input type="hidden" name="wpfunos-hacer-llamada" id="wpfunos-hacer-llamada" value="1" >
+							<input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
 							<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
-							<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+							<input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
+							<input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
+							<input type="hidden" name="seleccionUsuario" id="seleccionUsuario" value="<?php echo $_GET['seleccionUsuario']?>" >
+							<input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
+							<input type="hidden" name="nombre" id="nombre" value="<?php echo $_GET['nombre']?>" >
+							<input type="hidden" name="seguro" id="seguro" value="<?php echo $_GET['seguro']?>" >
+
 							<input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 14px;">
 						</form>
 						<?php
-						require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';		
+						require 'partials/' . $this->plugin_name . '-aseguradoras-botones-pie-display.php';
 						?></div></div><?php
 					}
         		endwhile;

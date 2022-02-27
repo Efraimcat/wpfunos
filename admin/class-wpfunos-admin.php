@@ -47,10 +47,10 @@ class Wpfunos_Admin {
 		add_action('init', array( $this, 'codigospostales_custom_post_type' ));
 		add_action('init', array( $this, 'aseguradoras_custom_post_type' ));
 		add_action('init', array( $this, 'tipos_seguro_custom_post_type' ));
-		add_action('init', array( $this, 'directorio_funeraria_custom_post_type' ));
-		add_action('init', array( $this, 'directorio_cementerio_custom_post_type' ));
 		add_action('init', array( $this, 'directorio_tanatorio_custom_post_type' ));
-		add_action('init', array( $this, 'directorio_crematorio_custom_post_type' ));
+		//add_action('init', array( $this, 'directorio_funeraria_custom_post_type' ));
+		//add_action('init', array( $this, 'directorio_cementerio_custom_post_type' ));
+		//add_action('init', array( $this, 'directorio_crematorio_custom_post_type' ));
 		add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
 		add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsAseguradoras' ));			// Compara Debug
@@ -398,22 +398,18 @@ class Wpfunos_Admin {
 	public function setupfunerariadirectorio_wpfunosMetaboxes(){
 		/* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
 		add_meta_box('funeraria_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'funeraria_directorio_wpfunos_data_meta_box'), 'funeraria_d_wpfunos', 'normal', 'high' );
-		remove_meta_box('wpseo_meta', 'funeraria_d_wpfunos', 'normal');
 	}
 	public function setupcementeriodirectorio_wpfunosMetaboxes(){
 		/* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
 		add_meta_box('cementerio_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'cementerio_directorio_wpfunos_data_meta_box'), 'cementerio_d_wpfunos', 'normal', 'high' );
-		remove_meta_box('wpseo_meta', 'cementerio_d_wpfunos', 'normal');
 	}
 	public function setuptanatoriodirectorio_wpfunosMetaboxes(){
 		/* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
 		add_meta_box('tanatorio_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'tanatorio_directorio_wpfunos_data_meta_box'), 'tanatorio_d_wpfunos', 'normal', 'high' );
-		remove_meta_box('wpseo_meta', 'tanatorio_d_wpfunos', 'normal');
 	}
 	public function setupcrematoriodirectorio_wpfunosMetaboxes(){
 		/* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
 		add_meta_box('crematorio_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'crematorio_directorio_wpfunos_data_meta_box'), 'crematorio_d_wpfunos', 'normal', 'high' );
-		remove_meta_box('wpseo_meta', 'crematorio_d_wpfunos', 'normal');
 	}
 	
 	/*********************************/
@@ -505,6 +501,9 @@ class Wpfunos_Admin {
 	/*********************************/
 	/*****  CPT                 ******/
 	/*********************************/
+	/**
+	 * usuarios_wpfunos
+	 */
 	public function usuarios_registrados_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Usuarios registrados', 'wpfunos'),
@@ -537,6 +536,10 @@ class Wpfunos_Admin {
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'usuarios_wpfunos', $customPostTypeArgs );
 	}
+
+	/**
+	 * funerarias_wpfunos
+	 */
 	public function funerarias_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Funerarias', 'wpfunos'),
@@ -569,6 +572,10 @@ class Wpfunos_Admin {
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'funerarias_wpfunos', $customPostTypeArgs );
 	}
+	
+	/**
+	 * servicos_wpfunos
+	 */
 	public function servicios_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Servicios', 'wpfunos'),
@@ -601,6 +608,10 @@ class Wpfunos_Admin {
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'servicios_wpfunos', $customPostTypeArgs );
 	}
+	
+	/**
+	 * cpostales_wpfunos
+	 */
 	public function codigospostales_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Codigos Postales', 'wpfunos'),
@@ -633,6 +644,10 @@ class Wpfunos_Admin {
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'cpostales_wpfunos', $customPostTypeArgs );
 	}
+	
+	/**
+	 * aseguradoras_wpfunos
+	 */
 	public function aseguradoras_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Aseguradoras', 'wpfunos'),
@@ -665,6 +680,10 @@ class Wpfunos_Admin {
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'aseguradoras_wpfunos', $customPostTypeArgs );
 	}
+	
+	/**
+	 * tipos_seguro_wpfunos
+	 */
 	public function tipos_seguro_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Tipos de seguro', 'wpfunos'),
@@ -697,6 +716,10 @@ class Wpfunos_Admin {
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'tipos_seguro_wpfunos', $customPostTypeArgs );
 	}
+	
+	/**
+	 * funeraria_d_wpfunos
+	 */
 	public function directorio_funeraria_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Funeraria Directorio', 'wpfunos'),
@@ -715,20 +738,85 @@ class Wpfunos_Admin {
 					'menu_name' => esc_html__('Funerarias del directorio', 'wpfunos'),
 					'name_admin_bar' => esc_html__('Funerarias del direcctorio', 'wpfunos'),
 			),
-			'public'=>false,
+			'public'=>true,
 			'description' => esc_html__('Funerarias', 'wpfunos'),
-			'exclude_from_search' => true,
+			'exclude_from_search' => false,
 			'show_ui' => true,
 			'show_in_menu' => $this->plugin_name.'directorio',
 			'supports'=>array('title', 'custom_fields'),
 			'capability_type' => 'post',
 			'capabilities' => array('create_posts' => true),
+			'rewrite' => array( 'slug' => 'funerar', 'with_front'=> false ), 'capability_type' => 'post', 
+    		'hierarchical' => true, 
 			'map_meta_cap' => true,
-			'taxonomies'=>array()
 		);
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'funeraria_d_wpfunos', $customPostTypeArgs );
+		
+		register_taxonomy( 'poblacion_funeraria', 
+			array('funeraria_d_wpfunos'), 
+			array(
+        		'hierarchical' => true, 
+	        	'label' => 'Funeraria', 
+				'labels'=>
+				array(
+					'name'              => _x( 'Funeraria', 'taxonomy general name' ),
+        			'singular_name'     => _x( 'Funeraria', 'taxonomy singular name' ),
+        			'search_items'      => __( 'Search Categories' ),
+        			'all_items'         => __( 'All Categories' ),
+        			'parent_item'       => __( 'Parent Category' ),
+        			'parent_item_colon' => __( 'Parent Category:' ),
+        			'edit_item'         => __( 'Edit Category' ),
+        			'update_item'       => __( 'Update Category' ),
+        			'add_new_item'      => __( 'Add New Category' ),
+        			'new_item_name'     => __( 'New Category Name' ),
+        			'menu_name'         => __( 'Funeraria' ),
+				),
+    	    	'singular_label' => 'Funeraria', 
+        		'rewrite' => array( 'slug' => 'funerarias', 'with_front'=> false ),
+    			'public'                     => true,
+    			'show_ui'                    => true,
+    			'show_admin_column'          => true,
+    			'show_in_nav_menus'          => true,
+    			'show_tagcloud'              => true,
+    	    )
+	    );
+    	register_taxonomy_for_object_type( 'poblacion_funeraria', 'funeraria_d_wpfunos' );
+	
+		register_taxonomy( 'marca_funeraria', 
+			array('funeraria_d_wpfunos'), 
+			array(
+        		'hierarchical' => true, 
+	        	'label' => 'Marca funeraria', 
+				'labels'=>
+				array(
+					'name'              => _x( 'Marca funeraria', 'taxonomy general name' ),
+        			'singular_name'     => _x( 'Marca funeraria', 'taxonomy singular name' ),
+        			'search_items'      => __( 'Search Categories' ),
+        			'all_items'         => __( 'All Categories' ),
+        			'parent_item'       => __( 'Parent Category' ),
+        			'parent_item_colon' => __( 'Parent Category:' ),
+        			'edit_item'         => __( 'Edit Category' ),
+        			'update_item'       => __( 'Update Category' ),
+        			'add_new_item'      => __( 'Add New Category' ),
+        			'new_item_name'     => __( 'New Category Name' ),
+        			'menu_name'         => __( 'Marca funeraria' ),
+				),
+    	    	'singular_label' => 'Marca', 
+        		'rewrite' => array( 'slug' => 'marcas', 'with_front'=> false ),
+    			'public'                     => true,
+    			'show_ui'                    => true,
+    			'show_admin_column'          => true,
+    			'show_in_nav_menus'          => true,
+    			'show_tagcloud'              => true,
+    	    )
+	    );
+    	register_taxonomy_for_object_type( 'marca_funeraria', 'funeraria_d_wpfunos' );
 	}
+	
+	/**
+	 * cementerio_d_wpfunos
+	 */
 	public function directorio_cementerio_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Funeraria Directorio', 'wpfunos'),
@@ -761,6 +849,10 @@ class Wpfunos_Admin {
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'cementerio_d_wpfunos', $customPostTypeArgs );
 	}
+	
+	/**
+	 * tanatorio_d_wpfunos
+	 */
 	public function directorio_tanatorio_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Tanatorio Directorio', 'wpfunos'),
@@ -779,20 +871,116 @@ class Wpfunos_Admin {
 					'menu_name' => esc_html__('Tanatorios del directorio', 'wpfunos'),
 					'name_admin_bar' => esc_html__('Tanatorios del direcctorio', 'wpfunos'),
 			),
-			'public'=>false,
+			'public'=>true,
 			'description' => esc_html__('Tanatorios', 'wpfunos'),
-			'exclude_from_search' => true,
+			'exclude_from_search' => false,
 			'show_ui' => true,
 			'show_in_menu' => $this->plugin_name.'directorio',
-			'supports'=>array('title', 'custom_fields'),
+			'supports'=>array('title', 'custom_fields', 'editor', 'author', 'thumbnail', 'excerpt'),
 			'capability_type' => 'post',
 			'capabilities' => array('create_posts' => true),
+			'rewrite' => array( 'slug' => 'tanatorios', 'with_front'=> false ), 'capability_type' => 'post', 
+    		'hierarchical' => true, 
 			'map_meta_cap' => true,
-			'taxonomies'=>array()
 		);
 		// Post type, $args - the Post Type string can be MAX 20 characters
 		register_post_type( 'tanatorio_d_wpfunos', $customPostTypeArgs );
+		
+		register_taxonomy( 'poblacion_tanatorio', 
+			array('tanatorio_d_wpfunos'), 
+			array(
+        		'hierarchical' => true, 
+	        	'label' => 'Tanatorio', 
+				'labels'=>
+				array(
+					'name'              => _x( 'Tanatorio', 'taxonomy general name' ),
+        			'singular_name'     => _x( 'Tanatorio', 'taxonomy singular name' ),
+        			'search_items'      => __( 'Search Categories' ),
+        			'all_items'         => __( 'All Categories' ),
+        			'parent_item'       => __( 'Parent Category' ),
+        			'parent_item_colon' => __( 'Parent Category:' ),
+        			'edit_item'         => __( 'Edit Category' ),
+        			'update_item'       => __( 'Update Category' ),
+        			'add_new_item'      => __( 'Add New Category' ),
+        			'new_item_name'     => __( 'New Category Name' ),
+        			'menu_name'         => __( 'Tanatorio' ),
+				),
+    	    	'singular_label' => 'Tanatorio', 
+        		'rewrite' => array( 'slug' => 'tanatorios', 'with_front'=> false ),
+    			'public'                     => true,
+    			'show_ui'                    => true,
+    			'show_admin_column'          => true,
+    			'show_in_nav_menus'          => true,
+    			'show_tagcloud'              => true,
+    	    )
+	    );
+    	register_taxonomy_for_object_type( 'poblacion_tanatorio', 'tanatorio_d_wpfunos' );
+	
+		register_taxonomy( 'poblacion_funeraria', 
+			array('tanatorio_d_wpfunos'), 
+			array(
+        		'hierarchical' => true, 
+	        	'label' => 'Funeraria', 
+				'labels'=>
+				array(
+					'name'              => _x( 'Funeraria', 'taxonomy general name' ),
+        			'singular_name'     => _x( 'Funeraria', 'taxonomy singular name' ),
+        			'search_items'      => __( 'Search Categories' ),
+        			'all_items'         => __( 'All Categories' ),
+        			'parent_item'       => __( 'Parent Category' ),
+        			'parent_item_colon' => __( 'Parent Category:' ),
+        			'edit_item'         => __( 'Edit Category' ),
+        			'update_item'       => __( 'Update Category' ),
+        			'add_new_item'      => __( 'Add New Category' ),
+        			'new_item_name'     => __( 'New Category Name' ),
+        			'menu_name'         => __( 'Funeraria' ),
+				),
+    	    	'singular_label' => 'Funeraria', 
+        		'rewrite' => array( 'slug' => 'funerarias', 'with_front'=> false ),
+    			'public'                     => true,
+    			'show_ui'                    => true,
+    			'show_admin_column'          => true,
+    			'show_in_nav_menus'          => true,
+    			'show_tagcloud'              => true,
+    	    )
+	    );
+    	register_taxonomy_for_object_type( 'poblacion_funeraria', 'tanatorio_d_wpfunos' );
+	
+		register_taxonomy( 'marca_funeraria', 
+			array('tanatorio_d_wpfunos'), 
+			array(
+        		'hierarchical' => true, 
+	        	'label' => 'Marca funeraria', 
+				'labels'=>
+				array(
+					'name'              => _x( 'Marca funeraria', 'taxonomy general name' ),
+        			'singular_name'     => _x( 'Marca funeraria', 'taxonomy singular name' ),
+        			'search_items'      => __( 'Search Categories' ),
+        			'all_items'         => __( 'All Categories' ),
+        			'parent_item'       => __( 'Parent Category' ),
+        			'parent_item_colon' => __( 'Parent Category:' ),
+        			'edit_item'         => __( 'Edit Category' ),
+        			'update_item'       => __( 'Update Category' ),
+        			'add_new_item'      => __( 'Add New Category' ),
+        			'new_item_name'     => __( 'New Category Name' ),
+        			'menu_name'         => __( 'Marca funeraria' ),
+				),
+    	    	'singular_label' => 'Marca', 
+        		'rewrite' => array( 'slug' => 'marcas', 'with_front'=> false ),
+    			'public'                     => true,
+    			'show_ui'                    => true,
+    			'show_admin_column'          => true,
+    			'show_in_nav_menus'          => true,
+    			'show_tagcloud'              => true,
+    	    )
+	    );
+    	register_taxonomy_for_object_type( 'marca_funeraria', 'tanatorio_d_wpfunos' );
+		
 	}
+	
+	/**
+	 * crematorio_d_wpfunos
+	 */
 	public function directorio_crematorio_custom_post_type(){
 		$customPostTypeArgs = array(
 			'label' => esc_html__('Crematorio Directorio', 'wpfunos'),
@@ -811,7 +999,7 @@ class Wpfunos_Admin {
 					'menu_name' => esc_html__('Crematorios del directorio', 'wpfunos'),
 					'name_admin_bar' => esc_html__('Crematorios del direcctorio', 'wpfunos'),
 			),
-			'public'=>false,
+			'public'=>fasle,
 			'description' => esc_html__('Crematorios', 'wpfunos'),
 			'exclude_from_search' => true,
 			'show_ui' => true,

@@ -14,42 +14,9 @@
 ?>
 <!--  Main results wrapper - wraps the paginations, map and results -->
 <div class="gmw-results-wrapper custom <?php echo esc_attr( $gmw['prefix'] ); ?>" data-id="<?php echo absint( $gmw['ID'] ); ?>" data-prefix="<?php echo esc_attr( $gmw['prefix'] ); ?>">
-<?php
-	$IDusuario = apply_filters('wpfunos_get_userid', $_GET['referencia']);
-	$seleccion = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
-	$respuesta = (explode(',',$seleccion));
-	switch($respuesta[2]){ case '1': $_GET['sexo'] = 'Hombre'; break; case '2'; $_GET['sexo'] = 'Mujer'; break; }
-	$_GET['edad'] =  date("Y") - (int)$respuesta[3];
-	$_GET['telefonoUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
-	$_GET['seleccionUsuario'] = $seleccion;
-	$_GET['CPUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userCP', true );
-	$_GET['nombreUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userName', true );
-	$_GET['Email'] = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
-	$_GET['idUsuario'] = $IDusuario;
-	$_GET['seguro'] = get_post_meta( $IDusuario, 'wpfunos_userSeguro', true );
-	if ( $gmw_form->has_locations() ) :
-		?><div class="gmw-results"><?php
+	<div class="funos-resultados-aseguradoras"><?php
 		do_action('wpfunos_aseguradoras_cold_lead');
-		?><div class="clear"></div><ul class="gmw-posts-wrapper"><?php
-		while ( $gmw_query->have_posts() ) :
-			$gmw_query->the_post();
-			global $post;
-			//$wpfResultados = apply_filters('wpfunos_get_results', $post->ID, $IDusuario );
-			//$wpfunos_confirmado = apply_filters('wpfunos_results_confirmado', $wpfResultados, $wpfunos_confirmado, $post->ID );
-			//$wpfunos_sinconfirmar = apply_filters('wpfunos_results_sinconfirmar', $wpfResultados, $wpfunos_sinconfirmar, $post->ID );
-			//$wpfunos_sinprecio = apply_filters('wpfunos_results_sinprecio', $wpfResultados, $wpfunos_sinprecio, $post->ID );
-			?> <div class="clear"></div><?php
-		endwhile;
-		do_action( 'wpfunos_result_grid_electium' , $wpfunos_electium );
-		do_action( 'wpfunos_result_grid_prima_unica' , $wpfunos_prima_unica );
-		do_action( 'wpfunos_result_grid_prima_natural' , $wpfunos_prima_natural );
-		do_action( 'wpfunos_result_grid_prima_nivelada' , $wpfunos_prima_nivelada );
-		?></ul></div><?php
-		gmw_results_map( $gmw );
-	else :
-		?><div class="gmw-no-results">
-			<?php gmw_no_results_message( $gmw ); ?>
-		</div>	<?php
-	endif;
-?>
-</div>
+		do_action('wpfunos-aseguradoras-resultados');
+		?><div class="clear"></div>
+	</div>
+</div>	
