@@ -66,6 +66,7 @@ class Wpfunos_Public {
 		add_shortcode( 'wpfunos-pagina-aseguradoras', array( $this, 'wpfunosPaginaAseguradorasShortcode' ));
 		add_shortcode( 'wpfunos-pagina-resultados-servicios', array( $this, 'wpfunosPaginaResultadosServiciosShortcode' ));
 		add_shortcode( 'wpfunos-pagina-resultados-aseguradoras', array( $this, 'wpfunosPaginaResultadosAseguradorasShortcode' ));
+		//add_shortcode( 'wpfunos-contenido-tanatorio-directorio', array( $this, 'wpfunosContenidoTanatorioDirectorioShortcode' ));
 		add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
 		add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
 		add_action( 'wpfunos_new_log', array( $this, 'wpfunosNewLog' ), 10, 1 );

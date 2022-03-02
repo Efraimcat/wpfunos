@@ -67,6 +67,7 @@ class Wpfunos_Admin {
 		add_action('admin_init', array( $this, 'registerAndBuildMail4' ));
 		add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
 		add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
+		add_action('admin_init', array( $this, 'registerAndBuildFieldsDirectorio' ));
 		add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_funerarias_wpfunos', array( $this, 'setupfunerarias_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
@@ -156,6 +157,7 @@ class Wpfunos_Admin {
 		if(get_option($this->plugin_name . '_Debug')){
 			add_submenu_page( $this->plugin_name.'config' , esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', $this->plugin_name . '-logs', array( $this, 'displayPluginAdminLogs' ));
 		}
+		add_submenu_page( $this->plugin_name.'directorio', esc_html__('Configuración directorio WpFunos', 'wpfunos'), esc_html__('Configuración del directorio', 'wpfunos'), 'administrator', $this->plugin_name . '-settingsdirectorio', array( $this, 'displayDirectorionSettings' ));
 	}
 
 	/**
@@ -222,7 +224,17 @@ class Wpfunos_Admin {
 	    }
 	    require_once 'partials/' . $this->plugin_name . '-admin-logs-display.php';
 	}
-
+	/**
+	 * Api Preventiva menu display.
+	 */
+	public function displayDirectorionSettings() {
+		if (isset($_GET['error_message'])) {
+			add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
+			do_action('admin_notices', sanitize_text_field($_GET['error_message']));
+		}
+		require_once 'partials/' . $this->plugin_name . '-admin-directorio-settings-display.php';
+	}
+	
 	/*********************************/
 	/*****  REGISTRAR CAMPOS    ******/
 	/*********************************/
@@ -275,6 +287,10 @@ class Wpfunos_Admin {
 	public function registerAndBuildFieldsSinPrecio() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsSinPrecio.php';
 	}
+	public function registerAndBuildFieldsDirectorio() {
+		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDirectorio.php';
+	}
+	
 	/**
 	 * Display Admin settings error messages.
 	 */
@@ -358,6 +374,10 @@ class Wpfunos_Admin {
 		<hr />
 		<?php
 	}
+	public function wpfunos_display_directorio_account() {
+		?><p><?php esc_html_e('Configuración del directorio.', 'wpfunos'); ?></p><?php	
+	}
+	
 	/*********************************/
 	/*****  METABOXES  CPT      ******/
 	/*********************************/
@@ -872,6 +892,7 @@ class Wpfunos_Admin {
 					'name_admin_bar' => esc_html__('Tanatorios del direcctorio', 'wpfunos'),
 			),
 			'public'=>true,
+			'has_archive' => true,
 			'description' => esc_html__('Tanatorios', 'wpfunos'),
 			'exclude_from_search' => false,
 			'show_ui' => true,
@@ -879,7 +900,7 @@ class Wpfunos_Admin {
 			'supports'=>array('title', 'custom_fields', 'editor', 'author', 'thumbnail', 'excerpt'),
 			'capability_type' => 'post',
 			'capabilities' => array('create_posts' => true),
-			'rewrite' => array( 'slug' => 'tanatorios', 'with_front'=> false ), 'capability_type' => 'post', 
+			'rewrite' => array( 'with_front'=> false ), 'capability_type' => 'post', 
     		'hierarchical' => true, 
 			'map_meta_cap' => true,
 		);
@@ -906,7 +927,7 @@ class Wpfunos_Admin {
         			'menu_name'         => __( 'Tanatorio' ),
 				),
     	    	'singular_label' => 'Tanatorio', 
-        		'rewrite' => array( 'slug' => 'tanatorios', 'with_front'=> false ),
+        		'rewrite' => array(),
     			'public'                     => true,
     			'show_ui'                    => true,
     			'show_admin_column'          => true,
@@ -936,7 +957,7 @@ class Wpfunos_Admin {
         			'menu_name'         => __( 'Funeraria' ),
 				),
     	    	'singular_label' => 'Funeraria', 
-        		'rewrite' => array( 'slug' => 'funerarias', 'with_front'=> false ),
+        		'rewrite' => array(),
     			'public'                     => true,
     			'show_ui'                    => true,
     			'show_admin_column'          => true,
@@ -953,8 +974,8 @@ class Wpfunos_Admin {
 	        	'label' => 'Marca funeraria', 
 				'labels'=>
 				array(
-					'name'              => _x( 'Marca funeraria', 'taxonomy general name' ),
-        			'singular_name'     => _x( 'Marca funeraria', 'taxonomy singular name' ),
+					'name'              => _x( 'Marca', 'taxonomy general name' ),
+        			'singular_name'     => _x( 'Marca', 'taxonomy singular name' ),
         			'search_items'      => __( 'Search Categories' ),
         			'all_items'         => __( 'All Categories' ),
         			'parent_item'       => __( 'Parent Category' ),
@@ -963,7 +984,7 @@ class Wpfunos_Admin {
         			'update_item'       => __( 'Update Category' ),
         			'add_new_item'      => __( 'Add New Category' ),
         			'new_item_name'     => __( 'New Category Name' ),
-        			'menu_name'         => __( 'Marca funeraria' ),
+        			'menu_name'         => __( 'Marca' ),
 				),
     	    	'singular_label' => 'Marca', 
         		'rewrite' => array( 'slug' => 'marcas', 'with_front'=> false ),

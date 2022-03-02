@@ -78,6 +78,7 @@ class Wpfunos {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		$this->define_directorio_hooks();
 
 	}
 
@@ -122,6 +123,11 @@ class Wpfunos {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpfunos-public.php';
 
+		/**
+		 * Directorio
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'directorio/class-wpfunos-directorio.php';
+		
 		$this->loader = new Wpfunos_Loader();
 
 	}
@@ -175,6 +181,21 @@ class Wpfunos {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 	}
+	
+	/**
+	 * Register all of the hooks related to the public-facing functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_directorio_hooks() {
+
+		$plugin_directorio = new Wpfunos_Directorio( $this->get_plugin_name(), $this->get_version() );
+
+	}
+	
+	
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
