@@ -78,6 +78,7 @@ class Wpfunos {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		$this->define_aseguradoras_hooks();
 		$this->define_directorio_hooks();
 
 	}
@@ -122,6 +123,11 @@ class Wpfunos {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpfunos-public.php';
+
+		/**
+		 * Aseguradoras
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'aseguradoras/class-wpfunos-aseguradoras.php';
 
 		/**
 		 * Directorio
@@ -183,7 +189,20 @@ class Wpfunos {
 	}
 	
 	/**
-	 * Register all of the hooks related to the public-facing functionality
+	 * Register all of the hooks aseguradoras
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_aseguradoras_hooks() {
+
+		$plugin_aseguradoras = new Wpfunos_Aseguradoras( $this->get_plugin_name(), $this->get_version() );
+
+	}
+	
+	/**
+	 * Register all of the hooks directorio
 	 * of the plugin.
 	 *
 	 * @since    1.0.0

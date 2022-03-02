@@ -64,3 +64,12 @@ if (class_exists('autoptimizeCache')) {
        header("Refresh:0"); # Refresh the page so that autoptimize can create new cache files and it does breaks the page after clearall.
     }
 }
+
+function add_meta_for_search_excluded()
+{
+    global $post;
+    if (false !== array_search($post->ID, get_option('sep_exclude', array()))) {
+        echo '<meta name="robots" content="noindex,nofollow" />', "\n";
+    }
+}
+add_action('wp_head', 'add_meta_for_search_excluded');
