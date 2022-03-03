@@ -76,10 +76,12 @@ class Wpfunos {
 
 		$this->load_dependencies();
 		$this->set_locale();
+		$this->define_utils_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_aseguradoras_hooks();
 		$this->define_directorio_hooks();
+		$this->define_servicios_hooks();
 
 	}
 
@@ -123,6 +125,11 @@ class Wpfunos {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpfunos-public.php';
+		
+		/**
+		 * Utils
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'utils/class-wpfunos-utils.php';
 
 		/**
 		 * Aseguradoras
@@ -133,6 +140,11 @@ class Wpfunos {
 		 * Directorio
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'directorio/class-wpfunos-directorio.php';
+		
+		/**
+		 * Servicios
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'servicios/class-wpfunos-servicios.php';
 		
 		$this->loader = new Wpfunos_Loader();
 
@@ -189,6 +201,19 @@ class Wpfunos {
 	}
 	
 	/**
+	 * Register all of the hooks utils
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_utils_hooks() {
+
+		$plugin_utils = new Wpfunos_Utils( $this->get_plugin_name(), $this->get_version() );
+
+	}
+	
+	/**
 	 * Register all of the hooks aseguradoras
 	 * of the plugin.
 	 *
@@ -214,7 +239,18 @@ class Wpfunos {
 
 	}
 	
-	
+	/**
+	 * Register all of the hooks servicios
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_servicios_hooks() {
+
+		$plugin_servicios = new Wpfunos_Servicios( $this->get_plugin_name(), $this->get_version() );
+
+	}
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

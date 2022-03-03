@@ -43,8 +43,12 @@ class Wpfunos_Directorio {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		add_shortcode( 'wpfunos-contenido-tanatorio-directorio', array( $this, 'wpfunosContenidoTanatorioDirectorioShortcode' ));
+		add_shortcode( 'wpfunos-actulizar-mapas-directorio', array( $this, 'wpfunosActualizarMapasDirectorioShortcode' ));
 	}
 	
+	/*********************************/
+	/*****  SHORTCODES          ******/
+	/*********************************/
 	
 	/**
 	* Shortcode [wpfunos-contenido-tanatorio-directorio]
@@ -54,50 +58,45 @@ class Wpfunos_Directorio {
 	}
 	
 	/**
-	 * Utility: dump array for logfile.
-	 */
-	public function dumpPOST($data, $indent=0) {
-		$retval = '';
-		$prefix=\str_repeat(' |  ', $indent);
-		if (\is_numeric($data)) $retval.= "Number: $data";
-		elseif (\is_string($data)) $retval.= "String: '$data'";
-		elseif (\is_null($data)) $retval.= "NULL";
-		elseif ($data===true) $retval.= "TRUE";
-		elseif ($data===false) $retval.= "FALSE";
-		elseif (is_array($data)) {
-			$indent++;
-			foreach($data AS $key => $value) {
-				$retval.= "\r\n$prefix [$key] = ";
-				$retval.= $this->dump($value, $indent);
-			}
-		}
-		elseif (is_object($data)) {
-			$retval.= "Object (".get_class($data).")";
-			$indent++;
-			foreach($data AS $key => $value) {
-				$retval.= "\r\n$prefix $key -> ";
-				$retval.= $this->dump($value, $indent);
-			}
-		}
-		return $retval;
+	* Shortcode [wpfunos-actulizar-mapas-directorio]
+	*/
+	public function wpfunosActualizarMapasDirectorioShortcode( $atts, $content = "" ) {
+		if ( get_post_type( get_the_ID() ) != 'tanatorio_d_wpfunos' ) return;
+		$this->gmw_update_post_type_post_location( get_the_ID() );
 	}
-
-	/**
-	 * Utility: create entry in the log file.
-	 */
-	public function custom_logs($message){
-		$upload_dir = wp_upload_dir();
-		if (is_array($message)) {
-			$message = json_encode($message);
+	
+	
+	/*********************************/
+	/*****                      ******/
+	/*********************************/
+	
+	public function gmw_update_post_type_post_location(  $post_id ) {
+		// Return if it's a post revision.
+		if ( false !== wp_is_post_revision( $post_id ) ) {
+			return;
 		}
-		if (!file_exists( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs') ) {
-			mkdir( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs' );
+		// check autosave.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
 		}
-		$time = current_time("d-M-Y H:i:s");
-		$ban = "#$time: $message\r\n";
-		$file = $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $this->plugin_name .'-publiclog-' . current_time("Y-m-d") . '.log';
-		$open = fopen($file, "a");
-		fputs($open, $ban);
-		fclose( $open );
+		// check if user can edit post.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+		// get the address from the custom field "address".
+		// 
+		// _tanatorioDirectorioDireccion
+		$address = get_post_meta( $post_id, 'wpfunos_tanatorioDirectorioDireccion', true );
+		if( strlen( $address) < 5 )$address = get_post_meta( $post_id, 'wpfunos_tanatorioDirectorioPoblacion', true );
+		// varify that address exists.
+		if ( empty( $address ) ) {
+			return;
+		}
+		// verify the updater function.
+		if ( ! function_exists( 'gmw_update_post_location' ) ) {
+			return;
+		}
+		//run the udpate location function
+		gmw_update_post_location( $post_id, $address );
 	}
 }
