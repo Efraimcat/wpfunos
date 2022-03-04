@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since      1.0.0
  *
  * @package    Wpfunos
- * @subpackage Wpfunos/directorio
+ * @subpackage Wpfunos/servicios
  * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 class Wpfunos_Servicios {
@@ -42,6 +42,7 @@ class Wpfunos_Servicios {
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		add_shortcode( 'wpfunos-page-switch', array( $this, 'wpfunosServiciosPageSwitchShortcode' ));
 		add_shortcode( 'wpfunos-actulizar-mapas-servicios', array( $this, 'wpfunosActualizarMapasServiciosShortcode' ));
 		add_shortcode( 'wpfunos-pagina-servicios', array( $this, 'wpfunosPaginaServiciosShortcode' ));
 		add_shortcode( 'wpfunos-pagina-resultados-servicios', array( $this, 'wpfunosPaginaResultadosServiciosShortcode' ));
@@ -51,13 +52,47 @@ class Wpfunos_Servicios {
 		add_shortcode( 'wpfunos-resultados-telefono-servicio', array( $this, 'wpfunosResultadosTelefonoServicioShortcode' ));
 		add_shortcode( 'wpfunos-resultados-llamar-telefono-servicio', array( $this, 'wpfunosResultadosLamarTelefonoServicioShortcode' ));
 		add_shortcode( 'wpfunos-resultados-estrellas', array( $this, 'wpfunosResultadosEstrellasShortcode' ));
+		add_shortcode( 'wpfunos-resultados-detalles', array( $this, 'wpfunosResultadosDetallesShortcode' ));
+		add_shortcode( 'wpfunos-resultados-detalles-comentarios', array( $this, 'wpfunosResultadosDetallesComentariosShortcode' ));
 		add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
+		add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
+		add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
+		add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
+		add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
+		add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 3 );
+		add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 3 );
+		add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 3 );
+		add_filter( 'wpfunos_get_userid', array( $this, 'wpfunosGetUserid' ) );
+		add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
 	}
 	
 	/*********************************/
 	/*****  SHORTCODES          ******/
 	/*********************************/
 
+	/**
+	 * Shortcode [wpfunos-page-switch]
+	 */
+	public function wpfunosServiciosPageSwitchShortcode(){
+		if( !isset( $_GET['form'] ) && !isset( $_GET['referencia'] ) ){
+			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
+		}elseif( !isset($_GET['referencia']) ){
+			$_GET['direccion'] = $_GET['address'][0];
+			$_GET['tipo'] = $_GET['post'][0];
+			mt_srand(mktime());
+			$_GET['referencia'] = 'funos-'.(string)mt_rand();
+			$_GET['CP'] = $this->wpfunosCodigoPostal( $_GET['CP'], $_GET['direccion'] );
+			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') );
+		}elseif( isset($_GET['referencia'] ) ){
+			$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
+			if($IDusuario != 0){  
+				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosCabecera') );
+				echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
+				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosPie') );
+			}
+		}
+	}
+	
 	/**
 	* Shortcode [wpfunos-actulizar-mapas-servicios]
 	*/
@@ -139,6 +174,74 @@ class Wpfunos_Servicios {
 	public function wpfunosResultadosEstrellasShortcode( $atts, $content = "" ) {
 		return (int)$_GET['valoracion'];
 	}
+	/**
+	* Shortcode [wpfunos-resultados-detalles]
+	*/
+	public function wpfunosResultadosDetallesShortcode( $atts, $content = "" ) {
+		if(
+			$_GET['desgloseBaseDescuento'] == '0%' &&
+			$_GET['desgloseDestinoDescuento'] == '%' &&
+			$_GET['desgloseAtaudDescuento'] == '%' &&
+			$_GET['desgloseVelatorioDescuento'] == '%' &&
+			$_GET['desgloseCeremoniaDescuento'] == '%'){
+				$_GET['desgloseBaseDescuento'] = ''; $_GET['desgloseBaseTotal'] = '';
+				$_GET['desgloseDestinoDescuento'] = ''; $_GET['desgloseDestinoTotal'] = '';
+				$_GET['desgloseAtaudDescuento'] = ''; $_GET['desgloseAtaudTotal'] = '';
+				$_GET['desgloseVelatorioDescuento'] = ''; $_GET['desgloseVelatorioTotal'] = '';
+				$_GET['desgloseCeremoniaDescuento'] = ''; $_GET['desgloseCeremoniaTotal'] = '';
+				$_GET['desgloseDescuentoGenericoTotal'] = '';
+		}
+		if( $_GET['desgloseBaseDescuento'] == '0%' ) $_GET['desgloseBaseDescuento'] = '';
+		if( $_GET['desgloseDestinoDescuento'] == '%' ) $_GET['desgloseDestinoDescuento'] = '';
+		if( $_GET['desgloseAtaudDescuento'] == '%' ) $_GET['desgloseAtaudDescuento'] = '';
+		if( $_GET['desgloseVelatorioDescuento'] == '%' ) $_GET['desgloseVelatorioDescuento'] = '';
+		if( $_GET['desgloseCeremoniaDescuento'] == '%' ) $_GET['desgloseCeremoniaDescuento'] = '';
+	}
+	
+	/**
+	* Shortcode [wpfunos-resultados-detalles-comentarios]
+	*/
+	public function wpfunosResultadosDetallesComentariosShortcode( $atts, $content = "" ) {
+		$respuesta = (explode(',',$_GET['seleccionUsuario']));
+		echo '<h4><strong>¿Qué está incluido en Precio base?</strong></h4>';
+		echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPrecioBaseComentario', true ) );
+		if( $respuesta[3] == 1 ) {
+			echo '<h4><strong>¿Qué está incluido en entierro?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDestino_1Comentario', true ) );
+		}
+		if( $respuesta[3] == 2 ) {
+			echo '<h4><strong>¿Qué está incluido en incineración?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDestino_2Comentario', true ) );
+		}
+		if( $respuesta[4] == 1 ) {
+			echo '<h4><strong>¿Qué está incluido en ataúd gama económica?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioAtaud_1Comentario', true ) );
+		}
+		if( $respuesta[4] == 2 ) {
+			echo '<h4><strong>¿Qué está incluido en ataúd gama media?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioAtaud_2Comentario', true ) );
+		}
+		if( $respuesta[5] == 1  && strlen( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioComentario', true ) ) > 0 ){ 
+			echo '<h4><strong>¿Qué está incluido en velatorio?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioComentario', true ) );
+		}
+		if( $respuesta[5] == 2  && strlen( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioNoComentario', true ) ) > 0 ){ 
+			echo '<h4><strong>¿Qué está incluido en velatorio?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioVelatorioNoComentario', true ) );
+		}
+		if( $respuesta[6] == 2 ) {
+			echo '<h4><strong>¿Qué está incluido en ceremonia Sólo la sala?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_1Comentario', true ) );
+		}
+		if( $respuesta[6] == 3 ) {
+			echo '<h4><strong>¿Qué está incluido en ceremonia civil?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_2Comentario', true ) );
+		}
+		if( $respuesta[6] == 4 ) {
+			echo '<h4><strong>¿Qué está incluido en ceremonia religiosa?</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_3Comentario', true ) );
+		}
+	}
 	
 	/*********************************/
 	/*****  HOOKS               ******/
@@ -153,7 +256,7 @@ class Wpfunos_Servicios {
 		// if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Fields: ' . $this->dumpPOST($_POST));
 		mt_srand(mktime());
 		$_GET['referencia'] = 'funos-'.(string)mt_rand();
-		$userIP = $this->getUserIP();
+		$userIP = apply_filters('wpfunos_userIP','dummy');
 		$my_post = array(
    			'post_title' => $_GET['referencia'],
 			'post_type' => 'usuarios_wpfunos',
@@ -217,6 +320,367 @@ class Wpfunos_Servicios {
 		}
 	}
 
+	/**
+	* Hook Elementor Form New Record
+	*
+	*add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
+	*/
+	public function wpfunosFormNewrecord($record, $handler){
+		global $wp;
+		$form_name = $record->get_form_settings( 'form_name' );
+		if ( 'FormularioDatos' !== $form_name  && 'FormularioDatosFuturo' !== $form_name ) {
+			return;
+		}
+		$raw_fields = $record->get( 'fields' );
+		$fields = [];
+		foreach ( $raw_fields as $id => $field ) {
+			$fields[ $id ] = $field['value'];
+		}
+		// do_action('wpfunos_log', 'Fields: ' . $fields );
+		if( $this->wpfunosGetUserid( $fields['referencia'] ) != 0 ) {mt_srand(mktime()); $fields['referencia'] = 'funos-'.(string)mt_rand(); }
+		$tel = str_replace(" ","", $fields['Telefono'] );
+		$tel = str_replace("-","",$tel);
+		$fields['Telefono'] =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+		$userIP = apply_filters('wpfunos_userIP','dummy');
+		if( $form_name == 'FormularioDatos' ){
+			$my_post = array(
+    			'post_title' => $fields['referencia'],
+				'post_type' => 'usuarios_wpfunos',
+				'post_status'  => 'publish',
+				'meta_input'   => array(
+					$this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+					$this->plugin_name . '_userMail' => sanitize_text_field( $fields['Email'] ),
+					$this->plugin_name . '_userReferencia' => sanitize_text_field( $fields['referencia'] ),
+					$this->plugin_name . '_userName' => sanitize_text_field( $fields['Nombre'] ),
+					$this->plugin_name . '_userSurname' => sanitize_text_field( $fields['Apellidos'] ),
+					$this->plugin_name . '_userPhone' => sanitize_text_field( $fields['Telefono'] ),
+					$this->plugin_name . '_userSeguro' => sanitize_text_field( $fields['Seguro'] ),
+					$this->plugin_name . '_userCP' => sanitize_text_field( $fields['CP'] ),
+					$this->plugin_name . '_userAccion' => '0',
+					$this->plugin_name . '_userSeleccion' => sanitize_text_field( str_replace(",","+",$fields['address']).', '.$fields['distance'].', 1, '. $fields['Destino'].', '.$fields['Ataud'].', '.$fields['Velatorio'].', '.$fields['Despedida']),
+					$this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
+				),
+			);
+		}elseif( $form_name == 'FormularioDatosFuturo' ){
+			$my_post = array(
+    			'post_title' => $fields['referencia'],
+				'post_type' => 'usuarios_wpfunos',
+				'post_status'  => 'publish',
+				'meta_input'   => array(
+					$this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+					$this->plugin_name . '_userMail' => sanitize_text_field( $fields['Email'] ),
+					$this->plugin_name . '_userReferencia' => sanitize_text_field( $fields['referencia'] ),
+					$this->plugin_name . '_userName' => sanitize_text_field( $fields['Nombre'] ),
+					$this->plugin_name . '_userSurname' => sanitize_text_field( $fields['Apellidos'] ),
+					$this->plugin_name . '_userPhone' => sanitize_text_field( $fields['Telefono'] ),
+					$this->plugin_name . '_userSeguro' => sanitize_text_field( $fields['Seguro'] ),
+					$this->plugin_name . '_userCP' => sanitize_text_field( $fields['CP'] ),
+					$this->plugin_name . '_userAccion' => '3',
+					$this->plugin_name . '_userSeleccion' => sanitize_text_field( str_replace(",","+",$fields['address']).', '.$fields['distance'].', ' . $fields['sexo']. ', '. (int)$fields['nacimiento']  ),
+					$this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
+				),
+			);
+		}
+		if( strlen( $fields['Telefono']) > 3 ){ 
+			$post_id = wp_insert_post($my_post);
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'Nuevo Usuario: ' .  $userIP  );
+			do_action('wpfunos_log', 'ID: ' .  $post_id  );
+			do_action('wpfunos_log', 'referencia: ' . $fields['referencia'] );
+			do_action('wpfunos_log', 'Telefono: ' . $fields['Telefono'] );
+		}else{
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'Error 1 Nuevo Usuario: ' .  $userIP  );
+			do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
+		}
+		if(is_wp_error($post_id)){
+			echo $post_id->get_error_message();
+			exit;
+		}
+	}
+	/**
+	 * Hook array resultados confirmados
+	 *
+	 * add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 3 );
+	 */
+	public function wpfunosResultadosConfirmado( $wpfResultados, $wpfunos_confirmado, $postID ){
+		if( !$wpfResultados[2] && get_post_meta( $postID, 'wpfunos_servicioPrecioConfirmado', true ) == true && $wpfResultados[0] != 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )){
+			$wpfunos_confirmado[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3], $postID );
+		}
+		return  $wpfunos_confirmado;
+	}
+
+	/**
+	 * Hook array resultados sin confirmar
+	 *
+	 * add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 3 );
+	 */
+	public function wpfunosResultadosSinConfirmar( $wpfResultados, $wpfunos_sinconfirmar, $postID ){
+		if( !$wpfResultados[2] && get_post_meta( $postID, 'wpfunos_servicioPrecioConfirmado', true ) != true && $wpfResultados[0] != 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )) {
+			$wpfunos_sinconfirmar[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3], $postID );
+		}
+		return $wpfunos_sinconfirmar;
+	}
+
+	/**
+	 * Hook array resultados sin precio
+	 *
+	 * add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 3 );
+	 */
+	public function wpfunosResultadosSinPrecio( $wpfResultados, $wpfunos_sinprecio, $postID ){
+		if( !$wpfResultados[2] && $wpfResultados[0] == 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )){
+			$wpfunos_sinprecio[] = array( $postID, 0, 0, $postID );
+		}
+		return $wpfunos_sinprecio;
+	}
+	
+	/**
+	 * Hook mostrar entrada con precio confirmados
+	 *
+	 * add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
+	 */
+	public function wpfunosResultGridConfirmado( $wpfunos_confirmado ){
+		if(count($wpfunos_confirmado) != 0){
+			?><div class="wpfunos-titulo"><p></p><center><h2>Precio confirmado</h2></center></div><?php
+			// do_action('wpfunos_log', '$wpfunos_confirmado: ' .  $wpfunos_confirmado );
+			foreach ($wpfunos_confirmado as $value) {
+				?><div class="wpfunos-busqueda-contenedor"><?php
+				$_GET['nombre'] = get_the_title( $value[0] );
+				$_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
+				$_GET['confirmado'] = wp_get_attachment_image ( 1217 , array(45,46));
+				$_GET['textoconfirmado'] = "Precio confirmado";
+				$_GET['direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
+				$_GET['precio'] = number_format($value[1], 0, ',', '.') . '€';
+				if( $value[1] != $value[2] ){
+					$_GET['preciodescuento'] = number_format($value[2], 0, ',', '.') . '€';
+				}else{
+					$_GET['preciodescuento'] = '';
+				}
+				$porcentaje = 100 - ((float)$value[2] * 100) / $value[1];
+				$_GET['descuento'] = round($porcentaje, 0);
+				$_GET['logodescuento'] = '';
+				$_GET['telefonoEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioTelefono', true );
+				$_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
+				$_GET['servicio'] = $value[0];
+				$_GET['nombrepack'] = get_post_meta( $value[0], 'wpfunos_servicioPackNombre', true );
+				if($value[1] == $value[2]){
+					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultados') ) ;
+				}else{
+					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuento') ) ;
+				}
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
+				?>
+				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
+					<input type="hidden" name="accion" id="accion" value="1" >
+					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 14px;">
+				</form>
+				<?php
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
+				$tel = str_replace(" ","",$_GET['telefonoEmpresa']);
+				$tel = str_replace("-","",$tel);
+				$_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+				$tel = str_replace(" ","",$_GET['telefonoUsuario']);
+				$tel = str_replace("-","",$tel);
+				$_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
+				?>
+				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamen'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
+					<input type="hidden" name="accion" id="accion" value="1" >
+					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+					<input type="submit" value="Quiero que me llamen" style="background-color: #1d40d3; font-size: 14px;">
+				</form>
+				</div>
+				<div class="wpfunos-boton-llamar">
+				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamar'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
+					<input type="hidden" name="accion" id="accion" value="2" >
+					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
+					<input type="hidden" name="wpfunos-hacer-llamada" id="wpfunos-hacer-llamada" value="1" >
+					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+					<input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 14px;">
+				</form>
+				<?php
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
+				if($value[1] == $value[2]){
+					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosInferior') ) ;
+				}else{
+					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoInferior') ) ;
+				}
+				?></div><?php
+			}
+		}
+	}
+
+	/**
+	 * Hook mostrar entrada con precio sin confirmar
+	 *
+	 * add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
+	 */
+	public function wpfunosResultGridSinConfirmar( $wpfunos_sinconfirmar ){
+		if(count($wpfunos_sinconfirmar) != 0){
+			?><div class="wpfunos-titulo"><p></p><h2><center>Precio sin confirmar</center></h2></div><?php
+			foreach ($wpfunos_sinconfirmar as $value) {
+				?><div class="wpfunos-busqueda-contenedor"><?php
+				$_GET['nombre'] = get_the_title( $value[0] );
+				$_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
+				$_GET['confirmado'] = wp_get_attachment_image ( 1216 , array(45,46));
+				$_GET['textoconfirmado'] = "Precio no confirmado";
+				$_GET['direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
+				$_GET['precio'] = number_format($value[1], 0, ',', '.') . '€';
+				$_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
+				$_GET['preciodescuento'] = '';
+				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
+				?>
+				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
+					<input type="hidden" name="accion" id="accion" value="1" >
+					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 14px;">
+				</form>
+				<?php
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
+				?></div><?php
+			}
+		}
+	}
+
+	/**
+	 * Hook mostrar entrada con sin precio
+	 *
+	 * add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
+	 */
+	public function wpfunosResultGridSinPrecio( $wpfunos_sinprecio ){
+		if(count($wpfunos_sinprecio) != 0){
+			?><div class="wpfunos-titulo"><p></p><center><h2>Sin precio</h2></center></div><?php
+			foreach ($wpfunos_sinprecio as $value) {
+				?><div class="wpfunos-busqueda-contenedor"><?php
+				$_GET['nombre'] = get_the_title( $value[0] );
+				$_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
+				$_GET['confirmado'] = '';
+				$_GET['textoconfirmado'] = '';
+				$_GET['direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
+				$_GET['precio'] = '';
+				$_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
+				$_GET['preciodescuento'] = '';
+				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
+				?></div><?php
+			}
+		}
+	}
+	
+	/**
+	 * Hook filter ID usuario página resultados
+	 *
+	 * add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
+	 */
+	public function wpfunosGetResults( $postID, $userID ){
+		$NA = false;
+ 		$ecologico = false;
+ 		$preciototal = (int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBase', true );
+ 		$preciodescuento = 0;
+ 		if( (int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBaseDescuento', true ) > 0 ){
+   			$preciodescuento = $preciototal - ( $preciototal*((int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBaseDescuento', true )/100) );
+ 		}else{
+   			$preciodescuento = $preciototal ;
+ 		}
+		//	Servicio
+		//	nombre
+		//	Precio
+		//	descuento
+		//	total
+ 		$wpfservicio[] = array('Base',
+   			get_post_meta( $postID, $this->plugin_name . '_servicioNombre', true ),
+   			$preciototal,
+   			(int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBaseDescuento', true ),
+   			$preciodescuento
+ 		);
+		//
+		//$wpfunos_confirmado[] = array( $postID, $wpfResultados[0], $wpfResultados[1] );
+		//
+ 		$seleccion = get_post_meta( $userID, 'wpfunos_userSeleccion', true );
+ 		$CP = get_post_meta( $userID, 'wpfunos_userCP', true );
+ 		$respuesta = (explode(',',$seleccion));
+
+ 		// Destino
+ 		switch($respuesta[3]){
+   			case '1':
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Precio', true ),
+	       			get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Nombre', true ) );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Nombre', true ) );
+     			break;
+   			case '3';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_3Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDestino_3Descuento', true ), $NA, $preciototal, $preciodescuento , get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Nombre', true ) );
+				break;
+ 		}
+ 		$wpfservicio[] = array('Destino', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+
+ 		// Ataud
+ 		switch($respuesta[4]){
+   			case '1':
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Nombre', true ) );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Nombre', true ) );
+     			break;
+   			case '3';
+     			list( $NA, $preciototal, $preciodescuento , $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Nombre', true ) );
+     			break;
+ 		}
+ 		$wpfservicio[] = array('Ataud', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+
+ 		// Velatorio
+ 		switch($respuesta[5]){
+   			case '1':
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioPrecio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioDescuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNombre', true ) );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNoPrecio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNoDescuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNoNombre', true ) );
+     			break;
+ 		}
+ 		$wpfservicio[] = array('Velatorio', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+
+ 		// Ceremonia
+ 		switch($respuesta[6]){
+   			case '1';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) =
+       				$this->wpfunos_case( $postID, '0', '', $NA, $preciototal, $preciodescuento, 'Sin ceremonia' );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_1Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_1Nombre', true ) );
+     			break;
+   			case '3';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_2Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_2Nombre', true ) );
+     			break;
+   			case '4';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Nombre', true ) );
+     			break;
+ 		}
+ 		$wpfservicio[] = array('Ceremonia', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+
+ 		// Descuento genérico
+ 		if( (int)get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true ) > 0 ) $preciodescuento -= $preciodescuento*((int)get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true )/100);
+ 		$wpfservicio[] = array('Descuento genérico', 'Descuento genérico', $preciototal, get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true ), $preciodescuento);
+		// do_action('wpfunos_log', 'Desglose : ' .  $wpfservicio );
+ 		// Array resultados
+ 		$resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio ) ;
+		return $resultados;
+	}
+	
 	/*********************************/
 	/*****                      ******/
 	/*********************************/
@@ -303,5 +767,77 @@ class Wpfunos_Servicios {
   		$customfield_content = apply_filters( 'the_content', $customfield_content );
   		$customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content );
   		return $customfield_content;
+	}
+
+	/**
+	 * ID usuario página resultados
+	 *
+	 */
+	public function wpfunosGetUserid( $referencia ){
+		$ID = 0;
+		$args = array(
+			'post_type' => 'usuarios_wpfunos',
+			'meta_key' =>  'wpfunos_userReferencia',
+			'meta_value' => $referencia,
+		);
+		$my_query = new WP_Query( $args );
+		if ( $my_query->have_posts() ) :
+			while ( $my_query->have_posts() ) : $my_query->the_post();
+				$ID = get_the_ID();
+			endwhile;
+		endif;
+		wp_reset_postdata();
+		return $ID;
+	}
+	
+	/**
+	 * Buscar CP undefined
+	 */
+	public function  wpfunosCodigoPostal( $CodigoPostal, $Direccion ){
+		// CP = 'undefined'
+		if( $CodigoPostal == 'undefined' || $CodigoPostal == '' ){
+			$poblacion = ucwords( $Direccion );
+			$id=0;
+			$args = array(
+		  		'post_type' => 'cpostales_wpfunos',	//
+		  		'meta_key' =>  $this->plugin_name . '_cpostalesPoblacion',
+		  		'meta_value' => $poblacion,
+			);
+			$my_query = new WP_Query( $args );
+			if ( $my_query->have_posts() ) :
+		  		while ( $my_query->have_posts() ) : $my_query->the_post();
+		    		$id = get_the_ID();
+		  		endwhile;
+			endif;
+			wp_reset_postdata();
+			$CodigoPostal = get_post_meta( $id, 'wpfunos_cpostalesCodigo', true );
+		}
+		return $CodigoPostal;
+	}
+	
+	/**
+	 * Case loops
+	 *
+	 * $postID = $postID,
+	 * $servicioPrecio = get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Precio', true )
+	 * $servicioDescuento = get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Descuento', true )
+	 * $NA = $NA
+	 * $preciototal = $preciototal
+	 * $preciodescuento = $preciodescuento
+	 *
+ 	 * list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Precio', true ),
+	 *				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Nombre', true ) );
+	 */
+	private function wpfunos_case( $postID, $servicioPrecio, $servicioDescuento, $NA, $preciototal, $preciodescuento, $servicioNombre ){
+		if ($servicioPrecio == '' ) $NA=true;
+		$preciototal += (int)$servicioPrecio ;
+		if( (int)$servicioDescuento > 0 ){
+			$preciodescuento += (int)$servicioPrecio - ((int)$servicioPrecio*((int)$servicioDescuento/100));
+			$desglose = (int)$servicioPrecio - ((int)$servicioPrecio*((int)$servicioDescuento/100));
+		}else{
+			$preciodescuento += (int)$servicioPrecio;
+			$desglose = (int)$servicioPrecio;
+		}
+		return array( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioPrecio, $servicioDescuento, $desglose );
 	}
 }

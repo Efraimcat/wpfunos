@@ -44,6 +44,12 @@
 			
 		</div>
 		
+		<div id="wpfunos-search-form-medio">
+			<p>
+				O
+			</p>
+		</div>
+		
 		<div id="wpfunos-search-form-locator-button">
 			
 			<?php gmw_search_form_locator_button( $gmw ); ?>

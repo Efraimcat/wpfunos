@@ -44,6 +44,8 @@ class Wpfunos_Utils {
 		$this->version = $version;
 		add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 );
 		add_filter( 'wpfunos_userIP', array( $this, 'wpfunosUserIP' ) );
+		add_filter( 'wpfunos_crypt', array( $this, 'wpfunosSimpleCrypt' ), 10, 2 );
+		add_filter( 'wpfunos_formatocomentario', array( $this, 'wpfunosFormatoComentario' ), 10, 1 );
 	}
 	
 	/**
@@ -90,6 +92,15 @@ class Wpfunos_Utils {
     	return $ipaddress;
 	}
 
+	/**
+	 * Formatear texto comentarios
+	 */
+	public function wpfunosFormatoComentario( $customfield_content ){
+  		$customfield_content = apply_filters( 'the_content', $customfield_content );
+  		$customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content );
+  		return $customfield_content;
+	}
+	
 	/**
 	 * Utility: dump array for logfile.
 	 */
@@ -167,7 +178,11 @@ class Wpfunos_Utils {
 		fclose( $open );
 	}
 	
-	private function wpfunos_simple_crypt( $string, $action = 'e' ) {
+	/*
+	 * $decode = partyo_simple_crypt( $code, 'd' );
+	 * $codigo = partyo_simple_crypt( $link, 'e' );
+	 */
+	private function wpfunosSimpleCrypt( $string, $action = 'e' ) {
 		$secret_key = 'WpFunos_secret_key';
 		$secret_iv =  'WpFunos_secret_iv';
 
