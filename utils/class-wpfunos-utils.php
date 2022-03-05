@@ -43,24 +43,55 @@ class Wpfunos_Utils {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 );
+		add_filter( 'wpfunos_dumplog', array ( $this, 'dumpPOST'), 10, 1);
 		add_filter( 'wpfunos_userIP', array( $this, 'wpfunosUserIP' ) );
-		add_filter( 'wpfunos_crypt', array( $this, 'wpfunosSimpleCrypt' ), 10, 2 );
-		add_filter( 'wpfunos_formatocomentario', array( $this, 'wpfunosFormatoComentario' ), 10, 1 );
+		add_filter( 'wpfunos_userID', array( $this, 'wpfunosUserId' ), 10, 1 );
+		add_filter( 'wpfunos_comentario', array( $this, 'wpfunoscomentario' ), 10, 1 );
+		add_filter( 'wpfunos_crypt', array( $this, 'wpfunosCrypt' ), 10, 2 );
 	}
 	
+	/*********************************/
+	/*****                      ******/
+	/*********************************/
+	
 	/**
-	 * Utility: New log message HOOK: add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 );
+	 * Utility: New log message HOOK: add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 )
 	 * do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
 	 */
-	public function wpfunosLog($message){
+	public function wpfunosLog( $message ){
 		if(get_option($this->plugin_name . '_Debug')) $this->custom_logs( $this->dumpPOST($message));
 		return true;
 	}
+	
 	/**
-	 * Utility: UserID HOOK: add_action( 'wpfunos_userIP', array( $this, 'wpfunosUserIP' ), 10, 1 );
+	 * Utility: UserIP HOOK: add_filter( 'wpfunos_userIP', array( $this, 'wpfunosUserIP' ) )
+	 * $userIP = apply_filters('wpfunos_userIP','dummy');
 	 */
 	public function wpfunosUserIP( $dummy ){
 		return $this->getUserIP();
+	}
+	
+	/**
+	 * Utility: UserID HOOK: add_filter( 'wpfunos_userID', array( $this, 'wpfunosUserid' ), 10, 1 )
+	 * $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+	 */
+	public function wpfunosUserid ( $referencia ){
+		return $this->wpfunosGetUserid( $referencia );
+	}
+	
+	/**
+	 * Utility: Formato Comentario HOOK: add_filter( 'wpfunos_comentario', array( $this, 'wpfunoscomentario' ), 10, 1 );
+	 * $comentariosBase = apply_filters('wpfunos_comentario', get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPrecioBaseComentario', true ) );
+	 */
+	public function wpfunoscomentario( $customfield_content ){
+		return $this->wpfunosFormatoComentario( $customfield_content );
+	}
+	
+	/**
+	 * Utility: Crypt/Decript HOOK: add_filter( 'wpfunos_crypt', array( $this, 'wpfunosCrypt' ), 10, 2 )
+	 */	
+	public function wpfunosCrypt( $string, $action ){
+		return $this->wpfunosSimpleCrypt( $string, $action );
 	}
 	
 	/*********************************/
@@ -91,8 +122,29 @@ class Wpfunos_Utils {
         	$ipaddress = 'UNKNOWN';
     	return $ipaddress;
 	}
-
+	
 	/**
+	 * ID usuario página resultados
+	 *
+	 */
+	public function wpfunosGetUserid( $referencia ){
+		$ID = 0;
+		$args = array(
+			'post_type' => 'usuarios_wpfunos',
+			'meta_key' =>  'wpfunos_userReferencia',
+			'meta_value' => $referencia,
+		);
+		$my_query = new WP_Query( $args );
+		if ( $my_query->have_posts() ) :
+			while ( $my_query->have_posts() ) : $my_query->the_post();
+				$ID = get_the_ID();
+			endwhile;
+		endif;
+		wp_reset_postdata();
+		return $ID;
+	}
+	
+/**
 	 * Formatear texto comentarios
 	 */
 	public function wpfunosFormatoComentario( $customfield_content ){

@@ -69,8 +69,9 @@ class Wpfunos_Aseguradoras {
 			//$this->wpfunosResultCorreoAdmin();
 			//$this->wpfunosResultCorreoLead();
 		}else{
-			do_action('==============' );
-			do_action('wpfunos_log', 'Error 4 Nuevo Usuario: ' .  $this->getUserIP() );
+			$userIP = apply_filters('wpfunos_userIP','dummy');
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'Error 4 Nuevo Usuario: ' .  $userIP );
 			do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
 		}
 	}
@@ -367,7 +368,7 @@ class Wpfunos_Aseguradoras {
 			do_action('wpfunos_log', '==============' );
            return;
         }
-		$this->custom_logs( 'Request: $request: ' . $this->dump($request) );
+		do_action('wpfunos_log', 'Request: $request: ' . $request );
 		$codigo = json_decode( $request['code'] );
 		$my_post = array(
    			'post_title' => $nuevareferencia,

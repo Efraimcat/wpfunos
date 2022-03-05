@@ -95,7 +95,7 @@ class Wpfunos_Public {
 				}
 				break;
 			case '2':	//población
-				esc_html_e( $respuesta[0] ); break;
+				esc_html_e( strtr($respuesta[0],"+",",") ); break;
 			case '3':	//Destino
 				switch($respuesta[3]){
 					case '1': esc_html_e( 'Entierro' ); break;

@@ -76,14 +76,26 @@ class Wpfunos_Servicios {
 	public function wpfunosServiciosPageSwitchShortcode(){
 		if( !isset( $_GET['form'] ) && !isset( $_GET['referencia'] ) ){
 			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
-		}elseif( !isset($_GET['referencia']) ){
+		}elseif( !isset($_GET['wpf']) ){
 			$_GET['direccion'] = $_GET['address'][0];
 			$_GET['tipo'] = $_GET['post'][0];
 			mt_srand(mktime());
 			$_GET['referencia'] = 'funos-'.(string)mt_rand();
 			$_GET['CP'] = $this->wpfunosCodigoPostal( $_GET['CP'], $_GET['direccion'] );
+			$_GET['wpf'] = apply_filters( 'wpfunos_crypt', $_GET['referencia'] . ', ' . $_GET['CP'] , 'e' );
 			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') );
-		}elseif( isset($_GET['referencia'] ) ){
+		}elseif( isset($_GET['wpf'] ) ){
+			$userIP = apply_filters('wpfunos_userIP','dummy');
+			$cryptcode = apply_filters( 'wpfunos_crypt', $_GET['wpf'], 'd' );
+			$codigo = ( explode( ',' , $cryptcode ) );
+			$_GET['referencia'] = $codigo[0];
+			$_GET['CP'] = $codigo[1];
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'Usuario: ' .  $userIP  );
+			do_action('wpfunos_log', '$_GET[wpf]: ' . $_GET['wpf'] );
+			do_action('wpfunos_log', '$cryptcode: ' . $cryptcode );
+			do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
+			do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
 			$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
 			if($IDusuario != 0){  
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosCabecera') );
@@ -110,7 +122,7 @@ class Wpfunos_Servicios {
 
 	/**
 	* Shortcode [wpfunos-pagina-resultados-servicios]
-	* https://funos.es/compara-precios-nueva?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
+	* https://funos.es/compara-precios-nueva?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"] 
 	*/
 	public function wpfunosPaginaResultadosServiciosShortcode( $atts, $content = "" ) {
 		echo get_option('wpfunos_paginaURLResultadosServicios');
@@ -125,9 +137,10 @@ class Wpfunos_Servicios {
 			$this->wpfunosResultCorreoAdmin();
 			$this->wpfunosResultCorreoLead();
 		}else{
+			$userIP = apply_filters('wpfunos_userIP','dummy');
 			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', 'Error 3 Nuevo Usuario: ' . $this->getUserIP() );
-			do_action('wpfunos_log', 'referencia: ' .  do_action( 'wpfunos_dumplog', $fields['referencia']  ) );
+			do_action('wpfunos_log', 'Error 3 Nuevo Usuario: ' . $userIP );
+			do_action('wpfunos_log', 'referencia: ' .  $fields['referencia']  );
 		}
 	}
 
@@ -253,7 +266,6 @@ class Wpfunos_Servicios {
 	* add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
 	*/
 	public function wpfunosResultUserEntry(){
-		// if(get_option($this->plugin_name . '_Debug')) $this->custom_logs('Fields: ' . $this->dumpPOST($_POST));
 		mt_srand(mktime());
 		$_GET['referencia'] = 'funos-'.(string)mt_rand();
 		$userIP = apply_filters('wpfunos_userIP','dummy');
@@ -468,16 +480,6 @@ class Wpfunos_Servicios {
 				}else{
 					echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuento') ) ;
 				}
-				require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
-				?>
-				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
-					<input type="hidden" name="accion" id="accion" value="1" >
-					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
-					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
-					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 14px;">
-				</form>
-				<?php
-				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
 				$tel = str_replace(" ","",$_GET['telefonoEmpresa']);
 				$tel = str_replace("-","",$tel);
 				$_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
@@ -500,6 +502,16 @@ class Wpfunos_Servicios {
 					<input type="hidden" name="wpfunos-hacer-llamada" id="wpfunos-hacer-llamada" value="1" >
 					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
 					<input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 14px;">
+				</form>
+				<?php
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
+				require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
+				?>
+				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
+					<input type="hidden" name="accion" id="accion" value="1" >
+					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 14px;">
 				</form>
 				<?php
 				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
@@ -538,7 +550,7 @@ class Wpfunos_Servicios {
 					<input type="hidden" name="accion" id="accion" value="1" >
 					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
 					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
-					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 14px;">
+					<input class="wpfunos-boton-detalles" type="submit" value="Consultar detalles" style="background-color: #1d40d3; font-size: 14px;">
 				</form>
 				<?php
 				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
@@ -717,6 +729,11 @@ class Wpfunos_Servicios {
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton1Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Lead' ) ;
 			//wp_mail (  get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton1Lead') , $mensaje, $headers );
+			//do_action('wpfunos_log', '==============' );
+			//do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
+			//do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton1Lead') );
+			//do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
+			//do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
 		}
 		if($_GET['accion'] == 2 && get_option($this->plugin_name . '_activarCorreoBoton2Lead')){
 			$mensaje = get_option('wpfunos_mensajeCorreoBoton2Lead');
@@ -724,6 +741,11 @@ class Wpfunos_Servicios {
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton2Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Lead' ) ;
 			//wp_mail ( get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ), get_option('wpfunos_asuntoCorreoBoton2Lead') , $mensaje, $headers );
+			//do_action('wpfunos_log', '==============' );
+			//do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
+			//do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton2Lead') );
+			//do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
+			//do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
 		}
 	}
 	
