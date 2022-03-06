@@ -55,14 +55,12 @@ class Wpfunos_Servicios {
 		add_shortcode( 'wpfunos-resultados-detalles', array( $this, 'wpfunosResultadosDetallesShortcode' ));
 		add_shortcode( 'wpfunos-resultados-detalles-comentarios', array( $this, 'wpfunosResultadosDetallesComentariosShortcode' ));
 		add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
-		add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
 		add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
 		add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 3 );
 		add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 3 );
 		add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 3 );
-		add_filter( 'wpfunos_get_userid', array( $this, 'wpfunosGetUserid' ) );
 		add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
 	}
 	
@@ -77,12 +75,18 @@ class Wpfunos_Servicios {
 		if( !isset( $_GET['form'] ) && !isset( $_GET['referencia'] ) ){
 			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
 		}elseif( !isset($_GET['wpf']) ){
+			$userIP = apply_filters('wpfunos_userIP','dummy');
 			$_GET['direccion'] = $_GET['address'][0];
 			$_GET['tipo'] = $_GET['post'][0];
 			mt_srand(mktime());
 			$_GET['referencia'] = 'funos-'.(string)mt_rand();
 			$_GET['CP'] = $this->wpfunosCodigoPostal( $_GET['CP'], $_GET['direccion'] );
 			$_GET['wpf'] = apply_filters( 'wpfunos_crypt', $_GET['referencia'] . ', ' . $_GET['CP'] , 'e' );
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'Usuario: ' .  $userIP  );
+			do_action('wpfunos_log', '$_GET[wpf]: ' . $_GET['wpf'] );
+			do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
+			do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
 			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') );
 		}elseif( isset($_GET['wpf'] ) ){
 			$userIP = apply_filters('wpfunos_userIP','dummy');
@@ -96,7 +100,7 @@ class Wpfunos_Servicios {
 			do_action('wpfunos_log', '$cryptcode: ' . $cryptcode );
 			do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
 			do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
-			$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
+			$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
 			if($IDusuario != 0){  
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosCabecera') );
 				echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
@@ -331,85 +335,7 @@ class Wpfunos_Servicios {
 			do_action('wpfunos_log', 'referencia: ' .  $_GET['referencia']  );
 		}
 	}
-
-	/**
-	* Hook Elementor Form New Record
-	*
-	*add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
-	*/
-	public function wpfunosFormNewrecord($record, $handler){
-		global $wp;
-		$form_name = $record->get_form_settings( 'form_name' );
-		if ( 'FormularioDatos' !== $form_name  && 'FormularioDatosFuturo' !== $form_name ) {
-			return;
-		}
-		$raw_fields = $record->get( 'fields' );
-		$fields = [];
-		foreach ( $raw_fields as $id => $field ) {
-			$fields[ $id ] = $field['value'];
-		}
-		// do_action('wpfunos_log', 'Fields: ' . $fields );
-		if( $this->wpfunosGetUserid( $fields['referencia'] ) != 0 ) {mt_srand(mktime()); $fields['referencia'] = 'funos-'.(string)mt_rand(); }
-		$tel = str_replace(" ","", $fields['Telefono'] );
-		$tel = str_replace("-","",$tel);
-		$fields['Telefono'] =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
-		$userIP = apply_filters('wpfunos_userIP','dummy');
-		if( $form_name == 'FormularioDatos' ){
-			$my_post = array(
-    			'post_title' => $fields['referencia'],
-				'post_type' => 'usuarios_wpfunos',
-				'post_status'  => 'publish',
-				'meta_input'   => array(
-					$this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-					$this->plugin_name . '_userMail' => sanitize_text_field( $fields['Email'] ),
-					$this->plugin_name . '_userReferencia' => sanitize_text_field( $fields['referencia'] ),
-					$this->plugin_name . '_userName' => sanitize_text_field( $fields['Nombre'] ),
-					$this->plugin_name . '_userSurname' => sanitize_text_field( $fields['Apellidos'] ),
-					$this->plugin_name . '_userPhone' => sanitize_text_field( $fields['Telefono'] ),
-					$this->plugin_name . '_userSeguro' => sanitize_text_field( $fields['Seguro'] ),
-					$this->plugin_name . '_userCP' => sanitize_text_field( $fields['CP'] ),
-					$this->plugin_name . '_userAccion' => '0',
-					$this->plugin_name . '_userSeleccion' => sanitize_text_field( str_replace(",","+",$fields['address']).', '.$fields['distance'].', 1, '. $fields['Destino'].', '.$fields['Ataud'].', '.$fields['Velatorio'].', '.$fields['Despedida']),
-					$this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
-				),
-			);
-		}elseif( $form_name == 'FormularioDatosFuturo' ){
-			$my_post = array(
-    			'post_title' => $fields['referencia'],
-				'post_type' => 'usuarios_wpfunos',
-				'post_status'  => 'publish',
-				'meta_input'   => array(
-					$this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-					$this->plugin_name . '_userMail' => sanitize_text_field( $fields['Email'] ),
-					$this->plugin_name . '_userReferencia' => sanitize_text_field( $fields['referencia'] ),
-					$this->plugin_name . '_userName' => sanitize_text_field( $fields['Nombre'] ),
-					$this->plugin_name . '_userSurname' => sanitize_text_field( $fields['Apellidos'] ),
-					$this->plugin_name . '_userPhone' => sanitize_text_field( $fields['Telefono'] ),
-					$this->plugin_name . '_userSeguro' => sanitize_text_field( $fields['Seguro'] ),
-					$this->plugin_name . '_userCP' => sanitize_text_field( $fields['CP'] ),
-					$this->plugin_name . '_userAccion' => '3',
-					$this->plugin_name . '_userSeleccion' => sanitize_text_field( str_replace(",","+",$fields['address']).', '.$fields['distance'].', ' . $fields['sexo']. ', '. (int)$fields['nacimiento']  ),
-					$this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
-				),
-			);
-		}
-		if( strlen( $fields['Telefono']) > 3 ){ 
-			$post_id = wp_insert_post($my_post);
-			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', 'Nuevo Usuario: ' .  $userIP  );
-			do_action('wpfunos_log', 'ID: ' .  $post_id  );
-			do_action('wpfunos_log', 'referencia: ' . $fields['referencia'] );
-			do_action('wpfunos_log', 'Telefono: ' . $fields['Telefono'] );
-		}else{
-			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', 'Error 1 Nuevo Usuario: ' .  $userIP  );
-			do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
-		}
-		if(is_wp_error($post_id)){
-			echo $post_id->get_error_message();
-			exit;
-		}
-	}
+	
 	/**
 	 * Hook array resultados confirmados
 	 *
@@ -789,27 +715,6 @@ class Wpfunos_Servicios {
   		$customfield_content = apply_filters( 'the_content', $customfield_content );
   		$customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content );
   		return $customfield_content;
-	}
-
-	/**
-	 * ID usuario página resultados
-	 *
-	 */
-	public function wpfunosGetUserid( $referencia ){
-		$ID = 0;
-		$args = array(
-			'post_type' => 'usuarios_wpfunos',
-			'meta_key' =>  'wpfunos_userReferencia',
-			'meta_value' => $referencia,
-		);
-		$my_query = new WP_Query( $args );
-		if ( $my_query->have_posts() ) :
-			while ( $my_query->have_posts() ) : $my_query->the_post();
-				$ID = get_the_ID();
-			endwhile;
-		endif;
-		wp_reset_postdata();
-		return $ID;
 	}
 	
 	/**

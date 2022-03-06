@@ -82,15 +82,27 @@ class Wpfunos_Aseguradoras {
 	public function wpfunosAseguradorasPageSwitchShortcode(){
 		if( !isset( $_GET['form'] ) ){
 			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWpAseguradoras') );
-		}elseif( !isset( $_GET['referencia'] ) ){
+		}elseif( !isset( $_GET['wpf'] ) ){
 			$_GET['direccion'] = $_GET['address'][0];
 			$_GET['tipo'] = $_GET['post'][0];
 			mt_srand(mktime());
 			$_GET['referencia'] = 'funos-'.(string)mt_rand();
 			$_GET['CP'] = $this->wpfunosCodigoPostal( $_GET['CP'], $_GET['direccion'] );
+			$_GET['wpf'] = apply_filters( 'wpfunos_crypt', $_GET['referencia'] . ', ' . $_GET['CP'] , 'e' );
 			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatosAseguradoras') );
-		}elseif( isset( $_GET['referencia'] ) ){
-			$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
+		}elseif( isset( $_GET['wpf'] ) ){
+			$userIP = apply_filters('wpfunos_userIP','dummy');
+			$cryptcode = apply_filters( 'wpfunos_crypt', $_GET['wpf'], 'd' );
+			$codigo = ( explode( ',' , $cryptcode ) );
+			$_GET['referencia'] = $codigo[0];
+			$_GET['CP'] = $codigo[1];
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'Usuario: ' .  $userIP  );
+			do_action('wpfunos_log', '$_GET[wpf]: ' . $_GET['wpf'] );
+			do_action('wpfunos_log', '$cryptcode: ' . $cryptcode );
+			do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
+			do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
+			$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
 			if($IDusuario != 0){  
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosAseguradorasCabecera') );
 				echo do_shortcode( get_option('wpfunos_formGeoMyWpAseguradoras') );
@@ -164,7 +176,7 @@ class Wpfunos_Aseguradoras {
 	 * add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
 	 */
 	public function wpfunosAseguradorasColdLead( ){
-		$IDusuario = $this->wpfunosGetUserid( $_GET['referencia'] );
+		$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
 		$seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
 		$CP = get_post_meta( $IDusuario, $this->plugin_name . '_userCP', true );
 		$seguro = get_post_meta( $IDusuario, $this->plugin_name . '_userSeguro', true );
@@ -184,7 +196,7 @@ class Wpfunos_Aseguradoras {
 	 * add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
 	 */
 	public function wpfunosAseguradorasResultados( ){
-		$IDusuario = $this->wpfunosGetUserid( $_GET['referencia'] );
+		$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
 		$_GET['telefonoUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
 		$seleccion = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
 		$respuesta = (explode(',',$seleccion));
@@ -320,7 +332,7 @@ class Wpfunos_Aseguradoras {
 	 * Llamada API Preventiva $this->wpfunosLlamadaAPIPreventiva( 'https://fidelity.preventiva.com/ContactsImporter/api/Contact', 'Preventiva' );
 	 */
 	public function wpfunosLlamadaAPIPreventiva( $URL, $tipo, $campain, $accion ){
-		$IDusuario = $this->wpfunosGetUserid($_GET['referencia']);
+		$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
 		if( $IDusuario == 0 ) return;
 		$local_time  = current_datetime();
 		$current_time = $local_time->getTimestamp() + $local_time->getOffset();
@@ -406,27 +418,6 @@ class Wpfunos_Aseguradoras {
 	/*********************************/
 	/*****                      ******/
 	/*********************************/
-	
-	/**
-	 * ID usuario página resultados
-	 *
-	 */
-	public function wpfunosGetUserid( $referencia ){
-		$ID = 0;
-		$args = array(
-			'post_type' => 'usuarios_wpfunos',
-			'meta_key' =>  'wpfunos_userReferencia',
-			'meta_value' => $referencia,
-		);
-		$my_query = new WP_Query( $args );
-		if ( $my_query->have_posts() ) :
-			while ( $my_query->have_posts() ) : $my_query->the_post();
-				$ID = get_the_ID();
-			endwhile;
-		endif;
-		wp_reset_postdata();
-		return $ID;
-	}
 	
 	/**
 	 * Buscar CP undefined

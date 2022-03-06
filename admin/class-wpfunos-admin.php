@@ -13,34 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 class Wpfunos_Admin {
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
 	private $plugin_name;
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
 	private $version;
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 		add_action('init', array( $this, 'usuarios_registrados_custom_post_type' ));
 		add_action('init', array( $this, 'funerarias_custom_post_type' ));
 		add_action('init', array( $this, 'servicios_custom_post_type' ));
@@ -80,21 +57,9 @@ class Wpfunos_Admin {
 		add_action('save_post_tipos_seguro_wpfunos', array( $this, 'savetiposeguro_wpfunosMetaBoxData' ));
 		add_action('save_post_tanatorio_d_wpfunos', array( $this, 'savetanatoriodirectorio_wpfunosMetaBoxData' ));
 	}
-	
-	/**
-	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-admin.css', array(), $this->version, 'all' );
 	}
-
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-admin.js', array( 'jquery' ), $this->version, false );
 	}
@@ -140,6 +105,7 @@ class Wpfunos_Admin {
 		add_menu_page( 'WpFunos', 'WpFunos', 'administrator', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
 		add_menu_page( 'WpFunos Config', 'WpFunos Config', 'administrator', $this->plugin_name.'config', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
 		add_menu_page( 'WpFunos Directorio', 'WpFunos Directorio', 'administrator', $this->plugin_name.'directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+		add_menu_page( 'WpFunos Import', 'WpFunos Import', 'administrator', $this->plugin_name.'import', array( $this, 'display_plugin_admin_import_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
 		// add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', $this->plugin_name . '-settings', array( $this, 'displayPluginAdminSettings' ));
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', $this->plugin_name . '-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
@@ -162,6 +128,9 @@ class Wpfunos_Admin {
 	}
 	public function display_plugin_admin_directorio_dashboard(){
 	    require_once 'partials/' . $this->plugin_name . '-admin-directorio-display.php';
+	}
+	public function display_plugin_admin_import_dashboard(){
+		require_once 'partials/' . $this->plugin_name . '-admin-import-display.php';
 	}
 	
 	/**
@@ -317,7 +286,7 @@ class Wpfunos_Admin {
 		Ejemplo URL página resultados servicios: https://funos.es/compara-precios-nueva?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"]	
 		</p>
 		<p>
-		Ejemplo URL página resultados aseguradoras: https://funos.es/compara-precios-aseguradoras?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=3&action=fs&referencia=[field id="referencia"]&CP=[field id="CP"]
+		Ejemplo URL página resultados aseguradoras: https://funos.es/compara-precios-aseguradoras?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=3&action=fs&wpf=[field id="wpf"]
 		</p>
 		<?php
 	}
@@ -1051,4 +1020,57 @@ class Wpfunos_Admin {
     	else
         	return $dest; 
 	} 
+	
+	/**
+	 * Utility: create entry in the log file.
+	 * <input type="hidden" name="actualizargmw" id="actualizargmw" value="1" >
+	 */
+	private function wpfunosActualizargmw(){
+		if( isset( $_POST['actualizargmw'] ) ) {
+			$args = array(  
+				'post_type' => 'tanatorio_d_wpfunos', 
+				'posts_per_page' => -1,
+    			'order' => 'ASC',
+			);
+			$loop = new WP_Query( $args );
+			 while ( $loop->have_posts() ) : $loop->the_post(); 
+        		echo get_the_ID().', ';
+				$this->gmw_update_post_type_post_location( get_the_ID() );
+    		endwhile;
+    		wp_reset_postdata(); 
+		}
+	}
+	
+	/**
+	 * Utility: Update gmw map address
+	 */
+	private function gmw_update_post_type_post_location(  $post_id ) {
+		// Return if it's a post revision.
+		if ( false !== wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+		// check autosave.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		// check if user can edit post.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+		// get the address from the custom field "address".
+		// 
+		// _tanatorioDirectorioDireccion
+		$address = get_post_meta( $post_id, 'wpfunos_tanatorioDirectorioDireccion', true );
+		if( strlen( $address) < 5 )$address = get_post_meta( $post_id, 'wpfunos_tanatorioDirectorioPoblacion', true );
+		// varify that address exists.
+		if ( empty( $address ) ) {
+			return;
+		}
+		// verify the updater function.
+		if ( ! function_exists( 'gmw_update_post_location' ) ) {
+			return;
+		}
+		//run the udpate location function
+		gmw_update_post_location( $post_id, $address );
+	}
 }

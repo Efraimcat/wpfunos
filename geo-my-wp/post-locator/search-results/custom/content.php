@@ -15,7 +15,7 @@
 <!--  Main results wrapper - wraps the paginations, map and results -->
 <div class="gmw-results-wrapper custom <?php echo esc_attr( $gmw['prefix'] ); ?>" data-id="<?php echo absint( $gmw['ID'] ); ?>" data-prefix="<?php echo esc_attr( $gmw['prefix'] ); ?>">
 <?php
-	$IDusuario = apply_filters('wpfunos_get_userid', $_GET['referencia']);
+	$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia']);
 	$_GET['telefonoUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
 	$_GET['seleccionUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
 	$_GET['CPUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userCP', true );
@@ -47,4 +47,3 @@
 	endif;
 ?>
 </div>
-
