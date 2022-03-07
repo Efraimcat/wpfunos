@@ -65,7 +65,7 @@
 		<?php do_action( 'gmw_search_form_before_distance', $gmw ); ?>
 		
 		<div id="wpfunos-search-form-mensaje-radius">
-			Encuentra funerarias en un radio de
+			Compara funerarias en un radio de
 		</div>
 		
 		<div id="wpfunos-search-form-radius">

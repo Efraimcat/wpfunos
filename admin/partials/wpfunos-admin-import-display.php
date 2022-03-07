@@ -21,6 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<hr/>
 	<p>
 		<?php esc_html_e( 'Importar actualización del Directorio', 'wpfunos' ); ?>
+		<h6 style="font-style: italic;font-weight: 400;font-size: 12px;">
+			[0] => ID [1] => Title [2] => wpfunos_tanatorioDirectorioNombre [3] => wpfunos_tanatorioDirectorioDireccion [4] => wpfunos_tanatorioDirectorioTelefono [5] => wpfunos_tanatorioDirectorioCorreo [6] => Permalink [7] => Tanatorio [8] => Funeraria [9] => Marca funeraria
+		</h6>
 	</p>
 	<form action="" method="post">
 		<input type="hidden" name="importdirectorio" id="importdirectorio" value="1" >

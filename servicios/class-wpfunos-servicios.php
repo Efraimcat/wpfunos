@@ -437,7 +437,7 @@ class Wpfunos_Servicios {
 					<input type="hidden" name="accion" id="accion" value="1" >
 					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
 					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
-					<input class="wpfunos-boton-detalles" type="submit" value="Detalles del servicio" style="background-color: #1d40d3; font-size: 14px;">
+					<input class="wpfunos-boton-detalles" type="submit" value="Ver detalles" style="background-color: #1d40d3; font-size: 14px;">
 				</form>
 				<?php
 				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
@@ -476,7 +476,7 @@ class Wpfunos_Servicios {
 					<input type="hidden" name="accion" id="accion" value="1" >
 					<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
 					<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
-					<input class="wpfunos-boton-detalles" type="submit" value="Consultar detalles" style="background-color: #1d40d3; font-size: 14px;">
+					<input class="wpfunos-boton-detalles" type="submit" value="Ver detalles" style="background-color: #1d40d3; font-size: 14px;">
 				</form>
 				<?php
 				require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
@@ -654,24 +654,24 @@ class Wpfunos_Servicios {
 			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton1Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Lead' ) ;
-			//wp_mail (  get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton1Lead') , $mensaje, $headers );
-			//do_action('wpfunos_log', '==============' );
-			//do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
-			//do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton1Lead') );
-			//do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
-			//do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
+			wp_mail (  get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton1Lead') , $mensaje, $headers );
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
+			do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton1Lead') );
+			do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
+			do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
 		}
 		if($_GET['accion'] == 2 && get_option($this->plugin_name . '_activarCorreoBoton2Lead')){
 			$mensaje = get_option('wpfunos_mensajeCorreoBoton2Lead');
 			require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton2Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Lead' ) ;
-			//wp_mail ( get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ), get_option('wpfunos_asuntoCorreoBoton2Lead') , $mensaje, $headers );
-			//do_action('wpfunos_log', '==============' );
-			//do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
-			//do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton2Lead') );
-			//do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
-			//do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
+			wp_mail ( get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ), get_option('wpfunos_asuntoCorreoBoton2Lead') , $mensaje, $headers );
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
+			do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton2Lead') );
+			do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
+			do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
 		}
 	}
 	
@@ -679,33 +679,16 @@ class Wpfunos_Servicios {
 	 * Actualizar datos gmw mapa ficha servicios
 	 */
 	public function gmw_update_post_type_post_location(  $post_id ) {
-		// Return if it's a post revision.
-		if ( false !== wp_is_post_revision( $post_id ) ) {
-			return;
-		}
-		// check autosave.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-		// check if user can edit post.
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
-		}
+		if ( false !== wp_is_post_revision( $post_id ) ) return; // Return if it's a post revision.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return; // check autosave.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) return; // check if user can edit post.
 		// get the address from the custom field "address".
-		//
-		// _tanatorioDirectorioDireccion
 		$address = get_post_meta( $post_id, 'wpfunos_servicioDireccion', true );
 		if( strlen( $address) < 5 )$address = get_post_meta( $post_id, 'wpfunos_servicioPoblacion', true );
-		// varify that address exists.
-		if ( empty( $address ) ) {
-			return;
-		}
-		// verify the updater function.
-		if ( ! function_exists( 'gmw_update_post_location' ) ) {
-			return;
-		}
-		//run the udpate location function
-		gmw_update_post_location( $post_id, $address );
+		if ( empty( $address ) ) return; // verify that address exists.
+		if ( ! function_exists( 'gmw_update_post_location' ) ) return; // verify the updater function.
+		
+		gmw_update_post_location( $post_id, $address ); //run the udpate location function
 	}
 	
 	/**
