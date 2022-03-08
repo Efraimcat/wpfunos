@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>
 		<?php esc_html_e( 'Importar actualización del Directorio', 'wpfunos' ); ?>
 		<h6 style="font-style: italic;font-weight: 400;font-size: 12px;">
-			[0] => ID [1] => Title [2] => wpfunos_tanatorioDirectorioNombre [3] => wpfunos_tanatorioDirectorioDireccion [4] => wpfunos_tanatorioDirectorioTelefono [5] => wpfunos_tanatorioDirectorioCorreo [6] => Permalink [7] => Tanatorio [8] => Funeraria [9] => Marca funeraria
+			[0] => ID [1] => Title [2] => wpfunos_tanatorioDirectorioNombre [3] => wpfunos_tanatorioDirectorioDireccion [4] => wpfunos_tanatorioDirectorioTelefono [5] => wpfunos_tanatorioDirectorioCorreo [6] => wpfunos_tanatorioDirectorioPoblacion [7] => wpfunos_tanatorioDirectorioProvincia [8] => wpfunos_tanatorioDirectorioNotas [9] => wpfunos_tanatorioDirectorioFuneraria [10] => Slug [11] => Tanatorio [12] => Funeraria [13] => Marca funeraria [14] => Content
 		</h6>
 	</p>
 	<form action="" method="post">
