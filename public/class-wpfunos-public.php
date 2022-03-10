@@ -47,9 +47,19 @@ class Wpfunos_Public {
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
+	
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		/*
+		 |--------------------------------------------------------------------------
+		 | CONSTANTS
+		 |--------------------------------------------------------------------------
+		 */
+		if ( ! defined( 'WFUNOS_BASE_FILE' ) )    define( 'WFUNOS_BASE_FILE', __FILE__ );
+		if ( ! defined( 'WFUNOS_BASE_DIR' ) )	  define( 'WFUNOS_BASE_DIR', dirname( WFUNOS_BASE_FILE ) );
+		if ( ! defined( 'WFUNOS_PLUGIN_URL' ) )	  define( 'WFUNOS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+		/*  */
 		add_shortcode( 'wpfunos-resultados', array( $this, 'wpfunosResultadosShortcode' ));
 		add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
 	}
@@ -158,7 +168,30 @@ class Wpfunos_Public {
 		$tel = str_replace("-","",$tel);
 		$fields['Telefono'] =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
 		$userIP = apply_filters('wpfunos_userIP','dummy');
+		
+		switch ( $fields['Destino'] ) { 
+			case '1': $userNombreSeleccionServicio = 'Entierro'; break;
+			case '2': $userNombreSeleccionServicio = 'Incineración'; break;
+		}
+		switch ( $fields['Ataud'] ) { 
+			case '1': $userNombreSeleccionAtaud = 'Ataúd Económico'; break;
+			case '2': $userNombreSeleccionAtaud = 'Ataúd Medio'; break;
+			case '3': $userNombreSeleccionAtaud = 'Ataúd Premium'; break;
+		}
+		switch ( $fields['Velatorio'] ) { 
+			case '1': $userNombreSeleccionVelatorio = 'Velatorio'; break;
+			case '2': $userNombreSeleccionVelatorio = 'Sin Velatorio'; break;
+		}
+		switch ( $fields['Despedida'] ) { 
+			case '1': $userNombreSeleccionDespedida = 'Sin ceremonia'; break;
+			case '2': $userNombreSeleccionDespedida = 'Solo sala'; break;
+			case '3': $userNombreSeleccionDespedida = 'Ceremonia civil'; break;
+			case '4': $userNombreSeleccionDespedida = 'Ceremonia religiosa'; break;
+		}
+ 		
 		if( $form_name == 'FormularioDatos' ){
+			$textoaccion = "Entrada datos servicios";
+			if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
 			$my_post = array(
     			'post_title' => $fields['referencia'],
 				'post_type' => 'usuarios_wpfunos',
@@ -173,11 +206,21 @@ class Wpfunos_Public {
 					$this->plugin_name . '_userSeguro' => sanitize_text_field( $fields['Seguro'] ),
 					$this->plugin_name . '_userCP' => sanitize_text_field( $fields['CP'] ),
 					$this->plugin_name . '_userAccion' => '0',
+					$this->plugin_name . '_userNombreAccion' => sanitize_text_field( $textoaccion ),
+					$this->plugin_name . '_userNombreSeleccionUbicacion' => sanitize_text_field( $fields['address'] ),
+					$this->plugin_name . '_userNombreSeleccionDistancia' => sanitize_text_field( $fields['distance'] ),
+					$this->plugin_name . '_userNombreSeleccionServicio' => sanitize_text_field( $userNombreSeleccionServicio ),
+					$this->plugin_name . '_userNombreSeleccionAtaud' => sanitize_text_field( $userNombreSeleccionAtaud ),
+					$this->plugin_name . '_userNombreSeleccionVelatorio' => sanitize_text_field( $userNombreSeleccionVelatorio ),
+					$this->plugin_name . '_userNombreSeleccionDespedida' => sanitize_text_field( $userNombreSeleccionDespedida ),
 					$this->plugin_name . '_userSeleccion' => sanitize_text_field( str_replace(",","+",$fields['address']).', '.$fields['distance'].', 1, '. $fields['Destino'].', '.$fields['Ataud'].', '.$fields['Velatorio'].', '.$fields['Despedida']),
 					$this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
+					$this->plugin_name . '_userAceptaPolitica' => '1',
 				),
 			);
 		}elseif( $form_name == 'FormularioDatosFuturo' ){
+			$textoaccion = "Entrada datos aseguradoras";
+			if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
 			$my_post = array(
     			'post_title' => $fields['referencia'],
 				'post_type' => 'usuarios_wpfunos',
@@ -192,8 +235,16 @@ class Wpfunos_Public {
 					$this->plugin_name . '_userSeguro' => sanitize_text_field( $fields['Seguro'] ),
 					$this->plugin_name . '_userCP' => sanitize_text_field( $fields['CP'] ),
 					$this->plugin_name . '_userAccion' => '3',
+					$this->plugin_name . '_userNombreAccion' => sanitize_text_field( $textoaccion ),
+					$this->plugin_name . '_userNombreSeleccionUbicacion' => sanitize_text_field( $fields['address'] ),
+					$this->plugin_name . '_userNombreSeleccionDistancia' => sanitize_text_field( $fields['distance'] ),
+					$this->plugin_name . '_userNombreSeleccionServicio' => sanitize_text_field( $userNombreSeleccionServicio ),
+					$this->plugin_name . '_userNombreSeleccionAtaud' => sanitize_text_field( $userNombreSeleccionAtaud ),
+					$this->plugin_name . '_userNombreSeleccionVelatorio' => sanitize_text_field( $userNombreSeleccionVelatorio ),
+					$this->plugin_name . '_userNombreSeleccionDespedida' => sanitize_text_field( $userNombreSeleccionDespedida ),
 					$this->plugin_name . '_userSeleccion' => sanitize_text_field( str_replace(",","+",$fields['address']).', '.$fields['distance'].', ' . $fields['sexo']. ', '. (int)$fields['nacimiento']  ),
 					$this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
+					$this->plugin_name . '_userAceptaPolitica' => '1',
 				),
 			);
 		}
@@ -218,4 +269,5 @@ class Wpfunos_Public {
 	/*********************************/
 	/*****                      ******/
 	/*********************************/
+	
 }

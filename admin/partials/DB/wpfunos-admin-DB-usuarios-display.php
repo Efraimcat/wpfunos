@@ -105,8 +105,63 @@ if ( ! defined( 'ABSPATH' ) ) {
           'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
     ));
   ?></li>
+	
+  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userNombreAccion' ); ?>"> <?php esc_html_e('Nombre acción', 'wpfunos');?></label> <?php
+      $this->wpfunos_render_settings_field(array(
+        'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userNombreAccion','name' => $this->plugin_name . '_userNombreAccion',
+          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+    ));
+  ?></li>
 
+  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userNombreSeleccionUbicacion' ); ?>"> <?php esc_html_e('Nombre selección ubicación', 'wpfunos');?></label> <?php
+      $this->wpfunos_render_settings_field(array(
+        'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userNombreSeleccionUbicacion','name' => $this->plugin_name . '_userNombreSeleccionUbicacion',
+          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+    ));
+  ?></li>
 
+  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userNombreSeleccionDistancia' ); ?>"> <?php esc_html_e('Nombre selección distancia', 'wpfunos');?></label> <?php
+      $this->wpfunos_render_settings_field(array(
+        'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userNombreSeleccionDistancia','name' => $this->plugin_name . '_userNombreSeleccionDistancia',
+          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+    ));
+  ?></li>
+
+  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userNombreSeleccionServicio' ); ?>"> <?php esc_html_e('Nombre selección servicio', 'wpfunos');?></label> <?php
+      $this->wpfunos_render_settings_field(array(
+        'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userNombreSeleccionServicio','name' => $this->plugin_name . '_userNombreSeleccionServicio',
+          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+    ));
+  ?></li>
+
+  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userNombreSeleccionAtaud' ); ?>"> <?php esc_html_e('Nombre selección ataúd', 'wpfunos');?></label> <?php
+      $this->wpfunos_render_settings_field(array(
+        'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userNombreSeleccionAtaud','name' => $this->plugin_name . '_userNombreSeleccionAtaud',
+          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+    ));
+  ?></li>
+
+  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userNombreSeleccionVelatorio' ); ?>"> <?php esc_html_e('Nombre selección velatorio', 'wpfunos');?></label> <?php
+      $this->wpfunos_render_settings_field(array(
+        'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userNombreSeleccionVelatorio','name' => $this->plugin_name . '_userNombreSeleccionVelatorio',
+          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+    ));
+  ?></li>
+	
+  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userNombreSeleccionDespedida' ); ?>"> <?php esc_html_e('Nombre selección despedida', 'wpfunos');?></label> <?php
+      $this->wpfunos_render_settings_field(array(
+        'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userNombreSeleccionDespedida','name' => $this->plugin_name . '_userNombreSeleccionDespedida',
+          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+    ));
+  ?></li>
+	
+  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userAceptaPolitica' ); ?>"> <?php esc_html_e('Acepta política privacidad', 'wpfunos');?></label> <?php
+      $this->wpfunos_render_settings_field(array(
+        'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_userAceptaPolitica','name' => $this->plugin_name . '_userAceptaPolitica',
+      'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7, 'disabled' => 'disabled'
+    ));
+  ?></li>
+	
     <hr/>
 
     <?php  //Precio base?>

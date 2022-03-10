@@ -75,7 +75,11 @@
 			<?php gmw_search_form_units( $gmw ); ?>
 			
 		</div>
-            		
+		
+        <div id="wpfunos-comentario"    		>
+			Actualmente solo disponible en Cataluña. Próximamente en más ciudades españolas.
+		</div>
+		
 		<div id="wpfunos-search-form-submit">
 			
 			<?php gmw_search_form_submit_button( $gmw ); ?>

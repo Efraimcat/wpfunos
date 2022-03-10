@@ -44,6 +44,7 @@ class Wpfunos_Utils {
 		$this->version = $version;
 		add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 );
 		add_action( 'wpfunos_import', array( $this, 'wpfunosImport' ), 10, 1 );
+		add_filter( 'wpfunos_reserved_ip', array( $this, 'wpfunosReservedIPAction' ) );
 		add_filter( 'wpfunos_dumplog', array ( $this, 'dumpPOST'), 10, 1);
 		add_filter( 'wpfunos_userIP', array( $this, 'wpfunosgetUserIP' ) );
 		add_filter( 'wpfunos_userID', array( $this, 'wpfunosGetUserid' ), 10, 1 );
@@ -71,10 +72,13 @@ class Wpfunos_Utils {
 		if(get_option($this->plugin_name . '_Debug')) $this->custom_logs( $this->dumpPOST($message));
 		return true;
 	}
+	/**
+	 * Utility: Import HOOK: add_action( 'wpfunos_import', array( $this, 'wpfunosImport' ), 10, 1 )
+	 * do_action('wpfunos_import');
+	 */
 	public function wpfunosImport(){
 		include 'wpfunos-imports.php';	
 	}
-	
 	
 	/*********************************/
 	/*****  UTILIDADES          ******/
@@ -83,6 +87,20 @@ class Wpfunos_Utils {
 	/** **/
 	/** **/
 	/** **/
+	
+	/**
+	 * Utility: Comprobar si la dirección IP debe registrar eventos o es una dirección de test.
+	 */
+	public function wpfunosReservedIPAction() {
+		$opcion = get_option( 'wpfunos_DireccionesIPDesarrollo' );
+		$direcciones = explode ( ",", $opcion );
+		foreach( $direcciones as $direccion ) {		
+			$direccion = trim( $direccion );
+			$userip = $this->wpfunosgetUserIP();
+			if( $direccion == $userip )return true;
+		}
+		return false;
+	}
 	
 	/**
 	 * Utility: Function to get the user IP address: add_filter( 'wpfunos_userIP', array( $this, 'wpfunosgetUserIP' ) )

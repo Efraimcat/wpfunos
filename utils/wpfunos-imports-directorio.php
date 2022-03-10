@@ -86,8 +86,6 @@ foreach ( $array as $key=>$linea ) {
 		if ($linea[11] != 'Tanatorio') break;
 		if ($linea[12] != 'Funeraria') break;
 		if ($linea[13] != 'Marca funeraria') break;
-		
-		//$categoriaTanatorio = ( explode( '>' , $linea[11] ) );
 		continue;
 	}
 	

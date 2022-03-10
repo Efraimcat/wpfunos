@@ -28,7 +28,7 @@
 		while ( $gmw_query->have_posts() ) :
 			$gmw_query->the_post();
 			global $post;
-			echo do_shortcode( '[wpfunos-actulizar-mapas-servicios]' );
+			//echo do_shortcode( '[wpfunos-actulizar-mapas-servicios]' );
 			$wpfResultados = apply_filters('wpfunos_get_results', $post->ID, $IDusuario );
 			$wpfunos_confirmado = apply_filters('wpfunos_results_confirmado', $wpfResultados, $wpfunos_confirmado, $post->ID );
 			$wpfunos_sinconfirmar = apply_filters('wpfunos_results_sinconfirmar', $wpfResultados, $wpfunos_sinconfirmar, $post->ID );

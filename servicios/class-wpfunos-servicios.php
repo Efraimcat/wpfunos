@@ -86,7 +86,9 @@ class Wpfunos_Servicios {
 			do_action('wpfunos_log', 'Usuario: ' .  $userIP  );
 			do_action('wpfunos_log', '$_GET[wpf]: ' . $_GET['wpf'] );
 			do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
+			do_action('wpfunos_log', '$_GET[direccion]: ' . $_GET['direccion'] );
 			do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
+			
 			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') );
 		}elseif( isset($_GET['wpf'] ) ){
 			$userIP = apply_filters('wpfunos_userIP','dummy');
@@ -101,7 +103,7 @@ class Wpfunos_Servicios {
 			do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
 			do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
 			$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
-			if($IDusuario != 0){  
+			if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){  
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosCabecera') );
 				echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosPie') );
@@ -158,7 +160,7 @@ class Wpfunos_Servicios {
 	 	switch ( $a['boton'] ) {
 		 	case 'logo': echo $_GET['logo'] ; break;
 		 	case 'confirmado': echo $_GET['confirmado'] ; break;
-			case 'mapa': $idempresa = $_GET['servicio']; $shortcode = '[gmw_single_location object="post" object_id="' . $idempresa . '" elements="distance,map,address,directions_link" units="k" map_height="300px" map_width="100%"]'; echo do_shortcode($shortcode); break;
+			case 'mapa': $idempresa = $_GET['servicio']; $shortcode = '[gmw_single_location object="post" object_id="' . $idempresa . '" elements="map,distance,address,directions_link" units="k" map_height="300px" map_width="100%"]'; echo do_shortcode($shortcode); break;
 	 	}
  	}
 
@@ -273,6 +275,30 @@ class Wpfunos_Servicios {
 		mt_srand(mktime());
 		$_GET['referencia'] = 'funos-'.(string)mt_rand();
 		$userIP = apply_filters('wpfunos_userIP','dummy');
+		$respuesta = (explode(',',$_GET['seleccion']));
+		switch ( $respuesta[3] ) {
+			case '1': $userNombreSeleccionServicio = 'Entierro'; break;
+			case '2': $userNombreSeleccionServicio = 'Incineración'; break;
+		}
+		switch ( $respuesta[4] ) {
+			case '1': $userNombreSeleccionAtaud = 'Ataúd Económico'; break;
+			case '2': $userNombreSeleccionAtaud = 'Ataúd Medio'; break;
+			case '3': $userNombreSeleccionAtaud = 'Ataúd Premium'; break;
+		}
+		switch ( $respuesta[5] ) {
+			case '1': $userNombreSeleccionVelatorio = 'Velatorio'; break;
+			case '2': $userNombreSeleccionVelatorio = 'Sin Velatorio'; break;
+		}
+		switch ( $respuesta[6] ) {
+			case '1': $userNombreSeleccionDespedida = 'Sin ceremonia'; break;
+			case '2': $userNombreSeleccionDespedida = 'Solo sala'; break;
+			case '3': $userNombreSeleccionDespedida = 'Ceremonia civil'; break;
+			case '4': $userNombreSeleccionDespedida = 'Ceremonia religiosa'; break;
+		}
+		if($_GET['accion'] == 1 ) $textoaccion = "Botón llamen servicios";
+		if($_GET['accion'] == 2 ) $textoaccion = "Botón llamar servicios";
+		if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+		
 		$my_post = array(
    			'post_title' => $_GET['referencia'],
 			'post_type' => 'usuarios_wpfunos',
@@ -284,6 +310,13 @@ class Wpfunos_Servicios {
 				$this->plugin_name . '_userPhone' => sanitize_text_field( $_GET['telefonoUsuario'] ),
 				$this->plugin_name . '_userSeleccion' => sanitize_text_field( $_GET['seleccion']),
 				$this->plugin_name . '_userAccion' => sanitize_text_field( $_GET['accion']),
+				$this->plugin_name . '_userNombreAccion' => sanitize_text_field( $textoaccion ),
+				$this->plugin_name . '_userNombreSeleccionUbicacion' => sanitize_text_field( $respuesta[0] ),
+				$this->plugin_name . '_userNombreSeleccionDistancia' => sanitize_text_field( $respuesta[1] ),
+				$this->plugin_name . '_userNombreSeleccionServicio' => sanitize_text_field( $userNombreSeleccionServicio ),
+				$this->plugin_name . '_userNombreSeleccionAtaud' => sanitize_text_field( $userNombreSeleccionAtaud ),
+				$this->plugin_name . '_userNombreSeleccionVelatorio' => sanitize_text_field( $userNombreSeleccionVelatorio ),
+				$this->plugin_name . '_userNombreSeleccionDespedida' => sanitize_text_field( $userNombreSeleccionDespedida ),
 				$this->plugin_name . '_userPrecio' => sanitize_text_field( $_GET['precio']),
 				$this->plugin_name . '_userServicio' => sanitize_text_field( $_GET['servicio']),
 				$this->plugin_name . '_userCP' => sanitize_text_field( $_GET['CPUsuario']),
@@ -323,12 +356,17 @@ class Wpfunos_Servicios {
 			),
 		);
 		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) { 
-			$post_id = wp_insert_post($my_post);
-			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', 'Nuevo usuario: ' .  $userIP  );
-			do_action('wpfunos_log', 'ID: ' . $post_id  );
-			do_action('wpfunos_log', 'referencia: ' .  $_GET['referencia']  );
-			do_action('wpfunos_log', 'telefonoUsuario: ' . $_GET['telefonoUsuario']  );
+//			if( apply_filters('wpfunos_reserved_ip','dummy') ){
+//				do_action('wpfunos_log', '==============' );	
+//				do_action('wpfunos_log', 'Usuario desarrollador: ' .  $userIP  );
+//			}else{
+				$post_id = wp_insert_post($my_post);	
+				do_action('wpfunos_log', '==============' );
+				do_action('wpfunos_log', 'Nuevo usuario: ' .  $userIP  );
+				do_action('wpfunos_log', 'ID: ' . $post_id  );
+				do_action('wpfunos_log', 'referencia: ' .  $_GET['referencia']  );
+				do_action('wpfunos_log', 'telefonoUsuario: ' . $_GET['telefonoUsuario']  );
+//			} 
 		}else{
 			do_action('wpfunos_log', '==============' );
 			do_action('wpfunos_log', 'Error 2 Nuevo Usuario: ' . $userIP );

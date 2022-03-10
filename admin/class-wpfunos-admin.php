@@ -41,6 +41,7 @@ class Wpfunos_Admin {
 		add_action('admin_init', array( $this, 'registerAndBuildMail4' ));
 		add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
 		add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
+		add_action('admin_init', array( $this, 'registerAndBuildFieldsDireccionesIP' ));
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsDirectorio' ));
 		add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_funerarias_wpfunos', array( $this, 'setupfunerarias_wpfunosMetaboxes' ));
@@ -105,12 +106,13 @@ class Wpfunos_Admin {
 		add_menu_page( 'WpFunos', 'WpFunos', 'administrator', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
 		add_menu_page( 'WpFunos Config', 'WpFunos Config', 'administrator', $this->plugin_name.'config', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
 		add_menu_page( 'WpFunos Directorio', 'WpFunos Directorio', 'administrator', $this->plugin_name.'directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-		add_menu_page( 'WpFunos Import', 'WpFunos Import', 'administrator', $this->plugin_name.'import', array( $this, 'display_plugin_admin_import_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+		//add_menu_page( 'WpFunos Import', 'WpFunos Import', 'administrator', $this->plugin_name.'import', array( $this, 'display_plugin_admin_import_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
 		// add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', $this->plugin_name . '-settings', array( $this, 'displayPluginAdminSettings' ));
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', $this->plugin_name . '-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
 		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración correo WpFunos', 'wpfunos'), esc_html__('Configuración correo', 'wpfunos'), 'administrator', $this->plugin_name . '-mail', array( $this, 'displayPluginAdminMail' ));
-		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración API Preventiva WpFunos', 'wpfunos'), esc_html__('Configuracción API Preventiva', 'wpfunos'), 'administrator', $this->plugin_name . '-APIPreventiva', array( $this, 'displayPluginAdminAPIPreventiva' ));
+		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración API Preventiva WpFunos', 'wpfunos'), esc_html__('Configuración API Preventiva', 'wpfunos'), 'administrator', $this->plugin_name . '-APIPreventiva', array( $this, 'displayPluginAdminAPIPreventiva' ));
+		add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración Direcciones IP WpFunos', 'wpfunos'), esc_html__('Configuración Direcciones IP', 'wpfunos'), 'administrator', $this->plugin_name . '-direccionesIP', array( $this, 'displayPluginAdminDireccionesIP' ));
 		if(get_option($this->plugin_name . '_Debug')){
 			add_submenu_page( $this->plugin_name.'config' , esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', $this->plugin_name . '-logs', array( $this, 'displayPluginAdminLogs' ));
 		}
@@ -175,6 +177,17 @@ class Wpfunos_Admin {
 		require_once 'partials/' . $this->plugin_name . '-admin-APIPreventiva-display.php';
 	}
 	/**
+	 * Direcciones IP reservadas.
+	 */
+	public function displayPluginAdminDireccionesIP() {
+		if (isset($_GET['error_message'])) {
+			add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
+			do_action('admin_notices', sanitize_text_field($_GET['error_message']));
+		}
+		require_once 'partials/' . $this->plugin_name . '-admin-direccionesIP-display.php';
+	}
+	
+	/**
 	 * Logs menu display.
 	 */
 	public function displayPluginAdminLogs(){
@@ -228,6 +241,9 @@ class Wpfunos_Admin {
 	}
 	public function registerAndBuildCorreoAPIPreventiva() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailPreventiva.php';
+	}
+	public function registerAndBuildFieldsDireccionesIP() {
+		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDireccionesIP.php';
 	}
 	public function registerAndBuildFieldsDatos() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDatos.php';
@@ -337,6 +353,10 @@ class Wpfunos_Admin {
 	public function wpfunos_display_directorio_account() {
 		?><p><?php esc_html_e('Configuración del directorio.', 'wpfunos'); ?></p><?php	
 	}
+	public function wpfunos_display_direccionesip_account() {
+		?><p><?php esc_html_e('Configuración direcciones IP desarrollo.', 'wpfunos'); ?></p><?php	
+	}
+	
 	
 	/*********************************/
 	/*****  METABOXES  CPT      ******/

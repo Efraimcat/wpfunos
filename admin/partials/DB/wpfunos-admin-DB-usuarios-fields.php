@@ -24,6 +24,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  $userSeleccion = sanitize_text_field( $_POST[$this->plugin_name . '_userSeleccion'] );
  $userCP = sanitize_text_field( $_POST[$this->plugin_name . '_userCP'] );
 
+ $userNombreAccion = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreAccion'] );
+ $userNombreSeleccionUbicacion = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreSeleccionUbicacion'] );
+ $userNombreSeleccionDistancia = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreSeleccionDistancia'] );
+ $userNombreSeleccionServicio = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreSeleccionServicio'] );
+ $userNombreSeleccionAtaud = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreSeleccionAtaud'] );
+ $userNombreSeleccionVelatorio = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreSeleccionVelatorio'] );
+ $userNombreSeleccionDespedida = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreSeleccionDespedida'] );
+
  $userAccion = sanitize_text_field( $_POST[$this->plugin_name . '_userAccion'] );
  $userPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_userPrecio'] );
  $userServicio = sanitize_text_field( $_POST[$this->plugin_name . '_userServicio'] );
@@ -63,6 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  $userAPIMessage = sanitize_text_field( $_POST[$this->plugin_name . '_userAPIMessage'] );
 
  $userIP = sanitize_text_field( $_POST[$this->plugin_name . '_userIP'] );
+ $userAceptaPolitica = sanitize_text_field( $_POST[$this->plugin_name . '_userAceptaPolitica'] );
 
 
  update_post_meta($post_id, $this->plugin_name . '_TimeStamp', $TimeStamp);
@@ -75,6 +84,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  update_post_meta($post_id, $this->plugin_name . '_userLead', $userLead);
  update_post_meta($post_id, $this->plugin_name . '_userSeleccion', $userSeleccion);
  update_post_meta($post_id, $this->plugin_name . '_userCP', $userCP);
+
+ update_post_meta($post_id, $this->plugin_name . '_userNombreAccion', $userNombreAccion);
+ update_post_meta($post_id, $this->plugin_name . '_userNombreSeleccionUbicacion', $userNombreSeleccionUbicacion);
+ update_post_meta($post_id, $this->plugin_name . '_userNombreSeleccionDistancia', $userNombreSeleccionDistancia);
+ update_post_meta($post_id, $this->plugin_name . '_userNombreSeleccionServicio', $userNombreSeleccionServicio);
+ update_post_meta($post_id, $this->plugin_name . '_userNombreSeleccionAtaud', $userNombreSeleccionAtaud);
+ update_post_meta($post_id, $this->plugin_name . '_userNombreSeleccionVelatorio', $userNombreSeleccionVelatorio);
+ update_post_meta($post_id, $this->plugin_name . '_userNombreSeleccionDespedida', $userNombreSeleccionDespedida);
 
  update_post_meta($post_id, $this->plugin_name . '_userAccion', $userAccion );
  update_post_meta($post_id, $this->plugin_name . '_userPrecio', $userPrecio );
@@ -115,3 +132,4 @@ if ( ! defined( 'ABSPATH' ) ) {
  update_post_meta($post_id, $this->plugin_name . '_userAPIMessage', $userAPIMessage);
 
  update_post_meta($post_id, $this->plugin_name . '_userIP', $userIP);
+ update_post_meta($post_id, $this->plugin_name . '_userAceptaPolitica', $userAceptaPolitica);

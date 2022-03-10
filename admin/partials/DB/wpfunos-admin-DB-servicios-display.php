@@ -124,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  <h3><?php esc_html_e('DESTINO', 'wpfunos');?></h3>
  <table style="width:100%">
    <tr>
-     <td>Tipo</td><td>Nombre</td><td>Precio</td><td>Comentario</td><td>Precio prox.</td><td>Descuento</td>
+     <td>Tipo</td><td>Nombre</td><td>Precio</td><td>Descuento</td><td>Precio prox.</td><td>Descuento</td>
    </tr>
    <tr>
      <td>Entierro</td>
@@ -582,7 +582,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_1ProxComentario" style="font-size: 32px;">Notas Ataud Ecológico Económico Proximamente</label>
    <?php	wp_editor( $notes_servicioAtaudEcologico_1ProxComentario, $this->plugin_name . '_servicioAtaudEcologico_1ProxComentario',$args_servicioAtaudEcologico_1ProxComentario); ?>
  </li>
- <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_2Comentario" style="font-size: 32px;">Notas Ataud Ecológico Medio/label>
+ <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_2Comentario" style="font-size: 32px;">Notas Ataud Ecológico Medio</label>
    <?php	wp_editor( $notes_servicioAtaudEcologico_2Comentario, $this->plugin_name . '_servicioAtaudEcologico_2Comentario',$args_servicioAtaudEcologico_2Comentario); ?>
  </li>
  <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_2ProxComentario" style="font-size: 32px;">Notas Ataud Ecológico Medio Proximamente</label>
