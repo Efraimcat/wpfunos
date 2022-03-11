@@ -353,6 +353,7 @@ class Wpfunos_Servicios {
 				$this->plugin_name . '_userDesgloseDescuentoGenericoTotal' => sanitize_text_field( $_GET['ddesgloseDescuentoGenericoTotal']),
 				
 				$this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
+				$this->plugin_name . '_userAceptaPolitica' => '1',
 			),
 		);
 		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) { 

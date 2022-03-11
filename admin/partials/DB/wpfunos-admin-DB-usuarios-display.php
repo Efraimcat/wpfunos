@@ -314,8 +314,18 @@ if ( ! defined( 'ABSPATH' ) ) {
             'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
       ));
     ?></li>
-
-
+	<li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userLAT' ); ?>"> <?php esc_html_e('LAT', 'wpfunos');?></label> <?php
+        $this->wpfunos_render_settings_field(array(
+          'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userLAT','name' => $this->plugin_name . '_userLAT',
+            'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+      ));
+    ?></li>
+	<li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userLNG' ); ?>"> <?php esc_html_e('LNG', 'wpfunos');?></label> <?php
+        $this->wpfunos_render_settings_field(array(
+          'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userLNG','name' => $this->plugin_name . '_userLNG',
+            'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+      ));
+    ?></li>
 
 
 
