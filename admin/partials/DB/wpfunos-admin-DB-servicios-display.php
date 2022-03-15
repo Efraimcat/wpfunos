@@ -97,6 +97,12 @@ if ( ! defined( 'ABSPATH' ) ) {
      'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioActivo','name' => $this->plugin_name . '_servicioActivo',
       'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
    ?>
+   <label for="<?php esc_html_e($this->plugin_name . '_servicioBotonesLlamar' ); ?>"> <?php esc_html_e('Botones llamar', 'wpfunos');?></label>
+   <?php $this->wpfunos_render_settings_field(array(
+     'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioBotonesLlamar','name' => $this->plugin_name . '_servicioBotonesLlamar',
+      'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
+   ?>
+	 
  </li>
  <hr/>
  <h3><?php esc_html_e('PRECIO BASE', 'wpfunos');?></h3>

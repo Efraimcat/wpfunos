@@ -72,6 +72,7 @@ class Wpfunos_Servicios {
 	 * Shortcode [wpfunos-page-switch]
 	 */
 	public function wpfunosServiciosPageSwitchShortcode(){
+		global $wp;
 		if( !isset( $_GET['form'] ) && !isset( $_GET['referencia'] ) ){
 			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
 		}elseif( !isset($_GET['wpf']) ){
@@ -105,6 +106,19 @@ class Wpfunos_Servicios {
 			$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
 			if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){  
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosCabecera') );
+				//
+				if( ! isset( $_GET['orden'] ) || $_GET['orden'] == 'dist') {
+					if( ! isset( $_GET['orden'] ) ){ 
+						$new_url = home_url(add_query_arg(array($_GET), $wp->request)) . '&orden=precios';
+					}else{
+					 	$new_url =  substr_replace(  home_url(add_query_arg(array($_GET), $wp->request)) , 'precios', -4);
+					}
+					?><div class="wpfunos-resultados-orden"><p><center>Resultados ordenados por distancia. <a href=" <?php echo $new_url; ?> ">Ordenar por precio.</a>  </center></p></div><?php									
+				}else{
+					$new_url =  substr_replace(  home_url(add_query_arg(array($_GET), $wp->request)) , 'dist', -7);
+					?><div class="wpfunos-resultados-orden"><p><center>Resultados ordenados por precio. <a href=" <?php echo $new_url; ?> ">Ordenar por distancia.</a>  </center></p></div><?php				
+				}
+				//
 				echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosPie') );
 			}
@@ -354,6 +368,8 @@ class Wpfunos_Servicios {
 				
 				$this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
 				$this->plugin_name . '_userAceptaPolitica' => '1',
+				$this->plugin_name . '_userLAT' => sanitize_text_field( $_GET['lat'] ),
+				$this->plugin_name . '_userLNG' => sanitize_text_field( $_GET['lng'] ),
 			),
 		);
 		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) { 
@@ -420,6 +436,10 @@ class Wpfunos_Servicios {
 		if(count($wpfunos_confirmado) != 0){
 			?><div class="wpfunos-titulo"><p></p><center><h2>Precio confirmado</h2></center></div><?php
 			// do_action('wpfunos_log', '$wpfunos_confirmado: ' .  $wpfunos_confirmado );
+			if(isset($_GET['orden']) && $_GET['orden'] == 'precios' ){
+        		$columns = array_column( $wpfunos_confirmado, 2 );
+        		array_multisort( $columns, SORT_ASC, $wpfunos_confirmado );
+      		}
 			foreach ($wpfunos_confirmado as $value) {
 				?><div class="wpfunos-busqueda-contenedor"><?php
 				$_GET['nombre'] = get_the_title( $value[0] );
@@ -498,6 +518,10 @@ class Wpfunos_Servicios {
 	public function wpfunosResultGridSinConfirmar( $wpfunos_sinconfirmar ){
 		if(count($wpfunos_sinconfirmar) != 0){
 			?><div class="wpfunos-titulo"><p></p><h2><center>Precio sin confirmar</center></h2></div><?php
+			if(isset($_GET['orden']) && $_GET['orden'] == 'precios' ){
+        		$columns = array_column( $wpfunos_sinconfirmar, 2 );
+        		array_multisort( $columns, SORT_ASC, $wpfunos_sinconfirmar );
+      		}
 			foreach ($wpfunos_sinconfirmar as $value) {
 				?><div class="wpfunos-busqueda-contenedor"><?php
 				$_GET['nombre'] = get_the_title( $value[0] );
@@ -508,7 +532,37 @@ class Wpfunos_Servicios {
 				$_GET['precio'] = number_format($value[1], 0, ',', '.') . '€';
 				$_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
 				$_GET['preciodescuento'] = '';
+				$_GET['telefonoEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioTelefono', true );
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
+				
+				if( get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) == 1 ){
+					$tel = str_replace(" ","",$_GET['telefonoEmpresa']);
+					$tel = str_replace("-","",$tel);
+					$_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+					$tel = str_replace(" ","",$_GET['telefonoUsuario']);
+					$tel = str_replace("-","",$tel);
+					$_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+					require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
+					?>
+					<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamen'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
+						<input type="hidden" name="accion" id="accion" value="1" >
+						<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
+						<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+						<input type="submit" value="Quiero que me llamen" style="background-color: #1d40d3; font-size: 14px;">
+					</form>
+					</div>
+					<div class="wpfunos-boton-llamar">
+					<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaLlamar'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
+						<input type="hidden" name="accion" id="accion" value="2" >
+						<input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
+						<input type="hidden" name="wpfunos-hacer-llamada" id="wpfunos-hacer-llamada" value="1" >
+						<?php require 'partials/' . $this->plugin_name . '-servicios-formulario-campos-display.php'; ?>
+						<input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 14px;">
+					</form>
+					<?php
+					require 'partials/' . $this->plugin_name . '-servicios-formulario-pie-display.php';
+				}
+				
 				require 'partials/' . $this->plugin_name . '-servicios-formulario-cabecera-display.php';
 				?>
 				<form target="POPUPW" action="<?php echo get_option('wpfunos_paginaDetalles'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=600,height=400,top=400,left=600');">
@@ -694,11 +748,11 @@ class Wpfunos_Servicios {
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton1Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Lead' ) ;
 			wp_mail (  get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton1Lead') , $mensaje, $headers );
-			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
-			do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton1Lead') );
-			do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
-			do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
+			//do_action('wpfunos_log', '==============' );
+			//do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
+			//do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton1Lead') );
+			//do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
+			//do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
 		}
 		if($_GET['accion'] == 2 && get_option($this->plugin_name . '_activarCorreoBoton2Lead')){
 			$mensaje = get_option('wpfunos_mensajeCorreoBoton2Lead');
@@ -706,11 +760,11 @@ class Wpfunos_Servicios {
 			if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ;
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton2Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Lead' ) ;
 			wp_mail ( get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ), get_option('wpfunos_asuntoCorreoBoton2Lead') , $mensaje, $headers );
-			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
-			do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton2Lead') );
-			do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
-			do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
+			//do_action('wpfunos_log', '==============' );
+			//do_action('wpfunos_log', 'Mensaje para: ' . get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) );
+			//do_action('wpfunos_log', 'Mensaje asunto: ' .  get_option('wpfunos_asuntoCorreoBoton2Lead') );
+			//do_action('wpfunos_log', 'Mensaje $mensaje: ' .  $mensaje );
+			//do_action('wpfunos_log', 'Mensaje $headers: ' .  $headers );
 		}
 	}
 	

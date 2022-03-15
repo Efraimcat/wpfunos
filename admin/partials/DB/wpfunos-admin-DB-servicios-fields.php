@@ -26,6 +26,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  $servicioDescuentoGenerico = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDescuentoGenerico'] );
  $servicioValoracion = sanitize_text_field( $_POST[$this->plugin_name . '_servicioValoracion'] );
  $servicioActivo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioActivo'] );
+
+ $servicioBotonesLlamar = sanitize_text_field( $_POST[$this->plugin_name . '_servicioBotonesLlamar'] );
+
  $servicioPackNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPackNombre'] );
  $servicioPrecioBase = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioBase'] );
  $servicioPrecioBaseDescuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioBaseDescuento'] );
@@ -189,6 +192,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  update_post_meta($post_id, $this->plugin_name . '_servicioDescuentoGenerico', $servicioDescuentoGenerico);
  update_post_meta($post_id, $this->plugin_name . '_servicioValoracion', $servicioValoracion);
  update_post_meta($post_id, $this->plugin_name . '_servicioActivo', $servicioActivo);
+
+ update_post_meta($post_id, $this->plugin_name . '_servicioBotonesLlamar', $servicioBotonesLlamar);
+
  update_post_meta($post_id, $this->plugin_name . '_servicioPackNombre', $servicioPackNombre);
  update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBase', $servicioPrecioBase);
  update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBaseDescuento', $servicioPrecioBaseDescuento);
