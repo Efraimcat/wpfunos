@@ -25,8 +25,10 @@ class Wpfunos_Admin {
 		add_action('init', array( $this, 'aseguradoras_custom_post_type' ));
 		add_action('init', array( $this, 'tipos_seguro_custom_post_type' ));
 		add_action('init', array( $this, 'directorio_tanatorio_custom_post_type' ));
+		add_action('init', array( $this, 'config_imagenes_custom_post_type' ));
 		add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
 		add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
+		add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuracciín Imágenes
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsAseguradoras' ));			// Compara Debug
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsPagina' ));				// Página inicial
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsDatos' ));				// Compara Datos
@@ -50,6 +52,7 @@ class Wpfunos_Admin {
 		add_action('add_meta_boxes_aseguradoras_wpfunos', array( $this, 'setupaseguradoras_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_tipos_seguro_wpfunos', array( $this, 'setuptiposseguro_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_tanatorio_d_wpfunos', array( $this, 'setuptanatoriodirectorio_wpfunosMetaboxes' ));
+		add_action('add_meta_boxes_conf_img_wpfunos', array( $this, 'setupconfimgwpfunos_wpfunosMetaboxes' ));
 		add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
 		add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
 		add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
@@ -57,6 +60,7 @@ class Wpfunos_Admin {
 		add_action('save_post_aseguradoras_wpfunos', array( $this, 'saveaseguradoras_wpfunosMetaBoxData' ));
 		add_action('save_post_tipos_seguro_wpfunos', array( $this, 'savetiposeguro_wpfunosMetaBoxData' ));
 		add_action('save_post_tanatorio_d_wpfunos', array( $this, 'savetanatoriodirectorio_wpfunosMetaBoxData' ));
+		add_action('save_post_conf_img_wpfunos', array( $this, 'saveconfimgwpfunos_wpfunosMetaBoxData' ));
 	}
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-admin.css', array(), $this->version, 'all' );
@@ -218,6 +222,9 @@ class Wpfunos_Admin {
 	public function registerAndBuildFields() {
 	    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFields.php';
 	}
+	public function registerAndBuildFieldsConfImagenes() {
+	    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsConfImagenes.php';
+	}
 	public function registerAndBuildFieldsAseguradoras() {
 	    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAseguradoras.php';
 	}
@@ -292,6 +299,9 @@ class Wpfunos_Admin {
 	public function wpfunos_display_general_account() {
 	    ?><p><?php esc_html_e('Si está activo guarda los datos del debug en ficheros en /wp-contenet/uploads/wpfunos-logs/ y los muestra en la pestaña "logs".', 'wpfunos'); ?></p><?php
 	}
+	public function wpfunos_display_general_account_confimagenes() {
+		?><p><?php esc_html_e('Configuración imágenes.', 'wpfunos'); ?></p><?php
+	}
 	public function wpfunos_display_aseguradoras_account() {
 		?><p><?php esc_html_e('Configuración de las aseguradoras.', 'wpfunos'); ?></p><?php
 	}
@@ -299,7 +309,7 @@ class Wpfunos_Admin {
 	    ?>
 		<p><?php esc_html_e('Página del Comparador.', 'wpfunos'); ?></p>
 		<p>
-		Ejemplo URL página resultados servicios: https://funos.es/compara-precios-nueva?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"]	
+		Ejemplo URL página resultados servicios: https://funos.es/comparar-precios?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"]	
 		</p>
 		<p>
 		Ejemplo URL página resultados aseguradoras: https://funos.es/compara-precios-aseguradoras?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=3&action=fs&wpf=[field id="wpf"]
@@ -399,7 +409,11 @@ class Wpfunos_Admin {
 		/* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
 		add_meta_box('tanatorio_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'tanatorio_directorio_wpfunos_data_meta_box'), 'tanatorio_d_wpfunos', 'normal', 'high' );
 	}
-	
+	public function setupconfimgwpfunos_wpfunosMetaboxes(){
+		 /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
+		 add_meta_box('conf_img_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'conf_img_wpfunos_data_meta_box'), 'conf_img_wpfunos', 'normal', 'high' );
+		 remove_meta_box('wpseo_meta', 'conf_img_wpfunos', 'normal');
+	}
 	/*********************************/
 	/*****  SALVAR DATOS META CPT ****/
 	/*********************************/
@@ -462,6 +476,13 @@ class Wpfunos_Admin {
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
 		if (! current_user_can('manage_options')) return;
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tanatorio-directorio-fields.php';
+	}
+	public function saveconfimgwpfunos_wpfunosMetaBoxData( $post_id ){
+		if (! isset($_POST[$this->plugin_name . '_conf_img_wpfunos_meta_box_nonce'])) return;
+		if (! wp_verify_nonce($_POST[$this->plugin_name . '_conf_img_wpfunos_meta_box_nonce'], $this->plugin_name . '_conf_img_wpfunos_meta_box')) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (! current_user_can('manage_options')) return;
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-fields.php';
 	}
 	
 	/*********************************/
@@ -809,7 +830,42 @@ class Wpfunos_Admin {
     	    )
 	    );
     	register_taxonomy_for_object_type( 'marca_funeraria', 'tanatorio_d_wpfunos' );
-		
+	}
+	
+	/**
+	 * conf_img_wpfunos
+	 */
+	public function config_imagenes_custom_post_type(){
+		$customPostTypeArgs = array(
+			'label' => esc_html__('Imagenes wpfunos', 'wpfunos'),
+			'labels'=>
+			array(
+					'name' => esc_html__('Imagenes wpfunos', 'wpfunos'),
+					'singular_name' => esc_html__('Imagenes wpfunos', 'wpfunos'),
+					'add_new' => esc_html__('Añadir Imagenes wpfunos', 'wpfunos'),
+					'add_new_item' => esc_html__('Añadir nuevo Imagenes wpfunos', 'wpfunos'),
+					'edit_item' => esc_html__('Editar Imagenes wpfunos', 'wpfunos'),
+					'new_item' => esc_html__('Nuevo Imagenes wpfunos', 'wpfunos'),
+					'view_item' => esc_html__('Ver Imagenes wpfunos', 'wpfunos'),
+					'search_items' => esc_html__('Buscar Imagenes wpfunos', 'wpfunos'),
+					'not_found' => esc_html__('No se encontraron Imagenes wpfunos', 'wpfunos'),
+					'not_found_in_trash' => esc_html__('No se encontraron Imagenes wpfunos en la papelera', 'wpfunos'),
+					'menu_name' => esc_html__('Imagenes wpfunos', 'wpfunos'),
+					'name_admin_bar' => esc_html__('Imagenes wpfunos', 'wpfunos'),
+			),
+			'public'=>false,
+			'description' => esc_html__('Imagenes wpfunos', 'wpfunos'),
+			'exclude_from_search' => true,
+			'show_ui' => true,
+			'show_in_menu' => $this->plugin_name.'config',
+			'supports'=>array('title', 'custom_fields'),
+			'capability_type' => 'post',
+			'capabilities' => array('create_posts' => true),
+			'map_meta_cap' => true,
+			'taxonomies'=>array()
+		);
+		// Post type, $args - the Post Type string can be MAX 20 characters
+		register_post_type( 'conf_img_wpfunos', $customPostTypeArgs );
 	}
 	
 	/*********************************/
@@ -843,22 +899,14 @@ class Wpfunos_Admin {
 		wp_nonce_field( $this->plugin_name.'_tipos_seguro_wpfunos_meta_box', $this->plugin_name.'_tipos_seguro_wpfunos_meta_box_nonce' );
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tipos-seguro-display.php';
 	}
-	//public function funeraria_directorio_wpfunos_data_meta_box($post){
-	//	wp_nonce_field( $this->plugin_name.'_funeraria_directorio_wpfunos_meta_box', $this->plugin_name.'_funeraria_directorio_wpfunos_meta_box_nonce' );
-	//	require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-funeraria-directorio-display.php';
-	//}
-	//public function cementerio_directorio_wpfunos_data_meta_box($post){
-	//	wp_nonce_field( $this->plugin_name.'_cementerio_directorio_wpfunos_meta_box', $this->plugin_name.'_cementerio_directorio_wpfunos_meta_box_nonce' );
-	//	require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-cementerio-directorio-display.php';
-	//}
 	public function tanatorio_directorio_wpfunos_data_meta_box($post){
 		wp_nonce_field( $this->plugin_name.'_tanatorio_directorio_wpfunos_meta_box', $this->plugin_name.'_tanatorio_directorio_wpfunos_meta_box_nonce' );
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tanatorio-directorio-display.php';
 	}
-	//public function crematorio_directorio_wpfunos_data_meta_box($post){
-	//	wp_nonce_field( $this->plugin_name.'_crematorio_directorio_wpfunos_meta_box', $this->plugin_name.'_crematorio_directorio_wpfunos_meta_box_nonce' );
-	//	require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-crematorio-directorio-display.php';
-	//}
+	public function conf_img_wpfunos_data_meta_box($post){
+		wp_nonce_field( $this->plugin_name.'_conf_img_wpfunos_meta_box', $this->plugin_name.'_conf_img_wpfunos_meta_box_nonce' );
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-display.php';
+	}
 	
 	/*********************************/
 	/*****  RENDERS             ******/
