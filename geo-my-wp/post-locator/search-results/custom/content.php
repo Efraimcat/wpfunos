@@ -30,9 +30,9 @@
 			global $post;
 			//echo do_shortcode( '[wpfunos-actulizar-mapas-servicios]' );
 			$wpfResultados = apply_filters('wpfunos_get_results', $post->ID, $IDusuario );
-			$wpfunos_confirmado = apply_filters('wpfunos_results_confirmado', $wpfResultados, $wpfunos_confirmado, $post->ID );
-			$wpfunos_sinconfirmar = apply_filters('wpfunos_results_sinconfirmar', $wpfResultados, $wpfunos_sinconfirmar, $post->ID );
-			$wpfunos_sinprecio = apply_filters('wpfunos_results_sinprecio', $wpfResultados, $wpfunos_sinprecio, $post->ID );
+			$wpfunos_confirmado = apply_filters('wpfunos_results_confirmado', $wpfResultados, $wpfunos_confirmado, $post->ID, $IDusuario );
+			$wpfunos_sinconfirmar = apply_filters('wpfunos_results_sinconfirmar', $wpfResultados, $wpfunos_sinconfirmar, $post->ID, $IDusuario );
+			$wpfunos_sinprecio = apply_filters('wpfunos_results_sinprecio', $wpfResultados, $wpfunos_sinprecio, $post->ID, $IDusuario );
 			?> <div class="clear"></div><?php
 		endwhile;
 		do_action( 'wpfunos_result_grid_confirmado', $wpfunos_confirmado );

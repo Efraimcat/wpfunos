@@ -58,9 +58,9 @@ class Wpfunos_Servicios {
 		add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
 		add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
-		add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 3 );
-		add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 3 );
-		add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 3 );
+		add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 4 );
+		add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 4 );
+		add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 4 );
 		add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
 	}
 	
@@ -173,6 +173,7 @@ class Wpfunos_Servicios {
 		), $atts );
 	 	switch ( $a['boton'] ) {
 		 	case 'logo': echo $_GET['logo'] ; break;
+			case 'echo': echo $_GET['ecologico'] ; break;
 		 	case 'confirmado': echo $_GET['confirmado'] ; break;
 			case 'mapa': $idempresa = $_GET['servicio']; $shortcode = '[gmw_single_location object="post" object_id="' . $idempresa . '" elements="map,distance,address,directions_link" units="k" map_height="300px" map_width="100%"]'; echo do_shortcode($shortcode); break;
 	 	}
@@ -395,10 +396,21 @@ class Wpfunos_Servicios {
 	 * Hook array resultados confirmados
 	 *
 	 * add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 3 );
+	 * 
+	 *  $wpfResultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio, $ecologico )
+	 * 
+	 *  $wpfunos_confirmado = array( $postID, $preciototal ,$preciodescuento, $wpfservicio, $ecologico )
 	 */
-	public function wpfunosResultadosConfirmado( $wpfResultados, $wpfunos_confirmado, $postID ){
+	public function wpfunosResultadosConfirmado( $wpfResultados, $wpfunos_confirmado, $postID, $IDusuario = 0 ){
+		$tieneECO = false;
+		if( $wpfResultados[4] && get_post_meta( $postID, 'wpfunos_servicioActivo', true ) && get_post_meta( $postID, 'wpfunos_servicioPrecioConfirmado', true ) ) $tieneECO = true;
 		if( !$wpfResultados[2] && get_post_meta( $postID, 'wpfunos_servicioPrecioConfirmado', true ) == true && $wpfResultados[0] != 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )){
-			$wpfunos_confirmado[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3], $postID );
+			$wpfunos_confirmado[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3], false );
+		}
+		if( $tieneECO ){
+			$resultados = $this->wpfunosGetResultsECO( $postID, $IDusuario );
+			////$wpfunos_confirmado = array( $postID, $preciototal ,$preciodescuento, $wpfservicio, $ecologico )
+			$wpfunos_confirmado[] = array( $postID, $resultados[0], $resultados[1], $resultados[3], true );
 		}
 		return  $wpfunos_confirmado;
 	}
@@ -408,9 +420,9 @@ class Wpfunos_Servicios {
 	 *
 	 * add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 3 );
 	 */
-	public function wpfunosResultadosSinConfirmar( $wpfResultados, $wpfunos_sinconfirmar, $postID ){
+	public function wpfunosResultadosSinConfirmar( $wpfResultados, $wpfunos_sinconfirmar, $postID, $IDusuario = 0 ){
 		if( !$wpfResultados[2] && get_post_meta( $postID, 'wpfunos_servicioPrecioConfirmado', true ) != true && $wpfResultados[0] != 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )) {
-			$wpfunos_sinconfirmar[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3], $postID );
+			$wpfunos_sinconfirmar[] = array( $postID, $wpfResultados[0], $wpfResultados[1], $wpfResultados[3], $wpfResultados[4] );
 		}
 		return $wpfunos_sinconfirmar;
 	}
@@ -420,9 +432,9 @@ class Wpfunos_Servicios {
 	 *
 	 * add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 3 );
 	 */
-	public function wpfunosResultadosSinPrecio( $wpfResultados, $wpfunos_sinprecio, $postID ){
+	public function wpfunosResultadosSinPrecio( $wpfResultados, $wpfunos_sinprecio, $postID, $IDusuario = 0 ){
 		if( !$wpfResultados[2] && $wpfResultados[0] == 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )){
-			$wpfunos_sinprecio[] = array( $postID, 0, 0, $postID );
+			$wpfunos_sinprecio[] = array( $postID, 0, 0, $wpfResultados[4] );
 		}
 		return $wpfunos_sinprecio;
 	}
@@ -445,6 +457,11 @@ class Wpfunos_Servicios {
 				$_GET['nombre'] = get_the_title( $value[0] );
 				$_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
 				$_GET['confirmado'] = wp_get_attachment_image ( 1217 , array(45,46));
+				if( $value[4] ){
+					$_GET['ecologico'] = wp_get_attachment_image ( 42711 , array(60,60));
+				}else{
+					$_GET['ecologico'] = '';
+				}
 				$_GET['textoconfirmado'] = "Precio confirmado";
 				$_GET['direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
 				$_GET['precio'] = number_format($value[1], 0, ',', '.') . '€';
@@ -527,6 +544,11 @@ class Wpfunos_Servicios {
 				$_GET['nombre'] = get_the_title( $value[0] );
 				$_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
 				$_GET['confirmado'] = wp_get_attachment_image ( 1216 , array(45,46));
+				if( $value[4] ){
+					$_GET['ecologico'] = wp_get_attachment_image ( 42711 , array(60,60));
+				}else{
+					$_GET['ecologico'] = '';
+				}
 				$_GET['textoconfirmado'] = "Precio no confirmado";
 				$_GET['direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
 				$_GET['precio'] = number_format($value[1], 0, ',', '.') . '€';
@@ -606,6 +628,8 @@ class Wpfunos_Servicios {
 	 * Hook filter ID usuario página resultados
 	 *
 	 * add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
+	 * 
+	 * return: $resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio, $ecologico ) ;
 	 */
 	public function wpfunosGetResults( $postID, $userID ){
 		$NA = false;
@@ -657,14 +681,17 @@ class Wpfunos_Servicios {
    			case '1':
      			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Precio', true ),
        				get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Nombre', true ) );
+				if( get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_1Precio', true ) > 0 ) $ecologico = true;
      			break;
    			case '2';
      			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Precio', true ),
        				get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Nombre', true ) );
+				if( get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_2Precio', true ) > 0 ) $ecologico = true;
      			break;
    			case '3';
      			list( $NA, $preciototal, $preciodescuento , $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Precio', true ),
        				get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Nombre', true ) );
+				if( get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_3Precio', true ) > 0) $ecologico = true;
      			break;
  		}
  		$wpfservicio[] = array('Ataud', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
@@ -708,7 +735,116 @@ class Wpfunos_Servicios {
  		$wpfservicio[] = array('Descuento genérico', 'Descuento genérico', $preciototal, get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true ), $preciodescuento);
 		// do_action('wpfunos_log', 'Desglose : ' .  $wpfservicio );
  		// Array resultados
- 		$resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio ) ;
+		$resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio, $ecologico ) ;
+		return $resultados;
+	}
+	
+	/**
+	 * Calcular precio resultado ecológico
+	 *
+	 *  $resultados = $this->wpfunosGetResultsECO( $postID, $IDusuario );
+	 * 
+	 * return: $resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio, $ecologico ) ;
+	 * 
+	 */
+	public function wpfunosGetResultsECO( $postID, $userID ){
+		$NA = false;
+		$preciototal = (int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBase', true );
+ 		$preciodescuento = 0;
+ 		if( (int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBaseDescuento', true ) > 0 ){
+   			$preciodescuento = $preciototal - ( $preciototal*((int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBaseDescuento', true )/100) );
+ 		}else{
+   			$preciodescuento = $preciototal ;
+ 		}
+		//	Servicio
+		//	nombre
+		//	Precio
+		//	descuento
+		//	total
+ 		$wpfservicio[] = array('Base',
+   			get_post_meta( $postID, $this->plugin_name . '_servicioNombre', true ),
+   			$preciototal,
+   			(int)get_post_meta( $postID, $this->plugin_name . '_servicioPrecioBaseDescuento', true ),
+   			$preciodescuento
+ 		);
+		$seleccion = get_post_meta( $userID, 'wpfunos_userSeleccion', true );
+ 		$CP = get_post_meta( $userID, 'wpfunos_userCP', true );
+ 		$respuesta = (explode(',',$seleccion));
+		
+		// Destino
+ 		switch($respuesta[3]){
+   			case '1':
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Precio', true ),
+	       			get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_1Nombre', true ) );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Nombre', true ) );
+     			break;
+   			case '3';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDestino_3Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDestino_3Descuento', true ), $NA, $preciototal, $preciodescuento , get_post_meta( $postID, $this->plugin_name . '_servicioDestino_2Nombre', true ) );
+				break;
+ 		}
+ 		$wpfservicio[] = array('Destino', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+		
+		// Ataud
+ 		switch($respuesta[4]){
+   			case '1':
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_1Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_1Nombre', true ) );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_2Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_2Nombre', true ) );
+     			break;
+   			case '3';
+     			list( $NA, $preciototal, $preciodescuento , $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_3Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_3Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_3Nombre', true ) );
+     			break;
+ 		}
+ 		$wpfservicio[] = array('Ataud', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+
+		// Velatorio
+ 		switch($respuesta[5]){
+   			case '1':
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioPrecio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioDescuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNombre', true ) );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNoPrecio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNoDescuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioVelatorioNoNombre', true ) );
+     			break;
+ 		}
+ 		$wpfservicio[] = array('Velatorio', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+		
+		// Ceremonia
+ 		switch($respuesta[6]){
+   			case '1';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) =
+       				$this->wpfunos_case( $postID, '0', '', $NA, $preciototal, $preciodescuento, 'Sin ceremonia' );
+     			break;
+   			case '2';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_1Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_1Nombre', true ) );
+     			break;
+   			case '3';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_2Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_2Nombre', true ) );
+     			break;
+   			case '4';
+     			list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Precio', true ),
+       				get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioDespedida_3Nombre', true ) );
+     			break;
+ 		}
+ 		$wpfservicio[] = array('Ceremonia', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
+		
+		// Descuento genérico
+ 		if( (int)get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true ) > 0 ) $preciodescuento -= $preciodescuento*((int)get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true )/100);
+ 		$wpfservicio[] = array('Descuento genérico', 'Descuento genérico', $preciototal, get_post_meta( $postID, $this->plugin_name . '_servicioDescuentoGenerico', true ), $preciodescuento);
+		// do_action('wpfunos_log', 'Desglose : ' .  $wpfservicio );
+ 		// Array resultados
+ 		$resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio, true ) ;
 		return $resultados;
 	}
 	
