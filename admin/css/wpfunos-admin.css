@@ -11,3 +11,11 @@
 	margin-top: 10px;
 	border-radius: 3px;
 }
+
+#template .CodeMirror, #template textarea {
+	width: 90% !important;
+}
+
+#templateside {
+	width: 28em !important;
+}

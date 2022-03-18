@@ -51,15 +51,6 @@ class Wpfunos_Public {
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		/*
-		 |--------------------------------------------------------------------------
-		 | CONSTANTS
-		 |--------------------------------------------------------------------------
-		 */
-		if ( ! defined( 'WFUNOS_BASE_FILE' ) )    define( 'WFUNOS_BASE_FILE', __FILE__ );
-		if ( ! defined( 'WFUNOS_BASE_DIR' ) )	  define( 'WFUNOS_BASE_DIR', dirname( WFUNOS_BASE_FILE ) );
-		if ( ! defined( 'WFUNOS_PLUGIN_URL' ) )	  define( 'WFUNOS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-		/*  */
 		add_shortcode( 'wpfunos-resultados', array( $this, 'wpfunosResultadosShortcode' ));
 		add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
 	}
@@ -218,6 +209,7 @@ class Wpfunos_Public {
 					$this->plugin_name . '_userAceptaPolitica' => '1',
 					$this->plugin_name . '_userLAT' => sanitize_text_field( $fields['lat'] ),
 					$this->plugin_name . '_userLNG' => sanitize_text_field( $fields['lng'] ),
+					$this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
 				),
 			);
 		}elseif( $form_name == 'FormularioDatosFuturo' ){
@@ -249,13 +241,16 @@ class Wpfunos_Public {
 					$this->plugin_name . '_userAceptaPolitica' => '1',
 					$this->plugin_name . '_userLAT' => sanitize_text_field( $fields['lat'] ),
 					$this->plugin_name . '_userLNG' => sanitize_text_field( $fields['lng'] ),
+					$this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
 				),
 			);
 		}
 		if( strlen( $fields['Telefono']) > 3 ){ 
 			$post_id = wp_insert_post($my_post);
 			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', 'Nuevo Usuario: ' .  $userIP  );
+			do_action('wpfunos_log', 'Hook Elementor Form New Record' );
+			do_action('wpfunos_log', 'Nombre: ' .  $fields['Nombre']  );
+			do_action('wpfunos_log', 'IP: ' .  $userIP  );
 			do_action('wpfunos_log', 'ID: ' .  $post_id  );
 			do_action('wpfunos_log', 'referencia: ' . $fields['referencia'] );
 			do_action('wpfunos_log', 'Telefono: ' . $fields['Telefono'] );

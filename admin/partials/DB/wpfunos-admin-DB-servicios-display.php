@@ -104,6 +104,18 @@ if ( ! defined( 'ABSPATH' ) ) {
    ?>
 	 
  </li>
+ 
+  <hr/>
+  <h3><?php esc_html_e('TEXTO PRECIO', 'wpfunos');?></h3>
+  <li class="servicios_wpfunos_list">
+	<label for="<?php esc_html_e($this->plugin_name . '_servicioTextoPrecio' ); ?>"> <?php esc_html_e('Texto precio', 'wpfunos');?></label>
+   	<?php $this->wpfunos_render_settings_field(array(
+     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioTextoPrecio','name' => $this->plugin_name . '_servicioTextoPrecio',
+      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 ));
+   	?>
+  </li>	
+	
+	
  <hr/>
  <h3><?php esc_html_e('PRECIO BASE', 'wpfunos');?></h3>
  </li>

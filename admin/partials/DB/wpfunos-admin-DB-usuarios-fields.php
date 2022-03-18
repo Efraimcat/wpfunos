@@ -75,6 +75,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  $userLAT = sanitize_text_field( $_POST[$this->plugin_name . '_userLAT'] );
  $userLNG = sanitize_text_field( $_POST[$this->plugin_name . '_userLNG'] );
 //lat=41.387397&lng=2.168568
+ $userPluginVersion = sanitize_text_field( $_POST[$this->plugin_name . '_userPluginVersion'] );
 
 
  update_post_meta($post_id, $this->plugin_name . '_TimeStamp', $TimeStamp);
@@ -138,3 +139,4 @@ if ( ! defined( 'ABSPATH' ) ) {
  update_post_meta($post_id, $this->plugin_name . '_userAceptaPolitica', $userAceptaPolitica);
  update_post_meta($post_id, $this->plugin_name . '_userLAT', $userLAT);
  update_post_meta($post_id, $this->plugin_name . '_userLNG', $userLNG);
+ update_post_meta($post_id, $this->plugin_name . '_userPluginVersion', $userPluginVersion);

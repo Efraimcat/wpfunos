@@ -9,7 +9,7 @@
  * Plugin Name:       wpfunos
  * Plugin URI:        https://efraim.cat
  * Description:       Funcionalidades para funos.es
- * Version:           1.6.15
+ * Version:           1.6.16
  * Author:            Efraim Bayarri
  * Author URI:        https://efraim.cat
  * License:           GPL-2.0+
@@ -18,7 +18,7 @@
  * Domain Path:       /languages
  * Requires PHP: 	  7.4
  * Requires at least: 5.9
- * Tested up to: 	  5.9.1
+ * Tested up to: 	  5.9.2
  */
 
 if ( ! defined( 'WPINC' ) ) {
@@ -30,7 +30,18 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WPFUNOS_VERSION', '1.6.15' );
+define( 'WPFUNOS_VERSION', '1.6.16' );
+/**
+ *|--------------------------------------------------------------------------
+ *| CONSTANTS
+ *|#18-Mar-2022 11:03:24: String: 'WFUNOS_BASE_FILE: /var/www/vhosts/funos.es/httpdocs/wp-content/plugins/wpfunos/wpfunos.php'
+ *|#18-Mar-2022 11:03:24: String: 'WFUNOS_BASE_DIR: /var/www/vhosts/funos.es/httpdocs/wp-content/plugins/wpfunos'
+ *|#18-Mar-2022 11:03:24: String: 'WFUNOS_PLUGIN_URL: https://funos.es/wp-content/plugins/wpfunos/'
+ *|--------------------------------------------------------------------------
+ */
+define( 'WFUNOS_BASE_FILE', __FILE__ );
+define( 'WFUNOS_BASE_DIR', dirname( WFUNOS_BASE_FILE ) );
+define( 'WFUNOS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.

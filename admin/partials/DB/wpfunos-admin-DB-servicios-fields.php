@@ -28,6 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  $servicioActivo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioActivo'] );
 
  $servicioBotonesLlamar = sanitize_text_field( $_POST[$this->plugin_name . '_servicioBotonesLlamar'] );
+ $servicioTextoPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioTextoPrecio'] );
 
  $servicioPackNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPackNombre'] );
  $servicioPrecioBase = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioBase'] );
@@ -194,6 +195,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  update_post_meta($post_id, $this->plugin_name . '_servicioActivo', $servicioActivo);
 
  update_post_meta($post_id, $this->plugin_name . '_servicioBotonesLlamar', $servicioBotonesLlamar);
+ update_post_meta($post_id, $this->plugin_name . '_servicioTextoPrecio', $servicioTextoPrecio);
 
  update_post_meta($post_id, $this->plugin_name . '_servicioPackNombre', $servicioPackNombre);
  update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBase', $servicioPrecioBase);

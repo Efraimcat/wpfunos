@@ -43,11 +43,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     ));
   ?></li>
 
-  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userSurname' ); ?>"> <?php esc_html_e('Apellidos', 'wpfunos');?></label> <?php
-      $this->wpfunos_render_settings_field(array(
-        'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userSurname','name' => $this->plugin_name . '_userSurname',
-          'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
-    ));
+  <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userSurname' ); ?>"> <?php //esc_html_e('Apellidos', 'wpfunos');?></label> <?php
+      //$this->wpfunos_render_settings_field(array(
+      //  'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userSurname','name' => $this->plugin_name . '_userSurname',
+      //    'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+      //));
   ?></li>
 
   <li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userPhone' ); ?>"> <?php esc_html_e('Teléfono', 'wpfunos');?></label> <?php
@@ -323,6 +323,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userLNG' ); ?>"> <?php esc_html_e('LNG', 'wpfunos');?></label> <?php
         $this->wpfunos_render_settings_field(array(
           'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userLNG','name' => $this->plugin_name . '_userLNG',
+            'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
+      ));
+    ?></li>
+	<li class="usuarios_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_userPluginVersion' ); ?>"> <?php esc_html_e('version', 'wpfunos');?></label> <?php
+        $this->wpfunos_render_settings_field(array(
+          'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userPluginVersion','name' => $this->plugin_name . '_userPluginVersion',
             'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''
       ));
     ?></li>
