@@ -26,6 +26,7 @@ class Wpfunos_Admin {
 		add_action('init', array( $this, 'tipos_seguro_custom_post_type' ));
 		add_action('init', array( $this, 'directorio_tanatorio_custom_post_type' ));
 		add_action('init', array( $this, 'config_imagenes_custom_post_type' ));
+		add_action('init', array( $this, 'entrada_ubicaciones_custom_post_type' ));
 		add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
 		add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuracciín Imágenes
@@ -53,6 +54,7 @@ class Wpfunos_Admin {
 		add_action('add_meta_boxes_tipos_seguro_wpfunos', array( $this, 'setuptiposseguro_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_tanatorio_d_wpfunos', array( $this, 'setuptanatoriodirectorio_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_conf_img_wpfunos', array( $this, 'setupconfimgwpfunos_wpfunosMetaboxes' ));
+		add_action('add_meta_boxes_ubicaciones_wpfunos', array( $this, 'setupubicaciones_wpfunosMetaboxes' ));
 		add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
 		add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
 		add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
@@ -61,6 +63,7 @@ class Wpfunos_Admin {
 		add_action('save_post_tipos_seguro_wpfunos', array( $this, 'savetiposeguro_wpfunosMetaBoxData' ));
 		add_action('save_post_tanatorio_d_wpfunos', array( $this, 'savetanatoriodirectorio_wpfunosMetaBoxData' ));
 		add_action('save_post_conf_img_wpfunos', array( $this, 'saveconfimgwpfunos_wpfunosMetaBoxData' ));
+		add_action('save_post_ubicaciones_wpfunos', array( $this, 'saveubicaciones_wpfunosMetaBoxData' ));
 	}
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-admin.css', array(), $this->version, 'all' );
@@ -414,6 +417,12 @@ class Wpfunos_Admin {
 		 add_meta_box('conf_img_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'conf_img_wpfunos_data_meta_box'), 'conf_img_wpfunos', 'normal', 'high' );
 		 remove_meta_box('wpseo_meta', 'conf_img_wpfunos', 'normal');
 	}
+	public function setupubicaciones_wpfunosMetaboxes(){
+		 /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
+		 add_meta_box('ubicaciones_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubicaciones_wpfunos_data_meta_box'), 'ubicaciones_wpfunos', 'normal', 'high' );
+		 remove_meta_box('wpseo_meta', 'ubicaciones_wpfunos', 'normal');
+	}
+	
 	/*********************************/
 	/*****  SALVAR DATOS META CPT ****/
 	/*********************************/
@@ -483,6 +492,13 @@ class Wpfunos_Admin {
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
 		if (! current_user_can('manage_options')) return;
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-fields.php';
+	}
+	public function saveubicaciones_wpfunosMetaBoxData( $post_id ){
+		if (! isset($_POST[$this->plugin_name . '_ubicaciones_wpfunos_meta_box_nonce'])) return;
+		if (! wp_verify_nonce($_POST[$this->plugin_name . '_ubicaciones_wpfunos_meta_box_nonce'], $this->plugin_name . '_ubicaciones_wpfunos_meta_box')) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (! current_user_can('manage_options')) return;
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-fields.php';
 	}
 	
 	/*********************************/
@@ -868,6 +884,42 @@ class Wpfunos_Admin {
 		register_post_type( 'conf_img_wpfunos', $customPostTypeArgs );
 	}
 	
+	/**
+	 * ubicaciones_wpfunos
+	 */
+	public function entrada_ubicaciones_custom_post_type(){
+		$customPostTypeArgs = array(
+			'label' => esc_html__('Ubicaciones wpfunos', 'wpfunos'),
+			'labels'=>
+			array(
+				'name' => esc_html__('Ubicación', 'wpfunos'),
+				'singular_name' => esc_html__('Ubicaciones', 'wpfunos'),
+				'add_new' => esc_html__('Añadir ubicación', 'wpfunos'),
+				'add_new_item' => esc_html__('Añadir nueva ubicación', 'wpfunos'),
+				'edit_item' => esc_html__('Editar ubicación', 'wpfunos'),
+				'new_item' => esc_html__('Nueva ubicación', 'wpfunos'),
+				'view_item' => esc_html__('Ver ubicación', 'wpfunos'),
+				'search_items' => esc_html__('Buscar ubicación', 'wpfunos'),
+				'not_found' => esc_html__('No se encontraron ubicaciones', 'wpfunos'),
+				'not_found_in_trash' => esc_html__('No se encontraron ubicaciones en la papelera', 'wpfunos'),
+				'menu_name' => esc_html__('Ubicaciones', 'wpfunos'),
+				'name_admin_bar' => esc_html__('Ubicaciones', 'wpfunos'),
+			),	
+			'public'=>false,
+			'description' => esc_html__('Ubicaciones', 'wpfunos'),
+			'exclude_from_search' => true,
+			'show_ui' => true,
+			'show_in_menu' => $this->plugin_name,
+			'supports'=>array('title', 'custom_fields'),
+			'capability_type' => 'post',
+			'capabilities' => array('create_posts' => true),
+			'map_meta_cap' => true,
+			'taxonomies'=>array()
+		);
+		// Post type, $args - the Post Type string can be MAX 20 characters
+		register_post_type( 'ubicaciones_wpfunos', $customPostTypeArgs );
+	}
+	
 	/*********************************/
 	/*****  MOSTRAR METABOXES   ******/
 	/*********************************/
@@ -906,6 +958,10 @@ class Wpfunos_Admin {
 	public function conf_img_wpfunos_data_meta_box($post){
 		wp_nonce_field( $this->plugin_name.'_conf_img_wpfunos_meta_box', $this->plugin_name.'_conf_img_wpfunos_meta_box_nonce' );
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-display.php';
+	}
+	public function ubicaciones_wpfunos_data_meta_box($post){
+		wp_nonce_field( $this->plugin_name.'_ubicaciones_wpfunos_meta_box', $this->plugin_name.'_ubicaciones_wpfunos_meta_box_nonce' );
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-display.php';
 	}
 	
 	/*********************************/

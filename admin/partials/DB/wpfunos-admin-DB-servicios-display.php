@@ -15,105 +15,165 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 ?><div class="servicios_wpfunos_containers"><?php
 ?><ul class="servicios_wpfunos_data_metabox">
-  <?php// funeraria ?>
-  <?php// nombre	?>
- <li class="servicios_wpfunos_list">
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioNombre' ); ?>"> <?php esc_html_e('Nombre', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-       'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioNombre','name' => $this->plugin_name . '_servicioNombre',
-         'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));
-   ?>
- </li>
- <?php //poblacion, //direccion //precio_confirmado //logo ?>
- <li class="servicios_wpfunos_list">
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioPoblacion' ); ?>"> <?php esc_html_e('Población', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPoblacion','name' => $this->plugin_name . '_servicioPoblacion',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioDireccion' ); ?>"> <?php esc_html_e('Direccion', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDireccion','name' => $this->plugin_name . '_servicioDireccion',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioPrecioConfirmado' ); ?>"> <?php esc_html_e('Precio confirmado', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioPrecioConfirmado','name' => $this->plugin_name . '_servicioPrecioConfirmado',
-      'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioLogo' ); ?>"> <?php esc_html_e('Logo', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioLogo','name' => $this->plugin_name . '_servicioLogo',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));
-   ?>
- </li>
- <?php //email //telefono //mapa //lead_datos  (entrada datos) //descuento_generico ?>
- <li class="servicios_wpfunos_list">
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioEmail' ); ?>"> <?php esc_html_e('Email', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioEmail','name' => $this->plugin_name . '_servicioEmail',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioTelefono' ); ?>"> <?php esc_html_e('Teléfono', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioTelefono','name' => $this->plugin_name . '_servicioTelefono',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioMapa' ); ?>"> <?php esc_html_e('Mapa', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioMapa','name' => $this->plugin_name . '_servicioMapa',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioLead' ); ?>"> <?php esc_html_e('Lead (entrada de datos)', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioLead','name' => $this->plugin_name . '_servicioLead',
-      'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioLead2' ); ?>"> <?php esc_html_e('Lead (resultado busqueda)', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioLead2','name' => $this->plugin_name . '_servicioLead2',
-      'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
-   ?>
- </li>
- <?php  //valoracion //activo?>
- <li class="servicios_wpfunos_list">
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioPackNombre' ); ?>"> <?php esc_html_e('Nombre del pack', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPackNombre','name' => $this->plugin_name . '_servicioPackNombre',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioDescuentoGenerico' ); ?>"> <?php esc_html_e('Descuento genérico', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDescuentoGenerico','name' => $this->plugin_name . '_servicioDescuentoGenerico',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
-   ?>%
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioValoracion' ); ?>"> <?php esc_html_e('Valoración', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioValoracion','name' => $this->plugin_name . '_servicioValoracion',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioActivo' ); ?>"> <?php esc_html_e('Activo', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioActivo','name' => $this->plugin_name . '_servicioActivo',
-      'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
-   ?>
-   <label for="<?php esc_html_e($this->plugin_name . '_servicioBotonesLlamar' ); ?>"> <?php esc_html_e('Botones llamar', 'wpfunos');?></label>
-   <?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioBotonesLlamar','name' => $this->plugin_name . '_servicioBotonesLlamar',
-      'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
-   ?>
-	 
- </li>
- 
-  <hr/>
-  <h3><?php esc_html_e('TEXTO PRECIO', 'wpfunos');?></h3>
-  <li class="servicios_wpfunos_list">
-	<label for="<?php esc_html_e($this->plugin_name . '_servicioTextoPrecio' ); ?>"> <?php esc_html_e('Texto precio', 'wpfunos');?></label>
-   	<?php $this->wpfunos_render_settings_field(array(
-     'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioTextoPrecio','name' => $this->plugin_name . '_servicioTextoPrecio',
-      'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 ));
-   	?>
-  </li>	
+
+	<li class="servicios_wpfunos_list">
+    	<table>
+			<tr>
+				<td><?php esc_html_e('Nombre', 'wpfunos');?></td>
+				<td><?php esc_html_e('Población', 'wpfunos');?></td>
+				<td><?php esc_html_e('Direccion', 'wpfunos');?></td>
+			</tr>
+			<tr>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+		       			'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioNombre','name' => $this->plugin_name . '_servicioNombre',
+         				'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));
+   					?>
+				</td>
+				<td>
+					<?php
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPoblacion','name' => $this->plugin_name . '_servicioPoblacion',
+      					'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
+					?>
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDireccion','name' => $this->plugin_name . '_servicioDireccion',
+      					'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));
+   					?>
+				</td>
+			</tr>
+		</table>
+	</li>
+
+	<hr/>
+	<li class="servicios_wpfunos_list">
+		<table>
+			<tr>
+				<td><?php esc_html_e('Logo', 'wpfunos');?></td>	
+				<td><?php esc_html_e('Email', 'wpfunos');?></td>	
+				<td><?php esc_html_e('Teléfono', 'wpfunos');?></td>	
+				<td><?php esc_html_e('Valoración', 'wpfunos');?></td>	
+			</tr>
+			<tr>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioLogo','name' => $this->plugin_name . '_servicioLogo',
+      					'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
+   					?>			
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+	     				'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioEmail','name' => $this->plugin_name . '_servicioEmail',
+    	  				'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
+   					?>
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+						'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioTelefono','name' => $this->plugin_name . '_servicioTelefono',
+    	  				'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
+   					?>
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioValoracion','name' => $this->plugin_name . '_servicioValoracion',
+      					'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
+   					?>
+				</td>
+			</tr>
+		</table>
+	</li>		
+
+	<hr/>
+	<li class="servicios_wpfunos_list">
+		<table>
+			<tr>
+				<td><?php esc_html_e('Nombre del pack', 'wpfunos');?></td>
+				<td><?php esc_html_e('Texto precio', 'wpfunos');?></td>
+				<td><?php esc_html_e('Descuento genérico', 'wpfunos');?></td>
+			</tr>
+			<tr>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPackNombre','name' => $this->plugin_name . '_servicioPackNombre',
+      					'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 ));
+   					?>
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioTextoPrecio','name' => $this->plugin_name . '_servicioTextoPrecio',
+      					'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 ));
+   					?>
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDescuentoGenerico','name' => $this->plugin_name . '_servicioDescuentoGenerico',
+      					'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
+   					?>%
+				</td>
+			</tr>
+		</table>
+	</li>
+	
+	<hr/>
+	<li class="servicios_wpfunos_list">
+		<table style="width:100%">
+			<tr>
+				<td style="width:20%"><?php esc_html_e('Lead (entrada de datos)', 'wpfunos');?></td>
+				<td style="width:20%"><?php esc_html_e('Lead (resultado busqueda)', 'wpfunos');?></td>
+				<td style="width:20%"><?php esc_html_e('Precio confirmado', 'wpfunos');?></td>
+				<td style="width:20%"><?php esc_html_e('Activo', 'wpfunos');?></td>
+				<td style="width:20%"><?php esc_html_e('Botones llamar', 'wpfunos');?></td>
+			</tr>
+			<tr>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioLead','name' => $this->plugin_name . '_servicioLead',
+      					'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
+   					?>
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioLead2','name' => $this->plugin_name . '_servicioLead2',
+      					'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
+   					?>
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioPrecioConfirmado','name' => $this->plugin_name . '_servicioPrecioConfirmado',
+      					'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));
+   					?>
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioActivo','name' => $this->plugin_name . '_servicioActivo',
+      					'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
+   					?>
+				</td>
+				<td>
+					<?php 
+						$this->wpfunos_render_settings_field(array(
+     					'type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioBotonesLlamar','name' => $this->plugin_name . '_servicioBotonesLlamar',
+      					'required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
+   					?>
+				</td>
+			</tr>
+		</table>
+	</li>		
 	
 	
  <hr/>

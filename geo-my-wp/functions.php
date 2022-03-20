@@ -74,11 +74,3 @@ function add_meta_for_search_excluded()
 }
 add_action('wp_head', 'add_meta_for_search_excluded');
 
-
-#
-function wpfunoscookie() {
-	setcookie( 'wpfunos_lastvisit', date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ), 30 * DAY_IN_SECONDS,  ‘/’ );	
-	if( isset( $_GET['wpf'] ) ) setcookie( 'wpfunos_refer', $_GET['wpf'] , 30 * DAY_IN_SECONDS,  ‘/’ );	
-}
-
-add_action('init', 'wpfunoscookie' );

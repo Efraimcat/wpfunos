@@ -32,7 +32,7 @@
 
 	<form class="gmw-form" name="gmw_form" action="<?php echo esc_attr( $gmw_form->get_results_page() ); ?>" method="get" data-id="<?php echo esc_attr( $gmw['ID'] ); ?>" data-prefix="<?php echo esc_attr( $gmw['prefix'] ); ?>">
 		
-		<div id="wpfunos-search-form-start">
+		<div id="wpfunos-search-form-start"  name="wpfunos-search">
 		
 			<?php do_action( 'gmw_search_form_start', $gmw ); ?>
 		
