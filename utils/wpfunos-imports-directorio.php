@@ -6,6 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Array ( [importdirectorio] => 1 [wpfunos_import_directorio_nonce] => 30122ba760 [_wp_http_referer] => /wp-admin/admin.php?page=wpfunosimport [submit] => Importar fichero directorio ) 
 if( !isset ($_POST['submit']) ){
 	?>
+	<h2>
+		IMPORTACION FICHERO DIRECTORIO	
+	</h2>
 	<p>
 		Escoger el fichero .csv de la importación
 	</p>
@@ -27,14 +30,17 @@ if( !isset ($_POST['submit']) ){
 //print_r ( $_FILES );
 // look for nonce
 if ( empty( $_POST['wpfunos_import_directorio_nonce'] ) ) {
+	?><h2>ERROR AL IMPORTAR FICHERO DIRECTORIO</h2><?php
 	wp_die( __( 'Cheatin\' eh?!', 'wpfunos' ) );
 }
 // verify nonce
 if ( ! wp_verify_nonce( $_POST['wpfunos_import_directorio_nonce'], 'wpfunos_import_directorio_nonce' ) ) {
+	?><h2>ERROR AL IMPORTAR FICHERO DIRECTORIO</h2><?php
 	wp_die( __( 'Cheatin\' eh?!', 'wpfunos' ) );
 }
 //make sure at least one checkbox is checked
 if ( empty( $_FILES['import_file']['tmp_name'] ) ) {
+	?><h2>ERROR AL IMPORTAR FICHERO DIRECTORIO</h2><?php
 	wp_die( __( 'Sube un archivo para importar', 'wpfunos' ) );
 }
 	
