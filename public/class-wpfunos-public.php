@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
@@ -22,32 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Wpfunos_Public {
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
 	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
 	private $version;
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-	
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
@@ -137,10 +114,10 @@ class Wpfunos_Public {
 	/*********************************/
 
 	/**
-	* Hook Elementor Form New Record
-	*
-	*add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
-	*/
+	 * Hook Elementor Form New Record
+	 *
+	 *add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
+	 */
 	public function wpfunosFormNewrecord($record, $handler){
 		global $wp;
 		$form_name = $record->get_form_settings( 'form_name' );

@@ -3,15 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * Provide a admin area view for the plugin
+ * Servicios.
  *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
- * @subpackage Wpfunos/public/partials
+ * @subpackage Wpfunos/servicios/partials
+ * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 ?>
 <div class="elementor-container elementor-column-gap-default">
@@ -45,5 +44,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</div>
-</div>
-<?php
+</div><?php

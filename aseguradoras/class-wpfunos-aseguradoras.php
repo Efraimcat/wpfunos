@@ -3,42 +3,20 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * Directorio.
+ * Aseguradoras.
  *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
- * @subpackage Wpfunos/directorio
+ * @subpackage Wpfunos/aseguradoras
  * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 class Wpfunos_Aseguradoras {
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
 	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
 	private $version;
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
@@ -51,17 +29,15 @@ class Wpfunos_Aseguradoras {
 		add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
 		add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
 		add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
-		
 	}
-
 		
 	/*********************************/
 	/*****  SHORTCODES          ******/
 	/*********************************/
 
 	/**
-	* Shortcode [wpfunos-acciones-botones-aseguradora]
-	*/
+	 * Shortcode [wpfunos-acciones-botones-aseguradora]
+	 */
 	public function wpfunosAccionesBotonesAseguradoraShortcode( $atts, $content = "" ) {
 		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) {
 			$this->wpfunosAseguradoraUserEntry();
@@ -112,15 +88,15 @@ class Wpfunos_Aseguradoras {
 	}
 	
 	/**
-	* Shortcode [wpfunos-pagina-aseguradoras]
-	*/
+	 * Shortcode [wpfunos-pagina-aseguradoras]
+	 */
 	public function wpfunosPaginaAseguradorasShortcode( $atts, $content = "" ) {
 		return do_shortcode( get_option('wpfunos_paginaComparadorAseguradoras') );
 	}
 	
 	/**
-	* Shortcode [wpfunos-pagina-resultados-aseguradoras]
-	*/
+	 * Shortcode [wpfunos-pagina-resultados-aseguradoras]
+	 */
 	public function wpfunosPaginaResultadosAseguradorasShortcode( $atts, $content = "" ) {
 		echo get_option('wpfunos_paginaURLResultadosAseguradoras');
 	}
@@ -130,10 +106,10 @@ class Wpfunos_Aseguradoras {
 	/*********************************/
 	
 	/**
-	* Entrada acción usuario
-	*
-	* add_action( 'wpfunos_aseguradora_user_entry', array( $this, 'wpfunosAseguradoraUserEntry' ), 10, 1 );
-	*/
+	 * Entrada acción usuario
+	 *
+	 * add_action( 'wpfunos_aseguradora_user_entry', array( $this, 'wpfunosAseguradoraUserEntry' ), 10, 1 );
+	 */
 	public function wpfunosAseguradoraUserEntry(){
 		mt_srand(mktime());
 		$_GET['referencia'] = 'funos-'.(string)mt_rand();
@@ -187,7 +163,6 @@ class Wpfunos_Aseguradoras {
 		}elseif( $seguro == 2 && get_option( 'wpfunos_APIPreventivaColdLeadElectium') ){
 			$this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLElectium'), 'Electium Cold' , get_option( 'wpfunos_APIPreventivaCampainElectium'), 4 );
 		}
-		
   	}
 	
 	/**

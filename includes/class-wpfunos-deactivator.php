@@ -3,7 +3,7 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos

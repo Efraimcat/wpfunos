@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Directorio.
  *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
@@ -14,31 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Wpfunos_Directorio {
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
 	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
 	private $version;
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
@@ -51,15 +29,15 @@ class Wpfunos_Directorio {
 	/*********************************/
 	
 	/**
-	* Shortcode [wpfunos-contenido-tanatorio-directorio]
-	*/
+	 * Shortcode [wpfunos-contenido-tanatorio-directorio]
+	 */
 	public function wpfunosContenidoTanatorioDirectorioShortcode( $atts, $content = "" ) {
 		
 	}
 	
 	/**
-	* Shortcode [wpfunos-actulizar-mapas-directorio]
-	*/
+	 * Shortcode [wpfunos-actulizar-mapas-directorio]
+	 */
 	public function wpfunosActualizarMapasDirectorioShortcode( $atts, $content = "" ) {
 		if ( get_post_type( get_the_ID() ) != 'tanatorio_d_wpfunos' ) return;
 		$this->gmw_update_post_type_post_location( get_the_ID() );

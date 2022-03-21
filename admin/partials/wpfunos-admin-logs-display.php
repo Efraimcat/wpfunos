@@ -3,11 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * @link       http://efraim.cat
+ * The admin-specific functionality of the plugin.
+ *
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
  * @subpackage Wpfunos/admin/partials
+ * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 ?>
 <div class="wrap">

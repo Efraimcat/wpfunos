@@ -3,15 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * Provide a admin area view for the plugin
+ * The admin-specific functionality of the plugin.
  *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
  * @subpackage Wpfunos/admin/partials
+ * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 ?>
 <div class="wrap">
@@ -23,15 +22,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		alt="nic-app" width="350" height="350">
 	<hr />
 	<p><strong>Bases de datos de funos.es</strong></p>
-		<ul>
-			<li>Usuarios</li>
-			<li>Servicios</li>
-			<li>Aseguradoras</li>
-			<li>Tipos de seguro</li>
-			<li>Códigos postales</li>
-			<li>Funerarias</li>
-		</ul>
-		<hr/>
+	<ul>
+		<li><strong><a href="/wp-admin/edit.php?post_type=usuarios_wpfunos">Usuarios</a></strong>:Entradas de usuarios que han dejado sus datos en el comparador de precios.</li>
+		<li><strong><a href="/wp-admin/edit.php?post_type=servicios_wpfunos">Servicios</a></strong>:Definición de los servicios del comparador de precios.</li>
+		<li><strong><a href="/wp-admin/edit.php?post_type=aseguradoras_wpfunos">Aseguradoras</a></strong>:Definición de las aseguradoras del comparador de seguros.</li>
+		<li><strong><a href="/wp-admin/edit.php?post_type=tipos_seguro_wpfunos">Tipos de seguro</a></strong>:Definición de los diferentes tipos de seguros.</li>
+		<li><strong><a href="/wp-admin/edit.php?post_type=ubicaciones_wpfunos">Ubicaciones</a></strong>:Entradas de ubicaciones que han usado los usuarios en el comparador de precios.</li>
+		<li><strong><a href="/wp-admin/edit.php?post_type=cpostales_wpfunos">Códigos postales</a></strong>:Definción de los diferentes códigos postales de España.</li>
+		<li><strong><a href="/wp-admin/edit.php?post_type=funerarias_wpfunos">Funerarias</a></strong>:Definición de funerarias.</li>
+	</ul>
+	<hr/>
 	<div id="wpfunos-intro">
 		<p><?php esc_html_e( 'WpFunos.', 'wpfunos' ); ?></p>
 		<p>

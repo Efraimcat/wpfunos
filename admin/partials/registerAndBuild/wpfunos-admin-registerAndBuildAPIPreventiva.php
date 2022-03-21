@@ -3,22 +3,21 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * Provide a admin area view for the plugin
+ * The admin-specific functionality of the plugin.
  *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
- * @subpackage Wpfunos/admin/partials
+ * @subpackage Wpfunos/admin/partials/registerAndBuild
+ * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 add_settings_section(
 	'wpfunos_APIPreventiva_section',    							// ID used to identify this section and with which to register options
 	'Datos conexiones API Preventiva',        						// Title to be displayed on the administration page
 	array( $this, 'wpfunos_display_APIPreventiva_account' ), 		// Callback used to render the description of the section
 	'wpfunos_APIPreventiva_settings'                 				// Page on which to add this section of options
- );
+);
 add_settings_field(
 	$this->plugin_name . '_APIPreventivaURLPreventiva',
 	'URL API Preventiva <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIPreventivaURLPreventiva)</h6>',
@@ -111,4 +110,3 @@ register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPre
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaPasswordElectium');
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaCampainElectium');
 register_setting('wpfunos_APIPreventiva_settings', $this->plugin_name . '_APIPreventivaColdLeadElectium');
-

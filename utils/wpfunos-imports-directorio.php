@@ -2,6 +2,16 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
+/**
+ * Utilidades.
+ *
+ * @link       https://github.com/Efraimcat/wpfunos/
+ * @since      1.0.0
+ *
+ * @package    Wpfunos
+ * @subpackage Wpfunos/utils
+ * @author     Efraim Bayarri <efraim@efraim.cat>
+ */
 //print_r($_POST);
 // Array ( [importdirectorio] => 1 [wpfunos_import_directorio_nonce] => 30122ba760 [_wp_http_referer] => /wp-admin/admin.php?page=wpfunosimport [submit] => Importar fichero directorio ) 
 if( !isset ($_POST['submit']) ){
@@ -173,7 +183,8 @@ foreach ( $array as $key=>$linea ) {
 	}
 	
 	if( strlen( $linea[0] ) > 1 ) {
-		if( post_exists( get_the_title( $linea[0] )  ) == 0 ){ echo 'ID '	. $linea[0] . ' No Existe!<br/>'; continue; } //returns $postID or 0
+		//if( post_exists( get_the_title( $linea[0] )  ) == 0 ){ echo 'ID '	. $linea[0] . ' No Existe!<br/>'; continue; } //returns $postID or 0
+		if( get_post_status( $linea[0] ) === FALSE ){ echo 'ID '	. $linea[0] . ' -> ' . $linea[1] . ' No Existe!<br/>'; continue; } //returns $postID or 0
 		$cantidadviejos++;
 		$data = array(
   			'ID' => $linea[0],
@@ -229,5 +240,3 @@ foreach ( $array as $key=>$linea ) {
 	
 if( $cantidadnuevos == 0 && $cantidadviejos == 0 ) echo 'Formato de contenido de fichero inadecuado!<br/>';
 echo '<br/>Se han actualizado ' . $cantidadviejos . ' registros ya existentes y se han creado ' . $cantidadnuevos . ' nuevos registros de un total de ' . $key . ' registros.';
-	
-	

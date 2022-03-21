@@ -3,22 +3,20 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * Provide a admin area view for the plugin
+ * The admin-specific functionality of the plugin.
  *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
- * @subpackage Wpfunos/admin/partials
+ * @subpackage Wpfunos/admin/partials/registerAndBuild
+ * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 add_settings_section('wpfunos_direccionesip_section',    		// ID used to identify this section and with which to register options
-   'Configuración direcciones IP desarrollo',      				// Title to be displayed on the administration page
-   array( $this, 'wpfunos_display_direccionesip_account' ), 	// Callback used to render the description of the section
-   'wpfunos_DireccionesIP_settings'                 			// Page on which to add this section of options
- );
-
+	'Configuración direcciones IP desarrollo',      			// Title to be displayed on the administration page
+	array( $this, 'wpfunos_display_direccionesip_account' ), 	// Callback used to render the description of the section
+	'wpfunos_DireccionesIP_settings'                 			// Page on which to add this section of options
+);
 // 
 add_settings_field(
 	$this->plugin_name . '_DireccionesIPDesarrollo',

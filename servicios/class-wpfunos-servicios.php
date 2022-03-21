@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Servicios.
  *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
@@ -113,31 +113,31 @@ class Wpfunos_Servicios {
 	}
 	
 	/**
-	* Shortcode [wpfunos-actulizar-mapas-servicios]
-	*/
+	 * Shortcode [wpfunos-actulizar-mapas-servicios]
+	 */
 	public function wpfunosActualizarMapasServiciosShortcode( $atts, $content = "" ) {
 		if ( get_post_type( get_the_ID() ) != 'servicios_wpfunos' ) return;
 		$this->gmw_update_post_type_post_location( get_the_ID() );
 	}
 	
 	/**
-	* Shortcode [wpfunos-pagina-servicios]
-	*/
+	 * Shortcode [wpfunos-pagina-servicios]
+	 */
 	public function wpfunosPaginaServiciosShortcode( $atts, $content = "" ) {
 		return do_shortcode( get_option('wpfunos_paginaComparador') );
 	}
 
 	/**
-	* Shortcode [wpfunos-pagina-resultados-servicios]
-	* https://funos.es/comparar-precios?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"] 
-	*/
+	 * Shortcode [wpfunos-pagina-resultados-servicios]
+	 * https://funos.es/comparar-precios?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"] 
+	 */
 	public function wpfunosPaginaResultadosServiciosShortcode( $atts, $content = "" ) {
 		echo get_option('wpfunos_paginaURLResultadosServicios');
 	}
 	
 	/**
-	* Shortcode [wpfunos-acciones-botones-confirmado]
-	*/
+	 * Shortcode [wpfunos-acciones-botones-confirmado]
+	 */
 	public function wpfunosAccionesBotonesConfirmadoShortcode( $atts, $content = "" ) {
 		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) {
 			$this->wpfunosResultUserEntry();
@@ -191,14 +191,14 @@ class Wpfunos_Servicios {
 	 }
 	
 	/**
-	* Shortcode [wpfunos-resultados-estrellas]
-	*/
+	 * Shortcode [wpfunos-resultados-estrellas]
+	 */
 	public function wpfunosResultadosEstrellasShortcode( $atts, $content = "" ) {
 		return (int)$_GET['valoracion'];
 	}
 	/**
-	* Shortcode [wpfunos-resultados-detalles]
-	*/
+	 * Shortcode [wpfunos-resultados-detalles]
+	 */
 	public function wpfunosResultadosDetallesShortcode( $atts, $content = "" ) {
 		if( $_GET['desgloseBaseDescuento'] == '0%' && $_GET['desgloseDestinoDescuento'] == '%' && $_GET['desgloseAtaudDescuento'] == '%' && $_GET['desgloseVelatorioDescuento'] == '%' && $_GET['desgloseCeremoniaDescuento'] == '%'){
 			$_GET['desgloseBaseDescuento'] = ''; $_GET['desgloseBaseTotal'] = '';
@@ -216,8 +216,8 @@ class Wpfunos_Servicios {
 	}
 	
 	/**
-	* Shortcode [wpfunos-resultados-detalles-comentarios]
-	*/
+	 * Shortcode [wpfunos-resultados-detalles-comentarios]
+	 */
 	public function wpfunosResultadosDetallesComentariosShortcode( $atts, $content = "" ) {
 		$respuesta = (explode(',',$_GET['seleccionUsuario']));
 		echo '<h4><strong>¿Qué está incluido en Precio base?</strong></h4>';
@@ -265,10 +265,10 @@ class Wpfunos_Servicios {
 	/*********************************/
 	
 	/**
-	* Entrada acción usuario
-	*
-	* add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
-	*/
+	 * Entrada acción usuario
+	 *
+	 * add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
+	 */
 	public function wpfunosResultUserEntry(){
 		mt_srand(mktime());
 		$_GET['referencia'] = 'funos-'.(string)mt_rand();
@@ -802,8 +802,8 @@ class Wpfunos_Servicios {
 	/*********************************/
 	
 	/**
-	* Enviar Correo Admin
-	*/
+	 * Enviar Correo Admin
+	 */
 	public function wpfunosResultCorreoAdmin( ){
 		$headers[] = 'Content-Type: text/html; charset=UTF-8';
 		if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Admin')){
@@ -834,8 +834,8 @@ class Wpfunos_Servicios {
 	}
 	
 	/**
-	* Enviar Correo Lead
-	*/
+	 * Enviar Correo Lead
+	 */
 	public function wpfunosResultCorreoLead( ){
 		$headers[] = 'Content-Type: text/html; charset=UTF-8';
 		if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Lead')){
@@ -941,8 +941,8 @@ class Wpfunos_Servicios {
 	}
 	
 	/**
-	* Entrada ubicación
-	*/
+	 * Entrada ubicación
+	 */
 	public function wpfunosEntradaUbicacion( $ubicacionIP, $ubicacionwpf, $ubicacionReferencia, $ubicacionDireccion, $ubicacionCP ){
 		if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
 		if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;

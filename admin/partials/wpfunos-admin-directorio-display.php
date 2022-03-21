@@ -3,15 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * Provide a admin area view for the plugin
+ * The admin-specific functionality of the plugin.
  *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
  * @subpackage Wpfunos/admin/partials
+ * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 ?>
 <div class="wrap">
@@ -23,10 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		alt="nic-app" width="350" height="350">
 	<hr />
 	<p><strong>Directorio</strong></p>
-		<ul>
-			<li>Configuración parámetros directorio</li>
-		</ul>
-		<hr/>
+	<ul>
+		<li><strong><a href="/wp-admin/edit.php?post_type=tanatorio_d_wpfunos">Tanatorios Directorio</a></strong>: Definición de los Tanatorios/Funerarias/Marcas del directorio.</li>
+		<li><strong><a href="/wp-admin/edit-tags.php?taxonomy=poblacion_tanatorio&post_type=tanatorio_d_wpfunos">Categorias Tanatorio</a></strong>: Definición de las categorias de Tanatorios.</li>
+		<li><strong><a href="/wp-admin/edit-tags.php?taxonomy=poblacion_funeraria&post_type=tanatorios_d_wpfunos">Categorias Funeraria</a></strong>: Definición de las categorias de Funerarias.</li>
+		<li><strong><a href="/wp-admin/edit-tags.php?taxonomy=marca_funeraria&post_type=tanatorios_d_wpfunos">Categorias Marca Funeraria</a></strong>: Definición de las categorias de Marcas de Funerarias.</li>
+		<li><strong><a href="/wp-admin/admin.php?page=wpfunos-settingsdirectorio">Configuración del directorio</a></strong>: Definición de los parámetrso del directorio.</li>
+	</ul>
+	<hr/>
 	<div id="wpfunos-intro">
 		<p><?php esc_html_e( 'WpFunos.', 'wpfunos' ); ?></p>
 		<p>

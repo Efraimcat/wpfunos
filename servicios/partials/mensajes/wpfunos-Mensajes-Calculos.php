@@ -3,19 +3,15 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * @link       https://efraim.cat
+ * Servicios.
+ *
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
- * @package    WpFunos
- * @subpackage WpFunos/public/partials
+ * @package    Wpfunos
+ * @subpackage WpFunos/servicios/partials/mensajes
+ * @author     Efraim Bayarri <efraim@efraim.cat>
  */
- /**
-  * public/partials/wpfunos-public-ComparaResultadosAcciones-MailBoton1Admin.php
-  *
-  * [servicio] = Number: 15979
-  * [seleccion] = String: 'Passatge Alt del Turó- 26- 08041 Barcelona- España, 20, 2, 2, 2, 1, 3'
-  * [idUsuario] = Number: 21936
-  */
 $comentariosBase = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPrecioBaseComentario', true ) );
 $respuesta = (explode(',',$_GET['seleccion']));
 $ubicacion = strtr($respuesta[0],"+",",");

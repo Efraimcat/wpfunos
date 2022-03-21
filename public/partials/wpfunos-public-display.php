@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos

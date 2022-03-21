@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
@@ -21,3 +21,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="wpfunos-botones-resultados" style=" margin-right: 10px; ">
 					<div class="wpfunos-boton-llamada" style=" margin-right: 10px; ">
 <?php
+						

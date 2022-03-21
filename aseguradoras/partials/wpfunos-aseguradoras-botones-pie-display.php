@@ -7,11 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
- * @subpackage Wpfunos/public/partials
+ * @subpackage Wpfunos/aseguradoras/partials
  */
 ?>
 					</div>
@@ -19,5 +19,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</div>
-</div>
-<?php
+</div><?php

@@ -3,15 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * Provide a admin area view for the plugin
+ * The admin-specific functionality of the plugin.
  *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
- * @subpackage Wpfunos/admin/partials
+ * @subpackage Wpfunos/admin/partials/DB
+ * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 $cpostalesPoblacion = sanitize_text_field( $_POST[$this->plugin_name . '_cpostalesPoblacion'] );
 $cpostalesCodigo = sanitize_text_field( $_POST[$this->plugin_name . '_cpostalesCodigo'] );

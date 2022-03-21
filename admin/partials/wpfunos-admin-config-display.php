@@ -3,15 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 /**
- * Provide a admin area view for the plugin
+ * The admin-specific functionality of the plugin.
  *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       https://efraim.cat
+ * @link       https://github.com/Efraimcat/wpfunos/
  * @since      1.0.0
  *
  * @package    Wpfunos
  * @subpackage Wpfunos/admin/partials
+ * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 ?>
 <div class="wrap">
@@ -24,11 +23,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<hr />
 	<p><strong>Configuración</strong></p>
 	<ul>
-		<li><strong>Configuración servicios</strong>: Parámetros de la página de búsqueda de servicios.</li>
-		<li><strong>Configuración aseguradoras</strong>: Paŕámetros de la búsqueda de seguros.</li>
-		<li><strong>Configuración correo</strong>: Definición de direcciones de envio, asunto y cuerpo entre otros de los correo que envia Funos.</li>
-		<li><strong>Configuración API Preventiva</strong>: Paŕámetros de la conexión a los WebServices de Preventiva.</li>
-		<li><strong>Logs</strong>: Consulta de los ficheros de log de la aplicación.</li>
+		<li><strong><a href="/wp-admin/admin.php?page=wpfunos-settings">Configuración servicios</a></strong>: Parámetros de la página de búsqueda de servicios.</li>
+		<li><strong><a href="/wp-admin/admin.php?page=wpfunos-aseguradoras">Configuración aseguradoras</a></strong>: Paŕámetros de la búsqueda de seguros.</li>
+		<li><strong><a href="/wp-admin/admin.php?page=wpfunos-mail">Configuración correo</a></strong>: Definición de direcciones de envio, asunto y cuerpo entre otros de los correo que envia Funos.</li>
+		<li><strong><a href="/wp-admin/admin.php?page=wpfunos-APIPreventiva">Configuración API Preventiva</a></strong>: Paŕámetros de la conexión a los WebServices de Preventiva.</li>
+		<li><strong><a href="/wp-admin/admin.php?page=wpfunos-direccionesIP">Configuración Direcciones IP</a></strong>: Definición de direcciones IP excluidas de ciertas funcionalidades.</li>
+		<li><strong><a href="/wp-admin/admin.php?page=wpfunos-logs">Logs</a></strong>: Consulta de los ficheros de log de la aplicación.</li>
+		<li><strong><a href="/wp-admin/edit.php?post_type=conf_img_wpfunos">Imagenes wpfunos</a></strong>: Imagenes utilizadas por algunas funcionalidades.</li>
 	</ul>
 	<hr/>
 	<?php //IMPORTAR ENTRADAS DIRECTORIO ?>
