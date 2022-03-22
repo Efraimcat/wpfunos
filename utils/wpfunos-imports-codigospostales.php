@@ -51,7 +51,9 @@ if ( ! wp_verify_nonce( $_POST['wpfunos_import_codigospostales_nonce'], 'wpfunos
 //make sure at least one checkbox is checked
 if ( empty( $_FILES['import_file']['tmp_name'] ) ) {
 	?><h2>ERROR AL IMPORTAR FICHERO CÓDIGOS POSTALES</h2><?php
-	wp_die( __( 'Sube un archivo para importar', 'wpfunos' ) );
+	_e( 'Sube un archivo para importar', 'wpfunos' );
+	return;
+	//wp_die( __( 'Sube un archivo para importar', 'wpfunos' ) );
 }
 
 if (($open = fopen($_FILES['import_file']['tmp_name'] , "r")) !== FALSE){

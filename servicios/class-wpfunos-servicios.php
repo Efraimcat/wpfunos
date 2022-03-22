@@ -51,6 +51,7 @@ class Wpfunos_Servicios {
 	public function wpfunosServiciosPageSwitchShortcode(){
 		global $wp;
 		if( !isset( $_GET['form'] ) && !isset( $_GET['referencia'] ) ){
+			if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
 			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
 		}elseif( !isset($_GET['wpf']) ){
 			$userIP = apply_filters('wpfunos_userIP','dummy');
@@ -295,7 +296,7 @@ class Wpfunos_Servicios {
 		}
 		if($_GET['accion'] == 1 ) $textoaccion = "Botón llamen servicios";
 		if($_GET['accion'] == 2 ) $textoaccion = "Botón llamar servicios";
-		if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+		if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
 		if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
 		
 		$my_post = array(

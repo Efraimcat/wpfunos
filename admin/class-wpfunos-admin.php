@@ -133,13 +133,16 @@ class Wpfunos_Admin {
 	    require_once 'partials/' . $this->plugin_name . '-admin-display.php';
 	}
 	public function display_plugin_admin_config_dashboard(){
-	    require_once 'partials/' . $this->plugin_name . '-admin-config-display.php';
+		require_once 'partials/' . $this->plugin_name . '-admin-display.php';
+	    //require_once 'partials/' . $this->plugin_name . '-admin-config-display.php';
 	}
 	public function display_plugin_admin_directorio_dashboard(){
-	    require_once 'partials/' . $this->plugin_name . '-admin-directorio-display.php';
+		require_once 'partials/' . $this->plugin_name . '-admin-display.php';
+	    //require_once 'partials/' . $this->plugin_name . '-admin-directorio-display.php';
 	}
 	public function display_plugin_admin_import_dashboard(){
-		require_once 'partials/' . $this->plugin_name . '-admin-import-display.php';
+		require_once 'partials/' . $this->plugin_name . '-admin-display.php';
+		//require_once 'partials/' . $this->plugin_name . '-admin-import-display.php';
 	}
 	
 	/**
@@ -1197,4 +1200,109 @@ class Wpfunos_Admin {
 		//run the udpate location function
 		gmw_update_post_location( $post_id, $address );
 	}
+	
+	/*
+	 * $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
+ 	 *
+ 	 *
+ 	 */
+	private function wpfunos_stats_date( $cpt, $type = 'day', $status = 'publish', $metakey = '', $metavalue = '' ){
+  		$ahora = gmdate( 'Y-m-d H:i:s', strtotime( "now" ) );
+		$dia = gmdate( 'Y-m-d H:i:s', strtotime( "-1 day" ) );
+		$semana = gmdate( 'Y-m-d H:i:s', strtotime( "-7 days" ) );
+		$mes = gmdate( 'Y-m-d H:i:s', strtotime( "-30 days" ) );
+		$siempre = "3 October 2021";
+		$resultados = 0;
+		switch ( $type ){
+    		case 'day': $cuando = $dia; break;
+    		case 'week': $cuando = $semana; break;
+    		case 'month': $cuando = $mes; break;
+    		case 'all': $cuando = $siempre; break;
+  		}
+  		$args = array(
+    		'post_status' => $status,
+    		'post_type' => $cpt,
+			'posts_per_page' => -1,
+			'meta_key' =>  $metakey,
+			'meta_value' => $metavalue,
+    		'date_query' => array(
+      			array(
+        			'after'     => $cuando,
+        			'before'    => $ahora,
+        			'inclusive' => true,
+      			),
+    		),
+  		);
+  		$my_query = new WP_Query( $args );
+  		if ( $my_query->have_posts() ):
+    		while ( $my_query->have_posts() ) : $my_query->the_post();
+      			$resultados++;
+    		endwhile;
+    		wp_reset_postdata();
+  		endif;
+  	return $resultados;
+	}
+	
+	/*
+	 * $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
+ 	 * $registro 'cp' 'poblacion'
+ 	 * $columna 'numero' 'dato'
+ 	 * $this->wpfunos_stats_CP(1,'dato','cp');
+ 	 */
+	private function wpfunos_stats_CP( $orden, $columna, $registro,  $type = 'all', $status = 'publish' ){
+		$ahora = gmdate( 'Y-m-d H:i:s', strtotime( "now" ) );
+		$dia = gmdate( 'Y-m-d H:i:s', strtotime( "-1 day" ) );
+		$semana = gmdate( 'Y-m-d H:i:s', strtotime( "-7 days" ) );
+		$mes = gmdate( 'Y-m-d H:i:s', strtotime( "-30 days" ) );
+		$siempre = "3 October 2021";
+		$cpt = 'ubicaciones_wpfunos';
+		$metakey1 = 'wpfunos_ubicacionCP';
+		$metakey2 = 'wpfunos_ubicacionDireccion';
+		$resultados = 0;
+		$CP = [];
+		switch ( $type ){
+			case 'day': $cuando = $dia; break;
+			case 'week': $cuando = $semana; break;
+			case 'month': $cuando = $mes; break;
+			case 'all': $cuando = $siempre; break;
+		}
+     	$args = array(
+			'post_status' => $status,
+			'post_type' => $cpt,
+			'posts_per_page' => -1,
+			'date_query' => array(
+				array(
+					'after'     => $cuando,
+					'before'    => $ahora,
+					'inclusive' => true,
+				),
+			),
+     	);
+		$my_query = new WP_Query( $args );
+		if ( $my_query->have_posts() ):
+        	while ( $my_query->have_posts() ) : $my_query->the_post();
+            	$CP[] = array( "cp" => get_post_meta( $my_query->post->ID, $metakey1, true ) );
+				$poblacion[] = array( "poblacion" => strtolower(get_post_meta( $my_query->post->ID, $metakey2, true ) ) );
+    		endwhile;
+    		wp_reset_postdata();
+  		endif;
+		
+		$count=0;
+		if( $registro == 'cp' ) $array = array_count_values( array_column($CP, 'cp') );
+		if( $registro == 'poblacion' ) $array = array_count_values( array_column($poblacion, 'poblacion') );
+		arsort($array, SORT_NUMERIC);		
+		
+		foreach ( $array as $key=>$numero ) {
+			$count++;
+			if( $count == $orden ){
+				$key = ucwords($key);
+				$key = str_replace(" Y "," y ", $key);
+				$key = str_replace(" I "," i ", $key);
+				$key = str_replace("Del","del", $key);
+            	if( $key == '' ) $key = 'n/a';
+				if( $columna == 'numero') return $numero;
+				if( $columna == 'dato')	return substr($key,0,25);
+			}
+		}
+   	}
 }
