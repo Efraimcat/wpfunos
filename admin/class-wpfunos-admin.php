@@ -133,16 +133,16 @@ class Wpfunos_Admin {
 	    require_once 'partials/' . $this->plugin_name . '-admin-display.php';
 	}
 	public function display_plugin_admin_config_dashboard(){
-		require_once 'partials/' . $this->plugin_name . '-admin-display.php';
-	    //require_once 'partials/' . $this->plugin_name . '-admin-config-display.php';
+		//require_once 'partials/' . $this->plugin_name . '-admin-display.php';
+	    require_once 'partials/' . $this->plugin_name . '-admin-config-display.php';
 	}
 	public function display_plugin_admin_directorio_dashboard(){
-		require_once 'partials/' . $this->plugin_name . '-admin-display.php';
-	    //require_once 'partials/' . $this->plugin_name . '-admin-directorio-display.php';
+		//require_once 'partials/' . $this->plugin_name . '-admin-display.php';
+	    require_once 'partials/' . $this->plugin_name . '-admin-directorio-display.php';
 	}
 	public function display_plugin_admin_import_dashboard(){
-		require_once 'partials/' . $this->plugin_name . '-admin-display.php';
-		//require_once 'partials/' . $this->plugin_name . '-admin-import-display.php';
+		//require_once 'partials/' . $this->plugin_name . '-admin-display.php';
+		require_once 'partials/' . $this->plugin_name . '-admin-import-display.php';
 	}
 	
 	/**
@@ -1305,4 +1305,10 @@ class Wpfunos_Admin {
 			}
 		}
    	}
+	/*
+	 * 
+ 	 */
+	private function wpfunos_graph_ubicaciones_linear( ){
+		
+	}
 }
