@@ -28,17 +28,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div id="Numeros" class="w3-container wpftab" style="top: -300px;position: relative;" >
 					<p></p><h2>Números</h2>
 					<div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
-					<?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-superior.php';	?>
+					<?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
+					include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-superior.php';	?>
 					<hr/>
-					<?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-central.php';	?>
+					<?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
+					include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-central.php';	?>
 					<hr/>
-					<?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-inferior.php';	?>
+					<?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
+					include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-inferior.php';	?>
 					<hr/>
 				</div>
 				<div id="Graficas" class="w3-container wpftab" style="display:none; top: -300px;position: relative;">
   					<h2>Gráficas</h2>
-					<?php $this->wpfunos_graph_ubicaciones_linear( ); ?>
-					<?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-graficas-superior.php';	?>
+					<?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
+					include 'admin-menu/' . $this->plugin_name . '-admin-menu-graficas-superior.php';	?>
 				</div>
 				<div id="Enlaces" class="w3-container wpftab" style="display:none; top: -300px;position: relative;">
   					<h2>Enlaces</h2>

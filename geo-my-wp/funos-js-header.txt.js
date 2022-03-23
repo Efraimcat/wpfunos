@@ -20,3 +20,26 @@ $( document ).ready(function() {
  	});
 });
 </script>
+
+
+
+
+<script>
+window.onload = function () {
+	if( document.body.classList.contains( 'logged-in' )){
+		var chart = new CanvasJS.Chart("chartContainer", {
+			title: {
+				text: "Push-ups Over a Week"
+			},
+			axisY: {
+				title: "Number of Push-ups"
+			},
+			data: [{
+				type: "line",
+				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+			}]
+		});
+		chart.render();
+	}
+}
+</script>

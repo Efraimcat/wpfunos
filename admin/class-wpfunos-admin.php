@@ -64,6 +64,7 @@ class Wpfunos_Admin {
 		add_action('save_post_tanatorio_d_wpfunos', array( $this, 'savetanatoriodirectorio_wpfunosMetaBoxData' ));
 		add_action('save_post_conf_img_wpfunos', array( $this, 'saveconfimgwpfunos_wpfunosMetaBoxData' ));
 		add_action('save_post_ubicaciones_wpfunos', array( $this, 'saveubicaciones_wpfunosMetaBoxData' ));
+		add_action( 'admin_head', array( $this, 'my_custom_admin_head'));
 	}
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-admin.css', array(), $this->version, 'all' );
@@ -1305,10 +1306,90 @@ class Wpfunos_Admin {
 			}
 		}
    	}
+	
+	/*
+	 * $cpt 'ubicaciones_wpfunos', 'usuarios_wpfunos'
+	 * $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
+	 * 
+ 	 */
+	private function wpfunos_graph_ubicaciones_linear( $cpt, $type = 'all', $status = 'publish' ){
+		$ahora = new DateTime();
+		$dia = new DateTime();
+		$semana = new DateTime();
+		$mes = new DateTime();
+		$siempre = new DateTime();
+		$dia->sub(new DateInterval(P1D));
+		$semana->sub(new DateInterval(P7D));
+		$mes->sub(new DateInterval(P30D));
+		$siempre->sub(new DateInterval(P90D));
+		$array = [];
+
+		switch ( $type ){
+			case 'day': $cuando = $dia; break;
+			case 'week': $cuando = $semana; break;
+			case 'month': $cuando = $mes; break;
+			case 'all': $cuando = $siempre; break;
+		}
+		
+    	while( $cuando < $ahora ){
+			$args = array(
+				'post_status' => $status,
+				'post_type' => $cpt,
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+     		);
+			$my_query = new WP_Query( $args );
+			$contador = 0;
+			if ( $my_query->have_posts() ):
+        		while ( $my_query->have_posts() ) : $my_query->the_post();
+					$contador++;
+	    		endwhile;
+    			wp_reset_postdata();
+  			endif;
+			$array[] = array( "x" => $cuando->format('d'), "y" => $contador, ) ;
+      		$cuando->add(new DateInterval( 'P1D' ) );
+		}
+		return $array;
+	}
+	
 	/*
 	 * 
  	 */
-	private function wpfunos_graph_ubicaciones_linear( ){
+	function my_custom_admin_head() {
+		//$resultado = $this->wpfunos_graph_ubicaciones_linear( 'usuarios_wpfunos', 'all' );
+		//$dataPoints1 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		$resultado = $this->wpfunos_graph_ubicaciones_linear( 'usuarios_wpfunos', 'month' );
+		$dataPoints2 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		$resultado = $this->wpfunos_graph_ubicaciones_linear( 'usuarios_wpfunos', 'week' );
+		$dataPoints3 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		$resultado = $this->wpfunos_graph_ubicaciones_linear( 'ubicaciones_wpfunos', 'month' );
+		$dataPoints4 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		$resultado = $this->wpfunos_graph_ubicaciones_linear( 'ubicaciones_wpfunos', 'week' );
+		$dataPoints5 = json_encode($resultado, JSON_NUMERIC_CHECK);
 		
+		echo '<script type="text/javascript" src="' . WFUNOS_PLUGIN_URL . 'admin/assets/canvasjs.min.js"></script>';
+		echo '<script id="wpfunos-head-'.$this->version.'" type="text/javascript">
+			window.onload = function () {
+				var chart = new CanvasJS.Chart("chartContainer2", {
+					title:{text: "Usuarios mes",},axisY:{title:"Cantidad de usuarios"},axisX:{interval:3,crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"area",dataPoints:'.$dataPoints2.'}]});
+ 				chart.render();
+				var chart = new CanvasJS.Chart("chartContainer3", {
+					title:{text: "Usuarios semana",},axisY:{title:"Cantidad de usuarios"},axisX:{interval:1,crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"area",dataPoints:'.$dataPoints3.'}]});
+ 				chart.render();
+				var chart = new CanvasJS.Chart("chartContainer4", {
+					title:{text: "Ubicaciones mes",},axisY:{title:"Cantidad de usuarios"},axisX:{interval:3,crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"area",dataPoints:'.$dataPoints4.'}]});
+ 				chart.render();
+				var chart = new CanvasJS.Chart("chartContainer5", {
+					title:{text: "Ubicaciones semana",},axisY:{title:"Cantidad de usuarios"},axisX:{interval:1,crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"area",dataPoints:'.$dataPoints5.'}]});
+ 				chart.render();
+			}
+  		</script>';
 	}
+	
 }
