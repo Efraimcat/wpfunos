@@ -25,5 +25,14 @@ add_settings_field($this->plugin_name . '_Debug',
 	'wpfunos_general_section',
 	array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_Debug','name' => $this->plugin_name . '_Debug','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
+// Graph
+add_settings_field($this->plugin_name . '_Graph',
+	'Activar gráficos <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_Graph)</h6>',
+	array( $this, 'wpfunos_render_settings_field' ),
+	'wpfunos_general_settings',
+	'wpfunos_general_section',
+	array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_Graph','name' => $this->plugin_name . '_Graph','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
 
 register_setting('wpfunos_general_settings', $this->plugin_name . '_Debug');
+register_setting('wpfunos_general_settings', $this->plugin_name . '_Graph');

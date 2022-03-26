@@ -392,8 +392,10 @@ class Wpfunos_Servicios {
 		}
 		if( $tieneECO ){
 			$resultados = $this->wpfunosGetResultsECO( $postID, $IDusuario );
+			if( !$resultados[2] && get_post_meta( $postID, 'wpfunos_servicioPrecioConfirmado', true ) == true && $resultados[0] != 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )){
 			////$wpfunos_confirmado = array( $postID, $preciototal ,$preciodescuento, $wpfservicio, $ecologico )
-			$wpfunos_confirmado[] = array( $postID, $resultados[0], $resultados[1], $resultados[3], true );
+				$wpfunos_confirmado[] = array( $postID, $resultados[0], $resultados[1], $resultados[3], true );
+			}
 		}
 		return  $wpfunos_confirmado;
 	}
@@ -444,7 +446,7 @@ class Wpfunos_Servicios {
       		}
 			foreach ($wpfunos_confirmado as $value) {
 				?><div class="wpfunos-busqueda-contenedor"><?php
-				$_GET['nombre'] = get_the_title( $value[0] );
+				$_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
 				$_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
 				$_GET['confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
 				if( $value[4] ){
@@ -507,7 +509,7 @@ class Wpfunos_Servicios {
       		}
 			foreach ($wpfunos_sinconfirmar as $value) {
 				?><div class="wpfunos-busqueda-contenedor"><?php
-				$_GET['nombre'] = get_the_title( $value[0] );
+				$_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
 				$_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
 				$_GET['confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenNoConfirmado', true ) , array(45,46));
 				if( $value[4] ){
@@ -549,7 +551,7 @@ class Wpfunos_Servicios {
 			?><div class="wpfunos-titulo"><p></p><center><h2>Sin precio</h2></center></div><?php
 			foreach ($wpfunos_sinprecio as $value) {
 				?><div class="wpfunos-busqueda-contenedor"><?php
-				$_GET['nombre'] = get_the_title( $value[0] );
+				$_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
 				$_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
 				$_GET['confirmado'] = '';
 				$_GET['textoconfirmado'] = '';
@@ -930,13 +932,13 @@ class Wpfunos_Servicios {
 	 */
 	private function wpfunos_case( $postID, $servicioPrecio, $servicioDescuento, $NA, $preciototal, $preciodescuento, $servicioNombre ){
 		if ($servicioPrecio == '' ) $NA=true;
-		$preciototal += (int)$servicioPrecio ;
-		if( (int)$servicioDescuento > 0 ){
-			$preciodescuento += (int)$servicioPrecio - ((int)$servicioPrecio*((int)$servicioDescuento/100));
-			$desglose = (int)$servicioPrecio - ((int)$servicioPrecio*((int)$servicioDescuento/100));
+		$preciototal += $servicioPrecio ;
+		if( $servicioDescuento > 0 ){
+			$preciodescuento += $servicioPrecio - ($servicioPrecio*($servicioDescuento/100));
+			$desglose = $servicioPrecio - ($servicioPrecio*($servicioDescuento/100));
 		}else{
-			$preciodescuento += (int)$servicioPrecio;
-			$desglose = (int)$servicioPrecio;
+			$preciodescuento += $servicioPrecio;
+			$desglose = $servicioPrecio;
 		}
 		return array( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioPrecio, $servicioDescuento, $desglose );
 	}

@@ -35,4 +35,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</td>
 	</tr>
 	<tr><td colspan="3"><hr/></td></tr>
+	<tr>
+		<td style="width:47%"> 
+			<div id="chartContainer6" style="height: 400px; width: 100%"></div>		
+		</td>
+		<td style="width:5%"></td>
+		<td style="width:47%">
+			<div id="chartContainer7" style="height: 400px; width: 100%"></div>		
+		</td>
+	</tr>
+	<tr><td colspan="3"><hr/></td></tr>
+	<tr>
+		<td style="width:47%"> 
+			<div id="chartContainer8" style="height: 400px; width: 100%"></div>		
+		</td>
+		<td style="width:5%"></td>
+		<td style="width:47%">
+			<div id="chartContainer9" style="height: 400px; width: 100%"></div>		
+		</td>
+	</tr>
+	<tr><td colspan="3"><hr/></td></tr>
 </table>
