@@ -1202,9 +1202,11 @@ class Wpfunos_Admin {
 		gmw_update_post_location( $post_id, $address );
 	}
 	
+	/*********************************/
+	/*****  ESTADÍSTICAS        ******/
+	/*********************************/
 	/*
 	 * $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
- 	 *
  	 *
  	 */
 	private function wpfunos_stats_date( $cpt, $type = 'day', $status = 'publish', $metakey = '', $metavalue = '' ){
@@ -1407,7 +1409,65 @@ class Wpfunos_Admin {
 	}
 	
 	/*
-	 * 
+	 * $column 'poblacion' 'cp'
+	 * $todos incluir suma 'Resto'
+	 */
+	private function wpfunos_graph_pie_CP( $tope = 10, $column = 'poblacion', $todos = false ){
+		$ahora = new DateTime(); 
+		$poblacion = [];
+		$CP = [];
+		$args = array(
+			'post_status' => 'publish',
+			'post_type' => 'ubicaciones_wpfunos',
+			'posts_per_page' => -1,
+			'date_query' => array(
+				array(
+					'after'     => '2021-03-19',
+           			'before'    => $ahora->format("Y-m-d"),
+					'inclusive' => true,
+				),
+			),
+		);
+		$post_list = get_posts( $args );
+		if( $post_list ){
+			foreach ( $post_list as $post ) :
+				if($column == 'poblacion') $array[] = array( "poblacion" => strtolower(get_post_meta( $post->ID, 'wpfunos_ubicacionDireccion', true ) ) );
+				if($column == 'cp')$array[] = array( "cp" => get_post_meta( $post->ID, 'wpfunos_ubicacionCP', true ) );
+			endforeach; 
+			wp_reset_postdata();
+		}
+		if($column == 'poblacion') 	$array = array_count_values( array_column($array, 'poblacion') );
+		if($column == 'cp') 		$array = array_count_values( array_column($array, 'cp') );
+		
+		arsort($array, SORT_NUMERIC);	
+		$contador = 0;
+		$otros = 0;
+		foreach ( $array as $key=>$linea ){
+			$contador++;
+			if( $contador > $tope ){
+				if( $todos ) $otros += $linea;
+				continue;
+			}
+			if($column == 'poblacion'){
+				$key = ucwords($key);
+				$key = str_replace(" Y "," y ", $key);
+				$key = str_replace(" I "," i ", $key);
+				$key = str_replace("Del","del", $key);
+				$key = substr($key,0,25);
+				$resultado[] = array("indexLabel" => $key, "y" => $linea, );
+			}
+			if($column == 'cp'){
+				if( $key == '' ) $key = 'n/a';	
+				$value = '[' . $key . ']';
+				$resultado[] = array("indexLabel" => $value, "y" => $linea, );
+			}
+		}
+		if( $todos ) $resultado[] = array("indexLabel" => "Resto", "y" => $otros, );
+		return $resultado;
+	}
+	   
+	/*
+	 * Incluir el script de los gráficos en el <head>
  	 */
 	function my_custom_admin_head() {
 		if( apply_filters('wpfunos_userIP','dummy') != '80.26.158.67' ) return;
@@ -1449,6 +1509,18 @@ class Wpfunos_Admin {
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Servicio' );
 		$dataPoints13 = json_encode($resultado, JSON_NUMERIC_CHECK);
 		
+		$resultado = $this->wpfunos_graph_pie_CP( 10, 'poblacion' );
+		$dataPoints14 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_CP( 10, 'poblacion', true );
+		$dataPoints15 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_CP( 10, 'cp' );
+		$dataPoints16 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_CP( 10, 'cp', true );
+		$dataPoints17 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
 		echo '<script type="text/javascript" src="' . WFUNOS_PLUGIN_URL . 'admin/assets/canvasjs.min.js"></script>';
 		echo '<script id="wpfunos-head-'.$this->version.'" type="text/javascript">
 			window.onload = function () {
@@ -1480,6 +1552,14 @@ class Wpfunos_Admin {
 					legendText: "{indexLabel}",dataPoints:'.$dataPoints12.'}]});chart.render();
 				var chart = new CanvasJS.Chart("chartContainer9", {animationEnabled:true,zoomEnabled:true,title:{text: "Servicio",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
 					legendText: "{indexLabel}",dataPoints:'.$dataPoints13.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer10", {animationEnabled:true,zoomEnabled:true,title:{text: "Población (Top 10)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints14.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer11", {animationEnabled:true,zoomEnabled:true,title:{text: "Población (Todos)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints15.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer12", {animationEnabled:true,zoomEnabled:true,title:{text: "CP (Top 10)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints16.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer13", {animationEnabled:true,zoomEnabled:true,title:{text: "CP (Todos)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints17.'}]});chart.render();
 			}
   		</script>';
 	}
