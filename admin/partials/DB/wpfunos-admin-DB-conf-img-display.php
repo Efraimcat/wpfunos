@@ -32,5 +32,11 @@ if ( ! defined( 'ABSPATH' ) ) {
           		'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID
     		));
 		?></li>
+		<li class="conf_img_wpfunos_list"><label for="<?php esc_html_e($this->plugin_name . '_imagenPromo' ); ?>"> <?php esc_html_e('Imagen Promo', 'wpfunos');?></label> <?php
+      		$this->wpfunos_render_settings_field(array(
+        		'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_imagenPromo','name' => $this->plugin_name . '_imagenPromo',
+          		'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID
+    		));
+		?></li>
 	</ul>
 </div><?php

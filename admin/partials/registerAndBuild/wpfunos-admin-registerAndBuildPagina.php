@@ -63,6 +63,15 @@ add_settings_field(
 	'wpfunos_general_pagina_section',
 	array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_paginaURLResultadosServicios','name' => $this->plugin_name . '_paginaURLResultadosServicios','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
+// Orden inicial resultados
+add_settings_field(
+	$this->plugin_name . '_paginaComparadorOrden',
+	'Orden inicial resultados ("precios" o "dist") <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorOrden)</h6>', 
+	array( $this, 'wpfunos_render_settings_field' ),
+	'wpfunos_general_settings',
+	'wpfunos_general_pagina_section',
+	array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . 'paginaComparadorOrden','name' => $this->plugin_name . '_paginaComparadorOrden','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
 // Formulario GEO my wp ubicación
 add_settings_field(
 	$this->plugin_name . '_paginaComparadorGeoMyWp',
@@ -106,6 +115,7 @@ register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaLlamar
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaLlamen');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaURLResultadosServicios');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaComparadorGeoMyWp');
+register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaComparadorOrden');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaComparadorAseguradoras');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaURLResultadosAseguradoras');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaComparadorGeoMyWpAseguradoras');

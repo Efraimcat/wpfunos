@@ -18,7 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     		<table>
 				<tr>
 					<td><?php esc_html_e('Nombre', 'wpfunos');?></td>
+					<td style="width:5px;"></td>
 					<td><?php esc_html_e('Población', 'wpfunos');?></td>
+					<td style="width:5px;"></td>
 					<td><?php esc_html_e('Direccion', 'wpfunos');?></td>
 				</tr>
 				<tr>
@@ -29,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
          						'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));
    						?>
 					</td>
+					<td style="width:5px;"></td>
 					<td>
 						<?php
 							$this->wpfunos_render_settings_field(array(
@@ -36,6 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       							'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
 						?>
 					</td>
+					<td style="width:5px;"></td>
 					<td>
 						<?php 
 							$this->wpfunos_render_settings_field(array(
@@ -51,9 +55,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<table>
 				<tr>
 					<td><?php esc_html_e('Logo', 'wpfunos');?></td>	
+					<td style="width:5px;"></td>
 					<td><?php esc_html_e('Email', 'wpfunos');?></td>	
+					<td style="width:5px;"></td>
 					<td><?php esc_html_e('Teléfono', 'wpfunos');?></td>	
+					<td style="width:5px;"></td>
 					<td><?php esc_html_e('Valoración', 'wpfunos');?></td>	
+					<td style="width:5px;"></td>
+					<td><?php esc_html_e('Imagen Promo 200x90', 'wpfunos');?></td>	
 				</tr>
 				<tr>
 					<td>
@@ -63,6 +72,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       							'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
    						?>			
 					</td>
+					<td style="width:5px;"></td>
 					<td>
 						<?php 
 							$this->wpfunos_render_settings_field(array(
@@ -70,6 +80,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     	  						'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
 	   					?>
 					</td>
+					<td style="width:5px;"></td>
 					<td>
 						<?php 
 							$this->wpfunos_render_settings_field(array(
@@ -77,11 +88,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		    	  				'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));
    						?>
 					</td>
+					<td style="width:5px;"></td>
 					<td>
 						<?php 
 							$this->wpfunos_render_settings_field(array(
 		     					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioValoracion','name' => $this->plugin_name . '_servicioValoracion',
       							'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));
+   						?>
+					</td>
+					<td style="width:5px;"></td>
+					<td>
+						<?php 
+							$this->wpfunos_render_settings_field(array(
+		     					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenPromo','name' => $this->plugin_name . '_servicioImagenPromo',
+      							'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 14 ));
    						?>
 					</td>
 				</tr>
@@ -92,7 +112,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<table>
 				<tr>
 					<td><?php esc_html_e('Nombre del pack', 'wpfunos');?></td>
+					<td style="width:5px;"></td>
 					<td><?php esc_html_e('Texto precio', 'wpfunos');?></td>
+					<td style="width:5px;"></td>
 					<td><?php esc_html_e('Descuento genérico', 'wpfunos');?></td>
 				</tr>
 				<tr>
@@ -103,6 +125,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       							'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 ));
    						?>
 					</td>
+					<td style="width:5px;"></td>
 					<td>
 						<?php 
 							$this->wpfunos_render_settings_field(array(
@@ -110,6 +133,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       							'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 ));
 	   					?>
 					</td>
+					<td style="width:5px;"></td>
 					<td>
 						<?php 
 							$this->wpfunos_render_settings_field(array(
@@ -175,7 +199,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   		<li class="servicios_wpfunos_list">
     		<table>
       			<tr>
-			        <td></td><td>Precio</td><td>Descuento</td>
+			        <td></td><td>Precio</td><td style="width:5px;"></td><td>Descuento</td>
       			</tr>
       			<tr>
         			<td>Precio Base</td>
@@ -183,6 +207,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           					'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPrecioBase','name' => $this->plugin_name . '_servicioPrecioBase',
            					'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));
         			?>€</td>
+					<td></td>
         			<td><?php $this->wpfunos_render_settings_field(array(
           				'type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPrecioBaseDescuento','name' => $this->plugin_name . '_servicioPrecioBaseDescuento',
            				'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));

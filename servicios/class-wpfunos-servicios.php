@@ -93,19 +93,28 @@ class Wpfunos_Servicios {
 				//
 				//	Cambiar el tipo de ordenación de los datos.
 				//
+				?><div class="wpfunos-resultados-orden-container">Ordenar resultados por:</div><?php
 				if( ! isset( $_GET['orden'] ) || $_GET['orden'] == 'dist') {
 					do_action('wpfunos_log', 'Orden distancia: ');
-					if( ! isset( $_GET['orden'] ) ){ 
+					if( ! isset( $_GET['orden'] ) ){
 						$new_url = home_url(add_query_arg(array($_GET), $wp->request)) . '&orden=precios';
-					}else{
+    				}else{
 						$new_url = str_replace("&orden=dist","&orden=precios", home_url(add_query_arg(array($_GET), $wp->request) ) );
-					}
-					?><div class="wpfunos-resultados-orden"><p><center>Resultados ordenados por distancia. <a href=" <?php echo $new_url; ?> ">Ordenar por precio.</a>  </center></p></div><?php									
-				}else{
-					do_action('wpfunos_log', 'Orden precio: ');
-					$new_url = str_replace("&orden=precios","&orden=dist", home_url(add_query_arg(array($_GET), $wp->request) ) );
-					?><div class="wpfunos-resultados-orden"><p><center>Resultados ordenados por precio. <a href=" <?php echo $new_url; ?> ">Ordenar por distancia.</a>  </center></p></div><?php				
-				}
+	    			}
+					?>
+						<div class="wpfunos-resultados-orden">
+							<button id="wpfunos-orden-inactivo">Distancia</button><button id="wpfunos-orden-activo"><a href=" <?php echo $new_url; ?> ">Precio</a></button>
+						</div>	
+    				<?php
+  				}else{
+    				do_action('wpfunos_log', 'Orden precio: ');
+    				$new_url = str_replace("&orden=precios","&orden=dist", home_url(add_query_arg(array($_GET), $wp->request) ) );
+    				?>
+						<div class="wpfunos-resultados-orden" style="text-align: center">
+							<button id="wpfunos-orden-activo"><a href=" <?php echo $new_url; ?> ">Distancia</a></button><button id="wpfunos-orden-inactivo">Precio</button>
+						</div>		
+					<?php
+  				}					
 				//
 				echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosPie') );
@@ -258,6 +267,10 @@ class Wpfunos_Servicios {
 		if( $respuesta[6] == 4 ) {
 			echo '<h4><strong>¿Qué está incluido en ceremonia religiosa?</strong></h4>';
 			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDespedida_3Comentario', true ) );
+		}
+		if( strlen( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPosiblesExtras', true ) )> 0 ){
+			echo '<h4><strong>Posibles Extras</strong></h4>';
+			echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPosiblesExtras', true ) );
 		}
 	}
 	
@@ -866,7 +879,7 @@ class Wpfunos_Servicios {
 			do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
 		}
 	}
-	
+
 	/**
 	 * Actualizar datos gmw mapa ficha servicios
 	 */

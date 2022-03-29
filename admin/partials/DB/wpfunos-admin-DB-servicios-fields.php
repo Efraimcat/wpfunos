@@ -28,6 +28,7 @@ $servicioActivo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAct
 
 $servicioBotonesLlamar = sanitize_text_field( $_POST[$this->plugin_name . '_servicioBotonesLlamar'] );
 $servicioTextoPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioTextoPrecio'] );
+$servicioImagenPromo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenPromo'] );
 
 $servicioPackNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPackNombre'] );
 $servicioPrecioBase = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioBase'] );
@@ -153,6 +154,7 @@ update_post_meta($post_id, $this->plugin_name . '_servicioActivo', $servicioActi
 
 update_post_meta($post_id, $this->plugin_name . '_servicioBotonesLlamar', $servicioBotonesLlamar);
 update_post_meta($post_id, $this->plugin_name . '_servicioTextoPrecio', $servicioTextoPrecio);
+update_post_meta($post_id, $this->plugin_name . '_servicioImagenPromo', $servicioImagenPromo);
 
 update_post_meta($post_id, $this->plugin_name . '_servicioPackNombre', $servicioPackNombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBase', $servicioPrecioBase);

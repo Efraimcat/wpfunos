@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Efraim Bayarri <efraim@efraim.cat>
  */
 $comentariosBase = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPrecioBaseComentario', true ) );
+$comentariosExtras = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPosiblesExtras', true ) );
 $respuesta = (explode(',',$_GET['seleccion']));
 $ubicacion = strtr($respuesta[0],"+",",");
 
@@ -100,3 +101,4 @@ $mensaje = str_replace( '[comentariosDestino]' , $comentariosDestino , $mensaje 
 $mensaje = str_replace( '[comentariosAtaud]' , $comentariosAtaud , $mensaje );
 $mensaje = str_replace( '[comentariosVelatorio]' , $comentariosVelatorio , $mensaje );
 $mensaje = str_replace( '[comentariosDespedida]' , $comentariosDespedida , $mensaje );
+$mensaje = str_replace( '[comentariosExtras]' , $comentariosExtras , $mensaje );

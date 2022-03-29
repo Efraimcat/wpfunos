@@ -38,10 +38,11 @@ class Wpfunos_Admin {
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsConfirmadoDescuento' ));	// Compara Resultados confirmado Descuento superior e inferior
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsSinConfirmar' ));			// Compara Resultados Sin Confirmar superior e inferior
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsSinPrecio' ));			// Compara Resultados Sin Precio superior e inferior
-		add_action('admin_init', array( $this, 'registerAndBuildMail' ));
-		add_action('admin_init', array( $this, 'registerAndBuildMail2' ));
-		add_action('admin_init', array( $this, 'registerAndBuildMail3' ));
-		add_action('admin_init', array( $this, 'registerAndBuildMail4' ));
+		add_action('admin_init', array( $this, 'registerAndBuildMail' ));		//Boton 1 Admin
+		add_action('admin_init', array( $this, 'registerAndBuildMail2' ));		//Boton 2 Admin
+		add_action('admin_init', array( $this, 'registerAndBuildMail3' ));		//Botón "Que me llamen"
+		add_action('admin_init', array( $this, 'registerAndBuildMail4' ));		//Botón "Llamar"
+		add_action('admin_init', array( $this, 'registerAndBuildMail5' ));		//Datos usuario enviados
 		add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
 		add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsDireccionesIP' ));
@@ -250,6 +251,9 @@ class Wpfunos_Admin {
 	public function registerAndBuildMail4() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail4.php';
 	}
+	public function registerAndBuildMail5() {
+		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail5.php';
+	}
 	public function registerAndBuildAPIPreventiva() {
 		require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIPreventiva.php';
 	}
@@ -347,7 +351,7 @@ class Wpfunos_Admin {
 	public function wpfunos_display_mail_account() {
 		?>
 		<hr/>
-		<p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes varialbles:', 'wpfunos'); ?></p>
+		<p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
 		<p>[nombreServicio], [telefono], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
 		<p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
 		<p>[desgloseDestinoNombre], [TotaldesgloseDestinoTotal] = ( <i>[desgloseDestinoPrecio] + [desgloseDestinoDescuento] + [desgloseDestinoTotal]</i> )</p>
@@ -355,7 +359,15 @@ class Wpfunos_Admin {
 		<p>[desgloseVelatorioNombre], [TotaldesgloseVelatorioTotal] = ( <i>[desgloseVelatorioPrecio] + [desgloseVelatorioDescuento] + [desgloseVelatorioTotal]</i> )</p>
 		<p>[desgloseCeremoniaNombre], [TotaldesgloseCeremoniaTotal] = ( <i>[desgloseCeremoniaPrecio] + [desgloseCeremoniaDescuento] + [desgloseCeremoniaTotal]</i> )</p>
 		<p>[desgloseDescuentoGenerico], [TotaldesgloseGenericoTotal] = ( <i>[desgloseDescuentoGenericoPrecio] + [desgloseDescuentoGenericoDescuento] + [desgloseDescuentoGenericoTotal]</i> )</p>
-		<p>[comentariosBase], [comentariosDestino], [comentariosAtaud], [comentariosVelatorio], [comentariosDespedida]</p>
+		<p>[comentariosBase], [comentariosDestino], [comentariosAtaud], [comentariosVelatorio], [comentariosDespedida], [comentariosExtras]</p>
+		<hr />
+		<?php
+	}
+	public function wpfunos_display_mail_account_datos() {
+		?>
+		<hr/>
+		<p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+		<p>[Email], [referencia], [Nombre], [Telefono], [address], [CP], [Destino], [Ataud], [Velatorio], [Despedida]</p>
 		<hr />
 		<?php
 	}
@@ -512,416 +524,55 @@ class Wpfunos_Admin {
 	 * usuarios_wpfunos
 	 */
 	public function usuarios_registrados_custom_post_type(){
-		$customPostTypeArgs = array(
-			'label' => esc_html__('Usuarios registrados', 'wpfunos'),
-			'labels'=>
-			array(
-					'name' => esc_html__('Usuarios WpFunos', 'wpfunos'),
-					'singular_name' => esc_html__('Usuario', 'wpfunos'),
-					'add_new' => esc_html__('Añadir usuario', 'wpfunos'),
-					'add_new_item' => esc_html__('Añadir nuevo usuario', 'wpfunos'),
-					'edit_item' => esc_html__('Editar usuario', 'wpfunos'),
-					'new_item' => esc_html__('Nuevo usuario', 'wpfunos'),
-					'view_item' => esc_html__('Ver usuario', 'wpfunos'),
-					'search_items' => esc_html__('Buscar usuario', 'wpfunos'),
-					'not_found' => esc_html__('No se encontraron usuarios', 'wpfunos'),
-					'not_found_in_trash' => esc_html__('No se encontraron usuarios en la papelera', 'wpfunos'),
-					'menu_name' => esc_html__('Usuarios', 'wpfunos'),
-					'name_admin_bar' => esc_html__('Usuarios', 'wpfunos'),
-			),
-			'public'=>false,
-			'description' => esc_html__('Usuarios registrados', 'wpfunos'),
-			'exclude_from_search' => true,
-			'show_ui' => true,
-			'show_in_menu' => $this->plugin_name,
-			'supports'=>array('title', 'custom_fields'),
-			'capability_type' => 'post',
-			'capabilities' => array('create_posts' => true),
-			'map_meta_cap' => true,
-			'taxonomies'=>array()
-		);
-		// Post type, $args - the Post Type string can be MAX 20 characters
-		register_post_type( 'usuarios_wpfunos', $customPostTypeArgs );
+		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-usuarios.php';
 	}
-
 	/**
 	 * funerarias_wpfunos
 	 */
 	public function funerarias_custom_post_type(){
-		$customPostTypeArgs = array(
-			'label' => esc_html__('Funerarias', 'wpfunos'),
-			'labels'=>
-			array(
-					'name' => esc_html__('Funerarias WpFunos', 'wpfunos'),
-					'singular_name' => esc_html__('Funeraria', 'wpfunos'),
-					'add_new' => esc_html__('Añadir Funeraria', 'wpfunos'),
-					'add_new_item' => esc_html__('Añadir nueva funeraria', 'wpfunos'),
-					'edit_item' => esc_html__('Editar funeraria', 'wpfunos'),
-					'new_item' => esc_html__('Nueva funeraria', 'wpfunos'),
-					'view_item' => esc_html__('Ver funeraria', 'wpfunos'),
-					'search_items' => esc_html__('Buscar funeraria', 'wpfunos'),
-					'not_found' => esc_html__('No se encontraron funerarias', 'wpfunos'),
-					'not_found_in_trash' => esc_html__('No se encontraron funerarias en la papelera', 'wpfunos'),
-					'menu_name' => esc_html__('Funerarias', 'wpfunos'),
-					'name_admin_bar' => esc_html__('Funerarias', 'wpfunos'),
-			),
-			'public'=>false,
-			'description' => esc_html__('Funerarias', 'wpfunos'),
-			'exclude_from_search' => true,
-			'show_ui' => true,
-			'show_in_menu' => $this->plugin_name,
-			'supports'=>array('title', 'custom_fields'),
-			'capability_type' => 'post',
-			'capabilities' => array('create_posts' => true),
-			'map_meta_cap' => true,
-			'taxonomies'=>array()
-		);
-		// Post type, $args - the Post Type string can be MAX 20 characters
-		register_post_type( 'funerarias_wpfunos', $customPostTypeArgs );
+		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-funerarias.php';
 	}
-	
 	/**
-	 * servicos_wpfunos
+	 * servicios_wpfunos
 	 */
 	public function servicios_custom_post_type(){
-		$customPostTypeArgs = array(
-			'label' => esc_html__('Servicios', 'wpfunos'),
-			'labels'=>
-			array(
-					'name' => esc_html__('Servicios WpFunos', 'wpfunos'),
-					'singular_name' => esc_html__('Servicio', 'wpfunos'),
-					'add_new' => esc_html__('Añadir servicio', 'wpfunos'),
-					'add_new_item' => esc_html__('Añadir nuevo servicio', 'wpfunos'),
-					'edit_item' => esc_html__('Editar servicio', 'wpfunos'),
-					'new_item' => esc_html__('Nuevo servicio', 'wpfunos'),
-					'view_item' => esc_html__('Ver servicio', 'wpfunos'),
-					'search_items' => esc_html__('Buscar servicio', 'wpfunos'),
-					'not_found' => esc_html__('No se encontraron servicios', 'wpfunos'),
-					'not_found_in_trash' => esc_html__('No se encontraron servicios en la papelera', 'wpfunos'),
-					'menu_name' => esc_html__('Servicios', 'wpfunos'),
-					'name_admin_bar' => esc_html__('Servicios', 'wpfunos'),
-			),
-			'public'=>false,
-			'description' => esc_html__('Servicios', 'wpfunos'),
-			'exclude_from_search' => true,
-			'show_ui' => true,
-			'show_in_menu' => $this->plugin_name,
-			'supports'=>array('title', 'custom_fields'),
-			'capability_type' => 'post',
-			'capabilities' => array('create_posts' => true),
-			'map_meta_cap' => true,
-			'taxonomies'=>array()
-		);
-		// Post type, $args - the Post Type string can be MAX 20 characters
-		register_post_type( 'servicios_wpfunos', $customPostTypeArgs );
+			require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-servicios.php';
 	}
-	
 	/**
 	 * cpostales_wpfunos
 	 */
 	public function codigospostales_custom_post_type(){
-		$customPostTypeArgs = array(
-			'label' => esc_html__('Codigos Postales', 'wpfunos'),
-			'labels'=>
-			array(
-					'name' => esc_html__('Códigos postales WpFunos', 'wpfunos'),
-					'singular_name' => esc_html__('Código postal', 'wpfunos'),
-					'add_new' => esc_html__('Añadir código postal', 'wpfunos'),
-					'add_new_item' => esc_html__('Añadir nuevo código postal', 'wpfunos'),
-					'edit_item' => esc_html__('Editar código postal', 'wpfunos'),
-					'new_item' => esc_html__('Nuevo código postal', 'wpfunos'),
-					'view_item' => esc_html__('Ver código postal', 'wpfunos'),
-					'search_items' => esc_html__('Buscar código postal', 'wpfunos'),
-					'not_found' => esc_html__('No se encontraron código postal', 'wpfunos'),
-					'not_found_in_trash' => esc_html__('No se encontraron código postal en la papelera', 'wpfunos'),
-					'menu_name' => esc_html__('Códigos postales', 'wpfunos'),
-					'name_admin_bar' => esc_html__('Códigos postales', 'wpfunos'),
-			),
-			'public'=>false,
-			'description' => esc_html__('Códigos postales', 'wpfunos'),
-			'exclude_from_search' => true,
-			'show_ui' => true,
-			'show_in_menu' => $this->plugin_name,
-			'supports'=>array('title', 'custom_fields'),
-			'capability_type' => 'post',
-			'capabilities' => array('create_posts' => true),
-			'map_meta_cap' => true,
-			'taxonomies'=>array()
-		);
-		// Post type, $args - the Post Type string can be MAX 20 characters
-		register_post_type( 'cpostales_wpfunos', $customPostTypeArgs );
+		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-cpostales.php';
 	}
-	
 	/**
 	 * aseguradoras_wpfunos
 	 */
 	public function aseguradoras_custom_post_type(){
-		$customPostTypeArgs = array(
-			'label' => esc_html__('Aseguradoras', 'wpfunos'),
-			'labels'=>
-			array(
-					'name' => esc_html__('Aseguradoras WpFunos', 'wpfunos'),
-					'singular_name' => esc_html__('Aseguradora', 'wpfunos'),
-					'add_new' => esc_html__('Añadir Aseguradora', 'wpfunos'),
-					'add_new_item' => esc_html__('Añadir nueva aseguradora', 'wpfunos'),
-					'edit_item' => esc_html__('Editar aseguradora', 'wpfunos'),
-					'new_item' => esc_html__('Nuevo aseguradora', 'wpfunos'),
-					'view_item' => esc_html__('Ver aseguradora', 'wpfunos'),
-					'search_items' => esc_html__('Buscar aseguradora', 'wpfunos'),
-					'not_found' => esc_html__('No se encontraron aseguradoras', 'wpfunos'),
-					'not_found_in_trash' => esc_html__('No se encontraron aseguradoras en la papelera', 'wpfunos'),
-					'menu_name' => esc_html__('Aseguradoras', 'wpfunos'),
-					'name_admin_bar' => esc_html__('Aseguradoras', 'wpfunos'),
-			),
-			'public'=>false,
-			'description' => esc_html__('Aseguradoras', 'wpfunos'),
-			'exclude_from_search' => true,
-			'show_ui' => true,
-			'show_in_menu' => $this->plugin_name,
-			'supports'=>array('title', 'custom_fields'),
-			'capability_type' => 'post',
-			'capabilities' => array('create_posts' => true),
-			'map_meta_cap' => true,
-			'taxonomies'=>array()
-		);
-		// Post type, $args - the Post Type string can be MAX 20 characters
-		register_post_type( 'aseguradoras_wpfunos', $customPostTypeArgs );
+		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-aseguradoras.php';
 	}
-	
 	/**
 	 * tipos_seguro_wpfunos
 	 */
 	public function tipos_seguro_custom_post_type(){
-		$customPostTypeArgs = array(
-			'label' => esc_html__('Tipos de seguro', 'wpfunos'),
-			'labels'=>
-			array(
-					'name' => esc_html__('Tipos de seguro', 'wpfunos'),
-					'singular_name' => esc_html__('Tipo de seguro', 'wpfunos'),
-					'add_new' => esc_html__('Añadir tipo de seguro', 'wpfunos'),
-					'add_new_item' => esc_html__('Añadir nuevo tipo de seguro', 'wpfunos'),
-					'edit_item' => esc_html__('Editar tipo de seguro', 'wpfunos'),
-					'new_item' => esc_html__('Nuevo tipo de seguro', 'wpfunos'),
-					'view_item' => esc_html__('Ver tipo de seguro', 'wpfunos'),
-					'search_items' => esc_html__('Buscar tipo de seguro', 'wpfunos'),
-					'not_found' => esc_html__('No se encontraron tipos de seguro', 'wpfunos'),
-					'not_found_in_trash' => esc_html__('No se encontraron tipos de seguro en la papelera', 'wpfunos'),
-					'menu_name' => esc_html__('Tipos de seguro', 'wpfunos'),
-					'name_admin_bar' => esc_html__('Tipos de seguro', 'wpfunos'),
-			),
-			'public'=>false,
-			'description' => esc_html__('Tipos de seguro', 'wpfunos'),
-			'exclude_from_search' => true,
-			'show_ui' => true,
-			'show_in_menu' => $this->plugin_name,
-			'supports'=>array('title', 'custom_fields'),
-			'capability_type' => 'post',
-			'capabilities' => array('create_posts' => true),
-			'map_meta_cap' => true,
-			'taxonomies'=>array()
-		);
-		// Post type, $args - the Post Type string can be MAX 20 characters
-		register_post_type( 'tipos_seguro_wpfunos', $customPostTypeArgs );
+		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-tipos-seguro.php';
 	}
-	
 	/**
 	 * tanatorio_d_wpfunos
 	 */
 	public function directorio_tanatorio_custom_post_type(){
-		$customPostTypeArgs = array(
-			'label' => esc_html__('Tanatorio Directorio', 'wpfunos'),
-			'labels'=>
-			array(
-					'name' => esc_html__('Tanatorios', 'wpfunos'),
-					'singular_name' => esc_html__('Tanatorio', 'wpfunos'),
-					'add_new' => esc_html__('Añadir tanatorio al directorio', 'wpfunos'),
-					'add_new_item' => esc_html__('Añadir nuevo tanatorio al directorio', 'wpfunos'),
-					'edit_item' => esc_html__('Editar tanatorio del directorio', 'wpfunos'),
-					'new_item' => esc_html__('Nuevo tanatorio del directorio', 'wpfunos'),
-					'view_item' => esc_html__('Ver tanatorio del directorio', 'wpfunos'),
-					'search_items' => esc_html__('Buscar tanatorio del directorio', 'wpfunos'),
-					'not_found' => esc_html__('No se encontraron tanatorios del directorio', 'wpfunos'),
-					'not_found_in_trash' => esc_html__('No se encontraron tanatorios del directorio en la papelera', 'wpfunos'),
-					'menu_name' => esc_html__('Tanatorios del directorio', 'wpfunos'),
-					'name_admin_bar' => esc_html__('Tanatorios del direcctorio', 'wpfunos'),
-			),
-			'public'=>true,
-			'has_archive' => true,
-			'description' => esc_html__('Tanatorios', 'wpfunos'),
-			'exclude_from_search' => false,
-			'show_ui' => true,
-			'show_in_menu' => $this->plugin_name.'directorio',
-			'supports'=>array('title', 'custom_fields', 'editor', 'author', 'thumbnail', 'excerpt'),
-			'capability_type' => 'post',
-			'capabilities' => array('create_posts' => true),
-			'rewrite' => array( 'with_front'=> false ), 'capability_type' => 'post', 
-    		'hierarchical' => true, 
-			'map_meta_cap' => true,
-		);
-		// Post type, $args - the Post Type string can be MAX 20 characters
-		register_post_type( 'tanatorio_d_wpfunos', $customPostTypeArgs );
-		
-		register_taxonomy( 'poblacion_tanatorio', 
-			array('tanatorio_d_wpfunos'), 
-			array(
-        		'hierarchical' => true, 
-	        	'label' => 'Tanatorio', 
-				'labels'=>
-				array(
-					'name'              => _x( 'Tanatorio', 'taxonomy general name' ),
-        			'singular_name'     => _x( 'Tanatorio', 'taxonomy singular name' ),
-        			'search_items'      => __( 'Search Categories' ),
-        			'all_items'         => __( 'All Categories' ),
-        			'parent_item'       => __( 'Parent Category' ),
-        			'parent_item_colon' => __( 'Parent Category:' ),
-        			'edit_item'         => __( 'Edit Category' ),
-        			'update_item'       => __( 'Update Category' ),
-        			'add_new_item'      => __( 'Add New Category' ),
-        			'new_item_name'     => __( 'New Category Name' ),
-        			'menu_name'         => __( 'Tanatorio' ),
-				),
-    	    	'singular_label' => 'Tanatorio', 
-        		'rewrite' => array(),
-    			'public'                     => true,
-    			'show_ui'                    => true,
-    			'show_admin_column'          => true,
-    			'show_in_nav_menus'          => true,
-    			'show_tagcloud'              => true,
-    	    )
-	    );
-    	register_taxonomy_for_object_type( 'poblacion_tanatorio', 'tanatorio_d_wpfunos' );
-	
-		register_taxonomy( 'poblacion_funeraria', 
-			array('tanatorio_d_wpfunos'), 
-			array(
-        		'hierarchical' => true, 
-	        	'label' => 'Funeraria', 
-				'labels'=>
-				array(
-					'name'              => _x( 'Funeraria', 'taxonomy general name' ),
-        			'singular_name'     => _x( 'Funeraria', 'taxonomy singular name' ),
-        			'search_items'      => __( 'Search Categories' ),
-        			'all_items'         => __( 'All Categories' ),
-        			'parent_item'       => __( 'Parent Category' ),
-        			'parent_item_colon' => __( 'Parent Category:' ),
-        			'edit_item'         => __( 'Edit Category' ),
-        			'update_item'       => __( 'Update Category' ),
-        			'add_new_item'      => __( 'Add New Category' ),
-        			'new_item_name'     => __( 'New Category Name' ),
-        			'menu_name'         => __( 'Funeraria' ),
-				),
-    	    	'singular_label' => 'Funeraria', 
-        		'rewrite' => array(),
-    			'public'                     => true,
-    			'show_ui'                    => true,
-    			'show_admin_column'          => true,
-    			'show_in_nav_menus'          => true,
-    			'show_tagcloud'              => true,
-    	    )
-	    );
-    	register_taxonomy_for_object_type( 'poblacion_funeraria', 'tanatorio_d_wpfunos' );
-	
-		register_taxonomy( 'marca_funeraria', 
-			array('tanatorio_d_wpfunos'), 
-			array(
-        		'hierarchical' => true, 
-	        	'label' => 'Marca funeraria', 
-				'labels'=>
-				array(
-					'name'              => _x( 'Marca', 'taxonomy general name' ),
-        			'singular_name'     => _x( 'Marca', 'taxonomy singular name' ),
-        			'search_items'      => __( 'Search Categories' ),
-        			'all_items'         => __( 'All Categories' ),
-        			'parent_item'       => __( 'Parent Category' ),
-        			'parent_item_colon' => __( 'Parent Category:' ),
-        			'edit_item'         => __( 'Edit Category' ),
-        			'update_item'       => __( 'Update Category' ),
-        			'add_new_item'      => __( 'Add New Category' ),
-        			'new_item_name'     => __( 'New Category Name' ),
-        			'menu_name'         => __( 'Marca' ),
-				),
-    	    	'singular_label' => 'Marca', 
-        		'rewrite' => array( 'slug' => 'marcas', 'with_front'=> false ),
-    			'public'                     => true,
-    			'show_ui'                    => true,
-    			'show_admin_column'          => true,
-    			'show_in_nav_menus'          => true,
-    			'show_tagcloud'              => true,
-    	    )
-	    );
-    	register_taxonomy_for_object_type( 'marca_funeraria', 'tanatorio_d_wpfunos' );
+		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-tanatorio-d.php';
 	}
-	
 	/**
 	 * conf_img_wpfunos
 	 */
 	public function config_imagenes_custom_post_type(){
-		$customPostTypeArgs = array(
-			'label' => esc_html__('Imagenes wpfunos', 'wpfunos'),
-			'labels'=>
-			array(
-					'name' => esc_html__('Imagenes wpfunos', 'wpfunos'),
-					'singular_name' => esc_html__('Imagenes wpfunos', 'wpfunos'),
-					'add_new' => esc_html__('Añadir Imagenes wpfunos', 'wpfunos'),
-					'add_new_item' => esc_html__('Añadir nuevo Imagenes wpfunos', 'wpfunos'),
-					'edit_item' => esc_html__('Editar Imagenes wpfunos', 'wpfunos'),
-					'new_item' => esc_html__('Nuevo Imagenes wpfunos', 'wpfunos'),
-					'view_item' => esc_html__('Ver Imagenes wpfunos', 'wpfunos'),
-					'search_items' => esc_html__('Buscar Imagenes wpfunos', 'wpfunos'),
-					'not_found' => esc_html__('No se encontraron Imagenes wpfunos', 'wpfunos'),
-					'not_found_in_trash' => esc_html__('No se encontraron Imagenes wpfunos en la papelera', 'wpfunos'),
-					'menu_name' => esc_html__('Imagenes wpfunos', 'wpfunos'),
-					'name_admin_bar' => esc_html__('Imagenes wpfunos', 'wpfunos'),
-			),
-			'public'=>false,
-			'description' => esc_html__('Imagenes wpfunos', 'wpfunos'),
-			'exclude_from_search' => true,
-			'show_ui' => true,
-			'show_in_menu' => $this->plugin_name.'config',
-			'supports'=>array('title', 'custom_fields'),
-			'capability_type' => 'post',
-			'capabilities' => array('create_posts' => true),
-			'map_meta_cap' => true,
-			'taxonomies'=>array()
-		);
-		// Post type, $args - the Post Type string can be MAX 20 characters
-		register_post_type( 'conf_img_wpfunos', $customPostTypeArgs );
+		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-conf-img.php';
 	}
-	
 	/**
 	 * ubicaciones_wpfunos
 	 */
 	public function entrada_ubicaciones_custom_post_type(){
-		$customPostTypeArgs = array(
-			'label' => esc_html__('Ubicaciones wpfunos', 'wpfunos'),
-			'labels'=>
-			array(
-				'name' => esc_html__('Ubicación', 'wpfunos'),
-				'singular_name' => esc_html__('Ubicaciones', 'wpfunos'),
-				'add_new' => esc_html__('Añadir ubicación', 'wpfunos'),
-				'add_new_item' => esc_html__('Añadir nueva ubicación', 'wpfunos'),
-				'edit_item' => esc_html__('Editar ubicación', 'wpfunos'),
-				'new_item' => esc_html__('Nueva ubicación', 'wpfunos'),
-				'view_item' => esc_html__('Ver ubicación', 'wpfunos'),
-				'search_items' => esc_html__('Buscar ubicación', 'wpfunos'),
-				'not_found' => esc_html__('No se encontraron ubicaciones', 'wpfunos'),
-				'not_found_in_trash' => esc_html__('No se encontraron ubicaciones en la papelera', 'wpfunos'),
-				'menu_name' => esc_html__('Ubicaciones', 'wpfunos'),
-				'name_admin_bar' => esc_html__('Ubicaciones', 'wpfunos'),
-			),	
-			'public'=>false,
-			'description' => esc_html__('Ubicaciones', 'wpfunos'),
-			'exclude_from_search' => true,
-			'show_ui' => true,
-			'show_in_menu' => $this->plugin_name,
-			'supports'=>array('title', 'custom_fields'),
-			'capability_type' => 'post',
-			'capabilities' => array('create_posts' => true),
-			'map_meta_cap' => true,
-			'taxonomies'=>array()
-		);
-		// Post type, $args - the Post Type string can be MAX 20 characters
-		register_post_type( 'ubicaciones_wpfunos', $customPostTypeArgs );
+		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-ubicaciones.php';
 	}
 	
 	/*********************************/
@@ -1470,6 +1121,8 @@ class Wpfunos_Admin {
 	 * Incluir el script de los gráficos en el <head>
  	 */
 	function my_custom_admin_head() {
+		if ( ! is_user_logged_in() ) return;
+		if ( ! current_user_can( 'manage_options' ) ) return;
 		if( apply_filters('wpfunos_userIP','dummy') != '80.26.158.67' ) return;
 		if( ! get_option($this->plugin_name . '_Graph') ) return;
 		

@@ -161,6 +161,20 @@ class Wpfunos_Public {
 			$textoaccion = "Entrada datos servicios";
 			if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
 			if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
+			
+			$_GET['Email'] = sanitize_text_field( $fields['Email'] );
+			$_GET['referencia'] = sanitize_text_field( $fields['referencia'] );
+			$_GET['Nombre'] = sanitize_text_field( $fields['Nombre'] );
+			$_GET['Telefono'] = sanitize_text_field( $fields['Telefono'] );
+			$_GET['address'] = sanitize_text_field( $fields['address'] );
+			$_GET['CP'] = sanitize_text_field( $fields['CP'] );
+			$_GET['Destino'] = sanitize_text_field( $userNombreSeleccionServicio );
+			$_GET['Ataud'] = sanitize_text_field( $userNombreSeleccionAtaud );
+			$_GET['Velatorio'] = sanitize_text_field( $userNombreSeleccionVelatorio );
+			$_GET['Despedida'] = sanitize_text_field( $userNombreSeleccionDespedida );
+			
+			$this->wpfunosResultCorreoDatos();
+			
 			$my_post = array(
     			'post_title' => $fields['referencia'],
 				'post_type' => 'usuarios_wpfunos',
@@ -247,5 +261,18 @@ class Wpfunos_Public {
 	/*********************************/
 	/*****                      ******/
 	/*********************************/
+	
+	/**
+	 * Enviar Correo entrada datos usuario
+	 */
+	public function wpfunosResultCorreoDatos(){
+		//if( ! get_option($this->plugin_name . '_activarCorreoDatosEntrados')) return;
+		//if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
+		//$mensaje = get_option('wpfunos_mensajeCorreoDatosEntrados');
+		//require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
+		//if(!empty( get_option('wpfunos_mailCorreoCcoDatosEntrados' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoDatosEntrados' ) ;
+		//if(!empty( get_option('wpfunos_mailCorreoBccDatosEntrados' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccDatosEntrados' ) ;
+		//wp_mail ( get_option('wpfunos_mailCorreoDatosEntrados'), get_option('wpfunos_asuntoCorreoDatosEntrados') , $mensaje, $headers );
+	}
 	
 }
