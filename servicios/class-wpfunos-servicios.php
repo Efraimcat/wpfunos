@@ -64,11 +64,13 @@ class Wpfunos_Servicios {
 				'post_type' => 'pag_serv_wpfunos',
 				'post_status'  => 'publish',
 				'meta_input'   => array(
-					$this->plugin_name . '_entradaServiciosIP' => sanitize_text_field( $userIP ),
-					$this->plugin_name . '_entradaServiciosReferer' => sanitize_text_field( $referer ),
+					$this->plugin_name . '_entradaServiciosIP' => $userIP ,
+					$this->plugin_name . '_entradaServiciosReferer' => $referer,
 				),
 			);
 			//do_action('wpfunos_log', '$my_post: ' . apply_filters('wpfunos_dumplog', $my_post  ) );
+			//$post_id = 'loggedin';
+			//if( $_COOKIE['wpfunosloggedin'] != 'yes' ) $post_id = wp_insert_post($my_post);
 			$post_id = wp_insert_post($my_post);
 			do_action('wpfunos_log', '$post_id: ' . $post_id );
 			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
@@ -900,6 +902,7 @@ class Wpfunos_Servicios {
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton2Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Lead' ) ;
 			wp_mail ( get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ), get_option('wpfunos_asuntoCorreoBoton2Lead') , $mensaje, $headers );
 			$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+			update_post_meta( $IDusuario, $this->plugin_name . '_userLead', true );
 			do_action('wpfunos_log', '==============' );
       		do_action('wpfunos_log', 'Enviado correo lead2 ' . apply_filters('wpfunos_dumplog', get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true )  ) );
 			do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );

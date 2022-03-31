@@ -1141,6 +1141,64 @@ class Wpfunos_Admin {
 		if( $todos ) $resultado[] = array("indexLabel" => "Resto", "y" => $otros, );
 		return $resultado;
 	}
+	
+	private function wpfunos_graph_usuarios_ubicaciones( $funcion = 'todo' ){
+		$ahora = new DateTime(); 
+		$cuando = new DateTime();
+		$cuando->setTimestamp( strtotime("22-3-2022") );
+		
+		$suma = 0;
+		$dias = 0;
+		while( $cuando < $ahora ){
+			$dias++;
+			$args = array(
+				'post_status' => 'publish',
+				'post_type' => 'usuarios_wpfunos',
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+     		);
+			$post_list = get_posts( $args );
+			$usuarios = 0;
+      		if( $post_list ){
+          		foreach ( $post_list as $post ) :
+            		$usuarios++;
+          		endforeach; 
+          		wp_reset_postdata();
+      		}
+			$args = array(
+				'post_status' => 'publish',
+				'post_type' => 'ubicaciones_wpfunos',
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+     		);
+			$post_list = get_posts( $args );
+			$ubicaciones = 0;
+      		if( $post_list ){
+          		foreach ( $post_list as $post ) :
+            		$ubicaciones++;
+          		endforeach; 
+          		wp_reset_postdata();
+      		}
+			$ratio_dia = sprintf ("%.2f",$usuarios/$ubicaciones);
+			$suma +=$usuarios/$ubicaciones;
+			if( $funcion == 'todo' ) $array[] = array( "label" => $cuando->format('d M'), "y" => $ratio_dia , );
+			if( $funcion == 'media' ) $array[] = array( "label" => $cuando->format('d M'), "y" => sprintf ("%.2f",$suma/$dias) , );
+			$cuando->add(new DateInterval( 'P1D' ) );
+		}
+		return $array;		
+	}
 	   
 	/*
 	 * Incluir el script de los gráficos en el <head>
@@ -1199,6 +1257,12 @@ class Wpfunos_Admin {
 		$resultado = $this->wpfunos_graph_pie_CP( 10, 'cp', true );
 		$dataPoints17 = json_encode($resultado, JSON_NUMERIC_CHECK);
 		
+		$resultado = $this->wpfunos_graph_usuarios_ubicaciones();
+		$dataPoints18 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_usuarios_ubicaciones('media');
+		$dataPoints19 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
 		echo '<script type="text/javascript" src="' . WFUNOS_PLUGIN_URL . 'admin/assets/canvasjs.min.js"></script>';
 		echo '<script id="wpfunos-head-'.$this->version.'" type="text/javascript">
 			window.onload = function () {
@@ -1215,13 +1279,13 @@ class Wpfunos_Admin {
 				var chart = new CanvasJS.Chart("chartContainer4", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones mes",},
 					toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/Mes</span><br>";content += e.entries[0].dataSeries.name + " " 
 					+ "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},
-					axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de usuarios"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
-					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Usuarios",dataPoints:'.$dataPoints6.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints7.',}]});chart.render();
+					axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
+					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ubicaciones",dataPoints:'.$dataPoints6.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints7.',}]});chart.render();
 				var chart = new CanvasJS.Chart("chartContainer5", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones semana",},
 					toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/semana</span><br>";content += e.entries[0].dataSeries.name + " " 
 					+ "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},
-					axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de usuarios"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
-					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Usuarios",dataPoints:'.$dataPoints8.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints9.',}]});chart.render();
+					axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
+					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ubicaciones",dataPoints:'.$dataPoints8.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints9.',}]});chart.render();
 				var chart = new CanvasJS.Chart("chartContainer6", {animationEnabled:true,zoomEnabled:true,title:{text: "Despedida",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
 					legendText: "{indexLabel}",dataPoints:'.$dataPoints10.'}]});chart.render();
 				var chart = new CanvasJS.Chart("chartContainer7", {animationEnabled:true,zoomEnabled:true,title:{text: "Ataúd",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
@@ -1238,6 +1302,11 @@ class Wpfunos_Admin {
 					legendText: "{indexLabel}",dataPoints:'.$dataPoints16.'}]});chart.render();
 				var chart = new CanvasJS.Chart("chartContainer13", {animationEnabled:true,zoomEnabled:true,title:{text: "CP (Todos)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
 					legendText: "{indexLabel}",dataPoints:'.$dataPoints17.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer14", {animationEnabled:true,zoomEnabled:true,title:{text: "Usuarios-Ubicaciones",},
+					toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Usuarios/Ubicaciones</span><br>";content += e.entries[0].dataSeries.name + " " 
+					+ "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},
+					axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Usuarios/Ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
+					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints18.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints19.',} ]});chart.render();
 			}
   		</script>';
 	}
