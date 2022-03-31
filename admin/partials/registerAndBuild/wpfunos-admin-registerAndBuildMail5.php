@@ -64,7 +64,7 @@ add_settings_field(
 );
 // Mensaje Mail Correo datos entrados
 add_settings_field(
-	$this->plugin_name . '_mensajeCorreoBDatosEntrados',
+	$this->plugin_name . '_mensajeCorreoDatosEntrados',
 	'Mensaje Correo Datos Usuario Entrados <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoDatosEntrados)</h6>',
 	array( $this, 'wpfunos_intro_render' ),
 	'wpfunos_mail_settings',

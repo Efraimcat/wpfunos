@@ -21,4 +21,4 @@ $mensaje = str_replace( '[CP]' , $_GET['CP'] , $mensaje );
 $mensaje = str_replace( '[Destino]' , $_GET['Destino'] , $mensaje );
 $mensaje = str_replace( '[Ataud]' , $_GET['Ataud'] , $mensaje );
 $mensaje = str_replace( '[Velatorio]' , $_GET['Velatorio'] , $mensaje );
-$mensaje = str_replace( '[Despedida]' , $_GET['Despedida] , $mensaje );
+$mensaje = str_replace( '[Despedida]' , $_GET['Despedida'] , $mensaje );

@@ -27,6 +27,7 @@ class Wpfunos_Admin {
 		add_action('init', array( $this, 'directorio_tanatorio_custom_post_type' ));
 		add_action('init', array( $this, 'config_imagenes_custom_post_type' ));
 		add_action('init', array( $this, 'entrada_ubicaciones_custom_post_type' ));
+		add_action('init', array( $this, 'entrada_servicios_custom_post_type' ));
 		add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
 		add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
 		add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuracciín Imágenes
@@ -56,6 +57,7 @@ class Wpfunos_Admin {
 		add_action('add_meta_boxes_tanatorio_d_wpfunos', array( $this, 'setuptanatoriodirectorio_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_conf_img_wpfunos', array( $this, 'setupconfimgwpfunos_wpfunosMetaboxes' ));
 		add_action('add_meta_boxes_ubicaciones_wpfunos', array( $this, 'setupubicaciones_wpfunosMetaboxes' ));
+		add_action('add_meta_boxes_pag_serv_wpfunos', array( $this, 'setuppag_serv_wpfunosMetaboxes' ));
 		add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
 		add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
 		add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
@@ -65,6 +67,7 @@ class Wpfunos_Admin {
 		add_action('save_post_tanatorio_d_wpfunos', array( $this, 'savetanatoriodirectorio_wpfunosMetaBoxData' ));
 		add_action('save_post_conf_img_wpfunos', array( $this, 'saveconfimgwpfunos_wpfunosMetaBoxData' ));
 		add_action('save_post_ubicaciones_wpfunos', array( $this, 'saveubicaciones_wpfunosMetaBoxData' ));
+		add_action('save_post_pag_serv_wpfunos', array( $this, 'savepag_serv_wpfunosMetaBoxData' ));
 		add_action( 'admin_head', array( $this, 'my_custom_admin_head'));
 	}
 	public function enqueue_styles() {
@@ -367,7 +370,7 @@ class Wpfunos_Admin {
 		?>
 		<hr/>
 		<p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
-		<p>[Email], [referencia], [Nombre], [Telefono], [address], [CP], [Destino], [Ataud], [Velatorio], [Despedida]</p>
+		<p>[Email], [referencia], [Nombre], [Telefono], [address], [CP], [IP], [Destino], [Ataud], [Velatorio], [Despedida]</p>
 		<hr />
 		<?php
 	}
@@ -437,6 +440,11 @@ class Wpfunos_Admin {
 		 /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
 		 add_meta_box('ubicaciones_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubicaciones_wpfunos_data_meta_box'), 'ubicaciones_wpfunos', 'normal', 'high' );
 		 remove_meta_box('wpseo_meta', 'ubicaciones_wpfunos', 'normal');
+	}
+	public function setuppag_serv_wpfunosMetaboxes(){
+		 /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
+		 add_meta_box('pag_serv_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_serv_wpfunos_data_meta_box'), 'pag_serv_wpfunos', 'normal', 'high' );
+		 remove_meta_box('wpseo_meta', 'pag_serv_wpfunos', 'normal');
 	}
 	
 	/*********************************/
@@ -516,7 +524,14 @@ class Wpfunos_Admin {
 		if (! current_user_can('manage_options')) return;
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-fields.php';
 	}
-	
+	public function savepag_serv_wpfunosMetaBoxData( $post_id ){
+		if (! isset($_POST[$this->plugin_name . '_pag_serv_wpfunos_meta_box_nonce'])) return;
+		if (! wp_verify_nonce($_POST[$this->plugin_name . '_pag_serv_wpfunos_meta_box_nonce'], $this->plugin_name . '_pag_serv_wpfunos_meta_box')) return;
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+		if (! current_user_can('manage_options')) return;
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-serv-fields.php';
+	}
+
 	/*********************************/
 	/*****  CPT                 ******/
 	/*********************************/
@@ -574,7 +589,13 @@ class Wpfunos_Admin {
 	public function entrada_ubicaciones_custom_post_type(){
 		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-ubicaciones.php';
 	}
-	
+	/**
+	 * ubicaciones_wpfunos
+	 */
+	public function entrada_servicios_custom_post_type(){
+		require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-pag-serv.php';
+	}
+
 	/*********************************/
 	/*****  MOSTRAR METABOXES   ******/
 	/*********************************/
@@ -617,6 +638,10 @@ class Wpfunos_Admin {
 	public function ubicaciones_wpfunos_data_meta_box($post){
 		wp_nonce_field( $this->plugin_name.'_ubicaciones_wpfunos_meta_box', $this->plugin_name.'_ubicaciones_wpfunos_meta_box_nonce' );
 		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-display.php';
+	}
+	public function pag_serv_wpfunos_data_meta_box($post){
+		wp_nonce_field( $this->plugin_name.'_pag_serv_wpfunos_meta_box', $this->plugin_name.'_pag_serv_wpfunos_meta_box_nonce' );
+		require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-serv-display.php';
 	}
 	
 	/*********************************/

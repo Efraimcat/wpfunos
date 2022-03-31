@@ -44,14 +44,33 @@ class Wpfunos_Servicios {
 	/*********************************/
 	/*****  SHORTCODES          ******/
 	/*********************************/
-
+	
 	/**
 	 * Shortcode [wpfunos-page-switch]
 	 */
 	public function wpfunosServiciosPageSwitchShortcode(){
 		global $wp;
 		if( !isset( $_GET['form'] ) && !isset( $_GET['referencia'] ) ){
-			if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
+			$userIP = apply_filters('wpfunos_userIP','dummy');
+			$referer = $_SERVER['HTTP_REFERER'];
+			$fecha = date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) );
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'Entrada Comparador Servicios' );
+			do_action('wpfunos_log', '$userIP: ' . $userIP );
+			do_action('wpfunos_log', '$referer: ' . $referer );
+			do_action('wpfunos_log', '$fecha: ' . $fecha );
+			$my_post = array(
+				'post_title' => $fecha,
+				'post_type' => 'pag_serv_wpfunos',
+				'post_status'  => 'publish',
+				'meta_input'   => array(
+					$this->plugin_name . '_entradaServiciosIP' => sanitize_text_field( $userIP ),
+					$this->plugin_name . '_entradaServiciosReferer' => sanitize_text_field( $referer ),
+				),
+			);
+			//do_action('wpfunos_log', '$my_post: ' . apply_filters('wpfunos_dumplog', $my_post  ) );
+			$post_id = wp_insert_post($my_post);
+			do_action('wpfunos_log', '$post_id: ' . $post_id );
 			echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
 		}elseif( !isset($_GET['wpf']) ){
 			$userIP = apply_filters('wpfunos_userIP','dummy');
@@ -71,7 +90,7 @@ class Wpfunos_Servicios {
 			do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
 			do_action('wpfunos_log', '$_GET[direccion]: ' . $_GET['direccion'] );
 			do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
-			$this->wpfunosEntradaUbicacion( $userIP , $_GET['wpf'], $_GET['referencia'], $_GET['direccion'], $_GET['CP'] );
+			$this->wpfunosEntradaUbicacion( $userIP , $_GET['wpf'], $_GET['referencia'], $_GET['direccion'], $_GET['CP'] , $_GET['distance'] );
 			echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') );
 		}elseif( isset($_GET['wpf'] ) ){
 			$userIP = apply_filters('wpfunos_userIP','dummy');
@@ -88,7 +107,13 @@ class Wpfunos_Servicios {
 			do_action('wpfunos_log', '$cryptcode: ' . $cryptcode );
 			do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
 			do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
-			if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){  
+			if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){
+				// Solo enviar lead si no se ha enviado anteriormente.
+				if ( !get_post_meta( $IDusuario, 'wpfunos_userLead', true ) ){ 
+					$this->wpfunosResultCorreoDatos();
+					// Marcar lead como enviado.
+					update_post_meta( $IDusuario, $this->plugin_name . '_userLead', true );
+				}
 				echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosCabecera') );
 				//
 				//	Cambiar el tipo de ordenación de los datos.
@@ -374,6 +399,7 @@ class Wpfunos_Servicios {
 		);
 		if( strlen( $_GET['telefonoUsuario'] ) > 3 ) { 
 			$post_id = wp_insert_post($my_post);	
+			update_post_meta( $IDusuario, $this->plugin_name . '_userLead', true );
 			do_action('wpfunos_log', '==============' );
 			do_action('wpfunos_log', 'Acción en página resultados: ' . $textoaccion );
 			do_action('wpfunos_log', 'Nombre: ' .  $_GET['nombreUsuario']  );
@@ -861,6 +887,7 @@ class Wpfunos_Servicios {
 			if(!empty( get_option('wpfunos_mailCorreoBccBoton1Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Lead' ) ;
 			wp_mail (  get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton1Lead') , $mensaje, $headers );
 			$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+			update_post_meta( $IDusuario, $this->plugin_name . '_userLead', true );
 			do_action('wpfunos_log', '==============' );
       		do_action('wpfunos_log', 'Enviado correo lead1 ' . apply_filters('wpfunos_dumplog', get_post_meta( $_GET['servicio'], 'wpfunos_servicioEmail', true )  ) );
 			do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
@@ -959,7 +986,7 @@ class Wpfunos_Servicios {
 	/**
 	 * Entrada ubicación
 	 */
-	public function wpfunosEntradaUbicacion( $ubicacionIP, $ubicacionwpf, $ubicacionReferencia, $ubicacionDireccion, $ubicacionCP ){
+	public function wpfunosEntradaUbicacion( $ubicacionIP, $ubicacionwpf, $ubicacionReferencia, $ubicacionDireccion, $ubicacionCP, $ubicacionDistancia  ){
 		if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
 		if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
 		$my_post = array(
@@ -971,9 +998,50 @@ class Wpfunos_Servicios {
 				$this->plugin_name . '_ubicacionwpf' => sanitize_text_field( $ubicacionwpf ),
 				$this->plugin_name . '_ubicacionReferencia' => sanitize_text_field( $ubicacionReferencia ),
 				$this->plugin_name . '_ubicacionDireccion' => sanitize_text_field( $ubicacionDireccion ),
+				$this->plugin_name . '_ubicacionDistancia' => sanitize_text_field( $ubicacionDistancia ),
 				$this->plugin_name . '_ubicacionCP' => sanitize_text_field( $ubicacionCP ),
 			),
 		);
 		$post_id = wp_insert_post($my_post);		
+	}
+	/**
+	 * Enviar Correo entrada datos usuario
+	 */
+	public function wpfunosResultCorreoDatos( ){
+		if( ! get_option($this->plugin_name . '_activarCorreoDatosEntrados')) return;
+		if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
+		$headers[] = 'Content-Type: text/html; charset=UTF-8';
+		$mensaje = get_option('wpfunos_mensajeCorreoDatosEntrados');
+		require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
+		if(!empty( get_option('wpfunos_mailCorreoCcoDatosEntrados' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoDatosEntrados' ) ;
+		if(!empty( get_option('wpfunos_mailCorreoBccDatosEntrados' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccDatosEntrados' ) ;
+		
+		$args = array(
+			'post_status' => 'publish',
+			'post_type' => 'servicios_wpfunos',
+			'posts_per_page' => -1,
+			'meta_key' =>  'wpfunos_servicioLead',
+			'meta_value' => true,
+		);
+		$post_list = get_posts( $args );
+		if( $post_list ){
+			foreach ( $post_list as $post ) :
+				if( get_post_meta( $post->ID, $this->plugin_name . '_servicioActivo', true ) == true && strlen( get_post_meta( $post->ID, $this->plugin_name . '_servicioEmail', true ) ) > 0 ){ 
+					wp_mail ( get_post_meta( $post->ID, $this->plugin_name . '_servicioEmail', true ), get_option('wpfunos_asuntoCorreoDatosEntrados') , $mensaje, $headers );
+					do_action('wpfunos_log', '==============' );
+					do_action('wpfunos_log', 'wpfunosResultCorreoDatos' );
+      				do_action('wpfunos_log', '$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
+					do_action('wpfunos_log', 'servicioEmail: ' . get_post_meta( $post->ID, $this->plugin_name . '_servicioEmail', true ) );
+				}
+			endforeach; 
+			wp_reset_postdata();
+		}
+		if( strlen( get_option('wpfunos_mailCorreoDatosEntrados') ) > 0 ){ 
+			wp_mail ( get_option('wpfunos_mailCorreoDatosEntrados'), get_option('wpfunos_asuntoCorreoDatosEntrados') , $mensaje, $headers );
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', 'wpfunosResultCorreoDatos' );
+      		do_action('wpfunos_log', '$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
+			do_action('wpfunos_log', 'mailCorreoDatosEntrados: ' . get_option('wpfunos_mailCorreoDatosEntrados') );
+		}
 	}
 }
