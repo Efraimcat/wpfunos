@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'label' => esc_html__('Usuarios registrados', 'wpfunos'),
 			'labels'=>
 			array(
-					'name' => esc_html__('Usuarios WpFunos', 'wpfunos'),
+					'name' => esc_html__('WpFunos Usuarios', 'wpfunos'),
 					'singular_name' => esc_html__('Usuario', 'wpfunos'),
 					'add_new' => esc_html__('Añadir usuario', 'wpfunos'),
 					'add_new_item' => esc_html__('Añadir nuevo usuario', 'wpfunos'),

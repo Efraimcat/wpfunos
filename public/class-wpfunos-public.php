@@ -228,10 +228,10 @@ class Wpfunos_Public {
 		if( strlen( $fields['Telefono']) > 3 ){ 
 			$post_id = wp_insert_post($my_post);
 			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', 'Hook Elementor Form New Record' );
+			do_action('wpfunos_log', '3. - Recogida datos usuario' );
+			do_action('wpfunos_log', 'userIP: ' . $userIP );
 			do_action('wpfunos_log', 'Nombre: ' .  $fields['Nombre']  );
-			do_action('wpfunos_log', 'IP: ' .  $userIP  );
-			do_action('wpfunos_log', 'ID: ' .  $post_id  );
+			do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
 			do_action('wpfunos_log', 'referencia: ' . $fields['referencia'] );
 			do_action('wpfunos_log', 'Telefono: ' . $fields['Telefono'] );
 		}else{

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'label' => esc_html__('Imagenes wpfunos', 'wpfunos'),
 			'labels'=>
 			array(
-					'name' => esc_html__('Imagenes wpfunos', 'wpfunos'),
+					'name' => esc_html__('WpFunos Imagenes', 'wpfunos'),
 					'singular_name' => esc_html__('Imagenes wpfunos', 'wpfunos'),
 					'add_new' => esc_html__('Añadir Imagenes wpfunos', 'wpfunos'),
 					'add_new_item' => esc_html__('Añadir nuevo Imagenes wpfunos', 'wpfunos'),

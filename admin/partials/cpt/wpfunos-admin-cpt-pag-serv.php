@@ -19,7 +19,7 @@ if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' ) $show_in_menu = 
 			'label' => esc_html__('Entradas servicios wpfunos', 'wpfunos'),
 			'labels'=>
 			array(
-				'name' => esc_html__('Entrada servicios', 'wpfunos'),
+				'name' => esc_html__('WpFunos Entrada servicios', 'wpfunos'),
 				'singular_name' => esc_html__('Entradas servicios', 'wpfunos'),
 				'add_new' => esc_html__('Añadir Entrada servicios', 'wpfunos'),
 				'add_new_item' => esc_html__('Añadir nueva Entrada servicios', 'wpfunos'),

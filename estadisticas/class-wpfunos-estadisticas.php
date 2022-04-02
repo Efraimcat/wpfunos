@@ -1,0 +1,529 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
+/**
+ * Directorio.
+ *
+ * @link       https://github.com/Efraimcat/wpfunos/
+ * @since      1.0.0
+ *
+ * @package    Wpfunos
+ * @subpackage Wpfunos/estadisticas
+ * @author     Efraim Bayarri <efraim@efraim.cat>
+ */
+class Wpfunos_Estadisticas {
+
+	private $plugin_name;
+	private $version;
+
+	public function __construct( $plugin_name, $version ) {
+		$this->plugin_name = $plugin_name;
+		$this->version = $version;
+		add_action( 'admin_head', array( $this, 'my_custom_admin_head'));
+		add_filter( 'wpfunos_estadisticas_date', array( $this, 'wpfunos_stats_date'),10, 6 );
+	}
+	/*********************************/
+	/*****  ESTADÍSTICAS        ******/
+	/*********************************/
+	/*
+	 * $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
+ 	 *
+ 	 */
+	public function wpfunos_stats_date( $cpt, $type = 'day', $status = 'publish', $metakey = '', $metavalue = '', $inicio = '1 March 2021' ){
+		$ahora = new DateTime();
+		$dia = new DateTime();
+		$semana = new DateTime();
+		$mes = new DateTime();
+		$siempre = new DateTime();
+		$dia->sub(new DateInterval(P1D));
+		$semana->sub(new DateInterval(P7D));
+		$mes->sub(new DateInterval(P30D));
+		$siempre->setTimestamp( strtotime( $inicio ) );
+		$resultados = 0;
+		switch ( $type ){
+    		case 'day': $cuando = $ahora; break;
+			case 'ayer': $cuando = $ahora = $dia ; break;
+    		case 'week': $cuando = $semana; break;
+    		case 'month': $cuando = $mes; break;
+    		case 'all': $cuando = $siempre; break;
+  		}
+  		$args = array(
+    		'post_status' => $status,
+    		'post_type' => $cpt,
+			'posts_per_page' => -1,
+			'meta_key' =>  $metakey,
+			'meta_value' => $metavalue,
+    		'date_query' => array(
+      			'after'     => $cuando->format("Y-m-d"),
+           		'before'    => $ahora->format("Y-m-d"),
+        		'inclusive' => true,
+      		),
+  		);
+  		$my_query = new WP_Query( $args );
+  		if ( $my_query->have_posts() ):
+    		while ( $my_query->have_posts() ) : $my_query->the_post();
+      			$resultados++;
+    		endwhile;
+    		wp_reset_postdata();
+  		endif;
+  	return $resultados;
+	}
+	
+	/*
+	 * $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
+ 	 * $registro 'cp' 'poblacion'
+ 	 * $columna 'numero' 'dato'
+ 	 * $this->wpfunos_stats_CP(1,'dato','cp');
+ 	 */
+	public function wpfunos_stats_CP( $orden, $columna, $registro,  $type = 'all', $status = 'publish' ){
+		$ahora = new DateTime();
+		$dia = new DateTime();
+		$semana = new DateTime();
+		$mes = new DateTime();
+		$siempre = new DateTime();
+		$dia->sub(new DateInterval(P1D));
+		$semana->sub(new DateInterval(P7D));
+		$mes->sub(new DateInterval(P30D));
+		$siempre->setTimestamp( strtotime("1 March 2022") );
+		$cpt = 'ubicaciones_wpfunos';
+		$metakey1 = 'wpfunos_ubicacionCP';
+		$metakey2 = 'wpfunos_ubicacionDireccion';
+		$resultados = 0;
+		$CP = [];
+		switch ( $type ){
+			case 'day': $cuando = $ahora; break;
+			case 'week': $cuando = $semana; break;
+			case 'month': $cuando = $mes; break;
+			case 'all': $cuando = $siempre; break;
+		}
+     	$args = array(
+			'post_status' => $status,
+			'post_type' => $cpt,
+			'posts_per_page' => -1,
+			'date_query' => array(
+				array(
+					'after'     => $cuando->format("Y-m-d"),
+					'before'    => $ahora->format("Y-m-d"),
+					'inclusive' => true,
+				),
+			),
+     	);
+		$my_query = new WP_Query( $args );
+		if ( $my_query->have_posts() ):
+        	while ( $my_query->have_posts() ) : $my_query->the_post();
+            	$CP[] = array( "cp" => get_post_meta( $my_query->post->ID, $metakey1, true ) );
+				$poblacion[] = array( "poblacion" => strtolower(get_post_meta( $my_query->post->ID, $metakey2, true ) ) );
+    		endwhile;
+    		wp_reset_postdata();
+  		endif;
+		
+		$count=0;
+		if( $registro == 'cp' ) $array = array_count_values( array_column($CP, 'cp') );
+		if( $registro == 'poblacion' ) $array = array_count_values( array_column($poblacion, 'poblacion') );
+		arsort($array, SORT_NUMERIC);		
+		
+		foreach ( $array as $key=>$numero ) {
+			$count++;
+			if( $count == $orden ){
+				$key = ucwords($key);
+				$key = str_replace(" Y "," y ", $key);
+				$key = str_replace(" I "," i ", $key);
+				$key = str_replace("Del","del", $key);
+            	if( $key == '' ) $key = 'n/a';
+				if( $columna == 'numero') return $numero;
+				if( $columna == 'dato')	return substr($key,0,25);
+			}
+		}
+   	}
+	
+	/*
+	 * $cpt 'ubicaciones_wpfunos', 'usuarios_wpfunos'
+	 * $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
+	 * $funcion 'todo' 'media'
+ 	 */
+	public function wpfunos_graph_linear( $cpt, $type = 'all', $funcion = 'todo', $status = 'publish' ){
+		$ahora = new DateTime();
+		$dia = new DateTime();
+		$semana = new DateTime();
+		$mes = new DateTime();
+		$siempre = new DateTime();
+		$dia->sub(new DateInterval(P1D));
+		$semana->sub(new DateInterval(P7D));
+		$mes->sub(new DateInterval(P30D));
+		$siempre->sub(new DateInterval(P90D));
+		$array = [];
+
+		switch ( $type ){
+			case 'day': $cuando = $ahora; break;
+			case 'week': $cuando = $semana; break;
+			case 'month': $cuando = $mes; break;
+			case 'all': $cuando = $siempre; break;
+		}
+		$suma = 0;
+		$dias = 0;
+    	while( $cuando < $ahora ){
+			$dias++;
+			$args = array(
+				'post_status' => $status,
+				'post_type' => $cpt,
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+     		);
+			$post_list = get_posts( $args );
+			$contador = 0;
+      		if( $post_list ){
+          		foreach ( $post_list as $post ) :
+            		$contador++;
+            		$suma++;
+          		endforeach; 
+          		wp_reset_postdata();
+      		}
+			if( $funcion == 'todo' ) $array[] = array( "label" => $cuando->format('d M'), "y" => $contador, ) ;
+      		if( $funcion == 'media' ) $array[] = array( "label" => $cuando->format('d M'), "y" => $suma/$dias, ) ;
+      		$cuando->add(new DateInterval( 'P1D' ) );
+		}
+		return $array;
+	}
+	
+	/*
+ 	 *  $servicio = 'Despedida' = wpfunos_userNombreSeleccionDespedida
+ 	 *				'Ataud' = wpfunos_userNombreSeleccionAtaud
+	 *				'Velatorio' = wpfunos_userNombreSeleccionVelatorio
+	 *				'Servicio' = wpfunos_userNombreSeleccionServicio
+ 	 */
+	public function wpfunos_graph_pie_servicios( $servicio = 'Despedida' ){
+		$ahora = new DateTime();
+		$array = [];
+		
+		switch ( $servicio ){
+			case 'Despedida': $metakey = 'wpfunos_userNombreSeleccionDespedida'; $values = array('Sin ceremonia','Solo sala','Ceremonia civil','Ceremonia religiosa'); break;
+			case 'Ataud': $metakey = 'wpfunos_userNombreSeleccionAtaud'; $values = array('Ataúd Económico','Ataúd Medio','Ataúd Premium'); break;
+			case 'Velatorio': $metakey = 'wpfunos_userNombreSeleccionVelatorio'; $values = array('Velatorio','Sin Velatorio'); break;
+			case 'Servicio': $metakey = 'wpfunos_userNombreSeleccionServicio'; $values = array('Incineración','Entierro'); break;
+		}
+		foreach( $values as $metavalue ){
+			$args = array(
+				'post_status' => 'publish',
+				'post_type' => 'usuarios_wpfunos',
+				'posts_per_page' => -1,
+				'meta_key' =>  $metakey,
+				'meta_value' => $metavalue,
+				'date_query' => array(
+					array(
+						'after'     => '2022-03-07',
+						'before'    => $ahora->format("Y-m-d"),
+						'inclusive' => true,
+					),
+				),
+    		);
+			$post_list = get_posts( $args );
+			$contador = 0;
+			if( $post_list ){
+				foreach ( $post_list as $post ) :
+					$contador++;
+      			endforeach; 
+				wp_reset_postdata();
+    		}
+			$array[] = array( "indexLabel" => $metavalue, "y" => $contador, ) ;
+		}
+		return $array;
+	}
+	
+	/*
+	 * $column 'poblacion' 'cp'
+	 * $todos incluir suma 'Resto'
+	 */
+	public function wpfunos_graph_pie_CP( $tope = 10, $column = 'poblacion', $todos = false ){
+		$ahora = new DateTime(); 
+		$poblacion = [];
+		$CP = [];
+		$args = array(
+			'post_status' => 'publish',
+			'post_type' => 'ubicaciones_wpfunos',
+			'posts_per_page' => -1,
+			'date_query' => array(
+				array(
+					'after'     => '2021-03-19',
+           			'before'    => $ahora->format("Y-m-d"),
+					'inclusive' => true,
+				),
+			),
+		);
+		$post_list = get_posts( $args );
+		if( $post_list ){
+			foreach ( $post_list as $post ) :
+				if($column == 'poblacion') $array[] = array( "poblacion" => strtolower(get_post_meta( $post->ID, 'wpfunos_ubicacionDireccion', true ) ) );
+				if($column == 'cp')$array[] = array( "cp" => get_post_meta( $post->ID, 'wpfunos_ubicacionCP', true ) );
+			endforeach; 
+			wp_reset_postdata();
+		}
+		if($column == 'poblacion') 	$array = array_count_values( array_column($array, 'poblacion') );
+		if($column == 'cp') 		$array = array_count_values( array_column($array, 'cp') );
+		
+		arsort($array, SORT_NUMERIC);	
+		$contador = 0;
+		$otros = 0;
+		foreach ( $array as $key=>$linea ){
+			$contador++;
+			if( $contador > $tope ){
+				if( $todos ) $otros += $linea;
+				continue;
+			}
+			if($column == 'poblacion'){
+				$key = ucwords($key);
+				$key = str_replace(" Y "," y ", $key);
+				$key = str_replace(" I "," i ", $key);
+				$key = str_replace("Del","del", $key);
+				$key = substr($key,0,25);
+				$resultado[] = array("indexLabel" => $key, "y" => $linea, );
+			}
+			if($column == 'cp'){
+				if( $key == '' ) $key = 'n/a';	
+				$value = '[' . $key . ']';
+				$resultado[] = array("indexLabel" => $value, "y" => $linea, );
+			}
+		}
+		if( $todos ) $resultado[] = array("indexLabel" => "Resto", "y" => $otros, );
+		return $resultado;
+	}
+	
+	/*
+	 * 
+	 */
+	public function wpfunos_graph_usuarios_ubicaciones( $funcion = 'todo' ){
+		$ahora = new DateTime(); 
+		$cuando = new DateTime();
+		$cuando->setTimestamp( strtotime("22-3-2022") );
+		
+		$suma = 0;
+		$dias = 0;
+		while( $cuando < $ahora ){
+			$dias++;
+			$args = array(
+				'post_status' => 'publish',
+				'post_type' => 'usuarios_wpfunos',
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+     		);
+			$post_list = get_posts( $args );
+			$usuarios = 0;
+      		if( $post_list ){
+          		foreach ( $post_list as $post ) :
+            		$usuarios++;
+          		endforeach; 
+          		wp_reset_postdata();
+      		}
+			$args = array(
+				'post_status' => 'publish',
+				'post_type' => 'ubicaciones_wpfunos',
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+     		);
+			$post_list = get_posts( $args );
+			$ubicaciones = 0;
+      		if( $post_list ){
+          		foreach ( $post_list as $post ) :
+            		$ubicaciones++;
+          		endforeach; 
+          		wp_reset_postdata();
+      		}
+			$ratio_dia = sprintf ("%.2f",$usuarios/$ubicaciones);
+			$suma +=$usuarios/$ubicaciones;
+			if( $funcion == 'todo' ) $array[] = array( "label" => $cuando->format('d M'), "y" => $ratio_dia , );
+			if( $funcion == 'media' ) $array[] = array( "label" => $cuando->format('d M'), "y" => sprintf ("%.2f",$suma/$dias) , );
+			$cuando->add(new DateInterval( 'P1D' ) );
+		}
+		return $array;		
+	}
+	
+	/*
+	 *  
+	 */
+	public function wpfunos_graph_ubicaciones_entradas( $funcion = 'todo' ){
+		$ahora = new DateTime(); 
+		$cuando = new DateTime();
+		$cuando->setTimestamp( strtotime("31-3-2022") );
+		
+		$suma = 0;
+		$dias = 0;
+		while( $cuando < $ahora ){
+			$dias++;
+			$args = array(
+				'post_status' => 'publish',
+				'post_type' => 'ubicaciones_wpfunos',
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+     		);
+			$post_list = get_posts( $args );
+			$ubicaciones = 0;
+      		if( $post_list ){
+          		foreach ( $post_list as $post ) :
+            		$ubicaciones++;
+          		endforeach; 
+          		wp_reset_postdata();
+      		}
+			$args = array(
+				'post_status' => 'publish',
+				'post_type' => 'pag_serv_wpfunos',
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+     		);
+			$post_list = get_posts( $args );
+			$entradas = 0;
+      		if( $post_list ){
+          		foreach ( $post_list as $post ) :
+            		$entradas++;
+          		endforeach; 
+          		wp_reset_postdata();
+      		}
+			$ratio_dia = sprintf ("%.2f",$ubicaciones/$entradas);
+			$suma +=$ubicaciones/$entradas;
+			if( $funcion == 'todo' ) $array[] = array( "label" => $cuando->format('d M'), "y" => $ratio_dia , );
+			if( $funcion == 'media' ) $array[] = array( "label" => $cuando->format('d M'), "y" => sprintf ("%.2f",$suma/$dias) , );
+			$cuando->add(new DateInterval( 'P1D' ) );
+		}
+		return $array;		
+	}
+	   
+	/*
+	 * Incluir el script de los gráficos en el <head>
+ 	 */
+	public function my_custom_admin_head() {
+		if ( ! is_user_logged_in() ) return;
+		if ( ! current_user_can( 'manage_options' ) ) return;
+		if( apply_filters('wpfunos_userIP','dummy') != '80.26.158.67' ) return;
+		if( ! get_option($this->plugin_name . '_Graph') ) return;
+		
+		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'month' );
+		$dataPoints2 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'week' );
+		$dataPoints3 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'month', 'media' );
+		$dataPoints4 = json_encode($resultado, JSON_NUMERIC_CHECK);
+
+		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'week', 'media' );
+		$dataPoints5 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'month' );
+		$dataPoints6 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'month', 'media' );
+		$dataPoints7 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'week' );
+		$dataPoints8 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'week', 'media' );
+		$dataPoints9 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_servicios( 'Despedida' );
+		$dataPoints10 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_servicios( 'Ataud' );
+		$dataPoints11 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_servicios( 'Velatorio' );
+		$dataPoints12 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_servicios( 'Servicio' );
+		$dataPoints13 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_CP( 10, 'poblacion' );
+		$dataPoints14 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_CP( 10, 'poblacion', true );
+		$dataPoints15 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_CP( 10, 'cp' );
+		$dataPoints16 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_pie_CP( 10, 'cp', true );
+		$dataPoints17 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_usuarios_ubicaciones();
+		$dataPoints18 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_usuarios_ubicaciones('media');
+		$dataPoints19 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		echo '<script type="text/javascript" src="' . WFUNOS_PLUGIN_URL . 'admin/assets/canvasjs.min.js"></script>';
+		echo '<script id="wpfunos-head-'.$this->version.'" type="text/javascript">
+			window.onload = function () {
+				var chart = new CanvasJS.Chart("chartContainer2", {animationEnabled:true,zoomEnabled:true,title:{text: "Usuarios mes",},
+					toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Usuarios/Mes</span><br>";content += e.entries[0].dataSeries.name + " " 
+					+ "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},
+					axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de usuarios"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
+					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Usuarios",dataPoints:'.$dataPoints2.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints4.',}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer3", {animationEnabled:true,zoomEnabled:true,title:{text: "Usuarios semana",},
+					toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Usuarios/Semana</span><br>";content += e.entries[0].dataSeries.name + " " 
+					+ "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},
+					axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de usuarios"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
+					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Usuarios",dataPoints:'.$dataPoints3.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints5.',}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer4", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones mes",},
+					toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/Mes</span><br>";content += e.entries[0].dataSeries.name + " " 
+					+ "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},
+					axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
+					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ubicaciones",dataPoints:'.$dataPoints6.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints7.',}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer5", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones semana",},
+					toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/semana</span><br>";content += e.entries[0].dataSeries.name + " " 
+					+ "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},
+					axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
+					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ubicaciones",dataPoints:'.$dataPoints8.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints9.',}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer6", {animationEnabled:true,zoomEnabled:true,title:{text: "Despedida",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints10.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer7", {animationEnabled:true,zoomEnabled:true,title:{text: "Ataúd",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints11.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer8", {animationEnabled:true,zoomEnabled:true,title:{text: "Velatorio",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints12.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer9", {animationEnabled:true,zoomEnabled:true,title:{text: "Servicio",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints13.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer10", {animationEnabled:true,zoomEnabled:true,title:{text: "Población (Top 10)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints14.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer11", {animationEnabled:true,zoomEnabled:true,title:{text: "Población (Todos)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints15.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer12", {animationEnabled:true,zoomEnabled:true,title:{text: "CP (Top 10)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints16.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer13", {animationEnabled:true,zoomEnabled:true,title:{text: "CP (Todos)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",
+					legendText: "{indexLabel}",dataPoints:'.$dataPoints17.'}]});chart.render();
+				var chart = new CanvasJS.Chart("chartContainer14", {animationEnabled:true,zoomEnabled:true,title:{text: "Usuarios-Ubicaciones",},
+					toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Usuarios/Ubicaciones</span><br>";content += e.entries[0].dataSeries.name + " " 
+					+ "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},
+					axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Usuarios/Ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},
+					data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints18.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints19.',} ]});chart.render();
+			}
+  		</script>';
+	}
+}

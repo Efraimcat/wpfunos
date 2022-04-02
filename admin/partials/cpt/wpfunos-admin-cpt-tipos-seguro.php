@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'label' => esc_html__('Tipos de seguro', 'wpfunos'),
 			'labels'=>
 			array(
-					'name' => esc_html__('Tipos de seguro', 'wpfunos'),
+					'name' => esc_html__('WpFunos Tipos de seguro', 'wpfunos'),
 					'singular_name' => esc_html__('Tipo de seguro', 'wpfunos'),
 					'add_new' => esc_html__('Añadir tipo de seguro', 'wpfunos'),
 					'add_new_item' => esc_html__('Añadir nuevo tipo de seguro', 'wpfunos'),

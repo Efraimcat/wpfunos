@@ -26,6 +26,8 @@
 ?>
 <?php do_action( 'gmw_before_search_form_template', $gmw ); ?>
 
+<?php do_action( 'wpfunos-entrada-servicios' ); ?>
+
 <div class="gmw-form-wrapper default gmw-pt-default-form-wrapper <?php echo esc_attr( $gmw['prefix'] ); ?>">
 	
 	<?php do_action( 'gmw_before_search_form', $gmw ); ?>

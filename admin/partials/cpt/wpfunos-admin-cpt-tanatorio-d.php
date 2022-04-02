@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'label' => esc_html__('Tanatorio Directorio', 'wpfunos'),
 			'labels'=>
 			array(
-					'name' => esc_html__('Tanatorios', 'wpfunos'),
+					'name' => esc_html__('WpFunos Tanatorios', 'wpfunos'),
 					'singular_name' => esc_html__('Tanatorio', 'wpfunos'),
 					'add_new' => esc_html__('Añadir tanatorio al directorio', 'wpfunos'),
 					'add_new_item' => esc_html__('Añadir nuevo tanatorio al directorio', 'wpfunos'),

@@ -16,7 +16,7 @@ $customPostTypeArgs = array(
 	'label' => esc_html__('Aseguradoras', 'wpfunos'),
 	'labels'=>
 		array(
-			'name' => esc_html__('Aseguradoras WpFunos', 'wpfunos'),
+			'name' => esc_html__('WpFunos Aseguradoras', 'wpfunos'),
 			'singular_name' => esc_html__('Aseguradora', 'wpfunos'),
 			'add_new' => esc_html__('Añadir Aseguradora', 'wpfunos'),
 			'add_new_item' => esc_html__('Añadir nueva aseguradora', 'wpfunos'),

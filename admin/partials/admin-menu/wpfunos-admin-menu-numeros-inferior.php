@@ -12,33 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Wpfunos/admin/partials/admin-menu
  * @author     Efraim Bayarri <efraim@efraim.cat>
  */
-//$percentage = ($portion / $total) * 100;
-$num1 = (int)$this->wpfunos_stats_date( 'usuarios_wpfunos', 'month' );
-$num2 = (int)$this->wpfunos_stats_date( 'ubicaciones_wpfunos', 'month' );
-$ratio_month = sprintf ("%.2f",($num1/$num2)*100). '%';
-
-$num1 = (int)$this->wpfunos_stats_date( 'usuarios_wpfunos', 'week' );
-$num2 = (int)$this->wpfunos_stats_date( 'ubicaciones_wpfunos', 'week' );
-$ratio_week = sprintf ("%.2f",($num1/$num2)*100). '%';
-
-$num1 = (int)$this->wpfunos_stats_date( 'usuarios_wpfunos', 'day' );
-$num2 = (int)$this->wpfunos_stats_date( 'ubicaciones_wpfunos', 'day' );
-$ratio_24h = sprintf ("%.2f",($num1/$num2)*100). '%';
-
 ?>
-<hr/>
-<table>
-	<tr><th colspan="3"><h2>Datos/Ubicación</h2></th></tr>
-	<tr>
-		<td>Ratio mes:</td><td style="width: 6px;"></td><td><?php echo $ratio_month; ?></td>
-	</tr>
-	<tr>
-		<td>Ratio semana:</td><td></td><td><?php echo $ratio_week; ?></td>
-	</tr>
-	<tr>
-		<td>Ratio 24 horas:</td><td></td><td><?php echo $ratio_24h; ?></td>
-	</tr>
-</table>
 <hr/>
 <table style="width:125px;"> 
 	<tr><th colspan="2"><h2>Servicios</h2></th></tr>

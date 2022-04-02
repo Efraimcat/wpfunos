@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'label' => esc_html__('Funerarias', 'wpfunos'),
 			'labels'=>
 			array(
-					'name' => esc_html__('Funerarias WpFunos', 'wpfunos'),
+					'name' => esc_html__('WpFunos Funerarias', 'wpfunos'),
 					'singular_name' => esc_html__('Funeraria', 'wpfunos'),
 					'add_new' => esc_html__('Añadir Funeraria', 'wpfunos'),
 					'add_new_item' => esc_html__('Añadir nueva funeraria', 'wpfunos'),

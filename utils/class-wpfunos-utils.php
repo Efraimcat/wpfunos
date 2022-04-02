@@ -22,6 +22,7 @@ class Wpfunos_Utils {
 		$this->version = $version;
 		add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 );
 		add_action( 'wpfunos_import', array( $this, 'wpfunosImport' ), 10, 1 );
+		add_action( 'wpfunos-entrada-servicios', array( $this, 'wpfunosEntradaServicios') );
 		add_filter( 'wpfunos_reserved_ip', array( $this, 'wpfunosReservedIPAction' ) );
 		add_filter( 'wpfunos_dumplog', array ( $this, 'dumpPOST'), 10, 1);
 		add_filter( 'wpfunos_userIP', array( $this, 'wpfunosgetUserIP' ) );
@@ -136,6 +137,28 @@ class Wpfunos_Utils {
   		$customfield_content = apply_filters( 'the_content', $customfield_content );
   		$customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content );
   		return $customfield_content;
+	}
+	
+	public function wpfunosEntradaServicios(){
+		$userIP = $this->wpfunosgetUserIP();
+		$referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+		$this->custom_logs( $this->dumpPOST('==============') );
+		$this->custom_logs( $this->dumpPOST('1. - Entrada Comparador Servicios') );
+		$this->custom_logs( $this->dumpPOST('userIP: ' . $userIP) );
+		$this->custom_logs( $this->dumpPOST('referer: ' . substr($referer,0,150) ) );
+		$my_post = array(
+  			'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+  			'post_type' => 'pag_serv_wpfunos',
+  			'post_status'  => 'publish',
+  			'meta_input'   => array(
+    			$this->plugin_name . '_entradaServiciosIP' => $userIP ,
+    			$this->plugin_name . '_entradaServiciosReferer' => $referer,
+  			),
+		);
+		$post_id = 'loggedin';
+		if( $_COOKIE['wpfunosloggedin'] != 'yes' ) $post_id = wp_insert_post($my_post);
+		$this->custom_logs( $this->dumpPOST('Post ID: ' . $post_id ) );
+		return;
 	}
 	
 	/**

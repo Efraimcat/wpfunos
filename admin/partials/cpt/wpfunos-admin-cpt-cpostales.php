@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			'label' => esc_html__('Codigos Postales', 'wpfunos'),
 			'labels'=>
 			array(
-					'name' => esc_html__('Códigos postales WpFunos', 'wpfunos'),
+					'name' => esc_html__('WpFunos Códigos postales', 'wpfunos'),
 					'singular_name' => esc_html__('Código postal', 'wpfunos'),
 					'add_new' => esc_html__('Añadir código postal', 'wpfunos'),
 					'add_new_item' => esc_html__('Añadir nuevo código postal', 'wpfunos'),
