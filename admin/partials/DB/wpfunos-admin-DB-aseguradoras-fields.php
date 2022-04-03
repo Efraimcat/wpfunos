@@ -1,17 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+  exit; // Exit if accessed directly.
 }
 /**
- * The admin-specific functionality of the plugin.
- *
- * @link       https://github.com/Efraimcat/wpfunos/
- * @since      1.0.0
- *
- * @package    Wpfunos
- * @subpackage Wpfunos/admin/partials/DB
- * @author     Efraim Bayarri <efraim@efraim.cat>
- */
+* The admin-specific functionality of the plugin.
+*
+* @link       https://github.com/Efraimcat/wpfunos/
+* @since      1.0.0
+*
+* @package    Wpfunos
+* @subpackage Wpfunos/admin/partials/DB
+* @author     Efraim Bayarri <efraim@efraim.cat>
+*/
 $aseguradorasNombre = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasNombre'] );
 $aseguradorasDireccion = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasDireccion'] );
 $aseguradorasCorreo = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasCorreo'] );
@@ -22,6 +22,7 @@ $aseguradorasLogo = sanitize_text_field( $_POST[$this->plugin_name . '_asegurado
 $aseguradorasTipoSeguro = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasTipoSeguro'] );
 $aseguradorasOrden = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasOrden'] );
 $aseguradorasNotas = wp_kses_post( $_POST[$this->plugin_name . '_aseguradorasNotas'] );
+$aseguradorasDummy = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasDummy'] );
 
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasNombre', $aseguradorasNombre);
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasDireccion', $aseguradorasDireccion);
@@ -33,3 +34,4 @@ update_post_meta($post_id, $this->plugin_name . '_aseguradorasLogo', $asegurador
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasTipoSeguro', $aseguradorasTipoSeguro);
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasOrden', $aseguradorasOrden);
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasNotas', $aseguradorasNotas);
+update_post_meta($post_id, $this->plugin_name . '_aseguradorasDummy', $aseguradorasDummy);

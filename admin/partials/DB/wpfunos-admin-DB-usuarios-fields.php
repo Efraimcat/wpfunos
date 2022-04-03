@@ -1,17 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+  exit; // Exit if accessed directly.
 }
 /**
- * The admin-specific functionality of the plugin.
- *
- * @link       https://github.com/Efraimcat/wpfunos/
- * @since      1.0.0
- *
- * @package    Wpfunos
- * @subpackage Wpfunos/admin/partials/DB
- * @author     Efraim Bayarri <efraim@efraim.cat>
- */
+* The admin-specific functionality of the plugin.
+*
+* @link       https://github.com/Efraimcat/wpfunos/
+* @since      1.0.0
+*
+* @package    Wpfunos
+* @subpackage Wpfunos/admin/partials/DB
+* @author     Efraim Bayarri <efraim@efraim.cat>
+*/
 $TimeStamp = sanitize_text_field( $_POST[$this->plugin_name . '_TimeStamp'] );
 $userMail = sanitize_text_field( $_POST[$this->plugin_name . '_userMail'] );
 $userReferencia = sanitize_text_field( $_POST[$this->plugin_name . '_userReferencia'] );
@@ -75,6 +75,7 @@ $userLAT = sanitize_text_field( $_POST[$this->plugin_name . '_userLAT'] );
 $userLNG = sanitize_text_field( $_POST[$this->plugin_name . '_userLNG'] );
 //lat=41.387397&lng=2.168568
 $userPluginVersion = sanitize_text_field( $_POST[$this->plugin_name . '_userPluginVersion'] );
+$Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
 
 
 update_post_meta($post_id, $this->plugin_name . '_TimeStamp', $TimeStamp);
@@ -139,3 +140,4 @@ update_post_meta($post_id, $this->plugin_name . '_userAceptaPolitica', $userAcep
 update_post_meta($post_id, $this->plugin_name . '_userLAT', $userLAT);
 update_post_meta($post_id, $this->plugin_name . '_userLNG', $userLNG);
 update_post_meta($post_id, $this->plugin_name . '_userPluginVersion', $userPluginVersion);
+update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
