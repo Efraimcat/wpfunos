@@ -1,17 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+  exit; // Exit if accessed directly.
 }
 /**
- * The admin-specific functionality of the plugin.
- *
- * @link       https://github.com/Efraimcat/wpfunos/
- * @since      1.0.0
- *
- * @package    Wpfunos
- * @subpackage Wpfunos/admin/partials/DB
- * @author     Efraim Bayarri <efraim@efraim.cat>
- */
+* The admin-specific functionality of the plugin.
+*
+* @link       https://github.com/Efraimcat/wpfunos/
+* @since      1.0.0
+*
+* @package    Wpfunos
+* @subpackage Wpfunos/admin/partials/DB
+* @author     Efraim Bayarri <efraim@efraim.cat>
+*/
 $imagenConfirmado = sanitize_text_field( $_POST[$this->plugin_name . '_imagenConfirmado'] );
 $imagenNoConfirmado = sanitize_text_field( $_POST[$this->plugin_name . '_imagenNoConfirmado'] );
 $imagenEcologico = sanitize_text_field( $_POST[$this->plugin_name . '_imagenEcologico'] );

@@ -23,7 +23,7 @@ class Wpfunos_Estadisticas {
 		add_filter( 'wpfunos_estadisticas_cp', array( $this, 'wpfunos_stats_CP'),10, 5 );
 		add_filter( 'wpfunos_estadisticas_semana_mes', array( $this, 'wpfunos_stats_semana_mes'),10, 5 );
 	}
-
+	
 	/*********************************/
 	/*****  ESTADÍSTICAS        ******/
 	/*********************************/
@@ -82,7 +82,7 @@ class Wpfunos_Estadisticas {
 		endif;
 		return $resultados;
 	}
-
+	
 	/*
 	* Entradas, Ubicaciones, Datos, Ratios(Datos/Ubicación, Ubicación/Entradas, Datos/Entradas)
 	* $type 'semana'(semana actual), semana_ant'(semana anterior). 'mes'(mes actual), 'mes_ant'(mes anterior)
@@ -104,10 +104,10 @@ class Wpfunos_Estadisticas {
 		if( $type == 'semana_ant' )  $data_query_value = $semana_ant;
 		if( $type == 'mes' )  $data_query_value = $mes;
 		if( $type == 'mes_ant' )  $data_query_value = $mes_ant;
-
+		
 		if( $ratio == '' ){
 			$args = array(
-				'post_status' => $status,
+				'post_status' => 'publish',
 				'post_type' => $cpt,
 				'posts_per_page' => -1,
 				'meta_key' =>  $metakey,
@@ -128,7 +128,7 @@ class Wpfunos_Estadisticas {
 			return $contador;
 		}
 	}
-
+	
 	/*
 	* $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
 	* $registro 'cp' 'poblacion'
@@ -177,12 +177,12 @@ class Wpfunos_Estadisticas {
 			endwhile;
 			wp_reset_postdata();
 		endif;
-
+		
 		$count=0;
 		if( $registro == 'cp' ) $array = array_count_values( array_column($CP, 'cp') );
 		if( $registro == 'poblacion' ) $array = array_count_values( array_column($poblacion, 'poblacion') );
 		arsort($array, SORT_NUMERIC);
-
+		
 		foreach ( $array as $key=>$numero ) {
 			$count++;
 			if( $count == $orden ){
@@ -196,7 +196,7 @@ class Wpfunos_Estadisticas {
 			}
 		}
 	}
-
+	
 	/*
 	* $cpt 'ubicaciones_wpfunos', 'usuarios_wpfunos'
 	* $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
@@ -213,7 +213,7 @@ class Wpfunos_Estadisticas {
 		$mes->sub(new DateInterval(P30D));
 		$siempre->sub(new DateInterval(P90D));
 		$array = [];
-
+		
 		switch ( $type ){
 			case 'day': $cuando = $ahora; break;
 			case 'week': $cuando = $semana; break;
@@ -251,7 +251,7 @@ class Wpfunos_Estadisticas {
 		}
 		return $array;
 	}
-
+	
 	/*
 	*  $servicio = 'Despedida' = wpfunos_userNombreSeleccionDespedida
 	*				'Ataud' = wpfunos_userNombreSeleccionAtaud
@@ -261,7 +261,7 @@ class Wpfunos_Estadisticas {
 	public function wpfunos_graph_pie_servicios( $servicio = 'Despedida' ){
 		$ahora = new DateTime();
 		$array = [];
-
+		
 		switch ( $servicio ){
 			case 'Despedida': $metakey = 'wpfunos_userNombreSeleccionDespedida'; $values = array('Sin ceremonia','Solo sala','Ceremonia civil','Ceremonia religiosa'); break;
 			case 'Ataud': $metakey = 'wpfunos_userNombreSeleccionAtaud'; $values = array('Ataúd Económico','Ataúd Medio','Ataúd Premium'); break;
@@ -295,7 +295,7 @@ class Wpfunos_Estadisticas {
 		}
 		return $array;
 	}
-
+	
 	/*
 	* $column 'poblacion' 'cp'
 	* $todos incluir suma 'Resto'
@@ -326,7 +326,7 @@ class Wpfunos_Estadisticas {
 		}
 		if($column == 'poblacion') 	$array = array_count_values( array_column($array, 'poblacion') );
 		if($column == 'cp') 		$array = array_count_values( array_column($array, 'cp') );
-
+		
 		arsort($array, SORT_NUMERIC);
 		$contador = 0;
 		$otros = 0;
@@ -353,7 +353,7 @@ class Wpfunos_Estadisticas {
 		if( $todos ) $resultado[] = array("indexLabel" => "Resto", "y" => $otros, );
 		return $resultado;
 	}
-
+	
 	/*
 	*
 	*/
@@ -361,7 +361,7 @@ class Wpfunos_Estadisticas {
 		$ahora = new DateTime();
 		$cuando = new DateTime();
 		$cuando->setTimestamp( strtotime("22-3-2022") );
-
+		
 		$suma = 0;
 		$dias = 0;
 		while( $cuando < $ahora ){
@@ -414,7 +414,7 @@ class Wpfunos_Estadisticas {
 		}
 		return $array;
 	}
-
+	
 	/*
 	*
 	*/
@@ -422,7 +422,7 @@ class Wpfunos_Estadisticas {
 		$ahora = new DateTime();
 		$cuando = new DateTime();
 		$cuando->setTimestamp( strtotime("1-4-2022") );
-
+		
 		$suma = 0;
 		$dias = 0;
 		while( $cuando < $ahora ){
@@ -475,7 +475,68 @@ class Wpfunos_Estadisticas {
 		}
 		return $array;
 	}
-
+	
+	/*
+	*
+	*/
+	public function wpfunos_graph_usuarios_entradas( $funcion = 'todo' ){
+		$ahora = new DateTime();
+		$cuando = new DateTime();
+		$cuando->setTimestamp( strtotime("1-4-2022") );
+		
+		$suma = 0;
+		$dias = 0;
+		while( $cuando < $ahora ){
+			$dias++;
+			$args = array(
+				'post_status' => 'publish',
+				'post_type' => 'usuarios_wpfunos',
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+			);
+			$post_list = get_posts( $args );
+			$usuarios = 0;
+			if( $post_list ){
+				foreach ( $post_list as $post ) :
+					$usuarios++;
+				endforeach;
+				wp_reset_postdata();
+			}
+			$args = array(
+				'post_status' => 'publish',
+				'post_type' => 'pag_serv_wpfunos',
+				'posts_per_page' => -1,
+				'date_query' => array(
+					array(
+						'year' => $cuando->format("Y"),
+						'month' => $cuando->format("m"),
+						'day' => $cuando->format("d"),
+					),
+				),
+			);
+			$post_list = get_posts( $args );
+			$entradas = 0;
+			if( $post_list ){
+				foreach ( $post_list as $post ) :
+					$entradas++;
+				endforeach;
+				wp_reset_postdata();
+			}
+			$ratio_dia = sprintf ("%.2f",$usuarios/$entradas);
+			$suma +=$usuarios/$entradas;
+			if( $funcion == 'todo' ) $array[] = array( "label" => $cuando->format('d M'), "y" => $ratio_dia , );
+			if( $funcion == 'media' ) $array[] = array( "label" => $cuando->format('d M'), "y" => sprintf ("%.2f",$suma/$dias) , );
+			$cuando->add(new DateInterval( 'P1D' ) );
+		}
+		return $array;
+	}
+	
 	/*
 	* Incluir el script de los gráficos en el <head>
 	*/
@@ -489,80 +550,85 @@ class Wpfunos_Estadisticas {
 		//do_action('wpfunos_log', '==============' );
 		//do_action('wpfunos_log', 'my_custom_admin_head $pagenow: ' .$pagenow );
 		//do_action('wpfunos_log', 'my_custom_admin_head $_GET[page]: ' .$_GET['page'] );
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'month' );
 		$dataPoints2 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'week' );
 		$dataPoints3 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'month', 'media' );
 		$dataPoints4 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'week', 'media' );
 		$dataPoints5 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'month' );
 		$dataPoints6 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'month', 'media' );
 		$dataPoints7 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'week' );
 		$dataPoints8 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'week', 'media' );
 		$dataPoints9 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Despedida' );
 		$dataPoints10 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Ataud' );
 		$dataPoints11 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Velatorio' );
 		$dataPoints12 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Servicio' );
 		$dataPoints13 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_pie_CP( 10, 'poblacion' );
 		$dataPoints14 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_pie_CP( 10, 'poblacion', true );
 		$dataPoints15 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_pie_CP( 10, 'cp' );
 		$dataPoints16 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_pie_CP( 10, 'cp', true );
 		$dataPoints17 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_usuarios_ubicaciones();
 		$dataPoints18 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_usuarios_ubicaciones('media');
 		$dataPoints19 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'week' );
 		$dataPoints20 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'week', 'media' );
 		$dataPoints21 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'month' );
 		$dataPoints22 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'month', 'media' );
 		$dataPoints23 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_ubicaciones_entradas();
 		$dataPoints24 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
+		
 		$resultado = $this->wpfunos_graph_ubicaciones_entradas('media');
 		$dataPoints25 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
-
+		
+		$resultado = $this->wpfunos_graph_usuarios_entradas();
+		$dataPoints26 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
+		$resultado = $this->wpfunos_graph_usuarios_entradas('media');
+		$dataPoints27 = json_encode($resultado, JSON_NUMERIC_CHECK);
+		
 		echo '<script type="text/javascript" src="' . WFUNOS_PLUGIN_URL . 'admin/assets/canvasjs.min.js"></script>';
 		echo '<script id="wpfunos-head-'.$this->version.'" type="text/javascript">
 		window.onload = function () {
@@ -579,6 +645,7 @@ class Wpfunos_Estadisticas {
 			var chart = new CanvasJS.Chart("chartContainer12", {animationEnabled:true,zoomEnabled:true,title:{text: "CP (Top 10)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",legendText: "{indexLabel}",dataPoints:'.$dataPoints16.'}]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer13", {animationEnabled:true,zoomEnabled:true,title:{text: "CP (Todos)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",legendText: "{indexLabel}",dataPoints:'.$dataPoints17.'}]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer14", {animationEnabled:true,zoomEnabled:true,title:{text: "Datos-Ubicaciones",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Datos/Ubicaciones</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Datos/Ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints18.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints19.',} ]});chart.render();
+			var chart = new CanvasJS.Chart("chartContainer15",{animationEnabled:true,zoomEnabled:true,title:{text: "Datos-Entradas",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Datos/Entradas</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Datos/Entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints26.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints27.',} ]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer21", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones-Entradas",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/Entradas</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Ubicaciones/Entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints24.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints25.',} ]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer18", {animationEnabled:true,zoomEnabled:true,title:{text: "Entradas semana",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Entradas/Semana</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Entradas",dataPoints:'.$dataPoints20.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints21.',}]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer17", {animationEnabled:true,zoomEnabled:true,title:{text: "Entradas mes",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Entradas/Mes</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Entradas",dataPoints:'.$dataPoints22.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints23.',}]});chart.render();
