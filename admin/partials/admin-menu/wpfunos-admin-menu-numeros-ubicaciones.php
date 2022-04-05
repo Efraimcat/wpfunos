@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <table>
   <tr>
     <th colspan="2" style="width:225px;"><h2>Usuarios que han enviado ubicación</h2></th>
+    <th><h2>Únicos</h2></th>
     <th style="width:25px;"></th><th colspan="2" style="width:65px;"><h2>CP total</h2></th>
     <th style="width:25px;"></th><th colspan="2" style="width:65px;"><h2>CP mes</h2></th>
     <th style="width:25px;"></th><th colspan="2" style="width:65px;"><h2>CP sem.</h2></th>
@@ -28,24 +29,33 @@ if ( ! defined( 'ABSPATH' ) ) {
     <tr>
       <?php
       if ( $x== 0 ) echo '<td>Ubicaciones total: </td>
-      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'all' ) . '</td>';
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'all' ) . '</td>
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'all', 'publish', 'wpfunos_Dummy', true, "", 'wpfunos_Dummy', true, true ) . '</td>';
       if ( $x== 1 ) echo '<td>Ubicaciones últimos 30 días:  </td>
-      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'month' ) . '</td>';
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'month' ) . '</td>
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'month', 'publish', 'wpfunos_Dummy', true, "", 'wpfunos_Dummy', true, true ) . '</td>';
       if ( $x== 2 ) echo '<td>Ubicaciones últimos 7 días: </td>
-      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'week' ) . '</td>';
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'week' ) . '</td>
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'week', 'publish', 'wpfunos_Dummy', true, "", 'wpfunos_Dummy', true, true ) . '</td>';
       if ( $x== 3 ) echo '<td>Ubicaciones mes anterior (' . $displaymesant . '): </td>
-      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'mes_ant' ) . '</td>';
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'mes_ant' ) . '</td>
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'mes_ant' ,"", 'wpfunos_Dummy', true,true ). '</td>';
       if ( $x== 4 ) echo '<td>Ubicaciones mes (' . $displaymes . '): </td>
-      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'mes' ) . '</td>';
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'mes' ) . '</td>
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'mes' ,"", 'wpfunos_Dummy', true,true ). '</td>';
       if ( $x== 5 ) echo '<td>Ubicaciones semana anterior ('. $displaysemanaant .'): </td>
-      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'semana_ant' ) . '</td>';
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'semana_ant' ) . '</td>
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'semana_ant' ,'', 'wpfunos_Dummy', true,true ). '</td>';
       if ( $x== 6 ) echo '<td>Ubicaciones semana (' . $displaysemana . '): </td>
-      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'semana' ) . '</td>';
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'semana' ) . '</td>
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_semana_mes' , 'ubicaciones_wpfunos', 'semana' ,'', 'wpfunos_Dummy', true,true ). '</td>';
       if ( $x== 7 ) echo '<td>Ubicaciones ayer: </td>
-      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'ayer' ) . '</td>';
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'ayer' ) . '</td>
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'ayer', 'publish', 'wpfunos_Dummy', true, '', 'wpfunos_Dummy', true, true ) . '</td>';
       if ( $x== 8 ) echo '<td>Ubicaciones hoy: </td>
-      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'day' ) . '</td>';
-      if ( $x >= 9 ) echo '<td></td><td></td>';
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'day' ) . '</td>
+      <td style="text-align: right;padding-left: 5px;">' . apply_filters( 'wpfunos_estadisticas_date' , 'ubicaciones_wpfunos', 'day', 'publish', 'wpfunos_Dummy', true, '', 'wpfunos_Dummy', true, true ) . '</td>';
+      if ( $x >= 9 ) echo '<td></td><td></td><td></td>';
       ?>
       <td></td><td><?php echo apply_filters( 'wpfunos_estadisticas_cp',$x+1,'dato','cp'); ?></td>
       <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_cp',$x+1,'numero','cp'); ?></td>

@@ -20,6 +20,10 @@ $displaymes = date_i18n( 'F', current_time( 'timestamp', 0 ) );
 $displaysemanaant = (int) date_i18n( 'W', current_time( 'timestamp', 0 )) - 1;
 $displaysemana = date_i18n( 'W', current_time( 'timestamp', 0 ) );
 if( $displaysemanaant == 0 ) $displaysemanaant = 53;
+
+//$visits = apply_filters('wpfunos_count_visits', 'pag_serv_wpfunos', 'wpfunos_entradaServiciosVisitas', 'wpfunos_entradaServiciosIP' );
+//$visits = apply_filters('wpfunos_count_visits', 'ubicaciones_wpfunos', 'wpfunos_ubicacionVisitas', 'wpfunos_ubicacionIP' );
+//$visits = apply_filters('wpfunos_count_visits', 'usuarios_wpfunos', 'wpfunos_userVisitas', 'wpfunos_userIP' );
 ?>
 <div class="wrap">
   <h2><?php esc_html_e( get_admin_page_title() .' '.$this->version); ?></h2>

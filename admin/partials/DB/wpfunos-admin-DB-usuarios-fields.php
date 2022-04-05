@@ -73,10 +73,9 @@ $userIP = sanitize_text_field( $_POST[$this->plugin_name . '_userIP'] );
 $userAceptaPolitica = sanitize_text_field( $_POST[$this->plugin_name . '_userAceptaPolitica'] );
 $userLAT = sanitize_text_field( $_POST[$this->plugin_name . '_userLAT'] );
 $userLNG = sanitize_text_field( $_POST[$this->plugin_name . '_userLNG'] );
-//lat=41.387397&lng=2.168568
 $userPluginVersion = sanitize_text_field( $_POST[$this->plugin_name . '_userPluginVersion'] );
+$userVisitas = sanitize_text_field( $_POST[$this->plugin_name . '_userVisitas'] );
 $Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
-
 
 update_post_meta($post_id, $this->plugin_name . '_TimeStamp', $TimeStamp);
 update_post_meta($post_id, $this->plugin_name . '_userMail', $userMail);
@@ -140,4 +139,5 @@ update_post_meta($post_id, $this->plugin_name . '_userAceptaPolitica', $userAcep
 update_post_meta($post_id, $this->plugin_name . '_userLAT', $userLAT);
 update_post_meta($post_id, $this->plugin_name . '_userLNG', $userLNG);
 update_post_meta($post_id, $this->plugin_name . '_userPluginVersion', $userPluginVersion);
+update_post_meta($post_id, $this->plugin_name . '_userVisitas', $userVisitas);
 update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);

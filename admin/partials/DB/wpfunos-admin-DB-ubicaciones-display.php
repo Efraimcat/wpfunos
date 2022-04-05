@@ -40,6 +40,10 @@ if ( ! defined( 'ABSPATH' ) ) {
       <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_ubicacionCP','name' => $this->plugin_name . '_ubicacionCP','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
     </li>
     <li class="ubicaciones_wpfunos_list">
+      <label for="<?php esc_html_e($this->plugin_name . '_ubicacionVisitas' ); ?>"> <?php esc_html_e('Visitas', 'wpfunos');?></label> 
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_ubicacionVisitas','name' => $this->plugin_name . '_ubicacionVisitas','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
+    </li>
+    <li class="ubicaciones_wpfunos_list">
       <label for="<?php esc_html_e($this->plugin_name . '_Dummy' ); ?>"> <?php esc_html_e('', 'wpfunos');?></label> 
       <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_Dummy','name' => $this->plugin_name . '_Dummy','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
     </li>

@@ -161,7 +161,22 @@ class Wpfunos_Public {
       $textoaccion = "Entrada datos servicios";
       if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
       if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
-      
+      $userIP = apply_filters('wpfunos_userIP','dummy');
+      $args = array(
+        'post_status' => 'publish',
+        'post_type' => 'usuarios_wpfunos',
+        'posts_per_page' => -1,
+        'meta_key' =>  'wpfunos_userIP',
+        'meta_value' => $userIP,
+      );
+      $post_list = get_posts( $args );
+      $contador = 1;
+      if( $post_list ){
+        foreach ( $post_list as $post ) :
+          $contador++;
+        endforeach;
+        wp_reset_postdata();
+      }
       $my_post = array(
         'post_title' => $fields['referencia'],
         'post_type' => 'usuarios_wpfunos',
@@ -189,6 +204,7 @@ class Wpfunos_Public {
           $this->plugin_name . '_userLAT' => sanitize_text_field( $fields['lat'] ),
           $this->plugin_name . '_userLNG' => sanitize_text_field( $fields['lng'] ),
           $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
+          $this->plugin_name . '_userVisitas' => $contador,
           $this->plugin_name . '_Dummy' => true,
         ),
       );

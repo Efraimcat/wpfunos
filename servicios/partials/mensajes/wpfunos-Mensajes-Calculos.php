@@ -1,17 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+  exit; // Exit if accessed directly.
 }
 /**
- * Servicios.
- *
- * @link       https://github.com/Efraimcat/wpfunos/
- * @since      1.0.0
- *
- * @package    Wpfunos
- * @subpackage WpFunos/servicios/partials/mensajes
- * @author     Efraim Bayarri <efraim@efraim.cat>
- */
+* Servicios.
+*
+* @link       https://github.com/Efraimcat/wpfunos/
+* @since      1.0.0
+*
+* @package    Wpfunos
+* @subpackage WpFunos/servicios/partials/mensajes
+* @author     Efraim Bayarri <efraim@efraim.cat>
+*/
 $comentariosBase = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPrecioBaseComentario', true ) );
 $comentariosExtras = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPosiblesExtras', true ) );
 $respuesta = (explode(',',$_GET['seleccion']));
@@ -41,9 +41,9 @@ $mensaje = str_replace( '[desgloseBasePrecio]' , $_GET['desgloseBasePrecio'] , $
 $mensaje = str_replace( '[desgloseBaseDescuento]' , $_GET['desgloseBaseDescuento'] , $mensaje );
 $mensaje = str_replace( '[desgloseBaseTotal]' , $_GET['desgloseBaseTotal'] , $mensaje );
 if( $_GET['desgloseBaseDescuento'] != '0%'){
-	$mensaje = str_replace( '[TotaldesgloseBaseTotal]' , $_GET['desgloseBasePrecio'] . ' - Descuento: ' . $_GET['desgloseBaseDescuento'] . ' - <strong>Total: ' . $_GET['desgloseBaseTotal'] .'</strong>' , $mensaje );	
+  $mensaje = str_replace( '[TotaldesgloseBaseTotal]' , $_GET['desgloseBasePrecio'] . ' - Descuento: ' . $_GET['desgloseBaseDescuento'] . ' - <strong>Total: ' . $_GET['desgloseBaseTotal'] .'</strong>' , $mensaje );	
 }else{
-	$mensaje = str_replace( '[TotaldesgloseBaseTotal]' , $_GET['desgloseBasePrecio'] , $mensaje );
+  $mensaje = str_replace( '[TotaldesgloseBaseTotal]' , $_GET['desgloseBasePrecio'] , $mensaje );
 }
 
 $mensaje = str_replace( '[desgloseDestinoNombre]' , $_GET['desgloseDestinoNombre'] , $mensaje );
@@ -51,9 +51,9 @@ $mensaje = str_replace( '[desgloseDestinoPrecio]' , $_GET['desgloseDestinoPrecio
 $mensaje = str_replace( '[desgloseDestinoDescuento]' , $_GET['desgloseDestinoDescuento'] , $mensaje );
 $mensaje = str_replace( '[desgloseDestinoTotal]' , $_GET['desgloseDestinoTotal'] , $mensaje );
 if( $_GET['desgloseDestinoDescuento'] != '%'){
-	$mensaje = str_replace( '[TotaldesgloseDestinoTotal]' , $_GET['desgloseDestinoPrecio'] . ' - Descuento: ' . $_GET['desgloseDestinoDescuento'] . ' - <strong>Total: ' . $_GET['desgloseDestinoTotal'] .'</strong>' , $mensaje );	
+  $mensaje = str_replace( '[TotaldesgloseDestinoTotal]' , $_GET['desgloseDestinoPrecio'] . ' - Descuento: ' . $_GET['desgloseDestinoDescuento'] . ' - <strong>Total: ' . $_GET['desgloseDestinoTotal'] .'</strong>' , $mensaje );	
 }else{
-	$mensaje = str_replace( '[TotaldesgloseDestinoTotal]' , $_GET['desgloseDestinoPrecio'] , $mensaje );
+  $mensaje = str_replace( '[TotaldesgloseDestinoTotal]' , $_GET['desgloseDestinoPrecio'] , $mensaje );
 }
 
 $mensaje = str_replace( '[desgloseAtaudNombre]' , $_GET['desgloseAtaudNombre'] , $mensaje );
@@ -61,9 +61,9 @@ $mensaje = str_replace( '[desgloseAtaudPrecio]' , $_GET['desgloseAtaudPrecio'] ,
 $mensaje = str_replace( '[desgloseAtaudDescuento]' , $_GET['desgloseAtaudDescuento'] , $mensaje );
 $mensaje = str_replace( '[desgloseAtaudTotal]' , $_GET['desgloseAtaudTotal'] , $mensaje );
 if( $_GET['desgloseAtaudDescuento'] != '%'){
-	$mensaje = str_replace( '[TotaldesgloseAtaudTotal]' , $_GET['desgloseAtaudPrecio'] . ' - Descuento: ' . $_GET['desgloseAtaudDescuento'] . ' - <strong>Total: ' . $_GET['desgloseAtaudTotal'] .'</strong>' , $mensaje );	
+  $mensaje = str_replace( '[TotaldesgloseAtaudTotal]' , $_GET['desgloseAtaudPrecio'] . ' - Descuento: ' . $_GET['desgloseAtaudDescuento'] . ' - <strong>Total: ' . $_GET['desgloseAtaudTotal'] .'</strong>' , $mensaje );	
 }else{
-	$mensaje = str_replace( '[TotaldesgloseAtaudTotal]' , $_GET['desgloseAtaudPrecio'] , $mensaje );
+  $mensaje = str_replace( '[TotaldesgloseAtaudTotal]' , $_GET['desgloseAtaudPrecio'] , $mensaje );
 }
 
 $mensaje = str_replace( '[desgloseVelatorioNombre]' , $_GET['desgloseVelatorioNombre'] , $mensaje );
@@ -71,9 +71,9 @@ $mensaje = str_replace( '[desgloseVelatorioPrecio]' , $_GET['desgloseVelatorioPr
 $mensaje = str_replace( '[desgloseVelatorioDescuento]' , $_GET['desgloseVelatorioDescuento'] , $mensaje );
 $mensaje = str_replace( '[desgloseVelatorioTotal]' , $_GET['desgloseVelatorioTotal'] , $mensaje );
 if( $_GET['desgloseVelatorioDescuento'] != '%'){
-	$mensaje = str_replace( '[TotaldesgloseVelatorioTotal]' , $_GET['desgloseVelatorioPrecio'] . ' - Descuento: ' . $_GET['desgloseVelatorioDescuento'] . ' - <strong>Total: ' . $_GET['desgloseVelatorioTotal'] .'</strong>' , $mensaje );	
+  $mensaje = str_replace( '[TotaldesgloseVelatorioTotal]' , $_GET['desgloseVelatorioPrecio'] . ' - Descuento: ' . $_GET['desgloseVelatorioDescuento'] . ' - <strong>Total: ' . $_GET['desgloseVelatorioTotal'] .'</strong>' , $mensaje );	
 }else{
-	$mensaje = str_replace( '[TotaldesgloseVelatorioTotal]' , $_GET['desgloseVelatorioPrecio'] , $mensaje );
+  $mensaje = str_replace( '[TotaldesgloseVelatorioTotal]' , $_GET['desgloseVelatorioPrecio'] , $mensaje );
 }
 
 $mensaje = str_replace( '[desgloseCeremoniaNombre]' , $_GET['desgloseCeremoniaNombre'] , $mensaje );
@@ -81,9 +81,9 @@ $mensaje = str_replace( '[desgloseCeremoniaPrecio]' , $_GET['desgloseCeremoniaPr
 $mensaje = str_replace( '[desgloseCeremoniaDescuento]' , $_GET['desgloseCeremoniaDescuento'] , $mensaje );
 $mensaje = str_replace( '[desgloseCeremoniaTotal]' , $_GET['desgloseCeremoniaTotal'] , $mensaje );
 if( $_GET['desgloseCeremoniaDescuento'] != '%'){
-	$mensaje = str_replace( '[TotaldesgloseCeremoniaTotal]' , $_GET['desgloseCeremoniaPrecio'] . ' - Descuento: ' . $_GET['desgloseCeremoniaDescuento'] . ' - <strong>Total: ' . $_GET['desgloseCeremoniaTotal'] .'</strong>' , $mensaje );	
+  $mensaje = str_replace( '[TotaldesgloseCeremoniaTotal]' , $_GET['desgloseCeremoniaPrecio'] . ' - Descuento: ' . $_GET['desgloseCeremoniaDescuento'] . ' - <strong>Total: ' . $_GET['desgloseCeremoniaTotal'] .'</strong>' , $mensaje );	
 }else{
-	$mensaje = str_replace( '[TotaldesgloseCeremoniaTotal]' , $_GET['desgloseCeremoniaPrecio'] , $mensaje );
+  $mensaje = str_replace( '[TotaldesgloseCeremoniaTotal]' , $_GET['desgloseCeremoniaPrecio'] , $mensaje );
 }
 
 $mensaje = str_replace( '[desgloseDescuentoGenerico]' , $_GET['desgloseDescuentoGenerico'] , $mensaje );
@@ -91,9 +91,9 @@ $mensaje = str_replace( '[desgloseDescuentoGenericoPrecio]' , $_GET['desgloseDes
 $mensaje = str_replace( '[desgloseDescuentoGenericoDescuento]' , $_GET['desgloseDescuentoGenericoDescuento'] , $mensaje );
 $mensaje = str_replace( '[desgloseDescuentoGenericoTotal]' , $_GET['desgloseDescuentoGenericoTotal'] , $mensaje );
 if( $_GET['desgloseDescuentoGenericoTotal'] !== $_GET['desgloseDescuentoGenericoPrecio'] ){
-	$mensaje = str_replace( '[TotaldesgloseGenericoTotal]' , $_GET['desgloseDescuentoGenericoPrecio'] . ' - <strong>TOTAL: ' . $_GET['desgloseDescuentoGenericoTotal'] . '</strong>' , $mensaje );	
+  $mensaje = str_replace( '[TotaldesgloseGenericoTotal]' , $_GET['desgloseDescuentoGenericoPrecio'] . ' - <strong>TOTAL: ' . $_GET['desgloseDescuentoGenericoTotal'] . '</strong>' , $mensaje );	
 }else{
-	$mensaje = str_replace( '[TotaldesgloseGenericoTotal]' , $_GET['desgloseDescuentoGenericoPrecio'] , $mensaje );
+  $mensaje = str_replace( '[TotaldesgloseGenericoTotal]' , $_GET['desgloseDescuentoGenericoPrecio'] , $mensaje );
 }
 
 $mensaje = str_replace( '[comentariosBase]' , $comentariosBase , $mensaje );

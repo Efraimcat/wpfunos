@@ -970,6 +970,22 @@ class Wpfunos_Servicios {
   public function wpfunosEntradaUbicacion( $ubicacionIP, $ubicacionwpf, $ubicacionReferencia, $ubicacionDireccion, $ubicacionCP, $ubicacionDistancia  ){
     if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
     if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
+    $userIP = apply_filters('wpfunos_userIP','dummy');
+    $args = array(
+      'post_status' => 'publish',
+      'post_type' => 'ubicaciones_wpfunos',
+      'posts_per_page' => -1,
+      'meta_key' =>  'wpfunos_ubicacionIP',
+      'meta_value' => $userIP,
+    );
+    $post_list = get_posts( $args );
+    $contador = 1;
+    if( $post_list ){
+      foreach ( $post_list as $post ) :
+        $contador++;
+      endforeach;
+      wp_reset_postdata();
+    }
     $my_post = array(
       'post_title' => $ubicacionReferencia,
       'post_type' => 'ubicaciones_wpfunos',
@@ -981,6 +997,7 @@ class Wpfunos_Servicios {
         $this->plugin_name . '_ubicacionDireccion' => sanitize_text_field( $ubicacionDireccion ),
         $this->plugin_name . '_ubicacionDistancia' => sanitize_text_field( $ubicacionDistancia ),
         $this->plugin_name . '_ubicacionCP' => sanitize_text_field( $ubicacionCP ),
+        $this->plugin_name . '_ubicacionVisitas' => $contador,
         $this->plugin_name . '_Dummy' => true,
       ),
     );

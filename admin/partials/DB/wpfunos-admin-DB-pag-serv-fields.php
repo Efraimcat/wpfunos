@@ -14,8 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 $entradaServiciosIP = sanitize_text_field( $_POST[$this->plugin_name . '_entradaServiciosIP'] );
 $entradaServiciosReferer = sanitize_text_field( $_POST[$this->plugin_name . '_entradaServiciosReferer'] );
+$entradaServiciosVisitas = sanitize_text_field( $_POST[$this->plugin_name . '_entradaServiciosVisitas'] );
 $Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
 
 update_post_meta($post_id, $this->plugin_name . '_entradaServiciosIP', $entradaServiciosIP);
 update_post_meta($post_id, $this->plugin_name . '_entradaServiciosReferer', $entradaServiciosReferer);
+update_post_meta($post_id, $this->plugin_name . '_entradaServiciosVisitas', $entradaServiciosVisitas);
 update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);

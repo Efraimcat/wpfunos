@@ -1,17 +1,17 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+  exit; // Exit if accessed directly.
 }
 /**
- * Servicios.
- *
- * @link       https://github.com/Efraimcat/wpfunos/
- * @since      1.0.0
- *
- * @package    Wpfunos
- * @subpackage Wpfunos/servicios/partials
- * @author     Efraim Bayarri <efraim@efraim.cat>
- */
+* Servicios.
+*
+* @link       https://github.com/Efraimcat/wpfunos/
+* @since      1.0.0
+*
+* @package    Wpfunos
+* @subpackage Wpfunos/servicios/partials
+* @author     Efraim Bayarri <efraim@efraim.cat>
+*/
 ?>
 <input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
 <input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
@@ -56,4 +56,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 <input type="hidden" name="desgloseDescuentoGenericoDescuento" id="desgloseDescuentoGenericoDescuento" value="<?php echo $value[3][5][3] . '%' ?>" >
 <input type="hidden" name="desgloseDescuentoGenericoTotal" id="desgloseDescuentoGenericoTotal" value="<?php echo number_format($value[3][5][4], 0, ',', '.') . '€' ?>" >
 <?php
-	   

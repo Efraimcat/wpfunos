@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <table>
   <tr>
     <th colspan="2" style="width:225px;"><h2>Usuarios que han enviado datos</h2></th>
+    <th><h2>Únicos</h2></th>
     <th style="width:25px;"></th><th colspan="2" style="width:125px;"><h2>Servicio</h2></th>
     <th style="width:25px;"></th><th colspan="2" style="width:150px;"><h2>Ataúd</h2></th>
     <th style="width:25px;"></th><th colspan="2" style="width:150px;"><h2>Velatorio</h2></th>
@@ -25,6 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   <tr>
     <td>Usuarios total: </td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date' , 'usuarios_wpfunos', 'all', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date' , 'usuarios_wpfunos', 'all', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0', true ); ?></td>
     <td></td><td>Incineración:</td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date' , 'usuarios_wpfunos', 'all', 'publish', 'wpfunos_userNombreSeleccionServicio', 'Incineración', '', 'wpfunos_userAccion', '0' ); ?></td>
     <td></td><td>Ataúd Económico:</td>
@@ -37,6 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   <tr>
     <td>Usuarios últimos 30 dias: </td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'month', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'month', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0', true ); ?></td>
     <td></td><td>Entierro:</td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'all', 'publish', 'wpfunos_userNombreSeleccionServicio', 'Entierro', '', 'wpfunos_userAccion', '0' ); ?></td>
     <td></td><td>Ataúd Medio:</td>
@@ -49,6 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   <tr>
     <td>Usuarios últimos 7 dias: </td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'week', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'week', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0', true ); ?></td>
     <td></td><td></td><td></td>
     <td></td><td>Ataúd Premium:</td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'all', 'publish', 'wpfunos_userNombreSeleccionAtaud', 'Ataúd Premium', '', 'wpfunos_userAccion', '0' ); ?></td>
@@ -58,7 +62,9 @@ if ( ! defined( 'ABSPATH' ) ) {
   </tr>
   <tr>
     <td>Usuarios mes anterior (<?php echo $displaymesant;?>): </td>
-    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'mes_ant', '', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'mes_ant', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'mes_ant', '', 'wpfunos_userAccion', '0', true ); ?></td>
+    
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
@@ -67,16 +73,18 @@ if ( ! defined( 'ABSPATH' ) ) {
   </tr>
   <tr>
     <td>Usuarios mes (<?php echo $displaymes;  ?>): </td>
-    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'mes', '',  'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'mes', '',  'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'mes', '',  'wpfunos_userAccion', '0', true ); ?></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
   </tr>
-
+  
   <tr>
     <td>Usuarios semana anterior (<?php echo $displaysemanaant;  ?>): </td>
-    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'semana_ant', '',  'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'semana_ant', '',  'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'semana_ant', '',  'wpfunos_userAccion', '0', true ); ?></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
@@ -84,16 +92,18 @@ if ( ! defined( 'ABSPATH' ) ) {
   </tr>
   <tr>
     <td>Usuarios semana (<?php echo $displaysemana;  ?>): </td>
-    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'semana', '', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'semana', '', 'wpfunos_userAccion', '0'  ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'semana', '', 'wpfunos_userAccion', '0', true ); ?></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
   </tr>
-
+  
   <tr>
     <td>Usuarios ayer: </td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'ayer', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'ayer', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0', true ); ?></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
@@ -102,6 +112,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   <tr>
     <td>Usuarios hoy: </td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'day', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
+    <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'day', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0', true ); ?></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>

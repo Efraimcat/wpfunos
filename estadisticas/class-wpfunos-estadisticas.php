@@ -19,9 +19,9 @@ class Wpfunos_Estadisticas {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		add_action( 'admin_head', array( $this, 'my_custom_admin_head'));
-		add_filter( 'wpfunos_estadisticas_date', array( $this, 'wpfunos_stats_date'),10, 8 );
+		add_filter( 'wpfunos_estadisticas_date', array( $this, 'wpfunos_stats_date'),10, 9 );
 		add_filter( 'wpfunos_estadisticas_cp', array( $this, 'wpfunos_stats_CP'),10, 5 );
-		add_filter( 'wpfunos_estadisticas_semana_mes', array( $this, 'wpfunos_stats_semana_mes'),10, 5 );
+		add_filter( 'wpfunos_estadisticas_semana_mes', array( $this, 'wpfunos_stats_semana_mes'),10, 6 );
 	}
 	
 	/*********************************/
@@ -31,7 +31,7 @@ class Wpfunos_Estadisticas {
 	* $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
 	*
 	*/
-	public function wpfunos_stats_date( $cpt, $type = 'day', $status = 'publish', $metakey = 'wpfunos_Dummy', $metavalue = true, $inicio = '1 March 2021', $metakey2 = 'wpfunos_Dummy', $metavalue2 = true ){
+	public function wpfunos_stats_date( $cpt, $type = 'day', $status = 'publish', $metakey = 'wpfunos_Dummy', $metavalue = true, $inicio = '1 March 2021', $metakey2 = 'wpfunos_Dummy', $metavalue2 = true, $unicos = false ){
 		$ahora = new DateTime();
 		$dia = new DateTime();
 		$semana = new DateTime();
@@ -41,6 +41,15 @@ class Wpfunos_Estadisticas {
 		$semana->sub(new DateInterval(P7D));
 		$mes->sub(new DateInterval(P30D));
 		$siempre->setTimestamp( strtotime( $inicio ) );
+		if( !$unicos ){
+			$metakeyunicos = 'wpfunos_Dummy';
+		}else{
+			switch ($cpt){
+				case 'usuarios_wpfunos': $metakeyunicos = 'wpfunos_userVisitas'; break;
+				case 'ubicaciones_wpfunos': $metakeyunicos = 'wpfunos_ubicacionVisitas'; break;
+				case 'pag_serv_wpfunos': $metakeyunicos = 'wpfunos_entradaServiciosVisitas'; break;
+			}
+		}
 		$resultados = 0;
 		switch ( $type ){
 			case 'day': $cuando = $ahora; break;
@@ -64,6 +73,11 @@ class Wpfunos_Estadisticas {
 					'key' => $metakey2,
 					'value' => $metavalue2,
 					'compare' => '=',
+				),
+				array(
+					'key' => $metakeyunicos,
+					'value' => 1,
+					'compare' => '<=',
 				),
 			),
 			'date_query' => array(
@@ -89,7 +103,7 @@ class Wpfunos_Estadisticas {
 	* $cpt 'pag_serv_wpfunos','ubicaciones_wpfunos',usuarios_wpfunos'
 	* $ratio 'du'(Datos/Ubicación),'ue'(Ubicación/Entradas), 'de'(Datos/Entradas)
 	*/
-	public function wpfunos_stats_semana_mes( $cpt, $type = 'semana', $ratio = '',$metakey = '', $metavalue = '' ){
+	public function wpfunos_stats_semana_mes( $cpt, $type = 'semana', $ratio = '',$metakey = 'wpfunos_Dummy', $metavalue = true, $unicos = false ){
 		$ahora = new DateTime();
 		$semana = $ahora->format('W');
 		$semana_ant = $semana - 1;
@@ -104,14 +118,33 @@ class Wpfunos_Estadisticas {
 		if( $type == 'semana_ant' )  $data_query_value = $semana_ant;
 		if( $type == 'mes' )  $data_query_value = $mes;
 		if( $type == 'mes_ant' )  $data_query_value = $mes_ant;
-		
+		if( ! $unicos ){
+			$metakeyunicos = 'wpfunos_Dummy';
+		}else{
+			switch ($cpt){
+				case 'usuarios_wpfunos': $metakeyunicos = 'wpfunos_userVisitas'; break;
+				case 'ubicaciones_wpfunos': $metakeyunicos = 'wpfunos_ubicacionVisitas'; break;
+				case 'pag_serv_wpfunos': $metakeyunicos = 'wpfunos_entradaServiciosVisitas'; break;
+			}
+		}
 		if( $ratio == '' ){
 			$args = array(
 				'post_status' => 'publish',
 				'post_type' => $cpt,
 				'posts_per_page' => -1,
-				'meta_key' =>  $metakey,
-				'meta_value' => $metavalue,
+				'meta_query' => array(
+				'relation' => 'AND',
+				array(
+					'key' => $metakey,
+					'value' => $metavalue,
+					'compare' => '=',
+				),
+				array(
+					'key' => $metakeyunicos,
+					'value' => 1,
+					'compare' => '<=',
+				),
+			),
 				'date_query' => array(
 					'year' => $año, //(int) – 4 digit year (e.g. 2011).
 					$data_query_key => $data_query_value, //month (int) – Month number (from 1 to 12).   week (int) – Week of the year (from 0 to 53).
