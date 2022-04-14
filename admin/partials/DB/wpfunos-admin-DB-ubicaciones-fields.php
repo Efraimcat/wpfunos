@@ -20,6 +20,7 @@ $ubicacionDistancia = sanitize_text_field( $_POST[$this->plugin_name . '_ubicaci
 $ubicacionCP = sanitize_text_field( $_POST[$this->plugin_name . '_ubicacionCP'] );
 $ubicacionVisitas = sanitize_text_field( $_POST[$this->plugin_name . '_ubicacionVisitas'] )
 $Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
+$IDstamp= sanitize_text_field( $_POST['IDstamp'] );
 
 update_post_meta($post_id, $this->plugin_name . '_ubicacionIP', $ubicacionIP);
 update_post_meta($post_id, $this->plugin_name . '_ubicacionwpf', $ubicacionwpf);
@@ -29,3 +30,4 @@ update_post_meta($post_id, $this->plugin_name . '_ubicacionDistancia', $ubicacio
 update_post_meta($post_id, $this->plugin_name . '_ubicacionCP', $ubicacionCP);
 update_post_meta($post_id, $this->plugin_name . '_ubicacionVisitas', $ubicacionVisitas);
 update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
+update_post_meta($post_id, 'IDstamp', $IDstamp);

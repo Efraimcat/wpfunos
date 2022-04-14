@@ -50,7 +50,13 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_aseguradorasTipoSeguro','name' => $this->plugin_name . '_aseguradorasTipoSeguro','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
           <td style="width:5px;"></td>
-          <td style="width:250px;"><?php echo get_post_meta( get_post_meta( $_GET['post'] , $this->plugin_name . '_aseguradorasTipoSeguro', true ), $this->plugin_name . '_tipoSeguroNombre', true ); ?></td>
+          <td style="width:250px;">
+            <?php 
+            $tipoSeguroNombre = get_post_meta( get_post_meta( $_GET['post'] , $this->plugin_name . '_aseguradorasTipoSeguro', true ), $this->plugin_name . '_tipoSeguroNombre', true ); 
+            update_post_meta( $_GET['post'], $this->plugin_name . '_aseguradorasTipoSeguroNombre', $tipoSeguroNombre);
+            echo $tipoSeguroNombre; 
+            ?>
+          </td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_aseguradorasOrden','name' => $this->plugin_name . '_aseguradorasOrden','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?></td>
         </tr>
@@ -62,6 +68,10 @@ if ( ! defined( 'ABSPATH' ) ) {
         <tr>
           <td><?php esc_html_e('Cold Lead', 'wpfunos');?></td>
           <td style="width:15px;"></td>
+          <td><?php esc_html_e('Lead', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td><?php esc_html_e('Lead2', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
           <td><?php esc_html_e('Activo', 'wpfunos');?></td>
           <td style="width:15px;"></td>
           <td><?php esc_html_e('Logo', 'wpfunos');?></td>
@@ -69,6 +79,10 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_aseguradorasColdLead','name' => $this->plugin_name . '_aseguradorasColdLead','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
+          <td style="width:15px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_aseguradorasLead','name' => $this->plugin_name . '_aseguradorasLead','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
+          <td style="width:15px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_aseguradorasLead2','name' => $this->plugin_name . '_aseguradorasLead2','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
           <td style="width:15px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_aseguradorasActivo','name' => $this->plugin_name . '_aseguradorasActivo','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
           <td style="width:15px;"></td>

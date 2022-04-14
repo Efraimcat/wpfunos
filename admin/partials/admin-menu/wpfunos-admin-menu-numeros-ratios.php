@@ -176,7 +176,7 @@ $ratio_DatEnt_mes_antUnicos = sprintf ("%.2f",($num1/$num2)*100). '%';
 /* */
 /* */
 ?>
-<h3><?php esc_html_e( 'RATIOS', 'wpfunos' )?></h3>
+<h3><?php esc_html_e( 'RATIOS SERVICIOS', 'wpfunos' )?></h3>
 <table>
   <tr>
     <th colspan="3"><h2>Ubicación/Entradas</h2></th>

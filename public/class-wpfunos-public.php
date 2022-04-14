@@ -160,7 +160,7 @@ class Wpfunos_Public {
     if( $form_name == 'FormularioDatos' ){
       $textoaccion = "Entrada datos servicios";
       if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
-      if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
+      if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
       $userIP = apply_filters('wpfunos_userIP','dummy');
       $args = array(
         'post_status' => 'publish',
@@ -206,12 +206,13 @@ class Wpfunos_Public {
           $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
           $this->plugin_name . '_userVisitas' => $contador,
           $this->plugin_name . '_Dummy' => true,
+          'IDstamp' => $_COOKIE[ 'wpfid' ],
         ),
       );
     }elseif( $form_name == 'FormularioDatosFuturo' ){
       $textoaccion = "Entrada datos aseguradoras";
       if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
-      if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
+      if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
       $my_post = array(
         'post_title' => $fields['referencia'],
         'post_type' => 'usuarios_wpfunos',
@@ -240,6 +241,7 @@ class Wpfunos_Public {
           $this->plugin_name . '_userLNG' => sanitize_text_field( $fields['lng'] ),
           $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
           $this->plugin_name . '_Dummy' => true,
+          'IDstamp' => $_COOKIE[ 'wpfid' ],
         ),
       );
     }
@@ -252,6 +254,7 @@ class Wpfunos_Public {
       do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
       do_action('wpfunos_log', 'referencia: ' . $fields['referencia'] );
       do_action('wpfunos_log', 'Telefono: ' . $fields['Telefono'] );
+      do_action('wpfunos_log', 'wpfid: ' . $_COOKIE[ 'wpfid' ]);
     }else{
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Error 1 Nuevo Usuario: ' .  $userIP  );

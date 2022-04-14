@@ -64,21 +64,9 @@ class Wpfunos_Estadisticas {
 			'posts_per_page' => -1,
 			'meta_query' => array(
 				'relation' => 'AND',
-				array(
-					'key' => $metakey,
-					'value' => $metavalue,
-					'compare' => '=',
-				),
-				array(
-					'key' => $metakey2,
-					'value' => $metavalue2,
-					'compare' => '=',
-				),
-				array(
-					'key' => $metakeyunicos,
-					'value' => 1,
-					'compare' => '<=',
-				),
+				array( 'key' => $metakey, 'value' => $metavalue, 'compare' => '=', ),
+				array( 'key' => $metakey2, 'value' => $metavalue2, 'compare' => '=', ),
+				array( 'key' => $metakeyunicos, 'value' => 1, 'compare' => '<=', ),
 			),
 			'date_query' => array(
 				'after'     => $cuando->format("Y-m-d"),
@@ -88,10 +76,7 @@ class Wpfunos_Estadisticas {
 		);
 		$my_query = new WP_Query( $args );
 		if ( $my_query->have_posts() ):
-			while ( $my_query->have_posts() ) :
-				$my_query->the_post();
-				$resultados++;
-			endwhile;
+			$resultados = $my_query->found_posts;
 			wp_reset_postdata();
 		endif;
 		return $resultados;
@@ -127,39 +112,28 @@ class Wpfunos_Estadisticas {
 				case 'pag_serv_wpfunos': $metakeyunicos = 'wpfunos_entradaServiciosVisitas'; break;
 			}
 		}
-		if( $ratio == '' ){
-			$args = array(
-				'post_status' => 'publish',
-				'post_type' => $cpt,
-				'posts_per_page' => -1,
-				'meta_query' => array(
+		$args = array(
+			'post_status' => 'publish',
+			'post_type' => $cpt,
+			'posts_per_page' => -1,
+			'meta_query' => array(
 				'relation' => 'AND',
-				array(
-					'key' => $metakey,
-					'value' => $metavalue,
-					'compare' => '=',
-				),
-				array(
-					'key' => $metakeyunicos,
-					'value' => 1,
-					'compare' => '<=',
-				),
+				array( 'key' => $metakey, 'value' => $metavalue, 'compare' => '=', ),
+				array( 'key' => $metakeyunicos, 'value' => 1, 'compare' => '<=', ),
 			),
-				'date_query' => array(
-					'year' => $año, //(int) – 4 digit year (e.g. 2011).
-					$data_query_key => $data_query_value, //month (int) – Month number (from 1 to 12).   week (int) – Week of the year (from 0 to 53).
-				),
-			);
-			$post_list = get_posts( $args );
-			$contador = 0;
-			if( $post_list ){
-				foreach ( $post_list as $post ) :
-					$contador++;
-				endforeach;
-				wp_reset_postdata();
-			}
-			return $contador;
-		}
+			'date_query' => array(
+				'year' => $año, //(int) – 4 digit year (e.g. 2011).
+				$data_query_key => $data_query_value, //month (int) – Month number (from 1 to 12).   week (int) – Week of the year (from 0 to 53).
+			),
+		);
+		$my_query = new WP_Query( $args );
+		$contador = 0;
+		if ( $my_query->have_posts() ):
+			$contador = $my_query->found_posts;
+			wp_reset_postdata();
+		endif;
+		return $contador;
+		
 	}
 	
 	/*
@@ -193,6 +167,9 @@ class Wpfunos_Estadisticas {
 			'post_status' => $status,
 			'post_type' => $cpt,
 			'posts_per_page' => -1,
+			'meta_query' => array(
+				array( 'key' => 'wpfunos_ubicacionVisitas', 'value' => 1, 'compare' => '<=', ),
+			),
 			'date_query' => array(
 				array(
 					'after'     => $cuando->format("Y-m-d"),
@@ -210,12 +187,10 @@ class Wpfunos_Estadisticas {
 			endwhile;
 			wp_reset_postdata();
 		endif;
-		
 		$count=0;
 		if( $registro == 'cp' ) $array = array_count_values( array_column($CP, 'cp') );
 		if( $registro == 'poblacion' ) $array = array_count_values( array_column($poblacion, 'poblacion') );
 		arsort($array, SORT_NUMERIC);
-		
 		foreach ( $array as $key=>$numero ) {
 			$count++;
 			if( $count == $orden ){
@@ -231,7 +206,7 @@ class Wpfunos_Estadisticas {
 	}
 	
 	/*
-	* $cpt 'ubicaciones_wpfunos', 'usuarios_wpfunos'
+	* $cpt 'ubicaciones_wpfunos', 'usuarios_wpfunos', 'pag_serv_wpfunos'
 	* $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
 	* $funcion 'todo' 'media'
 	*/
@@ -247,6 +222,11 @@ class Wpfunos_Estadisticas {
 		$siempre->sub(new DateInterval(P90D));
 		$array = [];
 		
+		switch ($cpt){
+			case 'usuarios_wpfunos': $metakeyunicos = 'wpfunos_userVisitas'; break;
+			case 'ubicaciones_wpfunos': $metakeyunicos = 'wpfunos_ubicacionVisitas'; break;
+			case 'pag_serv_wpfunos': $metakeyunicos = 'wpfunos_entradaServiciosVisitas'; break;
+		}
 		switch ( $type ){
 			case 'day': $cuando = $ahora; break;
 			case 'week': $cuando = $semana; break;
@@ -261,6 +241,8 @@ class Wpfunos_Estadisticas {
 				'post_status' => $status,
 				'post_type' => $cpt,
 				'posts_per_page' => -1,
+				'meta_key' =>  $metakeyunicos,
+				'meta_value' => 1,
 				'date_query' => array(
 					array(
 						'year' => $cuando->format("Y"),
@@ -306,8 +288,11 @@ class Wpfunos_Estadisticas {
 				'post_status' => 'publish',
 				'post_type' => 'usuarios_wpfunos',
 				'posts_per_page' => -1,
-				'meta_key' =>  $metakey,
-				'meta_value' => $metavalue,
+				'meta_query' => array(
+					'relation' => 'AND',
+					array( 'key' => $metakey, 'value' => $metavalue, 'compare' => '=', ),
+					array( 'key' => 'wpfunos_userVisitas', 'value' => 1, 'compare' => '<=', ),
+				),
 				'date_query' => array(
 					array(
 						'after'     => '2022-03-07',
@@ -341,6 +326,8 @@ class Wpfunos_Estadisticas {
 			'post_status' => 'publish',
 			'post_type' => 'ubicaciones_wpfunos',
 			'posts_per_page' => -1,
+			'meta_key' =>  'wpfunos_ubicacionVisitas',
+			'meta_value' => 1,
 			'date_query' => array(
 				array(
 					'after'     => '2021-03-19',
@@ -403,6 +390,8 @@ class Wpfunos_Estadisticas {
 				'post_status' => 'publish',
 				'post_type' => 'usuarios_wpfunos',
 				'posts_per_page' => -1,
+				'meta_key' =>  'wpfunos_userVisitas',
+				'meta_value' => 1,
 				'date_query' => array(
 					array(
 						'year' => $cuando->format("Y"),
@@ -423,6 +412,8 @@ class Wpfunos_Estadisticas {
 				'post_status' => 'publish',
 				'post_type' => 'ubicaciones_wpfunos',
 				'posts_per_page' => -1,
+				'meta_key' =>  'wpfunos_ubicacionVisitas',
+				'meta_value' => 1,
 				'date_query' => array(
 					array(
 						'year' => $cuando->format("Y"),
@@ -464,6 +455,8 @@ class Wpfunos_Estadisticas {
 				'post_status' => 'publish',
 				'post_type' => 'ubicaciones_wpfunos',
 				'posts_per_page' => -1,
+				'meta_key' =>  'wpfunos_ubicacionVisitas',
+				'meta_value' => 1,
 				'date_query' => array(
 					array(
 						'year' => $cuando->format("Y"),
@@ -484,6 +477,8 @@ class Wpfunos_Estadisticas {
 				'post_status' => 'publish',
 				'post_type' => 'pag_serv_wpfunos',
 				'posts_per_page' => -1,
+				'meta_key' =>  'wpfunos_entradaServiciosVisitas',
+				'meta_value' => 1,
 				'date_query' => array(
 					array(
 						'year' => $cuando->format("Y"),
@@ -525,6 +520,8 @@ class Wpfunos_Estadisticas {
 				'post_status' => 'publish',
 				'post_type' => 'usuarios_wpfunos',
 				'posts_per_page' => -1,
+				'meta_key' =>  'wpfunos_userVisitas',
+				'meta_value' => 1,
 				'date_query' => array(
 					array(
 						'year' => $cuando->format("Y"),
@@ -545,6 +542,8 @@ class Wpfunos_Estadisticas {
 				'post_status' => 'publish',
 				'post_type' => 'pag_serv_wpfunos',
 				'posts_per_page' => -1,
+				'meta_key' =>  'wpfunos_entradaServiciosVisitas',
+				'meta_value' => 1,
 				'date_query' => array(
 					array(
 						'year' => $cuando->format("Y"),

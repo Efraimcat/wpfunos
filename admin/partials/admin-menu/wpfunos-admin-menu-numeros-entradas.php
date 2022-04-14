@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 ?>
-<h3><?php esc_html_e( 'ENTRADAS', 'wpfunos' )?></h3>
+<h3><?php esc_html_e( 'ENTRADAS SERVICIOS', 'wpfunos' )?></h3>
 <table>
   <tr>
     <th colspan="2" style="width:250px;"><h2>Usuarios que han entrado al comparador</h2></th>

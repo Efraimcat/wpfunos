@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 ?>
-<h3><?php esc_html_e( 'UBICACIONES', 'wpfunos' )?></h3>
+<h3><?php esc_html_e( 'UBICACIONES SERVICIOS', 'wpfunos' )?></h3>
 <table>
   <tr>
     <th colspan="2" style="width:225px;"><h2>Usuarios que han enviado ubicación</h2></th>

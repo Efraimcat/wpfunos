@@ -70,6 +70,7 @@ class Wpfunos_Servicios {
       do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
       do_action('wpfunos_log', '$_GET[direccion]: ' . $_GET['direccion'] );
       do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
+      do_action('wpfunos_log', 'wpfid: ' . $_COOKIE[ 'wpfid' ]);
       $this->wpfunosEntradaUbicacion( $userIP , $_GET['wpf'], $_GET['referencia'], $_GET['direccion'], $_GET['CP'] , $_GET['distance'] );
       echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') );
     }elseif( isset($_GET['wpf'] ) ){
@@ -87,6 +88,7 @@ class Wpfunos_Servicios {
       do_action('wpfunos_log', '$cryptcode: ' . $cryptcode );
       do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
       do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
+      do_action('wpfunos_log', 'wpfid: ' . $_COOKIE[ 'wpfid' ]);
       if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){
         // Solo enviar lead si no se ha enviado anteriormente.
         if ( !get_post_meta( $IDusuario, 'wpfunos_userLead', true ) ){
@@ -314,7 +316,7 @@ class Wpfunos_Servicios {
     }
     if($_GET['accion'] == 1 ) $textoaccion = "Botón llamen servicios";
     if($_GET['accion'] == 2 ) $textoaccion = "Botón llamar servicios";
-    if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
+    if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
     if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
     
     $my_post = array(
@@ -376,6 +378,7 @@ class Wpfunos_Servicios {
         $this->plugin_name . '_userLNG' => sanitize_text_field( $_GET['lng'] ),
         $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
         $this->plugin_name . '_Dummy' => true,
+        'IDstamp' => $_COOKIE['wpfid'],
       ),
     );
     if( strlen( $_GET['telefonoUsuario'] ) > 3 ) {
@@ -388,6 +391,7 @@ class Wpfunos_Servicios {
       do_action('wpfunos_log', 'ID: ' . $post_id  );
       do_action('wpfunos_log', 'referencia: ' .  $_GET['referencia']  );
       do_action('wpfunos_log', 'telefonoUsuario: ' . $_GET['telefonoUsuario']  );
+      do_action('wpfunos_log', 'wpfid: ' . $_COOKIE[ 'wpfid' ]);
     }else{
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Error 2 Nuevo Usuario: ' . $userIP );
@@ -999,6 +1003,7 @@ class Wpfunos_Servicios {
         $this->plugin_name . '_ubicacionCP' => sanitize_text_field( $ubicacionCP ),
         $this->plugin_name . '_ubicacionVisitas' => $contador,
         $this->plugin_name . '_Dummy' => true,
+        'IDstamp' => $_COOKIE[ 'wpfid' ],
       ),
     );
     $post_id = wp_insert_post($my_post);

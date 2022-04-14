@@ -68,6 +68,10 @@ $userDesgloseDescuentoGenericoTotal = sanitize_text_field( $_POST[$this->plugin_
 $userAPITipo = sanitize_text_field( $_POST[$this->plugin_name . '_userAPITipo'] );
 $userAPIBody = sanitize_text_field( $_POST[$this->plugin_name . '_userAPIBody'] );
 $userAPIMessage = sanitize_text_field( $_POST[$this->plugin_name . '_userAPIMessage'] );
+$userAPImessagebody = sanitize_text_field( $_POST[$this->plugin_name . '_userAPImessagebody'] );
+$userAPImessageresponse = sanitize_text_field( $_POST[$this->plugin_name . '_userAPImessageresponse'] );
+$userAPImessagecode = sanitize_text_field( $_POST[$this->plugin_name . '_userAPImessagecode'] );
+$userAPImessagemessage = sanitize_text_field( $_POST[$this->plugin_name . '_userAPImessagemessage'] );
 
 $userIP = sanitize_text_field( $_POST[$this->plugin_name . '_userIP'] );
 $userAceptaPolitica = sanitize_text_field( $_POST[$this->plugin_name . '_userAceptaPolitica'] );
@@ -76,6 +80,7 @@ $userLNG = sanitize_text_field( $_POST[$this->plugin_name . '_userLNG'] );
 $userPluginVersion = sanitize_text_field( $_POST[$this->plugin_name . '_userPluginVersion'] );
 $userVisitas = sanitize_text_field( $_POST[$this->plugin_name . '_userVisitas'] );
 $Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
+$IDstamp= sanitize_text_field( $_POST['IDstamp'] );
 
 update_post_meta($post_id, $this->plugin_name . '_TimeStamp', $TimeStamp);
 update_post_meta($post_id, $this->plugin_name . '_userMail', $userMail);
@@ -130,9 +135,14 @@ update_post_meta($post_id, $this->plugin_name . '_userDesgloseDescuentoGenericoP
 update_post_meta($post_id, $this->plugin_name . '_userDesgloseDescuentoGenericoDescuento', $userDesgloseDescuentoGenericoDescuento );
 update_post_meta($post_id, $this->plugin_name . '_userDesgloseDescuentoGenericoTotal', $userDesgloseDescuentoGenericoTotal );
 
+
 update_post_meta($post_id, $this->plugin_name . '_userAPITipo', $userAPITipo);
 update_post_meta($post_id, $this->plugin_name . '_userAPIBody', $userAPIBody);
 update_post_meta($post_id, $this->plugin_name . '_userAPIMessage', $userAPIMessage);
+update_post_meta($post_id, $this->plugin_name . '_userAPIMessagebody', $userAPIMessagebody);
+update_post_meta($post_id, $this->plugin_name . '_userAPIMessageresponse', $userAPIMessageresponse);
+update_post_meta($post_id, $this->plugin_name . '_userAPIMessagecode', $userAPIMessagecode);
+update_post_meta($post_id, $this->plugin_name . '_userAPIMessagemessage', $userAPIMessagemessage);
 
 update_post_meta($post_id, $this->plugin_name . '_userIP', $userIP);
 update_post_meta($post_id, $this->plugin_name . '_userAceptaPolitica', $userAceptaPolitica);
@@ -141,3 +151,4 @@ update_post_meta($post_id, $this->plugin_name . '_userLNG', $userLNG);
 update_post_meta($post_id, $this->plugin_name . '_userPluginVersion', $userPluginVersion);
 update_post_meta($post_id, $this->plugin_name . '_userVisitas', $userVisitas);
 update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
+update_post_meta($post_id, 'IDstamp', $IDstamp);

@@ -257,6 +257,28 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPIMessage','name' => $this->plugin_name . '_userAPIMessage','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
         </tr>
+        
+        <tr>
+          <td><?php esc_html_e('Mensaje API body', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPIMessagebody','name' => $this->plugin_name . '_userAPIMessagebody','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+        </tr>
+        <tr>
+          <td><?php esc_html_e('Mensaje API response', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPIMessageresponse','name' => $this->plugin_name . '_userAPIMessageresponse','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+        </tr>
+        <tr>
+          <td><?php esc_html_e('Mensaje API code', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPIMessagecode','name' => $this->plugin_name . '_userAPIMessagecode','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+        </tr>
+        <tr>
+          <td><?php esc_html_e('Mensaje API message', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPIMessagemessage','name' => $this->plugin_name . '_userAPIMessagemessage','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+        </tr>
+        
         <tr>
           <td><?php esc_html_e('IP', 'wpfunos');?></td>
           <td style="width:5px;"></td>
@@ -286,6 +308,11 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('token', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_Dummy','name' => $this->plugin_name . '_Dummy','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
+        </tr>
+        <tr>
+          <td><?php esc_html_e('IDstamp', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'IDstamp','name' => 'IDstamp','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
         </tr>
       </table>
     </li>

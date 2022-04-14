@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/cpt
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
+$show_in_menu = '';
+if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' ) $show_in_menu = $this->plugin_name;
 $customPostTypeArgs = array(
   'label' => esc_html__('Funerarias', 'wpfunos'),
   'labels'=>
@@ -33,7 +35,7 @@ $customPostTypeArgs = array(
   'description' => esc_html__('Funerarias', 'wpfunos'),
   'exclude_from_search' => true,
   'show_ui' => true,
-  'show_in_menu' => $this->plugin_name,
+  'show_in_menu' => $show_in_menu,
   'supports'=>array('title', 'custom_fields'),
   'capability_type' => 'post',
   'capabilities' => array('create_posts' => true),

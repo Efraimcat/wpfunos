@@ -16,8 +16,10 @@ $entradaServiciosIP = sanitize_text_field( $_POST[$this->plugin_name . '_entrada
 $entradaServiciosReferer = sanitize_text_field( $_POST[$this->plugin_name . '_entradaServiciosReferer'] );
 $entradaServiciosVisitas = sanitize_text_field( $_POST[$this->plugin_name . '_entradaServiciosVisitas'] );
 $Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
+$IDstamp= sanitize_text_field( $_POST['IDstamp'] );
 
 update_post_meta($post_id, $this->plugin_name . '_entradaServiciosIP', $entradaServiciosIP);
 update_post_meta($post_id, $this->plugin_name . '_entradaServiciosReferer', $entradaServiciosReferer);
 update_post_meta($post_id, $this->plugin_name . '_entradaServiciosVisitas', $entradaServiciosVisitas);
 update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
+update_post_meta($post_id, 'IDstamp', $IDstamp);

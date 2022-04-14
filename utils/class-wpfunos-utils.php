@@ -13,17 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 class Wpfunos_Utils {
-  
+
   private $plugin_name;
   private $version;
-  
+
   public function __construct( $plugin_name, $version ) {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
-    add_action( 'init', array( $this, 'set_ip_cookie') );
     add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 );
     add_action( 'wpfunos_import', array( $this, 'wpfunosImport' ), 10, 1 );
     add_action( 'wpfunos-entrada-servicios', array( $this, 'wpfunosEntradaServicios') );
+    add_action( 'wpfunos-entrada-aseguradoras', array( $this, 'wpfunosEntradaAseguradoras') );
     add_filter( 'wpfunos_reserved_ip', array( $this, 'wpfunosReservedIPAction' ) );
     add_filter( 'wpfunos_ip_visits', array( $this, 'wpfunos_visitas_IP' ), 10, 3 );
     add_filter( 'wpfunos_count_visits', array( $this, 'wpfunos_contador_visitas' ), 10, 3 );
@@ -34,18 +34,18 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_crypt', array( $this, 'wpfunosCrypt' ), 10, 2 );
     add_filter( 'wpfunos_shortener', array( $this, 'wpfunosShortener' ), 10, 1 );
   }
-  
+
   /*********************************/
   /*****                      ******/
   /*********************************/
-  
+
   /**
   * Utility: Crypt/Decript HOOK: add_filter( 'wpfunos_crypt', array( $this, 'wpfunosCrypt' ), 10, 2 )
   */
   public function wpfunosCrypt( $string, $action ){
     return $this->wpfunosSimpleCrypt( $string, $action );
   }
-  
+
   /**
   * Utility: New log message HOOK: add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 )
   * do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
@@ -61,15 +61,15 @@ class Wpfunos_Utils {
   public function wpfunosImport(){
     include 'wpfunos-imports.php';
   }
-  
+
   /*********************************/
   /*****  UTILIDADES          ******/
   /*********************************/
-  
+
   /** **/
   /** **/
   /** **/
-  
+
   /**
   * Utility: Comprobar si la dirección IP debe registrar eventos o es una dirección de test.
   */
@@ -83,7 +83,7 @@ class Wpfunos_Utils {
     }
     return false;
   }
-  
+
   /**
   * Utility: Function to get the user IP address: add_filter( 'wpfunos_userIP', array( $this, 'wpfunosgetUserIP' ) )
   * $userIP = apply_filters('wpfunos_userIP','dummy');
@@ -108,7 +108,7 @@ class Wpfunos_Utils {
     $ipaddress = 'UNKNOWN';
     return $ipaddress;
   }
-  
+
   /**
   * ID usuario página resultados
   * Utility: UserID HOOK: add_filter( 'wpfunos_userID', array( $this, 'wpfunosGetUserid' ), 10, 1 )
@@ -131,7 +131,7 @@ class Wpfunos_Utils {
     wp_reset_postdata();
     return $ID;
   }
-  
+
   /**
   * Formatear texto comentarios
   * Utility: Formato Comentario HOOK: add_filter( 'wpfunos_comentario', array( $this, 'wpfunosFormatoComentario' ), 10, 1 );
@@ -142,7 +142,7 @@ class Wpfunos_Utils {
     $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content );
     return $customfield_content;
   }
-  
+
   /**
   *
   */
@@ -153,6 +153,7 @@ class Wpfunos_Utils {
     $this->custom_logs( $this->dumpPOST('1. - Entrada Comparador Servicios') );
     $this->custom_logs( $this->dumpPOST('userIP: ' . $userIP) );
     $this->custom_logs( $this->dumpPOST('referer: ' . substr($referer,0,150) ) );
+    $this->custom_logs( $this->dumpPOST('wpfid: ' . $_COOKIE[ 'wpfid' ] ));
     $args = array(
       'post_status' => 'publish',
       'post_type' => 'pag_serv_wpfunos',
@@ -177,10 +178,58 @@ class Wpfunos_Utils {
         $this->plugin_name . '_entradaServiciosReferer' => $referer,
         $this->plugin_name . '_entradaServiciosVisitas' => $contador,
         $this->plugin_name . '_Dummy' => true,
+        'IDstamp' => $_COOKIE[ 'wpfid' ],
       ),
     );
     $post_id = 'loggedin';
-    if( $_COOKIE['wpfunosloggedin'] != 'yes' ) $post_id = wp_insert_post($my_post);
+    $reserved = apply_filters('wpfunos_reserved_ip','dummy');
+    if( $_COOKIE['wpfunosloggedin'] != 'yes' && ! $reserved ) $post_id = wp_insert_post($my_post);
+    $this->custom_logs( $this->dumpPOST('Post ID: ' . $post_id ) );
+    $this->custom_logs( $this->dumpPOST('Visitas: ' . $contador ) );
+    return;
+  }
+
+  /**
+  *
+  */
+  public function wpfunosEntradaAseguradoras(){
+    $userIP = $this->wpfunosgetUserIP();
+    $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+    $this->custom_logs( $this->dumpPOST('==============') );
+    $this->custom_logs( $this->dumpPOST('1. - Entrada Comparador Aseguradoras') );
+    $this->custom_logs( $this->dumpPOST('userIP: ' . $userIP) );
+    $this->custom_logs( $this->dumpPOST('referer: ' . substr($referer,0,150) ) );
+    $this->custom_logs( $this->dumpPOST('wpfid: ' . $_COOKIE[ 'wpfid' ] ));
+    $args = array(
+      'post_status' => 'publish',
+      'post_type' => 'pag_aseg_wpfunos',
+      'posts_per_page' => -1,
+      'meta_key' =>  'wpfunos_entradaAseguradorasIP',
+      'meta_value' => $userIP,
+    );
+    $post_list = get_posts( $args );
+    $contador = 1;
+    if( $post_list ){
+      foreach ( $post_list as $post ) :
+        $contador++;
+      endforeach;
+      wp_reset_postdata();
+    }
+    $my_post = array(
+      'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+      'post_type' => 'pag_aseg_wpfunos',
+      'post_status'  => 'publish',
+      'meta_input'   => array(
+        $this->plugin_name . '_entradaAseguradorasIP' => $userIP ,
+        $this->plugin_name . '_entradaAseguradorasReferer' => $referer,
+        $this->plugin_name . '_entradaAseguradorasVisitas' => $contador,
+        $this->plugin_name . '_Dummy' => true,
+        'IDstamp' => $_COOKIE[ 'wpfid' ],
+      ),
+    );
+    $post_id = 'loggedin';
+    $reserved = apply_filters('wpfunos_reserved_ip','dummy');
+    if( $_COOKIE['wpfunosloggedin'] != 'yes' && ! $reserved ) $post_id = wp_insert_post($my_post);
     $this->custom_logs( $this->dumpPOST('Post ID: ' . $post_id ) );
     $this->custom_logs( $this->dumpPOST('Visitas: ' . $contador ) );
     return;
@@ -221,7 +270,7 @@ class Wpfunos_Utils {
       wp_reset_postdata();
     }
   }
-  
+
   /**
   *
   */
@@ -243,8 +292,8 @@ class Wpfunos_Utils {
     }
     return $contador;
   }
-  
-  
+
+
   /**
   * Utility: dump array for logfile.
   */
@@ -273,7 +322,7 @@ class Wpfunos_Utils {
     }
     return $retval;
   }
-  
+
   /**
   * Utility: dump array for logfile.
   */
@@ -302,7 +351,7 @@ class Wpfunos_Utils {
     }
     return $retval;
   }
-  
+
   /**
   * Utility: create entry in the log file.
   */
@@ -321,7 +370,7 @@ class Wpfunos_Utils {
     fputs($open, $ban);
     fclose( $open );
   }
-  
+
   /*
   * Utility: Crypt/Decript HOOK: add_filter( 'wpfunos_crypt', array( $this, 'wpfunosSimpleCrypt' ), 10, 2 )
   * $_GET['wpf'] = apply_filters( 'wpfunos_crypt', $_GET['referencia'] . ', ' . $_GET['CP'] , 'e' );
@@ -332,12 +381,12 @@ class Wpfunos_Utils {
   private function wpfunosSimpleCrypt( $string, $action = 'e' ) {
     $secret_key = 'WpFunos_secret_key';
     $secret_iv =  'WpFunos_secret_iv';
-    
+
     $output = false;
     $encrypt_method = "AES-256-CBC";
     $key = hash( 'sha256', $secret_key );
     $iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
-    
+
     if( $action == 'e' ) {
       $output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
     }
@@ -346,7 +395,7 @@ class Wpfunos_Utils {
     }
     return $output;
   }
-  
+
   /*
   * CUTTLY
   * https://cutt.ly/cuttly-api
@@ -360,22 +409,11 @@ class Wpfunos_Utils {
     $key = 'af16985a82db578c3a7aa2830ba2ec0950411';
     $timestamp = time();
     $name = '';
-    
+
     $json = file_get_contents($cuttly_url."?key=$key&short=$link&name=$name");
     $data = json_decode ($json, true);
     if($data["url"]["status"] == 7)	$short_url = $data["url"]["shortLink"];
     return $short_url;
   }
-  
-  /*
-  *
-  */
-  public function set_ip_cookie() {
-    $ipaddress = $this->wpfunosgetUserIP();
-    $codigo = $this->wpfunosSimpleCrypt( $ipaddress, 'e' );
-    $path = parse_url(get_option('siteurl'), PHP_URL_PATH);
-    $host = parse_url(get_option('siteurl'), PHP_URL_HOST);
-    $expiry = strtotime('+1 month');
-    setcookie('wpftoken', $codigo, ['expires' => $expiry, 'path' => '/', 'domain' => 'funos.es', 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-  }
+
 }
