@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/servicios/partials
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
+$_GET['esecologico'] = 1;
+if( $_GET['ecologico'] == '') $_GET['esecologico'] = 0;
+
 ?>
 <input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
 <input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
@@ -25,6 +28,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 <input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
 <input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
 <input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
+
+<input type="hidden" name="direccion" id="direccion" value="<?php echo get_post_meta( $value[0], 'wpfunos_servicioDireccion', true )?>" >
+<input type="hidden" name="textoconfirmado" id="textoconfirmado" value="<?php echo $_GET['textoconfirmado']?>" >
+<input type="hidden" name="textoprecio" id="textoprecio" value="<?php echo $_GET['textoprecio']?>" >
+<input type="hidden" name="valoracion" id="valoracion" value="<?php echo $_GET['valoracion']?>" >
+<input type="hidden" name="promo" id="promo" value="<?php echo get_post_meta( $value[0], 'wpfunos_servicioImagenPromo', true )?>" >
+<input type="hidden" name="esecologico" id="esecologico" value="<?php echo $_GET['esecologico'] ?>" >
 
 <input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $value[3][0][1] ?>" >
 <input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo number_format($value[3][0][2], 0, ',', '.') . '€' ?>" >

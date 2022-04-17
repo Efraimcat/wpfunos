@@ -47,6 +47,7 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildMail3' ));		//Botón "Que me llamen"
     add_action('admin_init', array( $this, 'registerAndBuildMail4' ));		//Botón "Llamar"
     add_action('admin_init', array( $this, 'registerAndBuildMail5' ));		//Datos usuario enviados
+    add_action('admin_init', array( $this, 'registerAndBuildMail6' ));		//Correo popup detalles
     add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildAPIDKV' ));
     add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
@@ -277,6 +278,9 @@ class Wpfunos_Admin {
   public function registerAndBuildMail5() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail5.php';
   }
+  public function registerAndBuildMail6() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail6.php';
+  }
   public function registerAndBuildAPIPreventiva() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIPreventiva.php';
   }
@@ -405,6 +409,22 @@ class Wpfunos_Admin {
     <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes varialbles:', 'wpfunos'); ?></p>
     <p>[nombreUsuario], [telefono], [Email], [referencia], [CPUsuario], [ubicacion], [seguro], [sexo],  [edad], [tipoAPI]</p>
+    <hr />
+    <?php
+  }
+  public function wpfunos_display_mail_account_popup_detalles() {
+    ?>
+    <hr/>
+    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p>[direccion], [textoconfirmado], [imagenconfirmado], [textoprecio], [imagenpromo], [imagenecologico]</p>
+    <p>[nombreServicio], [telefono], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
+    <p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
+    <p>[desgloseDestinoNombre], [TotaldesgloseDestinoTotal] = ( <i>[desgloseDestinoPrecio] + [desgloseDestinoDescuento] + [desgloseDestinoTotal]</i> )</p>
+    <p>[desgloseAtaudNombre], [TotaldesgloseAtaudTotal] = ( <i>[desgloseAtaudPrecio] + [desgloseAtaudDescuento] + [desgloseAtaudTotal]</i> )</p>
+    <p>[desgloseVelatorioNombre], [TotaldesgloseVelatorioTotal] = ( <i>[desgloseVelatorioPrecio] + [desgloseVelatorioDescuento] + [desgloseVelatorioTotal]</i> )</p>
+    <p>[desgloseCeremoniaNombre], [TotaldesgloseCeremoniaTotal] = ( <i>[desgloseCeremoniaPrecio] + [desgloseCeremoniaDescuento] + [desgloseCeremoniaTotal]</i> )</p>
+    <p>[desgloseDescuentoGenerico], [TotaldesgloseGenericoTotal] = ( <i>[desgloseDescuentoGenericoPrecio] + [desgloseDescuentoGenericoDescuento] + [desgloseDescuentoGenericoTotal]</i> )</p>
+    <p>[comentariosBase], [comentariosDestino], [comentariosAtaud], [comentariosVelatorio], [comentariosDespedida], [comentariosExtras]</p>
     <hr />
     <?php
   }

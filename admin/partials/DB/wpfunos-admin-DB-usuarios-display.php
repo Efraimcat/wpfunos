@@ -133,7 +133,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="servicios_wpfunos_list">
       <table>
         <tr>
-          <td>Nombre</td><td>Precio</td><td>Descuento</td><td>Total</td>
+          <td>Nombre</td><td></td><td>Precio</td><td></td><td>Descuento</td><td></td><td>Total</td>
         </tr>
         <tr>
           <td>

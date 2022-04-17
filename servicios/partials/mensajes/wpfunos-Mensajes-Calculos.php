@@ -17,6 +17,13 @@ $comentariosExtras = $this->wpfunosFormatoComentario( get_post_meta( $_GET['serv
 $respuesta = (explode(',',$_GET['seleccion']));
 $ubicacion = strtr($respuesta[0],"+",",");
 
+$direccion = get_post_meta( $_GET['servicio'], 'wpfunos_servicioDireccion', true );
+$imagenconfirmado = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
+if ( 'Precio no confirmado' === $_GET['textoconfirmado'] ) $imagenconfirmado = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenNoConfirmado', true ) , array(45,46));
+$imagenpromo = wp_get_attachment_image ( $_GET['promo'] ,'full' );
+$imagenecologico = '';
+if ( $_GET['esecologico'] == 1 ) $imagenecologico = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
+
 if( $respuesta[3] == 1 ) $comentariosDestino = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDestino_1Comentario', true ) );
 if( $respuesta[3] == 2 ) $comentariosDestino = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDestino_2Comentario', true ) );
 if( $respuesta[4] == 1 ) $comentariosAtaud = $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioAtaud_1Comentario', true ) );
@@ -35,6 +42,13 @@ $mensaje = str_replace( '[referencia]' , $_GET['referencia'] , $mensaje );
 $mensaje = str_replace( '[Email]' , $_GET['Email'] , $mensaje );
 $mensaje = str_replace( '[CPUsuario]' , $_GET['CPUsuario'] , $mensaje );
 $mensaje = str_replace( '[ubicacion]' , $ubicacion , $mensaje );
+
+$mensaje = str_replace( '[direccion]' , $direccion , $mensaje );
+$mensaje = str_replace( '[textoconfirmado]' , $_GET['textoconfirmado'] , $mensaje );
+$mensaje = str_replace( '[imagenconfirmado]' , $imagenconfirmado , $mensaje );
+$mensaje = str_replace( '[textoprecio]' , $_GET['textoprecio'] , $mensaje );
+$mensaje = str_replace( '[imagenpromo]' , $imagenpromo , $mensaje );
+$mensaje = str_replace( '[imagenecologico]' , $imagenecologico , $mensaje );
 
 $mensaje = str_replace( '[desgloseBaseNombre]' , $_GET['desgloseBaseNombre'] , $mensaje );
 $mensaje = str_replace( '[desgloseBasePrecio]' , $_GET['desgloseBasePrecio'] , $mensaje );

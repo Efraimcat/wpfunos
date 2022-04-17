@@ -31,6 +31,11 @@ class Wpfunos_Servicios {
     add_shortcode( 'wpfunos-resultados-estrellas', array( $this, 'wpfunosResultadosEstrellasShortcode' ));
     add_shortcode( 'wpfunos-resultados-detalles', array( $this, 'wpfunosResultadosDetallesShortcode' ));
     add_shortcode( 'wpfunos-resultados-detalles-comentarios', array( $this, 'wpfunosResultadosDetallesComentariosShortcode' ));
+    add_shortcode( 'wpfunos-resultados-detalles-botones', array( $this, 'wpfunosResultadosDetallesBotonesShortcode' ));
+    add_shortcode( 'wpfunos-resultados-detalles-logo', array( $this, 'wpfunosResultadosDetallesLogoShortcode' ));
+    add_shortcode( 'wpfunos-resultados-detalles-logo-confirmado', array( $this, 'wpfunosResultadosDetallesLogoConfirmadoShortcode' ));
+    add_shortcode( 'wpfunos-resultados-detalles-logo-ecologico', array( $this, 'wpfunosResultadosDetallesLogoEcologicoShortcode' ));
+    add_shortcode( 'wpfunos-resultados-detalles-logo-promo', array( $this, 'wpfunosResultadosDetallesLogoPromoShortcode' ));
     add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
     add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
     add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
@@ -177,6 +182,7 @@ class Wpfunos_Servicios {
     ), $atts );
     switch ( $a['boton'] ) {
       case 'logo': echo $_GET['logo'] ; break;
+      case 'promo': echo $_GET['promo'] ; break;
       case 'echo': echo $_GET['ecologico'] ; break;
       case 'confirmado': echo $_GET['confirmado'] ; break;
       case 'mapa': $idempresa = $_GET['servicio']; $shortcode = '[gmw_single_location object="post" object_id="' . $idempresa . '" elements="map,distance,address,directions_link" units="k" map_height="300px" map_width="100%"]'; echo do_shortcode($shortcode); break;
@@ -279,6 +285,62 @@ class Wpfunos_Servicios {
       echo '<h4><strong>Posibles Extras</strong></h4>';
       echo $this->wpfunosFormatoComentario( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPosiblesExtras', true ) );
     }
+  }
+  
+  /**
+  * Shortcode [wpfunos-resultados-detalles-botones]
+  */
+  public function wpfunosResultadosDetallesBotonesShortcode( $atts, $content = "" ) {
+    $a = shortcode_atts( array(
+      'boton'=>'',
+    ), $atts );
+    if( $a['boton'] == 'llamada' ){
+      $_GET['telefonoEmpresa'] = get_post_meta( $_GET['servicio'], 'wpfunos_servicioTelefono', true );
+      $tel = str_replace(" ","",$_GET['telefonoEmpresa']);
+      $tel = str_replace("-","",$tel);
+      $_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+      $tel = str_replace(" ","",$_GET['telefonoUsuario']);
+      $tel = str_replace("-","",$tel);
+      $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+      require 'partials/' . $this->plugin_name . '-servicios-detalles-botones-llamadas-display.php';
+    }elseif( $a['boton'] == 'correo' ){
+      require 'partials/' . $this->plugin_name . '-servicios-detalles-botones-correo-display.php';
+    }
+    
+  }
+  
+  /**
+  * Shortcode [wpfunos-resultados-detalles-logo]
+  */
+  public function wpfunosResultadosDetallesLogoShortcode( $atts, $content = "" ) {
+    echo wp_get_attachment_image ( get_post_meta( $_GET['servicio'], 'wpfunos_servicioLogo', true ) ,'full' );
+  }
+  
+  /**
+  * Shortcode [wpfunos-resultados-detalles-logo-confirmado]
+  */
+  public function wpfunosResultadosDetallesLogoConfirmadoShortcode( $atts, $content = "" ) {
+    if( 'Precio confirmado' === $_GET['textoconfirmado'] ){
+      echo wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
+    }else{
+      echo wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenNoConfirmado', true ) , array(45,46));
+    }
+  }
+  
+  /**
+  * Shortcode [wpfunos-resultados-detalles-logo-ecologico]
+  */
+  public function wpfunosResultadosDetallesLogoEcologicoShortcode( $atts, $content = "" ) {
+    if ( $_GET['esecologico'] == 1 ){
+      echo wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
+    }
+  }
+  
+  /**
+  * Shortcode [wpfunos-resultados-detalles-logo-promo]
+  */
+  public function wpfunosResultadosDetallesLogoPromoShortcode( $atts, $content = "" ) {
+    if( strlen ( $_GET['promo'] ) > 0 ) echo wp_get_attachment_image ( $_GET['promo'] ,'full' );
   }
   
   /*********************************/
@@ -472,6 +534,7 @@ class Wpfunos_Servicios {
         ?><div class="wpfunos-busqueda-contenedor"><?php
         $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
         $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
+        $_GET['promo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioImagenPromo', true ) ,'full' );
         $_GET['confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
         if( $value[4] ){
           $_GET['ecologico'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
@@ -858,6 +921,7 @@ class Wpfunos_Servicios {
   * Enviar Correo Lead
   */
   public function wpfunosResultCorreoLead( ){
+    if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
     if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Lead')){
       $mensaje = get_option('wpfunos_mensajeCorreoBoton1Lead');

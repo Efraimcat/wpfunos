@@ -485,7 +485,7 @@ class Wpfunos_Aseguradoras {
         $this->plugin_name . '_userLAT' => sanitize_text_field( $_GET['lat'] ),
         $this->plugin_name . '_userLNG' => sanitize_text_field( $_GET['lng'] ),
         $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
-        $this->plugin_name . '__userLead' => true,
+        $this->plugin_name . '_userLead' => true,
         $this->plugin_name . '_Dummy' => true,
         'IDstamp' => $_COOKIE['wpfid'],
       ),
