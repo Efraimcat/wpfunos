@@ -36,6 +36,7 @@ class Wpfunos_Servicios {
     add_shortcode( 'wpfunos-resultados-detalles-logo-confirmado', array( $this, 'wpfunosResultadosDetallesLogoConfirmadoShortcode' ));
     add_shortcode( 'wpfunos-resultados-detalles-logo-ecologico', array( $this, 'wpfunosResultadosDetallesLogoEcologicoShortcode' ));
     add_shortcode( 'wpfunos-resultados-detalles-logo-promo', array( $this, 'wpfunosResultadosDetallesLogoPromoShortcode' ));
+    add_shortcode( 'wpfunos-resultados-detalles-email', array( $this, 'wpfunosResultadosDetallesEmailShortcode' ));
     add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
     add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
     add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
@@ -341,6 +342,27 @@ class Wpfunos_Servicios {
   */
   public function wpfunosResultadosDetallesLogoPromoShortcode( $atts, $content = "" ) {
     if( strlen ( $_GET['promo'] ) > 0 ) echo wp_get_attachment_image ( $_GET['promo'] ,'full' );
+  }
+  
+  /**
+  * Shortcode [wpfunos-resultados-detalles-email]
+  */
+  public function wpfunosResultadosDetallesEmailShortcode( $atts, $content = "" ) {
+    if( strlen( $_GET['Email'] ) < 5 ) return;
+    $userIP = apply_filters('wpfunos_userIP','dummy');
+    $headers[] = 'Content-Type: text/html; charset=UTF-8';
+    $mensaje = get_option('wpfunos_mensajeCorreoPopupDetalles');
+    require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
+    if(!empty( get_option('wpfunos_mailCorreoCcoPopupDetalles' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPopupDetalles' ) ;
+    if(!empty( get_option('wpfunos_mailCorreoBccPopupDetalles' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPopupDetalles' ) ;
+    
+    wp_mail ( $_GET['Email'], get_option('wpfunos_asuntoCorreoPopupDetalles') , $mensaje, $headers );
+    
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Enviar correo detalles' );
+    do_action('wpfunos_log', 'userIP: ' . $userIP );
+    do_action('wpfunos_log', '$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
+    do_action('wpfunos_log', '$_GET[Email]: ' . $_GET['Email'] );
   }
   
   /*********************************/

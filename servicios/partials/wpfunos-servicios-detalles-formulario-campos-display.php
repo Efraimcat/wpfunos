@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $_GET['idUsuario']?>" >
 <input type="hidden" name="precio" id="precio" value="<?php echo $_GET['precio']?>" >
 <input type="hidden" name="preciodescuento" id="preciodescuento" value="<?php echo $_GET['preciodescuento']?>" >
-<input type="hidden" name="servicio" id="servicio" value="<?php echo $value[0]?>" >
+<input type="hidden" name="servicio" id="servicio" value="<?php echo $_GET['servicio']?>" >
 <input type="hidden" name="seleccion" id="seleccion" value="<?php echo $_GET['seleccionUsuario']?>" >
 <input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
 

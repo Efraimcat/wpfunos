@@ -30,7 +30,7 @@ add_settings_field(
 // Página detalles
 add_settings_field(
   $this->plugin_name . '_paginaDetalles',
-  'Página detalles <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaDetalles)</h6>', 
+  'Página detalles <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaDetalles)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
@@ -54,10 +54,19 @@ add_settings_field(
   'wpfunos_general_pagina_section',
   array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_paginaLlamen','name' => $this->plugin_name . '_paginaLlamen','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
+// Página Envien correo
+add_settings_field(
+  $this->plugin_name . '_paginaEmail',
+  'Página que envien Email <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaEmail)</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_general_settings',
+  'wpfunos_general_pagina_section',
+  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_paginaEmail','name' => $this->plugin_name . '_paginaEmail','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
 // URL resultados servicios
 add_settings_field(
   $this->plugin_name . '_paginaURLResultadosServicios',
-  'URL página resultados servicios <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaURLResultadosServicios)</h6>', 
+  'URL página resultados servicios <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaURLResultadosServicios)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
@@ -66,7 +75,7 @@ add_settings_field(
 // Orden inicial resultados
 add_settings_field(
   $this->plugin_name . '_paginaComparadorOrden',
-  'Orden inicial resultados ("precios" o "dist") <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorOrden)</h6>', 
+  'Orden inicial resultados ("precios" o "dist") <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorOrden)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
@@ -75,7 +84,7 @@ add_settings_field(
 // Formulario GEO my wp ubicación
 add_settings_field(
   $this->plugin_name . '_paginaComparadorGeoMyWp',
-  'Formulario GEO my wp ubicación <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorGeoMyWp)</h6>', 
+  'Formulario GEO my wp ubicación <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorGeoMyWp)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
@@ -84,7 +93,7 @@ add_settings_field(
 // Página comparador Aseguradoras
 add_settings_field(
   $this->plugin_name . '_paginaComparadorAseguradoras',
-  'Página comparador Aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorAseguradoras)</h6>', 
+  'Página comparador Aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparadorAseguradoras)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
@@ -93,7 +102,7 @@ add_settings_field(
 // URL resultados aseguradoras
 add_settings_field(
   $this->plugin_name . '_paginaURLResultadosAseguradoras',
-  'URL página resultados aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaURLResultadosAseguradoras)</h6>', 
+  'URL página resultados aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaURLResultadosAseguradoras)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
@@ -113,6 +122,7 @@ register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaCompar
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaDetalles');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaLlamar');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaLlamen');
+register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaEmail');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaURLResultadosServicios');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaComparadorGeoMyWp');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaComparadorOrden');

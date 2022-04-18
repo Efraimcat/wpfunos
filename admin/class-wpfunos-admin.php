@@ -416,8 +416,8 @@ class Wpfunos_Admin {
     ?>
     <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
-    <p>[direccion], [textoconfirmado], [imagenconfirmado], [textoprecio], [imagenpromo], [imagenecologico]</p>
-    <p>[nombreServicio], [telefono], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
+    <p>[logoServicio], [direccion], [textoconfirmado], [imagenconfirmado], [textoprecio], [imagenpromo], [imagenecologico]</p>
+    <p>[nombreServicio], [nombrepack], [telefono], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
     <p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
     <p>[desgloseDestinoNombre], [TotaldesgloseDestinoTotal] = ( <i>[desgloseDestinoPrecio] + [desgloseDestinoDescuento] + [desgloseDestinoTotal]</i> )</p>
     <p>[desgloseAtaudNombre], [TotaldesgloseAtaudTotal] = ( <i>[desgloseAtaudPrecio] + [desgloseAtaudDescuento] + [desgloseAtaudTotal]</i> )</p>

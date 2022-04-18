@@ -30,7 +30,7 @@ add_settings_field(
 // Página que me llamen
 add_settings_field(
   $this->plugin_name . '_paginaAseguradorasLlamen',
-  'Página aseguradoras qque me llamen <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaAseguradorasLlamen)</h6>',
+  'Página aseguradoras que me llamen <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaAseguradorasLlamen)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_aseguradoras_settings',
   'wpfunos_aseguradoras_section',
