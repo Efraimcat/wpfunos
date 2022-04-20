@@ -23,6 +23,7 @@ $imagenpromo = wp_get_attachment_image ( $_GET['promo'] ,'full' );
 $imagenecologico = '';
 if ( $_GET['esecologico'] == 1 ) $imagenecologico = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
 $logoServicio = wp_get_attachment_image (  get_post_meta( $_GET['servicio'] , $this->plugin_name . '_servicioLogo', true ) , full);
+$telefonoServicio = get_post_meta( $_GET['servicio'] , $this->plugin_name . '_servicioTelefono', true );
 
 if( $respuesta[3] == 1 ) $comentariosDestino = apply_filters('wpfunos_comentario', get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDestino_1Comentario', true ) );
 if( $respuesta[3] == 2 ) $comentariosDestino = apply_filters('wpfunos_comentario', get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioDestino_2Comentario', true ) );
@@ -43,6 +44,9 @@ $mensaje = str_replace( '[referencia]' , $_GET['referencia'] , $mensaje );
 $mensaje = str_replace( '[Email]' , $_GET['Email'] , $mensaje );
 $mensaje = str_replace( '[CPUsuario]' , $_GET['CPUsuario'] , $mensaje );
 $mensaje = str_replace( '[ubicacion]' , $ubicacion , $mensaje );
+
+$mensaje = str_replace( '[telefonoUsuario]' , $_GET['telefonoUsuario'] , $mensaje );
+$mensaje = str_replace( '[telefonoServicio]' , $telefonoServicio , $mensaje );
 
 $mensaje = str_replace( '[direccion]' , $_GET['direccion'], $mensaje );
 $mensaje = str_replace( '[textoconfirmado]' , $_GET['textoconfirmado'] , $mensaje );

@@ -86,18 +86,18 @@ class Wpfunos_Admin {
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-admin.js', array( 'jquery' ), $this->version, false );
   }
-  
+
   /*********************************/
   /*****  CRON                ******/
   /*********************************/
-  
+
   /**
   * Register the Cron Job.
   */
   public function wpfunosCron() {
     $this->wpfunosMaintenance();
   }
-  
+
   /**
   * Register the Cron Job Schedule.
   */
@@ -110,16 +110,16 @@ class Wpfunos_Admin {
     }
     return $schedules;
   }
-  
+
   /*********************************/
   /*****  SHORTCODES          ******/
   /*********************************/
-  
-  
+
+
   /*********************************/
   /*****  MENUS               ******/
   /*********************************/
-  
+
   /**
   * Admin menu.
   */
@@ -141,7 +141,7 @@ class Wpfunos_Admin {
     }
     add_submenu_page( $this->plugin_name.'directorio', esc_html__('Configuración directorio WpFunos', 'wpfunos'), esc_html__('Configuración del directorio', 'wpfunos'), 'administrator', $this->plugin_name . '-settingsdirectorio', array( $this, 'displayDirectorionSettings' ));
   }
-  
+
   /**
   * Admin menu display.
   */
@@ -149,18 +149,15 @@ class Wpfunos_Admin {
     require_once 'partials/' . $this->plugin_name . '-admin-display.php';
   }
   public function display_plugin_admin_config_dashboard(){
-    //require_once 'partials/' . $this->plugin_name . '-admin-display.php';
     require_once 'partials/' . $this->plugin_name . '-admin-config-display.php';
   }
   public function display_plugin_admin_directorio_dashboard(){
-    //require_once 'partials/' . $this->plugin_name . '-admin-display.php';
     require_once 'partials/' . $this->plugin_name . '-admin-directorio-display.php';
   }
   public function display_plugin_admin_import_dashboard(){
-    //require_once 'partials/' . $this->plugin_name . '-admin-display.php';
     require_once 'partials/' . $this->plugin_name . '-admin-import-display.php';
   }
-  
+
   /**
   * Settings menu display.
   */
@@ -181,7 +178,7 @@ class Wpfunos_Admin {
     }
     require_once 'partials/' . $this->plugin_name . '-admin-aseguradoras-display.php';
   }
-  
+
   /**
   * Mail menu display.
   */
@@ -222,7 +219,7 @@ class Wpfunos_Admin {
     }
     require_once 'partials/' . $this->plugin_name . '-admin-direccionesIP-display.php';
   }
-  
+
   /**
   * Logs menu display.
   */
@@ -243,11 +240,11 @@ class Wpfunos_Admin {
     }
     require_once 'partials/' . $this->plugin_name . '-admin-directorio-settings-display.php';
   }
-  
+
   /*********************************/
   /*****  REGISTRAR CAMPOS    ******/
   /*********************************/
-  
+
   /**
   * Registro de campos registros de wordpress
   */
@@ -314,7 +311,7 @@ class Wpfunos_Admin {
   public function registerAndBuildFieldsDirectorio() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDirectorio.php';
   }
-  
+
   /**
   * Display Admin settings error messages.
   */
@@ -329,11 +326,11 @@ class Wpfunos_Admin {
     $type = 'error';
     add_settings_error($setting_field, $err_code, $message, $type);
   }
-  
+
   /*********************************/
   /*****  DISPLAY MENUS       ******/
   /*********************************/
-  
+
   /**
   * Display Admin settings display name.
   */
@@ -376,16 +373,16 @@ class Wpfunos_Admin {
     ?><p><?php esc_html_e('Plantilla de resultados sin precio', 'wpfunos'); ?></p><?php
   }
   public function wpfunos_display_APIPreventiva_account(){
-    
+
   }
   public function wpfunos_display_APIDKV_account(){
-    
+
   }
   public function wpfunos_display_mail_account() {
     ?>
     <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
-    <p>[nombreServicio], [telefono], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
+    <p>[nombreServicio], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
     <p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
     <p>[desgloseDestinoNombre], [TotaldesgloseDestinoTotal] = ( <i>[desgloseDestinoPrecio] + [desgloseDestinoDescuento] + [desgloseDestinoTotal]</i> )</p>
     <p>[desgloseAtaudNombre], [TotaldesgloseAtaudTotal] = ( <i>[desgloseAtaudPrecio] + [desgloseAtaudDescuento] + [desgloseAtaudTotal]</i> )</p>
@@ -417,7 +414,7 @@ class Wpfunos_Admin {
     <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
     <p>[logoServicio], [direccion], [textoconfirmado], [imagenconfirmado], [textoprecio], [imagenpromo], [imagenecologico]</p>
-    <p>[nombreServicio], [nombrepack], [telefono], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
+    <p>[nombreServicio], [nombrepack], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
     <p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
     <p>[desgloseDestinoNombre], [TotaldesgloseDestinoTotal] = ( <i>[desgloseDestinoPrecio] + [desgloseDestinoDescuento] + [desgloseDestinoTotal]</i> )</p>
     <p>[desgloseAtaudNombre], [TotaldesgloseAtaudTotal] = ( <i>[desgloseAtaudPrecio] + [desgloseAtaudDescuento] + [desgloseAtaudTotal]</i> )</p>
@@ -434,12 +431,12 @@ class Wpfunos_Admin {
   public function wpfunos_display_direccionesip_account() {
     ?><p><?php esc_html_e('Configuración direcciones IP desarrollo.', 'wpfunos'); ?></p><?php
   }
-  
-  
+
+
   /*********************************/
   /*****  METABOXES  CPT      ******/
   /*********************************/
-  
+
   /**
   * Custom Post Type Metaboxes
   */
@@ -507,11 +504,11 @@ class Wpfunos_Admin {
     add_meta_box('pag_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_aseg_wpfunos_data_meta_box'), 'pag_aseg_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'pag_aseg_wpfunos', 'normal');
   }
-  
+
   /*********************************/
   /*****  SALVAR DATOS META CPT ****/
   /*********************************/
-  
+
   /**
   * Metabox Save fields
   */
@@ -526,7 +523,7 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     // Make sure that it is set.
     if (! isset($_POST[$this->plugin_name . '_TimeStamp']) ) return;
-    
+
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-usuarios-fields.php';
   }
   public function savefunerarias_wpfunosMetaBoxData( $post_id ){
@@ -694,11 +691,11 @@ class Wpfunos_Admin {
   public function entrada_aseguradoras_custom_post_type(){
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-pag-aseg.php';
   }
-  
+
   /*********************************/
   /*****  MOSTRAR METABOXES   ******/
   /*********************************/
-  
+
   /**
   * Add fields to Metabox
   */
@@ -757,7 +754,7 @@ class Wpfunos_Admin {
   /*********************************/
   /*****  RENDERS             ******/
   /*********************************/
-  
+
   /**
   * Custom Post Type Metabox Render fields.
   */
@@ -768,7 +765,7 @@ class Wpfunos_Admin {
     } elseif ($args['wp_data'] == 'post_meta') {
       $wp_data_value = get_post_meta($args['post_id'], $args['name'], true);
     }
-    
+
     switch ($args['type']) {
       case 'input':
       $value = ($args['value_type'] == 'serialized') ? serialize($wp_data_value) : $wp_data_value;
@@ -801,7 +798,7 @@ class Wpfunos_Admin {
       break;
     }
   }
-  
+
   /**
   * Metabox wp editor
   */
@@ -811,15 +808,15 @@ class Wpfunos_Admin {
     $settings  = array('wpautop' => false,);
     wp_editor( $content, $editor_id, $settings );
   }
-  
+
   /** **/
   /** **/
   /** **/
-  
+
   /*********************************/
   /*****  UTILIDADES          ******/
   /*********************************/
-  
+
   /**
   * Cron job maintenance tasks.
   */
@@ -901,7 +898,7 @@ class Wpfunos_Admin {
     fputs($open, $ban);
     fclose( $open );
   }
-  
+
   /**
   * GZIPs a file on disk (appending .gz to the name)
   *
@@ -934,7 +931,7 @@ class Wpfunos_Admin {
     else
     return $dest;
   }
-  
+
   /**
   * Utility: create entry in the log file.
   * <input type="hidden" name="actualizargmw" id="actualizargmw" value="1" >
@@ -955,7 +952,7 @@ class Wpfunos_Admin {
       wp_reset_postdata();
     }
   }
-  
+
   /**
   * Utility: Update gmw map address
   */
@@ -988,5 +985,5 @@ class Wpfunos_Admin {
     //run the udpate location function
     gmw_update_post_location( $post_id, $address );
   }
-  
+
 }

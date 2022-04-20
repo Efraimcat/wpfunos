@@ -8,7 +8,7 @@
 * Plugin Name:       wpfunos
 * Plugin URI:        https://github.com/Efraimcat/wpfunos/
 * Description:       Funcionalidades para funos.es
-* Version:           1.7.14
+* Version:           1.7.15
 * Author:            Efraim Bayarri
 * Author URI:        https://efraim.cat
 * License:           GPL-2.0+
@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 * Start at version 1.0.0 and use SemVer - https://semver.org
 * Rename this for your plugin and update it as you release new versions.
 */
-define( 'WPFUNOS_VERSION', '1.7.14' );
+define( 'WPFUNOS_VERSION', '1.7.15' );
 /**
 *|--------------------------------------------------------------------------
 *| CONSTANTS
@@ -78,9 +78,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wpfunos.php';
 * @since    1.0.0
 */
 function run_wpfunos() {
-	
+
 	$plugin = new Wpfunos();
 	$plugin->run();
-	
+
 }
 run_wpfunos();
