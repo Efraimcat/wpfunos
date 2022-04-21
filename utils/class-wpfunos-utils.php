@@ -426,7 +426,6 @@ class Wpfunos_Utils {
   */
   private function wpfunosMessageFormat( $message, $title='funos' ){
     if( strpos( $message, '<head>' ) ) return;
-
     $contenido = '<!doctype html>
     <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
     <head>
@@ -436,7 +435,6 @@ class Wpfunos_Utils {
     <title>' . $title . '</title>
     </head>
     <body>' . $message . '</body></html>';
-
     return $contenido;
   }
 
