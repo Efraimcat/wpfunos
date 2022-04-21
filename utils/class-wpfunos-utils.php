@@ -33,6 +33,7 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_comentario', array( $this, 'wpfunosFormatoComentario' ), 10, 1 );
     add_filter( 'wpfunos_crypt', array( $this, 'wpfunosCrypt' ), 10, 2 );
     add_filter( 'wpfunos_shortener', array( $this, 'wpfunosShortener' ), 10, 1 );
+    add_filter( 'wpfunos_message_format', array( $this, 'wpfunosMessageFormat' ), 10, 2 );
   }
 
   /*********************************/
@@ -234,7 +235,7 @@ class Wpfunos_Utils {
     $this->custom_logs( $this->dumpPOST('Visitas: ' . $contador ) );
     return;
   }
-  
+
   /**
   *
   */
@@ -402,7 +403,7 @@ class Wpfunos_Utils {
   * add_filter( 'wpfunos_shortener', array( $this, 'wpfunosShortener' ), 10, 1 );
   * $newURL = apply_filters('wpfunos_shortener', $URL );
   */
-  function wpfunosShortener($original_url){
+  private function wpfunosShortener($original_url){
     $short_url = $original_url;
     $cuttly_url = 'https://cutt.ly/api/api.php';
     $link = urlencode($original_url);
@@ -414,6 +415,30 @@ class Wpfunos_Utils {
     $data = json_decode ($json, true);
     if($data["url"]["status"] == 7)	$short_url = $data["url"]["shortLink"];
     return $short_url;
+  }
+
+  /*
+  * Utility: Format email message: add_filter( 'wpfunos_message_format', array( $this, 'wpfunosMessageFormat' ), 10, 2 );
+  * $message = message to be formated.
+  * $title = title of the message
+  *
+  * $message = apply_filters( 'wpfunos_message_format', $message, $title );
+  */
+  private function wpfunosMessageFormat( $message, $title='funos' ){
+    if( strpos( $message, '<head>' ) ) return;
+
+    $contenido = '<!doctype html>
+    <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+    <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>' . $title . '</title>
+    </head>
+    <body>' . $message . '</body></html>';
+
+    return $contenido;
+
   }
 
 }

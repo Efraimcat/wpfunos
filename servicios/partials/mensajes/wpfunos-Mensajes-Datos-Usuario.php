@@ -17,6 +17,8 @@ $_GET['seleccion'] = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
 $respuesta = (explode(',',$_GET['seleccion']));
 $ubicacion = strtr($respuesta[0],"+",",");
 $userIP = apply_filters('wpfunos_userIP','dummy');
+$userwpf = get_post_meta( $IDusuario, 'wpfunos_userwpf', true );
+$userURL = get_post_meta( $IDusuario, 'wpfunos_userURL', true );
 $Email = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
 $Nombre = get_post_meta( $IDusuario, 'wpfunos_userName', true );
 $Telefono = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
@@ -26,11 +28,13 @@ $Destino = get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionServicio', tru
 $Ataud = get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionAtaud', true );
 $Velatorio = get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionVelatorio', true );
 $Despedida = get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionDespedida', true );
-	
+
 
 $mensaje = str_replace( '[Email]' , $Email , $mensaje );
 $mensaje = str_replace( '[referencia]' , $_GET['referencia'] , $mensaje );
 $mensaje = str_replace( '[IP]' , $userIP , $mensaje );
+$mensaje = str_replace( '[wpf]' , $userwpf , $mensaje );
+$mensaje = str_replace( '[URL]' , $userURL , $mensaje );
 $mensaje = str_replace( '[Nombre]' , $Nombre , $mensaje );
 $mensaje = str_replace( '[Telefono]' , $Telefono , $mensaje );
 $mensaje = str_replace( '[address]' , $ubicacion , $mensaje );

@@ -397,7 +397,7 @@ class Wpfunos_Admin {
     ?>
     <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
-    <p>[Email], [referencia], [Nombre], [Telefono], [address], [CP], [IP], [Destino], [Ataud], [Velatorio], [Despedida]</p>
+    <p>[Email], [referencia], [Nombre], [Telefono], [address], [CP], [IP], [wpf], [URL], [Destino], [Ataud], [Velatorio], [Despedida]</p>
     <hr />
     <?php
   }
