@@ -1096,6 +1096,7 @@ class Wpfunos_Servicios {
     );
     $post_id = wp_insert_post($my_post);
   }
+  
   /**
   * Enviar Correo entrada datos usuario
   */
