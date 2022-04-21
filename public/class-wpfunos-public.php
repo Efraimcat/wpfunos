@@ -202,7 +202,7 @@ class Wpfunos_Public {
           $this->plugin_name . '_userSeleccion' => sanitize_text_field( str_replace(",","+",$fields['address']).', '.$fields['distance'].', 1, '. $fields['Destino'].', '.$fields['Ataud'].', '.$fields['Velatorio'].', '.$fields['Despedida']),
           $this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
           $this->plugin_name . '_userwpf' => sanitize_text_field( $fields['wpf'] ),
-          $this->plugin_name . '_userIP' => sanitize_text_field( $userURL ),
+          $this->plugin_name . '_userURL' => sanitize_text_field( $userURL ),
           $this->plugin_name . '_userAceptaPolitica' => '1',
           $this->plugin_name . '_userLAT' => sanitize_text_field( $fields['lat'] ),
           $this->plugin_name . '_userLNG' => sanitize_text_field( $fields['lng'] ),

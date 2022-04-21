@@ -425,6 +425,8 @@ class Wpfunos_Utils {
   * $message = apply_filters( 'wpfunos_message_format', $message, $title );
   */
   private function wpfunosMessageFormat( $message, $title='funos' ){
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'wpfunosMessageFormat: $message: ' . $message );
     if( strpos( $message, '<head>' ) ) return;
 
     $contenido = '<!doctype html>
@@ -436,7 +438,7 @@ class Wpfunos_Utils {
     <title>' . $title . '</title>
     </head>
     <body>' . $message . '</body></html>';
-
+    do_action('wpfunos_log', 'wpfunosMessageFormat: $contenido: ' . $contenido );
     return $contenido;
 
   }

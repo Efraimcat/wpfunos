@@ -1104,9 +1104,8 @@ class Wpfunos_Servicios {
     if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
-    $mensaje = get_option('wpfunos_mensajeCorreoDatosEntrados');
+    $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoDatosEntrados'), get_option('wpfunos_asuntoCorreoDatosEntrados') );
     require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
-    $mensaje = apply_filters( 'wpfunos_message_format', $mensaje, get_option('wpfunos_asuntoCorreoDatosEntrados') );
     if(!empty( get_option('wpfunos_mailCorreoCcoDatosEntrados' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoDatosEntrados' ) ;
     if(!empty( get_option('wpfunos_mailCorreoBccDatosEntrados' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccDatosEntrados' ) ;
 
