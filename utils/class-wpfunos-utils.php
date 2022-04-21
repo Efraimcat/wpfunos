@@ -403,7 +403,7 @@ class Wpfunos_Utils {
   * add_filter( 'wpfunos_shortener', array( $this, 'wpfunosShortener' ), 10, 1 );
   * $newURL = apply_filters('wpfunos_shortener', $URL );
   */
-  private function wpfunosShortener($original_url){
+  public function wpfunosShortener($original_url){
     $short_url = $original_url;
     $cuttly_url = 'https://cutt.ly/api/api.php';
     $link = urlencode($original_url);
@@ -424,7 +424,7 @@ class Wpfunos_Utils {
   *
   * $message = apply_filters( 'wpfunos_message_format', $message, $title );
   */
-  private function wpfunosMessageFormat( $message, $title='funos' ){
+  public function wpfunosMessageFormat( $message, $title='funos' ){
     if( strpos( $message, '<head>' ) ) return;
     $contenido = '<!doctype html>
     <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
