@@ -69,6 +69,30 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
       </table>
     </li>
+
+    <hr/>
+    <li class="servicios_wpfunos_list">
+      <table>
+        <tr>
+          <td colspan="2"><?php esc_html_e('Imagen 1', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td colspan="2"><?php esc_html_e('Imagen 2', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td colspan="2"><?php esc_html_e('Imagen 3', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenSlider1','name' => $this->plugin_name . '_servicioImagenSlider1','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenSlider1', true ), array('150', '150') ); ?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenSlider2','name' => $this->plugin_name . '_servicioImagenSlider2','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenSlider2', true ), array('150', '150') ); ?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenSlider3','name' => $this->plugin_name . '_servicioImagenSlider3','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenSlider3', true ), array('150', '150') ); ?></td>
+        </tr>
+      </table>
+    </li>
+
     <hr/>
     <li class="servicios_wpfunos_list">
       <table>

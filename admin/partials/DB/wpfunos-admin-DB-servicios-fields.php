@@ -31,6 +31,12 @@ $servicioTextoPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servic
 $servicioImagenPromo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenPromo'] );
 $Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
 
+$servicioImagenSlider1 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider1'] );
+$servicioImagenSlider2 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider2'] );
+$servicioImagenSlider3 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider3'] );
+$servicioImagenSlider4 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider4'] );
+$servicioImagenSlider5 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider5'] );
+
 $servicioPackNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPackNombre'] );
 $servicioPrecioBase = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioBase'] );
 $servicioPrecioBaseDescuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioBaseDescuento'] );
@@ -157,6 +163,12 @@ update_post_meta($post_id, $this->plugin_name . '_servicioBotonesLlamar', $servi
 update_post_meta($post_id, $this->plugin_name . '_servicioTextoPrecio', $servicioTextoPrecio);
 update_post_meta($post_id, $this->plugin_name . '_servicioImagenPromo', $servicioImagenPromo);
 update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
+
+update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider1', $servicioImagenSlider1);
+update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider2', $servicioImagenSlider2);
+update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider3', $servicioImagenSlider3);
+update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider4', $servicioImagenSlider4);
+update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider5', $servicioImagenSlider5);
 
 update_post_meta($post_id, $this->plugin_name . '_servicioPackNombre', $servicioPackNombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBase', $servicioPrecioBase);

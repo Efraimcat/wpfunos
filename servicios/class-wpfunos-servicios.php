@@ -601,6 +601,7 @@ class Wpfunos_Servicios {
         }else{
           echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoInferior') ) ;
         }
+        require 'partials/' . $this->plugin_name . '-servicios-confirmado-imagenes-display.php';
         ?></div><?php
       }
     }
@@ -1096,7 +1097,7 @@ class Wpfunos_Servicios {
     );
     $post_id = wp_insert_post($my_post);
   }
-  
+
   /**
   * Enviar Correo entrada datos usuario
   */
