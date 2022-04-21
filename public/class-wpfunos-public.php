@@ -21,17 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 * 4 - cold lead aseguradoras
 */
 class Wpfunos_Public {
-  
+
   private $plugin_name;
   private $version;
-  
+
   public function __construct( $plugin_name, $version ) {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
     add_shortcode( 'wpfunos-resultados', array( $this, 'wpfunosResultadosShortcode' ));
     add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
   }
-  
+
   /**
   * Register the stylesheets for the public-facing side of the site.
   *
@@ -40,7 +40,7 @@ class Wpfunos_Public {
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-public.css', array(), $this->version, 'all' );
   }
-  
+
   /**
   * Register the JavaScript for the public-facing side of the site.
   *
@@ -49,11 +49,11 @@ class Wpfunos_Public {
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-public.js', array( 'jquery' ), $this->version, false );
   }
-  
+
   /*********************************/
   /*****  SHORTCODES          ******/
   /*********************************/
-  
+
   /**
   * Shortcode [wpfunos-resultados]
   */
@@ -108,11 +108,11 @@ class Wpfunos_Public {
       case '8': esc_html_e( $respuesta[3] );break; //Año de nacimiento
     }
   }
-  
+
   /*********************************/
   /*****  HOOKS               ******/
   /*********************************/
-  
+
   /**
   * Hook Elementor Form New Record
   *
@@ -136,7 +136,8 @@ class Wpfunos_Public {
     $tel = str_replace("-","",$tel);
     $fields['Telefono'] =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
     $userIP = apply_filters('wpfunos_userIP','dummy');
-    
+    //https://funos.es/comparar-precios?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"]&orden=precios
+    $userURL= 'https://funos.es/comparar-precios?address%5B%5D=' .$fields['address']. '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=4&action=fs&wpf=' .$fields['wpf']. '&orden=precios';
     switch ( $fields['Destino'] ) {
       case '1': $userNombreSeleccionServicio = 'Entierro'; break;
       case '2': $userNombreSeleccionServicio = 'Incineración'; break;
@@ -156,7 +157,7 @@ class Wpfunos_Public {
       case '3': $userNombreSeleccionDespedida = 'Ceremonia civil'; break;
       case '4': $userNombreSeleccionDespedida = 'Ceremonia religiosa'; break;
     }
-    
+
     if( $form_name == 'FormularioDatos' ){
       $textoaccion = "Entrada datos servicios";
       if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
@@ -200,6 +201,8 @@ class Wpfunos_Public {
           $this->plugin_name . '_userNombreSeleccionDespedida' => sanitize_text_field( $userNombreSeleccionDespedida ),
           $this->plugin_name . '_userSeleccion' => sanitize_text_field( str_replace(",","+",$fields['address']).', '.$fields['distance'].', 1, '. $fields['Destino'].', '.$fields['Ataud'].', '.$fields['Velatorio'].', '.$fields['Despedida']),
           $this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
+          $this->plugin_name . '_userwpf' => sanitize_text_field( $fields['wpf'] ),
+          $this->plugin_name . '_userIP' => sanitize_text_field( $userURL ),
           $this->plugin_name . '_userAceptaPolitica' => '1',
           $this->plugin_name . '_userLAT' => sanitize_text_field( $fields['lat'] ),
           $this->plugin_name . '_userLNG' => sanitize_text_field( $fields['lng'] ),

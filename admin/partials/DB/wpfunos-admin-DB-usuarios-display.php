@@ -257,7 +257,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPIMessage','name' => $this->plugin_name . '_userAPIMessage','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
         </tr>
-        
+
         <tr>
           <td><?php esc_html_e('Mensaje API body', 'wpfunos');?></td>
           <td style="width:5px;"></td>
@@ -278,7 +278,17 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userAPIMessagemessage','name' => $this->plugin_name . '_userAPIMessagemessage','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
         </tr>
-        
+
+        <tr>
+          <td><?php esc_html_e('wpf', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userwpf','name' => $this->plugin_name . '_userwpf','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+        </tr>
+        <tr>
+          <td><?php esc_html_e('URL', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userURL','name' => $this->plugin_name . '_userURL','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+        </tr>
         <tr>
           <td><?php esc_html_e('IP', 'wpfunos');?></td>
           <td style="width:5px;"></td>
