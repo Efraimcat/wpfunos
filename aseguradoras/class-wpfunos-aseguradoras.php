@@ -13,10 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 class Wpfunos_Aseguradoras {
-  
+
   private $plugin_name;
   private $version;
-  
+
   public function __construct( $plugin_name, $version ) {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
@@ -24,16 +24,16 @@ class Wpfunos_Aseguradoras {
     add_shortcode( 'wpfunos-aseguradoras-page-switch', array( $this, 'wpfunosAseguradorasPageSwitchShortcode' ));
     add_shortcode( 'wpfunos-pagina-aseguradoras', array( $this, 'wpfunosPaginaAseguradorasShortcode' ));
     add_shortcode( 'wpfunos-pagina-resultados-aseguradoras', array( $this, 'wpfunosPaginaResultadosAseguradorasShortcode' ));
-    
+
     add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
     add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
     add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
   }
-  
+
   /*********************************/
   /*****  SHORTCODES          ******/
   /*********************************/
-  
+
   /**
   * Shortcode [wpfunos-acciones-botones-aseguradora]
   */
@@ -50,7 +50,7 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
     }
   }
-  
+
   /**
   * Shortcode [wpfunos-aseguradoras-page-switch]
   */
@@ -96,25 +96,25 @@ class Wpfunos_Aseguradoras {
       }
     }
   }
-  
+
   /**
   * Shortcode [wpfunos-pagina-aseguradoras]
   */
   public function wpfunosPaginaAseguradorasShortcode( $atts, $content = "" ) {
     return do_shortcode( get_option('wpfunos_paginaComparadorAseguradoras') );
   }
-  
+
   /**
   * Shortcode [wpfunos-pagina-resultados-aseguradoras]
   */
   public function wpfunosPaginaResultadosAseguradorasShortcode( $atts, $content = "" ) {
     echo get_option('wpfunos_paginaURLResultadosAseguradoras');
   }
-  
+
   /*********************************/
   /*****  HOOKS               ******/
   /*********************************/
-  
+
   /**
   * Hook Cold Lead Aseguradoras
   *
@@ -132,12 +132,12 @@ class Wpfunos_Aseguradoras {
     }elseif( $seguro == 2 && get_option( 'wpfunos_APIPreventivaColdLeadElectium') ){
       $this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLElectium'), 'Electium Cold' , get_option( 'wpfunos_APIPreventivaCampainElectium'), 4 );
     }
-    
+
     if( get_option( 'wpfunos_APIDKVColdLead') ){
       $this->wpfunosLlamadaAPIDKV();
     }
   }
-  
+
   /**
   * Hook Resultados Aseguradoras
   *
@@ -211,7 +211,7 @@ class Wpfunos_Aseguradoras {
               <input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
               <input type="hidden" name="nombre" id="nombre" value="<?php echo $_GET['nombre']?>" >
               <input type="hidden" name="seguro" id="seguro" value="<?php echo $_GET['seguro']?>" >
-              
+
               <input type="submit" value="Quiero que me llamen" style="background-color: #1d40d3; font-size: 14px;">
             </form>
           </div>
@@ -228,7 +228,7 @@ class Wpfunos_Aseguradoras {
               <input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
               <input type="hidden" name="nombre" id="nombre" value="<?php echo $_GET['nombre']?>" >
               <input type="hidden" name="seguro" id="seguro" value="<?php echo $_GET['seguro']?>" >
-              
+
               <input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 14px;">
             </form>
             <?php
@@ -273,11 +273,11 @@ class Wpfunos_Aseguradoras {
       }
     }
   }
-  
+
   /*********************************/
   /*****                      ******/
   /*********************************/
-  
+
   /**
   * Llamada API Preventiva $this->wpfunosLlamadaAPIPreventiva( 'https://fidelity.preventiva.com/ContactsImporter/api/Contact', 'Preventiva' );
   */
@@ -372,7 +372,7 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', 'referencia: ' . $nuevareferencia );
     }
   }
-  
+
   /**
   * Llamada API DKV
   */
@@ -391,23 +391,23 @@ class Wpfunos_Aseguradoras {
     $email = get_post_meta( $IDusuario, $this->plugin_name . '_userMail', true );
     $nombre = get_post_meta( $IDusuario, $this->plugin_name . '_userName', true );
     $telefono =  str_replace(' ','', get_post_meta( $IDusuario, $this->plugin_name . '_userPhone', true ) ) ;
-    
+
     $seguro = get_post_meta( $IDusuario, $this->plugin_name . '_userSeguro', true );
     $seguroSiNo = 'Si';
     if( $seguro == '2' ) $seguroSiNo = 'No';
-    
+
     $seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
     $respuesta = (explode(',',$seleccion));
     switch( $respuesta[2] ){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
     $edad = (int)$respuesta[3];
     $ubicacion = strtr($respuesta[0],"+",",");
-    
+
     $textoaccion = "Llamada API DKV";
     if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
     if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
-    
+
     $other_data = 'Producto: ' .$producto. '. Sexo: ' .$sexo. '. Año nacimiento: ' .$edad. '. Seguro decesos: ' .$seguroSiNo. '.' ;
-    
+
     $provider_name = get_option( $this->plugin_name . '_APIDKVProviderName' );
     $provider_id = get_option( $this->plugin_name . '_APIDKVProviderID' );
     $provider_password = get_option( $this->plugin_name . '_APIDKVProviderPasswordPRO' );
@@ -416,7 +416,7 @@ class Wpfunos_Aseguradoras {
       $provider_password = get_option( $this->plugin_name . '_APIDKVProviderPasswordPRE' );
       $URL = get_option( $this->plugin_name . '_APIDKVURLPRE' );
     }
-    
+
     $headers = array( 'Content-Type' => 'application/json' );
     $body = '{
       "lead":
@@ -440,7 +440,7 @@ class Wpfunos_Aseguradoras {
     do_action('wpfunos_log', 'Request: $URL: ' .  $URL );
     do_action('wpfunos_log', 'Request: $headers: ' .  apply_filters('wpfunos_dumplog', $headers ) );
     do_action('wpfunos_log', 'Request: $body: ' .  $body );
-    
+
     $request = wp_remote_post( $URL, array( 'headers' => $headers, 'body' => $body, 'timeout' => 45 ) );
     do_action('wpfunos_log', 'Request: $request: ' . apply_filters('wpfunos_dumplog', $request ) );
     do_action('wpfunos_log', 'Request: CODE: ' .  $request['response']['code'] );
@@ -453,10 +453,10 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', '==============' );
       return;
     }
-    
+
     $userAPIMessage = apply_filters('wpfunos_dumplog', $request );
     $messageresponse = apply_filters('wpfunos_dumplog', $request['response'] );
-    
+
     $my_post = array(
       'post_title' => $nuevareferencia,
       'post_type' => 'usuarios_wpfunos',
@@ -504,11 +504,11 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', 'referencia: ' . $nuevareferencia );
     }
   }
-  
+
   /*********************************/
   /*****                      ******/
   /*********************************/
-  
+
   /**
   * Buscar CP undefined
   */
@@ -534,7 +534,7 @@ class Wpfunos_Aseguradoras {
     }
     return $CodigoPostal;
   }
-  
+
   /**
   * Buscar CP undefined
   */
@@ -558,7 +558,7 @@ class Wpfunos_Aseguradoras {
     $provincia = get_post_meta( $id, 'wpfunos_provinciasProvincia', true );
     return $provincia;
   }
-  
+
   /**
   * This function allows to obtain a field by ID, if it does not exist it returns FALSE.
   */
@@ -609,7 +609,7 @@ class Wpfunos_Aseguradoras {
     );
     $post_id = wp_insert_post($my_post);
   }
-  
+
   /**
   * Enviar Correo entrada datos usuario
   */
@@ -618,11 +618,12 @@ class Wpfunos_Aseguradoras {
     if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
-    $mensaje = get_option('wpfunos_mensajeCorreoDatosEntrados');
+    //$mensaje = get_option('wpfunos_mensajeCorreoDatosEntrados');
+    $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoDatosEntrados'), get_option('wpfunos_asuntoCorreoDatosEntrados') );
     require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
     if(!empty( get_option('wpfunos_mailCorreoCcoDatosEntrados' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoDatosEntrados' ) ;
     if(!empty( get_option('wpfunos_mailCorreoBccDatosEntrados' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccDatosEntrados' ) ;
-    
+
     $args = array(
       'post_status' => 'publish',
       'post_type' => 'aseguradoras_wpfunos',
@@ -630,7 +631,7 @@ class Wpfunos_Aseguradoras {
       'meta_key' =>  'wpfunos_aseguradorasLead',
       'meta_value' => true,
     );
-    
+
     $post_list = get_posts( $args );
     if( $post_list ){
       foreach ( $post_list as $post ) :
@@ -645,7 +646,7 @@ class Wpfunos_Aseguradoras {
       endforeach;
       wp_reset_postdata();
     }
-    
+
     if( strlen( get_option('wpfunos_mailCorreoDatosEntrados') ) > 0 ){
       wp_mail ( get_option('wpfunos_mailCorreoDatosEntrados'), get_option('wpfunos_asuntoCorreoDatosEntrados') , $mensaje, $headers );
       do_action('wpfunos_log', '==============' );
@@ -655,5 +656,5 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', 'mailCorreoDatosEntrados: ' . get_option('wpfunos_mailCorreoDatosEntrados') );
     }
   }
-  
+
 }

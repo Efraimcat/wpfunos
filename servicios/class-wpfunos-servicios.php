@@ -353,7 +353,8 @@ class Wpfunos_Servicios {
     if( strlen( $_GET['Email'] ) < 5 ) return;
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
-    $mensaje = get_option('wpfunos_mensajeCorreoPopupDetalles');
+    //$mensaje = get_option('wpfunos_mensajeCorreoPopupDetalles');
+    $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPopupDetalles'), get_option('wpfunos_asuntoCorreoPopupDetalles') );
     require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
     if(!empty( get_option('wpfunos_mailCorreoCcoPopupDetalles' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPopupDetalles' ) ;
     if(!empty( get_option('wpfunos_mailCorreoBccPopupDetalles' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPopupDetalles' ) ;
@@ -912,7 +913,8 @@ class Wpfunos_Servicios {
   public function wpfunosResultCorreoAdmin( ){
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
     if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Admin')){
-      $mensaje = get_option('wpfunos_mensajeCorreoBoton1Admin');
+      //$mensaje = get_option('wpfunos_mensajeCorreoBoton1Admin');
+      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1Admin'), get_option('wpfunos_asuntoCorreoBoton1Admin') );
       require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
       if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Admin' ) ;
       if(!empty( get_option('wpfunos_mailCorreoBccBoton1Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Admin' ) ;
@@ -927,7 +929,8 @@ class Wpfunos_Servicios {
 
     }
     if($_GET['accion'] == 2 && get_option($this->plugin_name . '_activarCorreoBoton2Admin')){
-      $mensaje = get_option('wpfunos_mensajeCorreoBoton2Admin');
+      //$mensaje = get_option('wpfunos_mensajeCorreoBoton2Admin');
+      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2Admin'), get_option('wpfunos_asuntoCorreoBoton2Admin') );
       require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
       if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Admin' ) ;
       if(!empty( get_option('wpfunos_mailCorreoBccBoton2Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Admin' ) ;
@@ -949,7 +952,8 @@ class Wpfunos_Servicios {
     if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
     if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Lead')){
-      $mensaje = get_option('wpfunos_mensajeCorreoBoton1Lead');
+      //$mensaje = get_option('wpfunos_mensajeCorreoBoton1Lead');
+      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1Lead'), get_option('wpfunos_asuntoCorreoBoton1Lead') );
       require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
       if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ;
       if(!empty( get_option('wpfunos_mailCorreoBccBoton1Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Lead' ) ;
@@ -964,7 +968,8 @@ class Wpfunos_Servicios {
       do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
     }
     if($_GET['accion'] == 2 && get_option($this->plugin_name . '_activarCorreoBoton2Lead')){
-      $mensaje = get_option('wpfunos_mensajeCorreoBoton2Lead');
+      //$mensaje = get_option('wpfunos_mensajeCorreoBoton2Lead');
+      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2Lead'), get_option('wpfunos_asuntoCorreoBoton2Lead') );
       require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
       if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ;
       if(!empty( get_option('wpfunos_mailCorreoBccBoton2Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Lead' ) ;

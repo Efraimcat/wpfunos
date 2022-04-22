@@ -446,61 +446,49 @@ class Wpfunos_Admin {
     remove_meta_box('wpseo_meta', 'usuarios_wpfunos', 'normal');
   }
   public function setupfunerarias_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('funerarias_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'funerarias_wpfunos_data_meta_box'), 'funerarias_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'funerarias_wpfunos', 'normal');
   }
   public function setupservicios_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('servicios_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'servicios_wpfunos_data_meta_box'), 'servicios_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'servicios_wpfunos', 'normal');
   }
   public function setupcpostales_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('cpostales_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'cpostales_wpfunos_data_meta_box'), 'cpostales_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'cpostales_wpfunos', 'normal');
   }
   public function setupprovincias_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('provincias_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'provincias_wpfunos_data_meta_box'), 'provincias_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'provincias_wpfunos', 'normal');
   }
   public function setupaseguradoras_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('aseguradoras_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'aseguradoras_wpfunos_data_meta_box'), 'aseguradoras_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'aseguradoras_wpfunos', 'normal');
   }
   public function setuptiposseguro_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('tipos_seguro_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'tipos_seguro_wpfunos_data_meta_box'), 'tipos_seguro_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'tipos_seguro_wpfunos', 'normal');
   }
   public function setuptanatoriodirectorio_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('tanatorio_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'tanatorio_directorio_wpfunos_data_meta_box'), 'tanatorio_d_wpfunos', 'normal', 'high' );
   }
   public function setupconfimgwpfunos_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('conf_img_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'conf_img_wpfunos_data_meta_box'), 'conf_img_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'conf_img_wpfunos', 'normal');
   }
   public function setupubicaciones_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('ubicaciones_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubicaciones_wpfunos_data_meta_box'), 'ubicaciones_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'ubicaciones_wpfunos', 'normal');
   }
   public function setupubic_aseg_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('ubic_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubic_aseg_wpfunos_data_meta_box'), 'ubic_aseg_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'ubic_aseg_wpfunos', 'normal');
   }
   public function setuppag_serv_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('pag_serv_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_serv_wpfunos_data_meta_box'), 'pag_serv_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'pag_serv_wpfunos', 'normal');
   }
   public function setuppag_aseg_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('pag_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_aseg_wpfunos_data_meta_box'), 'pag_aseg_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'pag_aseg_wpfunos', 'normal');
   }
