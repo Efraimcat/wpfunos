@@ -285,7 +285,7 @@ class Wpfunos {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_colabradores_hooks() {
+	private function define_colaboradores_hooks() {
 
 		$plugin_colaboradores = new Wpfunos_Colaboradores( $this->get_plugin_name(), $this->get_version() );
 
