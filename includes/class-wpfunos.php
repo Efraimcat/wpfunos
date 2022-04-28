@@ -83,6 +83,7 @@ class Wpfunos {
 		$this->define_directorio_hooks();
 		$this->define_servicios_hooks();
 		$this->define_estadisticas_hooks();
+		$this->define_colaboradores_hooks();
 
 	}
 
@@ -126,7 +127,7 @@ class Wpfunos {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpfunos-public.php';
-		
+
 		/**
 		 * Utils
 		 */
@@ -141,18 +142,23 @@ class Wpfunos {
 		 * Directorio
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'directorio/class-wpfunos-directorio.php';
-		
+
 		/**
 		 * Servicios
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'servicios/class-wpfunos-servicios.php';
-		
+
 		/**
 		 * Estadisticas
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'estadisticas/class-wpfunos-estadisticas.php';
-		
-		
+
+		/**
+		 * Colaboradores
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'colaboradores/class-wpfunos-colaboradores.php';
+
+
 		$this->loader = new Wpfunos_Loader();
 
 	}
@@ -206,7 +212,7 @@ class Wpfunos {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 	}
-	
+
 	/**
 	 * Register all of the hooks utils
 	 * of the plugin.
@@ -219,7 +225,7 @@ class Wpfunos {
 		$plugin_utils = new Wpfunos_Utils( $this->get_plugin_name(), $this->get_version() );
 
 	}
-	
+
 	/**
 	 * Register all of the hooks aseguradoras
 	 * of the plugin.
@@ -232,7 +238,7 @@ class Wpfunos {
 		$plugin_aseguradoras = new Wpfunos_Aseguradoras( $this->get_plugin_name(), $this->get_version() );
 
 	}
-	
+
 	/**
 	 * Register all of the hooks directorio
 	 * of the plugin.
@@ -245,7 +251,7 @@ class Wpfunos {
 		$plugin_directorio = new Wpfunos_Directorio( $this->get_plugin_name(), $this->get_version() );
 
 	}
-	
+
 	/**
 	 * Register all of the hooks servicios
 	 * of the plugin.
@@ -269,6 +275,19 @@ class Wpfunos {
 	private function define_estadisticas_hooks() {
 
 		$plugin_estadisticas = new Wpfunos_Estadisticas( $this->get_plugin_name(), $this->get_version() );
+
+	}
+
+	/**
+	 * Register all of the hooks Colaboradores
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_colabradores_hooks() {
+
+		$plugin_colaboradores = new Wpfunos_Colaboradores( $this->get_plugin_name(), $this->get_version() );
 
 	}
 	/**

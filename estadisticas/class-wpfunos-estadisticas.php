@@ -23,7 +23,7 @@ class Wpfunos_Estadisticas {
 		add_filter( 'wpfunos_estadisticas_cp', array( $this, 'wpfunos_stats_CP'),10, 5 );
 		add_filter( 'wpfunos_estadisticas_semana_mes', array( $this, 'wpfunos_stats_semana_mes'),10, 6 );
 	}
-	
+
 	/*********************************/
 	/*****  ESTADÍSTICAS        ******/
 	/*********************************/
@@ -37,9 +37,9 @@ class Wpfunos_Estadisticas {
 		$semana = new DateTime();
 		$mes = new DateTime();
 		$siempre = new DateTime();
-		$dia->sub(new DateInterval(P1D));
-		$semana->sub(new DateInterval(P7D));
-		$mes->sub(new DateInterval(P30D));
+		$dia->sub(new DateInterval('P1D'));
+		$semana->sub(new DateInterval('P7D'));
+		$mes->sub(new DateInterval('P30D'));
 		$siempre->setTimestamp( strtotime( $inicio ) );
 		if( !$unicos ){
 			$metakeyunicos = 'wpfunos_Dummy';
@@ -81,7 +81,7 @@ class Wpfunos_Estadisticas {
 		endif;
 		return $resultados;
 	}
-	
+
 	/*
 	* Entradas, Ubicaciones, Datos, Ratios(Datos/Ubicación, Ubicación/Entradas, Datos/Entradas)
 	* $type 'semana'(semana actual), semana_ant'(semana anterior). 'mes'(mes actual), 'mes_ant'(mes anterior)
@@ -133,9 +133,9 @@ class Wpfunos_Estadisticas {
 			wp_reset_postdata();
 		endif;
 		return $contador;
-		
+
 	}
-	
+
 	/*
 	* $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
 	* $registro 'cp' 'poblacion'
@@ -148,9 +148,9 @@ class Wpfunos_Estadisticas {
 		$semana = new DateTime();
 		$mes = new DateTime();
 		$siempre = new DateTime();
-		$dia->sub(new DateInterval(P1D));
-		$semana->sub(new DateInterval(P7D));
-		$mes->sub(new DateInterval(P30D));
+		$dia->sub(new DateInterval('P1D'));
+		$semana->sub(new DateInterval('P7D'));
+		$mes->sub(new DateInterval('P30D'));
 		$siempre->setTimestamp( strtotime("1 March 2022") );
 		$cpt = 'ubicaciones_wpfunos';
 		$metakey1 = 'wpfunos_ubicacionCP';
@@ -204,7 +204,7 @@ class Wpfunos_Estadisticas {
 			}
 		}
 	}
-	
+
 	/*
 	* $cpt 'ubicaciones_wpfunos', 'usuarios_wpfunos', 'pag_serv_wpfunos'
 	* $type 'day'(same day), 'week'(7 days). 'month'(30 days), 'all'
@@ -216,12 +216,12 @@ class Wpfunos_Estadisticas {
 		$semana = new DateTime();
 		$mes = new DateTime();
 		$siempre = new DateTime();
-		$dia->sub(new DateInterval(P1D));
-		$semana->sub(new DateInterval(P7D));
-		$mes->sub(new DateInterval(P30D));
-		$siempre->sub(new DateInterval(P90D));
+		$dia->sub(new DateInterval('P1D'));
+		$semana->sub(new DateInterval('P7D'));
+		$mes->sub(new DateInterval('P30D'));
+		$siempre->sub(new DateInterval('P90D'));
 		$array = [];
-		
+
 		switch ($cpt){
 			case 'usuarios_wpfunos': $metakeyunicos = 'wpfunos_userVisitas'; break;
 			case 'ubicaciones_wpfunos': $metakeyunicos = 'wpfunos_ubicacionVisitas'; break;
@@ -266,7 +266,7 @@ class Wpfunos_Estadisticas {
 		}
 		return $array;
 	}
-	
+
 	/*
 	*  $servicio = 'Despedida' = wpfunos_userNombreSeleccionDespedida
 	*				'Ataud' = wpfunos_userNombreSeleccionAtaud
@@ -276,7 +276,7 @@ class Wpfunos_Estadisticas {
 	public function wpfunos_graph_pie_servicios( $servicio = 'Despedida' ){
 		$ahora = new DateTime();
 		$array = [];
-		
+
 		switch ( $servicio ){
 			case 'Despedida': $metakey = 'wpfunos_userNombreSeleccionDespedida'; $values = array('Sin ceremonia','Solo sala','Ceremonia civil','Ceremonia religiosa'); break;
 			case 'Ataud': $metakey = 'wpfunos_userNombreSeleccionAtaud'; $values = array('Ataúd Económico','Ataúd Medio','Ataúd Premium'); break;
@@ -313,7 +313,7 @@ class Wpfunos_Estadisticas {
 		}
 		return $array;
 	}
-	
+
 	/*
 	* $column 'poblacion' 'cp'
 	* $todos incluir suma 'Resto'
@@ -346,7 +346,7 @@ class Wpfunos_Estadisticas {
 		}
 		if($column == 'poblacion') 	$array = array_count_values( array_column($array, 'poblacion') );
 		if($column == 'cp') 		$array = array_count_values( array_column($array, 'cp') );
-		
+
 		arsort($array, SORT_NUMERIC);
 		$contador = 0;
 		$otros = 0;
@@ -373,7 +373,7 @@ class Wpfunos_Estadisticas {
 		if( $todos ) $resultado[] = array("indexLabel" => "Resto", "y" => $otros, );
 		return $resultado;
 	}
-	
+
 	/*
 	*
 	*/
@@ -381,7 +381,7 @@ class Wpfunos_Estadisticas {
 		$ahora = new DateTime();
 		$cuando = new DateTime();
 		$cuando->setTimestamp( strtotime("22-3-2022") );
-		
+
 		$suma = 0;
 		$dias = 0;
 		while( $cuando < $ahora ){
@@ -438,7 +438,7 @@ class Wpfunos_Estadisticas {
 		}
 		return $array;
 	}
-	
+
 	/*
 	*
 	*/
@@ -446,7 +446,7 @@ class Wpfunos_Estadisticas {
 		$ahora = new DateTime();
 		$cuando = new DateTime();
 		$cuando->setTimestamp( strtotime("1-4-2022") );
-		
+
 		$suma = 0;
 		$dias = 0;
 		while( $cuando < $ahora ){
@@ -503,7 +503,7 @@ class Wpfunos_Estadisticas {
 		}
 		return $array;
 	}
-	
+
 	/*
 	*
 	*/
@@ -511,7 +511,7 @@ class Wpfunos_Estadisticas {
 		$ahora = new DateTime();
 		$cuando = new DateTime();
 		$cuando->setTimestamp( strtotime("1-4-2022") );
-		
+
 		$suma = 0;
 		$dias = 0;
 		while( $cuando < $ahora ){
@@ -568,7 +568,7 @@ class Wpfunos_Estadisticas {
 		}
 		return $array;
 	}
-	
+
 	/*
 	* Incluir el script de los gráficos en el <head>
 	*/
@@ -582,85 +582,85 @@ class Wpfunos_Estadisticas {
 		//do_action('wpfunos_log', '==============' );
 		//do_action('wpfunos_log', 'my_custom_admin_head $pagenow: ' .$pagenow );
 		//do_action('wpfunos_log', 'my_custom_admin_head $_GET[page]: ' .$_GET['page'] );
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'month' );
 		$dataPoints2 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'week' );
 		$dataPoints3 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'month', 'media' );
 		$dataPoints4 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'week', 'media' );
 		$dataPoints5 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'month' );
 		$dataPoints6 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'month', 'media' );
 		$dataPoints7 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'week' );
 		$dataPoints8 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'week', 'media' );
 		$dataPoints9 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Despedida' );
 		$dataPoints10 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Ataud' );
 		$dataPoints11 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Velatorio' );
 		$dataPoints12 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Servicio' );
 		$dataPoints13 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_pie_CP( 10, 'poblacion' );
 		$dataPoints14 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_pie_CP( 10, 'poblacion', true );
 		$dataPoints15 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_pie_CP( 10, 'cp' );
 		$dataPoints16 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_pie_CP( 10, 'cp', true );
 		$dataPoints17 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_usuarios_ubicaciones();
 		$dataPoints18 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_usuarios_ubicaciones('media');
 		$dataPoints19 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'week' );
 		$dataPoints20 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'week', 'media' );
 		$dataPoints21 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'month' );
 		$dataPoints22 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'month', 'media' );
 		$dataPoints23 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_ubicaciones_entradas();
 		$dataPoints24 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_ubicaciones_entradas('media');
 		$dataPoints25 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_usuarios_entradas();
 		$dataPoints26 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		$resultado = $this->wpfunos_graph_usuarios_entradas('media');
 		$dataPoints27 = json_encode($resultado, JSON_NUMERIC_CHECK);
-		
+
 		echo '<script type="text/javascript" src="' . WFUNOS_PLUGIN_URL . 'admin/assets/canvasjs.min.js"></script>';
 		echo '<script id="wpfunos-head-'.$this->version.'" type="text/javascript">
 		window.onload = function () {

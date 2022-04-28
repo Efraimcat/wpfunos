@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 $ahora = new DateTime();
 $mesant = new DateTime();
-$mesant->sub(new DateInterval(P1M));
+$mesant->sub(new DateInterval('P1M'));
 $displaymesant = date_i18n( 'F' , $mesant->getTimestamp() + $mesant->getOffset() );
 $displaymes = date_i18n( 'F', current_time( 'timestamp', 0 ) );
 $displaysemanaant = (int) date_i18n( 'W', current_time( 'timestamp', 0 )) - 1;
@@ -39,7 +39,7 @@ if( $displaysemanaant == 0 ) $displaysemanaant = 53;
         </div>
         <div id="Numeros" class="w3-container wpftab" style="top: -300px;position: relative;" >
           <div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
-          
+
           <hr/>
           <?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
           include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-entradas.php'; ?>
@@ -52,8 +52,8 @@ if( $displaysemanaant == 0 ) $displaysemanaant = 53;
           <hr/>
           <?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
           include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-ratios.php'; ?>
-          
-          
+
+
           <?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
           include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-inferior.php';	?>
           <hr/>

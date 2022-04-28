@@ -12,8 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/servicios/partials
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-// <a href="https://www.qries.com/"> <img alt="Qries" src="https://www.qries.com/images/banner_logo.png" width=150" height="70"></a>
-//wp_get_attachment_url( 12 );
 
 if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider1', true ) ) < 1
 && strlen(  get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider2', true ) ) < 1
@@ -32,12 +30,12 @@ $url3 = wp_get_attachment_url ( get_post_meta( $_GET['servicio'], 'wpfunos_servi
   <div class="elementor-row">
     <div class="elementor-column-wrap">
       <div class="elementor-widget-wrap">
-        <div class="wpfunos-slider-resultados" style=" margin-right: 10px; ">
-          <div class="wpfunos-slider-imagenes" style=" margin-right: 10px; ">
+        <div class="wpfunos-slider-resultados">
+          <div class="wpfunos-slider-imagenes">
 
-            <a href="<?php echo $url1; ?>"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider1', true ) ) > 1 ) echo $img1 ?></a>
-            <a href="<?php echo $url2; ?>"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider2', true ) ) > 1 ) echo $img2 ?></a>
-            <a href="<?php echo $url3; ?>"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider3', true ) ) > 1 ) echo $img3 ?></a>
+            <a href="<?php echo $url1; ?>" style="margin: 8px;"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider1', true ) ) > 1 ) echo $img1 ?></a>
+            <a href="<?php echo $url2; ?>" style="margin: 8px;"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider2', true ) ) > 1 ) echo $img2 ?></a>
+            <a href="<?php echo $url3; ?>" style="margin: 8px;"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider3', true ) ) > 1 ) echo $img3 ?></a>
 
           </div>
         </div>
