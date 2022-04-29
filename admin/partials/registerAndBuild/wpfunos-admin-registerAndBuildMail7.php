@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_settings_section(
   'wpfunos_mail7_section',    				// ID used to identify this section and with which to register options
   'Correo Envio Lead Colaboradores',      						// Title to be displayed on the administration page
-  array( $this, 'wpfunos_display_mail_account_datos' ), 		// Callback used to render the description of the section
+  array( $this, 'wpfunos_display_mail_account_servicios_colaborador' ), 		// Callback used to render the description of the section
   'wpfunos_mail_settings'                 						// Page on which to add this section of options
 );
 // Activar Mail Correo datos entrados

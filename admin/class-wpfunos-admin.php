@@ -429,6 +429,15 @@ class Wpfunos_Admin {
     <hr />
     <?php
   }
+  public function wpfunos_display_mail_account_servicios_colaborador() {
+    ?>
+    <hr/>
+    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p>[nombreServicio], [nombrepack], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
+    <p>[BaseNombre],[DestinoNombre], [AtaudNombre],[VelatorioNombre], [CeremoniaNombre],</p>
+    <hr />
+    <?php
+  }
   public function wpfunos_display_directorio_account() {
     ?><p><?php esc_html_e('Configuración del directorio.', 'wpfunos'); ?></p><?php
   }

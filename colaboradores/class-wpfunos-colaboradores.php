@@ -166,6 +166,10 @@ class Wpfunos_Colaboradores {
     if( isset( $_GET['wpfunos-select-enviar'] )){
       //https://funos.es/pagina-servicios-colaborador?wpfunos-select=49250&wpfunos-select-servicio=45145&wpfunos-select-resultados=1&wpfunos-select-enviar=1&wpfunos-select-comentarios=Comentarios.%0D%0A%0D%0ASaludos%21
       //echo 'Comentarios: ' . $_GET['wpfunos-select-comentarios'];
+      if( ! get_option($this->plugin_name . '_activarCorreoServiciosColaborador') ){
+        echo 'Opció de envio de correo deshabilitada!';
+        return;
+      }
       $this->wpfunosServiciosColaboradorProcesarMensaje( $_GET['wpfunos-select'], $_GET['wpfunos-select-servicio'], $_GET['wpfunos-select-comentarios']);
       ?>
       <form id="wpfunos-servicios-colaborador-usuario-seleccionado" style="margin-top: 10px;">
@@ -228,6 +232,75 @@ class Wpfunos_Colaboradores {
   /*****                      ******/
   /*********************************/
   private function wpfunosServiciosColaboradorProcesarMensaje( $wpfunos_select, $wpfunos_select_servicio, $wpfunos_select_comentarios){
+    //if( ! get_option($this->plugin_name . '_activarCorreoServiciosColaborador') ){
+    mt_srand(mktime());
+    $referencia = 'funos-'.(string)mt_rand();
+    $my_post = array(
+      'post_title' => $referencia,
+      'post_type' => 'usuarios_wpfunos',
+      'post_status'  => 'publish',
+      'meta_input'   => array(
+        $this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+        $this->plugin_name . '_userReferencia' => sanitize_text_field( $referencia ),
+        $this->plugin_name . '_userName' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userName', true ) ),
+        $this->plugin_name . '_userPhone' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userPhone', true ) ),
+        $this->plugin_name . '_userSeleccion' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userSeleccion', true ) ),
+        $this->plugin_name . '_userAccion' => '1',
+        $this->plugin_name . '_userNombreAccion' => 'llamen servicios colaborador',
+        $this->plugin_name . '_userNombreSeleccionUbicacion' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionUbicacion', true ) ),
+        $this->plugin_name . '_userNombreSeleccionDistancia' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionDistancia', true ) ),
+        $this->plugin_name . '_userNombreSeleccionServicio' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionServicio', true ) ),
+        $this->plugin_name . '_userNombreSeleccionAtaud' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionAtaud', true ) ),
+        $this->plugin_name . '_userNombreSeleccionVelatorio' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionVelatorio', true ) ),
+        $this->plugin_name . '_userNombreSeleccionDespedida' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionDespedida', true ) ),
+        $this->plugin_name . '_userServicio' => sanitize_text_field( $wpfunos_select_servicio ),
+        $this->plugin_name . '_userCP' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userCP', true ) ),
+        $this->plugin_name . '_userMail' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userMail', true ) ),
+        $this->plugin_name . '_userDesgloseBaseNombre' => sanitize_text_field( get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioNombre', true ) ),
+        $this->plugin_name . '_userIP' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userIP', true ) ),
+        $this->plugin_name . '_userLAT' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userLAT', true ) ),
+        $this->plugin_name . '_userLNG' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userLNG', true ) ),
+        $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
+        $this->plugin_name . '_Dummy' => true,
+        $this->plugin_name . '_userLead' => true,
+      ),
+    );
+    $post_id = wp_insert_post($my_post);
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Acción en página colaborrador: llamen servicios colaborador' );
+    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $wpfunos_select ,$this->plugin_name . '_userName', true )  );
+    do_action('wpfunos_log', 'ID: ' . $post_id  );
+    do_action('wpfunos_log', 'referencia: ' .  $referencia  );
+
+    $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoServiciosColaborador'), get_option('wpfunos_asuntoCorreoServiciosColaborador') );
+//[nombreServicio], [nombrepack], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]
+//[BaseNombre],[DestinoNombre], [AtaudNombre],[VelatorioNombre], [CeremoniaNombre],
+    $mensaje = str_replace( '[nombreServicio]' , get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioNombre', true ) , $mensaje );
+    $mensaje = str_replace( '[nombrepack]' , get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioPackNombre', true ) , $mensaje );
+    $mensaje = str_replace( '[telefonoServicio]' , get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioTelefono', true ) , $mensaje );
+    $mensaje = str_replace( '[BaseNombre]' , get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioNombre', true ) , $mensaje );
+    $mensaje = str_replace( '[precio]' , ' ' , $mensaje );
+    $mensaje = str_replace( '[referencia]' , ' ' , $referencia );
+    $mensaje = str_replace( '[telefono]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userPhone', true ) , $mensaje );
+    $mensaje = str_replace( '[telefonoUsuario]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userPhone', true ) , $mensaje );
+    $mensaje = str_replace( '[nombreUsuario]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userName', true ) , $mensaje );
+    $mensaje = str_replace( '[Email]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userMail', true ) , $mensaje );
+    $mensaje = str_replace( '[CPUsuario]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userCP', true ) , $mensaje );
+    $mensaje = str_replace( '[ubicacion]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionUbicacion', true ) , $mensaje );
+    $mensaje = str_replace( '[DestinoNombre]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionServicio', true ) , $mensaje );
+    $mensaje = str_replace( '[AtaudNombre]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionAtaud', true ) , $mensaje );
+    $mensaje = str_replace( '[VelatorioNombre]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionVelatorio', true ) , $mensaje );
+    $mensaje = str_replace( '[CeremoniaNombre]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionDespedida', true ) , $mensaje );
+
+    if(!empty( get_option('wpfunos_mailCorreoCcoServiciosColaborador' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoServiciosColaborador' ) ;
+    if(!empty( get_option('wpfunos_mailCorreoBccServiciosColaborador' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccServiciosColaborador' ) ;
+    wp_mail (  get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoServiciosColaborador') , $mensaje, $headers );
+
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Enviado correo colaborador ' . apply_filters('wpfunos_dumplog', get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioEmail', true )  ) );
+    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $wpfunos_select ,$this->plugin_name . '_userName', true )  );
+    do_action('wpfunos_log', '$_GET[referencia]: ' . $referencia );
+    
     ?>
     <div class="elementor-container elementor-column-gap-default">
       <div class="elementor-row">
