@@ -741,17 +741,17 @@ class Wpfunos_Servicios {
       case '1':
       list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Precio', true ),
       get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_1Nombre', true ) );
-      if( get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_1Precio', true ) > 0 ) $ecologico = true;
+      if(  strlen( get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_1Precio', true )) > 0 ) $ecologico = true;
       break;
       case '2':
       list( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento ) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Precio', true ),
       get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_2Nombre', true ) );
-      if( get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_2Precio', true ) > 0 ) $ecologico = true;
+      if( strlen( get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_2Precio', true )) > 0 ) $ecologico = true;
       break;
       case '3':
       list( $NA, $preciototal, $preciodescuento , $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento) = $this->wpfunos_case( $postID, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Precio', true ),
       get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Descuento', true ), $NA, $preciototal, $preciodescuento, get_post_meta( $postID, $this->plugin_name . '_servicioAtaud_3Nombre', true ) );
-      if( get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_3Precio', true ) > 0) $ecologico = true;
+      if( strlen( get_post_meta( $postID, $this->plugin_name . '_servicioAtaudEcologico_3Precio', true )) > 0) $ecologico = true;
       break;
     }
     $wpfservicio[] = array('Ataud', $servicioNombre, $servicioTotal, $descuentoServicio, $servicioConDescuento);
