@@ -515,6 +515,10 @@ class Wpfunos_Servicios {
   * Hook array resultados sin confirmar
   *
   * add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 3 );
+  *
+  * $wpfResultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio, $ecologico )
+  *
+  *  $wpfunos_sinconfirmar = array( $postID, $preciototal ,$preciodescuento, $wpfservicio, $ecologico )
   */
   public function wpfunosResultadosSinConfirmar( $wpfResultados, $wpfunos_sinconfirmar, $postID, $IDusuario = 0 ){
     $tieneECO = false;
@@ -534,6 +538,10 @@ class Wpfunos_Servicios {
   * Hook array resultados sin precio
   *
   * add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 3 );
+  *
+  * $wpfResultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio, $ecologico )
+  *
+  *  $wpfunos_sinprecio = array( $postID, 0 , 0, $$ecologico )
   */
   public function wpfunosResultadosSinPrecio( $wpfResultados, $wpfunos_sinprecio, $postID, $IDusuario = 0 ){
     if( !$wpfResultados[2] && $wpfResultados[0] == 0 && get_post_meta( $postID, 'wpfunos_servicioActivo', true )){

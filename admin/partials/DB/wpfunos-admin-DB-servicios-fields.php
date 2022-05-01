@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 $servicioNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioNombre'] );
 $servicioPoblacion = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPoblacion'] );
+$servicioProvincia = sanitize_text_field( $_POST[$this->plugin_name . '_servicioProvincia'] );
 $servicioDireccion = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDireccion'] );
 $servicioPrecioConfirmado = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioConfirmado'] );
 $servicioLogo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioLogo'] );
@@ -147,6 +148,7 @@ $servicioPosiblesExtras = wp_kses_post( $_POST[$this->plugin_name . '_servicioPo
 
 update_post_meta($post_id, $this->plugin_name . '_servicioNombre', $servicioNombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioPoblacion', $servicioPoblacion);
+update_post_meta($post_id, $this->plugin_name . '_servicioProvincia', $servicioProvincia);
 update_post_meta($post_id, $this->plugin_name . '_servicioDireccion', $servicioDireccion);
 update_post_meta($post_id, $this->plugin_name . '_servicioPrecioConfirmado', $servicioPrecioConfirmado);
 update_post_meta($post_id, $this->plugin_name . '_servicioLogo', $servicioLogo);
