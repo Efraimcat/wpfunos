@@ -403,19 +403,19 @@ class Wpfunos_Colaboradores {
     $mensaje = str_replace( '[VelatorioNombre]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionVelatorio', true )) , $mensaje );
     $mensaje = str_replace( '[CeremoniaNombre]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionDespedida', true )) , $mensaje );
 
-    $mensaje = str_replace( '[precioBase]' , $precioBase, $mensaje );
-    $mensaje = str_replace( '[precioDestino]' , $precioDestino, $mensaje );
+    $mensaje = str_replace( '[precioBase]' , $precioBase . '€', $mensaje );
+    $mensaje = str_replace( '[precioDestino]' , $precioDestino . '€', $mensaje );
     $mensaje = str_replace( '[nombreDestino]' , $nombreDestino, $mensaje );
-    $mensaje = str_replace( '[precioAtaud]' , $precioAtaud, $mensaje );
+    $mensaje = str_replace( '[precioAtaud]' , $precioAtaud . '€', $mensaje );
     $mensaje = str_replace( '[nombreAtaud]' , $nombreAtaud, $mensaje );
-    $mensaje = str_replace( '[precioAtaudEco]' , $precioAtaudEco, $mensaje );
+    $mensaje = str_replace( '[precioAtaudEco]' , $precioAtaudEco . '€', $mensaje );
     $mensaje = str_replace( '[nombreAtaudEco]' , $nombreAtaudEco, $mensaje );
-    $mensaje = str_replace( '[precioVelatorio]' , $precioVelatorio, $mensaje );
+    $mensaje = str_replace( '[precioVelatorio]' , $precioVelatorio . '€', $mensaje );
     $mensaje = str_replace( '[nombreVelatorio]' , $nombreVelatorio, $mensaje );
-    $mensaje = str_replace( '[precioCeremonia]' , $precioDespedida, $mensaje );
+    $mensaje = str_replace( '[precioCeremonia]' , $precioDespedida . '€', $mensaje );
     $mensaje = str_replace( '[nombreCeremonia]' , $nombreDespedida, $mensaje );
-    $mensaje = str_replace( '[precioTotal]' , $precioTotal, $mensaje );
-    $mensaje = str_replace( '[precioTotalEco]' , $precioTotalEco, $mensaje );
+    $mensaje = str_replace( '[precioTotal]' , $precioTotal . '€', $mensaje );
+    $mensaje = str_replace( '[precioTotalEco]' , $precioTotalEco . '€', $mensaje );
 
     $comentarios = apply_filters('wpfunos_comentario', $_GET['wpfunos-select-comentarios'] );
     $mensaje = str_replace( '[comentarios]' , $comentarios, $mensaje );
