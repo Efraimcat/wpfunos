@@ -54,6 +54,15 @@ add_settings_field(
   'wpfunos_general_pagina_section',
   array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_paginaLlamen','name' => $this->plugin_name . '_paginaLlamen','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
+// Página Pedir Presupuesto
+add_settings_field(
+  $this->plugin_name . '_paginaPresupuesto',
+  'Página Pedir Presupuesto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaPresupuesto)</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_general_settings',
+  'wpfunos_general_pagina_section',
+  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_paginaPresupuesto','name' => $this->plugin_name . '_paginaPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
 // Página Envien correo
 add_settings_field(
   $this->plugin_name . '_paginaEmail',
@@ -122,6 +131,7 @@ register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaCompar
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaDetalles');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaLlamar');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaLlamen');
+register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaPresupuesto');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaEmail');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaURLResultadosServicios');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaComparadorGeoMyWp');

@@ -29,6 +29,7 @@ $servicioValoracion = sanitize_text_field( $_POST[$this->plugin_name . '_servici
 $servicioActivo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioActivo'] );
 
 $servicioBotonesLlamar = sanitize_text_field( $_POST[$this->plugin_name . '_servicioBotonesLlamar'] );
+$servicioBotonPresupuesto = sanitize_text_field( $_POST[$this->plugin_name . '_servicioBotonPresupuesto'] );
 $servicioTextoPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioTextoPrecio'] );
 $servicioImagenPromo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenPromo'] );
 $Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
@@ -164,6 +165,7 @@ update_post_meta($post_id, $this->plugin_name . '_servicioValoracion', $servicio
 update_post_meta($post_id, $this->plugin_name . '_servicioActivo', $servicioActivo);
 
 update_post_meta($post_id, $this->plugin_name . '_servicioBotonesLlamar', $servicioBotonesLlamar);
+update_post_meta($post_id, $this->plugin_name . '_servicioBotonPresupuesto', $servicioBotonPresupuesto);
 update_post_meta($post_id, $this->plugin_name . '_servicioTextoPrecio', $servicioTextoPrecio);
 update_post_meta($post_id, $this->plugin_name . '_servicioImagenPromo', $servicioImagenPromo);
 update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);

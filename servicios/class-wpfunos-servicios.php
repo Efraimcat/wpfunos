@@ -37,10 +37,12 @@ class Wpfunos_Servicios {
     add_shortcode( 'wpfunos-resultados-detalles-logo-ecologico', array( $this, 'wpfunosResultadosDetallesLogoEcologicoShortcode' ));
     add_shortcode( 'wpfunos-resultados-detalles-logo-promo', array( $this, 'wpfunosResultadosDetallesLogoPromoShortcode' ));
     add_shortcode( 'wpfunos-resultados-detalles-email', array( $this, 'wpfunosResultadosDetallesEmailShortcode' ));
+    add_shortcode( 'wpfunos-resultados-presupuesto', array( $this, 'wpfunosResultadosPresupuestoShortcode' ));
     add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
     add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
     add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
     add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
+    add_filter( 'wpfunos_servicios_indeseados', array( $this, 'wpfunosServiciosIndeseados'), 10, 1 );
     add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 4 );
     add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 4 );
     add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 4 );
@@ -95,6 +97,18 @@ class Wpfunos_Servicios {
       do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
       do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
       do_action('wpfunos_log', 'wpfid: ' . $_COOKIE[ 'wpfid' ]);
+      //Filtro usuarios indeseados
+      if ( apply_filters( 'wpfunos_servicios_indeseados', $_GET['wpf'] ) ){
+        ?>
+        <div class="wpfunos-resultados-orden">
+          <h2>No se han podido encontrar resultados.</h2>
+        </div>
+        <?php
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', 'Filtro Indeseados' );
+        return;
+      }
+      //
       if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){
         // Solo enviar lead si no se ha enviado anteriormente.
         if ( !get_post_meta( $IDusuario, 'wpfunos_userLead', true ) ){
@@ -368,6 +382,13 @@ class Wpfunos_Servicios {
     do_action('wpfunos_log', '$_GET[Email]: ' . $_GET['Email'] );
   }
 
+  /**
+  * Shortcode [wpfunos-resultados-presupuesto]
+  */
+  public function wpfunosResultadosPresupuestoShortcode( $atts, $content = "" ) {
+
+  }
+
   /*********************************/
   /*****  HOOKS               ******/
   /*********************************/
@@ -604,6 +625,9 @@ class Wpfunos_Servicios {
           $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
           require 'partials/' . $this->plugin_name . '-servicios-confirmado-botones-llamadas-display.php';
         }
+        if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
+          require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+        }
         require 'partials/' . $this->plugin_name . '-servicios-confirmado-boton-detalles-display.php';
         if($value[1] == $value[2]){
           echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosInferior') ) ;
@@ -656,6 +680,9 @@ class Wpfunos_Servicios {
           $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
           require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-botones-llamadas-display.php';
         }
+        if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
+          require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+        }
         //require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-boton-detalles-display.php';
         ?></div><?php
       }
@@ -691,6 +718,9 @@ class Wpfunos_Servicios {
           $tel = str_replace("-","",$tel);
           $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
           require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-botones-llamadas-display.php';
+        }
+        if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
+          require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
         }
         ?></div><?php
       }
@@ -1154,4 +1184,21 @@ class Wpfunos_Servicios {
       do_action('wpfunos_log', 'mailCorreoDatosEntrados: ' . get_option('wpfunos_mailCorreoDatosEntrados') );
     }
   }
+
+  /**
+  * Filtro indeseados
+  * add_filter( 'wpfunos_servicios_indeseados', array( $this, 'wpfunosServiciosIndeseados'), 10, 1 );
+  */
+  public function wpfunosServiciosIndeseados( $wpf ){
+    $cryptcode = apply_filters( 'wpfunos_crypt', $_GET['wpf'], 'd' );
+    $codigo = ( explode( ',' , $cryptcode ) );
+    $referencia = $codigo[0];
+    $IDusuario = apply_filters('wpfunos_userID', $referencia );
+    //  02-05-22
+    if ( "luisa_stfost87@hotmail.com" === get_post_meta( $IDusuario, $this->plugin_name . '_userMail', true ) ) return true;
+    if ( "652 55 28 25" === get_post_meta( $IDusuario, $this->plugin_name . '_userPhone', true ) ) return true;
+    //
+    return false;
+  }
+
 }
