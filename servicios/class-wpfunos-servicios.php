@@ -386,7 +386,15 @@ class Wpfunos_Servicios {
   * Shortcode [wpfunos-resultados-presupuesto]
   */
   public function wpfunosResultadosPresupuestoShortcode( $atts, $content = "" ) {
-
+    if( ! isset ( $_GET['comentarios'] ) ){
+      require 'partials/' . $this->plugin_name . '-servicios-detalles-boton-presupuesto-display.php';
+    }else{
+      ?>
+      <div class="wpfunos-resultados-orden">
+        <h2>ToDo: Enviar presupuesto.</h2>
+      </div>
+      <?php
+    }
   }
 
   /*********************************/
