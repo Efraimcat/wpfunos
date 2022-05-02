@@ -233,6 +233,94 @@ class Wpfunos_Colaboradores {
   /*********************************/
   private function wpfunosServiciosColaboradorProcesarMensaje( $wpfunos_select, $wpfunos_select_servicio, $wpfunos_select_comentarios){
     //if( ! get_option($this->plugin_name . '_activarCorreoServiciosColaborador') ){
+    //
+    //  Calcular Precios
+    //
+    $seleccion = get_post_meta( $wpfunos_select, 'wpfunos_userSeleccion', true );
+    $respuesta = (explode(',',$seleccion));
+
+    $NA=false;
+    // Destino
+    switch($respuesta[3]){
+      case '1':
+      $precioDestino = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDestino_1Precio', true );
+      $nombreDestino = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDestino_1Nombre', true );
+      break;
+      case '2':
+      $precioDestino = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDestino_2Precio', true );
+      $nombreDestino = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDestino_2Nombre', true );
+      break;
+      case '3':
+      $precioDestino = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDestino_3Precio', true );
+      $nombreDestino = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDestino_3Nombre', true );
+      break;
+    }
+    if ( strlen( $precioDestino ) < 1 ) $NA=true;
+    // Ataud
+    switch($respuesta[4]){
+      case '1':
+      $precioAtaud = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaud_1Precio', true );
+      $nombreAtaud = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaud_1Nombre', true );
+      $precioAtaudEco = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaudEcologico_1Precio', true );
+      $nombreAtaudEco = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaudEcologico_1Nombre', true );
+      break;
+      case '2':
+      $precioAtaud = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaud_2Precio', true );
+      $nombreAtaud = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaud_2Nombre', true );
+      $precioAtaudEco = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaudEcologico_2Precio', true );
+      $nombreAtaudEco = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaudEcologico_2Nombre', true );
+      break;
+      case '3':
+      $precioAtaud = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaud_3Precio', true );
+      $nombreAtaud = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaud_3Nombre', true );
+      $precioAtaudEco = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaudEcologico_3Precio', true );
+      $nombreAtaudEco = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioAtaudEcologico_3Nombre', true );
+      break;
+    }
+    if ( strlen( $precioAtaud ) < 1 && strlen( $precioAtaudEco ) < 1 ) $NA=true;
+    // Velatorio
+    switch($respuesta[5]){
+      case '1':
+      $precioVelatorio = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioVelatorioPrecio', true );
+      $nombreVelatorio = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioVelatorioNombre', true );
+      break;
+      case '2':
+      $precioVelatorio = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioVelatorioNoPrecio', true );
+      $nombreVelatorio = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioVelatorioNoNombre', true );
+      break;
+    }
+    if ( strlen( $precioDestino ) < 1 ) $NA=true;
+    // Ceremonia
+    switch($respuesta[6]){
+      case '1':
+      $precioDespedida = '0';
+      $nombreDespedida = 'Sin ceremonia';
+      break;
+      case '2':
+      $precioDespedida = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDespedida_1Precio', true );
+      $nombreDespedida = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDespedida_1Nombre', true );
+      break;
+      case '3':
+      $precioDespedida = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDespedida_2Precio', true );
+      $nombreDespedida = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDespedida_2Nombre', true );
+      break;
+      case '4':
+      $precioDespedida = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDespedida_3Precio', true );
+      $nombreDespedida = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioDespedida_3Nombre', true );
+      break;
+    }
+    if ( strlen( $precioDespedida ) < 1 ) $NA=true;
+    //
+    $precioBase = get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioPrecioBase', true );
+    //
+    if( $NA ){
+      $precioTotal = $precioTotalEco = $precioBase = $precioDestino = $nombreDestino = $precioAtaud = $nombreAtaud = $precioAtaudEco = $nombreAtaudEco = $precioVelatorio = $nombreVelatorio = $precioDespedida = $nombreDespedida = '';
+    }else{
+      $precioTotal = $precioBase + $precioDestino + $precioAtaud + $precioVelatorio + $precioDespedida;
+      $precioTotalEco = $precioBase + $precioDestino + $precioAtaudEco + $precioVelatorio + $precioDespedida;
+    }
+
+    //
     mt_srand(mktime());
     $referencia = 'funos-'.(string)mt_rand();
     $my_post = array(
@@ -263,6 +351,29 @@ class Wpfunos_Colaboradores {
         $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
         $this->plugin_name . '_Dummy' => true,
         $this->plugin_name . '_userLead' => true,
+
+        $this->plugin_name . '_userPrecio' => $precioTotal,
+
+        $this->plugin_name . '_userDesgloseBaseNombre' => get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioNombre', true ),
+        $this->plugin_name . '_userDesgloseBasePrecio' => $precioBase,
+        $this->plugin_name . '_userDesgloseBaseTotal' => $precioBase,
+
+        $this->plugin_name . '_userDesgloseDestinoNombre' => $nombreDestino,
+        $this->plugin_name . '_userDesgloseDestinoPrecio' => $precioDestino,
+        $this->plugin_name . '_userDesgloseDestinoTotal' => $precioDestino,
+
+        $this->plugin_name . '_userDesgloseAtaudNombre' => $nombreAtaud,
+        $this->plugin_name . '_userDesgloseAtaudPrecio' => $precioAtaud,
+        $this->plugin_name . '_userDesgloseAtaudTotal' => $precioAtaud,
+
+        $this->plugin_name . '_userDesgloseVelatorioNombre' => $nombreVelatorio,
+        $this->plugin_name . '_userDesgloseVelatorioPrecio' => $precioVelatorio,
+        $this->plugin_name . '_userDesgloseVelatorioTotal' => $precioVelatorio,
+
+        $this->plugin_name . '_userDesgloseCeremoniaNombre' => $nombreDespedida,
+        $this->plugin_name . '_userDesgloseCeremoniaPrecio' => $precioDespedida,
+        $this->plugin_name . '_userDesgloseCeremoniaTotal' => $precioDespedida,
+
       ),
     );
     $post_id = wp_insert_post($my_post);
@@ -291,6 +402,20 @@ class Wpfunos_Colaboradores {
     $mensaje = str_replace( '[AtaudNombre]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionAtaud', true )) , $mensaje );
     $mensaje = str_replace( '[VelatorioNombre]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionVelatorio', true )) , $mensaje );
     $mensaje = str_replace( '[CeremoniaNombre]' , sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionDespedida', true )) , $mensaje );
+
+    $mensaje = str_replace( '[precioBase]' , $precioBase, $mensaje );
+    $mensaje = str_replace( '[precioDestino]' , $precioDestino, $mensaje );
+    $mensaje = str_replace( '[nombreDestino]' , $nombreDestino, $mensaje );
+    $mensaje = str_replace( '[precioAtaud]' , $precioAtaud, $mensaje );
+    $mensaje = str_replace( '[nombreAtaud]' , $nombreAtaud, $mensaje );
+    $mensaje = str_replace( '[precioAtaudEco]' , $precioAtaudEco, $mensaje );
+    $mensaje = str_replace( '[nombreAtaudEco]' , $nombreAtaudEco, $mensaje );
+    $mensaje = str_replace( '[precioVelatorio]' , $precioVelatorio, $mensaje );
+    $mensaje = str_replace( '[nombreVelatorio]' , $nombreVelatorio, $mensaje );
+    $mensaje = str_replace( '[precioCeremonia]' , $precioDespedida, $mensaje );
+    $mensaje = str_replace( '[nombreCeremonia]' , $nombreDespedida, $mensaje );
+    $mensaje = str_replace( '[precioTotal]' , $precioTotal, $mensaje );
+    $mensaje = str_replace( '[precioTotalEco]' , $precioTotalEco, $mensaje );
 
     $comentarios = apply_filters('wpfunos_comentario', $_GET['wpfunos-select-comentarios'] );
     $mensaje = str_replace( '[comentarios]' , $comentarios, $mensaje );

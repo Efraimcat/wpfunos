@@ -20,6 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
         <tr>
           <td><?php esc_html_e('Nombre', 'wpfunos');?></td>
           <td style="width:5px;"></td>
+          <td><?php esc_html_e('Empresa', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
           <td><?php esc_html_e('Población', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Provincia', 'wpfunos');?></td>
@@ -28,6 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioNombre','name' => $this->plugin_name . '_servicioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioEmpresa','name' => $this->plugin_name . '_servicioEmpresa','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPoblacion','name' => $this->plugin_name . '_servicioPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
           <td style="width:5px;"></td>

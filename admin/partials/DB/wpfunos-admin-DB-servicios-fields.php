@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 $servicioNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioNombre'] );
+$servicioEmpresa = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEmpresa'] );
 $servicioPoblacion = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPoblacion'] );
 $servicioProvincia = sanitize_text_field( $_POST[$this->plugin_name . '_servicioProvincia'] );
 $servicioDireccion = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDireccion'] );
@@ -147,6 +148,7 @@ $servicioDespedida_3ProxComentario = wp_kses_post( $_POST[$this->plugin_name . '
 $servicioPosiblesExtras = wp_kses_post( $_POST[$this->plugin_name . '_servicioPosiblesExtras'] );
 
 update_post_meta($post_id, $this->plugin_name . '_servicioNombre', $servicioNombre);
+update_post_meta($post_id, $this->plugin_name . '_servicioEmpresa', $servicioEmpresa);
 update_post_meta($post_id, $this->plugin_name . '_servicioPoblacion', $servicioPoblacion);
 update_post_meta($post_id, $this->plugin_name . '_servicioProvincia', $servicioProvincia);
 update_post_meta($post_id, $this->plugin_name . '_servicioDireccion', $servicioDireccion);
