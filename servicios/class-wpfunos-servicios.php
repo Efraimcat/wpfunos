@@ -386,7 +386,7 @@ class Wpfunos_Servicios {
   * Shortcode [wpfunos-resultados-presupuesto]
   */
   public function wpfunosResultadosPresupuestoShortcode( $atts, $content = "" ) {
-    if( ! isset ( $_GET['comentarios'] ) ){
+    if( ! isset ( $_GET['wpfunos-select-comentarios'] ) ){
       require 'partials/' . $this->plugin_name . '-servicios-detalles-boton-presupuesto-display.php';
     }else{
       ?>
@@ -634,7 +634,9 @@ class Wpfunos_Servicios {
           require 'partials/' . $this->plugin_name . '-servicios-confirmado-botones-llamadas-display.php';
         }
         if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
-          require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+          if( get_option($this->plugin_name . '_activarCorreoPedirPresupuesto')){
+            require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+          }
         }
         require 'partials/' . $this->plugin_name . '-servicios-confirmado-boton-detalles-display.php';
         if($value[1] == $value[2]){
@@ -689,7 +691,9 @@ class Wpfunos_Servicios {
           require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-botones-llamadas-display.php';
         }
         if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
-          require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+          if( get_option($this->plugin_name . '_activarCorreoPedirPresupuesto')){
+            require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+          }
         }
         //require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-boton-detalles-display.php';
         ?></div><?php
@@ -728,7 +732,9 @@ class Wpfunos_Servicios {
           require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-botones-llamadas-display.php';
         }
         if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
-          require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+          if( get_option($this->plugin_name . '_activarCorreoPedirPresupuesto')){
+            require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+          }
         }
         ?></div><?php
       }

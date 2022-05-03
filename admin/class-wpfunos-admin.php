@@ -49,6 +49,7 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildMail5' ));		//Datos usuario enviados
     add_action('admin_init', array( $this, 'registerAndBuildMail6' ));		//Correo popup detalles
     add_action('admin_init', array( $this, 'registerAndBuildMail7' ));		//Correo envios colaboradores
+    add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto
     add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildAPIDKV' ));
     add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
@@ -281,6 +282,9 @@ class Wpfunos_Admin {
   }
   public function registerAndBuildMail7() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail7.php';
+  }
+  public function registerAndBuildMail8() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail8.php';
   }
   public function registerAndBuildAPIPreventiva() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIPreventiva.php';

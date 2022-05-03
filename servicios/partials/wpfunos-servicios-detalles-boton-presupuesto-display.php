@@ -20,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="servicios-popup-presupuesto">
           <h3>Comentarios</h3>
           <form id="wpfunos-servicios-colaborador-detalles-comentarios" method="GET">
-            <textarea id="wpfunos-select-comentarios" name="wpfunos-select-comentarios" rows="10" cols="70"></textarea>
             <?php require $this->plugin_name . '-servicios-detalles-formulario-campos-display.php'; ?>
+            <textarea id="wpfunos-select-comentarios" name="wpfunos-select-comentarios" rows="10" cols="70"></textarea>
             <input type="submit" value="Pedir presupuesto" style="background-color: #1d40d3; font-size: 14px;">
           </form>
         </div>
