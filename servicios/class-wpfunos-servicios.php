@@ -389,9 +389,100 @@ class Wpfunos_Servicios {
     if( ! isset ( $_GET['wpfunos-select-comentarios'] ) ){
       require 'partials/' . $this->plugin_name . '-servicios-detalles-boton-presupuesto-display.php';
     }else{
+      $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+      $userIP = apply_filters('wpfunos_userIP','dummy');
+      mt_srand(mktime());
+      $referencia = 'funos-'.(string)mt_rand();
+      $my_post = array(
+        'post_title' => $referencia,
+        'post_type' => 'usuarios_wpfunos',
+        'post_status'  => 'publish',
+        'meta_input'   => array(
+          $this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+          $this->plugin_name . '_userReferencia' => sanitize_text_field( $referencia ),
+          $this->plugin_name . '_userName' => $_GET['nombreUsuario'],
+          $this->plugin_name . '_userPhone' => $_GET['telefonoUsuario'],
+          $this->plugin_name . '_userSeleccion' => $_GET['seleccionUsuario'],
+          $this->plugin_name . '_userAccion' => '5',
+          $this->plugin_name . '_userNombreAccion' => 'Botón pedir presupuesto',
+          $this->plugin_name . '_userNombreSeleccionUbicacion' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userNombreSeleccionUbicacion', true ) ),
+          $this->plugin_name . '_userNombreSeleccionDistancia' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userNombreSeleccionDistancia', true ) ),
+          $this->plugin_name . '_userNombreSeleccionServicio' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userNombreSeleccionServicio', true ) ),
+          $this->plugin_name . '_userNombreSeleccionAtaud' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userNombreSeleccionAtaud', true ) ),
+          $this->plugin_name . '_userNombreSeleccionVelatorio' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userNombreSeleccionVelatorio', true ) ),
+          $this->plugin_name . '_userNombreSeleccionDespedida' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userNombreSeleccionDespedida', true ) ),
+          $this->plugin_name . '_userServicio' => $_GET['servicio'],
+          $this->plugin_name . '_userCP' => $_GET['CPUsuario'],
+          $this->plugin_name . '_userMail' => $_GET['Email'],
+          $this->plugin_name . '_userDesgloseBaseNombre' => $_GET['desgloseBaseNombre'],
+          $this->plugin_name . '_userIP' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userIP', true ) ),
+          $this->plugin_name . '_userLAT' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userLAT', true ) ),
+          $this->plugin_name . '_userLNG' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userLNG', true ) ),
+          $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
+          $this->plugin_name . '_Dummy' => true,
+          $this->plugin_name . '_userLead' => true,
+
+          $this->plugin_name . '_userPrecio' => $_GET['precio'],
+
+          $this->plugin_name . '_userDesgloseBaseNombre' => $_GET['desgloseBaseNombre'],
+          $this->plugin_name . '_userDesgloseBasePrecio' => $_GET['desgloseBasePrecio'],
+          $this->plugin_name . '_userDesgloseBaseDescuento' => $_GET['desgloseBaseDescuento'],
+          $this->plugin_name . '_userDesgloseBaseTotal' => $_GET['desgloseBaseTotal'],
+
+          $this->plugin_name . '_userDesgloseDestinoNombre' => $_GET['desgloseDestinoNombre'],
+          $this->plugin_name . '_userDesgloseDestinoPrecio' => $_GET['desgloseDestinoPrecio'],
+          $this->plugin_name . '_userDesgloseDestinoDescuento' => $_GET['desgloseDestinoDescuento'],
+          $this->plugin_name . '_userDesgloseDestinoTotal' => $_GET['desgloseDestinoTotal'],
+
+          $this->plugin_name . '_userDesgloseAtaudNombre' => $_GET['desgloseAtaudNombre'],
+          $this->plugin_name . '_userDesgloseAtaudPrecio' => $_GET['desgloseAtaudPrecio'],
+          $this->plugin_name . '_userDesgloseAtaudDescuento' => $_GET['desgloseAtaudDescuento'],
+          $this->plugin_name . '_userDesgloseAtaudTotal' => $_GET['desgloseAtaudTotal'],
+
+          $this->plugin_name . '_userDesgloseVelatorioNombre' => $_GET['desgloseVelatorioNombre'],
+          $this->plugin_name . '_userDesgloseVelatorioPrecio' => $_GET['desgloseVelatorioPrecio'],
+          $this->plugin_name . '_userDesgloseVelatorioDescuento' => $_GET['desgloseVelatorioDescuento'],
+          $this->plugin_name . '_userDesgloseVelatorioTotal' => $_GET['desgloseVelatorioTotal'],
+
+          $this->plugin_name . '_userDesgloseCeremoniaNombre' => $_GET['desgloseCeremoniaNombre'],
+          $this->plugin_name . '_userDesgloseCeremoniaPrecio' => $_GET['desgloseCeremoniaPrecio'],
+          $this->plugin_name . '_userDesgloseCeremoniaDescuento' => $_GET['desgloseCeremoniaDescuento'],
+          $this->plugin_name . '_userDesgloseCeremoniaTotal' => $_GET['desgloseCeremoniaTotal'],
+
+          $this->plugin_name . '_userDesgloseDescuentoGenerico' => $_GET['desgloseDescuentoGenerico'],
+          $this->plugin_name . '_userDesgloseDescuentoGenericoPrecio' => $_GET['desgloseDescuentoGenericoPrecio'],
+          $this->plugin_name . '_userDesgloseDescuentoGenericoDescuento' => $_GET['desgloseDescuentoGenericoDescuento'],
+          $this->plugin_name . '_userDesgloseDescuentoGenericoTotal' => $_GET['desgloseDescuentoGenericoTotal'],
+        ),
+      );
+      $post_id = wp_insert_post($my_post);
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', 'Acción en página resultados: Pedir presupuesto' );
+      do_action('wpfunos_log', 'Nombre: ' .  $_GET['nombreUsuario']  );
+      do_action('wpfunos_log', 'IP: ' . $userIP  );
+      do_action('wpfunos_log', 'ID: ' . $post_id  );
+      do_action('wpfunos_log', 'referencia: ' .  $referencia  );
+      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPedirPresupuesto'), get_option('wpfunos_asuntoCorreoPedirPresupuesto') );
+      require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Calculos.php';
+
+      $comentarios = apply_filters('wpfunos_comentario', $_GET['wpfunos-select-comentarios'] );
+      $mensaje = str_replace( '[comentariosPresupuesto]' , $comentarios, $mensaje );
+
+      $headers[] = 'Content-Type: text/html; charset=UTF-8';
+      if(!empty( get_option('wpfunos_mailCorreoCcoPedirPresupuesto' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPedirPresupuesto' ) ;
+      if(!empty( get_option('wpfunos_mailCorreoBccPedirPresupuesto' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPedirPresupuesto' ) ;
+      wp_mail ( get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioEmail', true ), get_option('wpfunos_asuntoCorreoPedirPresupuesto') , $mensaje, $headers );
+
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', 'userIP: ' . $userIP );
+      do_action('wpfunos_log', 'Enviado correo pedir presupuesto ' . apply_filters('wpfunos_dumplog', get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioEmail', true ) ) );
+      do_action('wpfunos_log', 'Nombre: ' .  $_GET['nombreUsuario'] );
+      do_action('wpfunos_log', '$referencia: ' . $referencia );
+
       ?>
       <div class="wpfunos-resultados-orden">
-        <h2>ToDo: Enviar presupuesto.</h2>
+        <h2>Petición de presupuesto enviada.</h2>
+        <p>Mensaje enviado a <strong><?php echo get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioNombre', true ); ?></strong></p>
       </div>
       <?php
     }
