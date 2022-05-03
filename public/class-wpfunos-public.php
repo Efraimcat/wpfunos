@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * 2 - Usuario pulsa botón "llamar" en resultados servicios
 * 3 - Usuario visuliza resultados aseguradoras
 * 4 - cold lead aseguradoras
+* 5 - Usuario pide presupuesto
 */
 class Wpfunos_Public {
 
