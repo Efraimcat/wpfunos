@@ -335,7 +335,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     ?>
     <li>
       <?php esc_html_e('Contratado: ', 'wpfunos');?>
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_userContratadoIDstamp','name' => $this->plugin_name . '_userContratado','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_userContratadoIDstamp','name' => $this->plugin_name . '_userContratado','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
     </li>
     <li><label for="'.$this->plugin_name.'_userComentarios" style="font-size: 32px;">Comentarios</label>
       <?php	wp_editor( $notes_userComentarios, $this->plugin_name . '_userComentarios',$args_userComentarios); ?>

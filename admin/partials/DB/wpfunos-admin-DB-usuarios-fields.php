@@ -23,9 +23,9 @@ $userLead = sanitize_text_field( $_POST[$this->plugin_name . '_userLead'] );
 $userSeleccion = sanitize_text_field( $_POST[$this->plugin_name . '_userSeleccion'] );
 $userCP = sanitize_text_field( $_POST[$this->plugin_name . '_userCP'] );
 
-$userComentarios = $_POST[$this->plugin_name . '_useruserComentarios';
+$userComentarios = wp_kses_post( $_POST[$this->plugin_name . '_userComentarios'] );
+$userFuneraria = wp_kses_post( $_POST[$this->plugin_name . '_userFuneraria'] );
 $userContratado = sanitize_text_field( $_POST[$this->plugin_name . '_userContratado'] );
-$userFuneraria = sanitize_text_field( $_POST[$this->plugin_name . '_userFuneraria'] );
 
 $userNombreAccion = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreAccion'] );
 $userNombreSeleccionUbicacion = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreSeleccionUbicacion'] );
