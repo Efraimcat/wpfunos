@@ -13,7 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 $show_in_menu = '';
-if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' ) $show_in_menu = $this->plugin_name;
+$current_user = wp_get_current_user();
+if ( $current_user->ID == 7 ) $show_in_menu = $this->plugin_name;
 $customPostTypeArgs = array(
   'label' => esc_html__('Ubicaciones wpfunos', 'wpfunos'),
   'labels'=>
@@ -30,7 +31,7 @@ $customPostTypeArgs = array(
     'not_found_in_trash' => esc_html__('No se encontraron ubicaciones en la papelera', 'wpfunos'),
     'menu_name' => esc_html__('Ubicaciones', 'wpfunos'),
     'name_admin_bar' => esc_html__('Ubicaciones', 'wpfunos'),
-  ),	
+  ),
   'public'=>false,
   'description' => esc_html__('Ubicaciones', 'wpfunos'),
   'exclude_from_search' => true,

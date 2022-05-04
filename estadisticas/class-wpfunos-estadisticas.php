@@ -574,9 +574,10 @@ class Wpfunos_Estadisticas {
 	*/
 	public function my_custom_admin_head() {
 		global $pagenow;
+		$current_user = wp_get_current_user();
 		if ( ! is_user_logged_in() ) return;
 		if ( ! current_user_can( 'manage_options' ) ) return;
-		if( apply_filters('wpfunos_userIP','dummy') != '80.26.158.67' ) return;
+		if ( ! $current_user->ID == 7 ) return;
 		if( ! get_option($this->plugin_name . '_Graph') ) return;
 		if ( ( 'admin.php' !== $pagenow ) || ( 'wpfunos' !== $_GET['page'] ) ) return;
 		//do_action('wpfunos_log', '==============' );

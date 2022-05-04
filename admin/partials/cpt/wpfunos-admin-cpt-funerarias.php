@@ -13,7 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 $show_in_menu = '';
-if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' ) $show_in_menu = $this->plugin_name;
+$current_user = wp_get_current_user();
+if ( $current_user->ID == 7 ) $show_in_menu = $this->plugin_name;
 $customPostTypeArgs = array(
   'label' => esc_html__('Funerarias', 'wpfunos'),
   'labels'=>

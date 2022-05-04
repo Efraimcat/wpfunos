@@ -20,7 +20,7 @@ $displaymes = date_i18n( 'F', current_time( 'timestamp', 0 ) );
 $displaysemanaant = (int) date_i18n( 'W', current_time( 'timestamp', 0 )) - 1;
 $displaysemana = date_i18n( 'W', current_time( 'timestamp', 0 ) );
 if( $displaysemanaant == 0 ) $displaysemanaant = 53;
-
+$current_user = wp_get_current_user();
 //$visits = apply_filters('wpfunos_count_visits', 'pag_serv_wpfunos', 'wpfunos_entradaServiciosVisitas', 'wpfunos_entradaServiciosIP' );
 //$visits = apply_filters('wpfunos_count_visits', 'ubicaciones_wpfunos', 'wpfunos_ubicacionVisitas', 'wpfunos_ubicacionIP' );
 //$visits = apply_filters('wpfunos_count_visits', 'usuarios_wpfunos', 'wpfunos_userVisitas', 'wpfunos_userIP' );
@@ -41,27 +41,21 @@ if( $displaysemanaant == 0 ) $displaysemanaant = 53;
           <div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
 
           <hr/>
-          <?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
-          include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-entradas.php'; ?>
+          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-entradas.php'; ?>
           <hr/>
-          <?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
-          include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-ubicaciones.php'; ?>
+          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-ubicaciones.php'; ?>
           <hr/>
-          <?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
-          include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-datos.php'; ?>
+          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-datos.php'; ?>
           <hr/>
-          <?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
-          include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-ratios.php'; ?>
+          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-ratios.php'; ?>
 
 
-          <?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
-          include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-inferior.php';	?>
+          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-inferior.php';	?>
           <hr/>
         </div>
         <div id="Graficas" class="w3-container wpftab" style="display:none; top: -300px;position: relative;">
           <h2>Gráficas</h2>
-          <?php if( apply_filters('wpfunos_userIP','dummy') == '80.26.158.67' )
-          include 'admin-menu/' . $this->plugin_name . '-admin-menu-graficas-superior.php';	?>
+          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-graficas-superior.php';	?>
         </div>
         <div id="Enlaces" class="w3-container wpftab" style="display:none; top: -300px;position: relative;">
           <h2>Enlaces</h2>
