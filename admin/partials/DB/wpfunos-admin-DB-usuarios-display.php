@@ -327,5 +327,22 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
+    <?php // provide textarea name for $_POST variable
+    $notes_userComentarios = get_post_meta( $post->ID, $this->plugin_name . '_userComentarios', true );
+    $args_userComentarios = array( 'textarea_name' => $this->plugin_name . '_userComentarios', );
+    $notes_userFuneraria = get_post_meta( $post->ID, $this->plugin_name . '_userFuneraria', true );
+    $args_userFuneraria = array( 'textarea_name' => $this->plugin_name . '_userFuneraria', );
+    ?>
+    <li>
+      <?php esc_html_e('Contratado: ', 'wpfunos');?>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_userContratadoIDstamp','name' => $this->plugin_name . '_userContratado','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_userComentarios" style="font-size: 32px;">Comentarios</label>
+      <?php	wp_editor( $notes_userComentarios, $this->plugin_name . '_userComentarios',$args_userComentarios); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_userFuneraria" style="font-size: 32px;">Funeraria</label>
+      <?php	wp_editor( $notes_userFuneraria, $this->plugin_name . '_userFuneraria',$args_userFuneraria); ?>
+    </li>
+    <hr/>
   </ul>
 </div>

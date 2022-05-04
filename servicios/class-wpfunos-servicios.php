@@ -120,7 +120,9 @@ class Wpfunos_Servicios {
         //
         //	Cambiar el tipo de ordenación de los datos.
         //
-        ?><div class="wpfunos-resultados-orden-container">Ordenar resultados por:</div><?php
+        ?>
+        <div class="wpfunos-resultados-orden-info" style="margin-top: 10px;text-align: center;">Los resultados estan ordenados por <?php echo 'dist' === $_GET['orden'] ? 'distancia' : 'precio';  ?>.</div>
+        <div class="wpfunos-resultados-orden-container">Ordenar resultados por:</div><?php
         if( ! isset( $_GET['orden'] ) || $_GET['orden'] == 'dist') {
           do_action('wpfunos_log', 'Orden distancia: ');
           if( ! isset( $_GET['orden'] ) ){

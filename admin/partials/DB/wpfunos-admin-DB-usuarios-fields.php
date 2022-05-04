@@ -23,6 +23,10 @@ $userLead = sanitize_text_field( $_POST[$this->plugin_name . '_userLead'] );
 $userSeleccion = sanitize_text_field( $_POST[$this->plugin_name . '_userSeleccion'] );
 $userCP = sanitize_text_field( $_POST[$this->plugin_name . '_userCP'] );
 
+$userComentarios = $_POST[$this->plugin_name . '_useruserComentarios';
+$userContratado = sanitize_text_field( $_POST[$this->plugin_name . '_userContratado'] );
+$userFuneraria = sanitize_text_field( $_POST[$this->plugin_name . '_userFuneraria'] );
+
 $userNombreAccion = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreAccion'] );
 $userNombreSeleccionUbicacion = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreSeleccionUbicacion'] );
 $userNombreSeleccionDistancia = sanitize_text_field( $_POST[$this->plugin_name . '_userNombreSeleccionDistancia'] );
@@ -95,6 +99,10 @@ update_post_meta($post_id, $this->plugin_name . '_userSeguro', $userSeguro);
 update_post_meta($post_id, $this->plugin_name . '_userLead', $userLead);
 update_post_meta($post_id, $this->plugin_name . '_userSeleccion', $userSeleccion);
 update_post_meta($post_id, $this->plugin_name . '_userCP', $userCP);
+
+update_post_meta($post_id, $this->plugin_name . '_userComentarios', $userComentarios);
+update_post_meta($post_id, $this->plugin_name . '_userContratado', $userContratado);
+update_post_meta($post_id, $this->plugin_name . '_userFuneraria', $userFuneraria);
 
 update_post_meta($post_id, $this->plugin_name . '_userNombreAccion', $userNombreAccion);
 update_post_meta($post_id, $this->plugin_name . '_userNombreSeleccionUbicacion', $userNombreSeleccionUbicacion);
