@@ -20,6 +20,16 @@ add_settings_section(
 );
 // Página comparador
 add_settings_field(
+  $this->plugin_name . '_distanciaServicioDirecto',
+  'Distancia Servicio Directo <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_distanciaServicioDirecto)</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_general_settings',
+  'wpfunos_general_pagina_section',
+  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_distanciaServicioDirecto','name' => $this->plugin_name . '_distanciaServicioDirecto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
+
+// Página comparador
+add_settings_field(
   $this->plugin_name . '_paginaComparador',
   'Página comparador <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparador)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
@@ -127,6 +137,7 @@ add_settings_field(
   array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . 'paginaComparadorGeoMyWpAseguradoras','name' => $this->plugin_name . '_paginaComparadorGeoMyWpAseguradoras','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
+register_setting('wpfunos_general_settings', $this->plugin_name . '_distanciaServicioDirecto');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaComparador');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaDetalles');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_paginaLlamar');

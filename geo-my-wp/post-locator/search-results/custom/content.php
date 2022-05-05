@@ -1,23 +1,32 @@
 <?php
 /**
- * Posts locator "custom" search results template file.
- *
- * The template folder needs to be placed under:
- * your-theme's-or-child-theme's-folder/geo-my-wp/posts-locator/search-forms/
- *
- * @param $gmw  ( array ) the form being used
- *
- * @param $gmw_form ( object ) the form object
- *
- * @param $post ( object ) post object in the loop
-  */
+* Posts locator "custom" search results template file.
+*
+* The template folder needs to be placed under:
+* your-theme's-or-child-theme's-folder/geo-my-wp/posts-locator/search-forms/
+*
+* @param $gmw  ( array ) the form being used
+*
+* @param $gmw_form ( object ) the form object
+*
+* @param $post ( object ) post object in the loop
+*/
 ?>
 <!--  Main results wrapper - wraps the paginations, map and results -->
 <div class="gmw-results-wrapper custom <?php echo esc_attr( $gmw['prefix'] ); ?>" data-id="<?php echo absint( $gmw['ID'] ); ?>" data-prefix="<?php echo esc_attr( $gmw['prefix'] ); ?>">
-<?php
+	<?php
 	$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia']);
-	$_GET['telefonoUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
 	$_GET['seleccionUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
+	$respuesta = (explode(',',$_GET['seleccionUsuario']));
+	$distanciaDirecto = get_option('wpfunos_distanciaServicioDirecto')
+	if( $respuesta[5] == 2 && $respuesta[6] = 1 && $_GET['distance'] != $distanciaDirecto && (int)$_GET['distance'] < (int)$distanciaDirecto ){
+		$new_url = home_url('/comparar-precios'.add_query_arg(array($_GET), $wp->request));
+		$new_url = str_replace("&distance","&old", $new_url );
+		$new_url = $new_url . '&distance='.$distanciaDirecto;
+		wp_redirect( $new_url );
+		exit;
+	}
+	$_GET['telefonoUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
 	$_GET['CPUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userCP', true );
 	$_GET['nombreUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userName', true );
 	$_GET['Email'] = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
@@ -40,10 +49,10 @@
 		do_action( 'wpfunos_result_grid_sinprecio', $wpfunos_sinprecio );
 		?></ul></div><?php
 		?><div class="wpfunos-result-map"><?php gmw_results_map( $gmw );?></div><?php
-	else :
-		?><div class="gmw-no-results">
-			<?php gmw_no_results_message( $gmw ); ?>
-		</div>	<?php
-	endif;
-?>
-</div>
+		else :
+			?><div class="gmw-no-results">
+				<?php gmw_no_results_message( $gmw ); ?>
+			</div>	<?php
+		endif;
+		?>
+	</div>

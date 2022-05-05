@@ -102,31 +102,51 @@ class Wpfunos_Colaboradores {
     if( isset( $_GET['wpfunos-select-resultados'] )) return;
     if( ! isset( $_GET['wpfunos-select'] )) return;
     if( isset( $_GET['wpfunos-select-servicio'] )){
-      ?>
-      <form id="wpfunos-servicios-colaborador-usuario-servicio">
-        <input type="submit" value="Resultados" style="background-color: #1d40d3; font-size: 14px;">
-        <table style="margin-top: 10px;">
-          <tr><td colspan="2"><h3>Datos servicio seleccionado</h3></td></tr>
-          <tr><td>Servicio</td><td><strong><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioNombre', true ); ?></strong></td></tr>
-          <tr><td></td><td><?php echo get_the_title($_GET['wpfunos-select-servicio']); ?></td></tr>
-          <tr><td>Población</td><td><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioPoblacion', true ); ?></td></tr>
-          <tr><td>Dirección</td><td><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioDireccion', true ); ?></td></tr>
-          <tr><td>Correo</td><td><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioEmail', true ); ?></td></tr>
-          <tr><td>Teléfono</td><td><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioTelefono', true ); ?></td></tr>
-        </table>
-        <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
-        <input type="hidden" name="wpfunos-select-servicio" id="wpfunos-select-servicio" value="<?php echo $_GET['wpfunos-select-servicio']; ?>" >
-        <input type="hidden" name="wpfunos-select-resultados" id="wpfunos-select-resultados" value="1" >
-        <input type="submit" value="Resultados" style="background-color: #1d40d3; font-size: 14px;">
-      </form>
-      <?php
+      $resultado = (explode("=>",$_GET['wpfunos-select-servicio']));
+
+      if ( FALSE === get_post_status( $resultado[1] ) || $_GET['wpfunos-select-servicio'] == '' || !$resultado[1] ) {
+        // The post does not exist
+        ?>
+        <form id="wpfunos-servicios-colaborador-usuario-servicio">
+          <input type="submit" value="Resultados" style="background-color: #1d40d3; font-size: 14px;">
+          <table style="margin-top: 10px;">
+            <tr><td colspan="2"><h3>Sin servicio seleccionado</h3></td></tr>
+          </table>
+          <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
+          <input type="hidden" name="wpfunos-select-servicio" id="wpfunos-select-servicio" value="<?php echo $_GET['wpfunos-select-servicio']; ?>" >
+          <input type="hidden" name="wpfunos-select-resultados" id="wpfunos-select-resultados" value="1" >
+          <input type="submit" value="Resultados" style="background-color: #1d40d3; font-size: 14px;">
+        </form>
+        <?php
+      } else {
+        // The post exists
+        ?>
+        <form id="wpfunos-servicios-colaborador-usuario-servicio">
+          <input type="submit" value="Resultados" style="background-color: #1d40d3; font-size: 14px;">
+          <table style="margin-top: 10px;">
+            <tr><td colspan="2"><h3>Datos servicio seleccionado</h3></td></tr>
+            <tr><td>Servicio</td><td><strong><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioNombre', true ); ?></strong></td></tr>
+            <tr><td></td><td><?php echo get_the_title($resultado[1]); ?></td></tr>
+            <tr><td>Población</td><td><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioPoblacion', true ); ?></td></tr>
+            <tr><td>Dirección</td><td><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioDireccion', true ); ?></td></tr>
+            <tr><td>Correo</td><td><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioEmail', true ); ?></td></tr>
+            <tr><td>Teléfono</td><td><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioTelefono', true ); ?></td></tr>
+          </table>
+          <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
+          <input type="hidden" name="wpfunos-select-servicio" id="wpfunos-select-servicio" value="<?php echo $_GET['wpfunos-select-servicio']; ?>" >
+          <input type="hidden" name="wpfunos-select-resultados" id="wpfunos-select-resultados" value="1" >
+          <input type="submit" value="Resultados" style="background-color: #1d40d3; font-size: 14px;">
+        </form>
+        <?php
+      }
       return;
     }
     ?>
     <form id="wpfunos-servicios-colaborador-servicios" method="GET">
-      <input type="submit" value="Selecionar servicio" style="background-color: #1d40d3; font-size: 14px;">
       <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
-      <table style="margin-top: 10px;">
+      <label for="servicios">Servicio:</label>
+      <input list="servicios" name="wpfunos-select-servicio" id="wpfunos-select-servicio">
+      <datalist id="servicios">
         <?php
         $args = array(
           'post_status' => 'publish',
@@ -138,22 +158,15 @@ class Wpfunos_Colaboradores {
         $post_list = get_posts( $args );
         if( $post_list ){
           foreach ( $post_list as $post ) :
-            $checked = '';
-            if( $post->ID == $_GET['wpfunos-select-servicio'] ) $checked = 'checked';
             ?>
-            <tr>
-              <td  rowspan="2"><input id="wpfunos-select-servicio" type="checkbox" name="wpfunos-select-servicio" value="<?php echo $post->ID; ?>" <?php echo $checked; ?> ></td>
-              <td><strong><?php echo get_post_meta( $post->ID, $this->plugin_name . '_servicioNombre', true ); ?></strong></td>
-            </tr>
-            <tr>
-              <td><?php echo get_the_title($post->ID); ?></td>
-            </tr>
+            <option value="<?php echo get_post_meta( $post->ID, $this->plugin_name . '_servicioNombre', true ) . ' =>' . $post->ID ; ?>" ></option>
             <?php
           endforeach;
           wp_reset_postdata();
         }
         ?>
-      </table>
+      </datalist>
+      <input type="submit" value="Selecionar servicio" style="background-color: #1d40d3; font-size: 14px;margin-top: 10px;">
     </form>
     <?php
   }
@@ -163,14 +176,43 @@ class Wpfunos_Colaboradores {
   */
   public function wpfunosServiciosColaboradorResultadosShortcode( $atts, $content = "" ) {
     if( ! isset( $_GET['wpfunos-select-resultados'] )) return;
-    if( isset( $_GET['wpfunos-select-enviar'] )){
+    $resultado = (explode("=>",$_GET['wpfunos-select-servicio']));
+    if( isset( $_GET['wpfunos-select-enviar'] ) && $_GET['wpfunos-select-enviar'] == '1' ){
+      ?>
+      <div class="servicios-colaborador-comentarios">
+        <h3>ENVIAR LEAD</h3>
+        <h3>Comentarios</h3>
+        <form id="wpfunos-servicios-colaborador-detalles-comentarios" method="GET">
+          <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
+          <input type="hidden" name="wpfunos-select-servicio" id="wpfunos-select-servicio" value="<?php echo $_GET['wpfunos-select-servicio']; ?>" >
+          <input type="hidden" name="wpfunos-select-resultados" id="wpfunos-select-resultados" value="1" >
+          <input type="hidden" name="wpfunos-select-enviar" id="wpfunos-select-enviar" value="3" >
+          <textarea id="wpfunos-select-comentarios" name="wpfunos-select-comentarios" rows="10" cols="70"></textarea>
+          <input type="submit" value="Enviar lead" style="background-color: #1d40d3; font-size: 14px;">
+        </form>
+      </div>
+      <?php
+      return;
+    }
+    if( isset( $_GET['wpfunos-select-enviar'] ) && $_GET['wpfunos-select-enviar'] == '3' ){
       //https://funos.es/pagina-servicios-colaborador?wpfunos-select=49250&wpfunos-select-servicio=45145&wpfunos-select-resultados=1&wpfunos-select-enviar=1&wpfunos-select-comentarios=Comentarios.%0D%0A%0D%0ASaludos%21
       //echo 'Comentarios: ' . $_GET['wpfunos-select-comentarios'];
+      // Enviar LEAD
       if( ! get_option($this->plugin_name . '_activarCorreoServiciosColaborador') ){
         echo 'Opció de envio de correo deshabilitada!';
         return;
       }
-      $this->wpfunosServiciosColaboradorProcesarMensaje( $_GET['wpfunos-select'], $_GET['wpfunos-select-servicio'], $_GET['wpfunos-select-comentarios']);
+      $this->wpfunosServiciosColaboradorProcesarMensaje( $_GET['wpfunos-select'], $resultado[1], $_GET['wpfunos-select-comentarios']);
+      ?>
+      <form id="wpfunos-servicios-colaborador-usuario-seleccionado" style="margin-top: 10px;">
+        <input type="submit" value="Reiniciar búsqueda" style="background-color: #1d40d3; font-size: 14px;">
+      </form>
+      <?php
+      return;
+    }
+    if( isset( $_GET['wpfunos-select-enviar'] ) && $_GET['wpfunos-select-enviar'] == '2' ){
+      // Comentarios en usuario
+      $this->wpfunosServiciosColaboradorComentariosUsuario( $_GET['wpfunos-select'], $resultado[1] );
       ?>
       <form id="wpfunos-servicios-colaborador-usuario-seleccionado" style="margin-top: 10px;">
         <input type="submit" value="Reiniciar búsqueda" style="background-color: #1d40d3; font-size: 14px;">
@@ -187,7 +229,7 @@ class Wpfunos_Colaboradores {
         <div class="elementor-column-wrap">
           <div class="elementor-widget-wrap">
             <div class="servicios-colaborador-detalles" style="margin-top: 25px;">
-              <h3>Enviar lead</h3>
+
               <table style="margin-top: 10px;">
                 <tr><td colspan="2"><h3>Datos usuario seleccionado</h3></td></tr>
                 <tr><td>Fecha</td><td><?php echo get_post_meta( $_GET['wpfunos-select'], $this->plugin_name . '_TimeStamp', true ); ?></td></tr>
@@ -200,26 +242,71 @@ class Wpfunos_Colaboradores {
                 <tr><td>Velatorio</td><td><?php echo get_post_meta( $_GET['wpfunos-select'], $this->plugin_name . '_userNombreSeleccionVelatorio', true ); ?></td></tr>
                 <tr><td>Despedida</td><td><?php echo get_post_meta( $_GET['wpfunos-select'], $this->plugin_name . '_userNombreSeleccionDespedida', true ); ?></td></tr>
               </table>
+              <?php
+              if ( FALSE === get_post_status( $resultado[1] ) || $_GET['wpfunos-select-servicio'] == '' || !$resultado[1] ) {
+                // The post does not exist
+                ?>
+                <table style="margin-top: 10px;">
+                  <tr><td colspan="2"><h3>Sin servicio seleccionado</h3></td></tr>
+                </table>
+                <?php
+              }else{
+                ?>
+                <table style="margin-top: 10px;">
+                  <tr><td colspan="2"><h3>Datos servicio seleccionado</h3></td></tr>
+                  <tr><td>Servicio</td><td><strong><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioNombre', true ); ?></strong></td></tr>
+                  <tr><td></td><td><?php echo get_the_title($resultado[1]); ?></td></tr>
+                  <tr><td>Población</td><td><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioPoblacion', true ); ?></td></tr>
+                  <tr><td>Dirección</td><td><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioDireccion', true ); ?></td></tr>
+                  <tr><td>Correo</td><td><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioEmail', true ); ?></td></tr>
+                  <tr><td>Teléfono</td><td><?php echo get_post_meta( $resultado[1], $this->plugin_name . '_servicioTelefono', true ); ?></td></tr>
+                </table>
+                <?php
+              }
+              ?>
+              <h3>Acciones</h3>
               <table style="margin-top: 10px;">
-                <tr><td colspan="2"><h3>Datos servicio seleccionado</h3></td></tr>
-                <tr><td>Servicio</td><td><strong><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioNombre', true ); ?></strong></td></tr>
-                <tr><td></td><td><?php echo get_the_title($_GET['wpfunos-select-servicio']); ?></td></tr>
-                <tr><td>Población</td><td><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioPoblacion', true ); ?></td></tr>
-                <tr><td>Dirección</td><td><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioDireccion', true ); ?></td></tr>
-                <tr><td>Correo</td><td><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioEmail', true ); ?></td></tr>
-                <tr><td>Teléfono</td><td><?php echo get_post_meta( $_GET['wpfunos-select-servicio'], $this->plugin_name . '_servicioTelefono', true ); ?></td></tr>
+                <tr><td colspan="2"><h3>Opción a completar</h3></td></tr>
+                <tr>
+                  <td>
+                    <?php
+                    $resultado = (explode("=>",$_GET['wpfunos-select-servicio']));
+
+                    if ( FALSE === get_post_status( $resultado[1] ) || $_GET['wpfunos-select-servicio'] == '' || !$resultado[1] ) {
+                      // The post does not exist
+                      ?>
+                      <form id="wpfunos-servicios-colaborador-detalles-comentarios" method="GET">
+                        <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
+                        <input type="hidden" name="wpfunos-select-servicio" id="wpfunos-select-servicio" value="<?php echo $_GET['wpfunos-select-servicio']; ?>" >
+                        <input type="hidden" name="wpfunos-select-resultados" id="wpfunos-select-resultados" value="1" >
+                        <input type="hidden" name="wpfunos-select-enviar" id="wpfunos-select-enviar" value="100" >
+                        <input type="text" value="Enviar lead: No hay servicio seleccionado" style="background-color: #a0a0a0; font-size: 14px;">
+                      </form>
+                      <?php
+                    }else{
+                      ?>
+                      <form id="wpfunos-servicios-colaborador-detalles-comentarios" method="GET">
+                        <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
+                        <input type="hidden" name="wpfunos-select-servicio" id="wpfunos-select-servicio" value="<?php echo $_GET['wpfunos-select-servicio']; ?>" >
+                        <input type="hidden" name="wpfunos-select-resultados" id="wpfunos-select-resultados" value="1" >
+                        <input type="hidden" name="wpfunos-select-enviar" id="wpfunos-select-enviar" value="1" >
+                        <input type="submit" value="Enviar lead" style="background-color: #1d40d3; font-size: 14px;">
+                      </form>
+                      <?php
+                    }
+                    ?>
+                  </td>
+                  <td>
+                    <form id="wpfunos-servicios-colaborador-detalles-comentarios" method="GET">
+                      <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
+                      <input type="hidden" name="wpfunos-select-servicio" id="wpfunos-select-servicio" value="<?php echo $_GET['wpfunos-select-servicio']; ?>" >
+                      <input type="hidden" name="wpfunos-select-resultados" id="wpfunos-select-resultados" value="1" >
+                      <input type="hidden" name="wpfunos-select-enviar" id="wpfunos-select-enviar" value="2" >
+                      <input type="submit" value="Añadir información usuario" style="background-color: #1d40d3; font-size: 14px;">
+                    </form>
+                  </td>
+                </tr>
               </table>
-            </div>
-            <div class="servicios-colaborador-comentarios">
-              <h3>Comentarios</h3>
-              <form id="wpfunos-servicios-colaborador-detalles-comentarios" method="GET">
-                <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
-                <input type="hidden" name="wpfunos-select-servicio" id="wpfunos-select-servicio" value="<?php echo $_GET['wpfunos-select-servicio']; ?>" >
-                <input type="hidden" name="wpfunos-select-resultados" id="wpfunos-select-resultados" value="1" >
-                <input type="hidden" name="wpfunos-select-enviar" id="wpfunos-select-enviar" value="1" >
-                <textarea id="wpfunos-select-comentarios" name="wpfunos-select-comentarios" rows="10" cols="70"></textarea>
-                <input type="submit" value="Enviar lead" style="background-color: #1d40d3; font-size: 14px;">
-              </form>
             </div>
           </div>
         </div>
@@ -446,6 +533,61 @@ class Wpfunos_Colaboradores {
     </div>
     <?php
 
+  }
+
+  /*********************************/
+  /*****                      ******/
+  /*********************************/
+  private function wpfunosServiciosColaboradorComentariosUsuario( $wpfunos_select, $wpfunos_select_servicio ){
+    //https://dev.funos.es/enviar-lead?wpfunos-select=49749&wpfunos-select-servicio=&wpfunos-select-resultados=1&wpfunos-select-enviar=2
+    //https://dev.funos.es/enviar-lead?wpfunos-select=49749&wpfunos-select-servicio=&wpfunos-select-resultados=1&wpfunos-select-enviar=2&wpfunos-select-comentarios-usuario=1
+    //    &wpfunos-select-comentarios-usuario=Comentarios+usuario&wpfunos-select-funeraria-usuario=texto+funeraria&wpfunos-select-contratado-usuario=on
+    $userComentarios = get_post_meta( $wpfunos_select ,$this->plugin_name . '_userComentarios', true );
+    $userFuneraria = get_post_meta( $wpfunos_select ,$this->plugin_name . '_userFuneraria', true );
+    $userContratado = sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userContratado', true ) );
+    if( ! isset( $_GET['wpfunos-select-comentarios-usuario'])){
+      ?>
+      <div class="servicios-colaborador-comentarios">
+        <h2>Cambios usuario</h2>
+        <p>Usuario: <?php echo sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userName', true ) );?></p>
+        <form id="wpfunos-servicios-colaborador-detalles-comentarios" method="GET">
+          <input type="hidden" name="wpfunos-select" id="wpfunos-select" value="<?php echo $_GET['wpfunos-select']; ?>" >
+          <input type="hidden" name="wpfunos-select-servicio" id="wpfunos-select-servicio" value="<?php echo $_GET['wpfunos-select-servicio']; ?>" >
+          <input type="hidden" name="wpfunos-select-resultados" id="wpfunos-select-resultados" value="1" >
+          <input type="hidden" name="wpfunos-select-enviar" id="wpfunos-select-enviar" value="2" >
+          <input type="hidden" name="wpfunos-select-comentarios-usuario" id="wpfunos-select-comentarios-usuario" value="1" >
+          <h3>Comentarios usuario</h3>
+          <textarea id="wpfunos-select-comentarios-usuario" name="wpfunos-select-comentarios-usuario" rows="10" cols="70" ><?php echo $userComentarios ?></textarea>
+          <h3>Funeraria</h3>
+          <textarea id="wpfunos-select-funeraria-usuario" name="wpfunos-select-funeraria-usuario" rows="3" cols="70" ><?php echo $userFuneraria ?></textarea>
+          <h3>Contratado <input type="checkbox" name="wpfunos-select-contratado-usuario" id="wpfunos-select-contratado-usuario" <?php echo ( $userContratado == true ) ? 'checked' : ''; ?> > </h3>
+          <div id="wpfunos-separador-contratado"style=" margin-top: 50px;" ><hr/></div>
+          <input type="submit" value="Guardar cambios usuario" style="background-color: #1d40d3; font-size: 14px;">
+        </form>
+      </div>
+      <?php
+      return;
+    }
+    $comentarios = apply_filters('wpfunos_comentario', $_GET['wpfunos-select-comentarios-usuario'] );
+    $funeraria = apply_filters('wpfunos_comentario', $_GET['wpfunos-select-funeraria-usuario'] );
+    $contratado = ( $_GET['wpfunos-select-contratado-usuario'] == 'on' ) ? 1 : 0 ;
+    update_post_meta( $wpfunos_select, $this->plugin_name . '_userComentarios', $comentarios );
+    update_post_meta( $wpfunos_select, $this->plugin_name . '_userFuneraria', $funeraria );
+    update_post_meta( $wpfunos_select, $this->plugin_name . '_userContratado', $contratado );
+
+    ?>
+    <div class="elementor-container elementor-column-gap-default">
+      <div class="elementor-row">
+        <div class="elementor-column-wrap">
+          <div class="elementor-widget-wrap">
+            <div class="servicios-colaborador-detalles" style="margin-top: 10px;">
+              <p>Cambios efectuados en el usuario <strong><?php echo get_post_meta( $wpfunos_select , $this->plugin_name . '_userName', true ); ?></strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php
   }
 
 }
