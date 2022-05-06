@@ -18,11 +18,11 @@
 	$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia']);
 	$_GET['seleccionUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
 	$respuesta = (explode(',',$_GET['seleccionUsuario']));
-	$distanciaDirecto = get_option('wpfunos_distanciaServicioDirecto')
+	$distanciaDirecto = get_option('wpfunos_distanciaServicioDirecto');
 	if( $respuesta[5] == 2 && $respuesta[6] = 1 && $_GET['distance'] != $distanciaDirecto && (int)$_GET['distance'] < (int)$distanciaDirecto ){
 		$new_url = home_url('/comparar-precios'.add_query_arg(array($_GET), $wp->request));
 		$new_url = str_replace("&distance","&old", $new_url );
-		$new_url = $new_url . '&distance='.$distanciaDirecto;
+		$new_url = $new_url . '&distance=' . $distanciaDirecto;
 		wp_redirect( $new_url );
 		exit;
 	}
@@ -32,27 +32,46 @@
 	$_GET['Email'] = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
 	$_GET['idUsuario'] = $IDusuario;
 	if ( $gmw_form->has_locations() ) :
-		?><div class="gmw-results"><?php
-		?><div class="clear"></div><ul class="gmw-posts-wrapper"><?php
-		while ( $gmw_query->have_posts() ) :
-			$gmw_query->the_post();
-			global $post;
-			//echo do_shortcode( '[wpfunos-actulizar-mapas-servicios]' );
-			$wpfResultados = apply_filters('wpfunos_get_results', $post->ID, $IDusuario );
-			$wpfunos_confirmado = apply_filters('wpfunos_results_confirmado', $wpfResultados, $wpfunos_confirmado, $post->ID, $IDusuario );
-			$wpfunos_sinconfirmar = apply_filters('wpfunos_results_sinconfirmar', $wpfResultados, $wpfunos_sinconfirmar, $post->ID, $IDusuario );
-			$wpfunos_sinprecio = apply_filters('wpfunos_results_sinprecio', $wpfResultados, $wpfunos_sinprecio, $post->ID, $IDusuario );
-			?> <div class="clear"></div><?php
-		endwhile;
-		do_action( 'wpfunos_result_grid_confirmado', $wpfunos_confirmado );
-		do_action( 'wpfunos_result_grid_sinconfirmar', $wpfunos_sinconfirmar );
-		do_action( 'wpfunos_result_grid_sinprecio', $wpfunos_sinprecio );
-		?></ul></div><?php
-		?><div class="wpfunos-result-map"><?php gmw_results_map( $gmw );?></div><?php
+		?>
+		<div class="gmw-results">
+			<?php
+			?>
+			<div class="clear"></div>
+			<ul class="gmw-posts-wrapper">
+				<?php
+				while ( $gmw_query->have_posts() ) :
+					$gmw_query->the_post();
+					global $post;
+					//echo do_shortcode( '[wpfunos-actulizar-mapas-servicios]' );
+					$wpfResultados = apply_filters('wpfunos_get_results', $post->ID, $IDusuario );
+					$wpfunos_confirmado = apply_filters('wpfunos_results_confirmado', $wpfResultados, $wpfunos_confirmado, $post->ID, $IDusuario );
+					$wpfunos_sinconfirmar = apply_filters('wpfunos_results_sinconfirmar', $wpfResultados, $wpfunos_sinconfirmar, $post->ID, $IDusuario );
+					$wpfunos_sinprecio = apply_filters('wpfunos_results_sinprecio', $wpfResultados, $wpfunos_sinprecio, $post->ID, $IDusuario );
+					?>
+					<div class="clear"></div>
+					<?php
+				endwhile;
+				do_action( 'wpfunos_result_grid_confirmado', $wpfunos_confirmado );
+				do_action( 'wpfunos_result_grid_sinconfirmar', $wpfunos_sinconfirmar );
+				do_action( 'wpfunos_result_grid_sinprecio', $wpfunos_sinprecio );
+				?>
+			</ul>
+		</div>
+		<?php
+		?>
+		<div class="wpfunos-result-map">
+			<?php
+			gmw_results_map( $gmw );
+			?>
+		</div>
+		<?php
 		else :
-			?><div class="gmw-no-results">
+			?>
+			<div class="gmw-no-results">
 				<?php gmw_no_results_message( $gmw ); ?>
-			</div>	<?php
+				<?php echo do_shortcode( '[elementor-template id="50114"]' ); ?>
+			</div>
+			<?php
 		endif;
 		?>
 	</div>

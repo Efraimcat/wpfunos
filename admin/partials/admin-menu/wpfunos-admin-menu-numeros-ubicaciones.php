@@ -15,6 +15,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <h3><?php esc_html_e( 'UBICACIONES SERVICIOS', 'wpfunos' )?></h3>
 <table>
+  <colgroup>
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+  </colgroup>
+
   <tr>
     <th colspan="2" style="width:225px;"><h2>Usuarios que han enviado ubicación</h2></th>
     <th><h2>Únicos</h2></th>

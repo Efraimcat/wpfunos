@@ -15,6 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <h3><?php esc_html_e( 'ENTRADAS SERVICIOS', 'wpfunos' )?></h3>
 <table>
+  <colgroup>
+    <col>
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+  </colgroup>
   <tr>
     <th colspan="2" style="width:250px;"><h2>Usuarios que han entrado al comparador</h2></th>
     <th style="width:25px;"></th>

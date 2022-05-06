@@ -25,10 +25,18 @@ $current_user = wp_get_current_user();
 //$visits = apply_filters('wpfunos_count_visits', 'ubicaciones_wpfunos', 'wpfunos_ubicacionVisitas', 'wpfunos_ubicacionIP' );
 //$visits = apply_filters('wpfunos_count_visits', 'usuarios_wpfunos', 'wpfunos_userVisitas', 'wpfunos_userIP' );
 ?>
+<style>
+#Graficas h3, #Numeros h3 {
+  font-size: 24px;
+  background-color: greenyellow;
+  font-weight: 700;
+}
+</style>
 <div class="wrap">
   <h2><?php esc_html_e( get_admin_page_title() .' '.$this->version); ?></h2>
   <?php settings_errors(); ?>
   <h3><?php esc_html_e( 'WpFunos', 'wpfunos' )?></h3>
+  <div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
   <table style="width:100%">
     <tr>
       <td>
@@ -38,20 +46,19 @@ $current_user = wp_get_current_user();
           <button class="w3-bar-item w3-button" onclick="openTab('Enlaces')">Enlaces</button>
         </div>
         <div id="Numeros" class="w3-container wpftab" style="top: -300px;position: relative;" >
-          <div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
 
-          <hr/>
-          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-entradas.php'; ?>
-          <hr/>
-          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-ubicaciones.php'; ?>
-          <hr/>
-          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-datos.php'; ?>
-          <hr/>
-          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-ratios.php'; ?>
-
-
-          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-inferior.php';	?>
-          <hr/>
+          <?php if ( $current_user->ID == 7 ){ ?>
+            <hr/>
+            <?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-entradas.php'; ?>
+            <hr/>
+            <?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-ubicaciones.php'; ?>
+            <hr/>
+            <?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-datos.php'; ?>
+            <hr/>
+            <?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-ratios.php'; ?>
+            <?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-inferior.php';	?>
+            <hr/>
+          <?php } ?>
         </div>
         <div id="Graficas" class="w3-container wpftab" style="display:none; top: -300px;position: relative;">
           <h2>Gráficas</h2>

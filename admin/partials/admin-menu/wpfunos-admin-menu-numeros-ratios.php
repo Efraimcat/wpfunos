@@ -178,6 +178,25 @@ $ratio_DatEnt_mes_antUnicos = sprintf ("%.2f",($num1/$num2)*100). '%';
 ?>
 <h3><?php esc_html_e( 'RATIOS SERVICIOS', 'wpfunos' )?></h3>
 <table>
+  <colgroup>
+    <col>
+    <col>
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col>
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col>
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+  </colgroup>
   <tr>
     <th colspan="3"><h2>Ubicación/Entradas</h2></th>
     <th colspan="2"><h2>Únicos</h2></th>

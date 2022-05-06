@@ -15,6 +15,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <h3><?php esc_html_e( 'DATOS SERVICIOS', 'wpfunos' )?></h3>
 <table>
+  <colgroup>
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+    <col>
+    <col>
+    <col style="background-color: gainsboro;">
+  </colgroup>
   <tr>
     <th colspan="2" style="width:225px;"><h2>Usuarios que han enviado datos</h2></th>
     <th><h2>Únicos</h2></th>
@@ -64,7 +81,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <td>Usuarios mes anterior (<?php echo $displaymesant;?>): </td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'mes_ant', '', 'wpfunos_userAccion', '0' ); ?></td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'mes_ant', '', 'wpfunos_userAccion', '0', true ); ?></td>
-    
+
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
@@ -80,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
   </tr>
-  
+
   <tr>
     <td>Usuarios semana anterior (<?php echo $displaysemanaant;  ?>): </td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_semana_mes' , 'usuarios_wpfunos', 'semana_ant', '',  'wpfunos_userAccion', '0' ); ?></td>
@@ -99,7 +116,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <td></td><td></td><td></td>
     <td></td><td></td><td></td>
   </tr>
-  
+
   <tr>
     <td>Usuarios ayer: </td>
     <td style="text-align: right;"><?php echo apply_filters( 'wpfunos_estadisticas_date', 'usuarios_wpfunos', 'ayer', 'publish', 'wpfunos_userAccion', '0', '', 'wpfunos_userAccion', '0' ); ?></td>
