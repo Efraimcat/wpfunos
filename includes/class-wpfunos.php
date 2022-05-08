@@ -224,6 +224,8 @@ class Wpfunos {
 
 		$plugin_utils = new Wpfunos_Utils( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_utils, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_utils, 'enqueue_scripts' );
 	}
 
 	/**
