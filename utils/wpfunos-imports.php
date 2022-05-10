@@ -19,4 +19,4 @@ if( isset( $_POST['importdirectorio'] ) && $_POST['importdirectorio'] == 1 ) inc
 
 if( isset( $_POST['importcodigospostales'] ) && $_POST['importcodigospostales'] == 1 ) include 'wpfunos-imports-codigospostales.php';
 
-if( isset( $_POST['importprovincias'] ) && $_POST['importprovincias'] == 1 ) echo 'provincias';
+if( isset( $_POST['importprovincias'] ) && $_POST['importprovincias'] == 1 ) include 'wpfunos-imports-provincias.php';

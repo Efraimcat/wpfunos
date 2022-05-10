@@ -16,22 +16,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Array ( [importdirectorio] => 1 [wpfunos_import_directorio_nonce] => 30122ba760 [_wp_http_referer] => /wp-admin/admin.php?page=wpfunosimport [submit] => Importar fichero directorio )
 if( !isset ($_POST['submit']) ){
   ?>
-  <h2>
-    IMPORTACION FICHERO CÓDIGOS POSTALES
-  </h2>
-  <p>
-    Escoger el fichero .csv de la importación
-  </p>
-  <form method="post" enctype="multipart/form-data" action="">
+  <div class="wpfunos-imports">
+    <h3>
+      IMPORTACION FICHERO CÓDIGOS POSTALES
+    </h3>
     <p>
-      <input accept=".csv" type="file" name="import_file" />
+      Escoger el fichero .csv de la importación
     </p>
-    <p>
-      <input type="hidden" name="importcodigospostales" id="importcodigospostales" value="1"/>
-      <?php wp_nonce_field( 'wpfunos_import_codigospostales_nonce', 'wpfunos_import_codigospostales_nonce' ); ?>
-      <?php submit_button( __( 'Importar fichero códigos postales', 'wpfunos' ), 'secondary', 'submit', false );?>
-    </p>
-  </form>
+    <form method="post" enctype="multipart/form-data" action="">
+      <p>
+        <input accept=".csv" type="file" name="import_file" />
+      </p>
+      <p>
+        <input type="hidden" name="importcodigospostales" id="importcodigospostales" value="1"/>
+        <?php wp_nonce_field( 'wpfunos_import_codigospostales_nonce', 'wpfunos_import_codigospostales_nonce' ); ?>
+        <?php submit_button( __( 'Importar fichero códigos postales', 'wpfunos' ), 'secondary', 'submit', false );?>
+      </p>
+    </form>
+  </div>
   <?php
   return;
 }

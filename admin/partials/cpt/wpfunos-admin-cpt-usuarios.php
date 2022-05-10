@@ -36,7 +36,7 @@ $customPostTypeArgs = array(
   'show_in_menu' => $this->plugin_name,
   'supports'=>array('title', 'custom_fields'),
   'capability_type' => 'post',
-  'capabilities' => array('create_posts' => true),
+  'capabilities' => array('create_posts' => false),
   'map_meta_cap' => true,
   'taxonomies'=>array()
 );
