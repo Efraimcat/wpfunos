@@ -48,7 +48,12 @@ class Wpfunos_Servicios {
     add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 4 );
     add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
   }
-
+  public function enqueue_styles() {
+    wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-servicios.css', array(), $this->version, 'all' );
+  }
+  public function enqueue_scripts() {
+    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-servicios.js', array( 'jquery' ), $this->version, false );
+  }
   /*********************************/
   /*****  SHORTCODES          ******/
   /*********************************/

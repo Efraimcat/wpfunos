@@ -30,5 +30,34 @@ if ( ! defined( 'ABSPATH' ) ) {
       <input type="submit" value="<?php _e( 'Importar directorio', 'wpfunos' ); ?>" style="background: #135e96;color: #fff;padding: 5px;font-weight: 700;margin-top: 10px;border-radius: 3px;">
     </div>
   </form>
+  <?php //IMPORTAR CÓDIGOS POSTALES ?>
+  <hr/>
+  <p>
+    <?php esc_html_e( 'Importar actualización códigos postales', 'wpfunos' ); ?>
+    <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">
+      [0] => ID [1] => Title [2] => Post Type [3] => wpfunos_cpostalesPoblacion [4] => wpfunos_cpostalesCodigo [5] => Status
+    </h6>
+  </p>
+  <form action="" method="post">
+    <input type="hidden" name="importcodigospostales" id="importcodigospostales" value="1" >
+    <div class="wpfunos-codigospostales">
+      <input type="submit" value="<?php _e( 'Importar códigos postales', 'wpfunos' ); ?>" style="background: #135e96;color: #fff;padding: 5px;font-weight: 700;margin-top: 10px;border-radius: 3px;">
+    </div>
+  </form>
+  <?php //IMPORTAR CÓDIGOS POSTALES ?>
+  <hr/>
+  <p>
+    <?php esc_html_e( 'Importar provincias', 'wpfunos' ); ?>
+    <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">
+      [0] => ID [1] => Title [2] => Post Type [3] => [4] => [5] =>
+    </h6>
+  </p>
+  <form action="" method="post">
+    <input type="hidden" name="importprovincias" id="importprovincias" value="1" >
+    <div class="wpfunos-provincias">
+      <input type="submit" value="<?php _e( 'Importar provincias', 'wpfunos' ); ?>" style="background: #135e96;color: #fff;padding: 5px;font-weight: 700;margin-top: 10px;border-radius: 3px;">
+    </div>
+  </form>
+  <hr/>
   <?php do_action('wpfunos_import'); ?>
 </div>

@@ -25,13 +25,6 @@ $current_user = wp_get_current_user();
 //$visits = apply_filters('wpfunos_count_visits', 'ubicaciones_wpfunos', 'wpfunos_ubicacionVisitas', 'wpfunos_ubicacionIP' );
 //$visits = apply_filters('wpfunos_count_visits', 'usuarios_wpfunos', 'wpfunos_userVisitas', 'wpfunos_userIP' );
 ?>
-<style>
-#Graficas h3, #Numeros h3 {
-  font-size: 24px;
-  background-color: greenyellow;
-  font-weight: 700;
-}
-</style>
 <div class="wrap">
   <h2><?php esc_html_e( get_admin_page_title() .' '.$this->version); ?></h2>
   <?php settings_errors(); ?>

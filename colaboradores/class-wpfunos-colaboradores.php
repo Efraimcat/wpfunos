@@ -25,7 +25,12 @@ class Wpfunos_Colaboradores {
     add_shortcode( 'wpfunos-servicios-colaborador-servicios', array( $this, 'wpfunosServiciosColaboradorServiciosShortcode' ));
     add_shortcode( 'wpfunos-servicios-colaborador-resultados', array( $this, 'wpfunosServiciosColaboradorResultadosShortcode' ));
   }
-
+  public function enqueue_styles() {
+    wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-colaboradores.css', array(), $this->version, 'all' );
+  }
+  public function enqueue_scripts() {
+    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-colaboradores.js', array( 'jquery' ), $this->version, false );
+  }
   /*********************************/
   /*****  SHORTCODES          ******/
   /*********************************/

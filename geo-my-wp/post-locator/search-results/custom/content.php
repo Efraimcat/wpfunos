@@ -67,9 +67,9 @@
 		<?php
 		else :
 			?>
-			<div class="gmw-no-results">
+			<div class="gmw-no-results" style="font-size: 18px;">
 				<?php gmw_no_results_message( $gmw ); ?>
-				<?php echo do_shortcode( '[elementor-template id="50114"]' ); ?>
+				<?php echo do_shortcode( '[elementor-template id="51419"]' ); ?>
 			</div>
 			<?php
 		endif;

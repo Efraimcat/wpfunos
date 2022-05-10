@@ -443,4 +443,34 @@ class Wpfunos_Utils {
     return $contenido;
   }
 
+  /*
+  * Utility: Sign in With Google
+  * Description: This utility is for one-tap google sign in.
+  *
+  * https://adnan-tech.com/develop-a-wordpress-plugin-to-sign-in-with-google-php/
+  */
+  public function wpfunos_SIWG_init(){
+    global $wp;
+    $current_url = home_url(add_query_arg(array(), $wp->request));
+
+    $this->custom_logs( $this->dumpPOST('$current_url: ' . $current_url ) );
+
+    if (is_user_logged_in()) {
+        return false;
+    }
+
+    // [user authentication is checked here]
+
+    // [JS scripts will be included here]
+
+    echo '<script src="https://accounts.google.com/gsi/client" async defer></script>
+    <div id="g_id_onload"
+    data-client_id="{your_google_client_id}"
+    data-context="signin"
+    data-callback="wpfunos_SIWG_googleLoginEndpoint"
+    data-close_on_tap_outside="false">
+    </div>';
+  }
+  //add_action('wp_footer', 'wpfunos_SIWG_init');
+
 }

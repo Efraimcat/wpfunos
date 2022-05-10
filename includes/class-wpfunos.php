@@ -265,6 +265,9 @@ class Wpfunos {
 
 		$plugin_servicios = new Wpfunos_Servicios( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_servicios, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_servicios, 'enqueue_scripts' );
+
 	}
 
 	/**
@@ -290,6 +293,9 @@ class Wpfunos {
 	private function define_colaboradores_hooks() {
 
 		$plugin_colaboradores = new Wpfunos_Colaboradores( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_colaboradores, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_colaboradores, 'enqueue_scripts' );
 
 	}
 	/**

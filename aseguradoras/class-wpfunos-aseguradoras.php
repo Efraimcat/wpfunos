@@ -536,7 +536,7 @@ class Wpfunos_Aseguradoras {
   }
 
   /**
-  * Buscar CP undefined
+  * Buscar Provincia
   */
   public function wpfunosProvincia( $CodigoPostal ){
     //substr("28002",0,2);
