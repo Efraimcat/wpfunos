@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Timestamp', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_TimeStamp','name' => $this->plugin_name . '_TimeStamp','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_TimeStamp','name' => $this->plugin_name . '_TimeStamp','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
         </tr>
       </table>
     </li>
@@ -38,13 +38,13 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Teléfono', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userMail','name' => $this->plugin_name . '_userMail','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 20));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userMail','name' => $this->plugin_name . '_userMail','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userReferencia','name' => $this->plugin_name . '_userReferencia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 20));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userName','name' => $this->plugin_name . '_userName','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 20));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userName','name' => $this->plugin_name . '_userName','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userPhone','name' => $this->plugin_name . '_userPhone','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 20));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userPhone','name' => $this->plugin_name . '_userPhone','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
         </tr>
       </table>
     </li>
@@ -94,7 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <tr>
           <td><?php esc_html_e('Nombre selección ubicación', 'wpfunos');?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userNombreSeleccionUbicacion','name' => $this->plugin_name . '_userNombreSeleccionUbicacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userNombreSeleccionUbicacion','name' => $this->plugin_name . '_userNombreSeleccionUbicacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
         </tr>
         <tr>
           <td><?php esc_html_e('Nombre selección distancia', 'wpfunos');?></td>

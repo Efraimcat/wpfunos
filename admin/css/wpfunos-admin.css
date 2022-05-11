@@ -20,7 +20,7 @@
 	width: 28em !important;
 }
 
-#Graficas h3, #Numeros h3 {
+#Graficas h3, #Numeros h3, .wpfunos-imports h3 {
   font-size: 24px;
   background-color: greenyellow;
   font-weight: 700;

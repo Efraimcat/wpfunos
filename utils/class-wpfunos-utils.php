@@ -34,6 +34,9 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_crypt', array( $this, 'wpfunosCrypt' ), 10, 2 );
     add_filter( 'wpfunos_shortener', array( $this, 'wpfunosShortener' ), 10, 1 );
     add_filter( 'wpfunos_message_format', array( $this, 'wpfunosMessageFormat' ), 10, 2 );
+
+    //add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
+    add_action( 'wp_ajax_nopriv_wpfunos-SIWG-google-login', array( $this, 'wpfunos_SIWG_google_login' ), 10, 1 );
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-utils.css', array(), $this->version, 'all' );
@@ -452,25 +455,44 @@ class Wpfunos_Utils {
   public function wpfunos_SIWG_init(){
     global $wp;
     $current_url = home_url(add_query_arg(array(), $wp->request));
+    if( 'https://dev.funos.es/comparar-precios' !== $current_url ) return false;
 
-    $this->custom_logs( $this->dumpPOST('$current_url: ' . $current_url ) );
-
-    if (is_user_logged_in()) {
-        return false;
-    }
-
-    // [user authentication is checked here]
-
-    // [JS scripts will be included here]
+    //if (is_user_logged_in()) return false;
 
     echo '<script src="https://accounts.google.com/gsi/client" async defer></script>
     <div id="g_id_onload"
-    data-client_id="{your_google_client_id}"
+    data-client_id="336511646507-dejbd1hln47qavqi0ncnq6hd0v2pdafl.apps.googleusercontent.com"
     data-context="signin"
     data-callback="wpfunos_SIWG_googleLoginEndpoint"
     data-close_on_tap_outside="false">
     </div>';
   }
-  //add_action('wp_footer', 'wpfunos_SIWG_init');
+
+  /*
+  * Utility: Sign in With Google
+  * Description: a function that will handle the AJAX request
+  *
+  */
+  public function wpfunos_SIWG_google_login(){
+      // secure credential value from AJAX
+      $credential = sanitize_text_field($_POST["credential"]);
+
+      // verify the ID token
+      $curl = curl_init( 'https://oauth2.googleapis.com/tokeninfo?id_token=' . $credential );
+      curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+      $response = curl_exec( $curl );
+      curl_close( $curl );
+
+      // convert the response from JSON string to object
+      $response = json_decode($response);
+
+      // if there is any error, send the error back to client
+      if (isset($response->error)){
+          wp_send_json_error($response->error_description);
+      }
+      else{
+          wp_send_json_success( $response );
+      }
+  }
 
 }

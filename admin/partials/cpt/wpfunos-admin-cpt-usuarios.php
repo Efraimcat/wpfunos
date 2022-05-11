@@ -34,9 +34,9 @@ $customPostTypeArgs = array(
   'exclude_from_search' => true,
   'show_ui' => true,
   'show_in_menu' => $this->plugin_name,
-  'supports'=>array('title', 'custom_fields'),
+  'supports'=>array('title', 'custom_fields', 'revisions' ),
   'capability_type' => 'post',
-  'capabilities' => array('create_posts' => false),
+  'capabilities' => array('create_posts' => true),
   'map_meta_cap' => true,
   'taxonomies'=>array()
 );
