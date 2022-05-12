@@ -686,25 +686,7 @@ class Wpfunos_Servicios {
     if(count($wpfunos_confirmado) != 0){
       ?><div class="wpfunos-titulo"><p></p><center><h2>Precio confirmado</h2></center></div><?php
       // do_action('wpfunos_log', '$wpfunos_confirmado: ' .  $wpfunos_confirmado );
-      //
-      // Estos precios han sido negociados por Funos para nuestros usuarios.
-      // Solo tendrás acceso a estas tarifas si solicitas a la funeraria que te contacte desde nuestra página.
-      // Ver detalles de las condiciones ( a "Ver detalles de las condiciones" posar un enllaç al peu de pàgina, a la secció "Sección precios definitivos").
-      ?>
-      <div class="wpfunos-contenedor-texto-confirmado">
-        <div class="wpfunos-texto-confirmado" style="background-color: #aaa; padding: 10px;text-align: center; border-radius: 5px;">
-          <h4 style="color:white;">
-            Estos precios han sido negociados por Funos para nuestros usuarios.
-          </h4>
-          <h4 style="color:white;">
-            Solo tendrás acceso a estas tarifas si solicitas a la funeraria que te contacte desde nuestra página.
-          </h4>
-          <div class="wpfunos-texto-confirmado-link">
-            <a href="#seccion-precios-definitivos" style="color: white">Ver detalles de las condiciones</a>
-          </div>
-        </div>
-      </div>
-      <?php
+      echo do_shortcode( '[elementor-template id="51893"]' ) ;
       //
       if(isset($_GET['orden']) && $_GET['orden'] == 'precios' ){
         $columns = array_column( $wpfunos_confirmado, 1 );

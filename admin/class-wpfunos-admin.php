@@ -21,6 +21,7 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'aseguradoras_custom_post_type' ));
     add_action('init', array( $this, 'codigospostales_custom_post_type' ));
     add_action('init', array( $this, 'provincias_custom_post_type' ));
+    add_action('init', array( $this, 'prov_zona_custom_post_type' ));
     add_action('init', array( $this, 'entrada_servicios_custom_post_type' ));
     add_action('init', array( $this, 'funerarias_custom_post_type' ));
     add_action('init', array( $this, 'config_imagenes_custom_post_type' ));
@@ -60,6 +61,7 @@ class Wpfunos_Admin {
     add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_cpostales_wpfunos', array( $this, 'setupcpostales_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_provincias_wpfunos', array( $this, 'setupprovincias_wpfunosMetaboxes' ));
+    add_action('add_meta_boxes_prov_zona_wpfunos', array( $this, 'setupprov_zona_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_aseguradoras_wpfunos', array( $this, 'setupaseguradoras_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_tipos_seguro_wpfunos', array( $this, 'setuptiposseguro_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_tanatorio_d_wpfunos', array( $this, 'setuptanatoriodirectorio_wpfunosMetaboxes' ));
@@ -480,6 +482,10 @@ class Wpfunos_Admin {
     add_meta_box('provincias_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'provincias_wpfunos_data_meta_box'), 'provincias_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'provincias_wpfunos', 'normal');
   }
+  public function setupprov_zona_wpfunosMetaboxes(){
+    add_meta_box('prov_zona_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'prov_zona_wpfunos_data_meta_box'), 'prov_zona_wpfunos', 'normal', 'high' );
+    remove_meta_box('wpseo_meta', 'prov_zona_wpfunos', 'normal');
+  }
   public function setupaseguradoras_wpfunosMetaboxes(){
     add_meta_box('aseguradoras_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'aseguradoras_wpfunos_data_meta_box'), 'aseguradoras_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'aseguradoras_wpfunos', 'normal');
@@ -560,6 +566,13 @@ class Wpfunos_Admin {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-provincias-fields.php';
+  }
+  public function saveprov_zona_wpfunosMetaBoxData( $post_id ){
+    if (! isset($_POST[$this->plugin_name . '_prov_zona_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST[$this->plugin_name . '_prov_zona_wpfunos_meta_box_nonce'], $this->plugin_name . '_prov_zona_wpfunos_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (! current_user_can('manage_options')) return;
+    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-prov-zona-fields.php';
   }
   public function saveaseguradoras_wpfunosMetaBoxData( $post_id ){
     if (! isset($_POST[$this->plugin_name . '_aseguradoras_wpfunos_meta_box_nonce'])) return;
@@ -651,6 +664,12 @@ class Wpfunos_Admin {
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-provincias.php';
   }
   /**
+  * prov_zona_wpfunos
+  */
+  public function prov_zona_custom_post_type(){
+    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-prov-zona.php';
+  }
+  /**
   * aseguradoras_wpfunos
   */
   public function aseguradoras_custom_post_type(){
@@ -725,6 +744,10 @@ class Wpfunos_Admin {
   public function provincias_wpfunos_data_meta_box($post){
     wp_nonce_field( $this->plugin_name.'_provincias_wpfunos_meta_box', $this->plugin_name.'_provincias_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-provincias-display.php';
+  }
+  public function prov_zona_wpfunos_data_meta_box($post){
+    wp_nonce_field( $this->plugin_name.'_prov_zona_wpfunos_meta_box', $this->plugin_name.'_prov_zona_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-prov-zona-display.php';
   }
   public function aseguradoras_wpfunos_data_meta_box($post){
     wp_nonce_field( $this->plugin_name.'_aseguradoras_wpfunos_meta_box', $this->plugin_name.'_aseguradoras_wpfunos_meta_box_nonce' );

@@ -45,9 +45,9 @@ add_action( 'wp_footer', 'gmw_custom_get_zipcode_on_form_submission', 50 );
 # Automatically clear autoptimizeCache if it goes beyond 256MB
 if (class_exists('autoptimizeCache')) {
   $myMaxSize = 256000; # You may change this value to lower like 100000 for 100MB if you have limited server space
-  $statArr=autoptimizeCache::stats(); 
+  $statArr=autoptimizeCache::stats();
   $cacheSize=round($statArr[1]/1024);
-  
+
   if ($cacheSize>$myMaxSize){
     autoptimizeCache::clearall();
     header("Refresh:0"); # Refresh the page so that autoptimize can create new cache files and it does breaks the page after clearall.
@@ -64,6 +64,9 @@ function add_meta_for_search_excluded()
 add_action('wp_head', 'add_meta_for_search_excluded');
 
 function set_ip_cookie() {
+  if ( current_user_can( 'edit_posts' ) ){
+    setcookie('wpfteam', 'yes', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+  }
   $ipaddress = apply_filters('wpfunos_userIP','dummy');
   $codigo = apply_filters('wpfunos_crypt',$ipaddress, 'e');
   $codigoID = apply_filters('wpfunos_crypt','funosID-'.(string)mt_rand(), 'e');
@@ -77,4 +80,3 @@ function set_ip_cookie() {
   }
 }
 add_action( 'init', 'set_ip_cookie' );
-

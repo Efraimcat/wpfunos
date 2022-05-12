@@ -451,20 +451,23 @@ class Wpfunos_Utils {
   * Description: This utility is for one-tap google sign in.
   *
   * https://adnan-tech.com/develop-a-wordpress-plugin-to-sign-in-with-google-php/
+  * https://developers.google.com/identity/gsi/web/guides/overview
   */
   public function wpfunos_SIWG_init(){
     global $wp;
     $current_url = home_url(add_query_arg(array(), $wp->request));
-    if( 'https://dev.funos.es/comparar-precios' !== $current_url ) return false;
+    if( 'https://funos.es/comparar-precios' !== $current_url ||
+      'https://dev.funos.es/comparar-precios' !== $current_url) return false;
 
     //if (is_user_logged_in()) return false;
 
     echo '<script src="https://accounts.google.com/gsi/client" async defer></script>
     <div id="g_id_onload"
     data-client_id="336511646507-dejbd1hln47qavqi0ncnq6hd0v2pdafl.apps.googleusercontent.com"
-    data-context="signin"
+    data-context="use"
     data-callback="wpfunos_SIWG_googleLoginEndpoint"
-    data-close_on_tap_outside="false">
+    data-close_on_tap_outside="false"
+    style="position: absolute; top: 100px; right: 30px; width: 0; height: 0; z-index: 1001;">
     </div>';
   }
 
@@ -491,7 +494,42 @@ class Wpfunos_Utils {
           wp_send_json_error($response->error_description);
       }
       else{
-          wp_send_json_success( $response );
+          // check if user already exists in WordPress users
+        $user_id = username_exists( $response->email );
+
+        if ( ! $user_id && !email_exists( $response->email ) )
+        {
+            // user does not exists
+            // generate a random hashed password
+            $random_password = wp_generate_password( $length = 12, $include_standard_special_chars = false );
+
+            // insert the user as WordPress user
+            $user_id = wp_insert_user([
+                "user_email" => $response->email,
+                "user_pass" => $random_password,
+                "user_login" => $response->email,
+                "display_name" => $response->name,
+                "nickname" => $response->name,
+                "first_name" => $response->given_name,
+                "last_name" => $response->family_name
+            ]);
+        }
+
+        // do login
+        $user = get_user_by('login', $response->email );
+
+        if ( !is_wp_error( $user ) )
+        {
+            wp_clear_auth_cookie();
+            wp_set_current_user ( $user->ID );
+            wp_set_auth_cookie  ( $user->ID );
+
+            // set user profile picture
+            update_user_meta($user->ID, "SIWG_profile_picture", $response->picture);
+        }
+
+        // send the success response back
+        wp_send_json_success( $response );
       }
   }
 
