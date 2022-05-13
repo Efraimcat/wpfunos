@@ -545,8 +545,8 @@ class Wpfunos_Servicios {
     }
     if($_GET['accion'] == 1 ) $textoaccion = "Botón llamen servicios";
     if($_GET['accion'] == 2 ) $textoaccion = "Botón llamar servicios";
-    if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
-    if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
+    if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+    //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
 
     $my_post = array(
       'post_title' => $_GET['referencia'],
@@ -1116,7 +1116,8 @@ class Wpfunos_Servicios {
   * Enviar Correo Lead
   */
   public function wpfunosResultCorreoLead( ){
-    if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
+    if( apply_filters('wpfunos_reserved_email','dummy') ) return;
+    //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
     if($_GET['accion'] == 1 && get_option($this->plugin_name . '_activarCorreoBoton1Lead')){
       //$mensaje = get_option('wpfunos_mensajeCorreoBoton1Lead');
@@ -1233,8 +1234,8 @@ class Wpfunos_Servicios {
   * Entrada ubicación
   */
   public function wpfunosEntradaUbicacion( $ubicacionIP, $ubicacionwpf, $ubicacionReferencia, $ubicacionDireccion, $ubicacionCP, $ubicacionDistancia  ){
-    if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
-    if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
+    if( apply_filters('wpfunos_reserved_email','dummy') ) return;
+    //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $args = array(
       'post_status' => 'publish',
@@ -1275,7 +1276,8 @@ class Wpfunos_Servicios {
   */
   public function wpfunosResultCorreoDatos( ){
     if( ! get_option($this->plugin_name . '_activarCorreoDatosEntrados')) return;
-    if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
+    if( apply_filters('wpfunos_reserved_email','dummy') ) return;
+    //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
     $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoDatosEntrados'), get_option('wpfunos_asuntoCorreoDatosEntrados') );

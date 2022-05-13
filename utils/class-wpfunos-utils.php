@@ -24,7 +24,7 @@ class Wpfunos_Utils {
     add_action( 'wpfunos_import', array( $this, 'wpfunosImport' ), 10, 1 );
     add_action( 'wpfunos-entrada-servicios', array( $this, 'wpfunosEntradaServicios') );
     add_action( 'wpfunos-entrada-aseguradoras', array( $this, 'wpfunosEntradaAseguradoras') );
-    add_filter( 'wpfunos_reserved_ip', array( $this, 'wpfunosReservedIPAction' ) );
+    add_filter( 'wpfunos_reserved_email', array( $this, 'wpfunosReservedEmailAction' ) );
     add_filter( 'wpfunos_ip_visits', array( $this, 'wpfunos_visitas_IP' ), 10, 3 );
     add_filter( 'wpfunos_count_visits', array( $this, 'wpfunos_contador_visitas' ), 10, 3 );
     add_filter( 'wpfunos_dumplog', array ( $this, 'dumpPOST'), 10, 1);
@@ -35,7 +35,7 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_shortener', array( $this, 'wpfunosShortener' ), 10, 1 );
     add_filter( 'wpfunos_message_format', array( $this, 'wpfunosMessageFormat' ), 10, 2 );
 
-    //add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
+    add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
     add_action( 'wp_ajax_nopriv_wpfunos-SIWG-google-login', array( $this, 'wpfunos_SIWG_google_login' ), 10, 1 );
   }
   public function enqueue_styles() {
@@ -82,13 +82,14 @@ class Wpfunos_Utils {
   /**
   * Utility: Comprobar si la dirección IP debe registrar eventos o es una dirección de test.
   */
-  public function wpfunosReservedIPAction() {
+  public function wpfunosReservedEmailAction() {
+    if (! is_user_logged_in()) return false;
+    $current_user = wp_get_current_user();
     $opcion = get_option( 'wpfunos_DireccionesIPDesarrollo' );
     $direcciones = explode ( ",", $opcion );
     foreach( $direcciones as $direccion ) {
       $direccion = trim( $direccion );
-      $userip = $this->wpfunosgetUserIP();
-      if( $direccion == $userip )return true;
+      if( $direccion == $current_user->user_email )return true;
     }
     return false;
   }
@@ -190,9 +191,9 @@ class Wpfunos_Utils {
         'IDstamp' => $_COOKIE[ 'wpfid' ],
       ),
     );
-    $post_id = 'loggedin';
-    $reserved = apply_filters('wpfunos_reserved_ip','dummy');
-    if( $_COOKIE['wpfunosloggedin'] != 'yes' && ! $reserved ) $post_id = wp_insert_post($my_post);
+    //$post_id = 'loggedin';
+    $reserved = apply_filters('wpfunos_reserved_email','dummy');
+    if( ! $reserved ) $post_id = wp_insert_post($my_post);
     $this->custom_logs( $this->dumpPOST('Post ID: ' . $post_id ) );
     $this->custom_logs( $this->dumpPOST('Visitas: ' . $contador ) );
     return;
@@ -236,9 +237,9 @@ class Wpfunos_Utils {
         'IDstamp' => $_COOKIE[ 'wpfid' ],
       ),
     );
-    $post_id = 'loggedin';
-    $reserved = apply_filters('wpfunos_reserved_ip','dummy');
-    if( $_COOKIE['wpfunosloggedin'] != 'yes' && ! $reserved ) $post_id = wp_insert_post($my_post);
+    //$post_id = 'loggedin';
+    $reserved = apply_filters('wpfunos_reserved_email','dummy');
+    if( ! $reserved ) $post_id = wp_insert_post($my_post);
     $this->custom_logs( $this->dumpPOST('Post ID: ' . $post_id ) );
     $this->custom_logs( $this->dumpPOST('Visitas: ' . $contador ) );
     return;

@@ -403,8 +403,8 @@ class Wpfunos_Aseguradoras {
     $ubicacion = strtr($respuesta[0],"+",",");
 
     $textoaccion = "Llamada API DKV";
-    if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
-    if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
+    if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+    //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
 
     $other_data = 'Producto: ' .$producto. '. Sexo: ' .$sexo. '. Año nacimiento: ' .$edad. '. Seguro decesos: ' .$seguroSiNo. '.' ;
 
@@ -573,8 +573,8 @@ class Wpfunos_Aseguradoras {
   * Entrada ubicación
   */
   public function wpfunosEntradaUbicacion( $ubicacionIP, $ubicacionwpf, $ubicacionReferencia, $ubicacionDireccion, $ubicacionCP, $ubicacionDistancia  ){
-    if( apply_filters('wpfunos_reserved_ip','dummy') ) return;
-    if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
+    if( apply_filters('wpfunos_reserved_email','dummy') ) return;
+    //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $args = array(
       'post_status' => 'publish',
@@ -615,7 +615,8 @@ class Wpfunos_Aseguradoras {
   */
   public function wpfunosResultCorreoDatos( ){
     if( ! get_option($this->plugin_name . '_activarCorreoDatosEntrados')) return;
-    if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
+    if( apply_filters('wpfunos_reserved_email','dummy') ) return;
+    //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
     //$mensaje = get_option('wpfunos_mensajeCorreoDatosEntrados');

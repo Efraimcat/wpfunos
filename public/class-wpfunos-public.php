@@ -162,8 +162,8 @@ class Wpfunos_Public {
 
     if( $form_name == 'FormularioDatos' ){
       $textoaccion = "Entrada datos servicios";
-      if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
-      if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+      //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
+      if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
       $userIP = apply_filters('wpfunos_userIP','dummy');
       $args = array(
         'post_status' => 'publish',
@@ -216,8 +216,8 @@ class Wpfunos_Public {
       );
     }elseif( $form_name == 'FormularioDatosFuturo' ){
       $textoaccion = "Entrada datos aseguradoras";
-      if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
-      if( apply_filters('wpfunos_reserved_ip','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+      //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
+      if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
       $my_post = array(
         'post_title' => $fields['referencia'],
         'post_type' => 'usuarios_wpfunos',
