@@ -38,6 +38,7 @@ class Wpfunos_Servicios {
     add_shortcode( 'wpfunos-resultados-detalles-logo-promo', array( $this, 'wpfunosResultadosDetallesLogoPromoShortcode' ));
     add_shortcode( 'wpfunos-resultados-detalles-email', array( $this, 'wpfunosResultadosDetallesEmailShortcode' ));
     add_shortcode( 'wpfunos-resultados-presupuesto', array( $this, 'wpfunosResultadosPresupuestoShortcode' ));
+    add_shortcode( 'wpfunos-resultados-precio-zona', array( $this, 'wpfunosResultadosPrecioZonaShortcode' ));
     add_action( 'wpfunos_result_user_entry', array( $this, 'wpfunosResultUserEntry' ), 10, 1 );
     add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
     add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
@@ -66,6 +67,11 @@ class Wpfunos_Servicios {
     if( !isset( $_GET['form'] ) && !isset( $_GET['referencia'] ) ){
       echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWp') );
     }elseif( !isset($_GET['wpf']) ){
+      if (is_user_logged_in()){
+        $current_user = wp_get_current_user();
+        $_GET['Email'] = $current_user->user_email;
+        $_GET['nombreUsuario'] = $current_user->display_name;
+      }
       $userIP = apply_filters('wpfunos_userIP','dummy');
       $_GET['direccion'] = $_GET['address'][0];
       $_GET['tipo'] = $_GET['post'][0];
@@ -83,6 +89,8 @@ class Wpfunos_Servicios {
       do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
       do_action('wpfunos_log', '$_GET[direccion]: ' . $_GET['direccion'] );
       do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
+      do_action('wpfunos_log', '$_GET[Email]: ' . $_GET['Email'] );
+      do_action('wpfunos_log', '$_GET[nombreUsuario]: ' . $_GET['nombreUsuario'] );
       do_action('wpfunos_log', 'wpfid: ' . $_COOKIE[ 'wpfid' ]);
       $this->wpfunosEntradaUbicacion( $userIP , $_GET['wpf'], $_GET['referencia'], $_GET['direccion'], $_GET['CP'] , $_GET['distance'] );
       echo do_shortcode( get_option('wpfunos_seccionComparaPreciosDatos') );
@@ -493,6 +501,13 @@ class Wpfunos_Servicios {
       </div>
       <?php
     }
+  }
+
+  /**
+  * Shortcode [wpfunos-resultados-precio-zona]
+  */
+  public function wpfunosResultadosPrecioZonaShortcode( $atts, $content = "" ) {
+
   }
 
   /*********************************/

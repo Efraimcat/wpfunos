@@ -54,6 +54,14 @@
 				do_action( 'wpfunos_result_grid_confirmado', $wpfunos_confirmado );
 				do_action( 'wpfunos_result_grid_sinconfirmar', $wpfunos_sinconfirmar );
 				do_action( 'wpfunos_result_grid_sinprecio', $wpfunos_sinprecio );
+				if ( count( $wpfunos_confirmado ) == 0 && count( $wpfunos_sinconfirmar ) == 0 && count( $wpfunos_sinprecio ) == 0 ){
+					?>
+					<div class="gmw-no-results" style="font-size: 18px;">
+						<?php gmw_no_results_message( $gmw ); ?>
+						<?php echo do_shortcode( '[elementor-template id="51419"]' ); ?>
+					</div>
+					<?php
+				}
 				?>
 			</ul>
 		</div>
@@ -61,7 +69,7 @@
 		?>
 		<div class="wpfunos-result-map">
 			<?php
-			gmw_results_map( $gmw );
+			if ( count( $wpfunos_confirmado ) != 0 || count( $wpfunos_sinconfirmar ) != 0 || count( $wpfunos_sinprecio ) != 0 ) gmw_results_map( $gmw );
 			?>
 		</div>
 		<?php

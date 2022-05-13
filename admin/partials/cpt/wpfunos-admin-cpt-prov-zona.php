@@ -16,7 +16,7 @@ $customPostTypeArgs = array(
   'label' => esc_html__('Provincias precio medio', 'wpfunos'),
   'labels'=>
   array(
-    'name' => esc_html__('WpFunos Provincias', 'wpfunos'),
+    'name' => esc_html__('WpFunos Provincias precio medio', 'wpfunos'),
     'singular_name' => esc_html__('Provincias', 'wpfunos'),
     'add_new' => esc_html__('Añadir Provincia', 'wpfunos'),
     'add_new_item' => esc_html__('Añadir nueva Provincia', 'wpfunos'),

@@ -454,20 +454,17 @@ class Wpfunos_Utils {
   * https://developers.google.com/identity/gsi/web/guides/overview
   */
   public function wpfunos_SIWG_init(){
-    global $wp;
-    $current_url = home_url(add_query_arg(array(), $wp->request));
-    if( 'https://funos.es/comparar-precios' !== $current_url ||
-      'https://dev.funos.es/comparar-precios' !== $current_url) return false;
+    $pagina = get_the_ID();
+    if( 1734 !== $pagina ) return false;
 
-    //if (is_user_logged_in()) return false;
+    if (is_user_logged_in()) return false;
 
     echo '<script src="https://accounts.google.com/gsi/client" async defer></script>
     <div id="g_id_onload"
     data-client_id="336511646507-dejbd1hln47qavqi0ncnq6hd0v2pdafl.apps.googleusercontent.com"
     data-context="use"
     data-callback="wpfunos_SIWG_googleLoginEndpoint"
-    data-close_on_tap_outside="false"
-    style="position: absolute; top: 100px; right: 30px; width: 0; height: 0; z-index: 1001;">
+    data-close_on_tap_outside="false">
     </div>';
   }
 
