@@ -507,6 +507,77 @@ class Wpfunos_Servicios {
   * Shortcode [wpfunos-resultados-precio-zona]
   */
   public function wpfunosResultadosPrecioZonaShortcode( $atts, $content = "" ) {
+    if( ! isset($_GET['wpf'] ) ) return;
+    $cryptcode = apply_filters( 'wpfunos_crypt', $_GET['wpf'], 'd' );
+    $codigo = ( explode( ',' , $cryptcode ) );
+    $referencia = $codigo[0];
+    $CP = $codigo[1];
+    $IDusuario = apply_filters('wpfunos_userID', $referencia );
+    $seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
+    $respuesta = (explode(',',$seleccion));
+    switch($respuesta[3]){
+      case '1': $destino = 'E' ; break;
+      case '2': $destino = 'I' ; break;
+    }
+    switch($respuesta[4]){
+      case '1': $ataud = 'E' ; break;
+      case '2': $ataud = 'M' ; break;
+      case '3': $ataud = 'P' ; break;
+    }
+    switch($respuesta[5]){
+      case '1': $velatorio = 'V' ; break;
+      case '2': $velatorio = 'S' ; break;
+    }
+    switch($respuesta[6]){
+      case '1': $despedida = 'S' ; break;
+      case '2': $despedida = 'O' ; break;
+      case '3': $despedida = 'C' ; break;
+      case '4': $despedida = 'R' ; break;
+    }
+    $codigo_provincia = substr( trim( $CP, " " ), 0, 2 );
+    $campo = $destino . $ataud . $velatorio . $despedida;
+
+    //echo 'Destino: ' . $destino . '<br/>';
+    //echo 'Ataud: ' . $ataud . '<br/>';
+    //echo 'Velatorio: ' . $velatorio . '<br/>';
+    //echo 'Despedida: ' . $despedida . '<br/>';
+    //echo 'Campo: ' . $campo . '<br/>';
+    //echo 'CP: ' . $CP . '<br/>';
+    //echo 'codigo_provincia: ' . $codigo_provincia . '<br/>';
+
+    $args = array(
+      'post_type' => 'prov_zona_wpfunos',
+      'meta_key' =>  $this->plugin_name . '_provinciasCodigo',
+      'meta_value' => $codigo_provincia,
+    );
+    ?>
+    <div class="wpfunos-prov-zona">
+      <?php
+      $post_list = get_posts( $args );
+      $contador = 0;
+      if( $post_list ){
+        foreach ( $post_list as $post ) :
+          $contador++;
+          $suma++;
+          $check = get_post_meta( $post->ID, $this->plugin_name . '_provincias' . $campo.'_ck', true );
+          $precio = get_post_meta( $post->ID, $this->plugin_name . '_provincias' . $campo, true );
+          $titulo = get_post_meta( $post->ID, $this->plugin_name . '_provinciasTitulo', true );
+          if( $check == '1'){
+            $_GET['prov_zona_titulo'] = $titulo;
+            $_GET['prov_zona_precio'] = number_format($precio, 0, ',', '.');
+            echo do_shortcode('[elementor-template id="52324"]');
+            //echo $titulo . '<br/>';
+            //echo $precio . '<br/>';
+          }
+          //echo $check . '<br/>';
+          //echo $precio . '<br/>';
+          //echo $titulo . '<br/><br/>';
+        endforeach;
+        wp_reset_postdata();
+      }
+      ?>
+    </div>
+    <?php
 
   }
 
