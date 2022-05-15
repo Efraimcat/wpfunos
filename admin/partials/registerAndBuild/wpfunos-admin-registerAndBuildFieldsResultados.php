@@ -39,7 +39,7 @@ add_settings_field(
 // Formlario GEO-my-wp
 add_settings_field(
   $this->plugin_name . '_formGeoMyWp',
-  'Formulario GEO my wp <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_formGeoMyWp)</h6>', 
+  'Formulario GEO my wp <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_formGeoMyWp)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_resultados_section',
@@ -57,7 +57,7 @@ add_settings_field(
 // Sección Compara precios resultados pie Aseguradoras
 add_settings_field(
   $this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasPie',
-  'Sección compara precios Resultados Aseguradoras Pie <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosAseguradorasPie)</h6>', 
+  'Sección compara precios Resultados Aseguradoras Pie <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosAseguradorasPie)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_resultados_section',
@@ -72,6 +72,34 @@ add_settings_field(
   'wpfunos_general_resultados_section',
   array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_formGeoMyWpAseguradoras','name' => $this->plugin_name . '_formGeoMyWpAseguradoras','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
+// CTA Pedimos presupuestos página resultados sin resultados [elementor-template id="51419"]
+add_settings_field(
+  $this->plugin_name . '_seccionPedimosPresupuesto',
+  'CTA Pedimos presupuestos página resultados sin resultados <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionPedimosPresupuesto)</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_general_settings',
+  'wpfunos_general_resultados_section',
+  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionPedimosPresupuesto','name' => $this->plugin_name . '_seccionPedimosPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
+// Mensaje superior precios confirmados (precios exclusivos)
+add_settings_field(
+  $this->plugin_name . '_seccionPreciosExclusivos',
+  'Mensaje superior precios confirmados (precios exclusivos) <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionPreciosExclusivos)</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_general_settings',
+  'wpfunos_general_resultados_section',
+  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionPreciosExclusivos','name' => $this->plugin_name . '_seccionPreciosExclusivos','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
+// Precio Medio Zona
+add_settings_field(
+  $this->plugin_name . '_seccionPreciosMedioZona',
+  'Precio Medio Zona <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionPreciosMedioZona)</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_general_settings',
+  'wpfunos_general_resultados_section',
+  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionPreciosMedioZona','name' => $this->plugin_name . '_seccionPreciosMedioZona','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
+
 
 register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosCabecera');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosPie');
@@ -79,3 +107,6 @@ register_setting('wpfunos_general_settings', $this->plugin_name . '_formGeoMyWp'
 register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasCabecera');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosAseguradorasPie');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_formGeoMyWpAseguradoras');
+register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionPedimosPresupuesto');
+register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionPreciosExclusivos');
+register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionPreciosMedioZona');

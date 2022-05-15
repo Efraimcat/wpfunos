@@ -87,8 +87,13 @@ class Wpfunos_Utils {
     $current_user = wp_get_current_user();
     $opcion = get_option( 'wpfunos_DireccionesIPDesarrollo' );
     $direcciones = explode ( ",", $opcion );
+    $this->custom_logs( $this->dumpPOST('==============') );
+    $this->custom_logs( $this->dumpPOST('ReservedEmailAction') );
+    $this->custom_logs( 'direcciones: ' . $this->dumpPOST( $direcciones ) );
     foreach( $direcciones as $direccion ) {
       $direccion = trim( $direccion );
+      $this->custom_logs( $this->dumpPOST('direccion: ' . $direccion ) );
+      $this->custom_logs( $this->dumpPOST('current_user->user_email: ' . $current_user->user_email ) );
       if( $direccion == $current_user->user_email )return true;
     }
     return false;
@@ -163,7 +168,6 @@ class Wpfunos_Utils {
     $this->custom_logs( $this->dumpPOST('1. - Entrada Comparador Servicios') );
     $this->custom_logs( $this->dumpPOST('userIP: ' . $userIP) );
     $this->custom_logs( $this->dumpPOST('referer: ' . substr($referer,0,150) ) );
-    $this->custom_logs( $this->dumpPOST('wpfid: ' . $_COOKIE[ 'wpfid' ] ));
     $args = array(
       'post_status' => 'publish',
       'post_type' => 'pag_serv_wpfunos',
@@ -188,7 +192,6 @@ class Wpfunos_Utils {
         $this->plugin_name . '_entradaServiciosReferer' => $referer,
         $this->plugin_name . '_entradaServiciosVisitas' => $contador,
         $this->plugin_name . '_Dummy' => true,
-        'IDstamp' => $_COOKIE[ 'wpfid' ],
       ),
     );
     //$post_id = 'loggedin';
@@ -209,7 +212,6 @@ class Wpfunos_Utils {
     $this->custom_logs( $this->dumpPOST('1. - Entrada Comparador Aseguradoras') );
     $this->custom_logs( $this->dumpPOST('userIP: ' . $userIP) );
     $this->custom_logs( $this->dumpPOST('referer: ' . substr($referer,0,150) ) );
-    $this->custom_logs( $this->dumpPOST('wpfid: ' . $_COOKIE[ 'wpfid' ] ));
     $args = array(
       'post_status' => 'publish',
       'post_type' => 'pag_aseg_wpfunos',
@@ -234,10 +236,8 @@ class Wpfunos_Utils {
         $this->plugin_name . '_entradaAseguradorasReferer' => $referer,
         $this->plugin_name . '_entradaAseguradorasVisitas' => $contador,
         $this->plugin_name . '_Dummy' => true,
-        'IDstamp' => $_COOKIE[ 'wpfid' ],
       ),
     );
-    //$post_id = 'loggedin';
     $reserved = apply_filters('wpfunos_reserved_email','dummy');
     if( ! $reserved ) $post_id = wp_insert_post($my_post);
     $this->custom_logs( $this->dumpPOST('Post ID: ' . $post_id ) );

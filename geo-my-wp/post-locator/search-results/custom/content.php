@@ -58,7 +58,7 @@
 					?>
 					<div class="gmw-no-results" style="font-size: 18px;">
 						<?php gmw_no_results_message( $gmw ); ?>
-						<?php echo do_shortcode( '[elementor-template id="51419"]' ); ?>
+						<?php echo do_shortcode( get_option('wpfunos_seccionPedimosPresupuesto') ); ?>
 					</div>
 					<?php
 				}
@@ -77,7 +77,7 @@
 			?>
 			<div class="gmw-no-results" style="font-size: 18px;">
 				<?php gmw_no_results_message( $gmw ); ?>
-				<?php echo do_shortcode( '[elementor-template id="51419"]' ); ?>
+				<?php echo do_shortcode( get_option('wpfunos_seccionPedimosPresupuesto') ); ?>
 			</div>
 			<?php
 		endif;
