@@ -236,7 +236,7 @@ class Wpfunos_Estadisticas {
 		$suma = 0;
 		$dias = 0;
 		while( $cuando < $ahora ){
-			$dias++;
+			//$dias++;
 			$args = array(
 				'post_status' => $status,
 				'post_type' => $cpt,
@@ -260,8 +260,9 @@ class Wpfunos_Estadisticas {
 				endforeach;
 				wp_reset_postdata();
 			}
-			if( $funcion == 'todo' ) $array[] = array( "label" => $cuando->format('d M'), "y" => $contador, ) ;
-			if( $funcion == 'media' ) $array[] = array( "label" => $cuando->format('d M'), "y" => $suma/$dias, ) ;
+			if( $suma > 0 ) $dias++;
+			if( $funcion == 'todo' && $suma > 0 ) $array[] = array( "label" => $cuando->format('d M'), "y" => $contador, ) ;
+			if( $funcion == 'media' && $suma > 0 ) $array[] = array( "label" => $cuando->format('d M'), "y" => $suma/$dias, ) ;
 			$cuando->add(new DateInterval( 'P1D' ) );
 		}
 		return $array;
@@ -380,7 +381,7 @@ class Wpfunos_Estadisticas {
 	public function wpfunos_graph_usuarios_ubicaciones( $funcion = 'todo' ){
 		$ahora = new DateTime();
 		$cuando = new DateTime();
-		$cuando->setTimestamp( strtotime("22-3-2022") );
+		$cuando->setTimestamp( strtotime("19-3-2022") );
 
 		$suma = 0;
 		$dias = 0;
@@ -445,7 +446,7 @@ class Wpfunos_Estadisticas {
 	public function wpfunos_graph_ubicaciones_entradas( $funcion = 'todo' ){
 		$ahora = new DateTime();
 		$cuando = new DateTime();
-		$cuando->setTimestamp( strtotime("1-4-2022") );
+		$cuando->setTimestamp( strtotime("31-3-2022") );
 
 		$suma = 0;
 		$dias = 0;
@@ -510,7 +511,7 @@ class Wpfunos_Estadisticas {
 	public function wpfunos_graph_usuarios_entradas( $funcion = 'todo' ){
 		$ahora = new DateTime();
 		$cuando = new DateTime();
-		$cuando->setTimestamp( strtotime("1-4-2022") );
+		$cuando->setTimestamp( strtotime("31-3-2022") );
 
 		$suma = 0;
 		$dias = 0;
@@ -584,29 +585,23 @@ class Wpfunos_Estadisticas {
 		//do_action('wpfunos_log', 'my_custom_admin_head $pagenow: ' .$pagenow );
 		//do_action('wpfunos_log', 'my_custom_admin_head $_GET[page]: ' .$_GET['page'] );
 
-		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'month' );
-		$dataPoints2 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
-		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'week' );
+		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'all' );
 		$dataPoints3 = json_encode($resultado, JSON_NUMERIC_CHECK);
 
-		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'month', 'media' );
-		$dataPoints4 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
-		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'week', 'media' );
+		$resultado = $this->wpfunos_graph_linear( 'usuarios_wpfunos', 'all', 'media' );
 		$dataPoints5 = json_encode($resultado, JSON_NUMERIC_CHECK);
 
-		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'month' );
-		$dataPoints6 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
-		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'month', 'media' );
-		$dataPoints7 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
-		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'week' );
+		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'all' );
 		$dataPoints8 = json_encode($resultado, JSON_NUMERIC_CHECK);
 
-		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'week', 'media' );
+		$resultado = $this->wpfunos_graph_linear( 'ubicaciones_wpfunos', 'all', 'media' );
 		$dataPoints9 = json_encode($resultado, JSON_NUMERIC_CHECK);
+
+		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'all' );
+		$dataPoints20 = json_encode($resultado, JSON_NUMERIC_CHECK);
+
+		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'all', 'media' );
+		$dataPoints21 = json_encode($resultado, JSON_NUMERIC_CHECK);
 
 		$resultado = $this->wpfunos_graph_pie_servicios( 'Despedida' );
 		$dataPoints10 = json_encode($resultado, JSON_NUMERIC_CHECK);
@@ -638,18 +633,6 @@ class Wpfunos_Estadisticas {
 		$resultado = $this->wpfunos_graph_usuarios_ubicaciones('media');
 		$dataPoints19 = json_encode($resultado, JSON_NUMERIC_CHECK);
 
-		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'week' );
-		$dataPoints20 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
-		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'week', 'media' );
-		$dataPoints21 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
-		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'month' );
-		$dataPoints22 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
-		$resultado = $this->wpfunos_graph_linear( 'pag_serv_wpfunos', 'month', 'media' );
-		$dataPoints23 = json_encode($resultado, JSON_NUMERIC_CHECK);
-
 		$resultado = $this->wpfunos_graph_ubicaciones_entradas();
 		$dataPoints24 = json_encode($resultado, JSON_NUMERIC_CHECK);
 
@@ -665,10 +648,9 @@ class Wpfunos_Estadisticas {
 		echo '<script type="text/javascript" src="' . WFUNOS_PLUGIN_URL . 'admin/assets/canvasjs.min.js"></script>';
 		echo '<script id="wpfunos-head-'.$this->version.'" type="text/javascript">
 		window.onload = function () {
-			var chart = new CanvasJS.Chart("chartContainer2", {animationEnabled:true,zoomEnabled:true,title:{text: "Usuarios mes",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Usuarios/Mes</span><br>";content += e.entries[0].dataSeries.name + " "+ "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de usuarios"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Usuarios",dataPoints:'.$dataPoints2.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints4.',}]});chart.render();
-			var chart = new CanvasJS.Chart("chartContainer3", {animationEnabled:true,zoomEnabled:true,title:{text: "Usuarios semana",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Usuarios/Semana</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de usuarios"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Usuarios",dataPoints:'.$dataPoints3.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints5.',}]});chart.render();
-			var chart = new CanvasJS.Chart("chartContainer4", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones mes",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/Mes</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ubicaciones",dataPoints:'.$dataPoints6.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints7.',}]});chart.render();
-			var chart = new CanvasJS.Chart("chartContainer5", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones semana",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/semana</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ubicaciones",dataPoints:'.$dataPoints8.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints9.',}]});chart.render();
+			var chart = new CanvasJS.Chart("chartContainer18", {animationEnabled:true,zoomEnabled:true,title:{text: "Entradas",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Entradas/Día</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Entradas",dataPoints:'.$dataPoints20.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints21.',}]});chart.render();
+			var chart = new CanvasJS.Chart("chartContainer5", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/Día</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ubicaciones",dataPoints:'.$dataPoints8.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints9.',}]});chart.render();
+			var chart = new CanvasJS.Chart("chartContainer3", {animationEnabled:true,zoomEnabled:true,title:{text: "Datos",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Datos/Día</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de datos"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Datos",dataPoints:'.$dataPoints3.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints5.',}]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer6", {animationEnabled:true,zoomEnabled:true,title:{text: "Despedida",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",legendText: "{indexLabel}",dataPoints:'.$dataPoints10.'}]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer7", {animationEnabled:true,zoomEnabled:true,title:{text: "Ataúd",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",legendText: "{indexLabel}",dataPoints:'.$dataPoints11.'}]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer8", {animationEnabled:true,zoomEnabled:true,title:{text: "Velatorio",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",legendText: "{indexLabel}",dataPoints:'.$dataPoints12.'}]});chart.render();
@@ -677,11 +659,9 @@ class Wpfunos_Estadisticas {
 			var chart = new CanvasJS.Chart("chartContainer11", {animationEnabled:true,zoomEnabled:true,title:{text: "Población (Todos)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",legendText: "{indexLabel}",dataPoints:'.$dataPoints15.'}]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer12", {animationEnabled:true,zoomEnabled:true,title:{text: "CP (Top 10)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",legendText: "{indexLabel}",dataPoints:'.$dataPoints16.'}]});chart.render();
 			var chart = new CanvasJS.Chart("chartContainer13", {animationEnabled:true,zoomEnabled:true,title:{text: "CP (Todos)",},data:[{type: "pie",toolTipContent: "{indexLabel} - {y} - <strong>#percent %</strong>",legendText: "{indexLabel}",dataPoints:'.$dataPoints17.'}]});chart.render();
-			var chart = new CanvasJS.Chart("chartContainer14", {animationEnabled:true,zoomEnabled:true,title:{text: "Datos-Ubicaciones",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Datos/Ubicaciones</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Datos/Ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints18.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints19.',} ]});chart.render();
-			var chart = new CanvasJS.Chart("chartContainer15",{animationEnabled:true,zoomEnabled:true,title:{text: "Datos-Entradas",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Datos/Entradas</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Datos/Entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints26.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints27.',} ]});chart.render();
-			var chart = new CanvasJS.Chart("chartContainer21", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones-Entradas",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/Entradas</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Ubicaciones/Entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints24.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints25.',} ]});chart.render();
-			var chart = new CanvasJS.Chart("chartContainer18", {animationEnabled:true,zoomEnabled:true,title:{text: "Entradas semana",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Entradas/Semana</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Entradas",dataPoints:'.$dataPoints20.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints21.',}]});chart.render();
-			var chart = new CanvasJS.Chart("chartContainer17", {animationEnabled:true,zoomEnabled:true,title:{text: "Entradas mes",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Entradas/Mes</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Cantidad de entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Entradas",dataPoints:'.$dataPoints22.',},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints23.',}]});chart.render();
+			var chart = new CanvasJS.Chart("chartContainer14", {animationEnabled:true,zoomEnabled:true,title:{text: "Datos/Ubicaciones",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Datos/Ubicaciones</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Datos/Ubicaciones"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints18.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints19.',} ]});chart.render();
+			var chart = new CanvasJS.Chart("chartContainer15",{animationEnabled:true,zoomEnabled:true,title:{text: "Datos/Entradas",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Datos/Entradas</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Datos/Entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints26.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints27.',} ]});chart.render();
+			var chart = new CanvasJS.Chart("chartContainer21", {animationEnabled:true,zoomEnabled:true,title:{text: "Ubicaciones/Entradas",},toolTip: {shared: true,contentFormatter: function (e) {var content = e.entries[0].dataPoint.label + "<br/><span style=\"color:#6D77AC\">Ubicaciones/Entradas</span><br>";content += e.entries[0].dataSeries.name + " " + "<strong>" + e.entries[0].dataPoint.y + "</strong><br/>";content +=  e.entries[1].dataSeries.name + " " + "<strong>" + e.entries[1].dataPoint.y.toFixed(2) + "</strong><br/>";return content;},},axisY:{scaleBreaks:{autoCalculate:true},title:"Ratio de Ubicaciones/Entradas"},axisX:{crosshair:{enabled:true,snapToDataPoint:true}},data:[{markerSize:0,type:"splineArea",showInLegend: true,name: "Ratio",dataPoints:'.$dataPoints24.'},{markerSize:0,type: "line",showInLegend: true,name: "Media",dataPoints:'.$dataPoints25.',} ]});chart.render();
 		}
 		</script>';
 	}

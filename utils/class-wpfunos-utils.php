@@ -24,6 +24,7 @@ class Wpfunos_Utils {
     add_action( 'wpfunos_import', array( $this, 'wpfunosImport' ), 10, 1 );
     add_action( 'wpfunos-entrada-servicios', array( $this, 'wpfunosEntradaServicios') );
     add_action( 'wpfunos-entrada-aseguradoras', array( $this, 'wpfunosEntradaAseguradoras') );
+    add_action( 'wpfunos_update phone', array( $this, 'wpfunosUpdatePhone' ), 10, 1 );
     add_filter( 'wpfunos_reserved_email', array( $this, 'wpfunosReservedEmailAction' ) );
     add_filter( 'wpfunos_ip_visits', array( $this, 'wpfunos_visitas_IP' ), 10, 3 );
     add_filter( 'wpfunos_count_visits', array( $this, 'wpfunos_contador_visitas' ), 10, 3 );
@@ -89,14 +90,24 @@ class Wpfunos_Utils {
     $direcciones = explode ( ",", $opcion );
     $this->custom_logs( $this->dumpPOST('==============') );
     $this->custom_logs( $this->dumpPOST('ReservedEmailAction') );
-    $this->custom_logs( 'direcciones: ' . $this->dumpPOST( $direcciones ) );
+    $this->custom_logs( $this->dumpPOST('current_user->user_email: ' . $current_user->user_email ) );
     foreach( $direcciones as $direccion ) {
       $direccion = trim( $direccion );
-      $this->custom_logs( $this->dumpPOST('direccion: ' . $direccion ) );
-      $this->custom_logs( $this->dumpPOST('current_user->user_email: ' . $current_user->user_email ) );
       if( $direccion == $current_user->user_email )return true;
     }
     return false;
+  }
+
+  /**
+  * Utility: Si es un usuario conectado, actualizar su número de teléfono
+  * do_action('wpfunos_update phone',$_GET['telefonoUsuario']);
+  */
+  public function wpfunosUpdatePhone( $telefono ) {
+    if (! is_user_logged_in()) return;
+    $user_id = get_current_user_id();
+    //Solucion emergencia
+    if( 7 == $user_id || 1 == $user_id) return;
+    update_user_meta( $user_id, 'wpfunos_telefono', $telefono );
   }
 
   /**
@@ -457,7 +468,6 @@ class Wpfunos_Utils {
   public function wpfunos_SIWG_init(){
     $pagina = get_the_ID();
     if( 1734 !== $pagina ) return false;
-
     if (is_user_logged_in()) return false;
 
     echo '<script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -475,60 +485,48 @@ class Wpfunos_Utils {
   *
   */
   public function wpfunos_SIWG_google_login(){
-      // secure credential value from AJAX
-      $credential = sanitize_text_field($_POST["credential"]);
-
-      // verify the ID token
-      $curl = curl_init( 'https://oauth2.googleapis.com/tokeninfo?id_token=' . $credential );
-      curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-      $response = curl_exec( $curl );
-      curl_close( $curl );
-
-      // convert the response from JSON string to object
-      $response = json_decode($response);
-
-      // if there is any error, send the error back to client
-      if (isset($response->error)){
-          wp_send_json_error($response->error_description);
+    // secure credential value from AJAX
+    $credential = sanitize_text_field($_POST["credential"]);
+    // verify the ID token
+    $curl = curl_init( 'https://oauth2.googleapis.com/tokeninfo?id_token=' . $credential );
+    curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+    $response = curl_exec( $curl );
+    curl_close( $curl );
+    // convert the response from JSON string to object
+    $response = json_decode($response);
+    // if there is any error, send the error back to client
+    if (isset($response->error)){
+      wp_send_json_error($response->error_description);
+    }else{
+      // check if user already exists in WordPress users
+      $user_id = username_exists( $response->email );
+      if ( ! $user_id && !email_exists( $response->email ) ){
+        // user does not exists
+        // generate a random hashed password
+        $random_password = wp_generate_password( $length = 12, $include_standard_special_chars = false );
+        // insert the user as WordPress user
+        $user_id = wp_insert_user([
+          "user_email" => $response->email,
+          "user_pass" => $random_password,
+          "user_login" => $response->email,
+          "display_name" => $response->name,
+          "nickname" => $response->name,
+          "first_name" => $response->given_name,
+          "last_name" => $response->family_name
+        ]);
+        update_user_meta( $user_id, 'wpfunos_fecha_inicial', date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ) );
       }
-      else{
-          // check if user already exists in WordPress users
-        $user_id = username_exists( $response->email );
-
-        if ( ! $user_id && !email_exists( $response->email ) )
-        {
-            // user does not exists
-            // generate a random hashed password
-            $random_password = wp_generate_password( $length = 12, $include_standard_special_chars = false );
-
-            // insert the user as WordPress user
-            $user_id = wp_insert_user([
-                "user_email" => $response->email,
-                "user_pass" => $random_password,
-                "user_login" => $response->email,
-                "display_name" => $response->name,
-                "nickname" => $response->name,
-                "first_name" => $response->given_name,
-                "last_name" => $response->family_name
-            ]);
-        }
-
-        // do login
-        $user = get_user_by('login', $response->email );
-
-        if ( !is_wp_error( $user ) )
-        {
-            wp_clear_auth_cookie();
-            wp_set_current_user ( $user->ID );
-            wp_set_auth_cookie  ( $user->ID );
-
-            // set user profile picture
-            update_user_meta($user->ID, "SIWG_profile_picture", $response->picture);
-        }
-
-        // send the success response back
-        wp_send_json_success( $response );
+      // do login
+      $user = get_user_by('login', $response->email );
+      if ( !is_wp_error( $user ) ){
+        wp_clear_auth_cookie();
+        wp_set_current_user ( $user->ID );
+        wp_set_auth_cookie  ( $user->ID );
+        update_user_meta( $user->ID, "SIWG_profile_picture", $response->picture);
+        update_user_meta( $user->ID, 'wpfunos_fecha_ultima', date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ) );
       }
+      wp_send_json_success( $response );
+    }
   }
 
 }

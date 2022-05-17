@@ -69,6 +69,7 @@ class Wpfunos_Servicios {
     }elseif( !isset($_GET['wpf']) ){
       if (is_user_logged_in()){
         $current_user = wp_get_current_user();
+        $_GET['usuario_telefono'] = str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
         $_GET['Email'] = $current_user->user_email;
         $_GET['nombreUsuario'] = $current_user->display_name;
       }
@@ -119,6 +120,8 @@ class Wpfunos_Servicios {
         do_action('wpfunos_log', 'Filtro Indeseados' );
         return;
       }
+      //
+      do_action('wpfunos_update phone', get_post_meta( $IDusuario, 'wpfunos_userPhone', true ) );
       //
       if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){
         // Solo enviar lead si no se ha enviado anteriormente.
