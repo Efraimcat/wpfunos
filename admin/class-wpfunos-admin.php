@@ -32,6 +32,7 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'entrada_ubicaciones_aseguradoras_custom_post_type' ));
     add_action('init', array( $this, 'usuarios_registrados_custom_post_type' ));
     add_action('init', array( $this, 'entrada_aseguradoras_custom_post_type' ));
+    add_action('init', array( $this, 'precios_poblacion_funeraria_custom_post_type' ));
     add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
     add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
     add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuracciín Imágenes
@@ -56,6 +57,7 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDireccionesIP' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDirectorio' ));
+    add_action('admin_init', array( $this, 'registerAndBuildFieldsPreciosPoblacion' ));
     add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_funerarias_wpfunos', array( $this, 'setupfunerarias_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
@@ -70,6 +72,7 @@ class Wpfunos_Admin {
     add_action('add_meta_boxes_ubic_aseg_wpfunos', array( $this, 'setupubic_aseg_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_pag_serv_wpfunos', array( $this, 'setuppag_serv_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_pag_aseg_wpfunos', array( $this, 'setuppag_aseg_wpfunosMetaboxes' ));
+    add_action('add_meta_boxes_precio_funer_wpfunos', array( $this, 'setupprecio_funer_wpfunosMetaboxes' ));
     add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
     add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
     add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
@@ -84,6 +87,7 @@ class Wpfunos_Admin {
     add_action('save_post_ubic_aseg_wpfunos', array( $this, 'saveubic_aseg_wpfunosMetaBoxData' ));
     add_action('save_post_pag_serv_wpfunos', array( $this, 'savepag_serv_wpfunosMetaBoxData' ));
     add_action('save_post_pag_aseg_wpfunos', array( $this, 'savepag_aseg_wpfunosMetaBoxData' ));
+    add_action('save_post_precio_funer_wpfunos', array( $this, 'saveprecio_funer_wpfunosMetaBoxData' ));
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-admin.css', array(), $this->version, 'all' );
@@ -133,6 +137,7 @@ class Wpfunos_Admin {
     add_menu_page( 'WpFunos', 'WpFunos', 'administrator', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     add_menu_page( 'WpFunos Config', 'WpFunos Config', 'administrator', $this->plugin_name.'config', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     add_menu_page( 'WpFunos Directorio', 'WpFunos Directorio', 'administrator', $this->plugin_name.'directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'WpFunos Precios Población', 'WpFunos Precios Población', 'administrator', $this->plugin_name.'precios_poblacion', array( $this, 'display_plugin_admin_precios_poblacion_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     add_menu_page( 'WpFunos Import', 'WpFunos Import', 'administrator', $this->plugin_name.'import', array( $this, 'display_plugin_admin_import_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     // add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
     add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', $this->plugin_name . '-settings', array( $this, 'displayPluginAdminSettings' ));
@@ -145,6 +150,7 @@ class Wpfunos_Admin {
       add_submenu_page( $this->plugin_name.'config' , esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', $this->plugin_name . '-logs', array( $this, 'displayPluginAdminLogs' ));
     }
     add_submenu_page( $this->plugin_name.'directorio', esc_html__('Configuración directorio WpFunos', 'wpfunos'), esc_html__('Configuración del directorio', 'wpfunos'), 'administrator', $this->plugin_name . '-settingsdirectorio', array( $this, 'displayDirectorionSettings' ));
+    add_submenu_page( $this->plugin_name.'precios_poblacion', esc_html__('Configuración precios población WpFunos', 'wpfunos'), esc_html__('Configuración precios población', 'wpfunos'), 'administrator', $this->plugin_name . '-settingspreciospoblacion', array( $this, 'displayPreciosPoblacionSettings' ));
   }
 
   /**
@@ -158,6 +164,9 @@ class Wpfunos_Admin {
   }
   public function display_plugin_admin_directorio_dashboard(){
     require_once 'partials/' . $this->plugin_name . '-admin-directorio-display.php';
+  }
+  public function display_plugin_admin_precios_poblacion_dashboard(){
+    require_once 'partials/' . $this->plugin_name . '-admin-precios-poblacion-display.php';
   }
   public function display_plugin_admin_import_dashboard(){
     require_once 'partials/' . $this->plugin_name . '-admin-import-display.php';
@@ -235,8 +244,9 @@ class Wpfunos_Admin {
     }
     require_once 'partials/' . $this->plugin_name . '-admin-logs-display.php';
   }
+
   /**
-  * Api Preventiva menu display.
+  * Directorio menu display.
   */
   public function displayDirectorionSettings() {
     if (isset($_GET['error_message'])) {
@@ -244,6 +254,17 @@ class Wpfunos_Admin {
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
     require_once 'partials/' . $this->plugin_name . '-admin-directorio-settings-display.php';
+  }
+
+  /**
+  * Precios población menu display.
+  */
+  public function displayPreciosPoblacionSettings() {
+    if (isset($_GET['error_message'])) {
+      add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
+      do_action('admin_notices', sanitize_text_field($_GET['error_message']));
+    }
+    require_once 'partials/' . $this->plugin_name . '-admin-precios-poblacion-settings-display.php';
   }
 
   /*********************************/
@@ -321,6 +342,9 @@ class Wpfunos_Admin {
   }
   public function registerAndBuildFieldsDirectorio() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDirectorio.php';
+  }
+  public function registerAndBuildFieldsPreciosPoblacion() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsPreciosPoblacion.php';
   }
 
   /**
@@ -453,7 +477,9 @@ class Wpfunos_Admin {
   public function wpfunos_display_direccionesip_account() {
     ?><p><?php esc_html_e('Configuración direcciones IP desarrollo.', 'wpfunos'); ?></p><?php
   }
-
+  public function wpfunos_display_precio_poblacion_account() {
+    ?><p><?php esc_html_e('Configuración precios población.', 'wpfunos'); ?></p><?php
+  }
 
   /*********************************/
   /*****  METABOXES  CPT      ******/
@@ -518,6 +544,10 @@ class Wpfunos_Admin {
     add_meta_box('pag_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_aseg_wpfunos_data_meta_box'), 'pag_aseg_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'pag_aseg_wpfunos', 'normal');
   }
+  public function setupprecio_funer_wpfunosMetaboxes(){
+    add_meta_box('precio_funer_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'precio_funer_wpfunos_data_meta_box'), 'precio_funer_wpfunos', 'normal', 'high' );
+  }
+
 
   /*********************************/
   /*****  SALVAR DATOS META CPT ****/
@@ -631,6 +661,14 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-aseg-fields.php';
   }
+  public function saveprecio_funer_wpfunosMetaBoxData( $post_id ){
+    if (! isset($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'], $this->plugin_name . '_precio_funer_wpfunos_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (! current_user_can('manage_options')) return;
+    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-funer-fields.php';
+  }
+
   /*********************************/
   /*****  CPT                 ******/
   /*********************************/
@@ -719,6 +757,14 @@ class Wpfunos_Admin {
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-pag-aseg.php';
   }
 
+  /**
+  * Entrada Precios Poblacion  precio_funer_wpfunos
+  */
+  public function precios_poblacion_funeraria_custom_post_type(){
+    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-precio-funer.php';
+  }
+
+
   /*********************************/
   /*****  MOSTRAR METABOXES   ******/
   /*********************************/
@@ -782,6 +828,11 @@ class Wpfunos_Admin {
     wp_nonce_field( $this->plugin_name.'_pag_aseg_wpfunos_meta_box', $this->plugin_name.'_pag_aseg_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-aseg-display.php';
   }
+  public function precio_funer_wpfunos_data_meta_box($post){
+    wp_nonce_field( $this->plugin_name.'_precio_funer_wpfunos_meta_box', $this->plugin_name.'_precio_funer_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-funer-display.php';
+  }
+
   /*********************************/
   /*****  RENDERS             ******/
   /*********************************/

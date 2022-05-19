@@ -123,7 +123,7 @@ class Wpfunos_Servicios {
       //
       do_action('wpfunos_update phone', get_post_meta( $IDusuario, 'wpfunos_userPhone', true ) );
       //
-      if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){
+      if( $IDusuario != 0 ){
         // Solo enviar lead si no se ha enviado anteriormente.
         if ( !get_post_meta( $IDusuario, 'wpfunos_userLead', true ) ){
           $this->wpfunosResultCorreoDatos();
@@ -513,6 +513,7 @@ class Wpfunos_Servicios {
     $codigo = ( explode( ',' , $cryptcode ) );
     $referencia = $codigo[0];
     $CP = $codigo[1];
+    if( strlen($CP) < 5 ) return;
     $IDusuario = apply_filters('wpfunos_userID', $referencia );
     $seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
     $respuesta = (explode(',',$seleccion));
