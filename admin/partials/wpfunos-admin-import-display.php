@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       <input type="submit" value="<?php _e( 'Importar códigos postales', 'wpfunos' ); ?>" style="background: #135e96;color: #fff;padding: 5px;font-weight: 700;margin-top: 10px;border-radius: 3px;">
     </div>
   </form>
-  <?php //IMPORTAR CÓDIGOS POSTALES ?>
+  <?php //IMPORTAR CÓDIGOS PROVINCIAS ?>
   <hr/>
   <p>
     <?php esc_html_e( 'Importar provincias', 'wpfunos' ); ?>
@@ -56,6 +56,20 @@ if ( ! defined( 'ABSPATH' ) ) {
     <input type="hidden" name="importprovincias" id="importprovincias" value="1" >
     <div class="wpfunos-provincias">
       <input type="submit" value="<?php _e( 'Importar provincias', 'wpfunos' ); ?>" style="background: #135e96;color: #fff;padding: 5px;font-weight: 700;margin-top: 10px;border-radius: 3px;">
+    </div>
+  </form>
+  <?php //IMPORTAR PRECIO FUNERARIAS ?>
+  <hr/>
+  <p>
+    <?php esc_html_e( 'Importar precio funerarias', 'wpfunos' ); ?>
+    <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">
+      [0] => ID [1] => Title [2] => Post Type [3] => [4] => [5] =>
+    </h6>
+  </p>
+  <form action="" method="post">
+    <input type="hidden" name="importpreciofuner" id="importpreciofuner" value="1" >
+    <div class="wpfunos-precio-funer">
+      <input type="submit" value="<?php _e( 'Importar precio funerarias', 'wpfunos' ); ?>" style="background: #135e96;color: #fff;padding: 5px;font-weight: 700;margin-top: 10px;border-radius: 3px;">
     </div>
   </form>
   <hr/>
