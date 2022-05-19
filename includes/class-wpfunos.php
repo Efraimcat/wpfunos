@@ -84,6 +84,7 @@ class Wpfunos {
 		$this->define_servicios_hooks();
 		$this->define_estadisticas_hooks();
 		$this->define_colaboradores_hooks();
+		$this->define_precios_poblacion_hooks();
 
 	}
 
@@ -158,6 +159,10 @@ class Wpfunos {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'colaboradores/class-wpfunos-colaboradores.php';
 
+		/**
+		 * Precios Poblacion
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'precios-poblacion/class-wpfunos-precios-poblacion.php';
 
 		$this->loader = new Wpfunos_Loader();
 
@@ -298,6 +303,24 @@ class Wpfunos {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_colaboradores, 'enqueue_scripts' );
 
 	}
+	/**
+	 * Register all of the hooks Precios Población
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_precios_poblacion_hooks() {
+
+		$plugin_precios_poblacion = new Wpfunos_PreciosPoblacion( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_precios_poblacion, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_precios_poblacion, 'enqueue_scripts' );
+
+	}
+
+
+
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *

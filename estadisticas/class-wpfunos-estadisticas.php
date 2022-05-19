@@ -446,7 +446,7 @@ class Wpfunos_Estadisticas {
 	public function wpfunos_graph_ubicaciones_entradas( $funcion = 'todo' ){
 		$ahora = new DateTime();
 		$cuando = new DateTime();
-		$cuando->setTimestamp( strtotime("31-3-2022") );
+		$cuando->setTimestamp( strtotime("1-4-2022") );
 
 		$suma = 0;
 		$dias = 0;
@@ -511,7 +511,7 @@ class Wpfunos_Estadisticas {
 	public function wpfunos_graph_usuarios_entradas( $funcion = 'todo' ){
 		$ahora = new DateTime();
 		$cuando = new DateTime();
-		$cuando->setTimestamp( strtotime("31-3-2022") );
+		$cuando->setTimestamp( strtotime("1-4-2022") );
 
 		$suma = 0;
 		$dias = 0;
