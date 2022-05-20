@@ -18,7 +18,7 @@ if( !isset ($_POST['submit']) ){
   ?>
   <div class="wpfunos-imports">
     <h3>
-      IMPORTACION FICHERO DIRECTORIO
+      IMPORTACION FICHERO PRECIO FUNERARIAS
     </h3>
     <p>
       Escoger el fichero .csv de la importación

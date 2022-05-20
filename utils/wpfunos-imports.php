@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/utils
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-if( !isset( $_POST['importdirectorio'] ) && !isset( $_POST['importcodigospostales'] ) && !isset( $_POST['importprovincias'] ) ) return;
+if( !isset( $_POST['importdirectorio'] ) && !isset( $_POST['importcodigospostales'] ) && !isset( $_POST['importprovincias'] ) && !isset( $_POST['importpreciofuner'] ) ) return;
 //print_r($_POST);
 //
 if( isset( $_POST['importdirectorio'] ) && $_POST['importdirectorio'] == 1 ) include 'wpfunos-imports-directorio.php';
