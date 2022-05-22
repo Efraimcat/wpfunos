@@ -33,6 +33,9 @@ $precioFunerariaIncineracionPremiumDesde = sanitize_text_field( $_POST[$this->pl
 $precioFunerariaPaginasRelacionadas = sanitize_text_field( $_POST[$this->plugin_name . '_precioFunerariaPaginasRelacionadas'] );
 $precioFunerariaPoblacionesCercanas = wp_kses_post( $_POST[$this->plugin_name . '_precioFunerariaPoblacionesCercanas'] );
 $precioFunerariaTextoLibre = wp_kses_post( $_POST[$this->plugin_name . '_precioFunerariaTextoLibre'] );
+$SeoEntierro = sanitize_text_field( $_POST['SeoEntierro'] );
+$SeoIncineracion = sanitize_text_field( $_POST['SeoIncineracion'] );
+$SeoDesde = sanitize_text_field( $_POST['SeoDesde'] );
 
 update_post_meta($post_id, $this->plugin_name . '_precioFunerariaPoblacion', $precioFunerariaPoblacion);
 update_post_meta($post_id, $this->plugin_name . '_precioFunerariaTitulo', $precioFunerariaTitulo);
@@ -55,3 +58,6 @@ update_post_meta($post_id, $this->plugin_name . '_precioFunerariaIncineracionPre
 update_post_meta($post_id, $this->plugin_name . '_precioFunerariaPaginasRelacionadas', $precioFunerariaPaginasRelacionadas);
 update_post_meta($post_id, $this->plugin_name . '_precioFunerariaPoblacionesCercanas', $precioFunerariaPoblacionesCercanas);
 update_post_meta($post_id, $this->plugin_name . '_precioFunerariaTextoLibre', $precioFunerariaTextoLibre);
+update_post_meta($post_id, 'SeoEntierro', $SeoEntierro);
+update_post_meta($post_id, 'SeoIncineracion', $SeoIncineracion);
+update_post_meta($post_id, 'SeoDesde', $SeoDesde);

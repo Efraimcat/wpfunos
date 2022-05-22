@@ -13,6 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 ?>
+<style>
+#postdivrich {
+  display: none;
+}
+</style>
 <div class="precio_funer_wpfunos_containers">
   <ul class="precio_funer_wpfunos_data_metabox">
     <li class="precio_funer_wpfunos_list">
@@ -126,6 +131,24 @@ if ( ! defined( 'ABSPATH' ) ) {
       <?php	wp_editor( $notes_precioFunerariaTextoLibre, $this->plugin_name . '_precioFunerariaTextoLibre',$args_precioFunerariaTextoLibre); ?>
     </li>
     <hr/>
+    <li class="precio_funer_wpfunos_list">
+      <table>
+        <tr>
+          <td><?php esc_html_e('Seo Entierro', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Seo Incineración', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Seo Desde', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'SeoEntierro','name' => 'SeoEntierro','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 7));?>€</td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'SeoIncineracion','name' => 'SeoIncineracion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 7));?>€</td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'SeoDesde','name' => 'SeoDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 7));?>€</td>
+        </tr>
+      </table>
+    </li>
   </ul>
 </div>
 

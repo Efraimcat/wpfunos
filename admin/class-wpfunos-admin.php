@@ -918,6 +918,32 @@ class Wpfunos_Admin {
         }
       }
     }
+    //  Precios Funerarias
+    $this->custom_logs('---');
+    $this->custom_logs('Wpfunos precio_funer_wpfunos starts');
+    $args = array(
+      'post_type' => 'precio_funer_wpfunos',
+      'posts_per_page' => -1,
+    );
+    $post_list = get_posts( $args );
+    if( $post_list ){
+      foreach ( $post_list as $post ) :
+        $entierro = (int)str_replace(".","",get_post_meta( $post->ID, $this->plugin_name . '_precioFunerariaEntierroDesde', true ));
+        $incineracion = (int)str_replace(".","",get_post_meta( $post->ID, $this->plugin_name . '_precioFunerariaIncineracionDesde', true ));
+        update_post_meta($post->ID, 'SeoEntierro',  number_format($entierro, 0, ',', '.') . '€');
+        update_post_meta($post->ID, 'SeoIncineracion', number_format($incineracion, 0, ',', '.') . '€');
+        if($entierro < $incineracion ){
+          update_post_meta($post->ID, 'SeoDesde',  number_format($entierro, 0, ',', '.') . '€');
+        }else{
+          update_post_meta($post->ID, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
+        }
+        $this->custom_logs('precio_funer_wpfunos ' .$post->ID. 'updated');
+      endforeach;
+      wp_reset_postdata();
+    }
+    $this->custom_logs('Wpfunos precio_funer_wpfunos ends');
+    $this->custom_logs('---');
+    // END
     $this->custom_logs('Wpfunos Maintenance ends');
     $this->custom_logs('---');
     return;
