@@ -923,6 +923,7 @@ class Wpfunos_Admin {
     $this->custom_logs('Wpfunos precio_funer_wpfunos starts');
     $args = array(
       'post_type' => 'precio_funer_wpfunos',
+      'post_status' => 'any', // para incluir borradores
       'posts_per_page' => -1,
     );
     $post_list = get_posts( $args );
@@ -937,7 +938,7 @@ class Wpfunos_Admin {
         }else{
           update_post_meta($post->ID, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
         }
-        $this->custom_logs('precio_funer_wpfunos ' .$post->ID. 'updated');
+        $this->custom_logs('precio_funer_wpfunos ' .$post->ID. ' updated');
       endforeach;
       wp_reset_postdata();
     }

@@ -12,10 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/aseguradoras
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-//%%cf_SeoDesde%%
-//%%cf_SeoEntierro%%
-//%%cf_SeoIncineracion%%
-
 class Wpfunos_PreciosPoblacion {
 
   private $plugin_name;
@@ -29,6 +25,7 @@ class Wpfunos_PreciosPoblacion {
     add_shortcode( 'wpfunos-prefun', array( $this, 'wpfunosPrefunShortcode' ));
     add_shortcode( 'wpfunos-prefun-texto-libre', array( $this, 'wpfunosPrefunTextolibreShortcode' ));
     add_shortcode( 'wpfunos-prefun-poblaciones-cercanas', array( $this, 'wpfunosPrefunPoblacionesCercanaShortcode' ));
+    add_shortcode( 'wpfunos-prefun-paginas-relacionadas', array( $this, 'wpfunosPrefunPaginasRelacionadasShortcode' ));
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-precios-poblacion.css', array(), $this->version, 'all' );
@@ -85,7 +82,12 @@ class Wpfunos_PreciosPoblacion {
   * Shortcode [wpfunos-prefun-texto-libre]
   */
   public function wpfunosPrefunTextolibreShortcode( $atts, $content = "" ) {
-    echo apply_filters('wpfunos_comentario', get_post_meta( get_the_ID(), $this->plugin_name . '_precioFunerariaTextoLibre', true ) );
+    $texto = apply_filters('wpfunos_comentario', get_post_meta( get_the_ID(), $this->plugin_name . '_precioFunerariaTextoLibre', true ) );
+    $texto = str_replace( '{precio-imagen1}' , wp_get_attachment_image ( get_post_meta( get_the_ID(), $this->plugin_name . '_precioFunerariaImagenPortada', true ) ,'full' ) , $texto );
+    $texto = str_replace( '{precio-imagen2}' , wp_get_attachment_image ( get_post_meta( get_the_ID(), $this->plugin_name . '_precioFunerariaImagen2', true ) ,'full' ) , $texto );
+    $texto = str_replace( '{precio-imagen3}' , wp_get_attachment_image ( get_post_meta( get_the_ID(), $this->plugin_name . '_precioFunerariaImagen3', true ) ,'full' ) , $texto );
+    $texto = str_replace( '{precio-imagen4}' , wp_get_attachment_image ( get_post_meta( get_the_ID(), $this->plugin_name . '_precioFunerariaImagen4', true ) ,'full' ) , $texto );
+    echo $texto;
     return;
   }
   /**
@@ -95,5 +97,17 @@ class Wpfunos_PreciosPoblacion {
     echo apply_filters('wpfunos_comentario', get_post_meta( get_the_ID(), $this->plugin_name . '_precioFunerariaPoblacionesCercanas', true ) );
     return;
   }
+  /**
+  * Shortcode [wpfunos-prefun-paginas-relacionadas]
+  */
+  public function wpfunosPrefunPaginasRelacionadasShortcode( $atts, $content = "" ) {
+    $paginas = (explode(',',get_post_meta( get_the_ID() , $this->plugin_name . '_precioFunerariaPaginasRelacionadas', true )));
+    foreach( $paginas as $pagina ){
+      if( get_post_type( $pagina ) == 'precio_funer_wpfunos'){
+        echo '<li><a href="'.get_post_permalink( $pagina ).'">'.get_post_meta( $pagina , $this->plugin_name . '_precioFunerariaTitulo', true ).'</a></li>';
+      }
+    }
+  }
+
 
 }

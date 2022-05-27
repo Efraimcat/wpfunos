@@ -20,6 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 </table>
 <hr/>
 <table style="width:125px;">
+  <tr><th colspan="2"><h2>Precios</h2></th></tr>
+  <tr><td>Total: </td><td><?php echo apply_filters( 'wpfunos_estadisticas_date', 'precio_funer_wpfunos', 'all' ); ?></td></tr>
+</table>
+<hr/>
+<table style="width:125px;">
   <tr><th colspan="2"><h2>Códigos postales</h2></th></tr>
   <tr><td>Total: </td><td><?php echo apply_filters( 'wpfunos_estadisticas_date', 'cpostales_wpfunos', 'all' ); ?></td></tr>
 </table>
