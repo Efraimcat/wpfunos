@@ -19,6 +19,7 @@
 	$_GET['seleccionUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
 	$respuesta = (explode(',',$_GET['seleccionUsuario']));
 	$distanciaDirecto = get_option('wpfunos_distanciaServicioDirecto');
+	do_action( 'wpfunos_busqueda_provincias', $_GET['address'][0] );
 	if( $respuesta[5] == 2 && $respuesta[6] == 1 && $_GET['distance'] != $distanciaDirecto && (int)$_GET['distance'] < (int)$distanciaDirecto ){
 		$new_url = home_url('/comparar-precios'.add_query_arg(array($_GET), $wp->request));
 		$new_url = str_replace("&distance","&old", $new_url );
