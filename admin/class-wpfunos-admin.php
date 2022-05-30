@@ -33,6 +33,7 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'usuarios_registrados_custom_post_type' ));
     add_action('init', array( $this, 'entrada_aseguradoras_custom_post_type' ));
     add_action('init', array( $this, 'precios_poblacion_funeraria_custom_post_type' ));
+    add_action('init', array( $this, 'excepciones_provincias_custom_post_type' ));
     add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
     add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
     add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuracciín Imágenes
@@ -73,6 +74,7 @@ class Wpfunos_Admin {
     add_action('add_meta_boxes_pag_serv_wpfunos', array( $this, 'setuppag_serv_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_pag_aseg_wpfunos', array( $this, 'setuppag_aseg_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_precio_funer_wpfunos', array( $this, 'setupprecio_funer_wpfunosMetaboxes' ));
+    add_action('add_meta_boxes_excep_prov_wpfunos', array( $this, 'setupexcep_prov_wpfunosMetaboxes' ));
     add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
     add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
     add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
@@ -88,6 +90,7 @@ class Wpfunos_Admin {
     add_action('save_post_pag_serv_wpfunos', array( $this, 'savepag_serv_wpfunosMetaBoxData' ));
     add_action('save_post_pag_aseg_wpfunos', array( $this, 'savepag_aseg_wpfunosMetaBoxData' ));
     add_action('save_post_precio_funer_wpfunos', array( $this, 'saveprecio_funer_wpfunosMetaBoxData' ));
+    add_action('save_post_excep_prov_wpfunos', array( $this, 'saveexcep_prov_wpfunosMetaBoxData' ));
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-admin.css', array(), $this->version, 'all' );
@@ -547,6 +550,11 @@ class Wpfunos_Admin {
   public function setupprecio_funer_wpfunosMetaboxes(){
     add_meta_box('precio_funer_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'precio_funer_wpfunos_data_meta_box'), 'precio_funer_wpfunos', 'normal', 'high' );
   }
+  public function setupexcep_prov_wpfunosMetaboxes(){
+    add_meta_box('excep_prov_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'excep_prov_wpfunos_data_meta_box'), 'excep_prov_wpfunos', 'normal', 'high' );
+    remove_meta_box('wpseo_meta', 'excep_prov_wpfunos', 'normal');
+  }
+
 
 
   /*********************************/
@@ -668,6 +676,13 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-funer-fields.php';
   }
+  public function saveexcep_prov_wpfunosMetaBoxData( $post_id ){
+    if (! isset($_POST[$this->plugin_name . '_excep_prov_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST[$this->plugin_name . '_excep_prov_wpfunos_meta_box_nonce'], $this->plugin_name . '_excep_prov_wpfunos_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (! current_user_can('manage_options')) return;
+    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-excep-prov-fields.php';
+  }
 
   /*********************************/
   /*****  CPT                 ******/
@@ -764,6 +779,12 @@ class Wpfunos_Admin {
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-precio-funer.php';
   }
 
+  /**
+  * Entrada busquedas en provincias e islas excep_prov_wpfunos
+  */
+  public function excepciones_provincias_custom_post_type(){
+    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-excep-prov.php';
+  }
 
   /*********************************/
   /*****  MOSTRAR METABOXES   ******/
@@ -831,6 +852,10 @@ class Wpfunos_Admin {
   public function precio_funer_wpfunos_data_meta_box($post){
     wp_nonce_field( $this->plugin_name.'_precio_funer_wpfunos_meta_box', $this->plugin_name.'_precio_funer_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-funer-display.php';
+  }
+  public function excep_prov_wpfunos_data_meta_box($post){
+    wp_nonce_field( $this->plugin_name.'_excep_prov_wpfunos_meta_box', $this->plugin_name.'_excep_prov_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-excep-prov-display.php';
   }
 
   /*********************************/

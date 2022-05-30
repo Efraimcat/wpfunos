@@ -43,6 +43,7 @@ class Wpfunos_Servicios {
     add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
     add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
     add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
+    add_action( 'wpfunos_busqueda_provincias' array( $this, 'wpfunosBusquedaProvincias' ), 10, 1 );
     add_filter( 'wpfunos_servicios_indeseados', array( $this, 'wpfunosServiciosIndeseados'), 10, 1 );
     add_filter( 'wpfunos_results_confirmado', array( $this, 'wpfunosResultadosConfirmado' ), 10, 4 );
     add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 4 );
@@ -1122,6 +1123,30 @@ class Wpfunos_Servicios {
     // Array resultados
     $resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio, true ) ;
     return $resultados;
+  }
+
+  /**
+  * Hook ampliar radio en busquedas en provincias e islas
+  *
+  * add_action( 'wpfunos_busqueda_provincias' array( $this, 'wpfunosBusquedaProvincias' ), 10, 1 );
+  */
+  public function wpfunosBusquedaProvincias( $address ){
+    
+
+
+
+
+
+
+
+
+
+
+    //$new_url = home_url('/comparar-precios'.add_query_arg(array($_GET), $wp->request));
+    //$new_url = str_replace("&distance","&old", $new_url );
+    //$new_url = $new_url . '&distance=' . $distanciaDirecto;
+    //wp_redirect( $new_url );
+    //exit;
   }
 
   /*********************************/
