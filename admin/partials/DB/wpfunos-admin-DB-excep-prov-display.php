@@ -20,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
       <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_excep_provProvincia','name' => $this->plugin_name . '_excep_provProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
     </li>
     <li class="excep_prov_wpfunos_list">
-      <label for="<?php esc_html_e($this->plugin_name . '_$excep_provDistancia' ); ?>"> <?php esc_html_e('Distancia', 'wpfunos');?></label>
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_$excep_provDistancia','name' => $this->plugin_name . '_$excep_provDistancia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
+      <label for="<?php esc_html_e($this->plugin_name . '_excep_provDistancia' ); ?>"> <?php esc_html_e('Distancia', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_excep_provDistancia','name' => $this->plugin_name . '_excep_provDistancia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
     </li>
     <li class="excep_prov_wpfunos_list">
       <label for="<?php esc_html_e($this->plugin_name . '_excep_provLat' ); ?>"> <?php esc_html_e('Latitud', 'wpfunos');?></label>

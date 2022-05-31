@@ -1131,22 +1131,41 @@ class Wpfunos_Servicios {
   * add_action( 'wpfunos_busqueda_provincias' array( $this, 'wpfunosBusquedaProvincias' ), 10, 1 );
   */
   public function wpfunosBusquedaProvincias( $address ){
-
-
-
-
-
-
-
-
-
-
-
-    //$new_url = home_url('/comparar-precios'.add_query_arg(array($_GET), $wp->request));
-    //$new_url = str_replace("&distance","&old", $new_url );
-    //$new_url = $new_url . '&distance=' . $distanciaDirecto;
-    //wp_redirect( $new_url );
-    //exit;
+    $nueva_distancia = 0;
+    $nueva_lat = 0;
+    $nueva_lng = 0;
+    $distanciaDirecto = get_option('wpfunos_distanciaServicioDirecto');
+    $args = array(
+      'post_type' => 'excep_prov_wpfunos',	//
+      'meta_key' =>  $this->plugin_name . '_excep_provProvincia',
+      'meta_value' => $address,
+    );
+    $post_list = get_posts( $args );
+    if( $post_list ){
+      foreach ( $post_list as $post ) :
+        $nueva_distancia = get_post_meta( $post->ID, $this->plugin_name . '_excep_provDistancia', true );
+        $nueva_lat = get_post_meta( $post->ID, $this->plugin_name . '_excep_provLat', true );
+        $nueva_lng = get_post_meta( $post->ID, $this->plugin_name . '_excep_provLng', true );
+        if( (int)$nueva_distancia == 0 ) $nueva_distancia = $distanciaDirecto;
+      endforeach;
+      wp_reset_postdata();
+    }
+    if( (int)$nueva_lat != 0 && (int)$nueva_lng != 0 ){
+      if( $_GET['lat'] == $nueva_lat && $_GET['lng'] == $nueva_lng )return;
+      $new_url = home_url('/comparar-precios'.add_query_arg(array($_GET), $wp->request));
+      $new_url = str_replace("&lat","&oldlat", $new_url );
+      $new_url = str_replace("&lng","&oldlng", $new_url );
+      $new_url = $new_url . '&lat=' . $nueva_lat . '&lng=' . $nueva_lng ;
+      wp_redirect( $new_url );
+      exit;
+    }elseif( (int)$nueva_distancia != 0 ){
+      if( $_GET['distance'] == $nueva_distancia )return;
+      $new_url = home_url('/comparar-precios'.add_query_arg(array($_GET), $wp->request));
+      $new_url = str_replace("&distance","&old", $new_url );
+      $new_url = $new_url . '&distance=' . $nueva_distancia;
+      wp_redirect( $new_url );
+      exit;
+    }
   }
 
   /*********************************/
