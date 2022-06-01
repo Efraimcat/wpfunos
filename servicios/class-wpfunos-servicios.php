@@ -431,6 +431,7 @@ class Wpfunos_Servicios {
           $this->plugin_name . '_userCP' => $_GET['CPUsuario'],
           $this->plugin_name . '_userMail' => $_GET['Email'],
           $this->plugin_name . '_userDesgloseBaseNombre' => $_GET['desgloseBaseNombre'],
+          $this->plugin_name . '_userDesgloseBaseEmpresa' => $_GET['Empresa'],
           $this->plugin_name . '_userIP' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userIP', true ) ),
           $this->plugin_name . '_userLAT' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userLAT', true ) ),
           $this->plugin_name . '_userLNG' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userLNG', true ) ),
@@ -633,6 +634,7 @@ class Wpfunos_Servicios {
         $this->plugin_name . '_userMail' => sanitize_text_field( $_GET['Email']),
 
         $this->plugin_name . '_userDesgloseBaseNombre' => sanitize_text_field( $_GET['desgloseBaseNombre']),
+        $this->plugin_name . '_userDesgloseBaseEmpresa' => $_GET['Empresa'],
         $this->plugin_name . '_userDesgloseBasePrecio' => sanitize_text_field( $_GET['desgloseBasePrecio']),
         $this->plugin_name . '_userDesgloseBaseDescuento' => sanitize_text_field( $_GET['desgloseBaseDescuento']),
         $this->plugin_name . '_userDesgloseBaseTotal' => sanitize_text_field( $_GET['desgloseBaseTotal']),
@@ -768,6 +770,7 @@ class Wpfunos_Servicios {
       foreach ($wpfunos_confirmado as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php
         $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
+        $_GET['empresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
         $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
         $_GET['promo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioImagenPromo', true ) ,'full' );
         $_GET['confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
@@ -838,6 +841,7 @@ class Wpfunos_Servicios {
       foreach ($wpfunos_sinconfirmar as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php
         $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
+        $_GET['empresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
         $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
         $_GET['confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenNoConfirmado', true ) , array(45,46));
         if( $value[4] ){
@@ -884,6 +888,7 @@ class Wpfunos_Servicios {
       foreach ($wpfunos_sinprecio as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php
         $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
+        $_GET['empresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
         $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
         $_GET['confirmado'] = '';
         $_GET['textoconfirmado'] = '';
@@ -1146,7 +1151,7 @@ class Wpfunos_Servicios {
         $nueva_distancia = get_post_meta( $post->ID, $this->plugin_name . '_excep_provDistancia', true );
         $nueva_lat = get_post_meta( $post->ID, $this->plugin_name . '_excep_provLat', true );
         $nueva_lng = get_post_meta( $post->ID, $this->plugin_name . '_excep_provLng', true );
-        if( (int)$nueva_distancia == 0 ) $nueva_distancia = $distanciaDirecto;
+        if( (int)$nueva_distancia == 0 ) $nueva_distancia = $_GET['distance'];
       endforeach;
       wp_reset_postdata();
     }
@@ -1155,14 +1160,8 @@ class Wpfunos_Servicios {
       $new_url = home_url('/comparar-precios'.add_query_arg(array($_GET), $wp->request));
       $new_url = str_replace("&lat","&oldlat", $new_url );
       $new_url = str_replace("&lng","&oldlng", $new_url );
-      $new_url = $new_url . '&lat=' . $nueva_lat . '&lng=' . $nueva_lng ;
-      wp_redirect( $new_url );
-      exit;
-    }elseif( (int)$nueva_distancia != 0 ){
-      if( $_GET['distance'] == $nueva_distancia )return;
-      $new_url = home_url('/comparar-precios'.add_query_arg(array($_GET), $wp->request));
       $new_url = str_replace("&distance","&old", $new_url );
-      $new_url = $new_url . '&distance=' . $nueva_distancia;
+      $new_url = $new_url . '&lat=' . $nueva_lat . '&lng=' . $nueva_lng . '&distance=' . $nueva_distancia;
       wp_redirect( $new_url );
       exit;
     }

@@ -30,6 +30,7 @@ if( $_GET['ecologico'] == '') $_GET['esecologico'] = 0;
 <input type="hidden" name="nombrepack" id="nombrepack" value="<?php echo $_GET['nombrepack']?>" >
 
 <input type="hidden" name="direccion" id="direccion" value="<?php echo get_post_meta( $value[0], 'wpfunos_servicioDireccion', true )?>" >
+<input type="hidden" name="Empresa" id="Empresa" value="<?php echo $_GET['Empresa']?>" >
 <input type="hidden" name="textoconfirmado" id="textoconfirmado" value="<?php echo $_GET['textoconfirmado']?>" >
 <input type="hidden" name="textoprecio" id="textoprecio" value="<?php echo $_GET['textoprecio']?>" >
 <input type="hidden" name="valoracion" id="valoracion" value="<?php echo $_GET['valoracion']?>" >

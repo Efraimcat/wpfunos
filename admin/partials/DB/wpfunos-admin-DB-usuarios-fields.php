@@ -40,6 +40,7 @@ $userPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_userPrecio'] );
 $userServicio = sanitize_text_field( $_POST[$this->plugin_name . '_userServicio'] );
 
 $userDesgloseBaseNombre = sanitize_text_field( $_POST[$this->plugin_name . '_userDesgloseBaseNombre'] );
+$userDesgloseBaseEmpresa = sanitize_text_field( $_POST[$this->plugin_name . '_userDesgloseBaseEmpresa'] );
 $userDesgloseBasePrecio = sanitize_text_field( $_POST[$this->plugin_name . '_userDesgloseBasePrecio'] );
 $userDesgloseBaseDescuento = sanitize_text_field( $_POST[$this->plugin_name . '_userDesgloseBaseDescuento'] );
 $userDesgloseBaseTotal = sanitize_text_field( $_POST[$this->plugin_name . '_userDesgloseBaseTotal'] );
@@ -117,6 +118,7 @@ update_post_meta($post_id, $this->plugin_name . '_userPrecio', $userPrecio );
 update_post_meta($post_id, $this->plugin_name . '_userServicio', $userServicio );
 
 update_post_meta($post_id, $this->plugin_name . '_userDesgloseBaseNombre', $userDesgloseBaseNombre );
+update_post_meta($post_id, $this->plugin_name . '_userDesgloseBaseEmpresa', $userDesgloseBaseEmpresa );
 update_post_meta($post_id, $this->plugin_name . '_userDesgloseBasePrecio', $userDesgloseBasePrecio );
 update_post_meta($post_id, $this->plugin_name . '_userDesgloseBaseDescuento', $userDesgloseBaseDescuento );
 update_post_meta($post_id, $this->plugin_name . '_userDesgloseBaseTotal', $userDesgloseBaseTotal );

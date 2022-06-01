@@ -133,11 +133,15 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="servicios_wpfunos_list">
       <table>
         <tr>
-          <td>Nombre</td><td></td><td>Precio</td><td></td><td>Descuento</td><td></td><td>Total</td>
+          <td>Nombre</td><td></td><td>Empresa</td><td></td><td>Precio</td><td></td><td>Descuento</td><td></td><td>Total</td>
         </tr>
         <tr>
           <td>
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseBaseNombre','name' => $this->plugin_name . '_userDesgloseBaseNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 20)); ?>
+          </td>
+          <td style="width:5px;"></td>
+          <td>
+            <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseBaseEmpresa','name' => $this->plugin_name . '_userDesgloseBaseEmpresa','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 20)); ?>
           </td>
           <td style="width:5px;"></td>
           <td>
@@ -157,6 +161,8 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseDestinoNombre','name' => $this->plugin_name . '_userDesgloseDestinoNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 20)); ?>
           </td>
           <td style="width:5px;"></td>
+          <td style="width:5px;"></td>
+          <td style="width:5px;"></td>
           <td>
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseDestinoPrecio','name' => $this->plugin_name . '_userDesgloseDestinoPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?>€
           </td>
@@ -173,6 +179,8 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td>
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseAtaudNombre','name' => $this->plugin_name . '_userDesgloseAtaudNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 20)); ?>
           </td>
+          <td style="width:5px;"></td>
+          <td style="width:5px;"></td>
           <td style="width:5px;"></td>
           <td>
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseAtaudPrecio','name' => $this->plugin_name . '_userDesgloseAtaudPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?>€
@@ -191,6 +199,8 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseVelatorioNombre','name' => $this->plugin_name . '_userDesgloseVelatorioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 20)); ?>
           </td>
           <td style="width:5px;"></td>
+          <td style="width:5px;"></td>
+          <td style="width:5px;"></td>
           <td>
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseVelatorioPrecio','name' => $this->plugin_name . '_userDesgloseVelatorioPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?>€
           </td>
@@ -208,6 +218,8 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseCeremoniaNombre','name' => $this->plugin_name . '_userDesgloseCeremoniaNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 20));?>
           </td>
           <td style="width:5px;"></td>
+          <td style="width:5px;"></td>
+          <td style="width:5px;"></td>
           <td>
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseCeremoniaPrecio','name' => $this->plugin_name . '_userDesgloseCeremoniaPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?>€
           </td>
@@ -224,6 +236,8 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td>
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseDescuentoGenerico','name' => $this->plugin_name . '_userDesgloseDescuentoGenerico','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 20)); ?>
           </td>
+          <td style="width:5px;"></td>
+          <td style="width:5px;"></td>
           <td style="width:5px;"></td>
           <td>
             <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDesgloseDescuentoGenericoPrecio','name' => $this->plugin_name . '_useruserDesgloseDescuentoGenericoPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?>€
