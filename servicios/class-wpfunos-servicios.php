@@ -644,6 +644,7 @@ class Wpfunos_Servicios {
         $this->plugin_name . '_userServicioPoblacion' => sanitize_text_field($_GET['ServicioPoblacion']),
         $this->plugin_name . '_userServicioProvincia' => sanitize_text_field($_GET['ServicioProvincia']),
 
+        $this->plugin_name . '_userDesgloseBaseNombre' => sanitize_text_field( $_GET['desgloseBaseNombre']),
         $this->plugin_name . '_userDesgloseBasePrecio' => sanitize_text_field( $_GET['desgloseBasePrecio']),
         $this->plugin_name . '_userDesgloseBaseDescuento' => sanitize_text_field( $_GET['desgloseBaseDescuento']),
         $this->plugin_name . '_userDesgloseBaseTotal' => sanitize_text_field( $_GET['desgloseBaseTotal']),
