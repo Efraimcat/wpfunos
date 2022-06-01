@@ -778,6 +778,7 @@ class Wpfunos_Servicios {
       }
       foreach ($wpfunos_confirmado as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php
+        $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
 
         $_GET['ServicioTitulo'] = get_the_title($value[0]);
         $_GET['ServicioEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
@@ -853,6 +854,7 @@ class Wpfunos_Servicios {
       }
       foreach ($wpfunos_sinconfirmar as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php
+        $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
         $_GET['ServicioTitulo'] = get_the_title($value[0]);
         $_GET['ServicioEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
         $_GET['ServicioPoblacion'] = get_post_meta( $value[0], 'wpfunos_servicioPoblacion', true );
@@ -903,6 +905,7 @@ class Wpfunos_Servicios {
       ?><div class="wpfunos-titulo"><p></p><center><h2>Sin precio</h2></center></div><?php
       foreach ($wpfunos_sinprecio as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php
+        $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
         $_GET['ServicioTitulo'] = get_the_title($value[0]);
         $_GET['ServicioEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
         $_GET['ServicioPoblacion'] = get_post_meta( $value[0], 'wpfunos_servicioPoblacion', true );
