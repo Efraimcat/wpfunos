@@ -23,6 +23,12 @@ $userLead = sanitize_text_field( $_POST[$this->plugin_name . '_userLead'] );
 $userSeleccion = sanitize_text_field( $_POST[$this->plugin_name . '_userSeleccion'] );
 $userCP = sanitize_text_field( $_POST[$this->plugin_name . '_userCP'] );
 
+$userServicioEnviado = sanitize_text_field( $_POST[$this->plugin_name . '_userServicioEnviado'] );
+$userServicioTitulo = sanitize_text_field( $_POST[$this->plugin_name . '_userServicioTitulo'] );
+$userServicioEmpresa = sanitize_text_field( $_POST[$this->plugin_name . '_userServicioEmpresa'] );
+$userServicioPoblacion = sanitize_text_field( $_POST[$this->plugin_name . '_userServicioPoblacion'] );
+$userServicioProvincia = sanitize_text_field( $_POST[$this->plugin_name . '_userServicioProvincia'] );
+
 $userComentarios = wp_kses_post( $_POST[$this->plugin_name . '_userComentarios'] );
 $userFuneraria = wp_kses_post( $_POST[$this->plugin_name . '_userFuneraria'] );
 $userContratado = sanitize_text_field( $_POST[$this->plugin_name . '_userContratado'] );
@@ -100,6 +106,12 @@ update_post_meta($post_id, $this->plugin_name . '_userSeguro', $userSeguro);
 update_post_meta($post_id, $this->plugin_name . '_userLead', $userLead);
 update_post_meta($post_id, $this->plugin_name . '_userSeleccion', $userSeleccion);
 update_post_meta($post_id, $this->plugin_name . '_userCP', $userCP);
+
+update_post_meta($post_id, $this->plugin_name . '_userServicioEnviado', $userServicioEnviado);
+update_post_meta($post_id, $this->plugin_name . '_userServicioTitulo', $userServicioTitulo);
+update_post_meta($post_id, $this->plugin_name . '_userServicioEmpresa', $userServicioEmpresa);
+update_post_meta($post_id, $this->plugin_name . '_userServicioPoblacion', $userServicioPoblacion);
+update_post_meta($post_id, $this->plugin_name . '_userServicioProvincia', $userServicioProvincia);
 
 update_post_meta($post_id, $this->plugin_name . '_userComentarios', $userComentarios);
 update_post_meta($post_id, $this->plugin_name . '_userContratado', $userContratado);

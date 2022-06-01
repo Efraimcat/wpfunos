@@ -427,6 +427,14 @@ class Wpfunos_Colaboradores {
         $this->plugin_name . '_userSeleccion' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userSeleccion', true ) ),
         $this->plugin_name . '_userAccion' => '1',
         $this->plugin_name . '_userNombreAccion' => 'llamen servicios colaborador',
+
+        $this->plugin_name . '_userServicioEnviado' => true,
+        $this->plugin_name . '_userServicioTitulo' => sanitize_text_field( get_the_title($wpfunos_select_servicio) ),
+        $this->plugin_name . '_userServicioEmpresa' => sanitize_text_field( get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioEmpresa', true ) ),
+        $this->plugin_name . '_userServicioPoblacion' => sanitize_text_field( get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioPoblacion', true ) ),
+        $this->plugin_name . '_userServicioProvincia' => sanitize_text_field( get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioProvincia', true ) ),
+
+
         $this->plugin_name . '_userNombreSeleccionUbicacion' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionUbicacion', true ) ),
         $this->plugin_name . '_userNombreSeleccionDistancia' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionDistancia', true ) ),
         $this->plugin_name . '_userNombreSeleccionServicio' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userNombreSeleccionServicio', true ) ),
@@ -437,7 +445,6 @@ class Wpfunos_Colaboradores {
         $this->plugin_name . '_userCP' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userCP', true ) ),
         $this->plugin_name . '_userMail' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userMail', true ) ),
         $this->plugin_name . '_userDesgloseBaseNombre' => sanitize_text_field( get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioNombre', true ) ),
-        $this->plugin_name . '_userDesgloseBaseEmpresa' => sanitize_text_field( get_post_meta( $wpfunos_select_servicio, $this->plugin_name . '_servicioEmpresa', true ) ),
         $this->plugin_name . '_userIP' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userIP', true ) ),
         $this->plugin_name . '_userLAT' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userLAT', true ) ),
         $this->plugin_name . '_userLNG' => sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userLNG', true ) ),
@@ -448,7 +455,6 @@ class Wpfunos_Colaboradores {
         $this->plugin_name . '_userPrecio' => $precioTotal,
 
         $this->plugin_name . '_userDesgloseBaseNombre' => get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioNombre', true ),
-        $this->plugin_name . '_userDesgloseBaseEmpresa' => get_post_meta( $wpfunos_select_servicio, 'wpfunos_servicioEmpresa', true ),
         $this->plugin_name . '_userDesgloseBasePrecio' => $precioBase,
         $this->plugin_name . '_userDesgloseBaseTotal' => $precioBase,
 

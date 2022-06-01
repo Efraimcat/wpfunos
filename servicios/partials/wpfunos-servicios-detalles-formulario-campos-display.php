@@ -32,7 +32,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 <input type="hidden" name="promo" id="promo" value="<?php echo $_GET['promo'] ?>" >
 <input type="hidden" name="esecologico" id="esecologico" value="<?php echo $_GET['esecologico'] ?>" >
 <input type="hidden" name="direccion" id="direccion" value="<?php echo $_GET['direccion'] ?>" >
-<input type="hidden" name="Empresa" id="Empresa" value="<?php echo $_GET['Empresa']?>" >
+
+<input type="hidden" name="ServicioTitulo" id="ServicioTitulo" value="<?php echo $_GET['ServicioTitulo'] ?>" >
+<input type="hidden" name="ServicioEmpresa" id="ServicioEmpresa" value="<?php echo $_GET['ServicioEmpresa'] ?>" >
+<input type="hidden" name="ServicioPoblacion" id="ServicioPoblacion" value="<?php echo $_GET['ServicioPoblacion'] ?>" >
+<input type="hidden" name="ServicioProvincia" id="ServicioProvincia" value="<?php echo $_GET['ServicioProvincia'] ?>" >
 
 <input type="hidden" name="desgloseBaseNombre" id="desgloseBaseNombre" value="<?php echo $_GET['desgloseBaseNombre']?>" >
 <input type="hidden" name="desgloseBasePrecio" id="desgloseBasePrecio" value="<?php echo $_GET['desgloseBasePrecio']?>">

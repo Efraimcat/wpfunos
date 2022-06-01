@@ -430,8 +430,13 @@ class Wpfunos_Servicios {
           $this->plugin_name . '_userServicio' => $_GET['servicio'],
           $this->plugin_name . '_userCP' => $_GET['CPUsuario'],
           $this->plugin_name . '_userMail' => $_GET['Email'],
-          $this->plugin_name . '_userDesgloseBaseNombre' => $_GET['desgloseBaseNombre'],
-          $this->plugin_name . '_userDesgloseBaseEmpresa' => $_GET['Empresa'],
+
+          $this->plugin_name . '_userServicioEnviado' => true,
+          $this->plugin_name . '_userServicioTitulo' => $_GET['ServicioTitulo'],
+          $this->plugin_name . '_userServicioEmpresa' => $_GET['ServicioEmpresa'],
+          $this->plugin_name . '_userServicioPoblacion' => $_GET['ServicioPoblacion'],
+          $this->plugin_name . '_userServicioProvincia' => $_GET['ServicioProvincia'],
+
           $this->plugin_name . '_userIP' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userIP', true ) ),
           $this->plugin_name . '_userLAT' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userLAT', true ) ),
           $this->plugin_name . '_userLNG' => sanitize_text_field( get_post_meta( $IDusuario ,$this->plugin_name . '_userLNG', true ) ),
@@ -633,8 +638,12 @@ class Wpfunos_Servicios {
         $this->plugin_name . '_userCP' => sanitize_text_field( $_GET['CPUsuario']),
         $this->plugin_name . '_userMail' => sanitize_text_field( $_GET['Email']),
 
-        $this->plugin_name . '_userDesgloseBaseNombre' => sanitize_text_field( $_GET['desgloseBaseNombre']),
-        $this->plugin_name . '_userDesgloseBaseEmpresa' => $_GET['Empresa'],
+        $this->plugin_name . '_userServicioEnviado' => true,
+        $this->plugin_name . '_userServicioTitulo' => sanitize_text_field($_GET['ServicioTitulo']),
+        $this->plugin_name . '_userServicioEmpresa' => sanitize_text_field($_GET['ServicioEmpresa']),
+        $this->plugin_name . '_userServicioPoblacion' => sanitize_text_field($_GET['ServicioPoblacion']),
+        $this->plugin_name . '_userServicioProvincia' => sanitize_text_field($_GET['ServicioProvincia']),
+
         $this->plugin_name . '_userDesgloseBasePrecio' => sanitize_text_field( $_GET['desgloseBasePrecio']),
         $this->plugin_name . '_userDesgloseBaseDescuento' => sanitize_text_field( $_GET['desgloseBaseDescuento']),
         $this->plugin_name . '_userDesgloseBaseTotal' => sanitize_text_field( $_GET['desgloseBaseTotal']),
@@ -769,8 +778,12 @@ class Wpfunos_Servicios {
       }
       foreach ($wpfunos_confirmado as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php
-        $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
-        $_GET['empresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
+
+        $_GET['ServicioTitulo'] = get_the_title($value[0]);
+        $_GET['ServicioEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
+        $_GET['ServicioPoblacion'] = get_post_meta( $value[0], 'wpfunos_servicioPoblacion', true );
+        $_GET['ServicioProvincia'] = get_post_meta( $value[0], 'wpfunos_servicioProvincia', true );
+
         $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
         $_GET['promo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioImagenPromo', true ) ,'full' );
         $_GET['confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
@@ -840,8 +853,11 @@ class Wpfunos_Servicios {
       }
       foreach ($wpfunos_sinconfirmar as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php
-        $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
-        $_GET['empresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
+        $_GET['ServicioTitulo'] = get_the_title($value[0]);
+        $_GET['ServicioEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
+        $_GET['ServicioPoblacion'] = get_post_meta( $value[0], 'wpfunos_servicioPoblacion', true );
+        $_GET['ServicioProvincia'] = get_post_meta( $value[0], 'wpfunos_servicioProvincia', true );
+
         $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
         $_GET['confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenNoConfirmado', true ) , array(45,46));
         if( $value[4] ){
@@ -887,8 +903,11 @@ class Wpfunos_Servicios {
       ?><div class="wpfunos-titulo"><p></p><center><h2>Sin precio</h2></center></div><?php
       foreach ($wpfunos_sinprecio as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php
-        $_GET['nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
-        $_GET['empresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
+        $_GET['ServicioTitulo'] = get_the_title($value[0]);
+        $_GET['ServicioEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
+        $_GET['ServicioPoblacion'] = get_post_meta( $value[0], 'wpfunos_servicioPoblacion', true );
+        $_GET['ServicioProvincia'] = get_post_meta( $value[0], 'wpfunos_servicioProvincia', true );
+
         $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
         $_GET['confirmado'] = '';
         $_GET['textoconfirmado'] = '';
