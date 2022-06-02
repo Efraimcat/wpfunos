@@ -58,6 +58,12 @@ class Wpfunos_Aseguradoras {
     if( !isset( $_GET['form'] ) ){
       echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWpAseguradoras') );
     }elseif( !isset( $_GET['wpf'] ) ){
+      if (is_user_logged_in()){
+        $current_user = wp_get_current_user();
+        $_GET['usuario_telefono'] = str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
+        $_GET['Email'] = $current_user->user_email;
+        $_GET['nombreUsuario'] = $current_user->display_name;
+      }
       $userIP = apply_filters('wpfunos_userIP','dummy');
       $_GET['direccion'] = $_GET['address'][0];
       $_GET['tipo'] = $_GET['post'][0];
@@ -171,6 +177,12 @@ class Wpfunos_Aseguradoras {
         $temp_query = $wp_query;  // store it
         $IDtipo = get_the_ID();
         ?><div class="wpfunos-titulo-aseguradoras"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
+
+        ?> <div class="clear"></div><?php
+        ?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
+        echo do_shortcode( get_post_meta( $IDtipo, 'wpfunos_tipoSeguroComentario', true ) );
+        ?></div><?php
+
         $args = array(
           'post_status' => 'publish',
           'post_type' => 'aseguradoras_wpfunos',
@@ -196,8 +208,7 @@ class Wpfunos_Aseguradoras {
             $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo', true ) ,'full' );
             echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	// cabecera con logo
             ?><div class="wpfunos-busqueda-aseguradoras-inferior"><?php
-            // ToDo: sustituir [precio] en wpfunos_aseguradorasNotas
-            echo  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true );
+            echo do_shortcode( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true ) );
             require 'partials/' . $this->plugin_name . '-aseguradoras-botones-cabecera-display.php';
             ?>
             <form target="POPUPW" action="<?php echo get_option('wpfunos_paginaAseguradorasLlamen'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
@@ -237,11 +248,6 @@ class Wpfunos_Aseguradoras {
           }
         endwhile;
         if (isset($wp_query)) $wp_query = $temp_query; // restore loop
-        ?> <div class="clear"></div><?php
-        ?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
-        $_GET['argumentario'] = get_post_meta( $IDtipo, 'wpfunos_tipoSeguroComentario', true );
-        echo do_shortcode( get_option('wpfunos_seccionAseguradorasArgumentario') );
-        ?></div><?php
       endwhile;
     endif;
     wp_reset_postdata();
