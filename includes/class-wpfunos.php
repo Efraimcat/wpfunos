@@ -244,6 +244,9 @@ class Wpfunos {
 
 		$plugin_aseguradoras = new Wpfunos_Aseguradoras( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_aseguradoras, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_aseguradoras, 'enqueue_scripts' );
+
 	}
 
 	/**

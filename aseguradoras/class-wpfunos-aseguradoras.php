@@ -29,7 +29,13 @@ class Wpfunos_Aseguradoras {
     add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
     add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
   }
+  public function enqueue_styles() {
+    wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-aseguradoras.css', array(), $this->version, 'all' );
+  }
 
+  public function enqueue_scripts() {
+    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-aseguradoras.js', array( 'jquery' ), $this->version, false );
+  }
   /*********************************/
   /*****  SHORTCODES          ******/
   /*********************************/
@@ -179,7 +185,7 @@ class Wpfunos_Aseguradoras {
         ?><div class="wpfunos-titulo-aseguradoras"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
 
         ?> <div class="clear"></div><?php
-        ?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
+        ?><div class="wpfunos-busqueda-contenedor"><?php
         echo do_shortcode( get_post_meta( $IDtipo, 'wpfunos_tipoSeguroComentario', true ) );
         ?></div><?php
 
@@ -202,48 +208,14 @@ class Wpfunos_Aseguradoras {
           $wp_query->the_post();
           $IDaseguradora = get_the_ID();
           if( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasActivo', true ) ){
-            ?><div class="wpfunos-busqueda-aseguradoras-contenedor"><?php
+            ?><div class="wpfunos-busqueda-contenedor"><?php
             $_GET['nombre'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNombre', true );
             $_GET['telefonoEmpresa'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasTelefono', true );
             $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo', true ) ,'full' );
+            $_GET['ID'] = $IDaseguradora;
             echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	// cabecera con logo
-            ?><div class="wpfunos-busqueda-aseguradoras-inferior"><?php
+            ?><div class="wpfunos-busqueda-aseguradoras-inferior" id="wpfunosID-<?php echo $IDaseguradora; ?>"><?php
             echo do_shortcode( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true ) );
-            require 'partials/' . $this->plugin_name . '-aseguradoras-botones-cabecera-display.php';
-            ?>
-            <form target="POPUPW" action="<?php echo get_option('wpfunos_paginaAseguradorasLlamen'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','width=800,height=500,top=400,left=500');">
-              <input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
-              <input type="hidden" name="accion" id="accion" value="5" >
-              <input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
-              <input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoUsuario']?>" >
-              <input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
-              <input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
-              <input type="hidden" name="seleccionUsuario" id="seleccionUsuario" value="<?php echo $_GET['seleccionUsuario']?>" >
-              <input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
-              <input type="hidden" name="nombre" id="nombre" value="<?php echo $_GET['nombre']?>" >
-              <input type="hidden" name="seguro" id="seguro" value="<?php echo $_GET['seguro']?>" >
-
-              <input type="submit" value="Quiero que me llamen" style="background-color: #1d40d3; font-size: 14px;">
-            </form>
-          </div>
-          <div class="wpfunos-boton-llamar">
-            <form target="POPUPW" action="<?php echo get_option('wpfunos_paginaAseguradorasLlamar'); ?>" method="get" onsubmit="POPUPW = window.open('about:blank','POPUPW','popup,width=800,height=500,top=400,left=500');">
-              <input type="hidden" name="referencia" id="referencia" value="<?php echo $_GET['referencia']?>" >
-              <input type="hidden" name="accion" id="accion" value="6" >
-              <input type="hidden" name="wpfunos-hacer-llamada" id="wpfunos-hacer-llamada" value="1" >
-              <input type="hidden" name="telefonoUsuario" id="telefonoUsuario" value="<?php echo $_GET['telefonoUsuario']?>" >
-              <input type="hidden" name="telefono" id="telefono" value="<?php echo $_GET['telefonoEmpresa']?>" >
-              <input type="hidden" name="nombreUsuario" id="nombreUsuario" value="<?php echo $_GET['nombreUsuario']?>" >
-              <input type="hidden" name="CPUsuario" id="CPUsuario" value="<?php echo $_GET['CPUsuario']?>" >
-              <input type="hidden" name="seleccionUsuario" id="seleccionUsuario" value="<?php echo $_GET['seleccionUsuario']?>" >
-              <input type="hidden" name="Email" id="Email" value="<?php echo $_GET['Email']?>" >
-              <input type="hidden" name="nombre" id="nombre" value="<?php echo $_GET['nombre']?>" >
-              <input type="hidden" name="seguro" id="seguro" value="<?php echo $_GET['seguro']?>" >
-
-              <input type="submit" value="Llamar" style="background-color: #1d40d3; font-size: 14px;">
-            </form>
-            <?php
-            require 'partials/' . $this->plugin_name . '-aseguradoras-botones-pie-display.php';
             ?></div></div><?php
           }
         endwhile;
@@ -251,6 +223,45 @@ class Wpfunos_Aseguradoras {
       endwhile;
     endif;
     wp_reset_postdata();
+    ?>
+	<script type="text/javascript">
+      var elementsLlamen = document.getElementsByClassName("wpfunos-boton-llamen");
+      var elementsLlamar = document.getElementsByClassName("wpfunos-boton-llamar");
+      var elementsPresupuesto = document.getElementsByClassName("wpfunos-boton-presupuesto");
+      var elementsDetalles = document.getElementsByClassName("wpfunos-boton-detalles");
+
+      var myFunctionLlamen = function() {
+          var attribute = this.getAttribute("wpfunos-id");
+          console.log('boton Llamen '+attribute );
+      };
+      var myFunctionLlamar = function() {
+          var attribute = this.getAttribute("wpfunos-id");
+          console.log('boton Llamar '+attribute );
+      };
+      var myFunctionPresupuesto = function() {
+          var attribute = this.getAttribute("wpfunos-id");
+          console.log('boton Presupuesto '+attribute );
+      };
+      var myFunctionDetalles = function() {
+          var attribute = this.getAttribute("wpfunos-id");
+          console.log('boton Detalles '+attribute );
+      };
+
+      for (var i = 0; i < elementsLlamen.length; i++) {
+          elementsLlamen[i].addEventListener('click', myFunctionLlamen, false);
+      }
+      for (var i = 0; i < elementsLlamar.length; i++) {
+          elementsLlamar[i].addEventListener('click', myFunctionLlamar, false);
+      }
+      for (var i = 0; i < elementsPresupuesto.length; i++) {
+          elementsPresupuesto[i].addEventListener('click', myFunctionPresupuesto, false);
+      }
+      for (var i = 0; i < elementsDetalles.length; i++) {
+          elementsDetalles[i].addEventListener('click', myFunctionDetalles, false);
+      }
+
+    </script>
+    <?php
   }
   /**
   * Hook Elementor Form Validate entry

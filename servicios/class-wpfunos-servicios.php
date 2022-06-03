@@ -551,6 +551,7 @@ class Wpfunos_Servicios {
       'meta_key' =>  $this->plugin_name . '_provinciasCodigo',
       'meta_value' => $codigo_provincia,
     );
+    echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
     ?>
     <div class="wpfunos-prov-zona">
       <?php
@@ -771,7 +772,7 @@ class Wpfunos_Servicios {
   public function wpfunosResultGridConfirmado( $wpfunos_confirmado ){
     if(count($wpfunos_confirmado) != 0){
       ?><div class="wpfunos-titulo"><p></p><center><h2>Precio confirmado</h2></center></div><?php
-      echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
+      //echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
       //
       if(isset($_GET['orden']) && $_GET['orden'] == 'precios' ){
         $columns = array_column( $wpfunos_confirmado, 1 );
