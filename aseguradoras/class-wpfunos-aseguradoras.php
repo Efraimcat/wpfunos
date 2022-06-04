@@ -31,6 +31,12 @@ class Wpfunos_Aseguradoras {
 
     add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradora_llamame', function () { $this->wpfunosAseguradoraBotonLlamame();});
     add_action('wp_ajax_wpfunos_ajax_aseguradora_llamame', function () {$this->wpfunosAseguradoraBotonLlamame();});
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradora_llamar', function () { $this->wpfunosAseguradoraBotonLlamar();});
+    add_action('wp_ajax_wpfunos_ajax_aseguradora_llamar', function () {$this->wpfunosAseguradoraBotonLlamar();});
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradora_presupuesto', function () { $this->wpfunosAseguradoraBotonPresupuesto();});
+    add_action('wp_ajax_wpfunos_ajax_aseguradora_presupuesto', function () {$this->wpfunosAseguradoraBotonPresupuesto();});
   }
 
   public function enqueue_styles() {
@@ -644,6 +650,10 @@ class Wpfunos_Aseguradoras {
     }
   }
 
+  /*********************************/
+  /***** AJAX                 ******/
+  /*********************************/
+
   public function wpfunosAseguradoraBotonLlamame(){
     $IDaseguradora = $_POST['wpfunosid'];
     do_action('wpfunos_log', '==============' );
@@ -673,4 +683,65 @@ class Wpfunos_Aseguradoras {
     die();
   }
 
+  public function wpfunosAseguradoraBotonLlamar(){
+    $IDaseguradora = $_POST['wpfunosid'];
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax BotonLlamar' );
+    do_action('wpfunos_log', 'IDaseguradora: ' . $IDaseguradora );
+    //do_action('wpfunos_log', '$_REQUEST : ' . apply_filters('wpfunos_dumplog', $_REQUEST ) );
+    //do_action('wpfunos_log', '$_POST: ' . apply_filters('wpfunos_dumplog', $_POST ) );
+
+    if ( !wp_verify_nonce( $_POST['noncevalue'], "wpfunos_aseguradoras_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
+
+    $nombre = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasNombre", true);
+    $titulo = get_the_title( $_POST["wpfunosid"] );
+    $tel = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasTelefono", true);
+    $telefono =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+    do_action('wpfunos_log', 'nombre: ' . $nombre );
+    do_action('wpfunos_log', 'titulo: ' . $titulo );
+    $result['type'] = "success";
+    $result['nombre'] = $nombre;
+    $result['titulo'] = $titulo;
+    $result['telefono'] = $telefono;
+    $result['tel'] = $tel;
+
+    // Check if action was fired via Ajax call. If yes, JS code will be triggered, else the user is redirected to the post page
+    $result = json_encode($result);
+    echo $result;
+
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  public function wpfunosAseguradoraBotonPresupuesto(){
+    $IDaseguradora = $_POST['wpfunosid'];
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax BotonPresupuesto' );
+    do_action('wpfunos_log', 'IDaseguradora: ' . $IDaseguradora );
+    //do_action('wpfunos_log', '$_REQUEST : ' . apply_filters('wpfunos_dumplog', $_REQUEST ) );
+    //do_action('wpfunos_log', '$_POST: ' . apply_filters('wpfunos_dumplog', $_POST ) );
+
+    if ( !wp_verify_nonce( $_POST['noncevalue'], "wpfunos_aseguradoras_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
+
+    $nombre = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasNombre", true);
+    $titulo = get_the_title( $_POST["wpfunosid"] );
+    do_action('wpfunos_log', 'nombre: ' . $nombre );
+    do_action('wpfunos_log', 'titulo: ' . $titulo );
+    $result['type'] = "success";
+    $result['nombre'] = $nombre;
+    $result['titulo'] = $titulo;
+
+    // Check if action was fired via Ajax call. If yes, JS code will be triggered, else the user is redirected to the post page
+    $result = json_encode($result);
+    echo $result;
+
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
 }

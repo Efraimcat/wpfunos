@@ -36,6 +36,16 @@ add_settings_field(
   'wpfunos_general_section',
   array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_Graph','name' => $this->plugin_name . '_Graph','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
+// Nuevo diseño busqueda
+add_settings_field(
+  $this->plugin_name . '_NewDesign',
+  'Nuevo diseño <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_NewDesign)</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_general_settings',
+  'wpfunos_general_section',
+  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_NewDesign','name' => $this->plugin_name . '_NewDesign','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
 
 register_setting('wpfunos_general_settings', $this->plugin_name . '_Debug');
 register_setting('wpfunos_general_settings', $this->plugin_name . '_Graph');
+register_setting('wpfunos_general_settings', $this->plugin_name . '_NewDesign');

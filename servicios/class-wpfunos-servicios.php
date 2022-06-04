@@ -811,6 +811,9 @@ class Wpfunos_Servicios {
         $_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
         $_GET['servicio'] = $value[0];
         $_GET['nombrepack'] = get_post_meta( $value[0], 'wpfunos_servicioPackNombre', true );
+//
+//      Diseño Primero
+//
         if($value[1] == $value[2]){
           echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultados') ) ;
         }else{
@@ -837,6 +840,9 @@ class Wpfunos_Servicios {
           echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoInferior') ) ;
         }
         require 'partials/' . $this->plugin_name . '-servicios-confirmado-imagenes-display.php';
+//
+//    Diseño Primero
+//
         ?></div><?php
       }
     }
@@ -876,6 +882,9 @@ class Wpfunos_Servicios {
         $_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
         $_GET['preciodescuento'] = '';
         $_GET['telefonoEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioTelefono', true );
+//
+//    Diseño Primero
+//
         echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
 
         if( get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) == 1 ){
@@ -892,6 +901,9 @@ class Wpfunos_Servicios {
             require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
           }
         }
+        //
+        //    Diseño Primero
+        //
         ?></div><?php
       }
     }
@@ -922,6 +934,9 @@ class Wpfunos_Servicios {
         $_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
         $_GET['preciodescuento'] = '';
         $_GET['telefonoEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioTelefono', true );
+        //
+        //    Diseño Primero
+        //
         echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
         if( get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) == 1 ){
           $tel = str_replace(" ","",$_GET['telefonoEmpresa']);
@@ -937,6 +952,9 @@ class Wpfunos_Servicios {
             require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
           }
         }
+        //
+        //    Diseño Primero
+        // 
         ?></div><?php
       }
     }
