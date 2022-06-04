@@ -28,13 +28,18 @@ class Wpfunos_Aseguradoras {
     add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
     add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
     add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradora_llamame', function () { $this->wpfunosAseguradoraBotonLlamame();});
+    add_action('wp_ajax_wpfunos_ajax_aseguradora_llamame', function () {$this->wpfunosAseguradoraBotonLlamame();});
   }
+
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-aseguradoras.css', array(), $this->version, 'all' );
   }
 
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-aseguradoras.js', array( 'jquery' ), $this->version, false );
+    wp_localize_script( $this->plugin_name, 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
   }
   /*********************************/
   /*****  SHORTCODES          ******/
@@ -168,6 +173,7 @@ class Wpfunos_Aseguradoras {
     $_GET['Email'] = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
     $_GET['idUsuario'] = $IDusuario;
     $_GET['seguro'] = get_post_meta( $IDusuario, 'wpfunos_userSeguro', true );
+    $nonce = wp_create_nonce("wpfunos_aseguradoras_nonce");
     $args = array(
       'post_status' => 'publish',
       'post_type' => 'tipos_seguro_wpfunos',
@@ -212,7 +218,8 @@ class Wpfunos_Aseguradoras {
             $_GET['nombre'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNombre', true );
             $_GET['telefonoEmpresa'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasTelefono', true );
             $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo', true ) ,'full' );
-            $_GET['ID'] = $IDaseguradora;
+            $_GET['ID'] = $IDaseguradora.'
+            data-wpnonce|' . $nonce ;
             echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	// cabecera con logo
             ?><div class="wpfunos-busqueda-aseguradoras-inferior" id="wpfunosID-<?php echo $IDaseguradora; ?>"><?php
             echo do_shortcode( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true ) );
@@ -223,45 +230,7 @@ class Wpfunos_Aseguradoras {
       endwhile;
     endif;
     wp_reset_postdata();
-    ?>
-	<script type="text/javascript">
-      var elementsLlamen = document.getElementsByClassName("wpfunos-boton-llamen");
-      var elementsLlamar = document.getElementsByClassName("wpfunos-boton-llamar");
-      var elementsPresupuesto = document.getElementsByClassName("wpfunos-boton-presupuesto");
-      var elementsDetalles = document.getElementsByClassName("wpfunos-boton-detalles");
-
-      var myFunctionLlamen = function() {
-          var attribute = this.getAttribute("wpfunos-id");
-          console.log('boton Llamen '+attribute );
-      };
-      var myFunctionLlamar = function() {
-          var attribute = this.getAttribute("wpfunos-id");
-          console.log('boton Llamar '+attribute );
-      };
-      var myFunctionPresupuesto = function() {
-          var attribute = this.getAttribute("wpfunos-id");
-          console.log('boton Presupuesto '+attribute );
-      };
-      var myFunctionDetalles = function() {
-          var attribute = this.getAttribute("wpfunos-id");
-          console.log('boton Detalles '+attribute );
-      };
-
-      for (var i = 0; i < elementsLlamen.length; i++) {
-          elementsLlamen[i].addEventListener('click', myFunctionLlamen, false);
-      }
-      for (var i = 0; i < elementsLlamar.length; i++) {
-          elementsLlamar[i].addEventListener('click', myFunctionLlamar, false);
-      }
-      for (var i = 0; i < elementsPresupuesto.length; i++) {
-          elementsPresupuesto[i].addEventListener('click', myFunctionPresupuesto, false);
-      }
-      for (var i = 0; i < elementsDetalles.length; i++) {
-          elementsDetalles[i].addEventListener('click', myFunctionDetalles, false);
-      }
-
-    </script>
-    <?php
+    require 'js/' . $this->plugin_name . '-aseguradoras-botones.js';
   }
   /**
   * Hook Elementor Form Validate entry
@@ -673,6 +642,35 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', '$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
       do_action('wpfunos_log', 'mailCorreoDatosEntrados: ' . get_option('wpfunos_mailCorreoDatosEntrados') );
     }
+  }
+
+  public function wpfunosAseguradoraBotonLlamame(){
+    $IDaseguradora = $_POST['wpfunosid'];
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax BotonLlamame' );
+    do_action('wpfunos_log', 'IDaseguradora: ' . $IDaseguradora );
+    //do_action('wpfunos_log', '$_REQUEST : ' . apply_filters('wpfunos_dumplog', $_REQUEST ) );
+    //do_action('wpfunos_log', '$_POST: ' . apply_filters('wpfunos_dumplog', $_POST ) );
+
+    if ( !wp_verify_nonce( $_POST['noncevalue'], "wpfunos_aseguradoras_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
+
+    $nombre = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasNombre", true);
+    $titulo = get_the_title( $_POST["wpfunosid"] );
+    do_action('wpfunos_log', 'nombre: ' . $nombre );
+    do_action('wpfunos_log', 'titulo: ' . $titulo );
+    $result['type'] = "success";
+    $result['nombre'] = $nombre;
+    $result['titulo'] = $titulo;
+
+    // Check if action was fired via Ajax call. If yes, JS code will be triggered, else the user is redirected to the post page
+    $result = json_encode($result);
+    echo $result;
+
+    // don't forget to end your scripts with a die() function - very important
+    die();
   }
 
 }
