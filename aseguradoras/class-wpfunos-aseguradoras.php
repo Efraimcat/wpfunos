@@ -697,7 +697,7 @@ class Wpfunos_Aseguradoras {
       require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
       if(!empty( get_option('wpfunos_mailCorreoCcoBoton1LeadAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1LeadAseguradora' ) ;
       if(!empty( get_option('wpfunos_mailCorreoBccBoton1LeadAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1LeadAseguradora' ) ;
-      //wp_mail (  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true ) , get_option('wpfunos_asuntoCorreoBoton1LeadAseguradora') , $mensaje, $headers );
+      wp_mail (  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true ) , get_option('wpfunos_asuntoCorreoBoton1LeadAseguradora') , $mensaje, $headers );
       update_post_meta( $IDusuario, $this->plugin_name . '_userLead', true );
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Enviado correo lead1 Aseguradora ' . apply_filters('wpfunos_dumplog', get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true )  ) );
@@ -756,7 +756,7 @@ class Wpfunos_Aseguradoras {
       require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
       if(!empty( get_option('wpfunos_mailCorreoCcoBoton2LeadAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2LeadAseguradora' ) ;
       if(!empty( get_option('wpfunos_mailCorreoBccBoton2LeadAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2LeadAseguradora' ) ;
-      //wp_mail (  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true ) , get_option('wpfunos_asuntoCorreoBoton2LeadAseguradora') , $mensaje, $headers );
+      wp_mail (  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true ) , get_option('wpfunos_asuntoCorreoBoton2LeadAseguradora') , $mensaje, $headers );
       update_post_meta( $IDusuario, $this->plugin_name . '_userLead', true );
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Enviado correo lead2 Aseguradora ' . apply_filters('wpfunos_dumplog', get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true )  ) );
@@ -843,7 +843,7 @@ class Wpfunos_Aseguradoras {
       require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
       if(!empty( get_option('wpfunos_mailCorreoCcoPedirPresupuestoAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPedirPresupuestoAseguradora' ) ;
       if(!empty( get_option('wpfunos_mailCorreoBccPedirPresupuestoAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPedirPresupuestoAseguradora' ) ;
-      //wp_mail (  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true ) , get_option('wpfunos_asuntoCorreoBoton2LeadAseguradora') , $mensaje, $headers );
+      wp_mail (  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true ) , get_option('wpfunos_asuntoCorreoBoton2LeadAseguradora') , $mensaje, $headers );
       update_post_meta( $IDusuario, $this->plugin_name . '_userLead', true );
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Enviado correo Pedir Presupuesto Aseguradora ' . apply_filters('wpfunos_dumplog', get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true )  ) );

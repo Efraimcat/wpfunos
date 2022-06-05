@@ -254,6 +254,7 @@ class Wpfunos_Public {
           $this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
           $this->plugin_name . '_userMail' => sanitize_text_field( $fields['Email'] ),
           $this->plugin_name . '_userReferencia' => sanitize_text_field( $fields['referencia'] ),
+          $this->plugin_name . '_userNombreSeleccionUbicacion' => sanitize_text_field( $fields['address'] ),
           $this->plugin_name . '_userName' => sanitize_text_field( $fields['Nombre'] ),
           $this->plugin_name . '_userSurname' => sanitize_text_field( $fields['Apellidos'] ),
           $this->plugin_name . '_userPhone' => sanitize_text_field( $fields['Telefono'] ),
