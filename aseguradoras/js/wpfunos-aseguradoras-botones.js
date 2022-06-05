@@ -1,4 +1,3 @@
-
 <script type="text/javascript">
 $ = jQuery.noConflict();
 $(document).ready(function(){
@@ -11,7 +10,8 @@ $(document).ready(function(){
     var myFunctionLlamen = function() {
       var attribute = this.getAttribute("wpfunos-id");
       var mynonce = this.getAttribute("data-wpnonce");
-      console.log('boton Llamen '+attribute );
+      var wpusuario = this.getAttribute("wpusuario");
+      console.log('boton Llamen '+attribute+' '+wpusuario );
       jQuery.ajax({
         type : "post",
         dataType : "json",
@@ -19,7 +19,8 @@ $(document).ready(function(){
         data: {
           "action": "wpfunos_ajax_aseguradora_llamame",
           "wpfunosid": attribute,
-          "noncevalue": mynonce
+          "noncevalue": mynonce,
+          "wpusuario": wpusuario
         },
         success: function(response) {
           console.log(response)	;
@@ -36,7 +37,8 @@ $(document).ready(function(){
     var myFunctionLlamar = function() {
       var attribute = this.getAttribute("wpfunos-id");
       var mynonce = this.getAttribute("data-wpnonce");
-      console.log('boton Llamar '+attribute );
+      var wpusuario = this.getAttribute("wpusuario");
+      console.log('boton Llamar '+attribute+' '+wpusuario );
       let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
       console.log('isMobile: '+isMobile);
       jQuery.ajax({
@@ -46,7 +48,8 @@ $(document).ready(function(){
         data: {
           "action": "wpfunos_ajax_aseguradora_llamar",
           "wpfunosid": attribute,
-          "noncevalue": mynonce
+          "noncevalue": mynonce,
+          "wpusuario": wpusuario
         },
         success: function(response) {
           console.log(response)	;
@@ -68,7 +71,8 @@ $(document).ready(function(){
     var myFunctionPresupuesto = function() {
       var attribute = this.getAttribute("wpfunos-id");
       var mynonce = this.getAttribute("data-wpnonce");
-      console.log('boton Presupuesto '+attribute );
+      var wpusuario = this.getAttribute("wpusuario");
+      console.log('boton Presupuesto '+attribute+' '+wpusuario );
       jQuery.ajax({
         type : "post",
         dataType : "json",
@@ -76,13 +80,16 @@ $(document).ready(function(){
         data: {
           "action": "wpfunos_ajax_aseguradora_presupuesto",
           "wpfunosid": attribute,
-          "noncevalue": mynonce
+          "noncevalue": mynonce,
+          "wpusuario": wpusuario
         },
         success: function(response) {
           console.log(response)	;
           if(response.type == "success") {
             console.log('success');
             document.getElementById("wpfunos-modal-presupuesto-titulo").innerHTML = response.titulo;
+            document.getElementById("form-field-wpfunosoculto").value = response.aseguradora;
+            document.getElementById("botonEnviarPresupuesto").addEventListener('click', myFunctionEnviaPresupuesto, false);
           } else {
             console.log('fail');
           }
@@ -95,6 +102,36 @@ $(document).ready(function(){
       console.log('boton Detalles '+attribute );
     };
 
+    var myFunctionEnviaPresupuesto = function() {
+      var aseguradora = document.getElementById("form-field-wpfunosoculto").value;
+      var attribute = document.getElementById("wpfunos-boton-enviar-presupuesto").getAttribute("wpfunos-presupuesto-id");
+      var mynonce = document.getElementById("wpfunos-boton-enviar-presupuesto").getAttribute("data-wpnonce");
+      var wpusuario = document.getElementById("wpfunos-boton-enviar-presupuesto").getAttribute("wpusuario");
+      var mensaje = document.getElementById("form-field-mensajePresupuesto").value;
+      console.log('Click enviar mensaje presupuesto  ' );
+      console.log('Aseguradora '+aseguradora+' wpusuario '+wpusuario );
+      console.log('mensaje: '+mensaje );
+      jQuery.ajax({
+        type : "post",
+        dataType : "json",
+        url : myAjax.ajaxurl,
+        data: {
+          "action": "wpfunos_ajax_aseguradora_enviar_presupuesto",
+          "wpfunosid": aseguradora,
+          "noncevalue": mynonce,
+          "wpusuario": wpusuario,
+          "wpmensaje": mensaje
+        },
+        success: function(response) {
+          console.log(response)	;
+          if(response.type == "success") {
+            console.log('success');
+          } else {
+            console.log('fail');
+          }
+        }
+      });
+    }
 
 
     for (var i = 0; i < elementsLlamen.length; i++) {

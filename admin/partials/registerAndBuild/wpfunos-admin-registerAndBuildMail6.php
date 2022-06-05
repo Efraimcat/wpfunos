@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 add_settings_section(
   'wpfunos_mail6_section',    				// ID used to identify this section and with which to register options
-  'Correo Popup Detalles',      						// Title to be displayed on the administration page
+  '<span id="wpfunos-popup-detalles">Correo Popup Detalles</span>',      						// Title to be displayed on the administration page
   array( $this, 'wpfunos_display_mail_account_popup_detalles' ), 		// Callback used to render the description of the section
   'wpfunos_mail_settings'                 						// Page on which to add this section of options
 );

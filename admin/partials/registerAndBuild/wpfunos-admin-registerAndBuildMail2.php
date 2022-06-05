@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 add_settings_section(
   'wpfunos_mail2_section',    							// ID used to identify this section and with which to register options
-  'Correo al administrador Botón "Llamar"',               // Title to be displayed on the administration page
+  '<span id="wpfunos-llamar-admin">Correo al administrador Botón "Llamar"</span>',               // Title to be displayed on the administration page
   array( $this, 'wpfunos_display_mail_account' ), 		// Callback used to render the description of the section
   'wpfunos_mail_settings'                 				// Page on which to add this section of options
 );

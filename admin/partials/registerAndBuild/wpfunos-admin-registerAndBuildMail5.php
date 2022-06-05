@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 add_settings_section(
   'wpfunos_mail5_section',    				// ID used to identify this section and with which to register options
-  'Correo Datos Usuario Entrados',      						// Title to be displayed on the administration page
+  '<span id="wpfunos-datos-entrados">Correo Datos Usuario Entrados</span>',      						// Title to be displayed on the administration page
   array( $this, 'wpfunos_display_mail_account_datos' ), 		// Callback used to render the description of the section
   'wpfunos_mail_settings'                 						// Page on which to add this section of options
 );

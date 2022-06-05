@@ -48,11 +48,16 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildMail' ));		//Boton 1 Admin
     add_action('admin_init', array( $this, 'registerAndBuildMail2' ));		//Boton 2 Admin
     add_action('admin_init', array( $this, 'registerAndBuildMail3' ));		//Botón "Que me llamen"
+    add_action('admin_init', array( $this, 'registerAndBuildMail10' ));		//Correo Botón "Que me llamen" aseguradora
     add_action('admin_init', array( $this, 'registerAndBuildMail4' ));		//Botón "Llamar"
-    add_action('admin_init', array( $this, 'registerAndBuildMail5' ));		//Datos usuario enviados
-    add_action('admin_init', array( $this, 'registerAndBuildMail6' ));		//Correo popup detalles
-    add_action('admin_init', array( $this, 'registerAndBuildMail7' ));		//Correo envios colaboradores
-    add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto
+    add_action('admin_init', array( $this, 'registerAndBuildMail11' ));		//Correo Botón "Llamar" aseguradora
+    add_action('admin_init', array( $this, 'registerAndBuildMail5' ));		//Datos usuario enviados servicios
+    add_action('admin_init', array( $this, 'registerAndBuildMail12' ));		//Datos usuario enviados aseguradora
+    add_action('admin_init', array( $this, 'registerAndBuildMail6' ));		//Correo popup detalles servicios
+    add_action('admin_init', array( $this, 'registerAndBuildMail13' ));		//Correo popup detalles aseguradora
+    add_action('admin_init', array( $this, 'registerAndBuildMail7' ));		//Correo envios colaboradores servicios
+    add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
+    add_action('admin_init', array( $this, 'registerAndBuildMail9' ));		//Correo pedir presupuesto aseguradora
     add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildAPIDKV' ));
     add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
@@ -313,6 +318,21 @@ class Wpfunos_Admin {
   public function registerAndBuildMail8() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail8.php';
   }
+  public function registerAndBuildMail9() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail9.php';
+  }
+  public function registerAndBuildMail10() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail10.php';
+  }
+  public function registerAndBuildMail11() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail11.php';
+  }
+  public function registerAndBuildMail12() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail12.php';
+  }
+  public function registerAndBuildMail13() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail13.php';
+  }
   public function registerAndBuildAPIPreventiva() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIPreventiva.php';
   }
@@ -419,6 +439,8 @@ class Wpfunos_Admin {
   public function wpfunos_display_mail_account() {
     ?>
     <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
     <p>[nombreServicio], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
     <p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
@@ -434,6 +456,8 @@ class Wpfunos_Admin {
   public function wpfunos_display_mail_account_datos() {
     ?>
     <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
     <p>[Email], [referencia], [Nombre], [Telefono], [address], [CP], [IP], [wpf], [URL], [Destino], [Ataud], [Velatorio], [Despedida]</p>
     <hr />
@@ -441,6 +465,8 @@ class Wpfunos_Admin {
   }
   public function wpfunos_display_mail_account_Preventiva() {
     ?>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
     <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes varialbles:', 'wpfunos'); ?></p>
     <p>[nombreUsuario], [telefono], [Email], [referencia], [CPUsuario], [ubicacion], [seguro], [sexo],  [edad], [tipoAPI]</p>
@@ -449,6 +475,8 @@ class Wpfunos_Admin {
   }
   public function wpfunos_display_mail_account_popup_detalles() {
     ?>
+    <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
     <p>[logoServicio], [direccion], [textoconfirmado], [imagenconfirmado], [textoprecio], [imagenpromo], [imagenecologico]</p>
@@ -466,6 +494,8 @@ class Wpfunos_Admin {
   public function wpfunos_display_mail_account_servicios_colaborador() {
     ?>
     <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
     <p>[nombreServicio], [nombrepack], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
     <p>[BaseNombre],[DestinoNombre], [AtaudNombre],[VelatorioNombre], [CeremoniaNombre],</p>
@@ -474,6 +504,17 @@ class Wpfunos_Admin {
     <hr />
     <?php
   }
+  public function wpfunos_display_mail_account_aseguradora() {
+    ?>
+    <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
+    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p>==POR DEFINIR==</p>
+    <hr />
+    <?php
+  }
+
   public function wpfunos_display_directorio_account() {
     ?><p><?php esc_html_e('Configuración del directorio.', 'wpfunos'); ?></p><?php
   }

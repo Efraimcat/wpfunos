@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 add_settings_section(
   'wpfunos_mailpreventiva_section',    						// ID used to identify this section and with which to register options
-  'Correo Aviso Envio API Preventiva',        				// Title to be displayed on the administration page
+  '<span id="wpfunos-api-preventiva">Correo Aviso Envio API Preventiva</span>',        				// Title to be displayed on the administration page
   array( $this, 'wpfunos_display_mail_account_Preventiva' ),	// Callback used to render the description of the section
   'wpfunos_mail_settings'                 					// Page on which to add this section of options
 );
