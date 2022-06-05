@@ -285,7 +285,6 @@ class Wpfunos_Public {
       do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
       do_action('wpfunos_log', 'referencia: ' . $fields['referencia'] );
       do_action('wpfunos_log', 'Telefono: ' . $fields['Telefono'] );
-      do_action('wpfunos_log', 'wpfid: ' . $_COOKIE[ 'wpfid' ]);
     }else{
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Error 1 Nuevo Usuario: ' .  $userIP  );

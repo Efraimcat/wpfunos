@@ -27,13 +27,12 @@ $seguro = get_post_meta( $IDusuario, $this->plugin_name . '_userSeguro', true );
 $seguroSiNo = 'Si';
 if( $seguro == '2' ) $seguroSiNo = 'No';
 $URL = get_post_meta( $IDusuario, 'wpfunos_userURL', true );
-
 // $IDaseguradora
 $aseguradoraNombre = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNombre', true );
 $aseguradoraDireccion =  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasDireccion', true );
 $aseguradoraCorreo =  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true );
 $aseguradoraTelefono = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasTelefono', true );
-$aseguradoraLogo = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo' , array(45,46));
+$aseguradoraLogo = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo' , array(45,46) ) );
 $aseguradoraTipoSeguro = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasTipoSeguroNombre', true );
 
 
@@ -54,4 +53,4 @@ $mensaje = str_replace( '[aseguradoraDireccion]' , $aseguradoraDireccion , $mens
 $mensaje = str_replace( '[aseguradoraCorreo]' , $aseguradoraCorreo , $mensaje );
 $mensaje = str_replace( '[aseguradoraTelefono]' , $aseguradoraTelefono , $mensaje );
 $mensaje = str_replace( '[aseguradoraTipoSeguro]' , $aseguradoraTipoSeguro , $mensaje );
-$mensaje = str_replace( '[MensajePopup]' , $aseguradoraTipoSeguro , $mensajePopup );
+$mensaje = str_replace( '[MensajePopup]' , $aseguradoraTipoSeguro , $mensaje );

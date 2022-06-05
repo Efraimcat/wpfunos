@@ -107,7 +107,6 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', '$cryptcode: ' . $cryptcode );
       do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
       do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
-      do_action('wpfunos_log', 'wpfid: ' . $_COOKIE[ 'wpfid' ]);
       $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
       if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){
         // Solo enviar lead si no se ha enviado anteriormente.
@@ -610,9 +609,10 @@ class Wpfunos_Aseguradoras {
   * Enviar Correo entrada datos usuario
   */
   public function wpfunosResultCorreoDatos( ){
-    if( ! get_option($this->plugin_name . '_wpfunos_activarCorreoDatosEntradosAseguradora')) return;
+    $referencia = $_GET['referencia'];
+    $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+    if( ! get_option('wpfunos_activarCorreoDatosEntradosAseguradora')) return;
     if( apply_filters('wpfunos_reserved_email','dummy') ) return;
-    //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) return;
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
     //$mensaje = get_option('wpfunos_mensajeCorreoDatosEntrados');
@@ -643,7 +643,6 @@ class Wpfunos_Aseguradoras {
       endforeach;
       wp_reset_postdata();
     }
-
     if( strlen( get_option('wpfunos_mailCorreoDatosEntradosAseguradora') ) > 0 ){
       wp_mail ( get_option('wpfunos_mailCorreoDatosEntradosAseguradora'), get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora') , $mensaje, $headers );
       do_action('wpfunos_log', '==============' );
@@ -810,7 +809,7 @@ class Wpfunos_Aseguradoras {
   public function wpfunosAseguradoraBotonEnviarPresupuesto(){
     $IDaseguradora = $_POST['wpfunosid'];
     $IDusuario = $_POST['wpusuario'];
-    $mensajePopup = $_POST['wpmensaje'];
+    $mensajePopup = wp_kses_post( $_POST['wpmensaje'] );
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', 'Llegada ajax BotonEnviarPresupuesto' );
     do_action('wpfunos_log', 'IDaseguradora: ' . $IDaseguradora );
@@ -826,6 +825,8 @@ class Wpfunos_Aseguradoras {
     $referencia = 'funos-'.(string)mt_rand();
     $accion = '8';
     $textoaccion = 'Botón pedir presupuesto aseguradora' ;
+    $nombre = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasNombre", true);
+    $titulo = get_the_title( $_POST["wpfunosid"] );
     if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
     require 'partials/' . $this->plugin_name . '-aseguradoras-nueva-entrada.php';
     $post_id = wp_insert_post($my_post);
@@ -835,6 +836,7 @@ class Wpfunos_Aseguradoras {
     do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
     do_action('wpfunos_log', 'referencia: ' . $referencia );
     do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
+    update_post_meta( $post_id, $this->plugin_name . '_userComentarios', $mensajePopup );
     //
     $admin = apply_filters('wpfunos_reserved_email','dummy') ;
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
