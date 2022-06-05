@@ -19,7 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 * 2 - Usuario pulsa botón "llamar" en resultados servicios
 * 3 - Usuario visuliza resultados aseguradoras
 * 4 - cold lead aseguradoras
-* 5 - Usuario pide presupuesto
+* 5 - Usuario pide presupuesto servicios
+* 6 - Usuario pulsa botón "que me llamen" en resultados aseguradoras
+* 7 - Usuario pulsa botón "llamar" en resultados aseguradoras
+* 8 - Usuario pide presupuesto aseguradoras
+* 9
 */
 class Wpfunos_Public {
 
@@ -169,8 +173,11 @@ class Wpfunos_Public {
         'post_status' => 'publish',
         'post_type' => 'usuarios_wpfunos',
         'posts_per_page' => -1,
-        'meta_key' =>  'wpfunos_userIP',
-        'meta_value' => $userIP,
+        'meta_query' => array(
+          'relation' => 'AND',
+          array( 'key' => 'wpfunos_userIP', 'value' => $userIP, 'compare' => '=', ),
+          array( 'key' => 'wpfunos_userAccion', 'value' => '0', 'compare' => '=', ),
+        ),
       );
       $post_list = get_posts( $args );
       $contador = 1;
@@ -215,9 +222,30 @@ class Wpfunos_Public {
         ),
       );
     }elseif( $form_name == 'FormularioDatosFuturo' ){
+      //https://funos.es/compara-precios-aseguradoras?address%5B%5D=Barcelona&post%5B%5D=aseguradoras_wpfunos&distance=&units=&page1=&per_page=50&lat=41.387397&lng=2.168568&form=3&action=fs&wpf=WFYrckFUZE1rSUdEYUQ4WlE4NkZydEc0b0IxNU8ya2t2S1FCRk4zdHRGTT0%3D
+      $URL= get_site_url() . '/compara-precios-aseguradoras?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=3&action=fs&wpf=' .$fields['wpf'];
+      $userURL = apply_filters('wpfunos_shortener', $URL );
       $textoaccion = "Entrada datos aseguradoras";
       //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
       if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+      $args = array(
+        'post_status' => 'publish',
+        'post_type' => 'usuarios_wpfunos',
+        'posts_per_page' => -1,
+        'meta_query' => array(
+          'relation' => 'AND',
+          array( 'key' => 'wpfunos_userIP', 'value' => $userIP, 'compare' => '=', ),
+          array( 'key' => 'wpfunos_userAccion', 'value' => '3', 'compare' => '=', ),
+        ),
+      );
+      $post_list = get_posts( $args );
+      $contador = 1;
+      if( $post_list ){
+        foreach ( $post_list as $post ) :
+          $contador++;
+        endforeach;
+        wp_reset_postdata();
+      }
       $my_post = array(
         'post_title' => $fields['referencia'],
         'post_type' => 'usuarios_wpfunos',
@@ -233,18 +261,15 @@ class Wpfunos_Public {
           $this->plugin_name . '_userCP' => sanitize_text_field( $fields['CP'] ),
           $this->plugin_name . '_userAccion' => '3',
           $this->plugin_name . '_userNombreAccion' => sanitize_text_field( $textoaccion ),
-          $this->plugin_name . '_userNombreSeleccionUbicacion' => sanitize_text_field( $fields['address'] ),
-          $this->plugin_name . '_userNombreSeleccionDistancia' => sanitize_text_field( $fields['distance'] ),
-          $this->plugin_name . '_userNombreSeleccionServicio' => sanitize_text_field( $userNombreSeleccionServicio ),
-          $this->plugin_name . '_userNombreSeleccionAtaud' => sanitize_text_field( $userNombreSeleccionAtaud ),
-          $this->plugin_name . '_userNombreSeleccionVelatorio' => sanitize_text_field( $userNombreSeleccionVelatorio ),
-          $this->plugin_name . '_userNombreSeleccionDespedida' => sanitize_text_field( $userNombreSeleccionDespedida ),
           $this->plugin_name . '_userSeleccion' => sanitize_text_field( str_replace(",","+",$fields['address']).', '.$fields['distance'].', ' . $fields['sexo']. ', '. (int)$fields['nacimiento']  ),
           $this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
+          $this->plugin_name . '_userwpf' => sanitize_text_field( $fields['wpf'] ),
+          $this->plugin_name . '_userURL' => sanitize_text_field( $userURL ),
           $this->plugin_name . '_userAceptaPolitica' => '1',
           $this->plugin_name . '_userLAT' => sanitize_text_field( $fields['lat'] ),
           $this->plugin_name . '_userLNG' => sanitize_text_field( $fields['lng'] ),
           $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
+          $this->plugin_name . '_userVisitas' => $contador,
           $this->plugin_name . '_Dummy' => true,
           'IDstamp' => $_COOKIE[ 'wpfid' ],
         ),

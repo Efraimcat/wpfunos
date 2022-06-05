@@ -22,7 +22,6 @@ $aseguradorasLead = sanitize_text_field( $_POST[$this->plugin_name . '_asegurado
 $aseguradorasLead2 = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasLead2'] );
 $aseguradorasLogo = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasLogo'] );
 $aseguradorasTipoSeguro = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasTipoSeguro'] );
-//$aseguradorasTipoSeguroNombre = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasTipoSeguroNombre'] );
 $aseguradorasOrden = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasOrden'] );
 $aseguradorasNotas = wp_kses_post( $_POST[$this->plugin_name . '_aseguradorasNotas'] );
 $aseguradorasDummy = sanitize_text_field( $_POST[$this->plugin_name . '_aseguradorasDummy'] );
@@ -37,7 +36,6 @@ update_post_meta($post_id, $this->plugin_name . '_aseguradorasLead', $asegurador
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasLead2', $aseguradorasLead2);
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasLogo', $aseguradorasLogo);
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasTipoSeguro', $aseguradorasTipoSeguro);
-//update_post_meta($post_id, $this->plugin_name . '_aseguradorasTipoSeguroNombre', $aseguradorasTipoSeguroNombre);
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasOrden', $aseguradorasOrden);
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasNotas', $aseguradorasNotas);
 update_post_meta($post_id, $this->plugin_name . '_aseguradorasDummy', $aseguradorasDummy);

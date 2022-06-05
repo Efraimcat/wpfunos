@@ -511,6 +511,9 @@ class Wpfunos_Admin {
     <hr/>
     <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
     <p>==POR DEFINIR==</p>
+    <p>[referencia], [IP], [Email], [Nombre], [Telefono], [address], [CP], [edad], [sexo], [any], [seguro], [URL] [MensajePopup]</p>
+    <p>[aseguradoraNombre], [aseguradoraDireccion], [aseguradoraCorreo], [aseguradoraTelefono], [aseguradoraTipoSeguro]</p>
+    <p>==POR DEFINIR==</p>
     <hr />
     <?php
   }
