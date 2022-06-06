@@ -557,6 +557,7 @@ class Wpfunos_Colaboradores {
     //    &wpfunos-select-comentarios-usuario=Comentarios+usuario&wpfunos-select-funeraria-usuario=texto+funeraria&wpfunos-select-contratado-usuario=on
     $userComentarios = get_post_meta( $wpfunos_select ,$this->plugin_name . '_userComentarios', true );
     $userFuneraria = get_post_meta( $wpfunos_select ,$this->plugin_name . '_userFuneraria', true );
+    $userDifunto = get_post_meta( $wpfunos_select ,$this->plugin_name . '_userDifunto', true );
     $userContratado = sanitize_text_field( get_post_meta( $wpfunos_select ,$this->plugin_name . '_userContratado', true ) );
     if( ! isset( $_GET['wpfunos-select-comentarios-usuario'])){
       ?>
@@ -573,6 +574,8 @@ class Wpfunos_Colaboradores {
           <textarea id="wpfunos-select-comentarios-usuario" name="wpfunos-select-comentarios-usuario" rows="10" cols="70" ><?php echo $userComentarios ?></textarea>
           <h3>Funeraria</h3>
           <textarea id="wpfunos-select-funeraria-usuario" name="wpfunos-select-funeraria-usuario" rows="3" cols="70" ><?php echo $userFuneraria ?></textarea>
+          <h3>Difunto</h3>
+          <input type="text" name="wp-select-difunto" id="wp-select-difunto" value="<?php echo $userDifunto; ?>">
           <h3>Contratado <input type="checkbox" name="wpfunos-select-contratado-usuario" id="wpfunos-select-contratado-usuario" <?php echo ( $userContratado == true ) ? 'checked' : ''; ?> > </h3>
           <div id="wpfunos-separador-contratado"style=" margin-top: 50px;" ><hr/></div>
           <input type="submit" value="Guardar cambios usuario" style="background-color: #1d40d3; font-size: 14px;">
@@ -583,10 +586,12 @@ class Wpfunos_Colaboradores {
     }
     $comentarios = apply_filters('wpfunos_comentario', $_GET['wpfunos-select-comentarios-usuario'] );
     $funeraria = apply_filters('wpfunos_comentario', $_GET['wpfunos-select-funeraria-usuario'] );
+    $difunto = $_GET['wp-select-difunto'];
     $contratado = ( $_GET['wpfunos-select-contratado-usuario'] == 'on' ) ? 1 : 0 ;
     update_post_meta( $wpfunos_select, $this->plugin_name . '_userComentarios', $comentarios );
     update_post_meta( $wpfunos_select, $this->plugin_name . '_userFuneraria', $funeraria );
     update_post_meta( $wpfunos_select, $this->plugin_name . '_userContratado', $contratado );
+    update_post_meta( $wpfunos_select, $this->plugin_name . '_userDifunto', $difunto );
 
     ?>
     <div class="elementor-container elementor-column-gap-default">

@@ -36,6 +36,7 @@ class Wpfunos_Public {
     add_shortcode( 'wpfunos-resultados', array( $this, 'wpfunosResultadosShortcode' ));
     add_shortcode( 'wpfunos-correo-popup', array( $this, 'wpfunosCorreoPopupShortcode' ));
     add_shortcode( 'wpfunos-mensaje-usuario-correo-popup', array( $this, 'wpfunosCorreoUsuarioPopupShortcode' ));
+    add_shortcode( 'wpfunos-mensaje-usuario-datos-servicio', array( $this, 'wpfunosCorreoUsuarioDatosServicoShortcode' ));
     add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
   }
 
@@ -139,6 +140,47 @@ class Wpfunos_Public {
       $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );
       $mensaje = str_replace( '[telefonoUsuario]' , $telefonoUsuario , $mensaje );
       $mensaje = str_replace( '[Email]' , $Email , $mensaje );
+      return $mensaje;
+    }
+  }
+
+  /**
+  * Shortcode [wpfunos-mensaje-usuario-datos-servicio]
+  */
+  public function wpfunosCorreoUsuarioDatosServicoShortcode( $atts, $content = "" ) {
+    if ( get_option('wpfunos_activarCorreoUsuarioDatos') ){
+      $mensaje = get_option('wpfunos_mensajeCorreoUsuarioDatos');
+      //[ubicacion], [CPUsuario], [telefonoUsuario], [nombreUsuario], [Email]
+      //[destino], [ataud], [velatorio], [ceremonia]
+      //[field id="Destino"]
+      //[field id="Ataud"]
+      //[field id="Velatorio"]
+      //[field id="Despedida"]
+      //[field id="address"]
+      //[field id="CP"]
+      //[field id="Nombre"]
+      //[field id="Email"]
+      //[field id="Telefono"]
+      $ubicacion = do_shortcode ('[field id="address"]');
+      $CPUsuario = do_shortcode ('[field id="CP"]');
+      $telefonoUsuario = do_shortcode ('[field id="Telefono"]');
+      $nombreUsuario = do_shortcode ('[field id="Nombre"]');
+      $Email = do_shortcode ('[field id="Email"]');
+      $destino = do_shortcode ('[field id="Destino"]');
+      $ataud = do_shortcode ('[field id="Ataud"]');
+      $velatorio = do_shortcode ('[field id="Velatorio"]');
+      $ceremonia = do_shortcode ('[field id="Despedida"]');
+
+      $mensaje = str_replace( '[ubicacion]' , $ubicacion , $mensaje );
+      $mensaje = str_replace( '[CPUsuario]' , $CPUsuario , $mensaje );
+      $mensaje = str_replace( '[telefonoUsuario]' , $telefonoUsuario , $mensaje );
+      $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );
+      $mensaje = str_replace( '[Email]' , $Email , $mensaje );
+      $mensaje = str_replace( '[destino]' , $destino , $mensaje );
+      $mensaje = str_replace( '[ataud]' , $ataud , $mensaje );
+      $mensaje = str_replace( '[velatorio]' , $velatorio , $mensaje );
+      $mensaje = str_replace( '[ceremonia]' , $ceremonia , $mensaje );
+    
       return $mensaje;
     }
   }

@@ -873,6 +873,7 @@ class Wpfunos_Servicios {
           $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
           $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
           $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
+          $_GET['seccionID-eco'] = 'wpf-eco-'. $value[0];
           $_GET['seccionClass-detalles'] = 'wpf-detalles-si';
           $_GET['seccionClass-mapas'] = 'wpf-mapas-si';
           $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
@@ -969,6 +970,7 @@ class Wpfunos_Servicios {
           $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
           $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
           $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
+          $_GET['seccionID-eco'] = 'wpf-eco-'. $value[0];
           $_GET['seccionClass-detalles'] = 'wpf-detalles-no';
           $_GET['seccionClass-mapas'] = 'wpf-mapas-no';
           $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
@@ -1051,6 +1053,7 @@ class Wpfunos_Servicios {
           $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
           $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
           $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
+          $_GET['seccionID-eco'] = 'wpf-eco-'. $value[0];
           $_GET['seccionClass-detalles'] = 'wpf-detalles-no';
           $_GET['seccionClass-mapas'] = 'wpf-mapas-no';
           $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
@@ -1582,8 +1585,53 @@ class Wpfunos_Servicios {
   public function wpfunosServiciosBotonLlamame(){
     $IDservicio = $_POST['IDservicio'];
     $IDusuario = $_POST['IDusuario'];
-    $wpnonce = $_POPST['wpnonce'];
+    $wpnonce = $_POST['wpnonce'];
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax Servicio BotonLlamame' );
+    do_action('wpfunos_log', 'IDservicio: ' . $IDservicio );
+    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
+    //
+    if ( !wp_verify_nonce( $_POST['wpnonce'], "wpfunos_servicios_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
+    //
+    $nombre = get_post_meta( $IDservicio, "wpfunos_servicioNombre", true);
+    do_action('wpfunos_log', 'Nombre: ' . $nombre );
+    //
+    $seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
+    $respuesta = (explode(',',$seleccion));
+    switch ( $respuesta[3] ) {
+      case '1': $userNombreSeleccionServicio = 'Entierro'; break;
+      case '2': $userNombreSeleccionServicio = 'Incineración'; break;
+    }
+    switch ( $respuesta[4] ) {
+      case '1': $userNombreSeleccionAtaud = 'Ataúd Económico'; break;
+      case '2': $userNombreSeleccionAtaud = 'Ataúd Medio'; break;
+      case '3': $userNombreSeleccionAtaud = 'Ataúd Premium'; break;
+    }
+    switch ( $respuesta[5] ) {
+      case '1': $userNombreSeleccionVelatorio = 'Velatorio'; break;
+      case '2': $userNombreSeleccionVelatorio = 'Sin Velatorio'; break;
+    }
+    switch ( $respuesta[6] ) {
+      case '1': $userNombreSeleccionDespedida = 'Sin ceremonia'; break;
+      case '2': $userNombreSeleccionDespedida = 'Solo sala'; break;
+      case '3': $userNombreSeleccionDespedida = 'Ceremonia civil'; break;
+      case '4': $userNombreSeleccionDespedida = 'Ceremonia religiosa'; break;
+    }
+    mt_srand(mktime());
+    $referencia = 'funos-'.(string)mt_rand();
 
+
+
+
+
+    $accion = '1';
+    $textoaccion = 'Botón llamen servicios' ;
+    if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+    //require 'partials/' . $this->plugin_name . '-servicios-nueva-entrada.php';
+    //$post_id = wp_insert_post($my_post);
 
     //
     $result['type'] = "success";
@@ -1596,7 +1644,7 @@ class Wpfunos_Servicios {
   public function wpfunosServiciosBotonLlamar(){
     $IDservicio = $_POST['IDservicio'];
     $IDusuario = $_POST['IDusuario'];
-    $wpnonce = $_POPST['wpnonce'];
+    $wpnonce = $_POST['wpnonce'];
 
 
     //
@@ -1610,7 +1658,7 @@ class Wpfunos_Servicios {
   public function wpfunosServiciosBotonPresupuesto(){
     $IDservicio = $_POST['IDservicio'];
     $IDusuario = $_POST['IDusuario'];
-    $wpnonce = $_POPST['wpnonce'];
+    $wpnonce = $_POST['wpnonce'];
 
 
     //
@@ -1624,7 +1672,7 @@ class Wpfunos_Servicios {
   public function wpfunosServiciosBotonEnviarPresupuesto(){
     $IDservicio = $_POST['IDservicio'];
     $IDusuario = $_POST['IDusuario'];
-    $wpnonce = $_POPST['wpnonce'];
+    $wpnonce = $_POST['wpnonce'];
 
 
     //
@@ -1638,7 +1686,7 @@ class Wpfunos_Servicios {
   public function wpfunosServiciosBotonDetalles(){
     $IDservicio = $_POST['IDservicio'];
     $IDusuario = $_POST['IDusuario'];
-    $wpnonce = $_POPST['wpnonce'];
+    $wpnonce = $_POST['wpnonce'];
 
 
     //
