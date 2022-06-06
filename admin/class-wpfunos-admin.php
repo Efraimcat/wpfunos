@@ -45,6 +45,9 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildFieldsConfirmadoDescuento' ));	// Compara Resultados confirmado Descuento superior e inferior
     add_action('admin_init', array( $this, 'registerAndBuildFieldsSinConfirmar' ));			// Compara Resultados Sin Confirmar superior e inferior
     add_action('admin_init', array( $this, 'registerAndBuildFieldsSinPrecio' ));			// Compara Resultados Sin Precio superior e inferior
+    add_action('admin_init', array( $this, 'registerAndBuildMailInicial' ));		//Inicio
+    add_action('admin_init', array( $this, 'registerAndBuildMailDatosUsuario' ));		//Inicio
+    add_action('admin_init', array( $this, 'registerAndBuildMailPopupUsuario' ));		//Inicio
     add_action('admin_init', array( $this, 'registerAndBuildMail' ));		//Boton 1 Admin
     add_action('admin_init', array( $this, 'registerAndBuildMail2' ));		//Boton 2 Admin
     add_action('admin_init', array( $this, 'registerAndBuildMail3' ));		//Botón "Que me llamen"
@@ -294,6 +297,15 @@ class Wpfunos_Admin {
   public function registerAndBuildFieldsPagina() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildPagina.php';
   }
+  public function registerAndBuildMailInicial() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailInicial.php';
+  }
+  public function registerAndBuildMailDatosUsuario() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailDatosUsuario.php';
+  }
+  public function registerAndBuildMailPopupUsuario() {
+    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailPopupUsuario.php';
+  }
   public function registerAndBuildMail() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail.php';
   }
@@ -435,6 +447,34 @@ class Wpfunos_Admin {
   }
   public function wpfunos_display_APIDKV_account(){
 
+  }
+  public function wpfunos_display_mail_account_general() {
+    ?>
+    <hr/>
+    <p><?php esc_html_e('Configuración:', 'wpfunos'); ?></p>
+    <hr />
+    <?php
+  }
+  public function wpfunos_display_mail_usuario_datos(){
+    ?>
+    <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
+    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p>[ubicacion], [CPUsuario], [telefonoUsuario], [nombreUsuario], [Email] </p>
+    <p>[destino], [ataud], [velatorio], [ceremonia]</p>
+    <hr />
+    <?php
+  }
+  public function wpfunos_display_mail_usuario_contacto(){
+    ?>
+    <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
+    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p>[telefonoUsuario], [nombreUsuario], [Email] </p>
+    <hr />
+    <?php
   }
   public function wpfunos_display_mail_account() {
     ?>

@@ -24,6 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
   <div id="icon-themes" class="icon32"></div>
   <h2 id="wpfunos-inicio"><?php esc_html_e( get_admin_page_title() .' '.$this->version); ?></h2>
   <h2><?php esc_html_e( 'Correo WpFunos', 'wpfunos' ); ?></h2>
+  <li><a href="#wpfunos-entrada-datos">Correo al usuario entrada datos</a></li>
+  <li><a href="#wpfunos-envio-contacto">Correo al usuario envio contacto</a></li>
   <li><a href="#wpfunos-llamen-admin">Correo al administrador Botón "Quiero que me llamen"</a></li>
   <li><a href="#wpfunos-llamar-admin">Correo al administrador Botón "Llamar"</a></li>
   <li><a href="#wpfunos-llamen-servicio">Correo Lead al Servicio. Botón "Que me llamen"</a></li>

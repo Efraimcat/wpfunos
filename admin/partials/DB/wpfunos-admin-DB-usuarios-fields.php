@@ -22,6 +22,7 @@ $userSeguro = sanitize_text_field( $_POST[$this->plugin_name . '_userSeguro'] );
 $userLead = sanitize_text_field( $_POST[$this->plugin_name . '_userLead'] );
 $userSeleccion = sanitize_text_field( $_POST[$this->plugin_name . '_userSeleccion'] );
 $userCP = sanitize_text_field( $_POST[$this->plugin_name . '_userCP'] );
+$userDifunto = sanitize_text_field( $_POST[$this->plugin_name . '_userDifunto'] );
 
 $userServicioEnviado = sanitize_text_field( $_POST[$this->plugin_name . '_userServicioEnviado'] );
 $userServicioTitulo = sanitize_text_field( $_POST[$this->plugin_name . '_userServicioTitulo'] );
@@ -106,6 +107,7 @@ update_post_meta($post_id, $this->plugin_name . '_userSeguro', $userSeguro);
 update_post_meta($post_id, $this->plugin_name . '_userLead', $userLead);
 update_post_meta($post_id, $this->plugin_name . '_userSeleccion', $userSeleccion);
 update_post_meta($post_id, $this->plugin_name . '_userCP', $userCP);
+update_post_meta($post_id, $this->plugin_name . '_userDifunto', $userDifunto);
 
 update_post_meta($post_id, $this->plugin_name . '_userServicioEnviado', $userServicioEnviado);
 update_post_meta($post_id, $this->plugin_name . '_userServicioTitulo', $userServicioTitulo);

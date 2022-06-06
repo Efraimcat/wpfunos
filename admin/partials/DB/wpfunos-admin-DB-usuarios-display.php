@@ -36,6 +36,8 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Nombre', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Teléfono', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Difunto', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userMail','name' => $this->plugin_name . '_userMail','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
@@ -45,6 +47,8 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userName','name' => $this->plugin_name . '_userName','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userPhone','name' => $this->plugin_name . '_userPhone','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_userDifunto','name' => $this->plugin_name . '_userDifunto','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
         </tr>
       </table>
     </li>
