@@ -636,8 +636,8 @@ class Wpfunos_Aseguradoras {
           //wp_mail ( get_post_meta( $post->ID, $this->plugin_name . '_aseguradorasCorreo', true ), get_option('wpfunos_asuntoCorreoDatosEntrados') , $mensaje, $headers );
           do_action('wpfunos_log', '==============' );
           do_action('wpfunos_log', 'Enviar correo entrada datos a la aseguradora' );
+          do_action('wpfunos_log', 'referencia: ' . $referencia );
           do_action('wpfunos_log', 'userIP: ' . $userIP );
-          do_action('wpfunos_log', '$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
           do_action('wpfunos_log', 'servicioEmail: ' . get_post_meta( $post->ID, $this->plugin_name . '_aseguradorasCorreo', true ) );
         }
       endforeach;
@@ -647,8 +647,8 @@ class Wpfunos_Aseguradoras {
       wp_mail ( get_option('wpfunos_mailCorreoDatosEntradosAseguradora'), get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora') , $mensaje, $headers );
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Enviar correo entrada datos aseguradoras al admin' );
+      do_action('wpfunos_log', 'referencia: ' . $referencia );
       do_action('wpfunos_log', 'userIP: ' . $userIP );
-      do_action('wpfunos_log', '$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
       do_action('wpfunos_log', 'mailCorreoDatosEntradosAseguradora: ' . get_option('wpfunos_mailCorreoDatosEntradosAseguradora') );
     }
   }

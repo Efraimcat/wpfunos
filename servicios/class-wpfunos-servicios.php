@@ -49,12 +49,28 @@ class Wpfunos_Servicios {
     add_filter( 'wpfunos_results_sinconfirmar', array( $this, 'wpfunosResultadosSinConfirmar' ), 10, 4 );
     add_filter( 'wpfunos_results_sinprecio', array( $this, 'wpfunosResultadosSinPrecio' ), 10, 4 );
     add_filter( 'wpfunos_get_results', array( $this, 'wpfunosGetResults' ),10, 2 );
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_servicios_llamame', function () { $this->wpfunosServiciosBotonLlamame();});
+    add_action('wp_ajax_wpfunos_ajax_servicios_llamame', function () {$this->wpfunosServiciosBotonLlamame();});
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_servicios_llamar', function () { $this->wpfunosServiciosBotonLlamar();});
+    add_action('wp_ajax_wpfunos_ajax_servicios_llamar', function () {$this->wpfunosServiciosBotonLlamar();});
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_servicios_presupuesto', function () { $this->wpfunosServiciosBotonPresupuesto();});
+    add_action('wp_ajax_wpfunos_ajax_servicios_presupuesto', function () {$this->wpfunosServiciosBotonPresupuesto();});
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_servicios_enviar_presupuesto', function () { $this->wpfunosServiciosBotonEnviarPresupuesto();});
+    add_action('wp_ajax_wpfunos_ajax_servicios_enviar_presupuesto', function () {$this->wpfunosServiciosBotonEnviarPresupuesto();});
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_servicios_detalles', function () { $this->wpfunosServiciosBotonDetalles();});
+    add_action('wp_ajax_wpfunos_ajax_servicios_detalles', function () {$this->wpfunosServiciosBotonDetalles();});
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-servicios.css', array(), $this->version, 'all' );
   }
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-servicios.js', array( 'jquery' ), $this->version, false );
+    wp_localize_script( $this->plugin_name, 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
   }
   /*********************************/
   /*****  SHORTCODES          ******/
@@ -162,6 +178,7 @@ class Wpfunos_Servicios {
         //
         echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
         echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosPie') );
+        require 'js/' . $this->plugin_name . '-servicios-botones.js';
       }
     }
   }
@@ -811,38 +828,74 @@ class Wpfunos_Servicios {
         $_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
         $_GET['servicio'] = $value[0];
         $_GET['nombrepack'] = get_post_meta( $value[0], 'wpfunos_servicioPackNombre', true );
-//
-//      Diseño Primero
-//
-        if($value[1] == $value[2]){
-          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultados') ) ;
-        }else{
-          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuento') ) ;
-        }
-        if( get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) == 1 ){
-          $tel = str_replace(" ","",$_GET['telefonoEmpresa']);
-          $tel = str_replace("-","",$tel);
-          $_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
-          $tel = str_replace(" ","",$_GET['telefonoUsuario']);
-          $tel = str_replace("-","",$tel);
-          $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
-          require 'partials/' . $this->plugin_name . '-servicios-confirmado-botones-llamadas-display.php';
-        }
-        if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
-          if( get_option($this->plugin_name . '_activarCorreoPedirPresupuesto')){
-            require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+        //
+        //    Selecciona diseño
+        //
+        if( ! get_option('wpfunos_NewDesign') ){
+          //
+          //      Diseño Primero
+          //
+          if($value[1] == $value[2]){
+            echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultados') ) ;
+          }else{
+            echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuento') ) ;
           }
-        }
-        require 'partials/' . $this->plugin_name . '-servicios-confirmado-boton-detalles-display.php';
-        if($value[1] == $value[2]){
-          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosInferior') ) ;
+          if( get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) == 1 ){
+            $tel = str_replace(" ","",$_GET['telefonoEmpresa']);
+            $tel = str_replace("-","",$tel);
+            $_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+            $tel = str_replace(" ","",$_GET['telefonoUsuario']);
+            $tel = str_replace("-","",$tel);
+            $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+            require 'partials/' . $this->plugin_name . '-servicios-confirmado-botones-llamadas-display.php';
+          }
+          if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
+            if( get_option($this->plugin_name . '_activarCorreoPedirPresupuesto')){
+              require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+            }
+          }
+          require 'partials/' . $this->plugin_name . '-servicios-confirmado-boton-detalles-display.php';
+          if($value[1] == $value[2]){
+            echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosInferior') ) ;
+          }else{
+            echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoInferior') ) ;
+          }
+          require 'partials/' . $this->plugin_name . '-servicios-confirmado-imagenes-display.php';
+          //
+          //    Diseño Primero
+          //
         }else{
-          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoInferior') ) ;
+          //
+          //    NUEVO Diseño
+          //
+
+          $_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
+          $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
+          $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
+          $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
+          $_GET['seccionClass-detalles'] = 'wpf-detalles-si';
+          $_GET['seccionClass-mapas'] = 'wpf-mapas-si';
+          $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+          $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+
+          $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+          $nonce = wp_create_nonce("wpfunos_servicios_nonce");
+          $_GET['Atts'] = 'wpfunos-id|' . $value[0].'
+          data-wpnonce|' . $nonce .'
+          wpusuario|' . $IDusuario;
+
+          if($value[1] == $value[2]){
+            echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
+          }else{
+            echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoNewDesign') ) ;
+          }
+
+
+
+          //
+          //    NUEVO Diseño
+          //
         }
-        require 'partials/' . $this->plugin_name . '-servicios-confirmado-imagenes-display.php';
-//
-//    Diseño Primero
-//
         ?></div><?php
       }
     }
@@ -882,28 +935,59 @@ class Wpfunos_Servicios {
         $_GET['valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
         $_GET['preciodescuento'] = '';
         $_GET['telefonoEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioTelefono', true );
-//
-//    Diseño Primero
-//
-        echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
+        //
+        //    Selecciona diseño
+        //
+        if( ! get_option('wpfunos_NewDesign') ){
+          //
+          //    Diseño Primero
+          //
+          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
 
-        if( get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) == 1 ){
-          $tel = str_replace(" ","",$_GET['telefonoEmpresa']);
-          $tel = str_replace("-","",$tel);
-          $_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
-          $tel = str_replace(" ","",$_GET['telefonoUsuario']);
-          $tel = str_replace("-","",$tel);
-          $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
-          require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-botones-llamadas-display.php';
-        }
-        if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
-          if( get_option($this->plugin_name . '_activarCorreoPedirPresupuesto')){
-            require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+          if( get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) == 1 ){
+            $tel = str_replace(" ","",$_GET['telefonoEmpresa']);
+            $tel = str_replace("-","",$tel);
+            $_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+            $tel = str_replace(" ","",$_GET['telefonoUsuario']);
+            $tel = str_replace("-","",$tel);
+            $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+            require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-botones-llamadas-display.php';
           }
+          if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
+            if( get_option($this->plugin_name . '_activarCorreoPedirPresupuesto')){
+              require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+            }
+          }
+          //
+          //    Diseño Primero
+          //
+        }else{
+          //
+          //    NUEVO Diseño
+          //
+          $_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
+          $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
+          $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
+          $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
+          $_GET['seccionClass-detalles'] = 'wpf-detalles-no';
+          $_GET['seccionClass-mapas'] = 'wpf-mapas-no';
+          $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+          $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+
+          $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+          $nonce = wp_create_nonce("wpfunos_servicios_nonce");
+          $_GET['Atts'] = 'wpfunos-id|' . $value[0].'
+          data-wpnonce|' . $nonce .'
+          wpusuario|' . $IDusuario;
+
+          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
+
+
+
+          //
+          //    NUEVO Diseño
+          //
         }
-        //
-        //    Diseño Primero
-        //
         ?></div><?php
       }
     }
@@ -935,26 +1019,54 @@ class Wpfunos_Servicios {
         $_GET['preciodescuento'] = '';
         $_GET['telefonoEmpresa'] = get_post_meta( $value[0], 'wpfunos_servicioTelefono', true );
         //
-        //    Diseño Primero
+        //    Selecciona diseño
         //
-        echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
-        if( get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) == 1 ){
-          $tel = str_replace(" ","",$_GET['telefonoEmpresa']);
-          $tel = str_replace("-","",$tel);
-          $_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
-          $tel = str_replace(" ","",$_GET['telefonoUsuario']);
-          $tel = str_replace("-","",$tel);
-          $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
-          require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-botones-llamadas-display.php';
-        }
-        if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
-          if( get_option($this->plugin_name . '_activarCorreoPedirPresupuesto')){
-            require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+        if( ! get_option('wpfunos_NewDesign') ){
+          //
+          //    Diseño Primero
+          //
+          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosSin') );
+          if( get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) == 1 ){
+            $tel = str_replace(" ","",$_GET['telefonoEmpresa']);
+            $tel = str_replace("-","",$tel);
+            $_GET['telefonoEmpresa']= substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+            $tel = str_replace(" ","",$_GET['telefonoUsuario']);
+            $tel = str_replace("-","",$tel);
+            $_GET['telefonoUsuario'] = substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+            require 'partials/' . $this->plugin_name . '-servicios-sinconfirmar-botones-llamadas-display.php';
           }
+          if( get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) == 1 ){
+            if( get_option($this->plugin_name . '_activarCorreoPedirPresupuesto')){
+              require 'partials/' . $this->plugin_name . '-servicios-boton-presupuesto-display.php';
+            }
+          }
+          //
+          //    Diseño Primero
+          //
+        }else{
+          //
+          //    NUEVO Diseño
+          //
+          $_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
+          $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
+          $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
+          $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
+          $_GET['seccionClass-detalles'] = 'wpf-detalles-no';
+          $_GET['seccionClass-mapas'] = 'wpf-mapas-no';
+          $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+          $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+
+          $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+          $nonce = wp_create_nonce("wpfunos_servicios_nonce");
+          $_GET['Atts'] = 'wpfunos-id|' . $value[0].'
+          data-wpnonce|' . $nonce .'
+          wpusuario|' . $IDusuario;
+
+          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
+          //
+          //    NUEVO Diseño
+          //
         }
-        //
-        //    Diseño Primero
-        // 
         ?></div><?php
       }
     }
@@ -1461,6 +1573,80 @@ class Wpfunos_Servicios {
     if ( "652 55 28 25" === get_post_meta( $IDusuario, $this->plugin_name . '_userPhone', true ) ) return true;
     //
     return false;
+  }
+
+  /*********************************/
+  /*****  AJAX                ******/
+  /*********************************/
+
+  public function wpfunosServiciosBotonLlamame(){
+    $IDservicio = $_POST['IDservicio'];
+    $IDusuario = $_POST['IDusuario'];
+    $wpnonce = $_POPST['wpnonce'];
+
+
+    //
+    $result['type'] = "success";
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  public function wpfunosServiciosBotonLlamar(){
+    $IDservicio = $_POST['IDservicio'];
+    $IDusuario = $_POST['IDusuario'];
+    $wpnonce = $_POPST['wpnonce'];
+
+
+    //
+    $result['type'] = "success";
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  public function wpfunosServiciosBotonPresupuesto(){
+    $IDservicio = $_POST['IDservicio'];
+    $IDusuario = $_POST['IDusuario'];
+    $wpnonce = $_POPST['wpnonce'];
+
+
+    //
+    $result['type'] = "success";
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  public function wpfunosServiciosBotonEnviarPresupuesto(){
+    $IDservicio = $_POST['IDservicio'];
+    $IDusuario = $_POST['IDusuario'];
+    $wpnonce = $_POPST['wpnonce'];
+
+
+    //
+    $result['type'] = "success";
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  public function wpfunosServiciosBotonDetalles(){
+    $IDservicio = $_POST['IDservicio'];
+    $IDusuario = $_POST['IDusuario'];
+    $wpnonce = $_POPST['wpnonce'];
+
+
+    //
+    $result['type'] = "success";
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
   }
 
 }
