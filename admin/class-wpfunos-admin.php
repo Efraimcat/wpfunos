@@ -460,7 +460,7 @@ class Wpfunos_Admin {
     <hr/>
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
-    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
     <p>[ubicacion], [CPUsuario], [telefonoUsuario], [nombreUsuario], [Email] </p>
     <p>[destino], [ataud], [velatorio], [ceremonia]</p>
     <hr />
@@ -471,7 +471,7 @@ class Wpfunos_Admin {
     <hr/>
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
-    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
     <p>[telefonoUsuario], [nombreUsuario], [Email] </p>
     <hr />
     <?php
@@ -481,7 +481,7 @@ class Wpfunos_Admin {
     <hr/>
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
-    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
     <p>[nombreServicio], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
     <p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
     <p>[desgloseDestinoNombre], [TotaldesgloseDestinoTotal] = ( <i>[desgloseDestinoPrecio] + [desgloseDestinoDescuento] + [desgloseDestinoTotal]</i> )</p>
@@ -498,7 +498,7 @@ class Wpfunos_Admin {
     <hr/>
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
-    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
     <p>[Email], [referencia], [Nombre], [Telefono], [address], [CP], [IP], [wpf], [URL], [Destino], [Ataud], [Velatorio], [Despedida]</p>
     <hr />
     <?php
@@ -508,7 +508,7 @@ class Wpfunos_Admin {
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
     <hr/>
-    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes varialbles:', 'wpfunos'); ?></p>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes varialbles:', 'wpfunos'); ?></strong></p>
     <p>[nombreUsuario], [telefono], [Email], [referencia], [CPUsuario], [ubicacion], [seguro], [sexo],  [edad], [tipoAPI]</p>
     <hr />
     <?php
@@ -518,7 +518,7 @@ class Wpfunos_Admin {
     <hr/>
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
-    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
     <p>[logoServicio], [direccion], [textoconfirmado], [imagenconfirmado], [textoprecio], [imagenpromo], [imagenecologico]</p>
     <p>[nombreServicio], [nombrepack], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
     <p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
@@ -536,7 +536,7 @@ class Wpfunos_Admin {
     <hr/>
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
-    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
     <p>[nombreServicio], [nombrepack], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
     <p>[BaseNombre],[DestinoNombre], [AtaudNombre],[VelatorioNombre], [CeremoniaNombre],</p>
     <p>[precioBase], [precioDestino], [nombreDestino], [precioAtaud], [nombreAtaud], [precioAtaudEco], [nombreAtaudEco], [precioVelatorio]</p>
@@ -549,7 +549,7 @@ class Wpfunos_Admin {
     <hr/>
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
-    <p><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></p>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
     <p>==POR DEFINIR==</p>
     <p>[referencia], [IP], [Email], [Nombre], [Telefono], [address], [CP], [edad], [sexo], [any], [seguro], [URL] [MensajePopup]</p>
     <p>[aseguradoraNombre], [aseguradoraDireccion], [aseguradoraCorreo], [aseguradoraTelefono], [aseguradoraTipoSeguro]</p>

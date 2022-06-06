@@ -34,6 +34,8 @@ class Wpfunos_Public {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
     add_shortcode( 'wpfunos-resultados', array( $this, 'wpfunosResultadosShortcode' ));
+    add_shortcode( 'wpfunos-correo-popup', array( $this, 'wpfunosCorreoPopupShortcode' ));
+    add_shortcode( 'wpfunos-mensaje-usuario-correo-popup', array( $this, 'wpfunosCorreoUsuarioPopupShortcode' ));
     add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
   }
 
@@ -111,6 +113,33 @@ class Wpfunos_Public {
       // ASEGURADORAS
       case '7': switch($respuesta[2]){ case '1': esc_html_e( 'Hombre' ); break; case '2'; esc_html_e( 'Mujer' ); break; } break; //Sexo
       case '8': esc_html_e( $respuesta[3] );break; //Año de nacimiento
+    }
+  }
+
+  /**
+  * Shortcode [wpfunos-correo-popup]
+  */
+  public function wpfunosCorreoPopupShortcode( $atts, $content = "" ) {
+    return get_option('wpfunos_mailCorreoCcoPopup');
+  }
+
+  /**
+  * Shortcode [wpfunos-mensaje-usuario-correo-popup]
+  */
+  public function wpfunosCorreoUsuarioPopupShortcode( $atts, $content = "" ) {
+    if ( get_option('wpfunos_activarCorreoUsuarioContacto') ){
+      $mensaje = get_option('wpfunos_mensajeCorreoUsuarioContacto');
+      //[telefonoUsuario], [nombreUsuario], [Email]
+      //[field id="nombre"]
+      //[field id="email"]
+      //[field id="telefono"]
+      $nombreUsuario = do_shortcode ('[field id="nombre"]');
+      $telefonoUsuario = do_shortcode ('[field id="telefono"]');
+      $Email = do_shortcode ('[field id="email"]');
+      $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );
+      $mensaje = str_replace( '[telefonoUsuario]' , $telefonoUsuario , $mensaje );
+      $mensaje = str_replace( '[Email]' , $Email , $mensaje );
+      return $mensaje;
     }
   }
 

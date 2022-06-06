@@ -24,7 +24,7 @@ add_settings_field(
   'Direcciones de correo a enviar copias mensaje popup <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoPopup)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
-  'wpfunos_mailincial_section',
+  'wpfunos_mailinicial_section',
   array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoCcoPopup','name' => $this->plugin_name . '_mailCorreoCcoPopup','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
