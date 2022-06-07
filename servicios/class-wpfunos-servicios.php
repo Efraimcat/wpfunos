@@ -1965,7 +1965,9 @@ class Wpfunos_Servicios {
     $generico_descuento = '' ;
     //wpfunos-modal-detalles-generico-total
     $generico_total = '' ;
-
+    //
+    //wpfunos-modal-detalles-mapa
+    //$mapa = '[gmw_single_location object="post" object_id="' . $IDservicio . '" elements="map,distance,address,directions_link" units="k" map_height="300px" map_width="100%"]';
 
     $result['type'] = "success";
     $result['logo'] = $logo;
@@ -2005,6 +2007,7 @@ class Wpfunos_Servicios {
     $result['generico_precio'] = $generico_precio;
     $result['generico_descuento'] = $generico_descuento;
     $result['generico_total'] = $generico_total;
+
 
     $result = json_encode($result);
     echo $result;

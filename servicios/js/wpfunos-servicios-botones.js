@@ -172,7 +172,6 @@ $(document).ready(function(){
             document.getElementById("wpfunos-modal-detalles-generico-total").innerHTML = response.generico_total;
 
 
-
           } else {
             console.log('fail');
           }
