@@ -1804,7 +1804,7 @@ class Wpfunos_Servicios {
     $wpnonce = $_POST['wpnonce'];
     $precio = $_POST['precio'];
     $ecologico = $_POST['ecologico'];
-    $mensajePopup = wp_kses_post( $_POST['wpmensaje'] );
+    $mensajePopup = wp__post( $_POST['wpmensaje'] );
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', 'Llegada ajax Servicio BotonEnviarPresupuesto' );
     do_action('wpfunos_log', 'IDservicio: ' . $IDservicio );
@@ -1968,6 +1968,9 @@ class Wpfunos_Servicios {
     //
     //wpfunos-modal-detalles-mapa
     //$mapa = '[gmw_single_location object="post" object_id="' . $IDservicio . '" elements="map,distance,address,directions_link" units="k" map_height="300px" map_width="100%"]';
+    //
+    //wpfunos-servicios-nueva-entrada-detalles-comentarios.php
+    require 'partials/' . $this->plugin_name . '-servicios-nueva-entrada-detalles-comentarios.php';
 
     $result['type'] = "success";
     $result['logo'] = $logo;
@@ -2008,6 +2011,7 @@ class Wpfunos_Servicios {
     $result['generico_descuento'] = $generico_descuento;
     $result['generico_total'] = $generico_total;
 
+    $result['comentarios'] = wp_kses_post($comentarios);
 
     $result = json_encode($result);
     echo $result;

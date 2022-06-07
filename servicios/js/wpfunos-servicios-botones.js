@@ -171,6 +171,7 @@ $(document).ready(function(){
             document.getElementById("wpfunos-modal-detalles-generico-descuento").innerHTML = response.generico_descuento;
             document.getElementById("wpfunos-modal-detalles-generico-total").innerHTML = response.generico_total;
 
+            document.getElementById("wpfunos-modal-detalles-incluido").innerHTML = response.comentarios;
 
           } else {
             console.log('fail');
