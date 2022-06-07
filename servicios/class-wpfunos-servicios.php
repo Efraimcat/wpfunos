@@ -882,9 +882,11 @@ class Wpfunos_Servicios {
 
           $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
           $nonce = wp_create_nonce("wpfunos_servicios_nonce");
+          $ecologico = ($_GET['ecologico']) ? 'si' : 'no';
           $_GET['Atts'] = 'wpfunos-id|' . $value[0].'
           data-wpnonce|' . $nonce .'
-          wpusuario|' . $IDusuario;
+          wpusuario|' . $IDusuario .'
+          wpecologico|' . $ecologico ;
           $_GET['Atts-precio'] = 'wpfunos-att-precio|' . (int)$value[1];
 
           if($value[1] == $value[2]){
@@ -892,8 +894,6 @@ class Wpfunos_Servicios {
           }else{
             echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoNewDesign') ) ;
           }
-
-
 
           //
           //    NUEVO Diseño
@@ -987,8 +987,6 @@ class Wpfunos_Servicios {
           $_GET['Atts-precio'] = 'wpfunos-att-precio|' . (int)$value[1];
 
           echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
-
-
 
           //
           //    NUEVO Diseño
@@ -1591,11 +1589,13 @@ class Wpfunos_Servicios {
     $IDusuario = $_POST['IDusuario'];
     $wpnonce = $_POST['wpnonce'];
     $precio = $_POST['precio'];
+    $ecologico = $_POST['ecologico'];
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', 'Llegada ajax Servicio BotonLlamame' );
     do_action('wpfunos_log', 'IDservicio: ' . $IDservicio );
     do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
     do_action('wpfunos_log', 'Precio: ' . $precio );
+    do_action('wpfunos_log', 'ecologico: ' . $ecologico);
     //
     if ( !wp_verify_nonce( $_POST['wpnonce'], "wpfunos_servicios_nonce")) {
       do_action('wpfunos_log', 'nonce incorrecto' );
@@ -1642,7 +1642,7 @@ class Wpfunos_Servicios {
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '6. - Botón llamen aseguradora' );
     do_action('wpfunos_log', 'userIP: ' . apply_filters('wpfunos_userIP','dummy') );
-    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
+    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $post_id, 'wpfunos_userName', true )  );
     do_action('wpfunos_log', 'referencia: ' . $referencia );
     do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
     //
@@ -1656,7 +1656,7 @@ class Wpfunos_Servicios {
       if(!empty( get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1Lead' ) ;
       if(!empty( get_option('wpfunos_mailCorreoBccBoton1Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1Lead' ) ;
       wp_mail (  get_post_meta( $IDservicio, 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton1Lead') , $mensaje, $headers );
-      update_post_meta( $IDusuario, $this->plugin_name . '_userLead', true );
+      update_post_meta( $post_id, $this->plugin_name . '_userLead', true );
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Enviado correo lead1 ' . apply_filters('wpfunos_dumplog', get_post_meta( $IDservicio, 'wpfunos_servicioEmail', true )  ) );
       do_action('wpfunos_log', 'userIP: ' . $userIP );
@@ -1681,11 +1681,14 @@ class Wpfunos_Servicios {
     $IDservicio = $_POST['IDservicio'];
     $IDusuario = $_POST['IDusuario'];
     $wpnonce = $_POST['wpnonce'];
+    $precio = $_POST['precio'];
+    $ecologico = $_POST['ecologico'];
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', 'Llegada ajax Servicio BotonLlamar' );
     do_action('wpfunos_log', 'IDservicio: ' . $IDservicio );
     do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
     do_action('wpfunos_log', 'Precio: ' . $precio );
+    do_action('wpfunos_log', 'ecologico: ' . $ecologico);
     //
     if ( !wp_verify_nonce( $_POST['wpnonce'], "wpfunos_servicios_nonce")) {
       do_action('wpfunos_log', 'nonce incorrecto' );
@@ -1696,8 +1699,8 @@ class Wpfunos_Servicios {
     //
     $titulo = get_post_meta( $IDservicio, "wpfunos_servicioNombre", true);
     do_action('wpfunos_log', 'Titulo: ' . $titulo );
-    $tel = get_post_meta( $IDservicio, "wpfunos_servicioTelefono", true);
-    $telefono =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+    $telefono = get_post_meta( $IDservicio, "wpfunos_servicioTelefono", true);
+    $tel = str_replace(" ","", $telefono );
     //
     // Preparamos campos para insertar entrada en usuarios
     //
@@ -1723,11 +1726,11 @@ class Wpfunos_Servicios {
     $textoaccion = 'Botón llamar servicios' ;
     if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
     require 'partials/' . $this->plugin_name . '-servicios-nueva-entrada.php';
-    //$post_id = wp_insert_post($my_post);
+    $post_id = wp_insert_post($my_post);
     do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', '2. - Botón llamen aseguradora' );
+    do_action('wpfunos_log', '2. - Botón llamen servicio' );
     do_action('wpfunos_log', 'userIP: ' . apply_filters('wpfunos_userIP','dummy') );
-    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
+    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $post_id, 'wpfunos_userName', true )  );
     do_action('wpfunos_log', 'referencia: ' . $referencia );
     do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
     //
@@ -1741,7 +1744,7 @@ class Wpfunos_Servicios {
       if(!empty( get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2Lead' ) ;
       if(!empty( get_option('wpfunos_mailCorreoBccBoton2Lead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2Lead' ) ;
       wp_mail (  get_post_meta( $IDservicio, 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton2Lead') , $mensaje, $headers );
-      update_post_meta( $IDusuario, $this->plugin_name . '_userLead', true );
+      update_post_meta( $post_id, $this->plugin_name . '_userLead', true );
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Enviado correo lead2 ' . apply_filters('wpfunos_dumplog', get_post_meta( $IDservicio, 'wpfunos_servicioEmail', true )  ) );
       do_action('wpfunos_log', 'userIP: ' . $userIP );
@@ -1765,10 +1768,30 @@ class Wpfunos_Servicios {
     $IDservicio = $_POST['IDservicio'];
     $IDusuario = $_POST['IDusuario'];
     $wpnonce = $_POST['wpnonce'];
+    $precio = $_POST['precio'];
+    $ecologico = $_POST['ecologico'];
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax Servicio BotonPresupuesto' );
+    do_action('wpfunos_log', 'IDservicio: ' . $IDservicio );
+    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
+    do_action('wpfunos_log', 'Precio: ' . $precio );
+    do_action('wpfunos_log', 'ecologico: ' . $ecologico);
+    //
+    if ( !wp_verify_nonce( $_POST['wpnonce'], "wpfunos_servicios_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
+    //
+    $titulo = get_post_meta( $IDservicio, "wpfunos_servicioNombre", true);
+    do_action('wpfunos_log', 'Titulo: ' . $titulo );
+    //
 
 
     //
     $result['type'] = "success";
+    $result['titulo'] = $titulo;
+    $result['servicio'] = $IDservicio;
+    $result['ecologico'] = $ecologico;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -1776,13 +1799,78 @@ class Wpfunos_Servicios {
   }
 
   public function wpfunosServiciosBotonEnviarPresupuesto(){
-    $IDservicio = $_POST['IDservicio'];
-    $IDusuario = $_POST['IDusuario'];
+    $IDservicio = $_POST['wpfunosid'];
+    $IDusuario = $_POST['wpusuario'];
     $wpnonce = $_POST['wpnonce'];
-
+    $precio = $_POST['precio'];
+    $ecologico = $_POST['ecologico'];
+    $mensajePopup = wp_kses_post( $_POST['wpmensaje'] );
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax Servicio BotonEnviarPresupuesto' );
+    do_action('wpfunos_log', 'IDservicio: ' . $IDservicio );
+    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
+    do_action('wpfunos_log', 'mensaje: ' . $mensajePopup );
+    do_action('wpfunos_log', 'precio: ' . $precio);
+    do_action('wpfunos_log', 'ecologico: ' . $ecologico);
+    //
 
     //
+    //  Titulo y teléfono del servicio a mosrtar en pantalla devueltos a javascript
+    //
+    $titulo = get_post_meta( $IDservicio, "wpfunos_servicioNombre", true);
+    do_action('wpfunos_log', 'Titulo: ' . $titulo );
+    //
+    // Preparamos campos para insertar entrada en usuarios
+    //
+    require 'partials/' . $this->plugin_name . '-servicios-nueva-entrada-seleccion.php';
+    mt_srand(mktime());
+    $referencia = 'funos-'.(string)mt_rand();
+    //return: $resultados = array( $preciototal ,$preciodescuento, $NA, $wpfservicio, $ecologico ) ;
+    $resultados = $this->wpfunosGetResults( $IDservicio, $IDusuario );
+    $resultadosECO = $this->wpfunosGetResultsECO( $IDservicio, $IDusuario );
+    do_action('wpfunos_log', 'Precio resultado : ' . $resultados[0] );
+    do_action('wpfunos_log', 'Precio ecologico : ' . $resultados[4] );
+    do_action('wpfunos_log', 'Precio resultadoECO : ' . $resultadosECO[0] );
+    do_action('wpfunos_log', 'Precio ecologicoECO : ' . $resultadosECO[4] );
+
+    $value = ( 'si' == $ecologico ) ? $resultadosECO : $resultados ;
+    //
+    //  Creamos nueva entrada usuarios
+    //
+    $accion = '5';
+    $textoaccion = 'Botón pedir presupuesto' ;
+    if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+    require 'partials/' . $this->plugin_name . '-servicios-nueva-entrada.php';
+    $post_id = wp_insert_post($my_post);
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', '5. - Botón pedir presupuesto' );
+    do_action('wpfunos_log', 'userIP: ' . apply_filters('wpfunos_userIP','dummy') );
+    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $post_id, 'wpfunos_userName', true )  );
+    do_action('wpfunos_log', 'referencia: ' . $referencia );
+    do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
+    update_post_meta( $post_id, $this->plugin_name . '_userComentarios', $mensajePopup );
+    //
+    //  Enviamos mensaje de correo de acción realizada
+    //
+    $admin = apply_filters('wpfunos_reserved_email','dummy') ;
+    $headers[] = 'Content-Type: text/html; charset=UTF-8';
+    if( get_option('wpfunos_activarCorreoPedirPresupuesto') && ! $admin){
+      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPedirPresupuesto'), get_option('wpfunos_asuntoCorreoPedirPresupuesto') );
+      require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Nuevo-Usuario.php';
+      if(!empty( get_option('wpfunos_mailCorreoCcoPedirPresupuesto' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPedirPresupuesto' ) ;
+      if(!empty( get_option('wpfunos_mailCorreoBccPedirPresupuesto' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPedirPresupuesto' ) ;
+      wp_mail (  get_post_meta( $IDservicio, 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoPedirPresupuesto') , $mensaje, $headers );
+      update_post_meta( $post_id, $this->plugin_name . '_userLead', true );
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', 'Enviado correo Pedir Presupuesto ' . apply_filters('wpfunos_dumplog', get_post_meta( $IDservicio, 'wpfunos_servicioEmail', true )  ) );
+      do_action('wpfunos_log', 'userIP: ' . $userIP );
+      do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
+      do_action('wpfunos_log', '$referencia: ' . $referencia );
+    }
+    //
     $result['type'] = "success";
+    $result['titulo'] = $titulo;
+    $result['servicio'] = $IDservicio;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -1793,10 +1881,131 @@ class Wpfunos_Servicios {
     $IDservicio = $_POST['IDservicio'];
     $IDusuario = $_POST['IDusuario'];
     $wpnonce = $_POST['wpnonce'];
+    $precio = $_POST['precio'];
+    $ecologico = $_POST['ecologico'];
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax Servicio BotonDetalles' );
+    do_action('wpfunos_log', 'IDservicio: ' . $IDservicio );
+    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
+    do_action('wpfunos_log', 'precio: ' . $precio);
+    do_action('wpfunos_log', 'ecologico: ' . $ecologico);
 
 
+    //id="wpfunos-modal-detalles-logo"
+    $logo = wp_get_attachment_image ( get_post_meta( $IDservicio, 'wpfunos_servicioLogo', true ) ,'full' );
+    //wpfunos-modal-detalles-nombre
+    $nombre = get_post_meta( $IDservicio, "wpfunos_servicioNombre", true);
+    //wpfunos-modal-detalles-nombrepack
+    $nombrepack = get_post_meta( $IDservicio, 'wpfunos_servicioPackNombre', true );
+    //wpfunos-modal-detalles-logo-confirmado
+    $logo_confirmado = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
+    //wpfunos-modal-detalles-texto-confirmado
+    $texto_confirmado = "Precio confirmado";
+    //wpfunos-modal-detalles-logo-ecologico
+    $logo_ecologico = ( 'si' == $ecologico ) ?  wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60)) : '' ;
+    //wpfunos-modal-detalles-logo-promo
+    $logo_promo = wp_get_attachment_image ( get_post_meta( $IDservicio, 'wpfunos_servicioImagenPromo', true ) ,'full' );
+    //wpfunos-modal-detalles-precio
+    $precio = number_format($precio, 0, ',', '.') . '€';
+    //wpfunos-modal-detalles-precio-texto
+    $precio_texto = get_post_meta( $IDservicio, 'wpfunos_servicioTextoPrecio', true );
     //
+    $resultados = $this->wpfunosGetResults( $IDservicio, $IDusuario );
+    $resultadosECO = $this->wpfunosGetResultsECO( $IDservicio, $IDusuario );
+    $value = ( 'si' == $ecologico ) ? $resultadosECO : $resultados ;
+    //
+    //wpfunos-modal-detalles-base-precio
+    $base_precio = number_format($value[3][0][2], 0, ',', '.') . '€' ;
+    //wpfunos-modal-detalles-base-descuento
+    $base_descuento = ( strlen( $value[3][0][3]) > 1 ) ? $value[3][0][3] . '%' : '' ;
+    //wpfunos-modal-detalles-base-total
+    $base_total = ( strlen( $value[3][0][3]) > 1 ) ? $value[3][0][4] . '%' : '' ;
+    //
+    //wpfunos-modal-detalles-destino-nombre
+    $destino_nombre = $value[3][1][1];
+    //wpfunos-modal-detalles-destino-precio
+    $destino_precio = number_format($value[3][1][2], 0, ',', '.') . '€' ;
+    //wpfunos-modal-detalles-destino-descuento
+    $destino_descuento = ( strlen( $value[3][1][3]) > 1 ) ? $value[3][1][3] . '%' : '' ;
+    //wpfunos-modal-detalles-destino-total
+    $destino_total = ( strlen( $value[3][1][3]) > 1 ) ? $value[3][1][4] . '%' : '' ;
+    //
+    //wpfunos-modal-detalles-ataud-nombre
+    $ataud_nombre = $value[3][2][1];
+    //wpfunos-modal-detalles-ataud-precio
+    $ataud_precio = number_format($value[3][2][2], 0, ',', '.') . '€' ;
+    //wpfunos-modal-detalles-ataud-descuento
+    $ataud_descuento = ( strlen( $value[3][2][3]) > 1 ) ? $value[3][2][3] . '%' : '' ;
+    //wpfunos-modal-detalles-ataud-total
+    $ataud_total = ( strlen( $value[3][2][3]) > 1 ) ? $value[3][2][4] . '%' : '' ;
+    //
+    //wpfunos-modal-detalles-velatorio-nombre
+    $velatorio_nombre = $value[3][3][1];
+    //wpfunos-modal-detalles-velatorio-precio
+    $velatorio_precio = number_format($value[3][3][2], 0, ',', '.') . '€' ;
+    //wpfunos-modal-detalles-velatorio-descuento
+    $velatorio_descuento = ( strlen( $value[3][3][3]) > 1 ) ? $value[3][3][3] . '%' : '' ;
+    //wpfunos-modal-detalles-velatorio-total
+    $velatorio_total = ( strlen( $value[3][3][3]) > 1 ) ? $value[3][3][4] . '%' : '' ;
+    //
+    //wpfunos-modal-detalles-ceremonia-nombre
+    $ceremonia_nombre = $value[3][4][1];
+    //wpfunos-modal-detalles-ceremonia-precio
+    $ceremonia_precio = number_format($value[3][4][2], 0, ',', '.') . '€' ;
+    //wpfunos-modal-detalles-ceremonia-descuento
+    $ceremonia_descuento = ( strlen( $value[3][4][3]) > 1 ) ? $value[3][4][3] . '%' : '' ;
+    //wpfunos-modal-detalles-ceremonia-total
+    $ceremonia_total = ( strlen( $value[3][4][3]) > 1 ) ? $value[3][4][4] . '%' : '' ;
+    //
+    //wpfunos-modal-detalles-generico-nombre
+    $generico_nombre = '';
+    //wpfunos-modal-detalles-generico-precio
+    $generico_precio = $precio;
+    //wpfunos-modal-detalles-generico-descuento
+    $generico_descuento = '' ;
+    //wpfunos-modal-detalles-generico-total
+    $generico_total = '' ;
+
+
     $result['type'] = "success";
+    $result['logo'] = $logo;
+    $result['nombre'] = $nombre;
+    $result['nombrepack'] = $nombrepack;
+    $result['logo_confirmado'] = $logo_confirmado;
+    $result['texto_confirmado'] = $texto_confirmado;
+    $result['logo_ecologico'] = $logo_ecologico;
+    $result['logo_promo'] = $logo_promo;
+    $result['precio'] = $precio;
+    $result['precio_texto'] = $precio_texto;
+    $result['base_precio'] = $base_precio;
+    $result['base_descuento'] = $base_descuento;
+    $result['base_total'] = $base_total;
+
+    $result['destino_nombre'] = $destino_nombre;
+    $result['destino_precio'] = $destino_precio;
+    $result['destino_descuento'] = $destino_descuento;
+    $result['destino_total'] = $destino_total;
+
+    $result['ataud_nombre'] = $ataud_nombre;
+    $result['ataud_precio'] = $ataud_precio;
+    $result['ataud_descuento'] = $ataud_descuento;
+    $result['ataud_total'] = $ataud_total;
+
+    $result['velatorio_nombre'] = $velatorio_nombre;
+    $result['velatorio_precio'] = $velatorio_precio;
+    $result['velatorio_descuento'] = $velatorio_descuento;
+    $result['velatorio_total'] = $velatorio_total;
+
+    $result['ceremonia_nombre'] = $ceremonia_nombre;
+    $result['ceremonia_precio'] = $ceremonia_precio;
+    $result['ceremonia_descuento'] = $ceremonia_descuento;
+    $result['ceremonia_total'] = $ceremonia_total;
+
+    $result['generico_nombre'] = $generico_nombre;
+    $result['generico_precio'] = $generico_precio;
+    $result['generico_descuento'] = $generico_descuento;
+    $result['generico_total'] = $generico_total;
+
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
