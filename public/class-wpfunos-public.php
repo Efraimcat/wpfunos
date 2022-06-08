@@ -38,6 +38,7 @@ class Wpfunos_Public {
     add_shortcode( 'wpfunos-mensaje-usuario-correo-popup', array( $this, 'wpfunosCorreoUsuarioPopupShortcode' ));
     add_shortcode( 'wpfunos-mensaje-usuario-datos-servicio', array( $this, 'wpfunosCorreoUsuarioDatosServicoShortcode' ));
     add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
+    add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
   }
 
   /**
@@ -180,7 +181,7 @@ class Wpfunos_Public {
       $mensaje = str_replace( '[ataud]' , $ataud , $mensaje );
       $mensaje = str_replace( '[velatorio]' , $velatorio , $mensaje );
       $mensaje = str_replace( '[ceremonia]' , $ceremonia , $mensaje );
-    
+
       return $mensaje;
     }
   }
@@ -188,6 +189,99 @@ class Wpfunos_Public {
   /*********************************/
   /*****  HOOKS               ******/
   /*********************************/
+
+  /**
+  * Hook Elementor Form Validate entry
+  *
+  * add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
+  *
+  * #13-Feb-2022 13:26:43: $field:
+  * [id] = String: 'nacimiento'
+  * [type] = String: 'text'
+  * [title] = String: 'Año de nacimiento'
+  * [value] = Number: 1957
+  * [raw_value] = Number: 1957
+  * [required] = TRUE
+  *
+  * https://dev.to/renzoster/validate-form-fields-in-elementor-54cl
+  *
+  *
+  * // Validate the Ticket ID field is in XXX-XXXX format.
+  * add_action( 'elementor_pro/forms/validation', function ( $record, $ajax_handler ) {
+  *     $fields = $record->get_field( [
+  *         'id' => 'ticket_id',
+  *     ] );
+  *
+  *     if ( empty( $fields ) ) {
+  *         return;
+  *     }
+  *
+  *     $field = current( $fields );
+  *
+  *     if ( 1 !== preg_match( '/^\w{3}-\w{4}$/', $field['value'] ) ) {
+  *         $ajax_handler->add_error( $field['id'], 'Invalid Ticket ID, it must be in the format XXX-XXXX' );
+  *     }
+  * }, 10, 2 );
+  *
+  *  https://developers.elementor.com/forms-api/
+  *
+  *  public function wpfunos_elementor_get_field( $id, $record ){
+  *    $fields = $record->get_field( [ 'id' => $id, ] );
+  *    if ( empty( $fields ) ) {
+  *      return false;
+  *    }
+  *    return current( $fields );
+  *  }
+  *
+  */
+  public function wpfunosFormValidation($record, $ajax_handler){
+    $form_name = $record->get_form_settings( 'form_name' );
+    if( "FormularioDatosAseguradora" === $form_name ){
+      if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
+        if( (int)$field['value'] < date("Y") - 80 || (int)$field['value'] > date("Y") - 20 ){
+          $ajax_handler->add_error( $field['id'], 'Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990' );
+        }
+      }
+    }
+
+    if( "FormularioDatosAseguradora" === $form_name || "FormularioDatos" === $form_name ){
+      if( $field = $this->wpfunos_elementor_get_field( 'Telefono', $record ) ){
+        //if( substr($field['value'],0,3) != '+34' ){
+        //  $ajax_handler->add_error( $field['id'], 'El número de teléfono debe empezar por +34' );
+        //}
+        $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
+        if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
+          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+        }
+        if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
+          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+        }
+      }
+    }
+
+    if( "AsesoramientoGratuito" === $form_name || "TeLlamamosGratis" === $form_name || "FormularioDatos" === $form_name ){
+      if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
+        //if( substr($field['value'],0,3) != '+34' ){
+        //  $ajax_handler->add_error( $field['id'], 'El número de teléfono debe empezar por +34' );
+        //}
+        $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
+        if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
+          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+        }
+        if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
+          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+        }
+      }
+    }
+  }
+  public function wpfunos_elementor_get_field( $id, $record ){
+    $fields = $record->get_field( [ 'id' => $id, ] );
+    if ( empty( $fields ) ) {
+      return false;
+    }
+    return current( $fields );
+  }
+
 
   /**
   * Hook Elementor Form New Record

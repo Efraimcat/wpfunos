@@ -27,7 +27,6 @@ class Wpfunos_Aseguradoras {
 
     add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
     add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
-    add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
 
     add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradora_llamame', function () { $this->wpfunosAseguradoraBotonLlamame();});
     add_action('wp_ajax_wpfunos_ajax_aseguradora_llamame', function () {$this->wpfunosAseguradoraBotonLlamame();});
@@ -240,33 +239,6 @@ class Wpfunos_Aseguradoras {
     endif;
     wp_reset_postdata();
     require 'js/' . $this->plugin_name . '-aseguradoras-botones.js';
-  }
-  /**
-  * Hook Elementor Form Validate entry
-  *
-  * add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
-  *
-  * #13-Feb-2022 13:26:43: $field:
-  * [id] = String: 'nacimiento'
-  * [type] = String: 'text'
-  * [title] = String: 'Año de nacimiento'
-  * [value] = Number: 1957
-  * [raw_value] = Number: 1957
-  * [required] = TRUE
-  *
-  * https://dev.to/renzoster/validate-form-fields-in-elementor-54cl
-  */
-  public function wpfunosFormValidation($record, $ajax_handler){
-    if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
-      if( (int)$field['value'] < date("Y") - 80 || (int)$field['value'] > date("Y") - 20 ){
-        $ajax_handler->add_error( $field['id'], 'Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990' );
-      }
-    }
-    if( $field = $this->wpfunos_elementor_get_field( 'Telefono', $record ) ){
-      if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $field['value'] ) ) {
-        $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
-      }
-    }
   }
 
   /*********************************/
@@ -554,16 +526,6 @@ class Wpfunos_Aseguradoras {
     return $provincia;
   }
 
-  /**
-  * This function allows to obtain a field by ID, if it does not exist it returns FALSE.
-  */
-  public function wpfunos_elementor_get_field( $id, $record ){
-    $fields = $record->get_field( [ 'id' => $id, ] );
-    if ( empty( $fields ) ) {
-      return false;
-    }
-    return current( $fields );
-  }
   /**
   * Entrada ubicación
   */

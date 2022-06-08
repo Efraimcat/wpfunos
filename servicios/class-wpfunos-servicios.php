@@ -1813,7 +1813,10 @@ class Wpfunos_Servicios {
     do_action('wpfunos_log', 'precio: ' . $precio);
     do_action('wpfunos_log', 'ecologico: ' . $ecologico);
     //
-
+    if ( !wp_verify_nonce( $_POST['wpnonce'], "wpfunos_servicios_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
     //
     //  Titulo y teléfono del servicio a mosrtar en pantalla devueltos a javascript
     //
@@ -1889,7 +1892,12 @@ class Wpfunos_Servicios {
     do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
     do_action('wpfunos_log', 'precio: ' . $precio);
     do_action('wpfunos_log', 'ecologico: ' . $ecologico);
-
+	//
+    if ( !wp_verify_nonce( $_POST['wpnonce'], "wpfunos_servicios_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
+    //
 
     //id="wpfunos-modal-detalles-logo"
     $logo = wp_get_attachment_image ( get_post_meta( $IDservicio, 'wpfunos_servicioLogo', true ) ,'full' );
@@ -1986,30 +1994,30 @@ class Wpfunos_Servicios {
     $result['base_descuento'] = $base_descuento;
     $result['base_total'] = $base_total;
 
-    $result['destino_nombre'] = $destino_nombre;
-    $result['destino_precio'] = $destino_precio;
-    $result['destino_descuento'] = $destino_descuento;
-    $result['destino_total'] = $destino_total;
+    $result['movil_destino_nombre'] = $result['destino_nombre'] = $destino_nombre;
+    $result['movil_destino_precio'] = $result['destino_precio'] = $destino_precio;
+    $result['movil_destino_descuento'] = $result['destino_descuento'] = $destino_descuento;
+    $result['movil_destino_total'] = $result['destino_total'] = $destino_total;
 
-    $result['ataud_nombre'] = $ataud_nombre;
-    $result['ataud_precio'] = $ataud_precio;
-    $result['ataud_descuento'] = $ataud_descuento;
-    $result['ataud_total'] = $ataud_total;
+    $result['movil_ataud_nombre'] = $result['ataud_nombre'] = $ataud_nombre;
+    $result['movil_ataud_precio'] = $result['ataud_precio'] = $ataud_precio;
+    $result['movil_ataud_descuento'] = $result['ataud_descuento'] = $ataud_descuento;
+    $result['movil_ataud_total'] = $result['ataud_total'] = $ataud_total;
 
-    $result['velatorio_nombre'] = $velatorio_nombre;
-    $result['velatorio_precio'] = $velatorio_precio;
-    $result['velatorio_descuento'] = $velatorio_descuento;
-    $result['velatorio_total'] = $velatorio_total;
+    $result['movil_velatorio_nombre'] = $result['velatorio_nombre'] = $velatorio_nombre;
+    $result['movil_velatorio_precio'] = $result['velatorio_precio'] = $velatorio_precio;
+    $result['movil_velatorio_descuento'] = $result['velatorio_descuento'] = $velatorio_descuento;
+    $result['movil_velatorio_total'] = $result['velatorio_total'] = $velatorio_total;
 
-    $result['ceremonia_nombre'] = $ceremonia_nombre;
-    $result['ceremonia_precio'] = $ceremonia_precio;
-    $result['ceremonia_descuento'] = $ceremonia_descuento;
-    $result['ceremonia_total'] = $ceremonia_total;
+    $result['movil_ceremonia_nombre'] = $result['ceremonia_nombre'] = $ceremonia_nombre;
+    $result['movil_ceremonia_precio'] = $result['ceremonia_precio'] = $ceremonia_precio;
+    $result['movil_ceremonia_descuento'] = $result['ceremonia_descuento'] = $ceremonia_descuento;
+    $result['movil_ceremonia_total'] = $result['ceremonia_total'] = $ceremonia_total;
 
-    $result['generico_nombre'] = $generico_nombre;
-    $result['generico_precio'] = $generico_precio;
-    $result['generico_descuento'] = $generico_descuento;
-    $result['generico_total'] = $generico_total;
+    $result['movil_generico_nombre'] = $result['generico_nombre'] = $generico_nombre;
+    $result['movil_generico_precio'] = $result['generico_precio'] = $generico_precio;
+    $result['movil_generico_descuento'] = $result['generico_descuento'] = $generico_descuento;
+    $result['movil_generico_total'] = $result['generico_total'] = $generico_total;
 
     $result['comentarios'] = wp_kses_post($comentarios);
 

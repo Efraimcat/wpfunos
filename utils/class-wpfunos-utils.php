@@ -38,12 +38,14 @@ class Wpfunos_Utils {
 
     add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
     add_action( 'wp_ajax_nopriv_wpfunos-SIWG-google-login', array( $this, 'wpfunos_SIWG_google_login' ), 10, 1 );
+    add_action( 'wp_ajax_wpfunos-SIWG-google-login', array( $this, 'wpfunos_SIWG_google_login' ), 10, 1 );
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-utils.css', array(), $this->version, 'all' );
   }
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-utils.js', array( 'jquery' ), $this->version, false );
+    wp_localize_script( $this->plugin_name, 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
   }
   /*********************************/
   /*****                      ******/
@@ -485,6 +487,7 @@ class Wpfunos_Utils {
   *
   */
   public function wpfunos_SIWG_google_login(){
+	$this->custom_logs( "=== LLEGA AJAX GOOGLE ===");
     // secure credential value from AJAX
     $credential = sanitize_text_field($_POST["credential"]);
     // verify the ID token
