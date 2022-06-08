@@ -173,6 +173,14 @@ $(document).ready(function(){
 
             document.getElementById("wpfunos-modal-detalles-incluido").innerHTML = response.comentarios;
 
+            //
+
+            //document.getElementById("wpfunos-boton-detalles-llamen").addEventListener('click', wpfFunctionLlamen, false);
+            //document.getElementById("wpfunos-boton-detalles-llamar").addEventListener('click', wpfFunctionLlamar, false);
+            //document.getElementById("wpfunos-boton-detalles-correo").addEventListener('click', myFunctionEnviarCorreo, false);
+            //document.getElementById("wpfunos-modal-detalles-imprimir").addEventListener('click', myFunctionImprimirPagina, false);
+
+
           } else {
             console.log('fail');
           }
@@ -180,6 +188,14 @@ $(document).ready(function(){
       });
 
     };
+
+    //var myFunctionImprimirPagina = function(){
+
+    //}
+
+    //var myFunctionEnviarCorreo = function(){
+
+    //}
 
     var myFunctionEnviaPresupuesto = function() {
       var servicio = document.getElementById("form-field-wpfunosoculto").value;

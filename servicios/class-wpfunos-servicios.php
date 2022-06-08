@@ -889,11 +889,11 @@ class Wpfunos_Servicios {
           wpecologico|' . $ecologico ;
           $_GET['Atts-precio'] = 'wpfunos-att-precio|' . (int)$value[1];
 
-          if($value[1] == $value[2]){
+          //if($value[1] == $value[2]){
             echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
-          }else{
-            echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoNewDesign') ) ;
-          }
+          //}else{
+          //  echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoNewDesign') ) ;
+          //}
 
           //
           //    NUEVO Diseño
