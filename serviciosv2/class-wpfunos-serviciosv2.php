@@ -19,6 +19,7 @@ class Wpfunos_ServiciosV2 {
   public function __construct( $plugin_name, $version ) {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
+    add_shortcode( 'wpfunos-nuevos-resultados', array( $this, 'wpfunosServiciosResultadosShortcode' ));
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-serviciosv2.css', array(), $this->version, 'all' );
@@ -27,4 +28,11 @@ class Wpfunos_ServiciosV2 {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-serviciosv2.js', array( 'jquery' ), $this->version, false );
     wp_localize_script( $this->plugin_name, 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
   }
+
+  public function wpfunosServiciosResultadosShortcode($atts, $content = ""){
+    global $wp;
+    echo do_shortcode( '[gmw_ajax_form form="6"]' );
+
+  }
+
 }
