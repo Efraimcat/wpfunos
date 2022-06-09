@@ -890,7 +890,7 @@ class Wpfunos_Servicios {
           $_GET['Atts-precio'] = 'wpfunos-att-precio|' . (int)$value[1];
 
           //if($value[1] == $value[2]){
-            echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
+          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
           //}else{
           //  echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoNewDesign') ) ;
           //}
@@ -1892,13 +1892,17 @@ class Wpfunos_Servicios {
     do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
     do_action('wpfunos_log', 'precio: ' . $precio);
     do_action('wpfunos_log', 'ecologico: ' . $ecologico);
-	//
+    //
     if ( !wp_verify_nonce( $_POST['wpnonce'], "wpfunos_servicios_nonce")) {
       do_action('wpfunos_log', 'nonce incorrecto' );
       exit("Woof Woof Woof");
     }
     //
-
+    $_GET['AttsDetalle'] = 'wpfunos-id|' . $IDservicio.'
+    data-wpnonce|' . $wpnonce .'
+    wpusuario|' . $IDusuario .'
+    wpecologico|' . $ecologico .'
+    precio|' . $precio ;
     //id="wpfunos-modal-detalles-logo"
     $logo = wp_get_attachment_image ( get_post_meta( $IDservicio, 'wpfunos_servicioLogo', true ) ,'full' );
     //wpfunos-modal-detalles-nombre
@@ -1917,6 +1921,8 @@ class Wpfunos_Servicios {
     $precio = number_format($precio, 0, ',', '.') . '€';
     //wpfunos-modal-detalles-precio-texto
     $precio_texto = get_post_meta( $IDservicio, 'wpfunos_servicioTextoPrecio', true );
+    //
+    $direccion =  get_post_meta( $IDservicio, 'wpfunos_servicioDireccion', true );
     //
     $resultados = $this->wpfunosGetResults( $IDservicio, $IDusuario );
     $resultadosECO = $this->wpfunosGetResultsECO( $IDservicio, $IDusuario );
@@ -1979,7 +1985,6 @@ class Wpfunos_Servicios {
     //
     //wpfunos-servicios-nueva-entrada-detalles-comentarios.php
     require 'partials/' . $this->plugin_name . '-servicios-nueva-entrada-detalles-comentarios.php';
-
     $result['type'] = "success";
     $result['logo'] = $logo;
     $result['nombre'] = $nombre;
@@ -1990,9 +1995,10 @@ class Wpfunos_Servicios {
     $result['logo_promo'] = $logo_promo;
     $result['precio'] = $precio;
     $result['precio_texto'] = $precio_texto;
-    $result['base_precio'] = $base_precio;
-    $result['base_descuento'] = $base_descuento;
-    $result['base_total'] = $base_total;
+
+    $result['movil_base_precio'] = $result['base_precio'] = $base_precio;
+    $result['movil_base_descuento'] = $result['base_descuento'] = $base_descuento;
+    $result['movil_base_total'] = $result['base_total'] = $base_total;
 
     $result['movil_destino_nombre'] = $result['destino_nombre'] = $destino_nombre;
     $result['movil_destino_precio'] = $result['destino_precio'] = $destino_precio;
@@ -2018,6 +2024,12 @@ class Wpfunos_Servicios {
     $result['movil_generico_precio'] = $result['generico_precio'] = $generico_precio;
     $result['movil_generico_descuento'] = $result['generico_descuento'] = $generico_descuento;
     $result['movil_generico_total'] = $result['generico_total'] = $generico_total;
+
+    $result['direccion'] = $direccion;
+    $result['idservicio'] = $IDservicio;
+
+    $shortcode = '[gmw_single_location object="post" object_id="' . $IDservicio . '" elements="map,distance,address,directions_link" units="k" map_height="300px" map_width="100%"]';
+    $result['mapa'] =  do_shortcode($shortcode);
 
     $result['comentarios'] = wp_kses_post($comentarios);
 

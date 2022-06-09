@@ -102,7 +102,7 @@ $(document).ready(function(){
             document.getElementById("wpfunos-modal-presupuesto-titulo").innerHTML = response.titulo;
             document.getElementById("form-field-wpfunosoculto").value = response.servicio;
             document.getElementById("form-field-wpfunosecologico").value = response.ecologico;
-            document.getElementById("botonEnviarPresupuesto").addEventListener('click', myFunctionEnviaPresupuesto, false);
+            document.getElementById("botonEnviarPresupuesto").addEventListener('click', wpfFunctionEnviaPresupuesto, false);
             console.log('success');
           } else {
             console.log('fail');
@@ -116,7 +116,8 @@ $(document).ready(function(){
       var IDusuario = this.getAttribute("wpusuario");
       var wpnonce = this.getAttribute("data-wpnonce");
       var wpecologico = this.getAttribute("wpecologico");
-      var precio = document.getElementById("wpf-precio-"+IDservicio).getAttribute("wpfunos-att-precio")
+      var precio = document.getElementById("wpf-precio-"+IDservicio).getAttribute("wpfunos-att-precio");
+
       console.log('boton Detalles servicio: '+IDservicio+' usuario '+IDusuario+' nonce '+wpnonce+' precio '+precio );
       jQuery.ajax({
         type : "post",
@@ -171,15 +172,24 @@ $(document).ready(function(){
             document.getElementById("wpfunos-modal-detalles-generico-descuento").innerHTML = response.generico_descuento;
             document.getElementById("wpfunos-modal-detalles-generico-total").innerHTML = response.generico_total;
 
+            document.getElementById("elementor-tab-title-1901").innerText = response.direccion;
+            document.getElementById("wpfunos-modal-detalles-mapa").innerHTML = response.mapa;
+
             document.getElementById("wpfunos-modal-detalles-incluido").innerHTML = response.comentarios;
+            //wpfunos-detalles-llamen
+            //wpfunos-detalles-llamar
+            //wpfunos-detalles-correo
+            //wpfunos-detalles-imprimir
+            document.getElementById("wpfunos-detalles-llamen").addEventListener('click', wpfFunctionLlamen2, false);
+            document.getElementById("wpfunos-detalles-llamar").addEventListener('click', wpfFunctionLlamar2, false);
+            document.getElementById("wpfunos-detalles-correo").addEventListener('click', wpfFunctionEnviarCorreo, false);
+            document.getElementById("wpfunos-detalles-imprimir").addEventListener('click', wpfFunctionImprimirPagina, false);
 
-            //
-
-            //document.getElementById("wpfunos-boton-detalles-llamen").addEventListener('click', wpfFunctionLlamen, false);
-            //document.getElementById("wpfunos-boton-detalles-llamar").addEventListener('click', wpfFunctionLlamar, false);
-            //document.getElementById("wpfunos-boton-detalles-correo").addEventListener('click', myFunctionEnviarCorreo, false);
-            //document.getElementById("wpfunos-modal-detalles-imprimir").addEventListener('click', myFunctionImprimirPagina, false);
-
+            document.getElementById("wpfdetalles").setAttribute("IDservicio", IDservicio);
+            document.getElementById("wpfdetalles").setAttribute("IDusuario", IDusuario);
+            document.getElementById("wpfdetalles").setAttribute("wpnonce", wpnonce);
+            document.getElementById("wpfdetalles").setAttribute("wpecologico", wpecologico);
+            document.getElementById("wpfdetalles").setAttribute("precio", precio);
 
           } else {
             console.log('fail');
@@ -189,15 +199,43 @@ $(document).ready(function(){
 
     };
 
-    //var myFunctionImprimirPagina = function(){
+    var wpfFunctionLlamen2= function(){
+      IDservicio = document.getElementById("wpfdetalles").getAttribute("IDservicio");
+      IDusuario = document.getElementById("wpfdetalles").getAttribute("IDusuario");
+      wpnonce = document.getElementById("wpfdetalles").getAttribute("wpnonce");
+      wpecologico = document.getElementById("wpfdetalles").getAttribute("wpecologico");
+      precio = document.getElementById("wpfdetalles").getAttribute("precio");
+      console.log('boton Lamen: servicio '+IDservicio+' usuario '+IDusuario+' nonce '+wpnonce+' ecologico '+wpecologico+' precio '+precio );
+    }
 
-    //}
+    var wpfFunctionLlamar2= function(){
+      IDservicio = document.getElementById("wpfdetalles").getAttribute("IDservicio");
+      IDusuario = document.getElementById("wpfdetalles").getAttribute("IDusuario");
+      wpnonce = document.getElementById("wpfdetalles").getAttribute("wpnonce");
+      wpecologico = document.getElementById("wpfdetalles").getAttribute("wpecologico");
+      precio = document.getElementById("wpfdetalles").getAttribute("precio");
+      console.log('boton Lamar: servicio '+IDservicio+' usuario '+IDusuario+' nonce '+wpnonce+' ecologico '+wpecologico+' precio '+precio );
+    }
 
-    //var myFunctionEnviarCorreo = function(){
+    var wpfFunctionImprimirPagina = function(){
+      IDservicio = document.getElementById("wpfdetalles").getAttribute("IDservicio");
+      IDusuario = document.getElementById("wpfdetalles").getAttribute("IDusuario");
+      wpnonce = document.getElementById("wpfdetalles").getAttribute("wpnonce");
+      wpecologico = document.getElementById("wpfdetalles").getAttribute("wpecologico");
+      precio = document.getElementById("wpfdetalles").getAttribute("precio");
+      console.log('boton Imprimir página: servicio '+IDservicio+' usuario '+IDusuario+' nonce '+wpnonce+' ecologico '+wpecologico+' precio '+precio );
+    }
 
-    //}
+    var wpfFunctionEnviarCorreo = function(){
+      IDservicio = document.getElementById("wpfdetalles").getAttribute("IDservicio");
+      IDusuario = document.getElementById("wpfdetalles").getAttribute("IDusuario");
+      wpnonce = document.getElementById("wpfdetalles").getAttribute("wpnonce");
+      wpecologico = document.getElementById("wpfdetalles").getAttribute("wpecologico");
+      precio = document.getElementById("wpfdetalles").getAttribute("precio");
+      console.log('boton Enviar correo: servicio '+IDservicio+' usuario '+IDusuario+' nonce '+wpnonce+' ecologico '+wpecologico+' precio '+precio );
+    }
 
-    var myFunctionEnviaPresupuesto = function() {
+    var wpfFunctionEnviaPresupuesto = function() {
       var servicio = document.getElementById("form-field-wpfunosoculto").value;
       var wpecologico = document.getElementById("form-field-wpfunosecologico").value;
       var attribute = document.getElementById("wpfunos-boton-enviar-presupuesto").getAttribute("wpfunos-presupuesto-id");
