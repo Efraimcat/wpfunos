@@ -97,6 +97,11 @@ $userVisitas = sanitize_text_field( $_POST[$this->plugin_name . '_userVisitas'] 
 $Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
 $IDstamp= sanitize_text_field( $_POST['IDstamp'] );
 
+$resp1 = sanitize_text_field( $_POST['resp1'] );
+$resp2 = sanitize_text_field( $_POST['resp2'] );
+$resp3 = sanitize_text_field( $_POST['resp3'] );
+$resp4 = sanitize_text_field( $_POST['resp4'] );
+
 update_post_meta($post_id, $this->plugin_name . '_TimeStamp', $TimeStamp);
 update_post_meta($post_id, $this->plugin_name . '_userMail', $userMail);
 update_post_meta($post_id, $this->plugin_name . '_userReferencia', $userReferencia);
@@ -181,3 +186,8 @@ update_post_meta($post_id, $this->plugin_name . '_userPluginVersion', $userPlugi
 update_post_meta($post_id, $this->plugin_name . '_userVisitas', $userVisitas);
 update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
 update_post_meta($post_id, 'IDstamp', $IDstamp);
+
+update_post_meta($post_id, 'resp1', $resp1);
+update_post_meta($post_id, 'resp2', $resp2);
+update_post_meta($post_id, 'resp3', $resp3);
+update_post_meta($post_id, 'resp4', $resp4);

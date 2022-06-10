@@ -45,48 +45,34 @@ $servicioPrecioBase = sanitize_text_field( $_POST[$this->plugin_name . '_servici
 $servicioPrecioBaseDescuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioBaseDescuento'] );
 $servicioDestino_1Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_1Nombre'] );
 $servicioDestino_1Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_1Precio'] );
-$servicioDestino_1Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_1Descuento'] );
 $servicioDestino_2Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_2Nombre'] );
 $servicioDestino_2Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_2Precio'] );
-$servicioDestino_2Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_2Descuento'] );
 $servicioDestino_3Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_3Nombre'] );
 $servicioDestino_3Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_3Precio'] );
-$servicioDestino_3Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_3Descuento'] );
 $servicioAtaud_1Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_1Nombre'] );
 $servicioAtaud_1Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_1Precio'] );
-$servicioAtaud_1Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_1Descuento'] );
 $servicioAtaud_2Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_2Nombre'] );
 $servicioAtaud_2Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_2Precio'] );
-$servicioAtaud_2Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_2Descuento'] );
 $servicioAtaud_3Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_3Nombre'] );
 $servicioAtaud_3Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_3Precio'] );
-$servicioAtaud_3Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_3Descuento'] );
 $servicioAtaudEcologico_1Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_1Nombre'] );
 $servicioAtaudEcologico_1Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_1Precio'] );
-$servicioAtaudEcologico_1Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_1Descuento'] );
 $servicioAtaudEcologico_2Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_2Nombre'] );
 $servicioAtaudEcologico_2Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_2Precio'] );
-$servicioAtaudEcologico_2Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_2Descuento'] );
 $servicioAtaudEcologico_3Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_3Nombre'] );
 $servicioAtaudEcologico_3Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_3Precio'] );
-$servicioAtaudEcologico_3Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_3Descuento'] );
 $servicioVelatorioNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioNombre'] );
 $servicioVelatorioPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioPrecio'] );
-$servicioVelatorioDescuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioDescuento'] );
 
 $servicioVelatorioNoNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioNoNombre'] );
 $servicioVelatorioNoPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioNoPrecio'] );
-$servicioVelatorioNoDescuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioNoDescuento'] );
 
 $servicioDespedida_1Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_1Nombre'] );
 $servicioDespedida_1Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_1Precio'] );
-$servicioDespedida_1Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_1Descuento'] );
 $servicioDespedida_2Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_2Nombre'] );
 $servicioDespedida_2Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_2Precio'] );
-$servicioDespedida_2Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_2Descuento'] );
 $servicioDespedida_3Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_3Nombre'] );
 $servicioDespedida_3Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_3Precio'] );
-$servicioDespedida_3Descuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_3Descuento'] );
 
 $servicioPrecioBaseComentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioPrecioBaseComentario'] );
 $servicioDestino_1Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDestino_1Comentario'] );
@@ -105,6 +91,8 @@ $servicioDespedida_2Comentario = wp_kses_post( $_POST[$this->plugin_name . '_ser
 $servicioDespedida_3Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDespedida_3Comentario'] );
 
 $servicioPosiblesExtras = wp_kses_post( $_POST[$this->plugin_name . '_servicioPosiblesExtras'] );
+
+
 
 update_post_meta($post_id, $this->plugin_name . '_servicioNombre', $servicioNombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioEmpresa', $servicioEmpresa);
@@ -140,48 +128,33 @@ update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBaseDescuento', 
 update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBaseComentario', $servicioPrecioBaseComentario);
 update_post_meta($post_id, $this->plugin_name . '_servicioDestino_1Nombre', $servicioDestino_1Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioDestino_1Precio', $servicioDestino_1Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_1Descuento', $servicioDestino_1Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioDestino_2Nombre', $servicioDestino_2Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioDestino_2Precio', $servicioDestino_2Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_2Descuento', $servicioDestino_2Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioDestino_3Nombre', $servicioDestino_3Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioDestino_3Precio', $servicioDestino_3Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_3Descuento', $servicioDestino_3Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_1Nombre', $servicioAtaud_1Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_1Precio', $servicioAtaud_1Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_1Descuento', $servicioAtaud_1Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_2Nombre', $servicioAtaud_2Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_2Precio', $servicioAtaud_2Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_2Descuento', $servicioAtaud_2Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_3Nombre', $servicioAtaud_3Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_3Precio', $servicioAtaud_3Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_3Descuento', $servicioAtaud_3Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_1Nombre', $servicioAtaudEcologico_1Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_1Precio', $servicioAtaudEcologico_1Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_1Descuento', $servicioAtaudEcologico_1Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_2Nombre', $servicioAtaudEcologico_2Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_2Precio', $servicioAtaudEcologico_2Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_2Descuento', $servicioAtaudEcologico_2Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_3Nombre', $servicioAtaudEcologico_3Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_3Precio', $servicioAtaudEcologico_3Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_3Descuento', $servicioAtaudEcologico_3Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioNombre', $servicioVelatorioNombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioPrecio', $servicioVelatorioPrecio);
-update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioDescuento', $servicioVelatorioDescuento);
-
 update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioNoNombre', $servicioVelatorioNoNombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioNoPrecio', $servicioVelatorioNoPrecio);
-update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioNoDescuento', $servicioVelatorioNoDescuento);
-
 update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_1Nombre', $servicioDespedida_1Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_1Precio', $servicioDespedida_1Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_1Descuento', $servicioDespedida_1Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_2Nombre', $servicioDespedida_2Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_2Precio', $servicioDespedida_2Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_2Descuento', $servicioDespedida_2Descuento);
 update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3Nombre', $servicioDespedida_3Nombre);
 update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3Precio', $servicioDespedida_3Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3Descuento', $servicioDespedida_3Descuento);
+
 update_post_meta($post_id, $this->plugin_name . '_servicioDestino_1Comentario', $servicioDestino_1Comentario);
 update_post_meta($post_id, $this->plugin_name . '_servicioDestino_2Comentario', $servicioDestino_2Comentario);
 update_post_meta($post_id, $this->plugin_name . '_servicioDestino_3Comentario', $servicioDestino_3Comentario);
@@ -192,11 +165,8 @@ update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_1Coment
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_2Comentario', $servicioAtaudEcologico_2Comentario);
 update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_3Comentario', $servicioAtaudEcologico_3Comentario);
 update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioComentario', $servicioVelatorioComentario);
-
 update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioNoComentario', $servicioVelatorioNoComentario);
-
 update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_1Comentario', $servicioDespedida_1Comentario);
 update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_2Comentario', $servicioDespedida_2Comentario);
 update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3Comentario', $servicioDespedida_3Comentario);
-
 update_post_meta($post_id, $this->plugin_name . '_servicioPosiblesExtras', $servicioPosiblesExtras);

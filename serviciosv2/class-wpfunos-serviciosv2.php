@@ -20,6 +20,7 @@ class Wpfunos_ServiciosV2 {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
     add_shortcode( 'wpfunos-nuevos-resultados', array( $this, 'wpfunosServiciosResultadosShortcode' ));
+    add_shortcode( 'wpfunos-nuevos-datos', array( $this, 'wpfunosServiciosDatosShortcode' ));
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-serviciosv2.css', array(), $this->version, 'all' );
@@ -30,8 +31,27 @@ class Wpfunos_ServiciosV2 {
   }
 
   public function wpfunosServiciosResultadosShortcode($atts, $content = ""){
-    global $wp;
-    echo do_shortcode( '[gmw_ajax_form form="6"]' );
+    echo do_shortcode( '[gmw_ajax_form search_form="6"]' );
+  }
+
+  public function wpfunosServiciosDatosShortcode($atts, $content = ""){
+    echo do_shortcode( '[gmw_ajax_form search_results="6"]' );
+    //require 'js/' . $this->plugin_name . '-serviciosv2.js';
+
+    $popup_id = '56948'; //your Popup ID.
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $popup_id ); //insert the popup to the current page
+
+    ?><script>
+    jQuery( document ).ready( function() { //wait for the page to load
+      /* You can do more here, this will just show the popup on refresh of page, but hey this is JQuery so you can do more things here depending on your condition to trigger the popup */
+      jQuery( window ).on( 'elementor/frontend/init', function() { //wait for elementor to load
+        elementorFrontend.on( 'components:init', function() { //wait for elementor pro to load
+          elementorFrontend.documentsManager.documents[<?php echo $popup_id ;?>].showModal(); //show the popup
+        } );
+      } );
+    } );
+    </script>;
+    <?php
 
   }
 
