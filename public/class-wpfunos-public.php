@@ -258,17 +258,16 @@ class Wpfunos_Public {
         }
       }
     }
-
+    
     if( "AsesoramientoGratuito" === $form_name || "TeLlamamosGratis" === $form_name || "FormularioDatos" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
         //if( substr($field['value'],0,3) != '+34' ){
         //  $ajax_handler->add_error( $field['id'], 'El número de teléfono debe empezar por +34' );
         //}
-        //$tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
+        $tel =  $field['value'] ;
         //if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
         //  $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
         //}
-        $tel = ( strlen ( $field['value'] ) > 9 ) return;
         if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
           $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
         }

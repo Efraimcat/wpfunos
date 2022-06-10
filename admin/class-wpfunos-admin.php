@@ -772,15 +772,13 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-excep-prov-fields.php';
   }
-saveprecio_serv_wpfunosMetaBoxData
-public function saveprecio_serv_wpfunosMetaBoxData( $post_id ){
-  if (! isset($_POST[$this->plugin_name . '_precio_serv_wpfunos_meta_box_nonce'])) return;
-  if (! wp_verify_nonce($_POST[$this->plugin_name . '_precio_serv_wpfunos_meta_box_nonce'], $this->plugin_name . '_precio_serv_wpfunos_meta_box')) return;
-  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-  if (! current_user_can('manage_options')) return;
-  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-fields.php';
-}
-
+  public function saveprecio_serv_wpfunosMetaBoxData( $post_id ){
+    if (! isset($_POST[$this->plugin_name . '_precio_serv_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST[$this->plugin_name . '_precio_serv_wpfunos_meta_box_nonce'], $this->plugin_name . '_precio_serv_wpfunos_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (! current_user_can('manage_options')) return;
+    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-fields.php';
+  }
 
   /*********************************/
   /*****  CPT                 ******/
