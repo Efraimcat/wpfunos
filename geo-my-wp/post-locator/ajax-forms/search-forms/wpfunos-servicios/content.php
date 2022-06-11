@@ -87,6 +87,14 @@
 </div>
 
 <script>
+
+jQuery( document ).ready( function() {
+	// Fires whenever an AJAX form is submitted.
+	$( 'div.gmw-ajax-results-wrapper' ).on( 'update_results', function() {
+		alert('1');
+	});
+});
+
 function Boton1() {
 	document.getElementById("gmw-cf-resp1-6").value = "1" ;
 	document.querySelector("label[for='gmw-cf-resp1-6']").textContent = "Entierro";
@@ -149,7 +157,7 @@ function Boton7() {
 function Boton8() {
 	document.getElementById("gmw-cf-resp4-6").value = "1"
 	document.querySelector("label[for='gmw-cf-resp4-6']").textContent = "Sin ceremonia";
-	$('#wpfunos-search-form-submit').show();
+	$('#gmw-submit-6').show();
 	$('#wpfunos-pregunta-1').hide();
 	$('#wpfunos-pregunta-2').hide();
 	$('#wpfunos-pregunta-3').hide();
@@ -164,7 +172,7 @@ function Boton8() {
 function Boton9() {
 	document.getElementById("gmw-cf-resp4-6").value = "2"
 	document.querySelector("label[for='gmw-cf-resp4-6']").textContent = "Solo sala";
-	$('#wpfunos-search-form-submit').show();
+	$('#gmw-submit-6').show();
 	$('#wpfunos-pregunta-1').hide();
 	$('#wpfunos-pregunta-2').hide();
 	$('#wpfunos-pregunta-3').hide();
@@ -179,7 +187,7 @@ function Boton9() {
 function Boton10() {
 	document.getElementById("gmw-cf-resp4-6").value = "3"
 	document.querySelector("label[for='gmw-cf-resp4-6']").textContent = "Ceremonia civil";
-	$('#wpfunos-search-form-submit').show();
+	$('#gmw-submit-6').show();
 	$('#wpfunos-pregunta-1').hide();
 	$('#wpfunos-pregunta-2').hide();
 	$('#wpfunos-pregunta-3').hide();
@@ -194,7 +202,7 @@ function Boton10() {
 function Boton11() {
 	document.getElementById("gmw-cf-resp4-6").value = "4"
 	document.querySelector("label[for='gmw-cf-resp4-6']").textContent = "Ceremonia religiosa";
-	$('#wpfunos-search-form-submit').show();
+	$('#gmw-submit-6').show();
 	$('#wpfunos-pregunta-1').hide();
 	$('#wpfunos-pregunta-2').hide();
 	$('#wpfunos-pregunta-3').hide();

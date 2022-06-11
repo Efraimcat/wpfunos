@@ -12,19 +12,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$servicioPrecioNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioNombre'] );
-$servicioPrecioID = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioID'] );
+
 $servicioPrecioValor = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioValor'] );
+$servicioPrecioID = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioID'] );
+$servicioPrecioNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioNombre'] );
+$servicioPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecio'] );
 $resp1 = sanitize_text_field( $_POST['resp1'] );
-$resp1 = sanitize_text_field( $_POST['resp2'] );
-$resp1 = sanitize_text_field( $_POST['resp3'] );
-$resp1 = sanitize_text_field( $_POST['resp4'] );
+$resp2 = sanitize_text_field( $_POST['resp2'] );
+$resp3 = sanitize_text_field( $_POST['resp3'] );
+$resp4 = sanitize_text_field( $_POST['resp4'] );
 
-
-update_post_meta($post_id, $this->plugin_name . '_servicioPrecioNombre', $servicioPrecioNombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioPrecioID', $servicioPrecioID);
 update_post_meta($post_id, $this->plugin_name . '_servicioPrecioValor', $servicioPrecioValor);
+update_post_meta($post_id, $this->plugin_name . '_servicioPrecioID', $servicioPrecioID);
+update_post_meta($post_id, $this->plugin_name . '_servicioPrecioNombre', $servicioPrecioNombre);
+update_post_meta($post_id, $this->plugin_name . '_servicioPrecio', $servicioPrecio);
 update_post_meta($post_id, 'resp1', $resp1);
-update_post_meta($post_id, 'resp2', $resp1);
-update_post_meta($post_id, 'resp3', $resp1);
-update_post_meta($post_id, 'resp4', $resp1);
+update_post_meta($post_id, 'resp2', $resp2);
+update_post_meta($post_id, 'resp3', $resp3);
+update_post_meta($post_id, 'resp4', $resp4);

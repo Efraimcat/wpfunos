@@ -12,457 +12,430 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$servicioNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioNombre'] );
-$servicioEmpresa = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEmpresa'] );
-$servicioPoblacion = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPoblacion'] );
-$servicioProvincia = sanitize_text_field( $_POST[$this->plugin_name . '_servicioProvincia'] );
-$servicioDireccion = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDireccion'] );
-$servicioPrecioConfirmado = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioConfirmado'] );
-$servicioLogo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioLogo'] );
-$servicioEmail = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEmail'] );
-$servicioTelefono = sanitize_text_field( $_POST[$this->plugin_name . '_servicioTelefono'] );
-$servicioMapa = sanitize_text_field( $_POST[$this->plugin_name . '_servicioMapa'] );
-$servicioLead = sanitize_text_field( $_POST[$this->plugin_name . '_servicioLead'] );
-$servicioLead2 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioLead2'] );
-$servicioDescuentoGenerico = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDescuentoGenerico'] );
-$servicioValoracion = sanitize_text_field( $_POST[$this->plugin_name . '_servicioValoracion'] );
-$servicioActivo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioActivo'] );
+?>
+<div class="servicios_wpfunos_containers"  id="inicio">
+  <ul class="servicios_wpfunos_data_metabox">
+    <li class="servicios_wpfunos_list">
+      <table>
+        <tr>
+          <td><?php esc_html_e('Nombre', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Empresa', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Población', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Provincia', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Direccion', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioNombre','name' => $this->plugin_name . '_servicioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioEmpresa','name' => $this->plugin_name . '_servicioEmpresa','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20   ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPoblacion','name' => $this->plugin_name . '_servicioPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioProvincia','name' => $this->plugin_name . '_servicioProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDireccion','name' => $this->plugin_name . '_servicioDireccion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+        </tr>
+      </table>
+    </li>
+    <hr/>
+    <li class="servicios_wpfunos_list">
+      <table>
+        <tr>
+          <td><?php esc_html_e('Email', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Teléfono', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Valoración', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioEmail','name' => $this->plugin_name . '_servicioEmail','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioTelefono','name' => $this->plugin_name . '_servicioTelefono','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  )); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioValoracion','name' => $this->plugin_name . '_servicioValoracion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+        </tr>
+      </table>
+    </li>
+    <hr/>
+    <li class="servicios_wpfunos_list">
+      <table>
+        <tr>
+          <td colspan="2"><?php esc_html_e('Logo', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td colspan="2"><?php esc_html_e('Imagen Promo 200x90', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioLogo','name' => $this->plugin_name . '_servicioLogo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioLogo', true ), 'full' ); ?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenPromo','name' => $this->plugin_name . '_servicioImagenPromo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 14 )); ?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenPromo', true ),'full' ); ?></td>
+        </tr>
+      </table>
+    </li>
 
-$servicioBotonesLlamar = sanitize_text_field( $_POST[$this->plugin_name . '_servicioBotonesLlamar'] );
-$servicioBotonPresupuesto = sanitize_text_field( $_POST[$this->plugin_name . '_servicioBotonPresupuesto'] );
-$servicioTextoPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioTextoPrecio'] );
-$servicioImagenPromo = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenPromo'] );
-$Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
+    <hr/>
+    <li class="servicios_wpfunos_list">
+      <table>
+        <tr>
+          <td colspan="2"><?php esc_html_e('Imagen 1', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td colspan="2"><?php esc_html_e('Imagen 2', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td colspan="2"><?php esc_html_e('Imagen 3', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenSlider1','name' => $this->plugin_name . '_servicioImagenSlider1','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenSlider1', true ), array('150', '150') ); ?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenSlider2','name' => $this->plugin_name . '_servicioImagenSlider2','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenSlider2', true ), array('150', '150') ); ?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenSlider3','name' => $this->plugin_name . '_servicioImagenSlider3','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenSlider3', true ), array('150', '150') ); ?></td>
+        </tr>
+      </table>
+    </li>
 
-$servicioImagenSlider1 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider1'] );
-$servicioImagenSlider2 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider2'] );
-$servicioImagenSlider3 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider3'] );
-$servicioImagenSlider4 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider4'] );
-$servicioImagenSlider5 = sanitize_text_field( $_POST[$this->plugin_name . '_servicioImagenSlider5'] );
-
-$servicioPackNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPackNombre'] );
-$servicioPrecioBase = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioBase'] );
-$servicioPrecioBaseDescuento = sanitize_text_field( $_POST[$this->plugin_name . '_servicioPrecioBaseDescuento'] );
-$servicioDestino_1Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_1Nombre'] );
-$servicioDestino_1Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_1Precio'] );
-$servicioDestino_2Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_2Nombre'] );
-$servicioDestino_2Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_2Precio'] );
-$servicioDestino_3Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_3Nombre'] );
-$servicioDestino_3Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDestino_3Precio'] );
-$servicioAtaud_1Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_1Nombre'] );
-$servicioAtaud_1Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_1Precio'] );
-$servicioAtaud_2Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_2Nombre'] );
-$servicioAtaud_2Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_2Precio'] );
-$servicioAtaud_3Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_3Nombre'] );
-$servicioAtaud_3Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaud_3Precio'] );
-$servicioAtaudEcologico_1Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_1Nombre'] );
-$servicioAtaudEcologico_1Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_1Precio'] );
-$servicioAtaudEcologico_2Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_2Nombre'] );
-$servicioAtaudEcologico_2Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_2Precio'] );
-$servicioAtaudEcologico_3Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_3Nombre'] );
-$servicioAtaudEcologico_3Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioAtaudEcologico_3Precio'] );
-$servicioVelatorioNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioNombre'] );
-$servicioVelatorioPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioPrecio'] );
-
-$servicioVelatorioNoNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioNoNombre'] );
-$servicioVelatorioNoPrecio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioVelatorioNoPrecio'] );
-
-$servicioDespedida_1Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_1Nombre'] );
-$servicioDespedida_1Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_1Precio'] );
-$servicioDespedida_2Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_2Nombre'] );
-$servicioDespedida_2Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_2Precio'] );
-$servicioDespedida_3Nombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_3Nombre'] );
-$servicioDespedida_3Precio = sanitize_text_field( $_POST[$this->plugin_name . '_servicioDespedida_3Precio'] );
-
-$servicioPrecioBaseComentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioPrecioBaseComentario'] );
-$servicioDestino_1Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDestino_1Comentario'] );
-$servicioDestino_2Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDestino_2Comentario'] );
-$servicioDestino_3Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDestino_3Comentario'] );
-$servicioAtaud_1Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioAtaud_1Comentario'] );
-$servicioAtaud_2Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioAtaud_2Comentario'] );
-$servicioAtaud_3Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioAtaud_3Comentario'] );
-$servicioAtaudEcologico_1Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioAtaudEcologico_1Comentario'] );
-$servicioAtaudEcologico_2Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioAtaudEcologico_2Comentario'] );
-$servicioAtaudEcologico_3Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioAtaudEcologico_3Comentario'] );
-$servicioVelatorioComentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioVelatorioComentario'] );
-$servicioVelatorioNoComentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioVelatorioNoComentario'] );
-$servicioDespedida_1Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDespedida_1Comentario'] );
-$servicioDespedida_2Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDespedida_2Comentario'] );
-$servicioDespedida_3Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioDespedida_3Comentario'] );
-
-$servicioPosiblesExtras = wp_kses_post( $_POST[$this->plugin_name . '_servicioPosiblesExtras'] );
-
-//Entierro + Ataúd económico + Sin velatorio + Sin ceremonia
-$servicioEESS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEESS'] );
-$servicioEESS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEESS_Comentario'] );
-//Entierro + Ataúd económico + Sin velatorio + Con ceremonia solo sala
-$servicioEESO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEESO'] );
-$servicioEESO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEESO_Comentario'] );
-//Entierro + Ataúd económico + Sin velatorio + Con ceremonia civil
-$servicioEESC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEESC'] );
-$servicioEESC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEESC_Comentario'] );
-//Entierro + Ataúd económico + Sin velatorio + Con ceremonia religiosa
-$servicioEESR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEESR'] );
-$servicioEESR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEESR_Comentario'] );
-//Entierro + Ataúd económico + Con velatorio + Sin ceremonia
-$servicioEEVS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEEVS'] );
-$servicioEEVS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEEVS_Comentario'] );
-//ntierro + Ataúd económico + Con velatorio + Con ceremonia solo sala
-$servicioEEVO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEEVO'] );
-$servicioEEVO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEEVO_Comentario'] );
-//Entierro + Ataúd económico + Con velatorio + Con ceremonia civil
-$servicioEEVC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEEVC'] );
-$servicioEEVC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEEVC_Comentario'] );
-//Entierro + Ataúd económico + Con velatorio + Con ceremonia religiosa
-$servicioEEVR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEEVR'] );
-$servicioEEVR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEEVR_Comentario'] );
-//Entierro + Ataúd medio + Sin velatorio + Sin ceremonia
-$servicioEMSS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEMSS'] );
-$servicioEMSS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEMSS_Comentario'] );
-//Entierro + Ataúd medio + Sin velatorio + Con ceremonia solo sala
-$servicioEMSO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEMSO'] );
-$servicioEMSO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEMSO_Comentario'] );
-//Entierro + Ataúd medio + Sin velatorio + Con ceremonia civil
-$servicioEMSC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEMSC'] );
-$servicioEMSC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEMSC_Comentario'] );
-//Entierro + Ataúd medio + Sin velatorio + Con ceremonia religiosa
-$servicioEMSR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEMSR'] );
-$servicioEMSR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEMSR_Comentario'] );
-//Entierro + Ataúd medio + Con velatorio + Sin ceremonia
-$servicioEMVS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEMVS'] );
-$servicioEMVS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEMVS_Comentario'] );
-//Entierro + Ataúd medio + Con velatorio + Con ceremonia solo sala
-$servicioEMVO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEMVO'] );
-$servicioEMVO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEMVO_Comentario'] );
-//Entierro + Ataúd medio + Con velatorio + Con ceremonia civil
-$servicioEMVC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEMVC'] );
-$servicioEMVC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEMVC_Comentario'] );
-//Entierro + Ataúd medio + Con velatorio + Con ceremonia religiosa
-$servicioEMVR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEMVR'] );
-$servicioEMVR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEMVR_Comentario'] );
-//Entierro + Ataúd premium + Sin velatorio + Sin ceremonia
-$servicioEPSS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEPSS'] );
-$servicioEPSS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEPSS_Comentario'] );
-//Entierro + Ataúd premium + Sin velatorio + Con ceremonia solo sala
-$servicioEPSO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEPSO'] );
-$servicioEPSO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEPSO_Comentario'] );
-//Entierro + Ataúd premium + Sin velatorio + Con ceremonia civil
-$servicioEPSC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEPSC'] );
-$servicioEPSC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEPSC_Comentario'] );
-//Entierro + Ataúd premium + Sin velatorio + Con ceremonia religiosa
-$servicioEPSR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEPSR'] );
-$servicioEPSR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEPSR_Comentario'] );
-//Entierro + Ataúd premium + Con velatorio + Sin ceremonia
-$servicioEPVS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEPVS'] );
-$servicioEPVS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEPVS_Comentario'] );
-//Entierro + Ataúd premium + Con velatorio + Con ceremonia solo sala
-$servicioEPVO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEPVO'] );
-$servicioEPVO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEPVO_Comentario'] );
-//Entierro + Ataúd premium + Con velatorio + Con ceremonia civil
-$servicioEPVC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEPVC'] );
-$servicioEPVC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEPVC_Comentario'] );
-//Entierro + Ataúd premium + Con velatorio + Con ceremonia religiosa
-$servicioEPVR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioEPVR'] );
-$servicioEPVR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioEPVR_Comentario'] );
-//Incineración + Ataúd económico + Sin velatorio + Sin ceremonia
-$servicioIESS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIESS'] );
-$servicioIESS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIESS_Comentario'] );
-//Incineración + Ataúd económico + Sin velatorio + Con ceremonia solo sala
-$servicioIESO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIESO'] );
-$servicioIESO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIESO_Comentario'] );
-//Incineración + Ataúd económico + Sin velatorio + Con ceremonia civil
-$servicioIESC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIESC'] );
-$servicioIESC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIESC_Comentario'] );
-//Incineración + Ataúd económico + Sin velatorio + Con ceremonia religiosa
-$servicioIESR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIESR'] );
-$servicioIESR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIESR_Comentario'] );
-//Incineración + Ataúd económico + Con velatorio + Sin ceremonia
-$servicioIEVS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIEVS'] );
-$servicioIEVS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIEVS_Comentario'] );
-//Incineración + Ataúd económico + Con velatorio + Con ceremonia solo sala
-$servicioIEVO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIEVO'] );
-$servicioIEVO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIEVO_Comentario'] );
-//Incineración + Ataúd económico + Con velatorio + Con ceremonia civil
-$servicioIEVC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIEVC'] );
-$servicioIEVC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIEVC_Comentario'] );
-//Incineración + Ataúd económico + Con velatorio + Con ceremonia religiosa
-$servicioIEVR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIEVR'] );
-$servicioIEVR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIEVR_Comentario'] );
-//Incineración + Ataúd medio + Sin velatorio + Sin ceremonia
-$servicioIMSS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIMSS'] );
-$servicioIMSS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIMSS_Comentario'] );
-//Incineración + Ataúd medio + Sin velatorio + Con ceremonia solo sala
-$servicioIMSO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIMSO'] );
-$servicioIMSO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIMSO_Comentario'] );
-//Incineración + Ataúd medio + Sin velatorio + Con ceremonia civil
-$servicioIMSC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIMSC'] );
-$servicioIMSC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIMSC_Comentario'] );
-//Incineración + Ataúd medio + Sin velatorio + Con ceremonia religiosa
-$servicioIMSR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIMSR'] );
-$servicioIMSR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIMSR_Comentario'] );
-//Incineración + Ataúd medio + Con velatorio + Sin ceremonia
-$servicioIMVS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIMVS'] );
-$servicioIMVS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIMVS_Comentario'] );
-//Incineración + Ataúd medio + Con velatorio + Con ceremonia solo sala
-$servicioIMVO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIMVO'] );
-$servicioIMVO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIMVO_Comentario'] );
-//Incineración + Ataúd medio + Con velatorio + Con ceremonia civil
-$servicioIMVC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIMVC'] );
-$servicioIMVC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIMVC_Comentario'] );
-//Incineración + Ataúd medio + Con velatorio + Con ceremonia religiosa
-$servicioIMVR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIMVR'] );
-$servicioIMVR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIMVR_Comentario'] );
-//Incineración + Ataúd premium + Sin velatorio + Sin ceremonia
-$servicioIPSS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIPSS'] );
-$servicioIPSS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIPSS_Comentario'] );
-//Incineración + Ataúd premium + Sin velatorio + Con ceremonia solo sala
-$servicioIPSO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIPSO'] );
-$servicioIPSO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIPSO_Comentario'] );
-//Incineración + Ataúd premium + Sin velatorio + Con ceremonia civil
-$servicioIPSC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIPSC'] );
-$servicioIPSC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIPSC_Comentario'] );
-//Incineración + Ataúd premium + Sin velatorio + Con ceremonia religiosa
-$servicioIPSR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIPSR'] );
-$servicioIPSR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIPSR_Comentario'] );
-//Incineración + Ataúd premium + Con velatorio + Sin ceremonia
-$servicioIPVS = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIPVS'] );
-$servicioIPVS_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIPVS_Comentario'] );
-//Incineración + Ataúd premium + Con velatorio + Con ceremonia solo sala
-$servicioIPVO = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIPVO'] );
-$servicioIPVO_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIPVO_Comentario'] );
-//Incineración + Ataúd premium + Con velatorio + Con ceremonia civil
-$servicioIPVC = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIPVC'] );
-$servicioIPVC_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIPVC_Comentario'] );
-//Incineración + Ataúd premium + Con velatorio + Con ceremonia religiosa
-$servicioIPVR = sanitize_text_field( $_POST[$this->plugin_name . '_servicioIPVR'] );
-$servicioIPVR_Comentario = wp_kses_post( $_POST[$this->plugin_name . '_servicioIPVR_Comentario'] );
-
-
-
-
-
-
-
-update_post_meta($post_id, $this->plugin_name . '_servicioNombre', $servicioNombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioEmpresa', $servicioEmpresa);
-update_post_meta($post_id, $this->plugin_name . '_servicioPoblacion', $servicioPoblacion);
-update_post_meta($post_id, $this->plugin_name . '_servicioProvincia', $servicioProvincia);
-update_post_meta($post_id, $this->plugin_name . '_servicioDireccion', $servicioDireccion);
-update_post_meta($post_id, $this->plugin_name . '_servicioPrecioConfirmado', $servicioPrecioConfirmado);
-update_post_meta($post_id, $this->plugin_name . '_servicioLogo', $servicioLogo);
-update_post_meta($post_id, $this->plugin_name . '_servicioEmail', $servicioEmail);
-update_post_meta($post_id, $this->plugin_name . '_servicioTelefono', $servicioTelefono);
-update_post_meta($post_id, $this->plugin_name . '_servicioMapa', $servicioMapa);
-update_post_meta($post_id, $this->plugin_name . '_servicioLead', $servicioLead);
-update_post_meta($post_id, $this->plugin_name . '_servicioLead2', $servicioLead2);
-update_post_meta($post_id, $this->plugin_name . '_servicioDescuentoGenerico', $servicioDescuentoGenerico);
-update_post_meta($post_id, $this->plugin_name . '_servicioValoracion', $servicioValoracion);
-update_post_meta($post_id, $this->plugin_name . '_servicioActivo', $servicioActivo);
-
-update_post_meta($post_id, $this->plugin_name . '_servicioBotonesLlamar', $servicioBotonesLlamar);
-update_post_meta($post_id, $this->plugin_name . '_servicioBotonPresupuesto', $servicioBotonPresupuesto);
-update_post_meta($post_id, $this->plugin_name . '_servicioTextoPrecio', $servicioTextoPrecio);
-update_post_meta($post_id, $this->plugin_name . '_servicioImagenPromo', $servicioImagenPromo);
-update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
-
-update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider1', $servicioImagenSlider1);
-update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider2', $servicioImagenSlider2);
-update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider3', $servicioImagenSlider3);
-update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider4', $servicioImagenSlider4);
-update_post_meta($post_id, $this->plugin_name . '_servicioImagenSlider5', $servicioImagenSlider5);
-
-update_post_meta($post_id, $this->plugin_name . '_servicioPackNombre', $servicioPackNombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBase', $servicioPrecioBase);
-update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBaseDescuento', $servicioPrecioBaseDescuento);
-update_post_meta($post_id, $this->plugin_name . '_servicioPrecioBaseComentario', $servicioPrecioBaseComentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_1Nombre', $servicioDestino_1Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_1Precio', $servicioDestino_1Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_2Nombre', $servicioDestino_2Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_2Precio', $servicioDestino_2Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_3Nombre', $servicioDestino_3Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_3Precio', $servicioDestino_3Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_1Nombre', $servicioAtaud_1Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_1Precio', $servicioAtaud_1Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_2Nombre', $servicioAtaud_2Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_2Precio', $servicioAtaud_2Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_3Nombre', $servicioAtaud_3Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_3Precio', $servicioAtaud_3Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_1Nombre', $servicioAtaudEcologico_1Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_1Precio', $servicioAtaudEcologico_1Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_2Nombre', $servicioAtaudEcologico_2Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_2Precio', $servicioAtaudEcologico_2Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_3Nombre', $servicioAtaudEcologico_3Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_3Precio', $servicioAtaudEcologico_3Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioNombre', $servicioVelatorioNombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioPrecio', $servicioVelatorioPrecio);
-update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioNoNombre', $servicioVelatorioNoNombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioNoPrecio', $servicioVelatorioNoPrecio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_1Nombre', $servicioDespedida_1Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_1Precio', $servicioDespedida_1Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_2Nombre', $servicioDespedida_2Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_2Precio', $servicioDespedida_2Precio);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3Nombre', $servicioDespedida_3Nombre);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3Precio', $servicioDespedida_3Precio);
-
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_1Comentario', $servicioDestino_1Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_2Comentario', $servicioDestino_2Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioDestino_3Comentario', $servicioDestino_3Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_1Comentario', $servicioAtaud_1Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_2Comentario', $servicioAtaud_2Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaud_3Comentario', $servicioAtaud_3Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_1Comentario', $servicioAtaudEcologico_1Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_2Comentario', $servicioAtaudEcologico_2Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioAtaudEcologico_3Comentario', $servicioAtaudEcologico_3Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioComentario', $servicioVelatorioComentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioVelatorioNoComentario', $servicioVelatorioNoComentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_1Comentario', $servicioDespedida_1Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_2Comentario', $servicioDespedida_2Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioDespedida_3Comentario', $servicioDespedida_3Comentario);
-update_post_meta($post_id, $this->plugin_name . '_servicioPosiblesExtras', $servicioPosiblesExtras);
+    <hr/>
+    <li class="servicios_wpfunos_list">
+      <table>
+        <tr>
+          <td><?php esc_html_e('Nombre del pack', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Texto precio', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Descuento genérico', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPackNombre','name' => $this->plugin_name . '_servicioPackNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 )); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioTextoPrecio','name' => $this->plugin_name . '_servicioTextoPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 )); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDescuentoGenerico','name' => $this->plugin_name . '_servicioDescuentoGenerico','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?>%</td>
+        </tr>
+      </table>
+    </li>
+    <hr/>
+    <li class="servicios_wpfunos_list">
+      <table style="width:100%">
+        <tr>
+          <td style="width:20%"><?php esc_html_e('Lead (entrada de datos)', 'wpfunos');?></td>
+          <td style="width:20%"><?php esc_html_e('Lead (resultado busqueda)', 'wpfunos');?></td>
+          <td style="width:20%"><?php esc_html_e('Precio confirmado', 'wpfunos');?></td>
+          <td style="width:20%"><?php esc_html_e('Activo', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioLead','name' => $this->plugin_name . '_servicioLead','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioLead2','name' => $this->plugin_name . '_servicioLead2','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioPrecioConfirmado','name' => $this->plugin_name . '_servicioPrecioConfirmado','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioActivo','name' => $this->plugin_name . '_servicioActivo','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+        </tr>
+      </table>
+    </li>
+    <li class="servicios_wpfunos_list">
+      <table style="width:100%">
+        <tr>
+          <td style="width:20%"><?php esc_html_e('Botones llamar', 'wpfunos');?></td>
+          <td style="width:20%"><?php esc_html_e('Botón presupuesto', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioBotonesLlamar','name' => $this->plugin_name . '_servicioBotonesLlamar','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioBotonPresupuesto','name' => $this->plugin_name . '_servicioBotonPresupuesto','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+        </tr>
+      </table>
+    </li>
+    <hr/>
+    <h3><?php esc_html_e('PRECIO BASE', 'wpfunos');?></h3>
+    <?php  //Precio base?>
+    <li class="servicios_wpfunos_list">
+      <table>
+        <tr>
+          <td></td><td>Precio</td><td style="width:5px;"></td><td>Descuento</td>
+        </tr>
+        <tr>
+          <td>Precio Base</td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPrecioBase','name' => $this->plugin_name . '_servicioPrecioBase','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+          <td></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPrecioBaseDescuento','name' => $this->plugin_name . '_servicioPrecioBaseDescuento','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>%</td>
+        </tr>
+      </table>
+    </li>
+    <hr/>
+    <h3><?php esc_html_e('DESTINO', 'wpfunos');?></h3>
+    <table style="width:100%">
+      <tr>
+        <td>Tipo</td><td>Nombre</td><td>Precio</td>
+      </tr>
+      <tr>
+        <td>Entierro</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_1Nombre','name' => $this->plugin_name . '_servicioDestino_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_1Precio','name' => $this->plugin_name . '_servicioDestino_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Incineración</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_2Nombre','name' => $this->plugin_name . '_servicioDestino_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_2Precio','name' => $this->plugin_name . '_servicioDestino_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Traslado</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_3Nombre','name' => $this->plugin_name . '_servicioDestino_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_3Precio','name' => $this->plugin_name . '_servicioDestino_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+    </table>
+    <hr/>
+    <h3><?php esc_html_e('ATAÚD', 'wpfunos');?></h3>
+    <table style="width:100%">
+      <tr>
+        <td>Tipo</td><td>Nombre</td><td>Precio</td>
+      </tr>
+      <tr>
+        <td>Económico</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_1Nombre','name' => $this->plugin_name . '_servicioAtaud_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_1Precio','name' => $this->plugin_name . '_servicioAtaud_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Medio</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_2Nombre','name' => $this->plugin_name . '_servicioAtaud_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_2Precio','name' => $this->plugin_name . '_servicioAtaud_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Premium</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_3Nombre','name' => $this->plugin_name . '_servicioAtaud_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_3Precio','name' => $this->plugin_name . '_servicioAtaud_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Económico (Ecológico)</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_1Nombre','name' => $this->plugin_name . '_servicioAtaudEcologico_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_1Precio','name' => $this->plugin_name . '_servicioAtaudEcologico_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Medio (Ecológico)</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_2Nombre','name' => $this->plugin_name . '_servicioAtaudEcologico_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_2Precio','name' => $this->plugin_name . '_servicioAtaudEcologico_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Premium (Ecológico)</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_3Nombre','name' => $this->plugin_name . '_servicioAtaudEcologico_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_3Precio','name' => $this->plugin_name . '_servicioAtaudEcologico_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+    </table>
+    <hr/>
+    <h3><?php esc_html_e('VELATORIO', 'wpfunos');?></h3>
+    <table style="width:100%">
+      <tr>
+        <td>Tipo</td><td>Nombre</td><td>Precio</td>
+      </tr>
+      <tr>
+        <td>Velatorio</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioVelatorioNombre','name' => $this->plugin_name . '_servicioVelatorioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioVelatorioPrecio','name' => $this->plugin_name . '_servicioVelatorioPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Sin</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioVelatorioNoNombre','name' => $this->plugin_name . '_servicioVelatorioNoNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioVelatorioNoPrecio','name' => $this->plugin_name . '_servicioVelatorioNoPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+    </table>
+    <hr/>
+    <h3><?php esc_html_e('DESPEDIDA', 'wpfunos');?></h3>
+    <table style="width:100%">
+      <tr>
+        <td>Tipo</td><td>Nombre</td><td>Precio</td>
+      </tr>
+      <tr>
+        <td>Solo sala</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_1Nombre','name' => $this->plugin_name . '_servicioDespedida_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_1Precio','name' => $this->plugin_name . '_servicioDespedida_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Civil</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_2Nombre','name' => $this->plugin_name . '_servicioDespedida_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_2Precio','name' => $this->plugin_name . '_servicioDespedida_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Religiosa</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_3Nombre','name' => $this->plugin_name . '_servicioDespedida_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_3Precio','name' => $this->plugin_name . '_servicioDespedida_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+    </table>
+    <hr/>
 
 
 
-//Entierro + Ataúd económico + Sin velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioEESS', $servicioEESS);
-update_post_meta($post_id, $this->plugin_name . '_servicioEESS_Comentario', $servicioEESS_Comentario);
-//Entierro + Ataúd económico + Sin velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioEESO', $servicioEESO);
-update_post_meta($post_id, $this->plugin_name . '_servicioEESO_Comentario', $servicioEESO_Comentario);
-//Entierro + Ataúd económico + Sin velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioEESC', $servicioEESC);
-update_post_meta($post_id, $this->plugin_name . '_servicioEESC_Comentario', $servicioEESC_Comentario);
-//Entierro + Ataúd económico + Sin velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioEESR', $servicioEESR);
-update_post_meta($post_id, $this->plugin_name . '_servicioEESR_Comentario', $servicioEESR_Comentario);
-//Entierro + Ataúd económico + Con velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioEEVS', $servicioEEVS);
-update_post_meta($post_id, $this->plugin_name . '_servicioEEVS_Comentario', $servicioEEVS_Comentario);
-//ntierro + Ataúd económico + Con velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioEEVO', $servicioEEVO);
-update_post_meta($post_id, $this->plugin_name . '_servicioEEVO_Comentario', $servicioEEVO_Comentario);
-//Entierro + Ataúd económico + Con velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioEEVC', $servicioEEVC);
-update_post_meta($post_id, $this->plugin_name . '_servicioEEVC_Comentario', $servicioEEVC_Comentario);
-//Entierro + Ataúd económico + Con velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioEEVR', $servicioEEVR);
-update_post_meta($post_id, $this->plugin_name . '_servicioEEVR_Comentario', $servicioEEVR_Comentario);
-//Entierro + Ataúd medio + Sin velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioEMSS', $servicioEMSS);
-update_post_meta($post_id, $this->plugin_name . '_servicioEMSS_Comentario', $servicioEMSS_Comentario);
-//Entierro + Ataúd medio + Sin velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioEMSO', $servicioEMSO);
-update_post_meta($post_id, $this->plugin_name . '_servicioEMSO_Comentario', $servicioEMSO_Comentario);
-//Entierro + Ataúd medio + Sin velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioEMSC', $servicioEMSC);
-update_post_meta($post_id, $this->plugin_name . '_servicioEMSC_Comentario', $servicioEMSC_Comentario);
-//Entierro + Ataúd medio + Sin velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioEMSR', $servicioEMSR);
-update_post_meta($post_id, $this->plugin_name . '_servicioEMSR_Comentario', $servicioEMSR_Comentario);
-//Entierro + Ataúd medio + Con velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioEMVS', $servicioEMVS);
-update_post_meta($post_id, $this->plugin_name . '_servicioEMVS_Comentario', $servicioEMVS_Comentario);
-//Entierro + Ataúd medio + Con velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioEMVO', $servicioEMVO);
-update_post_meta($post_id, $this->plugin_name . '_servicioEMVO_Comentario', $servicioEMVO_Comentario);
-//Entierro + Ataúd medio + Con velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioEMVC', $servicioEMVC);
-update_post_meta($post_id, $this->plugin_name . '_servicioEMVC_Comentario', $servicioEMVC_Comentario);
-//Entierro + Ataúd medio + Con velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioEMVR', $servicioEMVR);
-update_post_meta($post_id, $this->plugin_name . '_servicioEMVR_Comentario', $servicioEMVR_Comentario);
-//Entierro + Ataúd premium + Sin velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioEPSS', $servicioEPSS);
-update_post_meta($post_id, $this->plugin_name . '_servicioEPSS_Comentario', $servicioEPSS_Comentario);
-//Entierro + Ataúd premium + Sin velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioEPSO', $servicioEPSO);
-update_post_meta($post_id, $this->plugin_name . '_servicioEPSO_Comentario', $servicioEPSO_Comentario);
-//Entierro + Ataúd premium + Sin velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioEPSC', $servicioEPSC);
-update_post_meta($post_id, $this->plugin_name . '_servicioEPSC_Comentario', $servicioEPSC_Comentario);
-//Entierro + Ataúd premium + Sin velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioEPSR', $servicioEPSR);
-update_post_meta($post_id, $this->plugin_name . '_servicioEPSR_Comentario', $servicioEPSR_Comentario);
-//Entierro + Ataúd premium + Con velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioEPVS', $servicioEPVS);
-update_post_meta($post_id, $this->plugin_name . '_servicioEPVS_Comentario', $servicioEPVS_Comentario);
-//Entierro + Ataúd premium + Con velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioEPVO', $servicioEPVO);
-update_post_meta($post_id, $this->plugin_name . '_servicioEPVO_Comentario', $servicioEPVO_Comentario);
-//Entierro + Ataúd premium + Con velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioEPVC', $servicioEPVC);
-update_post_meta($post_id, $this->plugin_name . '_servicioEPVC_Comentario', $servicioEPVC_Comentario);
-//Entierro + Ataúd premium + Con velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioEPVR', $servicioEPVR);
-update_post_meta($post_id, $this->plugin_name . '_servicioEPVR_Comentario', $servicioEPVR_Comentario);
-//Incineración + Ataúd económico + Sin velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioIESS', $servicioIESS);
-update_post_meta($post_id, $this->plugin_name . '_servicioIESS_Comentario', $servicioIESS_Comentario);
-//Incineración + Ataúd económico + Sin velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioIESO', $servicioIESO);
-update_post_meta($post_id, $this->plugin_name . '_servicioIESO_Comentario', $servicioIESO_Comentario);
-//Incineración + Ataúd económico + Sin velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioIESC', $servicioIESC);
-update_post_meta($post_id, $this->plugin_name . '_servicioIESC_Comentario', $servicioIESC_Comentario);
-//Incineración + Ataúd económico + Sin velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioIESR', $servicioIESR);
-update_post_meta($post_id, $this->plugin_name . '_servicioIESR_Comentario', $servicioIESR_Comentario);
-//Incineración + Ataúd económico + Con velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioIEVS', $servicioIEVS);
-update_post_meta($post_id, $this->plugin_name . '_servicioIEVS_Comentario', $servicioIEVS_Comentario);
-//Incineración + Ataúd económico + Con velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioIEVO', $servicioIEVO);
-update_post_meta($post_id, $this->plugin_name . '_servicioIEVO_Comentario', $servicioIEVO_Comentario);
-//Incineración + Ataúd económico + Con velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioIEVC', $servicioIEVC);
-update_post_meta($post_id, $this->plugin_name . '_servicioIEVC_Comentario', $servicioIEVC_Comentario);
-//Incineración + Ataúd económico + Con velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioIEVR', $servicioIEVR);
-update_post_meta($post_id, $this->plugin_name . '_servicioIEVR_Comentario', $servicioIEVR_Comentario);
-//Incineración + Ataúd medio + Sin velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioIMSS', $servicioIMSS);
-update_post_meta($post_id, $this->plugin_name . '_servicioIMSS_Comentario', $servicioIMSS_Comentario);
-//Incineración + Ataúd medio + Sin velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioIMSO', $servicioIMSO);
-update_post_meta($post_id, $this->plugin_name . '_servicioIMSO_Comentario', $servicioIMSO_Comentario);
-//Incineración + Ataúd medio + Sin velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioIMSC', $servicioIMSC);
-update_post_meta($post_id, $this->plugin_name . '_servicioIMSC_Comentario', $servicioIMSC_Comentario);
-//Incineración + Ataúd medio + Sin velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioIMSR', $servicioIMSR);
-update_post_meta($post_id, $this->plugin_name . '_servicioIMSR_Comentario', $servicioIMSR_Comentario);
-//Incineración + Ataúd medio + Con velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioIMVS', $servicioIMVS);
-update_post_meta($post_id, $this->plugin_name . '_servicioIMVS_Comentario', $servicioIMVS_Comentario);
-//Incineración + Ataúd medio + Con velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioIMVO', $servicioIMVO);
-update_post_meta($post_id, $this->plugin_name . '_servicioIMVO_Comentario', $servicioIMVO_Comentario);
-//Incineración + Ataúd medio + Con velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioIMVC', $servicioIMVC);
-update_post_meta($post_id, $this->plugin_name . '_servicioIMVC_Comentario', $servicioIMVC_Comentario);
-//Incineración + Ataúd medio + Con velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioIMVR', $servicioIMVR);
-update_post_meta($post_id, $this->plugin_name . '_servicioIMVR_Comentario', $servicioIMVR_Comentario);
-//Incineración + Ataúd premium + Sin velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioIPSS', $servicioIPSS);
-update_post_meta($post_id, $this->plugin_name . '_servicioIPSS_Comentario', $servicioIPSS_Comentario);
-//Incineración + Ataúd premium + Sin velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioIPSO', $servicioIPSO);
-update_post_meta($post_id, $this->plugin_name . '_servicioIPSO_Comentario', $servicioIPSO_Comentario);
-//Incineración + Ataúd premium + Sin velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioIPSC', $servicioIPSC);
-update_post_meta($post_id, $this->plugin_name . '_servicioIPSC_Comentario', $servicioIPSC_Comentario);
-//Incineración + Ataúd premium + Sin velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioIPSR', $servicioIPSR);
-update_post_meta($post_id, $this->plugin_name . '_servicioIPSR_Comentario', $servicioIPSR_Comentario);
-//Incineración + Ataúd premium + Con velatorio + Sin ceremonia
-update_post_meta($post_id, $this->plugin_name . '_servicioIPVS', $servicioIPVS);
-update_post_meta($post_id, $this->plugin_name . '_servicioIPVS_Comentario', $servicioIPVS_Comentario);
-//Incineración + Ataúd premium + Con velatorio + Con ceremonia solo sala
-update_post_meta($post_id, $this->plugin_name . '_servicioIPVO', $servicioIPVO);
-update_post_meta($post_id, $this->plugin_name . '_servicioIPVO_Comentario', $servicioIPVO_Comentario);
-//Incineración + Ataúd premium + Con velatorio + Con ceremonia civil
-update_post_meta($post_id, $this->plugin_name . '_servicioIPVC', $servicioIPVC);
-update_post_meta($post_id, $this->plugin_name . '_servicioIPVC_Comentario', $servicioIPVC_Comentario);
-//Incineración + Ataúd premium + Con velatorio + Con ceremonia religiosa
-update_post_meta($post_id, $this->plugin_name . '_servicioIPVR', $servicioIPVR);
-update_post_meta($post_id, $this->plugin_name . '_servicioIPVR_Comentario', $servicioIPVR_Comentario);
+    <h3><?php esc_html_e('NUEVO COMPARADOR', 'wpfunos');?></h3>
+    <table style="width:100%">
+      <tr>
+        <td>Tipo</td><td>Precio</td><td>Comentario</td>
+      </tr>
+
+		<?php
+$menu =
+'<li><a href="#inicio"><strong>INICIO</strong></a></li>
+<li><a href="#EES"><strong>EES: E</strong>ntierro + ataúd <strong>E</strong>conómico + <strong>S</strong>in velatorio</a></li>
+<li><a href="#EEV"><strong>EEV: E</strong>ntierro + ataúd <strong>E</strong>conómico + con <strong>V</strong>elatorio</a></li>
+<li><a href="#EMS"><strong>EMS: E</strong>ntierro + ataúd <strong>M</strong>edio + <strong>S</strong>in velatorio</a></li>
+<li><a href="#EMV"><strong>EMV: E</strong>ntierro + ataúd <strong>M</strong>edio + con <strong>V</strong>elatorio</a></li>
+<li><a href="#EPS"><strong>EPS: E</strong>ntierro + ataúd <strong>P</strong>remium + <strong>S</strong>in velatorio</a></li>
+<li><a href="#EPV"><strong>EPV: E</strong>ntierro + ataúd <strong>P</strong>remium + con <strong>V</strong>elatorio</a></li>
+<li><a href="#IES"><strong>IES: I</strong>Incineración + ataúd <strong>E</strong>conómico + <strong>S</strong>in velatorio</a></li>
+<li><a href="#IEV"><strong>IEV: I</strong>Incineración + ataúd <strong>E</strong>conómico + con <strong>V</strong>elatorio</a></li>
+<li><a href="#IMS"><strong>IMS: I</strong>Incineración + ataúd <strong>M</strong>edio + <strong>S</strong>in velatorio</a></li>
+<li><a href="#IMV"><strong>IMV: I</strong>Incineración + ataúd <strong>M</strong>edio + con <strong>V</strong>elatorio</a></li>
+<li><a href="#IPS"><strong>IPS: I</strong>Incineración + ataúd <strong>P</strong>remium + <strong>S</strong>in velatorio</a></li>
+<li><a href="#IPV"><strong>IPV: I</strong>Incineración + ataúd <strong>P</strong>remium + con <strong>V</strong>elatorio</a></li>';
+
+$tipos = array(
+    "EESS", "EESO", "EESC", "EESR",
+    "EEVS", "EEVO", "EEVC", "EEVR",
+    "EMSS", "EMSO", "EMSC", "EMSR",
+    "EMVS", "EMVO", "EMVC", "EMVR",
+    "EPSS", "EPSO", "EPSC", "EPSR",
+    "EPVS", "EPVO", "EPVC", "EPVR",
+    "IESS", "IESO", "IESC", "IESR",
+    "IEVS", "IEVO", "IEVC", "IEVR",
+    "IMSS", "IMSO", "IMSC", "IMSR",
+    "IMVS", "IMSO", "IMSC", "IMSR",
+    "IPSS", "IPSO", "IPSC", "IPSR",
+    "IPVS", "IPVO", "IPVC", "IPVR",
+
+    );
+
+$cuatro = 1;
+$output = '';
+foreach ( $tipos as $tipo ) {
+if( $cuatro == 5 ) $cuatro =1 ;
+  if( $cuatro == 1 ){
+    ?>
+    <tr><td colspan="3" id=<?php echo substr($tipo,0,3); ?>><hr/></td></tr>
+    <tr>
+      <td colspan="3" >
+        <?php echo $menu; ?>
+      </td>
+    </tr>
+    <?php
+  }
+	?>
+  <tr>
+    <td><?php echo $tipo; ?></td>
+
+	  <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicio'.$tipo,'name' => 'wpfunos_servicio'.$tipo,'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?></td>
+	 <td>
+
+	  <?php
+		$campo_comentario = 'wpfunos_servicio'. $tipo .'_Comentario';
+		$notes_servicio = get_post_meta( $post->ID, $campo_comentario, true );
+		$args_servicio = array( 'textarea_name' => $campo_comentario,  'textarea_rows' => 10, );
+		wp_editor( $notes_servicio, $campo_comentario, $args_servicio );
+      ?>
+
+	  </td>
+  <?php
+
+
+
+
+
+  $cuatro ++;
+}
+
+		?>
+
+
+    </table>
+    <hr/>
+
+
+
+
+
+
+    <h3><?php esc_html_e('Comentarios', 'wpfunos');?></h3>
+    <?php // provide textarea name for $_POST variable
+    $notes_servicioPrecioBaseComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioPrecioBaseComentario', true );
+    $args_servicioPrecioBaseComentario = array( 'textarea_name' => $this->plugin_name . '_servicioPrecioBaseComentario', );
+    $notes_servicioDestino_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_1Comentario', true );
+    $args_servicioDestino_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_1Comentario', );
+    $notes_servicioDestino_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_2Comentario', true );
+    $args_servicioDestino_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_2Comentario', );
+    $notes_servicioDestino_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_3Comentario', true );
+    $args_servicioDestino_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_3Comentario', );
+    $notes_servicioAtaud_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_1Comentario', true );
+    $args_servicioAtaud_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_1Comentario', );
+    $notes_servicioAtaud_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_2Comentario', true );
+    $args_servicioAtaud_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_2Comentario', );
+    $notes_servicioAtaud_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_3Comentario', true );
+    $args_servicioAtaud_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_3Comentario', );
+    $notes_servicioAtaudEcologico_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_1Comentario', true );
+    $args_servicioAtaudEcologico_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_1Comentario', );
+    $notes_servicioAtaudEcologico_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_2Comentario', true );
+    $args_servicioAtaudEcologico_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_2Comentario', );
+    $notes_servicioAtaudEcologico_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_3Comentario', true );
+    $args_servicioAtaudEcologico_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_3Comentario', );
+    $notes_servicioVelatorioComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioVelatorioComentario', true );
+    $args_servicioVelatorioComentario = array( 'textarea_name' => $this->plugin_name . '_servicioVelatorioComentario', );
+    $notes_servicioVelatorioNoComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioVelatorioNoComentario', true );
+    $args_servicioVelatorioNoComentario = array( 'textarea_name' => $this->plugin_name . '_servicioVelatorioNoComentario', );
+    $notes_servicioDespedida_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_1Comentario', true );
+    $args_servicioDespedida_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_1Comentario', );
+    $notes_servicioDespedida_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_2Comentario', true );
+    $args_servicioDespedida_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_2Comentario', );
+    $notes_servicioDespedida_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_3Comentario', true );
+    $args_servicioDespedida_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_3Comentario', );
+    $notes_servicioPosiblesExtras = get_post_meta( $post->ID, $this->plugin_name . '_servicioPosiblesExtras', true );
+    $args_servicioPosiblesExtras = array( 'textarea_name' => $this->plugin_name . '_servicioPosiblesExtras', );
+    ?>
+    <li><label for="'.$this->plugin_name.'_servicioPrecioBaseComentario" style="font-size: 32px;">Notas Precio Base</label>
+      <?php	wp_editor( $notes_servicioPrecioBaseComentario, $this->plugin_name . '_servicioPrecioBaseComentario',$args_servicioPrecioBaseComentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioDestino_1Comentario" style="font-size: 32px;">Notas Entierro</label>
+      <?php	wp_editor( $notes_servicioDestino_1Comentario, $this->plugin_name . '_servicioDestino_1Comentario',$args_servicioDestino_1Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioDestino_2Comentario" style="font-size: 32px;">Notas Incineración</label>
+      <?php	wp_editor( $notes_servicioDestino_2Comentario, $this->plugin_name . '_servicioDestino_2Comentario',$args_servicioDestino_2Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioDestino_3Comentario" style="font-size: 32px;">Notas Traslado</label>
+      <?php	wp_editor( $notes_servicioDestino_3Comentario, $this->plugin_name . '_servicioDestino_3Comentario',$args_servicioDestino_3Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioAtaud_1Comentario" style="font-size: 32px;">Notas Ataud Económico</label>
+      <?php	wp_editor( $notes_servicioAtaud_1Comentario, $this->plugin_name . '_servicioAtaud_1Comentario',$args_servicioAtaud_1Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioAtaud_2Comentario" style="font-size: 32px;">Notas Ataud Medio</label>
+      <?php	wp_editor( $notes_servicioAtaud_2Comentario, $this->plugin_name . '_servicioAtaud_2Comentario',$args_servicioAtaud_2Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioAtaud_3Comentario" style="font-size: 32px;">Notas Ataud Premium</label>
+      <?php	wp_editor( $notes_servicioAtaud_3Comentario, $this->plugin_name . '_servicioAtaud_3Comentario',$args_servicioAtaud_3Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_1Comentario" style="font-size: 32px;">Notas Ataud Ecológico Económico</label>
+      <?php	wp_editor( $notes_servicioAtaudEcologico_1Comentario, $this->plugin_name . '_servicioAtaudEcologico_1Comentario',$args_servicioAtaudEcologico_1Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_2Comentario" style="font-size: 32px;">Notas Ataud Ecológico Medio</label>
+      <?php	wp_editor( $notes_servicioAtaudEcologico_2Comentario, $this->plugin_name . '_servicioAtaudEcologico_2Comentario',$args_servicioAtaudEcologico_2Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_3Comentario" style="font-size: 32px;">Notas Ataud Ecológico Premium</label>
+      <?php	wp_editor( $notes_servicioAtaudEcologico_3Comentario, $this->plugin_name . '_servicioAtaudEcologico_3Comentario',$args_servicioAtaudEcologico_3Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioVelatorioComentario" style="font-size: 32px;">Notas Velatorio</label>
+      <?php	wp_editor( $notes_servicioVelatorioComentario, $this->plugin_name . '_servicioVelatorioComentario',$args_servicioVelatorioComentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioVelatorioNoComentario" style="font-size: 32px;">Notas Velatorio No</label>
+      <?php	wp_editor( $notes_servicioVelatorioNoComentario, $this->plugin_name . '_servicioVelatorioNoComentario',$args_servicioVelatorioNoComentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioDespedida_1Comentario" style="font-size: 32px;">Notas Despedida Sala</label>
+      <?php	wp_editor( $notes_servicioDespedida_1Comentario, $this->plugin_name . '_servicioDespedida_1Comentario',$args_servicioDespedida_1Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioDespedida_2Comentario" style="font-size: 32px;">Notas Despedida Civil</label>
+      <?php	wp_editor( $notes_servicioDespedida_2Comentario, $this->plugin_name . '_servicioDespedida_2Comentario',$args_servicioDespedida_2Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioDespedida_3Comentario" style="font-size: 32px;">Notas Religiosa No</label>
+      <?php	wp_editor( $notes_servicioDespedida_3Comentario, $this->plugin_name . '_servicioDespedida_3Comentario',$args_servicioDespedida_3Comentario); ?>
+    </li>
+    <li><label for="'.$this->plugin_name.'_servicioPosiblesExtras" style="font-size: 32px;">Posibles extras</label>
+      <?php	wp_editor( $notes_servicioPosiblesExtras, $this->plugin_name . '_servicioPosiblesExtras',$args_servicioPosiblesExtras); ?>
+    </li>
+  </ul>
+</div>

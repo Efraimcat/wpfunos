@@ -13,7 +13,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 ?>
-<div class="servicios_wpfunos_containers">
+<style>
+#wpfunos_servicioEESS,#wpfunos_servicioEESO,#wpfunos_servicioEESC,#wpfunos_servicioEESR,
+#wpfunos_servicioEEVS,#wpfunos_servicioEEVO,#wpfunos_servicioEEVC,#wpfunos_servicioEEVR,
+#wpfunos_servicioEMSS,#wpfunos_servicioEMSO,#wpfunos_servicioEMSC,#wpfunos_servicioEMSR,
+#wpfunos_servicioEMVS,#wpfunos_servicioEMVO,#wpfunos_servicioEMVC,#wpfunos_servicioEMVR,
+#wpfunos_servicioEPSS,#wpfunos_servicioEPSO,#wpfunos_servicioEPSC,#wpfunos_servicioEPSR,
+#wpfunos_servicioEPVS,#wpfunos_servicioEPVO,#wpfunos_servicioEPVC,#wpfunos_servicioEPVR,
+#wpfunos_servicioIESS,#wpfunos_servicioIESO,#wpfunos_servicioIESC,#wpfunos_servicioIESR,
+#wpfunos_servicioIEVS,#wpfunos_servicioIEVO,#wpfunos_servicioIEVC,#wpfunos_servicioIEVR,
+#wpfunos_servicioIMSS,#wpfunos_servicioIMSO,#wpfunos_servicioIMSC,#wpfunos_servicioIMSR,
+#wpfunos_servicioIMVS,#wpfunos_servicioIMVO,#wpfunos_servicioIMVC,#wpfunos_servicioIMVR,
+#wpfunos_servicioIPSS,#wpfunos_servicioIPSO,#wpfunos_servicioIPSC,#wpfunos_servicioIPSR,
+#wpfunos_servicioIPVS,#wpfunos_servicioIPVO,#wpfunos_servicioIPVC,#wpfunos_servicioIPVR
+{
+  text-align: right;
+}
+</style>
+<div class="servicios_wpfunos_containers"  id="inicio">
   <ul class="servicios_wpfunos_data_metabox">
     <li class="servicios_wpfunos_list">
       <table>
@@ -150,6 +167,8 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
+    <h3><?php echo '<strong>ANTIGUO COMPARADOR</strong>';?></h3>
+    <hr/>
     <h3><?php esc_html_e('PRECIO BASE', 'wpfunos');?></h3>
     <?php  //Precio base?>
     <li class="servicios_wpfunos_list">
@@ -264,88 +283,200 @@ if ( ! defined( 'ABSPATH' ) ) {
       </tr>
     </table>
     <hr/>
-    <h3><?php esc_html_e('Comentarios', 'wpfunos');?></h3>
-    <?php // provide textarea name for $_POST variable
-    $notes_servicioPrecioBaseComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioPrecioBaseComentario', true );
-    $args_servicioPrecioBaseComentario = array( 'textarea_name' => $this->plugin_name . '_servicioPrecioBaseComentario', );
-    $notes_servicioDestino_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_1Comentario', true );
-    $args_servicioDestino_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_1Comentario', );
-    $notes_servicioDestino_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_2Comentario', true );
-    $args_servicioDestino_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_2Comentario', );
-    $notes_servicioDestino_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_3Comentario', true );
-    $args_servicioDestino_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_3Comentario', );
-    $notes_servicioAtaud_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_1Comentario', true );
-    $args_servicioAtaud_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_1Comentario', );
-    $notes_servicioAtaud_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_2Comentario', true );
-    $args_servicioAtaud_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_2Comentario', );
-    $notes_servicioAtaud_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_3Comentario', true );
-    $args_servicioAtaud_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_3Comentario', );
-    $notes_servicioAtaudEcologico_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_1Comentario', true );
-    $args_servicioAtaudEcologico_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_1Comentario', );
-    $notes_servicioAtaudEcologico_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_2Comentario', true );
-    $args_servicioAtaudEcologico_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_2Comentario', );
-    $notes_servicioAtaudEcologico_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_3Comentario', true );
-    $args_servicioAtaudEcologico_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_3Comentario', );
-    $notes_servicioVelatorioComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioVelatorioComentario', true );
-    $args_servicioVelatorioComentario = array( 'textarea_name' => $this->plugin_name . '_servicioVelatorioComentario', );
-    $notes_servicioVelatorioNoComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioVelatorioNoComentario', true );
-    $args_servicioVelatorioNoComentario = array( 'textarea_name' => $this->plugin_name . '_servicioVelatorioNoComentario', );
-    $notes_servicioDespedida_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_1Comentario', true );
-    $args_servicioDespedida_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_1Comentario', );
-    $notes_servicioDespedida_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_2Comentario', true );
-    $args_servicioDespedida_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_2Comentario', );
-    $notes_servicioDespedida_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_3Comentario', true );
-    $args_servicioDespedida_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_3Comentario', );
-    $notes_servicioPosiblesExtras = get_post_meta( $post->ID, $this->plugin_name . '_servicioPosiblesExtras', true );
-    $args_servicioPosiblesExtras = array( 'textarea_name' => $this->plugin_name . '_servicioPosiblesExtras', );
+
+    <h3><?php echo '<strong>NUEVO COMPARADOR</strong>';?></h3>
+    <?php
+    $titulo = array(
+      "<strong>EES: E</strong>ntierro + ataúd <strong>E</strong>conómico + <strong>S</strong>in velatorio",
+      "<strong>EEV: E</strong>ntierro + ataúd <strong>E</strong>conómico + con <strong>V</strong>elatorio",
+      "<strong>EMS: E</strong>ntierro + ataúd <strong>M</strong>edio + <strong>S</strong>in velatorio",
+      "<strong>EMV: E</strong>ntierro + ataúd <strong>M</strong>edio + con <strong>V</strong>elatorio",
+      "<strong>EPS: E</strong>ntierro + ataúd <strong>P</strong>remium + <strong>S</strong>in velatorio",
+      "<strong>EPV: E</strong>ntierro + ataúd <strong>P</strong>remium + con <strong>V</strong>elatorio",
+      "<strong>IES: I</strong>Incineración + ataúd <strong>E</strong>conómico + <strong>S</strong>in velatorio",
+      "<strong>IEV: I</strong>Incineración + ataúd <strong>E</strong>conómico + con <strong>V</strong>elatorio",
+      "<strong>IMS: I</strong>Incineración + ataúd <strong>M</strong>edio + <strong>S</strong>in velatorio",
+      "<strong>IMV: I</strong>Incineración + ataúd <strong>M</strong>edio + con <strong>V</strong>elatorio",
+      "<strong>IPS: I</strong>Incineración + ataúd <strong>P</strong>remium + <strong>S</strong>in velatorio",
+      "<strong>IPV: I</strong>Incineración + ataúd <strong>P</strong>remium + con <strong>V</strong>elatorio"
+    );
+    $menu =
+    '<li><a href="#inicio"><strong>INICIO</strong></a></li>
+    <li><a href="#EES">'.$titulo[0].'</a></li>
+    <li><a href="#EEV">'.$titulo[1].'</a></li>
+    <li><a href="#EMS">'.$titulo[2].'</a></li>
+    <li><a href="#EMV">'.$titulo[3].'</a></li>
+    <li><a href="#EPS">'.$titulo[4].'</a></li>
+    <li><a href="#EPV">'.$titulo[5].'</a></li>
+    <li><a href="#IES">'.$titulo[6].'</a></li>
+    <li><a href="#IEV">'.$titulo[7].'</a></li>
+    <li><a href="#IMS">'.$titulo[8].'</a></li>
+    <li><a href="#IMV">'.$titulo[9].'</a></li>
+    <li><a href="#IPS">'.$titulo[10].'</a></li>
+    <li><a href="#IPV">'.$titulo[11].'</a></li>';
+    $tipos = array(
+      "EESS", "EESO", "EESC", "EESR",
+      "EEVS", "EEVO", "EEVC", "EEVR",
+      "EMSS", "EMSO", "EMSC", "EMSR",
+      "EMVS", "EMVO", "EMVC", "EMVR",
+      "EPSS", "EPSO", "EPSC", "EPSR",
+      "EPVS", "EPVO", "EPVC", "EPVR",
+      "IESS", "IESO", "IESC", "IESR",
+      "IEVS", "IEVO", "IEVC", "IEVR",
+      "IMSS", "IMSO", "IMSC", "IMSR",
+      "IMVS", "IMSO", "IMSC", "IMSR",
+      "IPSS", "IPSO", "IPSC", "IPSR",
+      "IPVS", "IPVO", "IPVC", "IPVR",
+    );
+
+    $cuatro = 1;
+    $cuentatitulos = 1;
     ?>
-    <li><label for="'.$this->plugin_name.'_servicioPrecioBaseComentario" style="font-size: 32px;">Notas Precio Base</label>
-      <?php	wp_editor( $notes_servicioPrecioBaseComentario, $this->plugin_name . '_servicioPrecioBaseComentario',$args_servicioPrecioBaseComentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioDestino_1Comentario" style="font-size: 32px;">Notas Entierro</label>
-      <?php	wp_editor( $notes_servicioDestino_1Comentario, $this->plugin_name . '_servicioDestino_1Comentario',$args_servicioDestino_1Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioDestino_2Comentario" style="font-size: 32px;">Notas Incineración</label>
-      <?php	wp_editor( $notes_servicioDestino_2Comentario, $this->plugin_name . '_servicioDestino_2Comentario',$args_servicioDestino_2Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioDestino_3Comentario" style="font-size: 32px;">Notas Traslado</label>
-      <?php	wp_editor( $notes_servicioDestino_3Comentario, $this->plugin_name . '_servicioDestino_3Comentario',$args_servicioDestino_3Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaud_1Comentario" style="font-size: 32px;">Notas Ataud Económico</label>
-      <?php	wp_editor( $notes_servicioAtaud_1Comentario, $this->plugin_name . '_servicioAtaud_1Comentario',$args_servicioAtaud_1Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaud_2Comentario" style="font-size: 32px;">Notas Ataud Medio</label>
-      <?php	wp_editor( $notes_servicioAtaud_2Comentario, $this->plugin_name . '_servicioAtaud_2Comentario',$args_servicioAtaud_2Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaud_3Comentario" style="font-size: 32px;">Notas Ataud Premium</label>
-      <?php	wp_editor( $notes_servicioAtaud_3Comentario, $this->plugin_name . '_servicioAtaud_3Comentario',$args_servicioAtaud_3Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_1Comentario" style="font-size: 32px;">Notas Ataud Ecológico Económico</label>
-      <?php	wp_editor( $notes_servicioAtaudEcologico_1Comentario, $this->plugin_name . '_servicioAtaudEcologico_1Comentario',$args_servicioAtaudEcologico_1Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_2Comentario" style="font-size: 32px;">Notas Ataud Ecológico Medio</label>
-      <?php	wp_editor( $notes_servicioAtaudEcologico_2Comentario, $this->plugin_name . '_servicioAtaudEcologico_2Comentario',$args_servicioAtaudEcologico_2Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_3Comentario" style="font-size: 32px;">Notas Ataud Ecológico Premium</label>
-      <?php	wp_editor( $notes_servicioAtaudEcologico_3Comentario, $this->plugin_name . '_servicioAtaudEcologico_3Comentario',$args_servicioAtaudEcologico_3Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioVelatorioComentario" style="font-size: 32px;">Notas Velatorio</label>
-      <?php	wp_editor( $notes_servicioVelatorioComentario, $this->plugin_name . '_servicioVelatorioComentario',$args_servicioVelatorioComentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioVelatorioNoComentario" style="font-size: 32px;">Notas Velatorio No</label>
-      <?php	wp_editor( $notes_servicioVelatorioNoComentario, $this->plugin_name . '_servicioVelatorioNoComentario',$args_servicioVelatorioNoComentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioDespedida_1Comentario" style="font-size: 32px;">Notas Despedida Sala</label>
-      <?php	wp_editor( $notes_servicioDespedida_1Comentario, $this->plugin_name . '_servicioDespedida_1Comentario',$args_servicioDespedida_1Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioDespedida_2Comentario" style="font-size: 32px;">Notas Despedida Civil</label>
-      <?php	wp_editor( $notes_servicioDespedida_2Comentario, $this->plugin_name . '_servicioDespedida_2Comentario',$args_servicioDespedida_2Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioDespedida_3Comentario" style="font-size: 32px;">Notas Religiosa No</label>
-      <?php	wp_editor( $notes_servicioDespedida_3Comentario, $this->plugin_name . '_servicioDespedida_3Comentario',$args_servicioDespedida_3Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioPosiblesExtras" style="font-size: 32px;">Posibles extras</label>
-      <?php	wp_editor( $notes_servicioPosiblesExtras, $this->plugin_name . '_servicioPosiblesExtras',$args_servicioPosiblesExtras); ?>
-    </li>
-  </ul>
-</div>
+    <table style="width:100%">
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Sin ceremonia</td>
+        <td></td>
+        <td>Solo sala</td>
+        <td></td>
+        <td>Civil</td>
+        <td></td>
+        <td>Religiosa</td>
+      </tr>
+      <tr><td style="width: 400px;"><?php echo '1 - ' . $titulo[0]; ?></td>
+        <?php
+        foreach ( $tipos as $tipo ) {
+          ?>
+          <td><?php echo $tipo; ?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicio'.$tipo,'name' => 'wpfunos_servicio'.$tipo,'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+          <?php
+          if( $cuatro == 4 ){
+            $cuatro =0 ;
+            $cuentatitulo ++;
+            ?>
+          </tr><tr>
+            <td><?php echo $cuentatitulo + 1 .' - ' .$titulo[$cuentatitulo]; ?></td>
+            <?php
+
+          }
+          $cuatro ++;
+        }
+        ?></tr></table><hr/><table style="width:100%"><?php
+
+        $cuatro = 1;
+        foreach ( $tipos as $tipo ) {
+          if( $cuatro == 5 ) $cuatro =1 ;
+          if( $cuatro == 1 ){
+            ?>
+            <tr><td colspan="3" id=<?php echo substr($tipo,0,3); ?>><hr/></td></tr>
+            <tr>
+              <td colspan="3" >
+                <?php echo $menu; ?>
+              </td>
+            </tr>
+            <?php
+          }
+          ?>
+          <tr>
+            <td><?php echo $tipo; ?></td>
+            <td>
+              <?php
+              $campo_comentario = 'wpfunos_servicio'. $tipo .'_Comentario';
+              $notes_servicio = get_post_meta( $post->ID, $campo_comentario, true );
+              $args_servicio = array( 'textarea_name' => $campo_comentario,  'textarea_rows' => 10, );
+              wp_editor( $notes_servicio, $campo_comentario, $args_servicio );
+              ?>
+            </td>
+            <?php
+            $cuatro ++;
+          }
+          ?>
+        </table>
+        <hr/>
+
+        <h3><?php esc_html_e('Comentarios', 'wpfunos');?></h3>
+        <?php // provide textarea name for $_POST variable
+        $notes_servicioPrecioBaseComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioPrecioBaseComentario', true );
+        $args_servicioPrecioBaseComentario = array( 'textarea_name' => $this->plugin_name . '_servicioPrecioBaseComentario', );
+        $notes_servicioDestino_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_1Comentario', true );
+        $args_servicioDestino_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_1Comentario', );
+        $notes_servicioDestino_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_2Comentario', true );
+        $args_servicioDestino_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_2Comentario', );
+        $notes_servicioDestino_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_3Comentario', true );
+        $args_servicioDestino_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_3Comentario', );
+        $notes_servicioAtaud_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_1Comentario', true );
+        $args_servicioAtaud_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_1Comentario', );
+        $notes_servicioAtaud_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_2Comentario', true );
+        $args_servicioAtaud_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_2Comentario', );
+        $notes_servicioAtaud_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_3Comentario', true );
+        $args_servicioAtaud_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_3Comentario', );
+        $notes_servicioAtaudEcologico_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_1Comentario', true );
+        $args_servicioAtaudEcologico_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_1Comentario', );
+        $notes_servicioAtaudEcologico_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_2Comentario', true );
+        $args_servicioAtaudEcologico_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_2Comentario', );
+        $notes_servicioAtaudEcologico_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_3Comentario', true );
+        $args_servicioAtaudEcologico_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_3Comentario', );
+        $notes_servicioVelatorioComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioVelatorioComentario', true );
+        $args_servicioVelatorioComentario = array( 'textarea_name' => $this->plugin_name . '_servicioVelatorioComentario', );
+        $notes_servicioVelatorioNoComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioVelatorioNoComentario', true );
+        $args_servicioVelatorioNoComentario = array( 'textarea_name' => $this->plugin_name . '_servicioVelatorioNoComentario', );
+        $notes_servicioDespedida_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_1Comentario', true );
+        $args_servicioDespedida_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_1Comentario', );
+        $notes_servicioDespedida_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_2Comentario', true );
+        $args_servicioDespedida_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_2Comentario', );
+        $notes_servicioDespedida_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_3Comentario', true );
+        $args_servicioDespedida_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_3Comentario', );
+        $notes_servicioPosiblesExtras = get_post_meta( $post->ID, $this->plugin_name . '_servicioPosiblesExtras', true );
+        $args_servicioPosiblesExtras = array( 'textarea_name' => $this->plugin_name . '_servicioPosiblesExtras', );
+        ?>
+        <li><label for="'.$this->plugin_name.'_servicioPrecioBaseComentario" style="font-size: 32px;">Notas Precio Base</label>
+          <?php	wp_editor( $notes_servicioPrecioBaseComentario, $this->plugin_name . '_servicioPrecioBaseComentario',$args_servicioPrecioBaseComentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioDestino_1Comentario" style="font-size: 32px;">Notas Entierro</label>
+          <?php	wp_editor( $notes_servicioDestino_1Comentario, $this->plugin_name . '_servicioDestino_1Comentario',$args_servicioDestino_1Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioDestino_2Comentario" style="font-size: 32px;">Notas Incineración</label>
+          <?php	wp_editor( $notes_servicioDestino_2Comentario, $this->plugin_name . '_servicioDestino_2Comentario',$args_servicioDestino_2Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioDestino_3Comentario" style="font-size: 32px;">Notas Traslado</label>
+          <?php	wp_editor( $notes_servicioDestino_3Comentario, $this->plugin_name . '_servicioDestino_3Comentario',$args_servicioDestino_3Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioAtaud_1Comentario" style="font-size: 32px;">Notas Ataud Económico</label>
+          <?php	wp_editor( $notes_servicioAtaud_1Comentario, $this->plugin_name . '_servicioAtaud_1Comentario',$args_servicioAtaud_1Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioAtaud_2Comentario" style="font-size: 32px;">Notas Ataud Medio</label>
+          <?php	wp_editor( $notes_servicioAtaud_2Comentario, $this->plugin_name . '_servicioAtaud_2Comentario',$args_servicioAtaud_2Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioAtaud_3Comentario" style="font-size: 32px;">Notas Ataud Premium</label>
+          <?php	wp_editor( $notes_servicioAtaud_3Comentario, $this->plugin_name . '_servicioAtaud_3Comentario',$args_servicioAtaud_3Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_1Comentario" style="font-size: 32px;">Notas Ataud Ecológico Económico</label>
+          <?php	wp_editor( $notes_servicioAtaudEcologico_1Comentario, $this->plugin_name . '_servicioAtaudEcologico_1Comentario',$args_servicioAtaudEcologico_1Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_2Comentario" style="font-size: 32px;">Notas Ataud Ecológico Medio</label>
+          <?php	wp_editor( $notes_servicioAtaudEcologico_2Comentario, $this->plugin_name . '_servicioAtaudEcologico_2Comentario',$args_servicioAtaudEcologico_2Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_3Comentario" style="font-size: 32px;">Notas Ataud Ecológico Premium</label>
+          <?php	wp_editor( $notes_servicioAtaudEcologico_3Comentario, $this->plugin_name . '_servicioAtaudEcologico_3Comentario',$args_servicioAtaudEcologico_3Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioVelatorioComentario" style="font-size: 32px;">Notas Velatorio</label>
+          <?php	wp_editor( $notes_servicioVelatorioComentario, $this->plugin_name . '_servicioVelatorioComentario',$args_servicioVelatorioComentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioVelatorioNoComentario" style="font-size: 32px;">Notas Velatorio No</label>
+          <?php	wp_editor( $notes_servicioVelatorioNoComentario, $this->plugin_name . '_servicioVelatorioNoComentario',$args_servicioVelatorioNoComentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioDespedida_1Comentario" style="font-size: 32px;">Notas Despedida Sala</label>
+          <?php	wp_editor( $notes_servicioDespedida_1Comentario, $this->plugin_name . '_servicioDespedida_1Comentario',$args_servicioDespedida_1Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioDespedida_2Comentario" style="font-size: 32px;">Notas Despedida Civil</label>
+          <?php	wp_editor( $notes_servicioDespedida_2Comentario, $this->plugin_name . '_servicioDespedida_2Comentario',$args_servicioDespedida_2Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioDespedida_3Comentario" style="font-size: 32px;">Notas Religiosa No</label>
+          <?php	wp_editor( $notes_servicioDespedida_3Comentario, $this->plugin_name . '_servicioDespedida_3Comentario',$args_servicioDespedida_3Comentario); ?>
+        </li>
+        <li><label for="'.$this->plugin_name.'_servicioPosiblesExtras" style="font-size: 32px;">Posibles extras</label>
+          <?php	wp_editor( $notes_servicioPosiblesExtras, $this->plugin_name . '_servicioPosiblesExtras',$args_servicioPosiblesExtras); ?>
+        </li>
+      </ul>
+    </div>

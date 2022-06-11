@@ -1074,7 +1074,92 @@ class Wpfunos_Admin {
       wp_reset_postdata();
     }
     $this->custom_logs('Wpfunos precio_funer_wpfunos ends');
+    //
     $this->custom_logs('---');
+    $this->custom_logs('Wpfunos precio_serv_wpfunos starts');
+    $tipos = array(
+      "EESS", "EESO", "EESC", "EESR",
+      "EEVS", "EEVO", "EEVC", "EEVR",
+      "EMSS", "EMSO", "EMSC", "EMSR",
+      "EMVS", "EMVO", "EMVC", "EMVR",
+      "EPSS", "EPSO", "EPSC", "EPSR",
+      "EPVS", "EPVO", "EPVC", "EPVR",
+      "IESS", "IESO", "IESC", "IESR",
+      "IEVS", "IEVO", "IEVC", "IEVR",
+      "IMSS", "IMSO", "IMSC", "IMSR",
+      "IMVS", "IMSO", "IMSC", "IMSR",
+      "IPSS", "IPSO", "IPSC", "IPSR",
+      "IPVS", "IPVO", "IPVC", "IPVR",
+    );
+    $contador = 0;
+    // borrar el índice
+    $args = array(
+      'post_type' => 'precio_serv_wpfunos',
+      'post_status'  => 'publish',
+      'posts_per_page' => -1,
+    );
+    $post_list = get_posts( $args );
+    $this->custom_logs('Wpfunos precios_serv: ' .count($post_list)  );
+    if( $post_list ){
+      foreach ( $post_list as $post ) {
+        wp_delete_post( $post->ID, true);
+      }
+      wp_reset_postdata();
+    }
+    //
+    $args = array(
+      'post_type' => 'servicios_wpfunos',
+      'post_status' => 'publish',
+      'posts_per_page' => -1,
+    );
+    $post_list = get_posts( $args );
+    $this->custom_logs('Wpfunos services: ' .count($post_list)  );
+    if( $post_list ){
+      foreach ( $post_list as $post ) {
+        // comprobar que tiene precios del nuevo buscador
+        foreach ( $tipos as $tipo ) {
+          $precio = get_post_meta( $post->ID, 'wpfunos_servicio'.$tipo, true );
+          if( strlen ($precio) > 0 ){
+            $resp1 = (substr ($tipo,0,1) == 'E') ? '1' : '2';
+            $resp3 = (substr ($tipo,2,1) == 'V') ? '1' : '2';
+            switch( substr ($tipo,1,1) ){
+              case 'M':$resp2 = '1';break;
+              case 'E':$resp2 = '2';break;
+              case 'P':$resp2 = '3';break;
+            }
+            switch(substr ($tipo,3,1) ){
+              case 'S':$resp4 = '1';break;
+              case 'O':$resp4 = '2';break;
+              case 'C':$resp4 = '3';break;
+              case 'R':$resp4 = '4';break;
+            }
+            $nombre_servicio = get_the_title( $post->ID );
+            $direccion = get_post_meta( $post->ID, 'wpfunos_servicioDireccion', true );
+            $my_post = array(
+              'post_title' => $tipo.' - '. $nombre_servicio,
+              'post_type' => 'precio_serv_wpfunos',
+              'post_status'  => 'publish',
+              'meta_input'   => array(
+                $this->plugin_name . '_servicioPrecioValor' =>  $tipo,
+                $this->plugin_name . '_servicioPrecioID' => $post->ID,
+                $this->plugin_name . '_servicioPrecioNombre' => $nombre_servicio,
+                $this->plugin_name . '_servicioPrecio' => $precio,
+                'resp1' => $resp1, 'resp2' => $resp2, 'resp3' => $resp3, 'resp4' => $resp4,
+              ),
+            );
+            $this->custom_logs('Wpfunos precio_serv. Creating ' .$tipo.' - '. $nombre_servicio );
+            $post_id = wp_insert_post($my_post);
+            $contador ++;
+            gmw_update_post_location( $post_id, $direccion, 7, $direccion, true );
+          }
+        }
+      }
+      $this->custom_logs('Wpfunos service Created ' .$contador. ' new entries'  );
+      wp_reset_postdata();
+    }
+    $this->custom_logs('Wpfunos precio_serv_wpfunos ends');
+    $this->custom_logs('---');
+    //
     // END
     $this->custom_logs('Wpfunos Maintenance ends');
     $this->custom_logs('---');
