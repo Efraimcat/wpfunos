@@ -324,7 +324,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       "IESS", "IESO", "IESC", "IESR",
       "IEVS", "IEVO", "IEVC", "IEVR",
       "IMSS", "IMSO", "IMSC", "IMSR",
-      "IMVS", "IMSO", "IMSC", "IMSR",
+      "IMVS", "IMVO", "IMVC", "IMVR",
       "IPSS", "IPSO", "IPSC", "IPSR",
       "IPVS", "IPVO", "IPVC", "IPVR",
     );

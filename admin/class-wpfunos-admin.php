@@ -1087,7 +1087,7 @@ class Wpfunos_Admin {
       "IESS", "IESO", "IESC", "IESR",
       "IEVS", "IEVO", "IEVC", "IEVR",
       "IMSS", "IMSO", "IMSC", "IMSR",
-      "IMVS", "IMSO", "IMSC", "IMSR",
+      "IMVS", "IMVO", "IMVC", "IMVR",
       "IPSS", "IPSO", "IPSC", "IPSR",
       "IPVS", "IPVO", "IPVC", "IPVR",
     );
@@ -1116,6 +1116,8 @@ class Wpfunos_Admin {
     $this->custom_logs('Wpfunos services: ' .count($post_list)  );
     if( $post_list ){
       foreach ( $post_list as $post ) {
+        //$activo = get_post_meta( $post->ID, 'wpfunos_servicioActivo', true );
+        //$this->custom_logs('Wpfunos services: ' .$post->ID. ' Activo: ' .$activo );
         // comprobar que tiene precios del nuevo buscador
         foreach ( $tipos as $tipo ) {
           $precio = get_post_meta( $post->ID, 'wpfunos_servicio'.$tipo, true );
@@ -1147,7 +1149,7 @@ class Wpfunos_Admin {
                 'resp1' => $resp1, 'resp2' => $resp2, 'resp3' => $resp3, 'resp4' => $resp4,
               ),
             );
-            $this->custom_logs('Wpfunos precio_serv. Creating ' .$tipo.' - '. $nombre_servicio );
+            //$this->custom_logs('Wpfunos precio_serv. Creating ' .$tipo.' - '. $nombre_servicio );
             $post_id = wp_insert_post($my_post);
             $contador ++;
             gmw_update_post_location( $post_id, $direccion, 7, $direccion, true );

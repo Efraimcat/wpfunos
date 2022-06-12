@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/utils
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-if( !isset( $_POST['importdirectorio'] ) && !isset( $_POST['importcodigospostales'] ) && !isset( $_POST['importprovincias'] ) && !isset( $_POST['importpreciofuner'] ) ) return;
+if( !isset( $_POST['importdirectorio'] ) && !isset( $_POST['importcodigospostales'] ) && !isset( $_POST['importprovincias'] ) && !isset( $_POST['importpreciofuner'] ) && !isset( $_POST['importprecioservicios'] ) ) return;
 //print_r($_POST);
 //
 if( isset( $_POST['importdirectorio'] ) && $_POST['importdirectorio'] == 1 ) include 'wpfunos-imports-directorio.php';
@@ -22,3 +22,5 @@ if( isset( $_POST['importcodigospostales'] ) && $_POST['importcodigospostales'] 
 if( isset( $_POST['importprovincias'] ) && $_POST['importprovincias'] == 1 ) include 'wpfunos-imports-provincias.php';
 
 if( isset( $_POST['importpreciofuner'] ) && $_POST['importpreciofuner'] == 1 ) include 'wpfunos-imports-precios-funerarias.php';
+
+if( isset( $_POST['importprecioservicios'] ) && $_POST['importprecioservicios'] == 1 ) include 'wpfunos-imports-precios-servicios.php';
