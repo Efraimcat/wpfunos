@@ -59,6 +59,7 @@
 	<?php do_action( 'gmw_search_form_end', $gmw ); ?>
 
 	<input type="hidden" name="CP" id="CP" value="" >
+	<input type="hidden" name="wpf" id="wpf" value="" >
 
 </form>
 
