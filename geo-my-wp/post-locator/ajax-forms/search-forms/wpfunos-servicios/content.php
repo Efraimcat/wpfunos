@@ -81,18 +81,15 @@
 <div id="wpfunos-pregunta-4" class="wpfunos-pregunta-div">
 	<p class="wpfunos-titulo-pregunta" id="wpfunos-pregunta-titulo-4">Ceremonia</p>
 	<button class="wpfunos-pregunta" id="btn8" onclick="Boton8()" name="subject" type="submit" value="1">Sin ceremonia</button>
-	<button class="wpfunos-pregunta" id="btn9"  onclick="Boton9()"name="subject" type="submit" value="2">Solo sala</button>
-	<button class="wpfunos-pregunta" id="btn10"  onclick="Boton10()"name="subject" type="submit" value="3">Civil</button>
-	<button class="wpfunos-pregunta" id="btn11"  onclick="Boton11()"name="subject" type="submit" value="4">Religiosa</button>
+	<button class="wpfunos-pregunta" id="btn9"  onclick="Boton9()" name="subject" type="submit" value="2">Solo sala</button>
+	<button class="wpfunos-pregunta" id="btn10"  onclick="Boton10()" name="subject" type="submit" value="3">Civil</button>
+	<button class="wpfunos-pregunta" id="btn11"  onclick="Boton11()" name="subject" type="submit" value="4">Religiosa</button>
 </div>
 
 <script>
 
 jQuery( document ).ready( function() {
-	// Fires whenever an AJAX form is submitted.
-	$( 'div.gmw-ajax-results-wrapper' ).on( 'update_results', function() {
-		alert('1');
-	});
+	document.getElementById('gmw-submit-6').addEventListener('click', wpfFunctionDistancia, false);
 });
 
 function Boton1() {
@@ -229,6 +226,14 @@ var wpfFunctionLabelDisplay = function(){
 	//$('#wpfunos-pregunta-3').show();
 	//$('#wpfunos-pregunta-4').show();
 }
+var wpfFunctionDistancia = function(){
+	console.log('click');
+	if (document.getElementById("gmw-cf-resp3-6").value == 2 && document.getElementById("gmw-cf-resp4-6").value == 1 ){
+		console.log('Incineración Directa. Distancia 100km.')
+		document.getElementsByClassName("gmw-radius-slider")[0].value() = 100;
+	}
+}
+
 function wpfesconderpreguntas(){
 	var elementsLabel = document.getElementsByClassName("gmw-field-label");
 	for (var i = 0; i < elementsLabel.length; i++) {
@@ -238,8 +243,6 @@ function wpfesconderpreguntas(){
 
 
 </script>
-
-
 
 
 <?php do_action( 'gmw_after_search_form', $gmw ); ?>
