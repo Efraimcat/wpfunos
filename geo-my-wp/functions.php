@@ -71,12 +71,12 @@ function set_ip_cookie() {
   $expiry2 = strtotime('+1 year');
   $expiry3 = strtotime('+1 day');
   //
-  if (is_user_logged_in()){
-    global $current_user;
-    get_currentuserinfo();
-    $email = $current_user->user_email;
-    setcookie('wpfmail', sanitize_text_field( $email ), ['expires' => $expiry3, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-  }
+  //if (is_user_logged_in()){
+  //  global $current_user;
+  //  get_currentuserinfo();
+  //  $email = $current_user->user_email;
+  //  setcookie('wpfmail', sanitize_text_field( $email ), ['expires' => $expiry3, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+  //}
   //setcookie('wpftoken', sanitize_text_field( $codigo ), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
   //if( ! isset( $_COOKIE['wpfid'] ) || $_COOKIE['wpfid'] == 'T1dkS0t1enFzRTJITFNPWW5reWpSZz09'){
   //  setcookie('wpfid', sanitize_text_field( $codigoID ), ['expires' => $expiry2, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );

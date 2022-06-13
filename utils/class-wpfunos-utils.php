@@ -469,7 +469,7 @@ class Wpfunos_Utils {
   */
   public function wpfunos_SIWG_init(){
     $pagina = get_the_ID();
-    if( 1734 !== $pagina && 37332 !== $pagina ) return false;
+    if( 1734 !== $pagina && 37332 !== $pagina && 56915 !== $pagina && 56988 !== $pagina) return false;
     if (is_user_logged_in()) return false;
 
     echo '<script src="https://accounts.google.com/gsi/client" async defer></script>
