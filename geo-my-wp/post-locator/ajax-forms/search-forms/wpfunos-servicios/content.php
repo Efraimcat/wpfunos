@@ -63,6 +63,11 @@
 
 </form>
 
+<div id="wpfunos-enviando">
+	<h2 style="text-align: center;">Buscando resultados </h2>
+	<h6 style="text-align: center;">Estamos obteniendo precios entre varias compañías que mejor se ajusten a tus necesidades</h6>
+</div>
+
 <div id="wpfunos-pregunta-1" class="wpfunos-pregunta-div">
 	<p class="wpfunos-titulo-pregunta" id="wpfunos-pregunta-titulo-1">Destino</p>
 	<button class="wpfunos-pregunta" id="btn1" onclick="Boton1()" name="subject" type="submit" value="1">Entierro</button>
@@ -153,6 +158,7 @@ function Boton7() {
 	document.getElementById("btn7").style.backgroundColor="Blue" ;
 }
 function Boton8() {
+	//$("#wpfunos-servicios-geo").hide()
 	document.getElementById("gmw-cf-resp4-6").value = "1"
 	document.querySelector("label[for='gmw-cf-resp4-6']").textContent = "Sin ceremonia";
 	$('#gmw-submit-6').show();
@@ -231,7 +237,17 @@ var wpfFunctionDistancia = function(){
 	console.log('click');
 	if (document.getElementById("gmw-cf-resp3-6").value == 2 && document.getElementById("gmw-cf-resp4-6").value == 1 ){
 		console.log('Incineración Directa. Distancia 100km.')
-		document.getElementsByClassName("gmw-radius-slider")[0].value() = 100;
+		document.getElementsByClassName("gmw-radius-slider")[0].value = 100;
+	}
+	if(document.getElementById("gmw-cf-resp1-6").value != '' &&
+	document.getElementById("gmw-cf-resp2-6").value != '' &&
+	document.getElementById("gmw-cf-resp3-6").value != '' &&
+	document.getElementById("gmw-cf-resp4-6").value != '' &&
+	document.getElementById("gmw-address-field-6").value != ''){
+		//document.getElementById("gmw-submit-6").disabled = true;
+		$('#gmw-submit-6').hide();
+		$('#wpfunos-enviando').show();
+		console.log('Enviando. Botón envio desactivado.');
 	}
 }
 
