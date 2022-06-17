@@ -62,9 +62,19 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildMail7' ));		//Correo envios colaboradores servicios
     add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
     add_action('admin_init', array( $this, 'registerAndBuildMail9' ));		//Correo pedir presupuesto aseguradora
+    add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
+
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail1' ));		//Correo al administrador nuevos datos usuario
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail2' ));		//Correo al administrador botón "Quiero que me llamen"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail3' ));		//Correo al administrador botón "Llamar"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail4' ));		//Correo lead botón "Quiero que me llamen"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail5' ));		//Correo lead botón "Llamar"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail6' ));		//Correo al administrador pedir presupuesto
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail7' ));		//Correo lead pedir presupuesto
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail8' ));		//Correo usuario copia detalles
+
     add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildAPIDKV' ));
-    add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDireccionesIP' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDirectorio' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsPreciosPoblacion' ));
@@ -385,6 +395,31 @@ class Wpfunos_Admin {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsPreciosPoblacion.php';
   }
 
+  public function registerAndBuildV2Mail1() {
+    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail1.php';
+  }
+  public function registerAndBuildV2Mail2() {
+    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail2.php';
+  }
+  public function registerAndBuildV2Mail3() {
+    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail3.php';
+  }
+  public function registerAndBuildV2Mail4() {
+    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail4.php';
+  }
+  public function registerAndBuildV2Mail5() {
+    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail5.php';
+  }
+  public function registerAndBuildV2Mail6() {
+    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail6.php';
+  }
+  public function registerAndBuildV2Mail7() {
+    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail7.php';
+  }
+  public function registerAndBuildV2Mail8() {
+    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail8.php';
+  }
+
   /**
   * Display Admin settings error messages.
   */
@@ -556,6 +591,39 @@ class Wpfunos_Admin {
     <p>==POR DEFINIR==</p>
     <p>[referencia], [IP], [Email], [Nombre], [Telefono], [address], [CP], [edad], [sexo], [any], [seguro], [URL] [MensajePopup]</p>
     <p>[aseguradoraNombre], [aseguradoraDireccion], [aseguradoraCorreo], [aseguradoraTelefono], [aseguradoraTipoSeguro]</p>
+    <p>==POR DEFINIR==</p>
+    <hr />
+    <?php
+  }
+  public function wpfunos_display_mail_account_v2() {
+    ?>
+    <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
+    <p>[nombreServicio], [nombreUsuario], [telefonoServicio], [telefonoUsuario], [email], [CP], [poblacion], [referencia]</p>
+    <p>[precio], [destino], [ataud], [velatorio], [ceremonia], [comentarios], [IP]</p>
+    <hr />
+    <?php
+  }
+  public function wpfunos_display_mail_account_admin_v2(){
+    ?>
+    <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
+    <p>[nombre], [telefono], [email], [CP], [poblacion], [distancia], [referencia]</p>
+    <p>[destino], [ataud], [velatorio], [ceremonia], [IP], [URL]</p>
+    <hr />
+    <?php
+  }
+  public function wpfunos_display_mail_account_v2_detalles() {
+    ?>
+    <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
+    <p>==POR DEFINIR==</p>
     <p>==POR DEFINIR==</p>
     <hr />
     <?php
@@ -1092,71 +1160,91 @@ class Wpfunos_Admin {
       "IPVS", "IPVO", "IPVC", "IPVR",
     );
     $contador = 0;
+    $newcontador = 0;
     // borrar el índice
-    $args = array(
-      'post_type' => 'precio_serv_wpfunos',
-      'post_status'  => 'publish',
-      'posts_per_page' => -1,
-    );
-    $post_list = get_posts( $args );
-    $this->custom_logs('Wpfunos precios_serv: ' .count($post_list)  );
-    if( $post_list ){
-      foreach ( $post_list as $post ) {
-        wp_delete_post( $post->ID, true);
-      }
-      wp_reset_postdata();
-    }
+    //$args = array(
+    //  'post_type' => 'precio_serv_wpfunos',
+    //  'post_status'  => 'publish',
+    //  'posts_per_page' => -1,
+    //);
+    //$post_list = get_posts( $args );
+    //$this->custom_logs('Wpfunos precios_serv: ' .count($post_list)  );
+    //if( $post_list ){
+    //  foreach ( $post_list as $post ) {
+    //    wp_delete_post( $post->ID, true);
+    //  }
+    //  wp_reset_postdata();
+    //}
     //
     $args = array(
       'post_type' => 'servicios_wpfunos',
       'post_status' => 'publish',
       'posts_per_page' => -1,
+      'meta_query' => array(
+        array( 'key' => 'wpfunos_servicioActivo', 'value' => '1', 'compare' => '=', ),
+      ),
     );
     $post_list = get_posts( $args );
+    $this->custom_logs('Wpfunos Se han encontrado ' .count($post_list). ' servicios activos');
     $this->custom_logs('Wpfunos services: ' .count($post_list)  );
     if( $post_list ){
       foreach ( $post_list as $post ) {
-        //$activo = get_post_meta( $post->ID, 'wpfunos_servicioActivo', true );
         //$this->custom_logs('Wpfunos services: ' .$post->ID. ' Activo: ' .$activo );
-        // comprobar que tiene precios del nuevo buscador
+        $nombre_servicio = get_the_title( $post->ID );
+        $direccion = get_post_meta( $post->ID, 'wpfunos_servicioDireccion', true );
         foreach ( $tipos as $tipo ) {
+          // comprobar que tiene precios del nuevo buscador
           $precio = get_post_meta( $post->ID, 'wpfunos_servicio'.$tipo, true );
           if( strlen ($precio) > 0 ){
+            //            $this->custom_logs('Wpfunos El post ' .$post->ID. ' de tipo ' .$tipo. ' tiene precios activos');
             $resp1 = (substr ($tipo,0,1) == 'E') ? '1' : '2';
             $resp3 = (substr ($tipo,2,1) == 'V') ? '1' : '2';
-            switch( substr ($tipo,1,1) ){
-              case 'M':$resp2 = '1';break;
-              case 'E':$resp2 = '2';break;
-              case 'P':$resp2 = '3';break;
-            }
-            switch(substr ($tipo,3,1) ){
-              case 'S':$resp4 = '1';break;
-              case 'O':$resp4 = '2';break;
-              case 'C':$resp4 = '3';break;
-              case 'R':$resp4 = '4';break;
-            }
-            $nombre_servicio = get_the_title( $post->ID );
-            $direccion = get_post_meta( $post->ID, 'wpfunos_servicioDireccion', true );
-            $my_post = array(
-              'post_title' => $tipo.' - '. $nombre_servicio,
+            switch( substr ($tipo,1,1) ){ case 'M':$resp2 = '1';break; case 'E':$resp2 = '2';break; case 'P':$resp2 = '3';break; }
+            switch( substr ($tipo,3,1) ){ case 'S':$resp4 = '1';break; case 'O':$resp4 = '2';break; case 'C':$resp4 = '3';break; case 'R':$resp4 = '4';break; }
+
+            $newargs = array(
               'post_type' => 'precio_serv_wpfunos',
               'post_status'  => 'publish',
-              'meta_input'   => array(
-                $this->plugin_name . '_servicioPrecioValor' =>  $tipo,
-                $this->plugin_name . '_servicioPrecioID' => $post->ID,
-                $this->plugin_name . '_servicioPrecioNombre' => $nombre_servicio,
-                $this->plugin_name . '_servicioPrecio' => $precio,
-                'resp1' => $resp1, 'resp2' => $resp2, 'resp3' => $resp3, 'resp4' => $resp4,
+              'posts_per_page' => -1,
+              'meta_query' => array(
+                'relation' => 'AND',
+                array( 'key' => 'wpfunos_servicioPrecioID', 'value' => $post->ID, 'compare' => '=', ),
+                array( 'key' => 'resp1', 'value' => $resp1, 'compare' => '=', ),
+                array( 'key' => 'resp2', 'value' => $resp2, 'compare' => '=', ),
+                array( 'key' => 'resp3', 'value' => $resp3, 'compare' => '=', ),
+                array( 'key' => 'resp4', 'value' => $resp4, 'compare' => '=', ),
               ),
             );
-            //$this->custom_logs('Wpfunos precio_serv. Creating ' .$tipo.' - '. $nombre_servicio );
-            $post_id = wp_insert_post($my_post);
-            $contador ++;
-            gmw_update_post_location( $post_id, $direccion, 7, $direccion, true );
+            $newpost_list = get_posts( $newargs );
+
+            if( $newpost_list ){
+              // Update
+              $newcontador ++;
+              //$this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' ya tiene precios. ' .$precio. ',' .$resp1. ', ' .$resp2. ', ' .$resp3. ', ' .$resp4. ' => '    .$newcontador);
+            }else{
+              // Create
+              $my_post = array(
+                'post_title' => $tipo.' - '. $nombre_servicio,
+                'post_type' => 'precio_serv_wpfunos',
+                'post_status'  => 'publish',
+                'meta_input'   => array(
+                  $this->plugin_name . '_servicioPrecioValor' =>  $tipo,
+                  $this->plugin_name . '_servicioPrecioID' => $post->ID,
+                  $this->plugin_name . '_servicioPrecioNombre' => $nombre_servicio,
+                  $this->plugin_name . '_servicioPrecio' => $precio,
+                  'resp1' => $resp1, 'resp2' => $resp2, 'resp3' => $resp3, 'resp4' => $resp4,
+                ),
+              );
+              $post_id = wp_insert_post($my_post);
+              $contador ++;
+              gmw_update_post_location( $post_id, $direccion, 7, $direccion, true );
+              $this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' no tiene precios. Creando entrada. ' .$post_id );
+            }
           }
         }
+        wp_reset_postdata();
       }
-      $this->custom_logs('Wpfunos service Created ' .$contador. ' new entries'  );
+      $this->custom_logs('Wpfunos service Created ' .$contador. ' new entries. Updated ' .$newcontador. ' entries' );
       wp_reset_postdata();
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos ends');

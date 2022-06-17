@@ -41,6 +41,17 @@ if ( ! defined( 'ABSPATH' ) ) {
   <li><a href="#wpfunos-pedir-presupuesto-aseguradora">Correo Pedir presupuesto Aseguradora</a></li>
   <li><a href="#wpfunos-api-preventiva">Correo Aviso Envio API Preventiva</a></li>
   <hr/>
+  <h2><?php esc_html_e( 'Correo nuevos servicios', 'wpfunos' ); ?></h2>
+  <li><a href="#wpfunos-entrada-admin-v2">Correo al administrador nuevos datos usuario</a></li>
+  <li><a href="#wpfunos-llamen-admin-v2">Correo al administrador botón "Quiero que me llamen"</a></li>
+  <li><a href="#wpfunos-llamar-admin-v2">Correo al administrador botón "Llamar"</a></li>
+  <li><a href="#wpfunos-llamen-lead-v2">Correo lead botón "Quiero que me llamen"</a></li>
+  <li><a href="#wpfunos-llamar-lead-v2">Correo lead botón "Llamar"</a></li>
+  <li><a href="#wpfunos-presupuesto-admin-v2">Correo al administrador pedir presupuesto</a></li>
+  <li><a href="#wpfunos-presupuesto-lead-v2">Correo lead pedir presupuesto</a></li>
+  <li><a href="#wpfunos-popup-detalles-v2">Correo usuario copia detalles</a></li>
+  <hr/>
+
   <?php settings_errors(); ?>
   <div class="wpfunos-correos-admin">
     <form method="POST" action="options.php">

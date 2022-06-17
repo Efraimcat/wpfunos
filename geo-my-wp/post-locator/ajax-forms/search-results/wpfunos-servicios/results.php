@@ -26,17 +26,22 @@
 			foreach ($gmw['results'] as $key=>$resultado) {
 				//echo $resultado->post_title .' =>' .$resultado->ID. '<br/>';
 				$servicioID = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecioID', true );
+				$servicioPrecio = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecio', true );
 				$activo = (get_post_meta( $servicioID, 'wpfunos_servicioActivo', true ) == 1) ? 'si' : 'no' ;
 				$confirmado = (get_post_meta( $servicioID, 'wpfunos_servicioPrecioConfirmado', true ) == 1) ? 'si' : 'no' ;
 				//echo $resultado->ID. ' => ' .$activo. ' => ' .$confirmado. '<br/>';
-				if( 'si' == $activo && 'si' == $confirmado ) $wpfunos_confirmado[] = array ($servicioID, $resultado->ID );
-				if( 'si' == $activo && 'no' == $confirmado ) $wpfunos_sinconfirmar[] = array ($servicioID, $resultado->ID );
+				if( 'si' == $activo && 'si' == $confirmado ) $wpfunos_confirmado[] = array ($servicioID, $resultado->ID, $servicioPrecio );
+				if( 'si' == $activo && 'no' == $confirmado ) $wpfunos_sinconfirmar[] = array ($servicioID, $resultado->ID, $servicioPrecio );
 			}
 			do_action( 'wpfunos_resultv2_grid_confirmado', $wpfunos_confirmado );
 			do_action( 'wpfunos_resultv2_grid_sinconfirmar', $wpfunos_sinconfirmar );
 			?>
 
-			<?php gmw_results_map( $gmw, false ); ?>
+			<div class="wpfunos-search-results-map">
+
+				<?php echo do_shortcode( '[gmw_ajax_form map="6"]' ); ?>
+
+			</div>
 
 		</div>
 

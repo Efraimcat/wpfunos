@@ -59,7 +59,8 @@
 	<?php do_action( 'gmw_search_form_end', $gmw ); ?>
 
 	<input type="hidden" name="CP" id="CP" value="" >
-	<input type="hidden" name="wpf" id="wpf" value="" >
+	<input type="hidden" name="wpfref" id="wpfref" value="dummy" >
+	<input type="hidden" name="orden" id="orden" value="dist" >
 
 </form>
 
@@ -91,16 +92,50 @@
 	<button class="wpfunos-pregunta" id="btn10"  onclick="Boton10()" name="subject" type="submit" value="3">Civil</button>
 	<button class="wpfunos-pregunta" id="btn11"  onclick="Boton11()" name="subject" type="submit" value="4">Religiosa</button>
 </div>
+<?php
+//1. - Entrada comparador servicios v2
+$ipaddress = apply_filters('wpfunos_userIP','dummy');
+$referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+do_action('wpfunos_log', '==============' );
+do_action('wpfunos_log', '1. - Entrada comparador servicios v2' );
+do_action('wpfunos_log', 'IP: ' . $ipaddress);
+do_action('wpfunos_log', 'referer: ' . apply_filters('wpfunos_dumplog', substr($referer,0,150) ) );
+do_action('wpfunos_log', 'cookie wpfe: ' . $_COOKIE['wpfe']);
+do_action('wpfunos_log', 'cookie wpfn: ' . $_COOKIE['wpfn']);
+do_action('wpfunos_log', 'cookie wpft: ' . $_COOKIE['wpft']);
+
+$my_post = array(
+	'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+	'post_type' => 'pag_serv_wpfunos',
+	'post_status'  => 'publish',
+	'meta_input'   => array(
+		$this->plugin_name . '_entradaServiciosIP' => $ipaddress ,
+		$this->plugin_name . '_entradaServiciosReferer' => $referer,
+		$this->plugin_name . '_Dummy' => true,
+	),
+);
+//$post_id = 'loggedin';
+$reserved = apply_filters('wpfunos_reserved_email','dummy');
+if( ! $reserved ) $post_id = wp_insert_post($my_post);
+
+//$popup_id = '36069'; //your Popup ID.
+ElementorPro\Modules\Popup\Module::add_popup_to_location( '36069' ); //insert the popup to the current page
+?>
 
 <script>
 
 jQuery( document ).ready( function() {
 	document.getElementById('gmw-submit-6').addEventListener('click', wpfFunctionDistancia, false);
+	document.querySelector("label[for='gmw-cf-resp1-6']").style.setProperty('color', '#ddd', 'important');
+	document.querySelector("label[for='gmw-cf-resp2-6']").style.setProperty('color', '#ddd', 'important');
+	document.querySelector("label[for='gmw-cf-resp3-6']").style.setProperty('color', '#ddd', 'important');
+	document.querySelector("label[for='gmw-cf-resp4-6']").style.setProperty('color', '#ddd', 'important');
 });
 
 function Boton1() {
 	document.getElementById("gmw-cf-resp1-6").value = "1" ;
 	document.querySelector("label[for='gmw-cf-resp1-6']").textContent = "Entierro";
+	document.querySelector("label[for='gmw-cf-resp1-6']").style.color ="#444";
 	$('#wpfunos-pregunta-2').show();
 	document.getElementById("btn1").style.backgroundColor="blue" ;
 	document.getElementById("btn2").style.backgroundColor="#ff9c00" ;
@@ -109,6 +144,7 @@ function Boton1() {
 function Boton2() {
 	document.getElementById("gmw-cf-resp1-6").value = "2" ;
 	document.querySelector("label[for='gmw-cf-resp1-6']").textContent = "Incineración";
+	document.querySelector("label[for='gmw-cf-resp1-6']").style.color ="#444";
 	$('#wpfunos-pregunta-2').show();
 	document.getElementById("btn1").style.backgroundColor="#ff9c00" ;
 	document.getElementById("btn2").style.backgroundColor="blue" ;
@@ -118,6 +154,7 @@ function Boton3() {
 	document.getElementById("gmw-cf-resp2-6").value = "1" ;
 	window.setTimeout(() => document.getElementById('gmw-cf-resp2-6').focus(), 0);
 	document.querySelector("label[for='gmw-cf-resp2-6']").textContent = "Normal";
+	document.querySelector("label[for='gmw-cf-resp2-6']").style.color ="#444";
 	$('#wpfunos-pregunta-3').show();
 	document.getElementById("btn3").style.backgroundColor="blue" ;
 	document.getElementById("btn4").style.backgroundColor="#ff9c00" ;
@@ -127,6 +164,7 @@ function Boton4() {
 	document.getElementById("gmw-cf-resp2-6").value = "2" ;
 	window.setTimeout(() => document.getElementById('gmw-cf-resp2-6').focus(), 0);
 	document.querySelector("label[for='gmw-cf-resp2-6']").textContent = "Económico";
+	document.querySelector("label[for='gmw-cf-resp2-6']").style.color ="#444";
 	$('#wpfunos-pregunta-3').show();
 	document.getElementById("btn3").style.backgroundColor="#ff9c00" ;
 	document.getElementById("btn4").style.backgroundColor="blue" ;
@@ -136,6 +174,7 @@ function Boton5() {
 	document.getElementById("gmw-cf-resp2-6").value = "3"
 	window.setTimeout(() => document.getElementById('gmw-cf-resp2-6').focus(), 0);
 	document.querySelector("label[for='gmw-cf-resp2-6']").textContent = "Premium";
+	document.querySelector("label[for='gmw-cf-resp2-6']").style.color ="#444";
 	$('#wpfunos-pregunta-3').show();
 	document.getElementById("btn3").style.backgroundColor="Blue" ;
 	document.getElementById("btn4").style.backgroundColor="#ff9c00" ;
@@ -145,6 +184,7 @@ function Boton6() {
 	document.getElementById("gmw-cf-resp3-6").value = "1"
 	window.setTimeout(() => document.getElementById('gmw-cf-resp3-6').focus(), 0);
 	document.querySelector("label[for='gmw-cf-resp3-6']").textContent = "Con velatorio";
+	document.querySelector("label[for='gmw-cf-resp3-6']").style.color ="#444";
 	$('#wpfunos-pregunta-4').show();
 	document.getElementById("btn6").style.backgroundColor="Blue" ;
 	document.getElementById("btn7").style.backgroundColor="#ff9c00" ;
@@ -153,6 +193,7 @@ function Boton7() {
 	document.getElementById("gmw-cf-resp3-6").value = "2"
 	window.setTimeout(() => document.getElementById('gmw-cf-resp3-6').focus(), 0);
 	document.querySelector("label[for='gmw-cf-resp3-6']").textContent = "Sin velatorio";
+	document.querySelector("label[for='gmw-cf-resp3-6']").style.color ="#444";
 	$('#wpfunos-pregunta-4').show();
 	document.getElementById("btn6").style.backgroundColor="#ff9c00" ;
 	document.getElementById("btn7").style.backgroundColor="Blue" ;
@@ -161,6 +202,7 @@ function Boton8() {
 	//$("#wpfunos-servicios-geo").hide()
 	document.getElementById("gmw-cf-resp4-6").value = "1"
 	document.querySelector("label[for='gmw-cf-resp4-6']").textContent = "Sin ceremonia";
+	document.querySelector("label[for='gmw-cf-resp4-6']").style.color ="#444";
 	$('#gmw-submit-6').show();
 	$('#wpfunos-pregunta-1').hide();
 	$('#wpfunos-pregunta-2').hide();
@@ -176,6 +218,7 @@ function Boton8() {
 function Boton9() {
 	document.getElementById("gmw-cf-resp4-6").value = "2"
 	document.querySelector("label[for='gmw-cf-resp4-6']").textContent = "Solo sala";
+	document.querySelector("label[for='gmw-cf-resp4-6']").style.color ="#444";
 	$('#gmw-submit-6').show();
 	$('#wpfunos-pregunta-1').hide();
 	$('#wpfunos-pregunta-2').hide();
@@ -191,6 +234,7 @@ function Boton9() {
 function Boton10() {
 	document.getElementById("gmw-cf-resp4-6").value = "3"
 	document.querySelector("label[for='gmw-cf-resp4-6']").textContent = "Ceremonia civil";
+	document.querySelector("label[for='gmw-cf-resp4-6']").style.color ="#444";
 	$('#gmw-submit-6').show();
 	$('#wpfunos-pregunta-1').hide();
 	$('#wpfunos-pregunta-2').hide();
@@ -206,6 +250,7 @@ function Boton10() {
 function Boton11() {
 	document.getElementById("gmw-cf-resp4-6").value = "4"
 	document.querySelector("label[for='gmw-cf-resp4-6']").textContent = "Ceremonia religiosa";
+	document.querySelector("label[for='gmw-cf-resp4-6']").style.color ="#444";
 	$('#gmw-submit-6').show();
 	$('#wpfunos-pregunta-1').hide();
 	$('#wpfunos-pregunta-2').hide();
@@ -233,17 +278,26 @@ var wpfFunctionLabelDisplay = function(){
 	//$('#wpfunos-pregunta-3').show();
 	//$('#wpfunos-pregunta-4').show();
 }
+
 var wpfFunctionDistancia = function(){
 	console.log('click');
 	if (document.getElementById("gmw-cf-resp3-6").value == 2 && document.getElementById("gmw-cf-resp4-6").value == 1 ){
 		console.log('Incineración Directa. Distancia 100km.')
 		document.getElementsByClassName("gmw-radius-slider")[0].value = 100;
+		document.getElementsByClassName("slider-value")[0].textContent='100';
 	}
 	if(document.getElementById("gmw-cf-resp1-6").value != '' &&
 	document.getElementById("gmw-cf-resp2-6").value != '' &&
 	document.getElementById("gmw-cf-resp3-6").value != '' &&
 	document.getElementById("gmw-cf-resp4-6").value != '' &&
 	document.getElementById("gmw-address-field-6").value != ''){
+
+//		jQuery( window ).on( 'elementor/frontend/init', function() { //wait for elementor to load
+//			elementorFrontend.on( 'components:init', function() { //wait for elementor pro to load
+				elementorFrontend.documentsManager.documents['36069'].showModal(); //show the popup
+//			} );
+//		} );
+
 		//document.getElementById("gmw-submit-6").disabled = true;
 		$('#gmw-submit-6').hide();
 		$('#wpfunos-enviando').show();
