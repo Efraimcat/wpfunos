@@ -39,7 +39,7 @@
 
 			<div class="wpfunos-search-results-map">
 
-				<?php echo do_shortcode( '[gmw_ajax_form map="6"]' ); ?>
+				<?php echo do_shortcode( '[gmw_ajax_form map="7"]' ); ?>
 
 			</div>
 

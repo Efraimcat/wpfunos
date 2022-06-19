@@ -606,6 +606,17 @@ class Wpfunos_Admin {
     <hr />
     <?php
   }
+  public function wpfunos_display_mail_account_v2_presupuesto() {
+    ?>
+    <hr/>
+    <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
+    <hr/>
+    <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
+    <p>[nombreServicio], [nombreUsuario], [telefonoServicio], [telefonoUsuario], [email], [CP], [poblacion], [referencia]</p>
+    <p>[precio], [destino], [ataud], [velatorio], [ceremonia], [comentarios], [comentariosUsuario], [IP]</p>
+    <hr />
+    <?php
+  }
   public function wpfunos_display_mail_account_admin_v2(){
     ?>
     <hr/>
@@ -623,8 +634,10 @@ class Wpfunos_Admin {
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
     <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
-    <p>==POR DEFINIR==</p>
-    <p>==POR DEFINIR==</p>
+    <hr/>
+    <p>[nombreServicio], [nombreUsuario], [telefonoServicio], [telefonoUsuario], [email], [CP], [poblacion], [referencia]</p>
+    <p>[precio], [destino], [ataud], [velatorio], [ceremonia], [comentarios], [IP]</p>
+    <p>[logoServicio], [nombrepack],[imagenconfirmado], [textoconfirmado], [imagenecologico], [imagenpromo], [textoprecio]</p>
     <hr />
     <?php
   }

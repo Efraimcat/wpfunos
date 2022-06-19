@@ -90,13 +90,14 @@ class Wpfunos_Utils {
     $current_user = wp_get_current_user();
     $opcion = get_option( 'wpfunos_DireccionesIPDesarrollo' );
     $direcciones = explode ( ",", $opcion );
-    $this->custom_logs( $this->dumpPOST('==============') );
-    $this->custom_logs( $this->dumpPOST('ReservedEmailAction') );
-    $this->custom_logs( $this->dumpPOST('current_user->user_email: ' . $current_user->user_email ) );
     foreach( $direcciones as $direccion ) {
       $direccion = trim( $direccion );
-      if( $direccion == $current_user->user_email )return true;
+      if( $direccion == $current_user->user_email ){
+        $this->custom_logs( $this->dumpPOST('ReservedEmailAction true: ' .$current_user->user_email ) );
+        return true;
+      }
     }
+    $this->custom_logs( $this->dumpPOST('ReservedEmailAction false: ' .$current_user->user_email ) );
     return false;
   }
 
@@ -487,7 +488,7 @@ class Wpfunos_Utils {
   *
   */
   public function wpfunos_SIWG_google_login(){
-	$this->custom_logs( "=== LLEGA AJAX GOOGLE ===");
+    $this->custom_logs( "=== LLEGA AJAX GOOGLE ===");
     // secure credential value from AJAX
     $credential = sanitize_text_field($_POST["credential"]);
     // verify the ID token
