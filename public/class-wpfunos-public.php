@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * 6 - Usuario pulsa botón "que me llamen" en resultados aseguradoras
 * 7 - Usuario pulsa botón "llamar" en resultados aseguradoras
 * 8 - Usuario pide presupuesto aseguradoras
-* 9
+* 9 - Usuario pide correo detalles
 */
 class Wpfunos_Public {
 
@@ -258,7 +258,7 @@ class Wpfunos_Public {
         }
       }
     }
-    
+
     if( "AsesoramientoGratuito" === $form_name || "TeLlamamosGratis" === $form_name || "FormularioDatos" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
         //if( substr($field['value'],0,3) != '+34' ){

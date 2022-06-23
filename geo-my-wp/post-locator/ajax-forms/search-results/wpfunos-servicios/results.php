@@ -33,13 +33,40 @@
 				if( 'si' == $activo && 'si' == $confirmado ) $wpfunos_confirmado[] = array ($servicioID, $resultado->ID, $servicioPrecio );
 				if( 'si' == $activo && 'no' == $confirmado ) $wpfunos_sinconfirmar[] = array ($servicioID, $resultado->ID, $servicioPrecio );
 			}
-			do_action( 'wpfunos_resultv2_grid_confirmado', $wpfunos_confirmado );
-			do_action( 'wpfunos_resultv2_grid_sinconfirmar', $wpfunos_sinconfirmar );
+			?>
+			<div id="wpfunos-resultados-contador">
+
+				<h6 style="text-align: center;">Hemos encontrado <?php echo (count($wpfunos_confirmado)+count($wpfunos_sinconfirmar)) ?> resultados para tí.</h6>
+
+			</div>
+			<?php
+			if ( $_GET['wpfunos-vision'] == 'clear' ){
+				do_action( 'wpfunos_resultv2_grid_confirmado', $wpfunos_confirmado );
+				do_action( 'wpfunos_resultv2_grid_sinconfirmar', $wpfunos_sinconfirmar );
+			}else{
+				do_action( 'wpfunos_resultv2_blur_confirmado', $wpfunos_confirmado );
+				do_action( 'wpfunos_resultv2_blur_sinconfirmar', $wpfunos_sinconfirmar );
+			}
+
 			?>
 
-			<div class="wpfunos-search-results-map">
+			<?php if ( $_GET['wpfunos-vision'] == 'clear' ){ ?>
 
-				<?php echo do_shortcode( '[gmw_ajax_form map="7"]' ); ?>
+				<div class="wpfunos-search-results-map">
+
+					<?php echo do_shortcode( '[gmw_ajax_form map="7"]' ); ?>
+				</div>
+
+			<?php }else{ ?>
+
+				<div class="wpfunos-search-results-map" style="-webkit-filter: blur(10px);filter: blur(10px); pointer-events: none;">
+
+					<?php echo do_shortcode( '[gmw_ajax_form map="7"]' ); ?>
+				</div>
+
+			<?php } ?>
+
+			<div id="wpfunos-resultados-despues-mapa" style="margin-bottom: 40px;">
 
 			</div>
 

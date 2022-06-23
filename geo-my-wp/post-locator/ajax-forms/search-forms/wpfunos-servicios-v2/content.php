@@ -12,7 +12,6 @@
 *
 * @package gmw-ajax-forms
 */
-
 ?>
 <?php do_action( 'gmw_before_search_form', $gmw ); ?>
 
@@ -32,11 +31,7 @@
   <?php gmw_search_form_taxonomies( $gmw ); ?>
 
   <?php do_action( 'gmw_search_form_before_distance', $gmw ); ?>
-  <div id="wpfunos-search-form-compara">
-    <p>
-      Compara funerarias en un radio de:
-    </p>
-  </div>
+
   <?php gmw_search_form_radius( $gmw ); ?>
 
   <?php gmw_search_form_units( $gmw ); ?>
@@ -68,20 +63,29 @@ do_action('wpfunos_log', 'referer: ' . apply_filters('wpfunos_dumplog', substr($
 do_action('wpfunos_log', 'cookie wpfe: ' . $_COOKIE['wpfe']);
 do_action('wpfunos_log', 'cookie wpfn: ' . $_COOKIE['wpfn']);
 do_action('wpfunos_log', 'cookie wpft: ' . $_COOKIE['wpft']);
-
-$my_post = array(
-  'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-  'post_type' => 'pag_serv_wpfunos',
-  'post_status'  => 'publish',
-  'meta_input'   => array(
-    $this->plugin_name . '_entradaServiciosIP' => $ipaddress ,
-    $this->plugin_name . '_entradaServiciosReferer' => $referer,
-    $this->plugin_name . '_Dummy' => true,
-  ),
-);
+//$args = array(
+//  'post_status' => 'publish',
+//  'post_type' => 'pag_serv_wpfunos',
+//  'posts_per_page' => -1,
+//  'meta_key' =>  'wpfunos_entradaServiciosIP',
+//  'meta_value' => $ipaddress,
+//);
+//$post_list = get_posts( $args );
+//$contador = 1;
+//if( $post_list ) $contador=count($post_list)+1;
+//$my_post = array(
+//  'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+//  'post_type' => 'pag_serv_wpfunos',
+//  'post_status'  => 'publish',
+//  'meta_input'   => array(
+//    'wpfunos_entradaServiciosIP' => $ipaddress ,
+//    'wpfunos_entradaServiciosReferer' => $referer,
+//    'wpfunos_entradaServiciosVisitas' => $contador,
+//    'wpfunos_Dummy' => true,
+//  ),
+//);
 if( ! apply_filters('wpfunos_reserved_email','dummy') ) $post_id = wp_insert_post($my_post);
-
-ElementorPro\Modules\Popup\Module::add_popup_to_location( '36069' ); //insert the popup to the current page
+ElementorPro\Modules\Popup\Module::add_popup_to_location( '56688' ); //insert the popup to the current page
 ?>
 
 <script>
@@ -93,7 +97,8 @@ jQuery( document ).ready( function() {
       $('#gmw-submit-7').hide();
       $('#wpfunos-enviando').show();
       console.log('Enviando. Botón envio desactivado.');
-      elementorFrontend.documentsManager.documents['36069'].showModal(); //show the popup
+      console.log(new Date());
+      elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
     }
   }, false);
   document.getElementById("gmw-cf-resp1-7").value = "2" ;
