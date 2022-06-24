@@ -9,7 +9,7 @@ function wpfunos_SIWG_googleLoginEndpoint(googleUser) {
 	jQuery.ajax({
 		type : "post",
 		dataType : "json",
-		url : myAjax.ajaxurl,
+		url : WpfAjax.ajaxurl,
 		data: {
 			"action": "wpfunos-SIWG-google-login",
 			"credential": googleUser.credential

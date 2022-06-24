@@ -15,7 +15,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_aseguradora_llamame",
           "wpfunosid": attribute,
@@ -44,7 +44,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_aseguradora_llamar",
           "wpfunosid": attribute,
@@ -76,7 +76,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_aseguradora_presupuesto",
           "wpfunosid": attribute,
@@ -114,7 +114,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_aseguradora_enviar_presupuesto",
           "wpfunosid": aseguradora,

@@ -70,7 +70,6 @@ class Wpfunos_Servicios {
   }
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-servicios.js', array( 'jquery' ), $this->version, false );
-    wp_localize_script( $this->plugin_name, 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
   }
   /*********************************/
   /*****  SHORTCODES          ******/
@@ -178,7 +177,7 @@ class Wpfunos_Servicios {
         //
         echo do_shortcode( get_option('wpfunos_formGeoMyWp') );
         echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosPie') );
-        require 'js/' . $this->plugin_name . '-servicios-botones.js';
+        //require 'js/' . $this->plugin_name . '-servicios-botones.js';
       }
     }
   }
@@ -869,31 +868,31 @@ class Wpfunos_Servicios {
           //    NUEVO Diseño
           //
 
-          $_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
-          $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
-          $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
-          $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
-          $_GET['seccionID-eco'] = 'wpf-eco-'. $value[0];
-          $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
-          $_GET['seccionClass-detalles'] = 'wpf-detalles-si';
-          $_GET['seccionClass-mapas'] = 'wpf-mapas-si';
-          $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
-          $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+          //$_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
+          //$_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
+          //$_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
+          //$_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
+          //$_GET['seccionID-eco'] = 'wpf-eco-'. $value[0];
+          //$_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
+          //$_GET['seccionClass-detalles'] = 'wpf-detalles-si';
+          //$_GET['seccionClass-mapas'] = 'wpf-mapas-si';
+          //$_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+          //$_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+          //
+          //$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+          //$nonce = wp_create_nonce("wpfunos_servicios_nonce");
+          //$ecologico = ($_GET['ecologico']) ? 'si' : 'no';
+          //$_GET['Atts'] = 'wpfunos-id|' . $value[0].'
+          //data-wpnonce|' . $nonce .'
+          //wpusuario|' . $IDusuario .'
+          //wpecologico|' . $ecologico ;
+          //$_GET['Atts-precio'] = 'wpfunos-att-precio|' . (int)$value[1];
 
-          $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
-          $nonce = wp_create_nonce("wpfunos_servicios_nonce");
-          $ecologico = ($_GET['ecologico']) ? 'si' : 'no';
-          $_GET['Atts'] = 'wpfunos-id|' . $value[0].'
-          data-wpnonce|' . $nonce .'
-          wpusuario|' . $IDusuario .'
-          wpecologico|' . $ecologico ;
-          $_GET['Atts-precio'] = 'wpfunos-att-precio|' . (int)$value[1];
-
-          //if($value[1] == $value[2]){
-          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
-          //}else{
-          //  echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoNewDesign') ) ;
-          //}
+          ////if($value[1] == $value[2]){
+          //echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
+          ////}else{
+          ////  echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosDescuentoNewDesign') ) ;
+          ////}
 
           //
           //    NUEVO Diseño
@@ -968,25 +967,25 @@ class Wpfunos_Servicios {
           //
           //    NUEVO Diseño
           //
-          $_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
-          $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
-          $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
-          $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
-          $_GET['seccionID-eco'] = 'wpf-eco-'. $value[0];
-          $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
-          $_GET['seccionClass-detalles'] = 'wpf-detalles-no';
-          $_GET['seccionClass-mapas'] = 'wpf-mapas-no';
-          $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
-          $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+          //$_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
+          //$_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
+          //$_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
+          //$_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
+          //$_GET['seccionID-eco'] = 'wpf-eco-'. $value[0];
+          //$_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
+          //$_GET['seccionClass-detalles'] = 'wpf-detalles-no';
+          //$_GET['seccionClass-mapas'] = 'wpf-mapas-no';
+          //$_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+          //$_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+          //
+          //$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+          //$nonce = wp_create_nonce("wpfunos_servicios_nonce");
+          //$_GET['Atts'] = 'wpfunos-id|' . $value[0].'
+          //data-wpnonce|' . $nonce .'
+          //wpusuario|' . $IDusuario;
+          //$_GET['Atts-precio'] = 'wpfunos-att-precio|' . (int)$value[1];
 
-          $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
-          $nonce = wp_create_nonce("wpfunos_servicios_nonce");
-          $_GET['Atts'] = 'wpfunos-id|' . $value[0].'
-          data-wpnonce|' . $nonce .'
-          wpusuario|' . $IDusuario;
-          $_GET['Atts-precio'] = 'wpfunos-att-precio|' . (int)$value[1];
-
-          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
+          //echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
 
           //
           //    NUEVO Diseño
@@ -1051,20 +1050,20 @@ class Wpfunos_Servicios {
           //
           //    NUEVO Diseño
           //
-          $_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
-          $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
-          $_GET['seccionClass-detalles'] = 'wpf-detalles-no';
-          $_GET['seccionClass-mapas'] = 'wpf-mapas-no';
-          $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
-          $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+          //$_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
+          //$_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
+          //$_GET['seccionClass-detalles'] = 'wpf-detalles-no';
+          //$_GET['seccionClass-mapas'] = 'wpf-mapas-no';
+          //$_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+          //$_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
 
-          $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
-          $nonce = wp_create_nonce("wpfunos_servicios_nonce");
-          $_GET['Atts'] = 'wpfunos-id|' . $value[0].'
-          data-wpnonce|' . $nonce .'
-          wpusuario|' . $IDusuario;
+          //$IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+          //$nonce = wp_create_nonce("wpfunos_servicios_nonce");
+          //$_GET['Atts'] = 'wpfunos-id|' . $value[0].'
+          //data-wpnonce|' . $nonce .'
+          //wpusuario|' . $IDusuario;
 
-          echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
+          //echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosNewDesign') ) ;
           //
           //    NUEVO Diseño
           //

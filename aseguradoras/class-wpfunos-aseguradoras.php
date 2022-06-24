@@ -47,7 +47,6 @@ class Wpfunos_Aseguradoras {
 
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-aseguradoras.js', array( 'jquery' ), $this->version, false );
-    wp_localize_script( $this->plugin_name, 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
   }
   /*********************************/
   /*****  SHORTCODES          ******/

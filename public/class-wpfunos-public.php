@@ -455,9 +455,9 @@ class Wpfunos_Public {
       do_action('wpfunos_log', 'Error 1 Nuevo Usuario: ' .  $userIP  );
       do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
     }
-    if(is_wp_error($post_id)){
-      echo $post_id->get_error_message();
-      exit;
-    }
+    //if(is_wp_error($post_id)){
+    //  echo $post_id->get_error_message();
+    //  exit;
+    //}
   }
 }

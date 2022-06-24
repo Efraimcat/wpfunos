@@ -21,7 +21,7 @@ $(document).ready(function(){
 			jQuery.ajax({
 				type : "post",
 				dataType : "json",
-				url : myAjax.ajaxurl,
+				url : WpfAjax.ajaxurl,
 				data: {
 					"action": "wpfunos_ajax_serviciosv2_llamame",
 					"servicio": servicio,
@@ -67,7 +67,7 @@ $(document).ready(function(){
 			jQuery.ajax({
 				type : "post",
 				dataType : "json",
-				url : myAjax.ajaxurl,
+				url : WpfAjax.ajaxurl,
 				data: {
 					"action": "wpfunos_ajax_serviciosv2_llamar_numero_telefono",
 					"servicio": servicio,
@@ -90,7 +90,7 @@ $(document).ready(function(){
 						jQuery.ajax({
 							type : "post",
 							dataType : "json",
-							url : myAjax.ajaxurl,
+							url : WpfAjax.ajaxurl,
 							data: {
 								"action": "wpfunos_ajax_serviciosv2_llamar",
 								"servicio": servicio,
@@ -140,7 +140,7 @@ $(document).ready(function(){
 			jQuery.ajax({
 				type : "post",
 				dataType : "json",
-				url : myAjax.ajaxurl,
+				url : WpfAjax.ajaxurl,
 				data: {
 					"action": "wpfunos_ajax_serviciosv2_presupuesto",
 					"servicio": servicio,
@@ -178,7 +178,7 @@ $(document).ready(function(){
 			jQuery.ajax({
 				type : "post",
 				dataType : "json",
-				url : myAjax.ajaxurl,
+				url : WpfAjax.ajaxurl,
 				data: {
 					"action": "wpfunos_ajax_serviciosv2_enviar_presupuesto",
 					"servicio": servicio,
@@ -225,7 +225,7 @@ $(document).ready(function(){
 			jQuery.ajax({
 				type : "post",
 				dataType : "json",
-				url : myAjax.ajaxurl,
+				url : WpfAjax.ajaxurl,
 				data: {
 					"action": "wpfunos_ajax_serviciosv2_detalles",
 					"servicio": servicio,
@@ -285,7 +285,7 @@ $(document).ready(function(){
 			jQuery.ajax({
 				type : "post",
 				dataType : "json",
-				url : myAjax.ajaxurl,
+				url : WpfAjax.ajaxurl,
 				data: {
 					"action": "wpfunos_ajax_serviciosv2_llamame",
 					"servicio": servicio,
@@ -331,7 +331,7 @@ $(document).ready(function(){
 			jQuery.ajax({
 				type : "post",
 				dataType : "json",
-				url : myAjax.ajaxurl,
+				url : WpfAjax.ajaxurl,
 				data: {
 					"action": "wpfunos_ajax_serviciosv2_llamar_numero_telefono",
 					"servicio": servicio,
@@ -356,7 +356,7 @@ $(document).ready(function(){
 						jQuery.ajax({
 							type : "post",
 							dataType : "json",
-							url : myAjax.ajaxurl,
+							url : WpfAjax.ajaxurl,
 							data: {
 								"action": "wpfunos_ajax_serviciosv2_llamar",
 								"servicio": servicio,
@@ -430,7 +430,7 @@ $(document).ready(function(){
 			jQuery.ajax({
 				type : "post",
 				dataType : "json",
-				url : myAjax.ajaxurl,
+				url : WpfAjax.ajaxurl,
 				data: {
 					"action": "wpfunos_ajax_serviciosv2_mail_detalles",
 					"servicio": servicio,

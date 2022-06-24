@@ -56,7 +56,6 @@ class Wpfunos_ServiciosV2 {
   }
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-serviciosv2.js', array( 'jquery' ), $this->version, false );
-    wp_localize_script( $this->plugin_name, 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
   }
 
   /*********************************/
@@ -426,7 +425,7 @@ class Wpfunos_ServiciosV2 {
                 jQuery.ajax({
                   type : "post",
                   dataType : "json",
-                  url : myAjax.ajaxurl,
+                  url : WpfAjax.ajaxurl,
                   data: {
                     "action": "wpfunos_ajax_serviciosv2_entrada_datos",
                     "wpfnombre": nombre,
@@ -506,7 +505,7 @@ class Wpfunos_ServiciosV2 {
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_serviciosv2_entrada_datos",
           "wpfnombre": wpfnombre,

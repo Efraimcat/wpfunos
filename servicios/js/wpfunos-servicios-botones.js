@@ -18,7 +18,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_servicios_llamame",
           "IDservicio": IDservicio,
@@ -51,7 +51,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_servicios_llamar",
           "IDservicio": IDservicio,
@@ -87,7 +87,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_servicios_presupuesto",
           "IDservicio": IDservicio,
@@ -122,7 +122,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_servicios_detalles",
           "IDservicio": IDservicio,
@@ -250,7 +250,7 @@ $(document).ready(function(){
       jQuery.ajax({
         type : "post",
         dataType : "json",
-        url : myAjax.ajaxurl,
+        url : WpfAjax.ajaxurl,
         data: {
           "action": "wpfunos_ajax_servicios_enviar_presupuesto",
           "wpfunosid": servicio,

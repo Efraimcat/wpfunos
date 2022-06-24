@@ -40,7 +40,6 @@ class Wpfunos_ServiciosV2 {
   }
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-serviciosv2.js', array( 'jquery' ), $this->version, false );
-    wp_localize_script( $this->plugin_name, 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
   }
 
   /*********************************/
@@ -116,7 +115,7 @@ class Wpfunos_ServiciosV2 {
     $_GET['poblacion'] = $_GET['address'][0];
     //wpf-resultados-cabecera-cuando
     $nonce = wp_create_nonce("wpfunos_serviciosv2_nonce".apply_filters('wpfunos_userIP','dummy'));
-    mt_srand(mktime());
+    mt_srand(time());
     $newref = 'funos-'.(string)mt_rand();
     $_GET['AttsInicio'] = 'wpfn|' . $nonce . '
     wpfip|' . apply_filters('wpfunos_userIP','dummy'). '
@@ -164,7 +163,6 @@ class Wpfunos_ServiciosV2 {
     if( $post_list ){
       foreach ( $post_list as $post ) :
         $contador++;
-        $suma++;
         $check = get_post_meta( $post->ID, 'wpfunos_provincias' . $campo.'_ck', true );
         $precio = get_post_meta( $post->ID, 'wpfunos_provincias' . $campo, true );
         $titulo = get_post_meta( $post->ID, 'wpfunos_provinciasTitulo', true );
@@ -226,6 +224,7 @@ class Wpfunos_ServiciosV2 {
   */
 
   public function wpfunosServiciosDatosShortcode($atts, $content = ""){
+    $ipaddress = apply_filters('wpfunos_userIP','dummy');
     if (is_user_logged_in()){
       $current_user = wp_get_current_user();
       $_GET['usuario_telefono'] = str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
@@ -244,7 +243,7 @@ class Wpfunos_ServiciosV2 {
     //
     //  log de los cookies que tiene el usuario
     //
-    if ( $_COOKIE['wpfe'] == '' ){
+    if ( !isset($_COOKIE['wpfe']) || $_COOKIE['wpfe'] == '' ){
       do_action('wpfunos_log', 'wpfref: ' . $_GET['wpfref']);
       do_action('wpfunos_log', 'dirección: ' . $_GET['poblacion']);
       do_action('wpfunos_log', 'IP: ' . $ipaddress);
@@ -282,7 +281,7 @@ class Wpfunos_ServiciosV2 {
       //
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', '3. - Entrada formulario datos personales v2' );
-      if ( $_COOKIE['wpfe'] == '' ){
+      if ( !isset($_COOKIE['wpfe']) || $_COOKIE['wpfe'] == '' ){
         do_action('wpfunos_log', 'wpfref: ' . $_GET['wpfref']);
         do_action('wpfunos_log', 'IP: ' . $ipaddress);
         do_action('wpfunos_log', '***' );
@@ -337,7 +336,7 @@ class Wpfunos_ServiciosV2 {
   public function wpfunosResultV2GridConfirmado( $wpfunos_confirmado ){
   }
 
-  public function wpfunosResulV2tGridSinConfirmar( $wpfunos_confirmado ){
+  public function wpfunosResulV2tGridSinConfirmar( $wpfunos_sinconfirmar ){
   }
 
   public function wpfunosResultV2BlurConfirmado( $wpfunos_confirmado ){
@@ -389,7 +388,7 @@ class Wpfunos_ServiciosV2 {
       }
     }
   }
-  public function wpfunosResulV2tBlurSinConfirmar( $wpfunos_confirmado ){
+  public function wpfunosResulV2tBlurSinConfirmar( $wpfunos_sinconfirmar ){
     if(count($wpfunos_sinconfirmar) != 0){
       ?><div class="wpfunos-titulo"><p></p><center><h2>Precio sin confirmar</h2></center></div><?php
       foreach ($wpfunos_sinconfirmar as $value) {
