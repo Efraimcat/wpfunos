@@ -16,20 +16,28 @@ function astra_funos_enqueue_styles() {
 function gmw_custom_get_zipcode_on_form_submission() {
   ?>
   <script type="text/javascript">
+
   jQuery( document ).ready( function() {
+
     if ( typeof GMW != 'undefined' ) {
+
       // Executes when address is geocoded during form submission.
       GMW.add_filter( 'gmw_geocoder_result_on_success', function( results ) {
+
         // Check if zipcode exists.
         if ( results.postcode != '' ) {
           document.getElementById("CP").value = results.postcode;
         }
+
         return results;
       });
+
       // Executes when selecting an address from the address autocomplete suggested results.
       GMW.add_action( 'gmw_address_autocomplete_place_changed', function( place, autocomplete, field_id, input_field, options ) {
+
         // Get the location fields from the selected option.
         var results = GMW_Geocoders.google_maps.getLocationFields( place );
+
         // If zipcode exists.
         if ( results.postcode != '' ) {
           document.getElementById("CP").value = results.postcode;
@@ -70,13 +78,13 @@ function set_ip_cookie() {
   $expiry = strtotime('+1 month');
   $expiry2 = strtotime('+1 year');
   $expiry3 = strtotime('+1 day');
-  //
-  //if (is_user_logged_in()){
-  //  global $current_user;
-  //  get_currentuserinfo();
-  //  $email = $current_user->user_email;
-  //  setcookie('wpfmail', sanitize_text_field( $email ), ['expires' => $expiry3, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-  //}
+
+  if (is_user_logged_in()){
+    global $current_user;
+    get_currentuserinfo();
+    $email = $current_user->user_email;
+    setcookie('wpfmail', $email, ['expires' => $expiry3, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+  }
   //setcookie('wpftoken', sanitize_text_field( $codigo ), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
   //if( ! isset( $_COOKIE['wpfid'] ) || $_COOKIE['wpfid'] == 'T1dkS0t1enFzRTJITFNPWW5reWpSZz09'){
   //  setcookie('wpfid', sanitize_text_field( $codigoID ), ['expires' => $expiry2, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );

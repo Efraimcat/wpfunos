@@ -472,14 +472,9 @@ class Wpfunos_Utils {
     $pagina = get_the_ID();
     if( 1734 !== $pagina && 37332 !== $pagina && 56915 !== $pagina && 56988 !== $pagina && 58520 !== $pagina) return false;
     if (is_user_logged_in()) return false;
-
     echo '<script src="https://accounts.google.com/gsi/client" async defer></script>
-    <div id="g_id_onload"
-    data-client_id="336511646507-dejbd1hln47qavqi0ncnq6hd0v2pdafl.apps.googleusercontent.com"
-    data-context="use"
-    data-callback="wpfunos_SIWG_googleLoginEndpoint"
-    data-close_on_tap_outside="false">
-    </div>';
+    <div id="g_id_onload" data-client_id="336511646507-dejbd1hln47qavqi0ncnq6hd0v2pdafl.apps.googleusercontent.com" data-context="use"
+    data-callback="wpfunos_SIWG_googleLoginEndpoint" data-close_on_tap_outside="false"> </div>';
   }
 
   /*

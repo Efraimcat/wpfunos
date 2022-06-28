@@ -786,7 +786,7 @@ class Wpfunos_Servicios {
   * add_action( 'wpfunos_result_grid_confirmado', array( $this, 'wpfunosResultGridConfirmado' ), 10, 1 );
   */
   public function wpfunosResultGridConfirmado( $wpfunos_confirmado ){
-    if(count($wpfunos_confirmado) != 0){
+    if(is_array($wpfunos_confirmado)){
       ?><div class="wpfunos-titulo"><p></p><center><h2>Precio confirmado</h2></center></div><?php
       //echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
       //
@@ -909,7 +909,7 @@ class Wpfunos_Servicios {
   * add_action( 'wpfunos_result_grid_sinconfirmar', array( $this, 'wpfunosResultGridSinConfirmar' ), 10, 1 );
   */
   public function wpfunosResultGridSinConfirmar( $wpfunos_sinconfirmar ){
-    if(count($wpfunos_sinconfirmar) != 0){
+    if(is_array($wpfunos_sinconfirmar)){
       ?><div class="wpfunos-titulo"><p></p><h2><center>Precio sin confirmar</center></h2></div><?php
       if(isset($_GET['orden']) && $_GET['orden'] == 'precios' ){
         $columns = array_column( $wpfunos_sinconfirmar, 1 );
@@ -1002,7 +1002,7 @@ class Wpfunos_Servicios {
   * add_action( 'wpfunos_result_grid_sinprecio', array( $this, 'wpfunosResultGridSinPrecio' ), 10, 1 );
   */
   public function wpfunosResultGridSinPrecio( $wpfunos_sinprecio ){
-    if(count($wpfunos_sinprecio) != 0){
+    if(is_array($wpfunos_sinprecio)){
       ?><div class="wpfunos-titulo"><p></p><center><h2>Sin precio</h2></center></div><?php
       foreach ($wpfunos_sinprecio as $value) {
         ?><div class="wpfunos-busqueda-contenedor"><?php

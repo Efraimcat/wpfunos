@@ -2,7 +2,6 @@
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
-    console.log('Ventana poblacion OK');
     if(document.getElementById("wpfunos-boton-formulario-nueva-distancia") ){
       document.getElementById("wpfunos-boton-formulario-nueva-distancia").addEventListener('click', function(){
         console.log('click');

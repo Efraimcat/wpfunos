@@ -1233,6 +1233,7 @@ class Wpfunos_Admin {
             if( $newpost_list ){
               // Update
               $newcontador ++;
+              update_post_meta($post->ID, 'wpfunos_servicioPrecio',  $precio );
               //$this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' ya tiene precios. ' .$precio. ',' .$resp1. ', ' .$resp2. ', ' .$resp3. ', ' .$resp4. ' => '    .$newcontador);
             }else{
               // Create
@@ -1241,10 +1242,10 @@ class Wpfunos_Admin {
                 'post_type' => 'precio_serv_wpfunos',
                 'post_status'  => 'publish',
                 'meta_input'   => array(
-                  $this->plugin_name . '_servicioPrecioValor' =>  $tipo,
-                  $this->plugin_name . '_servicioPrecioID' => $post->ID,
-                  $this->plugin_name . '_servicioPrecioNombre' => $nombre_servicio,
-                  $this->plugin_name . '_servicioPrecio' => $precio,
+                  'wpfunos_servicioPrecioValor' =>  $tipo,
+                  'wpfunos_servicioPrecioID' => $post->ID,
+                  'wpfunos_servicioPrecioNombre' => $nombre_servicio,
+                  'wpfunos_servicioPrecio' => $precio,
                   'resp1' => $resp1, 'resp2' => $resp2, 'resp3' => $resp3, 'resp4' => $resp4,
                 ),
               );

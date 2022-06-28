@@ -2,7 +2,6 @@
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
-    console.log('Botones detalles OK');
     var params = new URLSearchParams(location.search);
     var orden = params.get('orden');
 

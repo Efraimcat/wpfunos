@@ -30,6 +30,7 @@ if( !isset ($_POST['submit']) ){
       </p>
     </form>
   </div>
+  
   <?php
   return;
 }
