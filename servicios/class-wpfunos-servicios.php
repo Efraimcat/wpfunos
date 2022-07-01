@@ -1466,12 +1466,12 @@ class Wpfunos_Servicios {
   */
   private function wpfunos_case( $postID, $servicioPrecio, $servicioDescuento, $NA, $preciototal, $preciodescuento, $servicioNombre ){
     if ($servicioPrecio == '' ) $NA=true;
-    $preciototal += $servicioPrecio ;
+    $preciototal += (int)$servicioPrecio ;
     if( $servicioDescuento > 0 ){
       $preciodescuento += $servicioPrecio - ($servicioPrecio*($servicioDescuento/100));
       $desglose = $servicioPrecio - ($servicioPrecio*($servicioDescuento/100));
     }else{
-      $preciodescuento += $servicioPrecio;
+      $preciodescuento += (int)$servicioPrecio;
       $desglose = $servicioPrecio;
     }
     return array( $NA, $preciototal, $preciodescuento, $servicioNombre, $servicioPrecio, $servicioDescuento, $desglose );

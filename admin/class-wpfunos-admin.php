@@ -130,6 +130,12 @@ class Wpfunos_Admin {
   public function wpfunosCron() {
     $this->wpfunosMaintenance();
   }
+  /**
+  * Register the Cron Job.
+  */
+  public function wpfunosHourlyCron() {
+    $this->wpfunosHourlyMaintenance();
+  }
 
   /**
   * Register the Cron Job Schedule.
@@ -139,6 +145,12 @@ class Wpfunos_Admin {
       $schedules["wpfunosCronSchedule"] = array(
         'interval' => 43200,
         'display' => esc_html__('daily'),
+      );
+    }
+    if (!isset ($schedules["wpfunosCronHourlySchedule"]) ){
+      $schedules["wpfunosCronHourlySchedule"] = array(
+        'interval' => 3600,
+        'display' => esc_html__('funoshourly'),
       );
     }
     return $schedules;
@@ -1108,8 +1120,22 @@ class Wpfunos_Admin {
   /** **/
 
   /*********************************/
-  /*****  UTILIDADES          ******/
+  /*****  CRON                ******/
   /*********************************/
+
+  /**
+  * Cron job hourly maintenance tasks.
+  */
+  protected function wpfunosHourlyMaintenance(){
+    $this->custom_logs('Wpfunos Hourly begins');
+    //
+    // BEGINING
+    $this->wpfunosMaintenanceHourly2FA();
+    //
+    // END
+    $this->custom_logs('Wpfunos Hourly ends');
+    $this->custom_logs('---');
+  }
 
   /**
   * Cron job maintenance tasks.
@@ -1117,6 +1143,21 @@ class Wpfunos_Admin {
   protected function wpfunosMaintenance()
   {
     $this->custom_logs('Wpfunos Maintenance begins');
+    //
+    // BEGINING
+    $this->wpfunosMaintenanceLogRotate();
+    $this->wpfunosMaintenancePreciosFunerarias();
+    //
+    // END
+    $this->custom_logs('Wpfunos Maintenance ends');
+    $this->custom_logs('---');
+    return;
+  }
+
+  /**
+  * Cron job maintenance log rotate
+  */
+  protected function wpfunosMaintenanceLogRotate(){
     $upload_dir = wp_upload_dir();
     $files = scandir( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs' );
     foreach ($files as $file) {
@@ -1130,6 +1171,12 @@ class Wpfunos_Admin {
         }
       }
     }
+  }
+
+  /**
+  * Cron job Precios funerarias
+  */
+  protected function wpfunosMaintenancePreciosFunerarias(){
     //  Precios Funerarias
     $this->custom_logs('---');
     $this->custom_logs('Wpfunos precio_funer_wpfunos starts');
@@ -1263,12 +1310,31 @@ class Wpfunos_Admin {
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos ends');
     $this->custom_logs('---');
-    //
-    // END
-    $this->custom_logs('Wpfunos Maintenance ends');
-    $this->custom_logs('---');
-    return;
   }
+
+  /**
+  * Cron job maintenance log rotate
+  */
+  protected function wpfunosMaintenanceHourly2FA(){
+    $this->custom_logs('Wpfunos 2FA');
+    $args = array(
+      'role'    => 'pre2fa',
+      'orderby' => 'user_nicename',
+      'order'   => 'ASC'
+    );
+    $users = get_users( $args );
+    if( $users ){
+      foreach ( $users as $user ){
+        $this->custom_logs('Wpfunos 2FA: ' .$user->display_name. ' ID: ' .$user->ID. ' Last login: ' .gmdate("Y-m-d\TH:i:s\Z", get_user_meta( $user->ID, 'wfls-last-login' , true )) );
+      }
+    }
+
+
+  }
+
+  /*********************************/
+  /*****  UTILIDADES          ******/
+  /*********************************/
   /**
   * Utility: log files.
   */

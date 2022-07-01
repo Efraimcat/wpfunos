@@ -33,5 +33,8 @@ class Wpfunos_Activator {
 		if (! wp_next_scheduled('wpfunosCronJob')) {
 				wp_schedule_event(time(), 'daily', 'wpfunosCronJob');
 		}
+		if (! wp_next_scheduled('wpfunosHourlyCronJob')) {
+				wp_schedule_event(time(), 'hourly', 'wpfunosHourlyCronJob');
+		}
 	}
 }

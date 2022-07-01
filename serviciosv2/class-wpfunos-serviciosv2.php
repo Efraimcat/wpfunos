@@ -57,8 +57,16 @@ class Wpfunos_ServiciosV2 {
   * Shortcode [wpfunos-nuevos-datos-cabecera]
   */
   public function wpfunosServiciosDatosCabeceraShortcode($atts, $content = ""){
+    if( ! isset($_GET['cf']['resp1']) || ! isset($_GET['lat']) ){
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', '2. - Entrada página resultados v2 - Redirección Home' );
+      do_action('wpfunos_log', 'IP: ' .apply_filters('wpfunos_userIP','dummy') );
+      wp_redirect( home_url() );
+      exit();
+    }
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '2. - Entrada página resultados v2' );
+    do_action('wpfunos_log', 'IP: ' .apply_filters('wpfunos_userIP','dummy') );
 
     $nueva_distancia = 0;
     $nueva_lat = 0;
@@ -148,25 +156,13 @@ class Wpfunos_ServiciosV2 {
   * Shortcode [wpfunos-serviciosv2-precio-zona]
   */
   public function wpfunosServiciosv2PrecioZonaShortcode($atts, $content = ""){
-    if(!isset($_GET['lat'])) return;
-    switch($_GET['cf']['resp1']){
-      case '1': $destino = 'E' ; break; case '2': $destino = 'I' ; break;
-    }
-    switch($_GET['cf']['resp2']){
-      case '1': $ataud = 'M' ; break; case '2': $ataud = 'E' ; break; case '3': $ataud = 'P' ; break;
-    }
-    switch($_GET['cf']['resp3']){
-      case '1': $velatorio = 'V' ; break; case '2': $velatorio = 'S' ; break;
-    }
-    switch($_GET['cf']['resp4']){
-      case '1': $despedida = 'S' ; break; case '2': $despedida = 'O' ; break; case '3': $despedida = 'C' ; break; case '4': $despedida = 'R' ; break;
-    }
-    //$codigo_provincia = substr( trim( $_COOKIE['wpfc'], " " ), 0, 2 );
+    $respuesta = $this->wpfunosFiltros();
+    //case '1': $result['resp1'] = array( 'desc' => 'Destino', 'inicial' => 'E', 'texto' => 'Entierro' ); break;
     $address = $_GET['address'][0];
     $cp = $_GET['CP'];
     $CP = $this->wpfunosCodigoPostal( $cp, $address );
     $codigo_provincia = substr( trim( $CP, " " ), 0, 2 );
-    $campo = $destino . $ataud . $velatorio . $despedida;
+    $campo = $respuesta['resp1']['inicial'] . $respuesta['resp2']['inicial'] . $respuesta['resp3']['inicial'] . $respuesta['resp4']['inicial'];
 
     echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
     $args = array(
@@ -271,44 +267,47 @@ class Wpfunos_ServiciosV2 {
         $columns = array_column( $wpfunos_confirmado, 2 );
         array_multisort( $columns, SORT_ASC, $wpfunos_confirmado );
       }
-
+      $cont_blur = 0;
       foreach ($wpfunos_confirmado as $value) {
-        $respuesta = $this->wpfunosFiltros();
-        //case '1': $result['resp1'] = array( 'desc' => 'Destino', 'inicial' => 'E', 'texto' => 'Entierro' ); break;
+        if($cont_blur < 5 ){
+          $respuesta = $this->wpfunosFiltros();
+          //case '1': $result['resp1'] = array( 'desc' => 'Destino', 'inicial' => 'E', 'texto' => 'Entierro' ); break;
 
-        $nonce = wp_create_nonce("wpfunos_serviciosv2_nonce".apply_filters('wpfunos_userIP','dummy'));
-        $_GET['AttsServicio'] = 'wpfid|' . $value[0].'
-        wpfn|' . $nonce .'
-        wpfp|' . $value[2] ;
+          $nonce = wp_create_nonce("wpfunos_serviciosv2_nonce".apply_filters('wpfunos_userIP','dummy'));
+          $_GET['AttsServicio'] = 'wpfid|' . $value[0].'
+          wpfn|' . $nonce .'
+          wpfp|' . $value[2] ;
 
-        $_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
-        $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
-        $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
-        $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
-        $_GET['seccionID-eco'] = 'wpf-eco-'. $value[0];
-        $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
-        $_GET['seccionClass-detalles'] = 'wpf-detalles-si';
-        $_GET['seccionClass-mapas'] = 'wpf-mapas-si';
-        $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
-        $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+          $_GET['seccionID-llamadas'] = 'wpf-llamadas-'. $value[0];
+          $_GET['seccionID-presupuesto'] = 'wpf-presupuesto-'. $value[0];
+          $_GET['seccionID-detalles'] = 'wpf-detalles-'. $value[0];
+          $_GET['seccionID-mapas'] = 'wpf-mapas-'. $value[0];
+          $_GET['seccionID-eco'] = 'wpf-eco-'. $value[0];
+          $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
+          $_GET['seccionClass-detalles'] = 'wpf-detalles-si';
+          $_GET['seccionClass-mapas'] = 'wpf-mapas-si';
+          $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+          $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
 
-        $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
-        $_GET['valor-imagen-promo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioImagenPromo', true ) ,'full' );
-        $_GET['valor-logo-confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
-        $_GET['valor-logo-eco'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
-        $_GET['valor-textoconfirmado'] = 'Precio confirmado';
-        $_GET['valor-nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
-        $_GET['valor-nombrepack'] = get_post_meta( $value[0], 'wpfunos_servicioPackNombre', true );
-        $_GET['valor-valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
-        $_GET['valor-precio'] = number_format($value[2], 0, ',', '.') . '€';;
-        $_GET['valor-textoprecio'] = get_post_meta( $value[0], 'wpfunos_servicioTextoPrecio', true );
-        $_GET['valor-direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
-        $_GET['valor-distancia'] = $value[3] ;
-        $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
+          $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
+          $_GET['valor-imagen-promo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioImagenPromo', true ) ,'full' );
+          $_GET['valor-logo-confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
+          $_GET['valor-logo-eco'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
+          $_GET['valor-textoconfirmado'] = 'Precio confirmado';
+          $_GET['valor-nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
+          $_GET['valor-nombrepack'] = get_post_meta( $value[0], 'wpfunos_servicioPackNombre', true );
+          $_GET['valor-valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
+          $_GET['valor-precio'] = number_format($value[2], 0, ',', '.') . '€';;
+          $_GET['valor-textoprecio'] = get_post_meta( $value[0], 'wpfunos_servicioTextoPrecio', true );
+          $_GET['valor-direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
+          $_GET['valor-distancia'] = $value[3] ;
+          $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
 
-        ?><div class="wpfunos-busqueda-contenedor"><?php
-        echo do_shortcode( '[elementor-template id="63606"]' ) ;
-        ?></div><?php
+          ?><div class="wpfunos-busqueda-contenedor"><?php
+          echo do_shortcode( '[elementor-template id="63606"]' ) ;
+          ?></div><?php
+          $cont_blur++ ;
+        }
       }
     }
   }

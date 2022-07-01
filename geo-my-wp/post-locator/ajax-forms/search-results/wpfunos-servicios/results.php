@@ -23,6 +23,7 @@
 			<?php
 			$wpfunos_confirmado = [];
 			$wpfunos_sinconfirmar = [];
+			$cont_blur = 0;
 			foreach ($gmw['results'] as $key=>$resultado) {
 				//echo $resultado->post_title .' =>' .$resultado->ID. '<br/>';
 				$servicioID = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecioID', true );
@@ -44,6 +45,13 @@
 				do_action( 'wpfunos_resultv2_grid_confirmado', $wpfunos_confirmado );
 				do_action( 'wpfunos_resultv2_grid_sinconfirmar', $wpfunos_sinconfirmar );
 			}else{
+				?>
+				<div id="wpfunos-resultados-contador-blur">
+
+					<h6 style="text-align: center;font-weight: 500;font-size: 12px;">(Mostrando los primeros 5 resultados)</h6>
+
+				</div>
+				<?php
 				do_action( 'wpfunos_resultv2_blur_confirmado', $wpfunos_confirmado );
 				do_action( 'wpfunos_resultv2_blur_sinconfirmar', $wpfunos_sinconfirmar );
 			}

@@ -274,6 +274,7 @@ class Wpfunos_Public {
       }
     }
   }
+
   public function wpfunos_elementor_get_field( $id, $record ){
     $fields = $record->get_field( [ 'id' => $id, ] );
     if ( empty( $fields ) ) {
@@ -291,7 +292,7 @@ class Wpfunos_Public {
   public function wpfunosFormNewrecord($record, $handler){
     global $wp;
     $form_name = $record->get_form_settings( 'form_name' );
-    if ( 'FormularioDatos' !== $form_name  && 'FormularioDatosFuturo' !== $form_name ) {
+    if ( 'FormularioDatos' !== $form_name  && 'FormularioDatosAseguradoras' !== $form_name ) {
       return;
     }
     $raw_fields = $record->get( 'fields' );
@@ -386,7 +387,7 @@ class Wpfunos_Public {
           'IDstamp' => $_COOKIE[ 'wpfid' ],
         ),
       );
-    }elseif( $form_name == 'FormularioDatosFuturo' ){
+    }elseif( $form_name == 'FormularioDatosAseguradoras' ){
       //https://funos.es/compara-precios-aseguradoras?address%5B%5D=Barcelona&post%5B%5D=aseguradoras_wpfunos&distance=&units=&page1=&per_page=50&lat=41.387397&lng=2.168568&form=3&action=fs&wpf=WFYrckFUZE1rSUdEYUQ4WlE4NkZydEc0b0IxNU8ya2t2S1FCRk4zdHRGTT0%3D
       $URL= get_site_url() . '/compara-precios-aseguradoras?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=3&action=fs&wpf=' .$fields['wpf'];
       $userURL = apply_filters('wpfunos_shortener', $URL );

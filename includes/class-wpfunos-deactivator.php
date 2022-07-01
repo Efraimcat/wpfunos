@@ -31,5 +31,6 @@ class Wpfunos_Deactivator {
 	 */
 	public static function deactivate() {
 		wp_clear_scheduled_hook('wpfunosCronJob');
+		wp_clear_scheduled_hook('wpfunosHourlyCronJob');
 	}
 }
