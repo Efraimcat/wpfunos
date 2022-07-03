@@ -35,6 +35,7 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_crypt', array( $this, 'wpfunosCrypt' ), 10, 2 );
     add_filter( 'wpfunos_shortener', array( $this, 'wpfunosShortener' ), 10, 1 );
     add_filter( 'wpfunos_message_format', array( $this, 'wpfunosMessageFormat' ), 10, 2 );
+    add_filter( 'wpfunos_is_mobile', array( $this, 'wpfunosIsMobile' ), 10, 1 );
 
     add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
     add_action( 'wp_ajax_nopriv_wpfunos-SIWG-google-login', array( $this, 'wpfunos_SIWG_google_login' ), 10, 1 );
@@ -527,5 +528,29 @@ class Wpfunos_Utils {
       wp_send_json_success( $response );
     }
   }
+
+  /**
+  * Utility to check if users como from a movile device
+  */
+  public function wpfunosIsMobile() {
+    if ( empty( $_SERVER['HTTP_USER_AGENT'] ) ) {
+      $is_mobile = false;
+    } elseif ( strpos( $_SERVER['HTTP_USER_AGENT'], 'Mobile' ) !== false
+    || strpos( $_SERVER['HTTP_USER_AGENT'], 'Android' ) !== false
+    || strpos( $_SERVER['HTTP_USER_AGENT'], 'Silk/' ) !== false
+    || strpos( $_SERVER['HTTP_USER_AGENT'], 'Kindle' ) !== false
+    || strpos( $_SERVER['HTTP_USER_AGENT'], 'BlackBerry' ) !== false
+    || strpos( $_SERVER['HTTP_USER_AGENT'], 'Opera Mini' ) !== false
+    || strpos( $_SERVER['HTTP_USER_AGENT'], 'iPad' ) !== false
+    || strpos( $_SERVER['HTTP_USER_AGENT'], 'iPhone' ) !== false
+    || strpos( $_SERVER['HTTP_USER_AGENT'], 'Opera Mobi' ) !== false ) {
+      $is_mobile = true;
+    } else {
+      $is_mobile = false;
+    }
+    return $is_mobile;
+  }
+
+
 
 }

@@ -1,4 +1,4 @@
-<script type="text/javascript" id="wpfunos-serviciosv2-botones">
+<script type="text/javascript" id="wpfunos-serviciosv2-datos-distancia">
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){

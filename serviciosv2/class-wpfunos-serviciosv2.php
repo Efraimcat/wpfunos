@@ -149,7 +149,7 @@ class Wpfunos_ServiciosV2 {
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '56688' ); //Ventana Popup Esperando
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '63359' ); //Compara precios filtros
 
-    require 'js/wpfunos-serviciosv2-buscador.js';
+    require 'js/wpfunos-serviciosv2-buscador.min.js';
   }
 
   /**
@@ -196,14 +196,14 @@ class Wpfunos_ServiciosV2 {
   * Shortcode [wpfunos-nuevos-datos-distancia]
   */
   public function wpfunosServiciosDatosDistanciaShortcode($atts, $content = ""){
-    require 'js/wpfunos-serviciosv2-datos-distancia.js';
+    require 'js/wpfunos-serviciosv2-datos-distancia.min.js';
   }
 
   /**
   * Shortcode [wpfunos-serviciosv2-ventana-distancia]
   */
   public function wpfunosServiciosVentanaDistanciaShortcode($atts, $content = ""){
-    require 'js/wpfunos-serviciosv2-ventana-distancia.js';
+    require 'js/wpfunos-serviciosv2-ventana-distancia.min.js';
   }
 
   /**
