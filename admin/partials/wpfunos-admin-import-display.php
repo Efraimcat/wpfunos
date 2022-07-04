@@ -83,6 +83,17 @@ if ( ! defined( 'ABSPATH' ) ) {
       <input type="submit" value="<?php _e( 'Importar precio servicios', 'wpfunos' ); ?>" style="background: #135e96;color: #fff;padding: 5px;font-weight: 700;margin-top: 10px;border-radius: 3px;">
     </div>
   </form>
+  <?php //IMPORTAR NUEVOS PRECIOS SERVICIOS COMENTARIOS?>
+  <hr/>
+  <p>
+    <?php esc_html_e( 'Importar Nuevos Precios Servicios Comentarios', 'wpfunos' ); ?>
+  </p>
+  <form action="" method="post">
+    <input type="hidden" name="importprecioservicioscomentarios" id="importprecioservicioscomentarios" value="1" >
+    <div class="wpfunos-precio-funer">
+      <input type="submit" value="<?php _e( 'Importar precio servicios comentarios', 'wpfunos' ); ?>" style="background: #135e96;color: #fff;padding: 5px;font-weight: 700;margin-top: 10px;border-radius: 3px;">
+    </div>
+  </form>
   <hr/>
   <?php do_action('wpfunos_import'); ?>
 </div>

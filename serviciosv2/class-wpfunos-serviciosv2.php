@@ -193,7 +193,8 @@ class Wpfunos_ServiciosV2 {
   }
 
   /**
-  * Shortcode [wpfunos-nuevos-datos-distancia]
+  * Shortcode [wpfunos-nuevos-datos-distancia] **cambiar precio -distancia**
+  *  // https://www.digitalocean.com/community/tools/minify
   */
   public function wpfunosServiciosDatosDistanciaShortcode($atts, $content = ""){
     require 'js/wpfunos-serviciosv2-datos-distancia.min.js';
