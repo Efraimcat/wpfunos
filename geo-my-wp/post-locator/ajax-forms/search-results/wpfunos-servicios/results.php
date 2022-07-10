@@ -24,10 +24,12 @@
 			$wpfunos_confirmado = [];
 			$wpfunos_sinconfirmar = [];
 			$cont_blur = 0;
+			$mas_barato = 0;
 			foreach ($gmw['results'] as $key=>$resultado) {
 				//echo $resultado->post_title .' =>' .$resultado->ID. '<br/>';
 				$servicioID = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecioID', true );
 				$servicioPrecio = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecio', true );
+				if( $mas_barato == 0 || (int)$servicioPrecio < $mas_barato ) $mas_barato = (int)$servicioPrecio;
 				$activo = (get_post_meta( $servicioID, 'wpfunos_servicioActivo', true ) == 1) ? 'si' : 'no' ;
 				$confirmado = (get_post_meta( $servicioID, 'wpfunos_servicioPrecioConfirmado', true ) == 1) ? 'si' : 'no' ;
 				//echo $resultado->ID. ' => ' .$activo. ' => ' .$confirmado. '<br/>';
@@ -39,9 +41,14 @@
 
 				<h6 style="text-align: center;">Hemos encontrado <?php echo (count($wpfunos_confirmado)+count($wpfunos_sinconfirmar)) ?> resultados para tí.</h6>
 
+				<script type="text/javascript">
+				document.getElementById("wpf-resultados-cabecera-cuando").setAttribute("wpfcount",<?php echo (count($wpfunos_confirmado)+count($wpfunos_sinconfirmar)); ?>);
+				document.getElementById("wpf-resultados-cabecera-cuando").setAttribute("wpfmejorprecio",<?php echo number_format($mas_barato, 0, ',', '.'); ?> + '€');
+				</script>
+
 			</div>
 			<?php
-			if ( $_GET['wpfunos-vision'] == 'clear' ){
+			if ( $_GET['wpfvision'] == 'clear' ){
 				do_action( 'wpfunos_resultv2_grid_confirmado', $wpfunos_confirmado );
 				do_action( 'wpfunos_resultv2_grid_sinconfirmar', $wpfunos_sinconfirmar );
 			}else{
@@ -58,7 +65,7 @@
 
 			?>
 
-			<?php if ( $_GET['wpfunos-vision'] == 'clear' ){ ?>
+			<?php if ( $_GET['wpfvision'] == 'clear' ){ ?>
 
 				<div class="wpfunos-search-results-map">
 

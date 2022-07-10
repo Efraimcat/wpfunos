@@ -108,6 +108,9 @@ function wpf_admin_notice_warn() {
     <p><strong>IMPORTANTE</strong>: <u>Entorno de desarrollo de funos.es</u></p>
     <p><strong>IMPORTANTE</strong>: El entorno de DESARROLLO se reinicia durante los primeros días de cada mes. Manten siempre una copia actualizada y documentada de todo tu trabajo.</p>
     </div>';
+    echo '<div class="notice notice-warning is-dismissible">
+    <p>funos.es: <a href="https://docs.google.com/document/d/1xtwArGePXXIc6F012jL47BaAp0_cKn8XQCzed0lzM_A/edit?usp=sharing" target="_blank">Normas técnicas para el diseño en funos.es</a>.</p>
+    </div>';
     if ( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && $_GET['post_type'] ==  'custom-css-js') {
       echo '<div class="notice notice-warning is-dismissible">
       <p>funos.es: <a href="https://docs.google.com/document/d/1oBmkyGh-2G3qywJNFI-Q1_iGJ6TEO7jvBylJ-muPjw4/edit?usp=sharing" target="_blank">Documentación de ayuda para Custom CSS & JS</a>.</p>

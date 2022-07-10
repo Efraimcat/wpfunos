@@ -44,6 +44,8 @@
   <input type="hidden" name="CP" id="CP" value="" >
   <input type="hidden" name="wpfref" id="wpfref" value="dummy" >
   <input type="hidden" name="orden" id="orden" value="dist" >
+  <input type="hidden" name="dest" id="dest" value="dummy" >
+  <input type="hidden" name="wpfvision" id="wpfvision" value="dummy" >
 
 </form>
 

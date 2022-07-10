@@ -67,6 +67,8 @@ $(document).ready(function(){
 			if( wpfref != 'dummy' ) params.set('wpfref', wpfref);
 			if( wpfcp != 'dummy') params.set('CP', wpfcp);
 			params.set('cf['+evt.currentTarget.resp+']', evt.currentTarget.opcion );
+			if( params.get('cf[resp1]') == '1' ) params.set('dest', 'entierro' );
+			if( params.get('cf[resp1]') == '2' ) params.set('dest', 'incineracion' );
 			if( params.get('cf[resp3]') == '2' && params.get('cf[resp4]') == '1' && parseInt(params.get('distance')) < 100 ){
 				console.log('Cambiando distancia 100km.')
 				params.set('distance', '100' );
