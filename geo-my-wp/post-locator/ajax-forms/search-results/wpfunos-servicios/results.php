@@ -29,10 +29,14 @@
 				//echo $resultado->post_title .' =>' .$resultado->ID. '<br/>';
 				$servicioID = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecioID', true );
 				$servicioPrecio = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecio', true );
-				if( $mas_barato == 0 || (int)$servicioPrecio < $mas_barato ) $mas_barato = (int)$servicioPrecio;
+
 				$activo = (get_post_meta( $servicioID, 'wpfunos_servicioActivo', true ) == 1) ? 'si' : 'no' ;
 				$confirmado = (get_post_meta( $servicioID, 'wpfunos_servicioPrecioConfirmado', true ) == 1) ? 'si' : 'no' ;
 				//echo $resultado->ID. ' => ' .$activo. ' => ' .$confirmado. '<br/>';
+				if( 'si' == $activo && 'si' == $confirmado ){
+					if( $mas_barato == 0 || (int)$servicioPrecio < $mas_barato ) $mas_barato = (int)$servicioPrecio;
+				}
+				//
 				if( 'si' == $activo && 'si' == $confirmado ) $wpfunos_confirmado[] = array ($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance );
 				if( 'si' == $activo && 'no' == $confirmado ) $wpfunos_sinconfirmar[] = array ($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance );
 			}
@@ -44,6 +48,7 @@
 				<script type="text/javascript">
 				document.getElementById("wpf-resultados-cabecera-cuando").setAttribute("wpfcount",<?php echo (count($wpfunos_confirmado)+count($wpfunos_sinconfirmar)); ?>);
 				document.getElementById("wpf-resultados-cabecera-cuando").setAttribute("wpfmejorprecio",<?php echo number_format($mas_barato, 0, ',', '.'); ?> + '€');
+				document.getElementById("wpf-resultados-cabecera-cuando").setAttribute("wpfmejorprecio",<?php echo $mas_barato; ?> + '€');
 				</script>
 
 			</div>

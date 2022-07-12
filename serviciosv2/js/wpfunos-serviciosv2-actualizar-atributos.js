@@ -34,6 +34,7 @@ $(document).ready(function(){
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfurl", response.wpfurl);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfip", response.wpfip);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfvision", response.wpfvision);
+          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfcuando", response.wpfcuando);
         } else {
           console.log('fail');
         }
