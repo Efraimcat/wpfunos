@@ -85,31 +85,16 @@ function set_ip_cookie() {
     $email = $current_user->user_email;
     setcookie('wpfmail', $email, ['expires' => $expiry3, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
   }
-  //setcookie('wpftoken', sanitize_text_field( $codigo ), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-  //if( ! isset( $_COOKIE['wpfid'] ) || $_COOKIE['wpfid'] == 'T1dkS0t1enFzRTJITFNPWW5reWpSZz09'){
-  //  setcookie('wpfid', sanitize_text_field( $codigoID ), ['expires' => $expiry2, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-  //}else{
-  //  setcookie('wpfid', sanitize_text_field( $_COOKIE['wpfid'] ), ['expires' => $expiry2, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-  //}
 }
 add_action( 'init', 'set_ip_cookie' );
 
 function wpf_admin_notice_warn() {
   global $pagenow;
   $user = wp_get_current_user();
-  if( site_url() === 'https://funos.es' && $current_user->user_email == 'agencia.balabox@gmail.com' ){
-    echo '<div class="notice notice-warning is-dismissible">
-    <p><strong>IMPORTANTE</strong>:</p>
-    <p>funos.es: La cuenta de desarrollador para Balabox ha sido cambiada al servidor de desarrollo <a href="https://test1.efraim.cat">test1.efraim.cat</a>.</p>
-    </div>';
-  }
   if( site_url() === 'https://test1.efraim.cat'){
     echo '<div class="notice notice-warning is-dismissible">
     <p><strong>IMPORTANTE</strong>: <u>Entorno de desarrollo de funos.es</u></p>
     <p><strong>IMPORTANTE</strong>: El entorno de DESARROLLO se reinicia durante los primeros días de cada mes. Manten siempre una copia actualizada y documentada de todo tu trabajo.</p>
-    </div>';
-    echo '<div class="notice notice-warning is-dismissible">
-    <p>funos.es: <a href="https://docs.google.com/document/d/1xtwArGePXXIc6F012jL47BaAp0_cKn8XQCzed0lzM_A/edit?usp=sharing" target="_blank">Normas técnicas para el diseño en funos.es</a>.</p>
     </div>';
     if ( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && $_GET['post_type'] ==  'custom-css-js') {
       echo '<div class="notice notice-warning is-dismissible">
@@ -122,12 +107,6 @@ function wpf_admin_notice_warn() {
         <p>funos.es: Exsite una categoría Balabox donde agrupar todos tus trabajos y encontrar la plantilla facilmente. Utiliza esta categoria en tus trabajos y pruebas.</p>
         </div>';
       }
-    }
-
-    if ( in_array( 'author', (array) $user->roles ) ) {
-      echo '<div class="notice notice-warning is-dismissible">
-      <p>Importante: we will not be publishing any new articles during holidays. Please save your articles as drafts for the time being.</p>
-      </div>';
     }
   }
 }
