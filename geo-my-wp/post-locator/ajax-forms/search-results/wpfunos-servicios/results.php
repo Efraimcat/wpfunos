@@ -17,7 +17,7 @@
 	<div class="gmw-ajax-loader-element gmw-ajax-loader"></div>
 
 	<div class="wpfunos-search-results">
-
+		<div id="wpfunos-search-form-results"  name="wpfunos-v2-results"></div>
 		<div class="gmw-results">
 
 			<?php

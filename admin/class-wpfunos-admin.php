@@ -1325,13 +1325,16 @@ class Wpfunos_Admin {
     $users = get_users( $args );
     if( $users ){
       foreach ( $users as $user ){
-        $this->custom_logs('Wpfunos 2FA: ' .$user->display_name. ' ID: ' .$user->ID. ' Last login: ' .gmdate("Y-m-d\TH:i:s\Z", get_user_meta( $user->ID, 'wfls-last-login' , true )) );
-        if( get_user_meta( $user->ID, 'wfls-last-login' , true ) > get_user_meta( $user->ID, 'wpfunos_ultima_comprobacion' , true )){
+        $this->custom_logs('Wpfunos 2FA: ' .$user->display_name. ' ID: ' .$user->ID );
+        $this->custom_logs('Wpfunos 2FA: last login: ' .get_user_meta( $user->ID, 'wfls-last-login' , true ). ' => ' .gmdate("d-m-Y H:i:s", get_user_meta( $user->ID, 'wfls-last-login' , true ) ) );
+        $this->custom_logs('Wpfunos 2FA: Última comprobación: ' .get_user_meta( $user->ID, 'wpfunos_ultima_comprobacion' , true ). ' => ' .gmdate("d-m-Y H:i:s", get_user_meta( $user->ID, 'wpfunos_ultima_comprobacion' , true ) ) );
+        if( get_user_meta( $user->ID, 'wfls-last-login' , true ) > get_user_meta( $user->ID, 'wpfunos_ultima_comprobacion' , true ) ){
           $headers[] = 'Content-Type: text/html; charset=UTF-8';
           wp_mail (  'efraim@efraim.cat' , 'Usuario 2FA conectado' , 'El usuario ' .$user->display_name. ' se ha conectado.', $headers );
           $this->custom_logs('Wpfunos 2FA: Mensaje enviado a efraim@efraim.cat' );
         }
         $updated = update_user_meta( $user->ID, 'wpfunos_ultima_comprobacion', time() );
+        $this->custom_logs('Wpfunos 2FA: ---------------------------' );
       }
     }
 

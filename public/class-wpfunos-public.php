@@ -131,13 +131,9 @@ class Wpfunos_Public {
   public function wpfunosCorreoUsuarioPopupShortcode( $atts, $content = "" ) {
     if ( get_option('wpfunos_activarCorreoUsuarioContacto') ){
       $mensaje = get_option('wpfunos_mensajeCorreoUsuarioContacto');
-      //[telefonoUsuario], [nombreUsuario], [Email]
-      //[field id="nombre"]
-      //[field id="email"]
-      //[field id="telefono"]
-      $nombreUsuario = do_shortcode ('[field id="nombre"]');
-      $telefonoUsuario = do_shortcode ('[field id="telefono"]');
-      $Email = do_shortcode ('[field id="email"]');
+      $nombreUsuario = do_shortcode ('[field id="nombreasesor"]');
+      $telefonoUsuario = do_shortcode ('[field id="telefonoasesor"]');
+      $Email = do_shortcode ('[field id="emailasesor"]');
       $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );
       $mensaje = str_replace( '[telefonoUsuario]' , $telefonoUsuario , $mensaje );
       $mensaje = str_replace( '[Email]' , $Email , $mensaje );
@@ -378,6 +374,7 @@ class Wpfunos_Public {
           $this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
           $this->plugin_name . '_userwpf' => sanitize_text_field( $fields['wpf'] ),
           $this->plugin_name . '_userURL' => sanitize_text_field( $userURL ),
+          $this->plugin_name . '_userURLlarga' => sanitize_text_field( $URL ),
           $this->plugin_name . '_userAceptaPolitica' => '1',
           $this->plugin_name . '_userLAT' => sanitize_text_field( $fields['lat'] ),
           $this->plugin_name . '_userLNG' => sanitize_text_field( $fields['lng'] ),
@@ -432,6 +429,7 @@ class Wpfunos_Public {
           $this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
           $this->plugin_name . '_userwpf' => sanitize_text_field( $fields['wpf'] ),
           $this->plugin_name . '_userURL' => sanitize_text_field( $userURL ),
+          $this->plugin_name . '_userURLlarga' => sanitize_text_field( $URL ),
           $this->plugin_name . '_userAceptaPolitica' => '1',
           $this->plugin_name . '_userLAT' => sanitize_text_field( $fields['lat'] ),
           $this->plugin_name . '_userLNG' => sanitize_text_field( $fields['lng'] ),

@@ -18,7 +18,9 @@
 <?php // do not remove the $action_data variable. ?>
 <form id="wpfunos-servicios-form-v2" class="gmw-form" <?php echo $action_data; // WPCS: XSS ok. ?>>
 
-  <?php do_action( 'gmw_search_form_start', $gmw ); ?>
+  <div id="wpfunos-search-form-start"  name="wpfunos-v2-search">
+    <?php do_action( 'gmw_search_form_start', $gmw ); ?>
+  </div>
 
   <?php gmw_search_form_address_field( $gmw ); ?>
 

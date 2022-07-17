@@ -71,22 +71,26 @@ function add_meta_for_search_excluded()
 }
 add_action('wp_head', 'add_meta_for_search_excluded');
 
-function set_ip_cookie() {
-  $ipaddress = apply_filters('wpfunos_userIP','dummy');
-  $codigo = apply_filters('wpfunos_crypt',$ipaddress, 'e');
-  $codigoID = apply_filters('wpfunos_crypt','funosID-'.(string)mt_rand(), 'e');
+function set_funos_cookie() {
   $expiry = strtotime('+1 month');
-  $expiry2 = strtotime('+1 year');
-  $expiry3 = strtotime('+1 day');
 
   if (is_user_logged_in()){
     global $current_user;
     get_currentuserinfo();
     $email = $current_user->user_email;
-    setcookie('wpfmail', $email, ['expires' => $expiry3, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+    $name = $current_user->display_name;
+    $phone = str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
+    setcookie('wpfn', $name,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+    setcookie('wpfe', $email, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+    setcookie('wpft', $phone, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+    if ( current_user_can( 'funos_colaborador' ) ) {
+      setcookie('wpfcolab', 'yes', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+    }else{
+      if( isset( $_COOKIE['wpfcolab'] ) ) unset($_COOKIE['wpfcolab']);
+    }
   }
 }
-add_action( 'init', 'set_ip_cookie' );
+add_action( 'init', 'set_funos_cookie' );
 
 function wpf_admin_notice_warn() {
   global $pagenow;

@@ -15,7 +15,7 @@ $(document).ready(function(){
       document.getElementById("wpfunos-modal-datos-resultados-desktop").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfcount");
       document.getElementById("wpfunos-modal-datos-precio-movil").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfmejorprecio");
       document.getElementById("wpfunos-modal-datos-precio-desktop").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfmejorprecio");
-      document.getElementById("wpfunos-enviar-datos").addEventListener('click', function() {
+      document.getElementById("wpfunos-v2-enviar-datos").addEventListener('click', function() {
         console.log('click botón enviar, Creando entrada.');
         var nombre = document.getElementById("form-field-Nombre").value;
         var email = document.getElementById("form-field-Email").value;

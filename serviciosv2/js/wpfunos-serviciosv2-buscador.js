@@ -61,7 +61,6 @@ $(document).ready(function(){
 		var wpfref = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfref");
 		var wpfcp = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfcp");
 		console.log( 'click botón '+evt.currentTarget.resp+' '+evt.currentTarget.opcion);
-		console.log(new Date());
 		if( params.get('cf['+evt.currentTarget.resp+']') != evt.currentTarget.opcion){
 			elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
 			if( wpfref != 'dummy' ) params.set('wpfref', wpfref);

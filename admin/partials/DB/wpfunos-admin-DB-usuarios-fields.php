@@ -87,6 +87,7 @@ $userAPImessagemessage = sanitize_text_field( $_POST[$this->plugin_name . '_user
 
 $userwpf = sanitize_text_field( $_POST[$this->plugin_name . '_userwpf'] );
 $userURL = sanitize_text_field( $_POST[$this->plugin_name . '_userURL'] );
+$userURLlarga = sanitize_text_field( $_POST[$this->plugin_name . '_userURLlarga'] );
 
 $userIP = sanitize_text_field( $_POST[$this->plugin_name . '_userIP'] );
 $userAceptaPolitica = sanitize_text_field( $_POST[$this->plugin_name . '_userAceptaPolitica'] );
@@ -177,6 +178,7 @@ update_post_meta($post_id, $this->plugin_name . '_userAPIMessagemessage', $userA
 
 update_post_meta($post_id, $this->plugin_name . '_userwpf', $userwpf);
 update_post_meta($post_id, $this->plugin_name . '_userURL', $userURL);
+update_post_meta($post_id, $this->plugin_name . '_userURLlarga', $userURLlarga);
 
 update_post_meta($post_id, $this->plugin_name . '_userIP', $userIP);
 update_post_meta($post_id, $this->plugin_name . '_userAceptaPolitica', $userAceptaPolitica);
