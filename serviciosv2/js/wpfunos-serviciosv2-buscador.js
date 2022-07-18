@@ -11,6 +11,15 @@ $(document).ready(function(){
 			window.location.href = "/comparar-precios-v2";
 		} , false);
 
+		document.getElementById("wpf-resultados-cabecera-cuando-boton").addEventListener('click', function(){
+			if( params.get('cuando') == 'Ahora'){
+				params.set('cuando', 'Proximamente');
+			}else{
+				params.set('cuando', 'Ahora');
+			}
+			elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+			window.location.search = params.toString();
+		} , false);
 
 		document.getElementById("wpfunos-boton-destino-entierro").style.backgroundColor = ( params.get('cf[resp1]') == '1' ? "#39c2f3" : "#ff9c00" );
 		document.getElementById("wpfunos-boton-destino-incineracion").style.backgroundColor = ( params.get('cf[resp1]') == '2' ? "#39c2f3" : "#ff9c00" );

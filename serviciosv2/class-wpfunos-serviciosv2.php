@@ -21,9 +21,11 @@ class Wpfunos_ServiciosV2 {
     $this->version = $version;
     add_shortcode( 'wpfunos-nuevos-resultados', array( $this, 'wpfunosServiciosResultadosShortcode' ));
     add_shortcode( 'wpfunos-nuevos-datos-cabecera', array( $this, 'wpfunosServiciosDatosCabeceraShortcode' ));
+    add_shortcode( 'wpfunos-nuevos-datos-cabecera-movil', array( $this, 'wpfunosServiciosDatosCabeceraMovilShortcode' ));
     add_shortcode( 'wpfunos-serviciosv2-precio-zona-desktop', array( $this, 'wpfunosServiciosv2PrecioZonaDesktopShortcode' ));
     add_shortcode( 'wpfunos-serviciosv2-precio-zona-movil', array( $this, 'wpfunosServiciosv2PrecioZonaMovilShortcode' ));
     add_shortcode( 'wpfunos-nuevos-datos-distancia', array( $this, 'wpfunosServiciosDatosDistanciaShortcode' ));
+    add_shortcode( 'wpfunos-nuevos-datos-distancia-movil', array( $this, 'wpfunosServiciosDatosDistanciaMovilShortcode' ));
     add_shortcode( 'wpfunos-serviciosv2-ventana-distancia', array( $this, 'wpfunosServiciosVentanaDistanciaShortcode' ));
     add_shortcode( 'wpfunos-nuevos-datos-resultados-desktop', array( $this, 'wpfunosServiciosDatosResultadosDesktopShortcode' ));
     add_shortcode( 'wpfunos-nuevos-datos-resultados-movil', array( $this, 'wpfunosServiciosDatosResultadosMovilShortcode' ));
@@ -40,7 +42,6 @@ class Wpfunos_ServiciosV2 {
     add_action('wp_ajax_wpfunos_ajax_serviciosv2_transients', function () {$this->wpfunosServiciosv2Transients();});
     add_action('wp_ajax_nopriv_wpfunos_ajax_serviciosv2_entrada_datos', function () { $this->wpfunosServiciosv2EntradaDatos();});
     add_action('wp_ajax_wpfunos_ajax_serviciosv2_entrada_datos', function () {$this->wpfunosServiciosv2EntradaDatos();});
-
     add_action('wp_ajax_nopriv_wpfunos_ajax_serviciosv2_llamen', function () { $this->wpfunosServiciosv2Llamen();});
     add_action('wp_ajax_wpfunos_ajax_serviciosv2_llamen', function () {$this->wpfunosServiciosv2Llamen();});
     add_action('wp_ajax_nopriv_wpfunos_ajax_serviciosv2_llamar', function () { $this->wpfunosServiciosv2Llamar();});
@@ -49,7 +50,6 @@ class Wpfunos_ServiciosV2 {
     add_action('wp_ajax_wpfunos_ajax_serviciosv2_presupuesto', function () {$this->wpfunosServiciosv2Presupuesto();});
     add_action('wp_ajax_nopriv_wpfunos_ajax_serviciosv2_detalles', function () { $this->wpfunosServiciosv2Detalles();});
     add_action('wp_ajax_wpfunos_ajax_serviciosv2_detalles', function () {$this->wpfunosServiciosv2Detalles();});
-
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-serviciosv2.css', array(), $this->version, 'all' );
@@ -208,15 +208,22 @@ class Wpfunos_ServiciosV2 {
 
   }
 
+  /**
+  * Shortcode [wpfunos-nuevos-datos-cabecera-movil]
+  */
+  public function wpfunosServiciosDatosCabeceraMovilShortcode(){
+    require 'js/wpfunos-serviciosv2-buscador-movil.min.js';
+  }
+
+  /**
+  * Shortcode [wpfunos-serviciosv2-precio-zona-desktop] - [wpfunos-serviciosv2-precio-zona-movil]
+  */
   public function wpfunosServiciosv2PrecioZonaDesktopShortcode($atts, $content = ""){
     if ( ! wp_is_mobile() ) $this->wpfunosServiciosv2PrecioZona();
   }
   public function wpfunosServiciosv2PrecioZonaMovilShortcode($atts, $content = ""){
     if ( wp_is_mobile() ) $this->wpfunosServiciosv2PrecioZona();
   }
-  /**
-  * Shortcode [wpfunos-serviciosv2-precio-zona-desktop] - [wpfunos-serviciosv2-precio-zona-movil]
-  */
   public function wpfunosServiciosv2PrecioZona(){
     $respuesta = $this->wpfunosFiltros();
     //case '1': $result['resp1'] = array( 'desc' => 'Destino', 'inicial' => 'E', 'texto' => 'Entierro' ); break;
@@ -256,10 +263,18 @@ class Wpfunos_ServiciosV2 {
 
   /**
   * Shortcode [wpfunos-nuevos-datos-distancia] **cambiar precio -distancia**
-  *  // https://www.digitalocean.com/community/tools/minify
+  * // https://www.digitalocean.com/community/tools/minify
   */
   public function wpfunosServiciosDatosDistanciaShortcode($atts, $content = ""){
     require 'js/wpfunos-serviciosv2-datos-distancia.min.js';
+  }
+
+  /**
+  * Shortcode wpfunos-nuevos-datos-distancia-movil] **cambiar precio -distancia**
+  * // https://www.digitalocean.com/community/tools/minify
+  */
+  public function wpfunosServiciosDatosDistanciaMovilShortcode($atts, $content = ""){
+    require 'js/wpfunos-serviciosv2-datos-distancia-movil.min.js';
   }
 
   /**
@@ -777,7 +792,6 @@ class Wpfunos_ServiciosV2 {
   /*********************************/
   /*****  AJAX                ******/
   /*********************************/
-
   /**
   * Botón Enviar datos
   */
@@ -1238,7 +1252,7 @@ class Wpfunos_ServiciosV2 {
   /*****  AJAX                ******/
   /*********************************/
   /**
-  * Transients
+  * detalles
   *
   * add_action('wp_ajax_nopriv_wpfunos_ajax_serviciosv2_detalles', function () { $this->wpfunosServiciosv2Detalles();});
   * add_action('wp_ajax_wpfunos_ajax_serviciosv2_detalles', function () {$this->wpfunosServiciosv2Detalles();});
