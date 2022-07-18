@@ -35,17 +35,6 @@ $(document).ready(function(){
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfip", response.wpfip);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfvision", response.wpfvision);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfcuando", response.wpfcuando);
-
-          document.getElementById("wpf-resultados-cabecera-donde").setAttribute("wpfesperando", response.wpfesperando);
-          document.getElementById("wpf-resultados-cabecera-donde").setAttribute("wpfformdatos", response.wpfformdatos);
-          document.getElementById("wpf-resultados-cabecera-donde").setAttribute("wpfformdatoscomp", response.wpfformdatoscomp);
-          document.getElementById("wpf-resultados-cabecera-donde").setAttribute("wpfpopupllamen", response.wpfpopupllamen);
-          document.getElementById("wpf-resultados-cabecera-donde").setAttribute("wpfpopupllamar", response.wpfpopupllamar);
-          document.getElementById("wpf-resultados-cabecera-donde").setAttribute("wpfpopuppresupuesto", response.wpfpopuppresupuesto);
-          document.getElementById("wpf-resultados-cabecera-donde").setAttribute("wpfpopupdetalles", response.wpfpopupdetalles);
-          document.getElementById("wpf-resultados-cabecera-donde").setAttribute("wpfmultiformcuando", response.wpfmultiformcuando);
-          document.getElementById("wpf-resultados-cabecera-donde").setAttribute("wpfmultiformdestino", response.wpfmultiformdestino);
-
         } else {
           console.log('fail');
         }

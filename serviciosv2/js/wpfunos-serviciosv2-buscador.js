@@ -7,7 +7,7 @@ $(document).ready(function(){
 		var wpfcp = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfcp");
 
 		document.getElementById("wpf-resultados-cabecera-poblacion-boton").addEventListener('click', function(){
-			elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfesperando")].showModal(); //show the popup
+			elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
 			window.location.href = "/comparar-precios-v2";
 		} , false);
 
@@ -17,7 +17,7 @@ $(document).ready(function(){
 			}else{
 				params.set('cuando', 'Ahora');
 			}
-			elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfesperando")].showModal(); //show the popup
+			elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
 			window.location.search = params.toString();
 		} , false);
 
@@ -71,7 +71,7 @@ $(document).ready(function(){
 		var wpfcp = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfcp");
 		console.log( 'click botón '+evt.currentTarget.resp+' '+evt.currentTarget.opcion);
 		if( params.get('cf['+evt.currentTarget.resp+']') != evt.currentTarget.opcion){
-			elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfesperando")].showModal(); //show the popup
+			elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
 			if( wpfref != 'dummy' ) params.set('wpfref', wpfref);
 			if( wpfcp != 'dummy') params.set('CP', wpfcp);
 			params.set('cf['+evt.currentTarget.resp+']', evt.currentTarget.opcion );
