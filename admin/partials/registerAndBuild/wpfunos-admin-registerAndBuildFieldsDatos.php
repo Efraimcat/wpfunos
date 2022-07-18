@@ -20,22 +20,12 @@ add_settings_section(
 );
 // Sección Compara precios datos
 add_settings_field(
-  $this->plugin_name . '_seccionComparaPreciosDatos',
+  'wpfunos_seccionComparaPreciosDatos',
   'Sección compara precios Datos <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosDatos )</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_datos_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosDatos','name' => $this->plugin_name . '_seccionComparaPreciosDatos','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
-);
-// Sección Compara precios datos Futuro
-add_settings_field(
-  $this->plugin_name . '_seccionComparaPreciosDatosAseguradoras',
-  'Sección compara precios Datos Aseguradoras <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosDatosAseguradoras)</h6>',
-  array( $this, 'wpfunos_render_settings_field' ),
-  'wpfunos_general_settings',
-  'wpfunos_general_datos_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosDatosAseguradoras','name' => $this->plugin_name . '_seccionComparaPreciosDatosAseguradoras','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_seccionComparaPreciosDatos','name' => 'wpfunos_seccionComparaPreciosDatos','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosDatos');
-register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosDatosAseguradoras');
+register_setting('wpfunos_general_settings', 'wpfunos_seccionComparaPreciosDatos');

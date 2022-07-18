@@ -66,7 +66,7 @@ class Wpfunos_ServiciosV2 {
   * Shortcode [wpfunos-nuevos-resultados]
   */
   public function wpfunosServiciosResultadosShortcode($atts, $content = ""){
-    echo do_shortcode( '[gmw_ajax_form search_form="7"]' );
+    echo do_shortcode( get_option('wpfunos_paginaComparadorV2GeoMyWp') );
   }
 
   /**
@@ -144,22 +144,6 @@ class Wpfunos_ServiciosV2 {
     }
     // End Comprobar cookies
 
-    // Preparar plantillas Elementor
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '56688' ); //Ventana Popup Esperando
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '63359' ); //Compara precios filtros
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '56948' ); //Servicios formulario datos
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '73657' ); //Servicios formulario datos comprobación
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '56684' ); //Boton Llamen
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '56680' ); //Boton Llamar
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '56676' ); //Boton Presupuesto
-    // wpfunos-multistep-ahora - wpfunos-multistep-prox - wpfunos-multistep-sigcuando
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '72904' ); //Popup multiform cuando
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '71587' ); //Popup multiform destino
-    // End Preparar plantillas Elementor
-
-    //https://funos.es/compara-nuevos-datos?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=7&action=fs&CP=08002&wpfref=dummy&orden=dist&dest=incineracion&wpfvision=dummy
-    //https://funos.es/compara-nuevos-datos?address%5B%5D=Madrid&post%5B%5D=precio_serv_wpfunos&cf%5Bresp1%5D=2&cf%5Bresp2%5D=2&cf%5Bresp3%5D=2&cf%5Bresp4%5D=2&distance=20&units=metric&paged=1&per_page=50&lat=40.416775&lng=-3.703790&form=7&action=fs&CP=28001&wpfref=funos-2133051814&orden=dist&dest=incineracion&wpfvision=clear&wpftipo=Detalles&wpftipoid=49294&wpfwpf=QWxCa3ZmTmlUQmllazFCb2NJRnloSy9Mcjg0OXRRTHhuQ3NDc3puenZsTT0=
-
     // comprobar veracidad de wpfwpf
     // No tiene wpfwpf
     if( !isset( $_GET['wpfwpf'] ) ) {
@@ -193,18 +177,57 @@ class Wpfunos_ServiciosV2 {
     //
     // End comprobar veracidad de wpfwpf
 
+    // Preparar plantillas Elementor
+    /**
+    * wpfesperando|56688
+    * wpfformdatos|56948
+    * wpfformdatoscomp|73657
+    * wpfpopupllamen|56684
+    * wpfpopupllamar|56680
+    * wpfpopuppresupuesto|56676
+    * wpfpopupdetalles|dummy
+    * wpfmultiformcuando|72904
+    * wpfmultiformdestino|71587
+    *
+    * <?php echo $_GET['multiformcuando'] ?>"
+    * "document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfmultiformdestino")
+    */
+    $IP = apply_filters('wpfunos_userIP','dummy');
+    $transient = get_transient('wpfunos-wpfref-' . $IP );
+    $transient['wpfesperando'] = get_option('wpfunos_ServiciosV2PopupEsperando');
+    $transient['wpfformdatos'] = get_option('wpfunos_ServiciosV2DatosPresonales');
+    $transient['wpfformdatoscomp'] = get_option('wpfunos_ServiciosV2DatosPresonalesComprobar');
+    $transient['wpfpopupllamen'] = get_option('wpfunos_ServiciosV2PopupLlamen');
+    $transient['wpfpopupllamar'] = get_option('wpfunos_ServiciosV2PopupLlamar');
+    $transient['wpfpopuppresupuesto'] = get_option('wpfunos_ServiciosV2PopupPresupuesto');
+    $transient['wpfpopupdetalles'] = get_option('wpfunos_ServiciosV2PopupDetalles');
+    $transient['wpfmultiformcuando'] = get_option('wpfunos_ServiciosV2MultiformCuando');
+    $transient['wpfmultiformdestino'] = get_option('wpfunos_ServiciosV2MultiformDestino');
+    set_transient( 'wpfunos-wpfref-' .$IP, $transient, HOUR_IN_SECONDS );
+
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2PopupEsperando') );         //Ventana Popup Esperando
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2DatosPresonales') );         //Servicios formulario datos
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2DatosPresonalesComprobar') );     //Servicios formulario datos comprobación
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2PopupLlamen') );       //Popup Llamen
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2PopupLlamar') );       //Popup Llamar
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2PopupPresupuesto') );  //Boton Presupuesto
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2MultiformCuando') );   //Popup multiform cuando
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2MultiformDestino') );  //Popup multiform destino
+    // End Preparar plantillas Elementor
+
+
     // Multiform
     if( ! isset( $_GET['dest'] ) || $_GET['dest'] == 'dummy' ){
 
       // Funcionalidad preguntar cuando y destino
-      require 'js/wpfunos-serviciosv2-multistep-cuando.min.js';
+      require 'js/wpfunos-serviciosv2-multistep-cuando.js';
       // Funcionalidad preguntar solo destino
-      //require 'js/wpfunos-serviciosv2-multistep-form.min.js';
+      //require 'js/wpfunos-serviciosv2-multistep-form.js';
     }
     // End Multiform
 
     //  Personalizar y dar color a los botones del buscador
-    require 'js/wpfunos-serviciosv2-buscador.min.js';
+    require 'js/wpfunos-serviciosv2-buscador.js';
 
   }
 
@@ -212,7 +235,7 @@ class Wpfunos_ServiciosV2 {
   * Shortcode [wpfunos-nuevos-datos-cabecera-movil]
   */
   public function wpfunosServiciosDatosCabeceraMovilShortcode(){
-    require 'js/wpfunos-serviciosv2-buscador-movil.min.js';
+    require 'js/wpfunos-serviciosv2-buscador-movil.js';
   }
 
   /**
@@ -266,7 +289,7 @@ class Wpfunos_ServiciosV2 {
   * // https://www.digitalocean.com/community/tools/minify
   */
   public function wpfunosServiciosDatosDistanciaShortcode($atts, $content = ""){
-    require 'js/wpfunos-serviciosv2-datos-distancia.min.js';
+    require 'js/wpfunos-serviciosv2-datos-distancia.js';
   }
 
   /**
@@ -274,14 +297,14 @@ class Wpfunos_ServiciosV2 {
   * // https://www.digitalocean.com/community/tools/minify
   */
   public function wpfunosServiciosDatosDistanciaMovilShortcode($atts, $content = ""){
-    require 'js/wpfunos-serviciosv2-datos-distancia-movil.min.js';
+    require 'js/wpfunos-serviciosv2-datos-distancia-movil.js';
   }
 
   /**
   * Shortcode [wpfunos-serviciosv2-ventana-distancia]
   */
   public function wpfunosServiciosVentanaDistanciaShortcode($atts, $content = ""){
-    require 'js/wpfunos-serviciosv2-ventana-distancia.min.js';
+    require 'js/wpfunos-serviciosv2-ventana-distancia.js';
   }
 
   /**
@@ -336,13 +359,13 @@ class Wpfunos_ServiciosV2 {
 
     // Llamar plantilla resultados
     ?><script>console.log('Llegada a formulario resultados.');</script><?php
-    echo do_shortcode( '[gmw_ajax_form search_results="7"]' );
+    echo do_shortcode( get_option('wpfunos_paginaResultadosV2GeoMyWp') );
 
     // Mostrar resultados según tengamos los datos del usuario o no.
     if ( $_GET['wpfvision'] == 'clear' ){
-      require 'js/wpfunos-serviciosv2-botones.min.js';
+      require 'js/wpfunos-serviciosv2-botones.js';
     }else{
-      require 'js/wpfunos-serviciosv2-botones-blur.min.js';
+      require 'js/wpfunos-serviciosv2-botones-blur.js';
     }
 
   }
@@ -374,7 +397,7 @@ class Wpfunos_ServiciosV2 {
     $last = str_replace("+"," ",$_COOKIE['wpflasttime']);
     $_GET['wpflasttime'] = str_replace("-",":",$last);
     echo do_shortcode( '[elementor-template id="75197"]' );
-    require 'js/wpfunos-serviciosv2-ultima-busqueda.min.js';
+    require 'js/wpfunos-serviciosv2-ultima-busqueda.js';
   }
 
   /**
@@ -1013,6 +1036,15 @@ class Wpfunos_ServiciosV2 {
     $result['wpftipoid'] = $transient['wpftipoid'];
     $result['wpfwpf'] = $transient['wpfwpf'];
     $result['wpfcuando'] = $transient['wpfcuando'];
+    $result['wpfesperando'] = $transient['wpfesperando'];
+    $result['wpfformdatos'] = $transient['wpfformdatos'];
+    $result['wpformdatoscomp'] = $transient['wpformdatoscomp'];
+    $result['wpfpopupllamen'] = $transient['wpfpopupllamen'];
+    $result['wpfpopupllamar'] = $transient['wpfpopupllamar'];
+    $result['wpfpopuppresupuesto'] = $transient['wpfpopuppresupuesto'];
+    $result['wpfpopupdetalles'] = $transient['wpfpopupdetalles'];
+    $result['wpfmultiformcuando'] = $transient['wpfmultiformcuando'];
+    $result['wpfmultiformdestino'] = $transient['wpfmultiformdestino'];
 
     $result = json_encode($result);
     echo $result;

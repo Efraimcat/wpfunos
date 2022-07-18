@@ -12,6 +12,7 @@
 *
 * @package gmw-ajax-forms
 */
+$_GET['esperando'] = get_option('wpfunos_ServiciosV2PopupEsperando'); ElementorPro\Modules\Popup\Module::add_popup_to_location( $_GET['esperando'] ); //Ventana Popup Esperando
 ?>
 <?php do_action( 'gmw_before_search_form', $gmw ); ?>
 
@@ -89,7 +90,6 @@ do_action('wpfunos_log', 'cookie wpft: ' . $_COOKIE['wpft']);
 //  ),
 //);
 if( ! apply_filters('wpfunos_reserved_email','dummy') ) $post_id = wp_insert_post($my_post);
-ElementorPro\Modules\Popup\Module::add_popup_to_location( '56688' ); //insert the popup to the current page
 ?>
 
 <script>
@@ -102,7 +102,7 @@ jQuery( document ).ready( function() {
       $('#wpfunos-enviando').show();
       console.log('Enviando. Botón envio desactivado.');
       console.log(new Date());
-      elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+      elementorFrontend.documentsManager.documents['<?php echo $_GET['esperando'] ?>'].showModal(); //show the popup
     }
   }, false);
   document.getElementById("gmw-cf-resp1-7").value = "2" ;

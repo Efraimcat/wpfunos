@@ -46,6 +46,7 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildFieldsConfirmadoDescuento' ));	// Compara Resultados confirmado Descuento superior e inferior
     add_action('admin_init', array( $this, 'registerAndBuildFieldsSinConfirmar' ));			// Compara Resultados Sin Confirmar superior e inferior
     add_action('admin_init', array( $this, 'registerAndBuildFieldsSinPrecio' ));			// Compara Resultados Sin Precio superior e inferior
+    add_action('admin_init', array( $this, 'registerAndBuildFieldsServiciosV2' ));			// Compara Resultados Sin Precio superior e inferior
     add_action('admin_init', array( $this, 'registerAndBuildMailInicial' ));		//Inicio
     add_action('admin_init', array( $this, 'registerAndBuildMailDatosUsuario' ));		//Inicio
     add_action('admin_init', array( $this, 'registerAndBuildMailPopupUsuario' ));		//Inicio
@@ -407,29 +408,33 @@ class Wpfunos_Admin {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsPreciosPoblacion.php';
   }
 
+
+  public function registerAndBuildFieldsServiciosV2(){
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildServiciosV2.php';
+  }
   public function registerAndBuildV2Mail1() {
-    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail1.php';
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail1.php';
   }
   public function registerAndBuildV2Mail2() {
-    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail2.php';
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail2.php';
   }
   public function registerAndBuildV2Mail3() {
-    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail3.php';
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail3.php';
   }
   public function registerAndBuildV2Mail4() {
-    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail4.php';
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail4.php';
   }
   public function registerAndBuildV2Mail5() {
-    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail5.php';
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail5.php';
   }
   public function registerAndBuildV2Mail6() {
-    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail6.php';
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail6.php';
   }
   public function registerAndBuildV2Mail7() {
-    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail7.php';
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail7.php';
   }
   public function registerAndBuildV2Mail8() {
-    require_once 'partials/registerAndBuild/V2/' . $this->plugin_name . '-admin-registerAndBuildV2Mail8.php';
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail8.php';
   }
 
   /**

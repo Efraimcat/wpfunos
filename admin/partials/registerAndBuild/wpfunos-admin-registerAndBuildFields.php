@@ -20,32 +20,32 @@ add_settings_section(
 );
 // Debug
 add_settings_field(
-  $this->plugin_name . '_Debug',
+  'wpfunos_Debug',
   'Activar debug <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_Debug)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_Debug','name' => $this->plugin_name . '_Debug','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_Debug','name' => 'wpfunos_Debug','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Graph
 add_settings_field(
-  $this->plugin_name . '_Graph',
+  'wpfunos_Graph',
   'Activar gráficos <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_Graph)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_Graph','name' => $this->plugin_name . '_Graph','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_Graph','name' => 'wpfunos_Graph','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
-// Nuevo diseño busqueda
+// Distancia Servicio directo
 add_settings_field(
-  $this->plugin_name . '_NewDesign',
-  'Nuevo diseño <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_NewDesign)</h6>',
+  'wpfunos_distanciaServicioDirecto',
+  'Distancia Servicio Directo <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_distanciaServicioDirecto)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_NewDesign','name' => $this->plugin_name . '_NewDesign','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_distanciaServicioDirecto','name' => 'wpfunos_distanciaServicioDirecto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_general_settings', $this->plugin_name . '_Debug');
-register_setting('wpfunos_general_settings', $this->plugin_name . '_Graph');
-register_setting('wpfunos_general_settings', $this->plugin_name . '_NewDesign');
+register_setting('wpfunos_general_settings', 'wpfunos_distanciaServicioDirecto');
+register_setting('wpfunos_general_settings', 'wpfunos_Debug');
+register_setting('wpfunos_general_settings', 'wpfunos_Graph');

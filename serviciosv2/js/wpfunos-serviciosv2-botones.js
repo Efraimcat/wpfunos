@@ -19,7 +19,7 @@ $(document).ready(function(){
 			}else{
 				console.log('boton Llamen servicio: '+servicio+' titulo '+titulo );
 
-				elementorFrontend.documentsManager.documents['56684'].showModal(); //show the popup
+				elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfpopupllamen")].showModal(); //show the popup
 
 				document.getElementById("wpfunos-modal-llamen-titulo").innerHTML = titulo;
 				document.getElementById("wpfunos-modal-llamen-telefono").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono");
@@ -64,7 +64,7 @@ $(document).ready(function(){
 			}else{
 				console.log('boton Llamar servicio: '+servicio+' titulo '+titulo );
 
-				elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
+				elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfpopupllamar")].showModal(); //show the popup
 
 				document.getElementById("wpfunos-modal-llamar-telefono").innerHTML = telefono;
 				document.getElementById("wpfunos-modal-llamar-ticket").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfref");
@@ -114,8 +114,7 @@ $(document).ready(function(){
 				return;
 			}else{
 				console.log('boton Presupuesto servicio: '+servicio+' titulo '+titulo );
-
-				elementorFrontend.documentsManager.documents['56676'].showModal(); //show the popup
+				elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfpopuppresupuesto")].showModal(); //show the popup
 
 				document.getElementById("wpfunos-modal-presupuesto-nombre").innerHTML = titulo;
 				document.getElementById("botonEnviarPresupuesto").setAttribute("wpfn", wpnonce );
@@ -143,7 +142,7 @@ $(document).ready(function(){
 					document.getElementById("wpf-boton-detalles-texto-"+servicio).innerHTML="Ver detalles"
 				}else{
 
-					elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+					elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfesperando")].showModal(); //show the popup
 
 					jQuery.ajax({
 						type : "post",
@@ -164,7 +163,7 @@ $(document).ready(function(){
 								para.innerHTML = response.comentarios;
 								document.getElementById("wpf-detalles-contenido-"+servicio).appendChild(para);
 								document.getElementById("wpf-boton-detalles-texto-"+servicio).innerHTML="Ocultar detalles"
-								$('#elementor-popup-modal-56688').hide()
+								$('#elementor-popup-modal-'document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfesperando")').hide();
 							} else {
 								console.log('fail');
 							}
@@ -219,7 +218,7 @@ $(document).ready(function(){
 		}
 
 		function wpfDatosUsuario(){
-			elementorFrontend.documentsManager.documents['73657'].showModal(); //show the popup
+			elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfformdatoscomp")].showModal(); //show the popup
 			document.getElementById("wpfunos-v2-enviar-datos").addEventListener('click', function() {
 				console.log('click botón enviar, Creando entrada.');
 				var nombre = document.getElementById("form-field-Nombre").value;
@@ -241,8 +240,8 @@ $(document).ready(function(){
 
 					document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfemail", email);
 					document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpftelefono", telefono);
-					elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
-					$('#elementor-popup-modal-73657').hide();
+					elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfesperando")].showModal(); //show the popup
+					$('#elementor-popup-modal-'document.getElementById("wpf-resultados-cabecera-donde").getAttribute("formdatoscomp")').hide();
 					jQuery.ajax({
 						type : "post",
 						dataType : "json",
@@ -260,7 +259,7 @@ $(document).ready(function(){
 							console.log(response)	;
 							if(response.type == "success") {
 								console.log('success');
-								$('#elementor-popup-modal-56688').hide();
+								$('#elementor-popup-modal-'document.getElementById("wpf-resultados-cabecera-donde").getAttribute("esperando")').hide();
 							} else {
 								if(response.type == "unwanted") {
 									console.log('unwanted');

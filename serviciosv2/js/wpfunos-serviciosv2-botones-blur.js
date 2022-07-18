@@ -10,7 +10,7 @@ $(document).ready(function(){
       var precio = this.getAttribute("wpfp");
       var tipo = this.getAttribute("wpftipo");
       console.log('click boton blur servicio: ' +servicio+ ' tipo: ' +tipo);
-      elementorFrontend.documentsManager.documents['56948'].showModal(); //show the popup
+      elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfformdatos")].showModal(); //show the popup
       document.getElementById("wpfunos-modal-datos-resultados-movil").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfcount");
       document.getElementById("wpfunos-modal-datos-resultados-desktop").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfcount");
       document.getElementById("wpfunos-modal-datos-precio-movil").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfmejorprecio");
@@ -38,8 +38,8 @@ $(document).ready(function(){
           params.set('wpftipoid', servicio );
           var url = params.toString();
           console.log('url: ' + url);
-          elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
-          $('#elementor-popup-modal-56948').hide();
+          elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfesperando")].showModal(); //show the popup
+          $('#elementor-popup-modal-'document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfformdatos")').hide();
           jQuery.ajax({
             type : "post",
             dataType : "json",

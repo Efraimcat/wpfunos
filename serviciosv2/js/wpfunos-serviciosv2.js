@@ -9,7 +9,7 @@
 			var wpfcp = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfcp");
 			if( newdistance != ''){
 				$('#wpfunos-formulario-nueva-distancia').hide();
-				elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+				elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfesperando")].showModal(); //show the popup
 				document.getElementById("elementor-popup-modal-58508").style.display = "none"
 				if( parseInt(newdistance) < 5 ) newdistance = '5';
 				if( parseInt(newdistance) > 200 ) newdistance = '200';
