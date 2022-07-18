@@ -195,8 +195,8 @@ class Wpfunos_ServiciosV2 {
     $IP = apply_filters('wpfunos_userIP','dummy');
     $transient = get_transient('wpfunos-wpfref-' . $IP );
     $transient['wpfesperando'] = get_option('wpfunos_ServiciosV2PopupEsperando');
-    $transient['wpfformdatos'] = get_option('wpfunos_ServiciosV2DatosPresonales');
-    $transient['wpfformdatoscomp'] = get_option('wpfunos_ServiciosV2DatosPresonalesComprobar');
+    $transient['wpfformdatos'] = get_option('wpfunos_ServiciosV2DatosPersonales');
+    $transient['wpfformdatoscomp'] = get_option('wpfunos_ServiciosV2DatosPersonalesComprobar');
     $transient['wpfpopupllamen'] = get_option('wpfunos_ServiciosV2PopupLlamen');
     $transient['wpfpopupllamar'] = get_option('wpfunos_ServiciosV2PopupLlamar');
     $transient['wpfpopuppresupuesto'] = get_option('wpfunos_ServiciosV2PopupPresupuesto');
@@ -206,8 +206,8 @@ class Wpfunos_ServiciosV2 {
     set_transient( 'wpfunos-wpfref-' .$IP, $transient, HOUR_IN_SECONDS );
 
     ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2PopupEsperando') );         //Ventana Popup Esperando
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2DatosPresonales') );         //Servicios formulario datos
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2DatosPresonalesComprobar') );     //Servicios formulario datos comprobación
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2DatosPersonales') );         //Servicios formulario datos
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2DatosPersonalesComprobar') );     //Servicios formulario datos comprobación
     ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2PopupLlamen') );       //Popup Llamen
     ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2PopupLlamar') );       //Popup Llamar
     ElementorPro\Modules\Popup\Module::add_popup_to_location( get_option('wpfunos_ServiciosV2PopupPresupuesto') );  //Boton Presupuesto
@@ -349,7 +349,7 @@ class Wpfunos_ServiciosV2 {
     do_action('wpfunos_log', 'wpft: ' . $_COOKIE['wpft']);
 
     // Actualizar datos 'wpf-resultados-cabecera-referencia'
-    require 'js/wpfunos-serviciosv2-actualizar-atributos.min.js';
+    require 'js/wpfunos-serviciosv2-actualizar-atributos.js';
     // Guardar cookie última búsqueda
     $expiry = strtotime('+1 year');
     $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
@@ -1038,7 +1038,7 @@ class Wpfunos_ServiciosV2 {
     $result['wpfcuando'] = $transient['wpfcuando'];
     $result['wpfesperando'] = $transient['wpfesperando'];
     $result['wpfformdatos'] = $transient['wpfformdatos'];
-    $result['wpformdatoscomp'] = $transient['wpformdatoscomp'];
+    $result['wpfformdatoscomp'] = $transient['wpfformdatoscomp'];
     $result['wpfpopupllamen'] = $transient['wpfpopupllamen'];
     $result['wpfpopupllamar'] = $transient['wpfpopupllamar'];
     $result['wpfpopuppresupuesto'] = $transient['wpfpopuppresupuesto'];

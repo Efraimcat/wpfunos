@@ -74,21 +74,21 @@ add_settings_field(
 );
 // Ventana Popup Datos personales
 add_settings_field(
-  'wpfunos_ServiciosV2DatosPresonales',
-  'Popup Datos Personales <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_ServiciosV2DatosPresonales)</h6>',
+  'wpfunos_ServiciosV2DatosPersonales',
+  'Popup Datos Personales <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_ServiciosV2DatosPersonales)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_servicios_v2_section',
-  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ServiciosV2DatosPresonales','name' => 'wpfunos_ServiciosV2DatosPresonales','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ServiciosV2DatosPersonales','name' => 'wpfunos_ServiciosV2DatosPersonales','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Ventana Popup Datos personales Comprobación
 add_settings_field(
-  'wpfunos_ServiciosV2DatosPresonalesComprobar',
-  'Popup Datos Personales comprobar <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_ServiciosV2DatosPresonalesComprobar)</h6>',
+  'wpfunos_ServiciosV2DatosPersonalesComprobar',
+  'Popup Datos Personales comprobar <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_ServiciosV2DatosPersonalesComprobar)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_servicios_v2_section',
-  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ServiciosV2DatosPresonalesComprobar','name' => 'wpfunos_ServiciosV2DatosPresonalesComprobar','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ServiciosV2DatosPersonalesComprobar','name' => 'wpfunos_ServiciosV2DatosPersonalesComprobar','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Ventana Popup Llamen
 add_settings_field(
@@ -152,8 +152,8 @@ register_setting('wpfunos_general_settings', 'wpfunos_paginaComparadorV2GeoMyWp'
 register_setting('wpfunos_general_settings', 'wpfunos_paginaResultadosV2GeoMyWp');
 register_setting('wpfunos_general_settings', 'wpfunos_ServiciosV2Filtros');
 register_setting('wpfunos_general_settings', 'wpfunos_ServiciosV2PopupEsperando');
-register_setting('wpfunos_general_settings', 'wpfunos_ServiciosV2DatosPresonales');
-register_setting('wpfunos_general_settings', 'wpfunos_ServiciosV2DatosPresonalesComprobar');
+register_setting('wpfunos_general_settings', 'wpfunos_ServiciosV2DatosPersonales');
+register_setting('wpfunos_general_settings', 'wpfunos_ServiciosV2DatosPersonalesComprobar');
 register_setting('wpfunos_general_settings', 'wpfunos_ServiciosV2PopupLlamen');
 register_setting('wpfunos_general_settings', 'wpfunos_ServiciosV2PopupLlamar');
 register_setting('wpfunos_general_settings', 'wpfunos_ServiciosV2PopupPresupuesto');

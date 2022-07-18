@@ -9,8 +9,8 @@ $(document).ready(function(){
       var wpnonce = this.getAttribute("wpfn");
       var precio = this.getAttribute("wpfp");
       var tipo = this.getAttribute("wpftipo");
-      console.log('click boton blur servicio: ' +servicio+ ' tipo: ' +tipo);
-      elementorFrontend.documentsManager.documents[document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfformdatos")].showModal(); //show the popup
+      console.log('click boton blur servicio: ' +servicio+ ' tipo: ' +tipo+ ' wpfformdatos ' +wpfformdatos );
+      elementorFrontend.documentsManager.documents[ document.getElementById("wpf-resultados-cabecera-donde").getAttribute("wpfformdatos") ].showModal(); //show the popup
       document.getElementById("wpfunos-modal-datos-resultados-movil").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfcount");
       document.getElementById("wpfunos-modal-datos-resultados-desktop").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfcount");
       document.getElementById("wpfunos-modal-datos-precio-movil").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfmejorprecio");
