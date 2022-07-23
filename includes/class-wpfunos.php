@@ -205,6 +205,7 @@ class Wpfunos {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'wpfunosCronJob', $plugin_admin, 'wpfunosCron');
+		$this->loader->add_action( 'wpfunosNextCronJob', $plugin_admin, 'wpfunosNextCron');
 		$this->loader->add_action( 'wpfunosHourlyCronJob', $plugin_admin, 'wpfunosHourlyCron');
 
 	}

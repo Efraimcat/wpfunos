@@ -1,4 +1,4 @@
-<script type="text/javascript" id="wpfunos-serviciosv2-buscador-movil">
+<script type="text/javascript" id="wpfunos-serviciosv2-buscador">
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
@@ -21,17 +21,64 @@ $(document).ready(function(){
       window.location.search = params.toString();
     } , false);
 
-    document.getElementById("wpfunos-boton-destino-entierro-movil").style.backgroundColor = ( params.get('cf[resp1]') == '1' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-destino-incineracion-movil").style.backgroundColor = ( params.get('cf[resp1]') == '2' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-ataud-normal-movil").style.backgroundColor = ( params.get('cf[resp2]') == '1' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-destino-economico-movil").style.backgroundColor = ( params.get('cf[resp2]') == '2' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-destino-premium-movil").style.backgroundColor = ( params.get('cf[resp2]') == '3' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-velatorio-si-movil").style.backgroundColor = ( params.get('cf[resp3]') == '1' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-velatorio-no-movil").style.backgroundColor = ( params.get('cf[resp3]') == '2' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-ceremonia-sin-movil").style.backgroundColor = ( params.get('cf[resp4]') == '1' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-ceremonia-sala-movil").style.backgroundColor = ( params.get('cf[resp4]') == '2' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-ceremonia-civil-movil").style.backgroundColor = ( params.get('cf[resp4]') == '3' ? "#39c2f3" : "#ff9c00" );
-    document.getElementById("wpfunos-boton-ceremonia-religiosa-movil").style.backgroundColor = ( params.get('cf[resp4]') == '4' ? "#39c2f3" : "#ff9c00" );
+    if( params.get('cf[resp1]') == '1' ){
+      document.getElementById("wpfunos-boton-destino-entierro-movil").style.backgroundColor = "#39c2f3"
+      document.getElementById("wpfunos-boton-destino-entierro-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-destino-entierro-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp1]') == '2' ){
+      document.getElementById("wpfunos-boton-destino-incineracion-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-destino-incineracion-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-destino-incineracion-movil").style.borderStyle="none" ;
+    }
+
+    if( params.get('cf[resp2]') == '1' ){
+      document.getElementById("wpfunos-boton-ataud-normal-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-ataud-normal-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-ataud-normal-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp2]') == '2' ){
+      document.getElementById("wpfunos-boton-destino-economico-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-destino-economico-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-destino-economico-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp2]') == '3' ){
+      document.getElementById("wpfunos-boton-destino-premium-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-destino-premium-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-destino-premium-movil").style.borderStyle="none" ;
+    }
+
+    if( params.get('cf[resp3]') == '1' ){
+      document.getElementById("wpfunos-boton-velatorio-si-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-velatorio-si-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-velatorio-si-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp3]') == '2' ){
+      document.getElementById("wpfunos-boton-velatorio-no-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-velatorio-no-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-velatorio-no-movil").style.borderStyle="none" ;
+    }
+
+    if( params.get('cf[resp4]') == '1' ){
+      document.getElementById("wpfunos-boton-ceremonia-sin-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-ceremonia-sin-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-ceremonia-sin-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp4]') == '2' ){
+      document.getElementById("wpfunos-boton-ceremonia-sala-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-ceremonia-sala-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-ceremonia-sala-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp4]') == '3' ){
+      document.getElementById("wpfunos-boton-ceremonia-civil-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-ceremonia-civil-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-ceremonia-civil-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp4]') == '4' ){
+      document.getElementById("wpfunos-boton-ceremonia-religiosa-movil").style.backgroundColor = "#39c2f3";
+      document.getElementById("wpfunos-boton-ceremonia-religiosa-movil").style.color = "#FFFFFF";
+      document.getElementById("wpfunos-boton-ceremonia-religiosa-movil").style.borderStyle="none" ;
+    }
 
     [ document.getElementById("wpfunos-boton-destino-entierro-movil"), document.getElementById("wpfunos-boton-destino-incineracion-movil") ].forEach(function(element) {
       element.addEventListener('click', wpfFunctionResp , false);

@@ -23,8 +23,7 @@ $(document).ready(function(){
 
 				document.getElementById("wpfunos-modal-llamen-titulo").innerHTML = titulo;
 				document.getElementById("wpfunos-modal-llamen-telefono").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono");
-				document.getElementById("wpfunos-modal-llamen-ticket").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfref");
-				document.getElementById("wpfunos-modal-llamen-ticket-nombre").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfnombre");
+				document.getElementById("wpfunos-modal-llamen-telefono-movil").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono");
 
 				jQuery.ajax({
 					type : "post",
@@ -67,8 +66,6 @@ $(document).ready(function(){
 				elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
 
 				document.getElementById("wpfunos-modal-llamar-telefono").innerHTML = telefono;
-				document.getElementById("wpfunos-modal-llamar-ticket").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfref");
-				document.getElementById("wpfunos-modal-llamar-ticket-nombre").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfnombre");
 
 				let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 				console.log('isMobile: '+isMobile);
@@ -131,6 +128,7 @@ $(document).ready(function(){
 			var servicio = this.getAttribute("wpfid");
 			var precio = this.getAttribute("wpfp");
 			var titulo = this.getAttribute("wpftitulo");
+			var distancia = this.getAttribute("wpfdistancia");
 			if ( document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length < 9
 			|| document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length < 9 ){
 				wpfDatosUsuario();
@@ -138,39 +136,62 @@ $(document).ready(function(){
 			}else{
 				console.log('boton Detalles servicio: '+servicio+' titulo '+titulo );
 
-				if( document.getElementById("wpf-boton-detalles-texto-"+servicio).innerHTML == "Ocultar detalles" ){
-					document.getElementById("wpf-detalles-contenido-"+servicio).innerHTML = "";
-					document.getElementById("wpf-boton-detalles-texto-"+servicio).innerHTML="Ver detalles"
-				}else{
+				elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
 
-					elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+				jQuery.ajax({
+					type : "post",
+					dataType : "json",
+					url : WpfAjax.ajaxurl,
+					data: {
+						"action": "wpfunos_ajax_serviciosv2_detalles",
+						"servicio": servicio,
+						"wpnonce": wpnonce,
+						"precio" : precio,
+						"titulo" : titulo,
+						"distancia" : distancia,
+					},
+					success: function(response) {
+						console.log(response)	;
+						if(response.type == "success") {
+							console.log('success');
+							//response.comentarios;
+							elementorFrontend.documentsManager.documents['56672'].showModal(); //show the popup
 
-					jQuery.ajax({
-						type : "post",
-						dataType : "json",
-						url : WpfAjax.ajaxurl,
-						data: {
-							"action": "wpfunos_ajax_serviciosv2_detalles",
-							"servicio": servicio,
-							"wpnonce": wpnonce,
-							"precio" : precio,
-							"titulo" : titulo,
-						},
-						success: function(response) {
-							//console.log(response)	;
-							if(response.type == "success") {
-								console.log('success');
-								const para = document.createElement("p");
-								para.innerHTML = response.comentarios;
-								document.getElementById("wpf-detalles-contenido-"+servicio).appendChild(para);
-								document.getElementById("wpf-boton-detalles-texto-"+servicio).innerHTML="Ocultar detalles"
-								$('#elementor-popup-modal-56688').hide()
-							} else {
-								console.log('fail');
-							}
+							document.getElementById("wpf-detalles-logo").innerHTML = response.valor_logo;
+							document.getElementById("wpf-detalles-logo-movil").innerHTML = response.valor_logo;
+
+							document.getElementById("wpf-detalles-logo-confirmado").innerHTML = response.valor_logo_confirmado;
+							document.getElementById("wpf-detalles-logo-confirmado-movil").innerHTML = response.valor_logo_confirmado;
+
+							document.getElementById("wpf-detalles-nombre").innerHTML = response.valor_nombre;
+							document.getElementById("wpf-detalles-nombre-movil").innerHTML = response.valor_nombre;
+
+							document.getElementById("wpf-detalles-servicio").innerHTML = response.valor_servicio;
+							document.getElementById("wpf-detalles-servicio-movil").innerHTML = response.valor_servicio;
+
+							document.getElementById("wpf-detalles-precio").innerHTML = response.valor_precio;
+							document.getElementById("wpf-detalles-precio-movil").innerHTML = response.valor_precio;
+
+							document.getElementById("wpf-detalles-nombrepack").innerHTML = response.valor_nombrepack;
+							document.getElementById("wpf-detalles-nombrepack-movil").innerHTML = response.valor_nombrepack;
+
+							document.getElementById("wpf-detalles-textoprecio").innerHTML = response.valor_textoprecio;
+							document.getElementById("wpf-detalles-textoprecio-movil").innerHTML = response.valor_textoprecio;
+
+							document.getElementById("wpf-detalles-direccion").innerHTML = response.valor_direccion;
+							document.getElementById("wpf-detalles-direccion-movil").innerHTML = response.valor_direccion;
+
+							document.getElementById("wpf-detalles-distancia").innerHTML = response.valor_distancia+' Km.';
+
+							document.getElementById("wpf-detalles-comentarios").innerHTML = response.comentarios;
+							document.getElementById("wpf-detalles-comentarios-movil").innerHTML = response.comentarios;
+							$('#elementor-popup-modal-56688').hide()
+						} else {
+							console.log('fail');
 						}
-					});
-				}
+					}
+				});
+
 			}
 		}
 
@@ -187,10 +208,6 @@ $(document).ready(function(){
 			}else{
 				console.log('boton Enviar presupuesto servicio: '+servicio+' titulo '+titulo );
 				console.log('mensaje: '+mensaje );
-				$('#wpfunosformularioPresupuesto').hide();
-
-				document.getElementById("wpfunos-modal-presupuesto-ticket").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfref");
-				document.getElementById("wpfunos-modal-presupuesto-ticket-nombre").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfnombre");
 
 				jQuery.ajax({
 					type : "post",

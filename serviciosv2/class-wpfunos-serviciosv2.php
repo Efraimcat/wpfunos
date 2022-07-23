@@ -76,7 +76,7 @@ class Wpfunos_ServiciosV2 {
     //
     // COMENTAR para editar la página de ELEMENTOR
     //
-    if( ! isset($_GET['cf']['resp1']) || ! isset($_GET['lat']) )exit();
+    //if( ! isset($_GET['cf']['resp1']) || ! isset($_GET['lat']) )exit();
 
     // Excepción provincia
     $nueva_distancia = 0;
@@ -152,6 +152,7 @@ class Wpfunos_ServiciosV2 {
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '56684' ); //Boton Llamen
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '56680' ); //Boton Llamar
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '56676' ); //Boton Presupuesto
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '56672' ); //Boton Detalles
     // wpfunos-multistep-ahora - wpfunos-multistep-prox - wpfunos-multistep-sigcuando
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '72904' ); //Popup multiform cuando
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '71587' ); //Popup multiform destino
@@ -401,7 +402,7 @@ class Wpfunos_ServiciosV2 {
 
     $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
     $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
-    $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
+    $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,array(32,32) );
     $_GET['valor-imagen-promo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioImagenPromo', true ) ,'full' );
 
     $_GET['valor-nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
@@ -412,7 +413,7 @@ class Wpfunos_ServiciosV2 {
     $_GET['valor-direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
     $_GET['valor-distancia'] = $value[3] ;
   }
-
+  //<i style="color:#FF9C00;" aria-hidden="true" class="fas fa-map-marker-alt"></i> Ubicación, calle, lugar CP
   /**
   * Hook mostrar entrada
   *
@@ -433,7 +434,7 @@ class Wpfunos_ServiciosV2 {
       }
       $nonce = wp_create_nonce("wpfunos_serviciosv2_nonce".apply_filters('wpfunos_userIP','dummy'));
       $respuesta = $this->wpfunosFiltros();
-      $_GET['valor-logo-confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
+      $_GET['valor-logo-confirmado'] = wp_get_attachment_image ( 83459 , array(66,66));
       $_GET['valor-logo-eco'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
       $_GET['valor-textoconfirmado'] = 'Precio confirmado';
       $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
@@ -443,6 +444,7 @@ class Wpfunos_ServiciosV2 {
         $_GET['AttsServicio'] = 'wpfid|' .$value[0].'
         wpfn|' .$nonce.'
         wpfp|' .$value[2].'
+        wpfdistancia|' .$value[3].'
         wpftitulo|' .get_post_meta( $value[0], 'wpfunos_servicioNombre', true ). '
         wpftelefono|' .str_replace(" ","",get_post_meta( $value[0], 'wpfunos_servicioTelefono', true ) );
 
@@ -464,7 +466,7 @@ class Wpfunos_ServiciosV2 {
       ?><div class="wpfunos-titulo" id="wpfunos-titulo-sinconfirmar"><p></p><center><h2>Precio sin confirmar</h2></center></div><?php
       $nonce = wp_create_nonce("wpfunos_serviciosv2_nonce".apply_filters('wpfunos_userIP','dummy'));
       $respuesta = $this->wpfunosFiltros();
-      $_GET['valor-logo-confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenNoConfirmado', true ) , array(45,46));
+      $_GET['valor-logo-confirmado'] = wp_get_attachment_image ( 83458 , array(66,66));
       $_GET['valor-logo-eco'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
       $_GET['valor-textoconfirmado'] = 'Precio sin confirmar';
       $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
@@ -474,6 +476,7 @@ class Wpfunos_ServiciosV2 {
         $_GET['AttsServicio'] = 'wpfid|' .$value[0].'
         wpfn|' .$nonce.'
         wpfp|' .$value[2].'
+        wpfdistancia|' .$value[3].'
         wpftitulo|' .get_post_meta( $value[0], 'wpfunos_servicioNombre', true ). '
         wpftelefono|' .str_replace(" ","",get_post_meta( $value[0], 'wpfunos_servicioTelefono', true ) );
 
@@ -501,7 +504,7 @@ class Wpfunos_ServiciosV2 {
       $respuesta = $this->wpfunosFiltros();
       $_GET['seccionClass-detalles'] = 'wpf-detalles-si';
       $_GET['seccionClass-mapas'] = 'wpf-mapas-si';
-      $_GET['valor-logo-confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenConfirmado', true ) , array(45,46));
+      $_GET['valor-logo-confirmado'] = wp_get_attachment_image ( 83459 , array(66,66));
       $_GET['valor-logo-eco'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
       $_GET['valor-textoconfirmado'] = 'Precio confirmado';
       $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
@@ -522,6 +525,11 @@ class Wpfunos_ServiciosV2 {
           wpfn|' . $nonce .'
           wpfp|' . $value[2]. '
           wpftipo|Detalles' ;
+
+          $_GET['AttsServicioPresupuesto'] = 'wpfid|' . $value[0].'
+          wpfn|' . $nonce .'
+          wpfp|' . $value[2]. '
+          wpftipo|Presupuesto' ;
 
           $this->wpfunosResulV2Values( $value );
 
@@ -544,7 +552,7 @@ class Wpfunos_ServiciosV2 {
       $respuesta = $this->wpfunosFiltros();
       $_GET['seccionClass-detalles'] = 'wpf-detalles-no';
       $_GET['seccionClass-mapas'] = 'wpf-mapas-no';
-      $_GET['valor-logo-confirmado'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenNoConfirmado', true ) , array(45,46));
+      $_GET['valor-logo-confirmado'] = wp_get_attachment_image ( 83458 , array(66,66));
       $_GET['valor-logo-eco'] = wp_get_attachment_image (  get_post_meta( get_option('wpfunos_postConfImagenes') , 'wpfunos_imagenEcologico', true ) , array(60,60));
       $_GET['valor-textoconfirmado'] = 'Precio sin confirmar';
       $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
@@ -564,6 +572,11 @@ class Wpfunos_ServiciosV2 {
         wpfn|' . $nonce .'
         wpfp|' . $value[2]. '
         wpftipo|Detalles' ;
+
+        $_GET['AttsServicioPresupuesto'] = 'wpfid|' . $value[0].'
+        wpfn|' . $nonce .'
+        wpfp|' . $value[2]. '
+        wpftipo|Presupuesto' ;
 
         $this->wpfunosResulV2Values( $value );
 
@@ -885,7 +898,7 @@ class Wpfunos_ServiciosV2 {
         $mensaje = str_replace( '[email]' , $wpfemail , $mensaje );
         $mensaje = str_replace( '[referencia]' , $transient['wpfref'] , $mensaje );
         $mensaje = str_replace( '[IP]' , $IP , $mensaje );
-        $mensaje = str_replace( '[URL]' , $userURL , $mensaje );
+        $mensaje = str_replace( '[URL]' , $URL , $mensaje );
         $mensaje = str_replace( '[nombre]' , $wpfnombre , $mensaje );
         $mensaje = str_replace( '[telefono]' , $tel , $mensaje );
         $mensaje = str_replace( '[poblacion]' , $transient['wpfadr'] , $mensaje );
@@ -1261,6 +1274,8 @@ class Wpfunos_ServiciosV2 {
     $servicio = $_POST['servicio'];
     $wpnonce = $_POST['wpnonce'];
     $precio = $_POST['precio'];
+    $distancia = $_POST['distancia'];
+
     $IP = apply_filters('wpfunos_userIP','dummy');
 
     $transient = get_transient('wpfunos-wpfref-' .$IP );
@@ -1288,11 +1303,20 @@ class Wpfunos_ServiciosV2 {
     switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp3' ) ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
     switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
-    $comentarios = '<p style="font-size: 16px">'.$nombredestino. ', ' .$nombreataud. ', ' .$nombrevelatorio. ', ' .$nombredespedida. '</p>' .
-    '<p style="font-size: 16px"><strong>Teléfono</strong> ' .$_POST['titulo']. ': <strong>' .$telefonoservicio. '</strong></p>'.
-    get_post_meta( $servicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) ;
+
+    $comentarios = get_post_meta( $servicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) ;
 
     $result['type'] = "success";
+    $result['valor_logo'] = wp_get_attachment_image ( get_post_meta( $servicio, 'wpfunos_servicioLogo', true ) ,array(32,32) );
+    $result['valor_servicio'] = $nombredestino. ', ' .$nombreataud. ', ' .$nombrevelatorio. ', ' .$nombredespedida;
+    $result['valor_nombre'] = get_post_meta( $servicio, 'wpfunos_servicioNombre', true );
+    $result['valor_nombrepack'] = get_post_meta( $servicio, 'wpfunos_servicioPackNombre', true );
+    $result['valor_valoracion'] = get_post_meta( $servicio, 'wpfunos_servicioValoracion', true );
+    $result['valor_precio'] = number_format($precio, 0, ',', '.') . '€';
+    $result['valor_textoprecio'] = get_post_meta( $servicio, 'wpfunos_servicioTextoPrecio', true );
+    $result['valor_direccion'] = get_post_meta( $servicio, 'wpfunos_servicioDireccion', true );
+    $result['valor_distancia'] = $distancia ;
+    $result['valor_logo_confirmado'] = wp_get_attachment_image ( 83459 , array(66,66));
     $result['comentarios'] = $comentarios;
     $result = json_encode($result);
     echo $result;
