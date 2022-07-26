@@ -136,7 +136,7 @@ $(document).ready(function(){
 			}else{
 				console.log('boton Detalles servicio: '+servicio+' titulo '+titulo );
 
-				elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+				elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
 
 				jQuery.ajax({
 					type : "post",
@@ -185,7 +185,7 @@ $(document).ready(function(){
 
 							document.getElementById("wpf-detalles-comentarios").innerHTML = response.comentarios;
 							document.getElementById("wpf-detalles-comentarios-movil").innerHTML = response.comentarios;
-							$('#elementor-popup-modal-56688').hide()
+							$('#elementor-popup-modal-84639').hide()
 						} else {
 							console.log('fail');
 						}
@@ -258,7 +258,7 @@ $(document).ready(function(){
 
 					document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfemail", email);
 					document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpftelefono", telefono);
-					elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+					elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
 					$('#elementor-popup-modal-73657').hide();
 					jQuery.ajax({
 						type : "post",
@@ -277,7 +277,7 @@ $(document).ready(function(){
 							console.log(response)	;
 							if(response.type == "success") {
 								console.log('success');
-								$('#elementor-popup-modal-56688').hide();
+								$('#elementor-popup-modal-84639').hide();
 							} else {
 								if(response.type == "unwanted") {
 									console.log('unwanted');

@@ -38,7 +38,7 @@ $(document).ready(function(){
           params.set('wpftipoid', servicio );
           var url = params.toString();
           console.log('url: ' + url);
-          elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+          elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
           $('#elementor-popup-modal-56948').hide();
           jQuery.ajax({
             type : "post",

@@ -59,9 +59,9 @@
 			}else{
 				?>
 				<div id="wpfunos-resultados-contador-blur">
-
-					<h6 style="text-align: center;font-weight: 500;font-size: 12px;">(Mostrando los primeros 5 resultados)</h6>
-
+					<?php if (count($wpfunos_confirmado) > 4 ){ ?>
+						<h6 style="text-align: center;font-weight: 500;font-size: 12px;">(Mostrando los primeros 5 resultados)</h6>
+					<?php }?>
 				</div>
 				<?php
 				do_action( 'wpfunos_resultv2_blur_confirmado', $wpfunos_confirmado );

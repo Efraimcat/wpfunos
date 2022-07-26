@@ -146,6 +146,7 @@ class Wpfunos_ServiciosV2 {
 
     // Preparar plantillas Elementor
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '56688' ); //Ventana Popup Esperando
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '84639' ); //Ventana Popup Esperando (loader 2)
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '63359' ); //Compara precios filtros
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '56948' ); //Servicios formulario datos
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '73657' ); //Servicios formulario datos comprobación
@@ -154,8 +155,10 @@ class Wpfunos_ServiciosV2 {
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '56676' ); //Boton Presupuesto
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '56672' ); //Boton Detalles
     // wpfunos-multistep-ahora - wpfunos-multistep-prox - wpfunos-multistep-sigcuando
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '72904' ); //Popup multiform cuando
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '71587' ); //Popup multiform destino
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '72904' ); //Servicios Multistep Form Cuando (1)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '71587' ); //Servicios Multistep Form Destino (2)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '85379' ); //Servicios Multistep Form Velatorio (3)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '85424' ); //Servicios Multistep Form Ceremonia (4)
     // End Preparar plantillas Elementor
 
     //https://funos.es/compara-nuevos-datos?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=7&action=fs&CP=08002&wpfref=dummy&orden=dist&dest=incineracion&wpfvision=dummy
@@ -196,11 +199,7 @@ class Wpfunos_ServiciosV2 {
 
     // Multiform
     if( ! isset( $_GET['dest'] ) || $_GET['dest'] == 'dummy' ){
-
-      // Funcionalidad preguntar cuando y destino
       require 'js/wpfunos-serviciosv2-multistep-cuando.js';
-      // Funcionalidad preguntar solo destino
-      //require 'js/wpfunos-serviciosv2-multistep-form.js';
     }
     // End Multiform
 
@@ -333,7 +332,7 @@ class Wpfunos_ServiciosV2 {
     $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
     $wpflast = apply_filters( 'wpfunos_crypt', $transient['wpfurl'] , 'e' );
     setcookie('wpflast', $wpflast, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-    setcookie('wpflasttime', date( 'd/m/Y+H-i-s', current_time( 'timestamp', 0 ) ) , ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+    setcookie('wpflasttime', date( 'd/m/y', current_time( 'timestamp', 0 ) ) , ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
 
     // Llamar plantilla resultados
     ?><script>console.log('Llegada a formulario resultados.');</script><?php
@@ -402,7 +401,7 @@ class Wpfunos_ServiciosV2 {
 
     $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
     $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
-    $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,array(32,32) );
+    $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
     $_GET['valor-imagen-promo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioImagenPromo', true ) ,'full' );
 
     $_GET['valor-nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
@@ -440,6 +439,7 @@ class Wpfunos_ServiciosV2 {
       $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
       $_GET['seccionClass-detalles'] = 'wpf-detalles-si';
       $_GET['seccionClass-mapas'] = 'wpf-mapas-si';
+
       foreach ($wpfunos_confirmado as $value) {
         $_GET['AttsServicio'] = 'wpfid|' .$value[0].'
         wpfn|' .$nonce.'
@@ -530,6 +530,9 @@ class Wpfunos_ServiciosV2 {
           wpfn|' . $nonce .'
           wpfp|' . $value[2]. '
           wpftipo|Presupuesto' ;
+
+          $campo = $respuesta['resp1']['inicial'] . $respuesta['resp2']['inicial'] . $respuesta['resp3']['inicial'] . $respuesta['resp4']['inicial'];
+          $_GET['valor-titulo'] = get_post_meta( $value[0], 'wpfunos_servicio' .$campo. '_texto' , true );
 
           $this->wpfunosResulV2Values( $value );
 
@@ -743,9 +746,9 @@ class Wpfunos_ServiciosV2 {
       case '2': $result['resp1'] = array( 'desc' => 'Destino', 'inicial' => 'I', 'texto' => 'Incineración' ); break;
     }
     switch($_GET['cf']['resp2']){
-      case '1': $result['resp2'] = array( 'desc' => 'Ataúd', 'inicial' => 'M', 'texto' => 'Normal' ); break;
-      case '2': $result['resp2'] = array( 'desc' => 'Ataúd', 'inicial' => 'E', 'texto' => 'Económico' ); break;
-      case '3': $result['resp2'] = array( 'desc' => 'Ataúd', 'inicial' => 'P', 'texto' => 'Premium' ); break;
+      case '1': $result['resp2'] = array( 'desc' => 'Ataúd', 'inicial' => 'M', 'texto' => 'Ataúd Normal' ); break;
+      case '2': $result['resp2'] = array( 'desc' => 'Ataúd', 'inicial' => 'E', 'texto' => 'Ataúd Económico' ); break;
+      case '3': $result['resp2'] = array( 'desc' => 'Ataúd', 'inicial' => 'P', 'texto' => 'Ataúd Premium' ); break;
     }
     switch($_GET['cf']['resp3']){
       case '1': $result['resp3'] = array( 'desc' => 'Velatorio', 'inicial' => 'V', 'texto' => 'Velatorio' ); break;
@@ -835,7 +838,7 @@ class Wpfunos_ServiciosV2 {
 
     $wpfwpf = apply_filters( 'wpfunos_crypt', $transient['wpfref'] , 'e' );
 
-    $URL = 'https://funos.es/compara-nuevos-datos?' .$wpfurl. '&wpfwpf=' .$wpfwpf ;
+    $URL = home_url().'/compara-nuevos-datos?' .$wpfurl. '&wpfwpf=' .$wpfwpf ;
 
     if( ! apply_filters('wpfunos_reserved_email','dummy') ){
       $userURL = apply_filters('wpfunos_shortener', $URL );

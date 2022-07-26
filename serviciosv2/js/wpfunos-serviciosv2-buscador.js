@@ -7,7 +7,7 @@ $(document).ready(function(){
 		var wpfcp = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfcp");
 
 		document.getElementById("wpf-resultados-cabecera-poblacion-boton").addEventListener('click', function(){
-			elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+			elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
 			window.location.href = "/comparar-precios-v2";
 		} , false);
 
@@ -17,7 +17,7 @@ $(document).ready(function(){
 			}else{
 				params.set('cuando', 'Ahora');
 			}
-			elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+			elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
 			window.location.search = params.toString();
 		} , false);
 
@@ -79,17 +79,6 @@ $(document).ready(function(){
 			document.getElementById("wpfunos-boton-ceremonia-religiosa").style.color = "#FFFFFF";
 			document.getElementById("wpfunos-boton-ceremonia-religiosa").style.borderStyle="none" ;
 		}
-		//document.getElementById("wpfunos-boton-destino-entierro").style.backgroundColor = ( params.get('cf[resp1]') == '1' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-destino-incineracion").style.backgroundColor = ( params.get('cf[resp1]') == '2' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-ataud-normal").style.backgroundColor = ( params.get('cf[resp2]') == '1' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-destino-economico").style.backgroundColor = ( params.get('cf[resp2]') == '2' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-destino-premium").style.backgroundColor = ( params.get('cf[resp2]') == '3' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-velatorio-si").style.backgroundColor = ( params.get('cf[resp3]') == '1' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-velatorio-no").style.backgroundColor = ( params.get('cf[resp3]') == '2' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-ceremonia-sin").style.backgroundColor = ( params.get('cf[resp4]') == '1' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-ceremonia-sala").style.backgroundColor = ( params.get('cf[resp4]') == '2' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-ceremonia-civil").style.backgroundColor = ( params.get('cf[resp4]') == '3' ? "#39c2f3" : "#ff9c00" );
-		//document.getElementById("wpfunos-boton-ceremonia-religiosa").style.backgroundColor = ( params.get('cf[resp4]') == '4' ? "#39c2f3" : "#ff9c00" );
 
 		[ document.getElementById("wpfunos-boton-destino-entierro"), document.getElementById("wpfunos-boton-destino-incineracion") ].forEach(function(element) {
 			element.addEventListener('click', wpfFunctionResp , false);
@@ -129,7 +118,7 @@ $(document).ready(function(){
 		var wpfcp = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfcp");
 		console.log( 'click botón '+evt.currentTarget.resp+' '+evt.currentTarget.opcion);
 		if( params.get('cf['+evt.currentTarget.resp+']') != evt.currentTarget.opcion){
-			elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+			elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
 			if( wpfref != 'dummy' ) params.set('wpfref', wpfref);
 			if( wpfcp != 'dummy') params.set('CP', wpfcp);
 			params.set('cf['+evt.currentTarget.resp+']', evt.currentTarget.opcion );
@@ -138,6 +127,7 @@ $(document).ready(function(){
 			if( params.get('cf[resp3]') == '2' && params.get('cf[resp4]') == '1' && parseInt(params.get('distance')) < 100 ){
 				console.log('Cambiando distancia 100km.')
 				params.set('distance', '100' );
+				params.set('orden', 'precios' );
 			}
 			window.location.search = params.toString();
 		}

@@ -354,7 +354,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <?php $cuatro = 0; $cuentatitulos = 0; ?>
     <table style="width:100%">
-      <tr><td>Textos</td><td></td><td>Sin ceremonia</td><td></td><td>Solo sala</td><td></td><td>Civil</td><td></td><td>Religiosa</td></tr>
+      <tr><td>Título de Marketing</td><td></td><td>Sin ceremonia</td><td></td><td>Solo sala</td><td></td><td>Civil</td><td></td><td>Religiosa</td></tr>
       <tr><td style="width: 400px;"><?php echo $titulo[$cuentatitulos]; ?></td>
         <?php
         foreach ( $tipos as $tipo ) {

@@ -3,7 +3,7 @@ $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
     document.getElementById("wpfunos-boton-busqueda-anterior").addEventListener('click', function() {
-      elementorFrontend.documentsManager.documents['56688'].showModal(); //show the popup
+      elementorFrontend.documentsManager.documents['84626'].showModal(); //show the popup
     }, false);
   });
 });
