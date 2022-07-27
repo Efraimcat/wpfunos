@@ -19,12 +19,21 @@ add_settings_section(
   'wpfunos_DireccionesIP_settings'                 			// Page on which to add this section of options
 );
 add_settings_field(
-  $this->plugin_name . '_DireccionesIPDesarrollo',
-  'Correos desarrollo <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_DireccionesIPDesarrollo)</h6><h6 style="font-weight: 400;font-size: 12px;">Lista de direcciones IP separadas mediante comas</h6>',
+  'wpfunos_DireccionesIPDesarrollo',
+  'Correos Administradores <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_DireccionesIPDesarrollo)</h6><h6 style="font-weight: 400;font-size: 12px;">Lista de direcciones email separadas mediante comas</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_DireccionesIP_settings',
   'wpfunos_direccionesip_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_DireccionesIPDesarrollo','name' => $this->plugin_name . '_DireccionesIPDesarrollo','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_DireccionesIPDesarrollo','name' => 'wpfunos_DireccionesIPDesarrollo','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
+add_settings_field(
+  'wpfunos_DireccionesColaboradores',
+  'Correos Colaboradores <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_DireccionesColaboradores)</h6><h6 style="font-weight: 400;font-size: 12px;">Lista de direcciones email separadas mediante comas</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_DireccionesIP_settings',
+  'wpfunos_direccionesip_section',
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_DireccionesColaboradores','name' => 'wpfunos_DireccionesColaboradores','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_DireccionesIP_settings', $this->plugin_name . '_DireccionesIPDesarrollo');
+register_setting('wpfunos_DireccionesIP_settings', 'wpfunos_DireccionesIPDesarrollo');
+register_setting('wpfunos_DireccionesIP_settings', 'wpfunos_DireccionesColaboradores');

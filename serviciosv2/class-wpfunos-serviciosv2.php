@@ -31,6 +31,7 @@ class Wpfunos_ServiciosV2 {
     add_shortcode( 'wpfunos-nuevos-datos-resultados-movil', array( $this, 'wpfunosServiciosDatosResultadosMovilShortcode' ));
     add_shortcode( 'wpfunos-resultadosv2-imagenes', array( $this, 'wpfunosResultadosV2ImagesShortcode' ));
     add_shortcode( 'wpfunos-nuevos-resultados-ultima-busqueda', array( $this, 'wpfunosResultadosV2UltimaBusquedaShortcode' ));
+    add_shortcode( 'wpfunos-nuevos-resultados-estrellas', array( $this, 'wpfunosResultadosV2EstrellasShortcode' ));
     add_shortcode( 'wpflasturl', array( $this, 'wpfunosResultadosV2LastUrlShortcode' ));
 
     add_action( 'wpfunos_resultv2_grid_confirmado', array( $this, 'wpfunosResultV2GridConfirmado' ), 10, 2 );
@@ -50,6 +51,9 @@ class Wpfunos_ServiciosV2 {
     add_action('wp_ajax_wpfunos_ajax_serviciosv2_presupuesto', function () {$this->wpfunosServiciosv2Presupuesto();});
     add_action('wp_ajax_nopriv_wpfunos_ajax_serviciosv2_detalles', function () { $this->wpfunosServiciosv2Detalles();});
     add_action('wp_ajax_wpfunos_ajax_serviciosv2_detalles', function () {$this->wpfunosServiciosv2Detalles();});
+    add_action('wp_ajax_nopriv_wpfunos_ajax_serviciosv2_colab', function () { $this->wpfunosServiciosv2Colab();});
+    add_action('wp_ajax_wpfunos_ajax_serviciosv2_colab', function () {$this->wpfunosServiciosv2Colab();});
+
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-serviciosv2.css', array(), $this->version, 'all' );
@@ -327,6 +331,7 @@ class Wpfunos_ServiciosV2 {
 
     // Actualizar datos 'wpf-resultados-cabecera-referencia'
     require 'js/wpfunos-serviciosv2-actualizar-atributos.js';
+    ?><script>console.log('Atributos actualizados.');</script><?php
     // Guardar cookie última búsqueda
     $expiry = strtotime('+1 year');
     $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
@@ -345,6 +350,10 @@ class Wpfunos_ServiciosV2 {
       require 'js/wpfunos-serviciosv2-botones-blur.js';
     }
 
+    if ( apply_filters('wpfunos_email_colaborador','dummy') && $_GET['wpfvision'] == 'clear' ){
+      ?><script>console.log('Servicios colaboradores.');</script><?php
+      require 'js/wpfunos-serviciosv2-colab.js';
+    }
   }
 
   /**
@@ -387,6 +396,13 @@ class Wpfunos_ServiciosV2 {
     return $wpflasturl;
   }
 
+  /**
+  * Shortcode [wpfunos-nuevos-resultados-estrellas]
+  */
+  public function wpfunosResultadosV2EstrellasShortcode( $atts, $content = "" ) {
+    return (int)$_GET['valor-valoracion'];
+  }
+
   /*********************************/
   /*****                      ******/
   /*********************************/
@@ -412,7 +428,6 @@ class Wpfunos_ServiciosV2 {
     $_GET['valor-direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
     $_GET['valor-distancia'] = $value[3] ;
   }
-  //<i style="color:#FF9C00;" aria-hidden="true" class="fas fa-map-marker-alt"></i> Ubicación, calle, lugar CP
   /**
   * Hook mostrar entrada
   *
@@ -955,6 +970,7 @@ class Wpfunos_ServiciosV2 {
     $transient['wpfvision'] = 'clear';
     $transient['wpfurl'] = $URL;
     $transient['wpfwpf'] = $wpfwpf;
+    $transient['wpfnuevaentrada'] = $transient['wpfref']; //$wpfwpf = apply_filters( 'wpfunos_crypt', $transient['wpfref'] , 'e' );
     set_transient( 'wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy'), $transient, HOUR_IN_SECONDS );
 
     $result['type'] = "success";
@@ -1087,6 +1103,11 @@ class Wpfunos_ServiciosV2 {
       if( get_option('wpfunos_activarCorreoBoton1v2Admin') ){
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1v2Admin'), get_option('wpfunos_asuntoCorreoBoton1v2Admin') );
+
+        //
+        //apply_filters('wpfunos_email_colaborador','dummy')
+        //
+
         require 'partials/mensajes/wpfunos-campos-mensaje.php';
         if(!empty( get_option('wpfunos_mailCorreoCcoBoton1v2Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1v2Admin' ) ;
         if(!empty( get_option('wpfunos_mailCorreoBccBoton1v2Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1v2Admin' ) ;
@@ -1162,6 +1183,11 @@ class Wpfunos_ServiciosV2 {
       if( get_option('wpfunos_activarCorreoBoton2v2Admin') ){
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2v2Admin'), get_option('wpfunos_asuntoCorreoBoton2v2Admin') );
+
+        //
+        //apply_filters('wpfunos_email_colaborador','dummy')
+        //
+
         require 'partials/mensajes/wpfunos-campos-mensaje.php';
         if(!empty( get_option('wpfunos_mailCorreoCcoBoton2v2Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2v2Admin' ) ;
         if(!empty( get_option('wpfunos_mailCorreoBccBoton2v2Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2v2Admin' ) ;
@@ -1238,6 +1264,11 @@ class Wpfunos_ServiciosV2 {
       if( get_option('wpfunos_activarCorreoPresupuestoLead') ){
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestoLead'), get_option('wpfunos_asuntoCorreoPresupuestoLead') );
+
+        //
+        //apply_filters('wpfunos_email_colaborador','dummy')
+        //
+
         require 'partials/mensajes/wpfunos-campos-mensaje.php';
         if(!empty( get_option('wpfunos_mailCorreoCcoPresupuestoLead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPresupuestoLead' ) ;
         if(!empty( get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ;
@@ -1326,6 +1357,42 @@ class Wpfunos_ServiciosV2 {
     // don't forget to end your scripts with a die() function - very important
     die();
 
+  }
+
+  /*********************************/
+  /*****  AJAX                ******/
+  /*********************************/
+  /**
+  * Colaboradores
+  *
+  * add_action('wp_ajax_nopriv_wpfunos_ajax_serviciosv2_colab', function () { $this->wpfunosServiciosv2Colab();});
+  * add_action('wp_ajax_wpfunos_ajax_serviciosv2_colab', function () {$this->wpfunosServiciosv2Colab();});
+  *
+  */
+  public function wpfunosServiciosv2Colab(){
+    $IP = apply_filters('wpfunos_userIP','dummy');
+
+    $wpfwpf = apply_filters( 'wpfunos_crypt', $_POST['wpfwpf'], 'd' );
+    $IDusuario = apply_filters('wpfunos_userID', $wpfwpf );
+
+    if( $IDusuario == 0 ){
+      $nombre = 'N/D';
+      $email = 'N/D';
+      $phone = 'N/D';
+    }else{
+      $nombre = get_post_meta( $IDusuario, 'wpfunos_userName', true );
+      $email = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
+      $phone = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
+    }
+
+    $result['type'] = "success";
+    $result['nombre'] = $nombre;
+    $result['email'] = $email;
+    $result['phone'] = $phone;
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
   }
 
 }

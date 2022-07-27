@@ -12,11 +12,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/servicios
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$mensaje = str_replace( '[email]' , $transient['wpfe'] , $mensaje );
+
+//
+//apply_filters('wpfunos_email_colaborador','dummy')
+//
+
+if( apply_filters('wpfunos_email_colaborador','dummy') ){
+  $mensaje = str_replace( '[email]' , $COOKIE['wpfeactual'] , $mensaje );
+  $mensaje = str_replace( '[nombreUsuario]' , $COOKIE['wpfnactual'] , $mensaje );
+  $mensaje = str_replace( '[telefonoUsuario]' , $COOKIE['wpftactual'] , $mensaje );
+}else{
+  $mensaje = str_replace( '[email]' , $transient['wpfe'] , $mensaje );
+  $mensaje = str_replace( '[nombreUsuario]' , $transient['wpfn'] , $mensaje );
+  $mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
+}
+
 $mensaje = str_replace( '[referencia]' , $transient['wpfref'] , $mensaje );
 $mensaje = str_replace( '[IP]' , $IP , $mensaje );
-$mensaje = str_replace( '[nombreUsuario]' , $transient['wpfn'] , $mensaje );
-$mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
 $mensaje = str_replace( '[poblacion]' , $transient['wpfadr'] , $mensaje );
 $mensaje = str_replace( '[CP]' , $transient['wpfcp'] , $mensaje );
 $mensaje = str_replace( '[destino]' , $nombredestino , $mensaje );

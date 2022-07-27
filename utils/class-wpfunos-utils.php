@@ -26,6 +26,7 @@ class Wpfunos_Utils {
     add_action( 'wpfunos-entrada-aseguradoras', array( $this, 'wpfunosEntradaAseguradoras') );
     add_action( 'wpfunos_update phone', array( $this, 'wpfunosUpdatePhone' ), 10, 1 );
     add_filter( 'wpfunos_reserved_email', array( $this, 'wpfunosReservedEmailAction' ) );
+    add_filter( 'wpfunos_email_colaborador', array( $this, 'wpfunosColabEmailAction' ) );
     add_filter( 'wpfunos_ip_visits', array( $this, 'wpfunos_visitas_IP' ), 10, 3 );
     add_filter( 'wpfunos_count_visits', array( $this, 'wpfunos_contador_visitas' ), 10, 3 );
     add_filter( 'wpfunos_dumplog', array ( $this, 'dumpPOST'), 10, 1);
@@ -84,7 +85,7 @@ class Wpfunos_Utils {
   /** **/
 
   /**
-  * Utility: Comprobar si la dirección IP debe registrar eventos o es una dirección de test.
+  * Utility: Comprobar si la dirección email es de un administrador
   */
   public function wpfunosReservedEmailAction() {
     if (! is_user_logged_in()) return false;
@@ -99,6 +100,24 @@ class Wpfunos_Utils {
       }
     }
     $this->custom_logs( $this->dumpPOST('ReservedEmailAction false: ' .$current_user->user_email ) );
+    return false;
+  }
+
+  /**
+  * Utility: Comprobar si la dirección email debe es de un colaborador.
+  */
+  public function wpfunosColabEmailAction() {
+    if (! is_user_logged_in()) return false;
+    $current_user = wp_get_current_user();
+    $opcion = get_option( 'wpfunos_DireccionesColaboradores' );
+    $direcciones = explode ( ",", $opcion );
+    foreach( $direcciones as $direccion ) {
+      $direccion = trim( $direccion );
+      if( $direccion == $current_user->user_email ){
+        $this->custom_logs( $this->dumpPOST('wpfunos_DireccionesColaboradores true: ' .$current_user->user_email ) );
+        return true;
+      }
+    }
     return false;
   }
 

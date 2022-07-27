@@ -99,11 +99,15 @@ if( $post_list ){
         $comentarioactual = get_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_Comentario', true );
 
         if( strlen($comentarioactual) < 5){
-          $comentarios = '<h3><strong>QUÉ ESTÁ INCLUIDO EN EL PRECIO</strong></h3>';
+          $comentarios = '<h3><strong>QUÉ ESTÁ INCLUIDO EN EL PRECIO</strong></h3><p></p>';
+
+          $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioPrecioBaseComentario', true ) );
+          $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+          $comentarios .= $customfield_content ;
 
           if( substr( $key, 0, 1) == 'E' ){
             $this->custom_logs('Wpfunos services: Exxx: ' .$post->ID  );
-            $comentarios .= '<h4><strong>¿Qué está incluido en entierro?</strong></h4>';
+            $comentarios .= '<h4><strong>Detalles de entierro</strong></h4>';
             $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Comentario', true ) );
             $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
             $comentarios .= $customfield_content ;
@@ -111,63 +115,56 @@ if( $post_list ){
 
           if( substr( $key, 0, 1) == 'I' ) {
             $this->custom_logs('Wpfunos services: Ixxx: ' .$post->ID  );
-            $comentarios .= '<h4><strong>¿Qué está incluido en incineración?</strong></h4>';
+            $comentarios .= '<h4><strong>Detalles de  incineración</strong></h4>';
             $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Comentario', true ) );
             $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
             $comentarios .= $customfield_content ;
           }
 
           if( substr( $key, 1, 1) == 'E' ) {
-            $comentarios .= '<h4><strong>¿Qué está incluido en ataúd gama económica?</strong></h4>';
+            $comentarios .= '<h4><strong>Detalles de  ataúd gama económica</strong></h4>';
             $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Comentario', true ) );
             $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
             $comentarios .= $customfield_content ;
           }
 
           if( substr( $key, 1, 1) == 'M' ) {
-            $comentarios .= '<h4><strong>¿Qué está incluido en ataúd gama media?</strong></h4>';
+            $comentarios .= '<h4><strong>Detalles de  ataúd gama media</strong></h4>';
             $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Comentario', true ) );
             $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
             $comentarios .= $customfield_content ;
           }
 
           if( substr( $key, 1, 1) == 'P' ) {
-            $comentarios .= '<h4><strong>¿Qué está incluido en ataúd gama premium?</strong></h4>';
+            $comentarios .= '<h4><strong>Detalles de  ataúd gama premium</strong></h4>';
             $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Comentario', true ) );
             $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
             $comentarios .= $customfield_content ;
           }
 
           if( substr( $key, 2, 1) == 'S' ) {
-            $comentarios .= '<h4><strong>¿Qué está incluido en velatorio?</strong></h4>';
+            $comentarios .= '<h4><strong>Detalles de  velatorio</strong></h4>';
             $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoComentario', true ) );
             $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
             $comentarios .= $customfield_content ;
           }
 
-          if( substr( $key, 2, 1) == 'V' ) {
-            $comentarios .= '<h4><strong>¿Qué está incluido en velatorio?</strong></h4>';
-            $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioVelatorioComentario', true ) );
-            $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-            $comentarios .= $customfield_content ;
-          }
-
           if( substr( $key, 3, 1) == 'O' ) {
-            $comentarios .= '<h4><strong>¿Qué está incluido en ceremonia Sólo la sala?</strong></h4>';
+            $comentarios .= '<h4><strong>Detalles de  ceremonia Sólo la sala</strong></h4>';
             $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Comentario', true ) );
             $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
             $comentarios .= $customfield_content ;
           }
 
           if( substr( $key, 3, 1) == 'C' ) {
-            $comentarios .= '<h4><strong>¿Qué está incluido en ceremonia civil?</strong></h4>';
+            $comentarios .= '<h4><strong>Detalles de  ceremonia civil</strong></h4>';
             $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Comentario', true ) );
             $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
             $comentarios .= $customfield_content ;
           }
 
           if( substr( $key, 3, 1) == 'R' ) {
-            $comentarios .= '<h4><strong>¿Qué está incluido en ceremonia religiosa?</strong></h4>';
+            $comentarios .= '<h4><strong>Detalles de ceremonia religiosa</strong></h4>';
             $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Comentario', true ) );
             $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
             $comentarios .= $customfield_content ;
