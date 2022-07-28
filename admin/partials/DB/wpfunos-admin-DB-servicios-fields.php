@@ -24,7 +24,6 @@ $servicioTelefono = sanitize_text_field( $_POST['wpfunos_servicioTelefono'] );
 $servicioMapa = sanitize_text_field( $_POST['wpfunos_servicioMapa'] );
 $servicioLead = sanitize_text_field( $_POST['wpfunos_servicioLead'] );
 $servicioLead2 = sanitize_text_field( $_POST['wpfunos_servicioLead2'] );
-$servicioDescuentoGenerico = sanitize_text_field( $_POST['wpfunos_servicioDescuentoGenerico'] );
 $servicioValoracion = sanitize_text_field( $_POST['wpfunos_servicioValoracion'] );
 $servicioActivo = sanitize_text_field( $_POST['wpfunos_servicioActivo'] );
 
@@ -42,19 +41,12 @@ $servicioImagenSlider5 = sanitize_text_field( $_POST['wpfunos_servicioImagenSlid
 
 $servicioPackNombre = sanitize_text_field( $_POST['wpfunos_servicioPackNombre'] );
 $servicioPrecioBase = sanitize_text_field( $_POST['wpfunos_servicioPrecioBase'] );
-$servicioPrecioBaseDescuento = sanitize_text_field( $_POST['wpfunos_servicioPrecioBaseDescuento'] );
 $servicioDestino_1Nombre = sanitize_text_field( $_POST['wpfunos_servicioDestino_1Nombre'] );
 $servicioDestino_1Precio = sanitize_text_field( $_POST['wpfunos_servicioDestino_1Precio'] );
 $servicioDestino_2Nombre = sanitize_text_field( $_POST['wpfunos_servicioDestino_2Nombre'] );
 $servicioDestino_2Precio = sanitize_text_field( $_POST['wpfunos_servicioDestino_2Precio'] );
 $servicioDestino_3Nombre = sanitize_text_field( $_POST['wpfunos_servicioDestino_3Nombre'] );
 $servicioDestino_3Precio = sanitize_text_field( $_POST['wpfunos_servicioDestino_3Precio'] );
-$servicioAtaud_1Nombre = sanitize_text_field( $_POST['wpfunos_servicioAtaud_1Nombre'] );
-$servicioAtaud_1Precio = sanitize_text_field( $_POST['wpfunos_servicioAtaud_1Precio'] );
-$servicioAtaud_2Nombre = sanitize_text_field( $_POST['wpfunos_servicioAtaud_2Nombre'] );
-$servicioAtaud_2Precio = sanitize_text_field( $_POST['wpfunos_servicioAtaud_2Precio'] );
-$servicioAtaud_3Nombre = sanitize_text_field( $_POST['wpfunos_servicioAtaud_3Nombre'] );
-$servicioAtaud_3Precio = sanitize_text_field( $_POST['wpfunos_servicioAtaud_3Precio'] );
 $servicioAtaudEcologico_1Nombre = sanitize_text_field( $_POST['wpfunos_servicioAtaudEcologico_1Nombre'] );
 $servicioAtaudEcologico_1Precio = sanitize_text_field( $_POST['wpfunos_servicioAtaudEcologico_1Precio'] );
 $servicioAtaudEcologico_2Nombre = sanitize_text_field( $_POST['wpfunos_servicioAtaudEcologico_2Nombre'] );
@@ -74,13 +66,13 @@ $servicioDespedida_2Precio = sanitize_text_field( $_POST['wpfunos_servicioDesped
 $servicioDespedida_3Nombre = sanitize_text_field( $_POST['wpfunos_servicioDespedida_3Nombre'] );
 $servicioDespedida_3Precio = sanitize_text_field( $_POST['wpfunos_servicioDespedida_3Precio'] );
 
+$servicioBloquearComentario = sanitize_text_field( $_POST['wpfunos_servicioBloquearComentario'] );
+$servicioActualizarComentario = sanitize_text_field( $_POST['wpfunos_servicioActualizarComentario'] );
+
 $servicioPrecioBaseComentario = wp_kses_post( $_POST['wpfunos_servicioPrecioBaseComentario'] );
 $servicioDestino_1Comentario = wp_kses_post( $_POST['wpfunos_servicioDestino_1Comentario'] );
 $servicioDestino_2Comentario = wp_kses_post( $_POST['wpfunos_servicioDestino_2Comentario'] );
 $servicioDestino_3Comentario = wp_kses_post( $_POST['wpfunos_servicioDestino_3Comentario'] );
-$servicioAtaud_1Comentario = wp_kses_post( $_POST['wpfunos_servicioAtaud_1Comentario'] );
-$servicioAtaud_2Comentario = wp_kses_post( $_POST['wpfunos_servicioAtaud_2Comentario'] );
-$servicioAtaud_3Comentario = wp_kses_post( $_POST['wpfunos_servicioAtaud_3Comentario'] );
 $servicioAtaudEcologico_1Comentario = wp_kses_post( $_POST['wpfunos_servicioAtaudEcologico_1Comentario'] );
 $servicioAtaudEcologico_2Comentario = wp_kses_post( $_POST['wpfunos_servicioAtaudEcologico_2Comentario'] );
 $servicioAtaudEcologico_3Comentario = wp_kses_post( $_POST['wpfunos_servicioAtaudEcologico_3Comentario'] );
@@ -285,11 +277,7 @@ $servicioIPVR = sanitize_text_field( $_POST['wpfunos_servicioIPVR'] );
 $servicioIPVR_texto = sanitize_text_field( $_POST['wpfunos_servicioIPVR_texto'] );
 $servicioIPVR_Comentario = wp_kses_post( $_POST['wpfunos_servicioIPVR_Comentario'] );
 
-
-
-
-
-
+//==============================================================================
 
 update_post_meta($post_id, 'wpfunos_servicioNombre', $servicioNombre);
 update_post_meta($post_id, 'wpfunos_servicioEmpresa', $servicioEmpresa);
@@ -303,7 +291,6 @@ update_post_meta($post_id, 'wpfunos_servicioTelefono', $servicioTelefono);
 update_post_meta($post_id, 'wpfunos_servicioMapa', $servicioMapa);
 update_post_meta($post_id, 'wpfunos_servicioLead', $servicioLead);
 update_post_meta($post_id, 'wpfunos_servicioLead2', $servicioLead2);
-update_post_meta($post_id, 'wpfunos_servicioDescuentoGenerico', $servicioDescuentoGenerico);
 update_post_meta($post_id, 'wpfunos_servicioValoracion', $servicioValoracion);
 update_post_meta($post_id, 'wpfunos_servicioActivo', $servicioActivo);
 
@@ -321,7 +308,6 @@ update_post_meta($post_id, 'wpfunos_servicioImagenSlider5', $servicioImagenSlide
 
 update_post_meta($post_id, 'wpfunos_servicioPackNombre', $servicioPackNombre);
 update_post_meta($post_id, 'wpfunos_servicioPrecioBase', $servicioPrecioBase);
-update_post_meta($post_id, 'wpfunos_servicioPrecioBaseDescuento', $servicioPrecioBaseDescuento);
 update_post_meta($post_id, 'wpfunos_servicioPrecioBaseComentario', $servicioPrecioBaseComentario);
 update_post_meta($post_id, 'wpfunos_servicioDestino_1Nombre', $servicioDestino_1Nombre);
 update_post_meta($post_id, 'wpfunos_servicioDestino_1Precio', $servicioDestino_1Precio);
@@ -329,12 +315,6 @@ update_post_meta($post_id, 'wpfunos_servicioDestino_2Nombre', $servicioDestino_2
 update_post_meta($post_id, 'wpfunos_servicioDestino_2Precio', $servicioDestino_2Precio);
 update_post_meta($post_id, 'wpfunos_servicioDestino_3Nombre', $servicioDestino_3Nombre);
 update_post_meta($post_id, 'wpfunos_servicioDestino_3Precio', $servicioDestino_3Precio);
-update_post_meta($post_id, 'wpfunos_servicioAtaud_1Nombre', $servicioAtaud_1Nombre);
-update_post_meta($post_id, 'wpfunos_servicioAtaud_1Precio', $servicioAtaud_1Precio);
-update_post_meta($post_id, 'wpfunos_servicioAtaud_2Nombre', $servicioAtaud_2Nombre);
-update_post_meta($post_id, 'wpfunos_servicioAtaud_2Precio', $servicioAtaud_2Precio);
-update_post_meta($post_id, 'wpfunos_servicioAtaud_3Nombre', $servicioAtaud_3Nombre);
-update_post_meta($post_id, 'wpfunos_servicioAtaud_3Precio', $servicioAtaud_3Precio);
 update_post_meta($post_id, 'wpfunos_servicioAtaudEcologico_1Nombre', $servicioAtaudEcologico_1Nombre);
 update_post_meta($post_id, 'wpfunos_servicioAtaudEcologico_1Precio', $servicioAtaudEcologico_1Precio);
 update_post_meta($post_id, 'wpfunos_servicioAtaudEcologico_2Nombre', $servicioAtaudEcologico_2Nombre);
@@ -352,12 +332,12 @@ update_post_meta($post_id, 'wpfunos_servicioDespedida_2Precio', $servicioDespedi
 update_post_meta($post_id, 'wpfunos_servicioDespedida_3Nombre', $servicioDespedida_3Nombre);
 update_post_meta($post_id, 'wpfunos_servicioDespedida_3Precio', $servicioDespedida_3Precio);
 
+update_post_meta($post_id, 'wpfunos_servicioBloquearComentario', $servicioBloquearComentario);
+update_post_meta($post_id, 'wpfunos_servicioActualizarComentario', $servicioActualizarComentario);
+
 update_post_meta($post_id, 'wpfunos_servicioDestino_1Comentario', $servicioDestino_1Comentario);
 update_post_meta($post_id, 'wpfunos_servicioDestino_2Comentario', $servicioDestino_2Comentario);
 update_post_meta($post_id, 'wpfunos_servicioDestino_3Comentario', $servicioDestino_3Comentario);
-update_post_meta($post_id, 'wpfunos_servicioAtaud_1Comentario', $servicioAtaud_1Comentario);
-update_post_meta($post_id, 'wpfunos_servicioAtaud_2Comentario', $servicioAtaud_2Comentario);
-update_post_meta($post_id, 'wpfunos_servicioAtaud_3Comentario', $servicioAtaud_3Comentario);
 update_post_meta($post_id, 'wpfunos_servicioAtaudEcologico_1Comentario', $servicioAtaudEcologico_1Comentario);
 update_post_meta($post_id, 'wpfunos_servicioAtaudEcologico_2Comentario', $servicioAtaudEcologico_2Comentario);
 update_post_meta($post_id, 'wpfunos_servicioAtaudEcologico_3Comentario', $servicioAtaudEcologico_3Comentario);

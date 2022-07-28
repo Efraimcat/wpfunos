@@ -1,36 +1,3 @@
 <script type="text/javascript" id="wpfunos-serviciosv2-ventana-distancia">
-$ = jQuery.noConflict();
-$(document).ready(function(){
-  $(function(){
-    document.getElementById("wpf-resultados-cabecera-distancia-boton").addEventListener('click', function(){
-      console.log('ClickBotonDistancia OK');
-      // 1 second delay
-      setTimeout(function(){
-        console.log("wpfunos-boton-formulario-nueva-distancia");
-        document.getElementById("wpfunos-boton-formulario-nueva-distancia").addEventListener('click', function(){
-          console.log('click');
-          var newdistance = document.getElementById("form-field-nuevadistancia").value;
-          var wpfref = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfref");
-          var wpfcp = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfcp");
-          if( newdistance != ''){
-            $('#wpfunos-formulario-nueva-distancia').hide();
-            elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
-            document.getElementById("elementor-popup-modal-58508").style.display = "none"
-            if( parseInt(newdistance) < 5 ) newdistance = '5';
-            if( parseInt(newdistance) > 200 ) newdistance = '200';
-            var params = new URLSearchParams(location.search);
-            if( params.get('wpfref') === 'dummy' && wpfref != 'dummy' ) params.set('wpfref', wpfref);
-            if( params.get('CP') === 'undefined' && wpfcp != 'dummy') params.set('CP', wpfcp);
-            if( wpfref != 'dummy' ) params.set('wpfref', wpfref);
-            if( wpfcp != 'dummy') params.set('CP', wpfcp);
-            params.set('distance', newdistance );
-            window.location.search = params.toString();
-          }
-        }, false);
-      }, 1000);
-
-    }, false);
-  });
-});
-
+$=jQuery.noConflict(),$(document).ready((function(){$((function(){document.getElementById("wpf-resultados-cabecera-distancia-boton").addEventListener("click",(function(){setTimeout((function(){document.getElementById("wpfunos-boton-formulario-nueva-distancia").addEventListener("click",(function(){var e=document.getElementById("form-field-nuevadistancia").value,t=document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfref"),n=document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfcp");if(""!=e){$("#wpfunos-formulario-nueva-distancia").hide(),elementorFrontend.documentsManager.documents[84639].showModal(),document.getElementById("elementor-popup-modal-58508").style.display="none",parseInt(e)<5&&(e="5"),parseInt(e)>200&&(e="200");var a=new URLSearchParams(location.search);"dummy"===a.get("wpfref")&&"dummy"!=t&&a.set("wpfref",t),"undefined"===a.get("CP")&&"dummy"!=n&&a.set("CP",n),"dummy"!=t&&a.set("wpfref",t),"dummy"!=n&&a.set("CP",n),a.set("distance",e),window.location.search=a.toString()}}),!1)}),1e3)}),!1)}))}));
 </script>

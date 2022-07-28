@@ -46,15 +46,15 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Direccion', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioNombre','name' => $this->plugin_name . '_servicioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioNombre','name' => 'wpfunos_servicioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioEmpresa','name' => $this->plugin_name . '_servicioEmpresa','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20   ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioEmpresa','name' => 'wpfunos_servicioEmpresa','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20   ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPoblacion','name' => $this->plugin_name . '_servicioPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioPoblacion','name' => 'wpfunos_servicioPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioProvincia','name' => $this->plugin_name . '_servicioProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioProvincia','name' => 'wpfunos_servicioProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDireccion','name' => $this->plugin_name . '_servicioDireccion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDireccion','name' => 'wpfunos_servicioDireccion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
         </tr>
       </table>
     </li>
@@ -69,11 +69,11 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Valoración', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioEmail','name' => $this->plugin_name . '_servicioEmail','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioEmail','name' => 'wpfunos_servicioEmail','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioTelefono','name' => $this->plugin_name . '_servicioTelefono','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  )); ?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioTelefono','name' => 'wpfunos_servicioTelefono','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  )); ?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioValoracion','name' => $this->plugin_name . '_servicioValoracion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioValoracion','name' => 'wpfunos_servicioValoracion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
         </tr>
       </table>
     </li>
@@ -86,11 +86,11 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td colspan="2"><?php esc_html_e('Imagen Promo 200x90', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioLogo','name' => $this->plugin_name . '_servicioLogo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioLogo', true ), 'full' ); ?></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioLogo','name' => 'wpfunos_servicioLogo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_servicioLogo', true ), 'full' ); ?></td>
           <td style="width:15px;"></td>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenPromo','name' => $this->plugin_name . '_servicioImagenPromo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 14 )); ?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenPromo', true ),'full' ); ?></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioImagenPromo','name' => 'wpfunos_servicioImagenPromo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 14 )); ?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_servicioImagenPromo', true ),'full' ); ?></td>
         </tr>
       </table>
     </li>
@@ -106,14 +106,14 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td colspan="2"><?php esc_html_e('Imagen 3', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenSlider1','name' => $this->plugin_name . '_servicioImagenSlider1','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenSlider1', true ), array('150', '150') ); ?></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioImagenSlider1','name' => 'wpfunos_servicioImagenSlider1','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_servicioImagenSlider1', true ), array('150', '150') ); ?></td>
           <td style="width:15px;"></td>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenSlider2','name' => $this->plugin_name . '_servicioImagenSlider2','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenSlider2', true ), array('150', '150') ); ?></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioImagenSlider2','name' => 'wpfunos_servicioImagenSlider2','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_servicioImagenSlider2', true ), array('150', '150') ); ?></td>
           <td style="width:15px;"></td>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioImagenSlider3','name' => $this->plugin_name . '_servicioImagenSlider3','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], $this->plugin_name . '_servicioImagenSlider3', true ), array('150', '150') ); ?></td>
+          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioImagenSlider3','name' => 'wpfunos_servicioImagenSlider3','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_servicioImagenSlider3', true ), array('150', '150') ); ?></td>
         </tr>
       </table>
     </li>
@@ -125,15 +125,11 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Nombre del pack', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Texto precio', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Descuento genérico', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPackNombre','name' => $this->plugin_name . '_servicioPackNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 )); ?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioPackNombre','name' => 'wpfunos_servicioPackNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 )); ?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioTextoPrecio','name' => $this->plugin_name . '_servicioTextoPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 )); ?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDescuentoGenerico','name' => $this->plugin_name . '_servicioDescuentoGenerico','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?>%</td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioTextoPrecio','name' => 'wpfunos_servicioTextoPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20 )); ?></td>
         </tr>
       </table>
     </li>
@@ -147,10 +143,10 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:20%"><?php esc_html_e('Activo', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioLead','name' => $this->plugin_name . '_servicioLead','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioLead2','name' => $this->plugin_name . '_servicioLead2','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioPrecioConfirmado','name' => $this->plugin_name . '_servicioPrecioConfirmado','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));?></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioActivo','name' => $this->plugin_name . '_servicioActivo','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioLead','name' => 'wpfunos_servicioLead','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioLead2','name' => 'wpfunos_servicioLead2','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioPrecioConfirmado','name' => 'wpfunos_servicioPrecioConfirmado','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioActivo','name' => 'wpfunos_servicioActivo','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
         </tr>
       </table>
     </li>
@@ -159,10 +155,14 @@ if ( ! defined( 'ABSPATH' ) ) {
         <tr>
           <td style="width:20%"><?php esc_html_e('Botones llamar', 'wpfunos');?></td>
           <td style="width:20%"><?php esc_html_e('Botón presupuesto', 'wpfunos');?></td>
+          <td style="width:20%"><?php esc_html_e('Bloquear comentarios', 'wpfunos');?></td>
+          <td style="width:20%"><?php esc_html_e('Actualizar comentarios', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioBotonesLlamar','name' => $this->plugin_name . '_servicioBotonesLlamar','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_servicioBotonPresupuesto','name' => $this->plugin_name . '_servicioBotonPresupuesto','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBotonesLlamar','name' => 'wpfunos_servicioBotonesLlamar','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBotonPresupuesto','name' => 'wpfunos_servicioBotonPresupuesto','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBloquearComentario','name' => 'wpfunos_servicioBloquearComentario','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioActualizarComentario','name' => 'wpfunos_servicioActualizarComentario','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
         </tr>
       </table>
     </li>
@@ -174,13 +174,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="servicios_wpfunos_list">
       <table>
         <tr>
-          <td></td><td>Precio</td><td style="width:5px;"></td><td>Descuento</td>
+          <td></td><td>Precio</td>
         </tr>
         <tr>
           <td>Precio Base</td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPrecioBase','name' => $this->plugin_name . '_servicioPrecioBase','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-          <td></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPrecioBaseDescuento','name' => $this->plugin_name . '_servicioPrecioBaseDescuento','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>%</td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioPrecioBase','name' => 'wpfunos_servicioPrecioBase','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
         </tr>
       </table>
     </li>
@@ -192,18 +190,18 @@ if ( ! defined( 'ABSPATH' ) ) {
       </tr>
       <tr>
         <td>Entierro</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_1Nombre','name' => $this->plugin_name . '_servicioDestino_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_1Precio','name' => $this->plugin_name . '_servicioDestino_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDestino_1Nombre','name' => 'wpfunos_servicioDestino_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDestino_1Precio','name' => 'wpfunos_servicioDestino_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
       <tr>
         <td>Incineración</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_2Nombre','name' => $this->plugin_name . '_servicioDestino_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_2Precio','name' => $this->plugin_name . '_servicioDestino_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDestino_2Nombre','name' => 'wpfunos_servicioDestino_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDestino_2Precio','name' => 'wpfunos_servicioDestino_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
       <tr>
         <td>Traslado</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_3Nombre','name' => $this->plugin_name . '_servicioDestino_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDestino_3Precio','name' => $this->plugin_name . '_servicioDestino_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDestino_3Nombre','name' => 'wpfunos_servicioDestino_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDestino_3Precio','name' => 'wpfunos_servicioDestino_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
     </table>
     <hr/>
@@ -213,34 +211,19 @@ if ( ! defined( 'ABSPATH' ) ) {
         <td>Tipo</td><td>Nombre</td><td>Precio</td>
       </tr>
       <tr>
-        <td>Económico</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_1Nombre','name' => $this->plugin_name . '_servicioAtaud_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_1Precio','name' => $this->plugin_name . '_servicioAtaud_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-      </tr>
-      <tr>
-        <td>Medio</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_2Nombre','name' => $this->plugin_name . '_servicioAtaud_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_2Precio','name' => $this->plugin_name . '_servicioAtaud_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-      </tr>
-      <tr>
-        <td>Premium</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_3Nombre','name' => $this->plugin_name . '_servicioAtaud_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaud_3Precio','name' => $this->plugin_name . '_servicioAtaud_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-      </tr>
-      <tr>
         <td>Económico (Ecológico)</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_1Nombre','name' => $this->plugin_name . '_servicioAtaudEcologico_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_1Precio','name' => $this->plugin_name . '_servicioAtaudEcologico_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioAtaudEcologico_1Nombre','name' => 'wpfunos_servicioAtaudEcologico_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioAtaudEcologico_1Precio','name' => 'wpfunos_servicioAtaudEcologico_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
       <tr>
         <td>Medio (Ecológico)</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_2Nombre','name' => $this->plugin_name . '_servicioAtaudEcologico_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_2Precio','name' => $this->plugin_name . '_servicioAtaudEcologico_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioAtaudEcologico_2Nombre','name' => 'wpfunos_servicioAtaudEcologico_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioAtaudEcologico_2Precio','name' => 'wpfunos_servicioAtaudEcologico_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
       <tr>
         <td>Premium (Ecológico)</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_3Nombre','name' => $this->plugin_name . '_servicioAtaudEcologico_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioAtaudEcologico_3Precio','name' => $this->plugin_name . '_servicioAtaudEcologico_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioAtaudEcologico_3Nombre','name' => 'wpfunos_servicioAtaudEcologico_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioAtaudEcologico_3Precio','name' => 'wpfunos_servicioAtaudEcologico_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
     </table>
     <hr/>
@@ -251,13 +234,13 @@ if ( ! defined( 'ABSPATH' ) ) {
       </tr>
       <tr>
         <td>Velatorio</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioVelatorioNombre','name' => $this->plugin_name . '_servicioVelatorioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioVelatorioPrecio','name' => $this->plugin_name . '_servicioVelatorioPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioVelatorioNombre','name' => 'wpfunos_servicioVelatorioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioVelatorioPrecio','name' => 'wpfunos_servicioVelatorioPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
       <tr>
         <td>Sin</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioVelatorioNoNombre','name' => $this->plugin_name . '_servicioVelatorioNoNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioVelatorioNoPrecio','name' => $this->plugin_name . '_servicioVelatorioNoPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioVelatorioNoNombre','name' => 'wpfunos_servicioVelatorioNoNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioVelatorioNoPrecio','name' => 'wpfunos_servicioVelatorioNoPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
     </table>
     <hr/>
@@ -268,18 +251,18 @@ if ( ! defined( 'ABSPATH' ) ) {
       </tr>
       <tr>
         <td>Solo sala</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_1Nombre','name' => $this->plugin_name . '_servicioDespedida_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_1Precio','name' => $this->plugin_name . '_servicioDespedida_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDespedida_1Nombre','name' => 'wpfunos_servicioDespedida_1Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDespedida_1Precio','name' => 'wpfunos_servicioDespedida_1Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
       <tr>
         <td>Civil</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_2Nombre','name' => $this->plugin_name . '_servicioDespedida_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_2Precio','name' => $this->plugin_name . '_servicioDespedida_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDespedida_2Nombre','name' => 'wpfunos_servicioDespedida_2Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDespedida_2Precio','name' => 'wpfunos_servicioDespedida_2Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
       <tr>
         <td>Religiosa</td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_3Nombre','name' => $this->plugin_name . '_servicioDespedida_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioDespedida_3Precio','name' => $this->plugin_name . '_servicioDespedida_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDespedida_3Nombre','name' => 'wpfunos_servicioDespedida_3Nombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDespedida_3Precio','name' => 'wpfunos_servicioDespedida_3Precio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
       </tr>
     </table>
     <hr/>
@@ -399,86 +382,77 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <h3><?php esc_html_e('Comentarios', 'wpfunos');?></h3>
     <?php // provide textarea name for $_POST variable
-    $notes_servicioPrecioBaseComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioPrecioBaseComentario', true );
-    $args_servicioPrecioBaseComentario = array( 'textarea_name' => $this->plugin_name . '_servicioPrecioBaseComentario', );
-    $notes_servicioDestino_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_1Comentario', true );
-    $args_servicioDestino_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_1Comentario', );
-    $notes_servicioDestino_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_2Comentario', true );
-    $args_servicioDestino_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_2Comentario', );
-    $notes_servicioDestino_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDestino_3Comentario', true );
-    $args_servicioDestino_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDestino_3Comentario', );
-    $notes_servicioAtaud_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_1Comentario', true );
-    $args_servicioAtaud_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_1Comentario', );
-    $notes_servicioAtaud_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_2Comentario', true );
-    $args_servicioAtaud_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_2Comentario', );
-    $notes_servicioAtaud_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaud_3Comentario', true );
-    $args_servicioAtaud_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaud_3Comentario', );
-    $notes_servicioAtaudEcologico_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_1Comentario', true );
-    $args_servicioAtaudEcologico_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_1Comentario', );
-    $notes_servicioAtaudEcologico_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_2Comentario', true );
-    $args_servicioAtaudEcologico_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_2Comentario', );
-    $notes_servicioAtaudEcologico_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioAtaudEcologico_3Comentario', true );
-    $args_servicioAtaudEcologico_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioAtaudEcologico_3Comentario', );
-    $notes_servicioVelatorioComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioVelatorioComentario', true );
-    $args_servicioVelatorioComentario = array( 'textarea_name' => $this->plugin_name . '_servicioVelatorioComentario', );
-    $notes_servicioVelatorioNoComentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioVelatorioNoComentario', true );
-    $args_servicioVelatorioNoComentario = array( 'textarea_name' => $this->plugin_name . '_servicioVelatorioNoComentario', );
-    $notes_servicioDespedida_1Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_1Comentario', true );
-    $args_servicioDespedida_1Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_1Comentario', );
-    $notes_servicioDespedida_2Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_2Comentario', true );
-    $args_servicioDespedida_2Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_2Comentario', );
-    $notes_servicioDespedida_3Comentario = get_post_meta( $post->ID, $this->plugin_name . '_servicioDespedida_3Comentario', true );
-    $args_servicioDespedida_3Comentario = array( 'textarea_name' => $this->plugin_name . '_servicioDespedida_3Comentario', );
-    $notes_servicioPosiblesExtras = get_post_meta( $post->ID, $this->plugin_name . '_servicioPosiblesExtras', true );
-    $args_servicioPosiblesExtras = array( 'textarea_name' => $this->plugin_name . '_servicioPosiblesExtras', );
+    $notes_servicioPrecioBaseComentario = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBaseComentario', true );
+    $args_servicioPrecioBaseComentario = array( 'textarea_name' => 'wpfunos_servicioPrecioBaseComentario', );
+    $notes_servicioDestino_1Comentario = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Comentario', true );
+    $args_servicioDestino_1Comentario = array( 'textarea_name' => 'wpfunos_servicioDestino_1Comentario', );
+    $notes_servicioDestino_2Comentario = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Comentario', true );
+    $args_servicioDestino_2Comentario = array( 'textarea_name' => 'wpfunos_servicioDestino_2Comentario', );
+    $notes_servicioDestino_3Comentario = get_post_meta( $post->ID, 'wpfunos_servicioDestino_3Comentario', true );
+    $args_servicioDestino_3Comentario = array( 'textarea_name' => 'wpfunos_servicioDestino_3Comentario', );
+    $notes_servicioAtaud_1Comentario = get_post_meta( $post->ID, 'wpfunos_servicioAtaud_1Comentario', true );
+    $args_servicioAtaud_1Comentario = array( 'textarea_name' => 'wpfunos_servicioAtaud_1Comentario', );
+    $notes_servicioAtaud_2Comentario = get_post_meta( $post->ID, 'wpfunos_servicioAtaud_2Comentario', true );
+    $args_servicioAtaud_2Comentario = array( 'textarea_name' => 'wpfunos_servicioAtaud_2Comentario', );
+    $notes_servicioAtaud_3Comentario = get_post_meta( $post->ID, 'wpfunos_servicioAtaud_3Comentario', true );
+    $args_servicioAtaud_3Comentario = array( 'textarea_name' => 'wpfunos_servicioAtaud_3Comentario', );
+    $notes_servicioAtaudEcologico_1Comentario = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Comentario', true );
+    $args_servicioAtaudEcologico_1Comentario = array( 'textarea_name' => 'wpfunos_servicioAtaudEcologico_1Comentario', );
+    $notes_servicioAtaudEcologico_2Comentario = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Comentario', true );
+    $args_servicioAtaudEcologico_2Comentario = array( 'textarea_name' => 'wpfunos_servicioAtaudEcologico_2Comentario', );
+    $notes_servicioAtaudEcologico_3Comentario = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Comentario', true );
+    $args_servicioAtaudEcologico_3Comentario = array( 'textarea_name' => 'wpfunos_servicioAtaudEcologico_3Comentario', );
+    $notes_servicioVelatorioComentario = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioComentario', true );
+    $args_servicioVelatorioComentario = array( 'textarea_name' => 'wpfunos_servicioVelatorioComentario', );
+    $notes_servicioVelatorioNoComentario = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoComentario', true );
+    $args_servicioVelatorioNoComentario = array( 'textarea_name' => 'wpfunos_servicioVelatorioNoComentario', );
+    $notes_servicioDespedida_1Comentario = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Comentario', true );
+    $args_servicioDespedida_1Comentario = array( 'textarea_name' => 'wpfunos_servicioDespedida_1Comentario', );
+    $notes_servicioDespedida_2Comentario = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Comentario', true );
+    $args_servicioDespedida_2Comentario = array( 'textarea_name' => 'wpfunos_servicioDespedida_2Comentario', );
+    $notes_servicioDespedida_3Comentario = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Comentario', true );
+    $args_servicioDespedida_3Comentario = array( 'textarea_name' => 'wpfunos_servicioDespedida_3Comentario', );
+    $notes_servicioPosiblesExtras = get_post_meta( $post->ID, 'wpfunos_servicioPosiblesExtras', true );
+    $args_servicioPosiblesExtras = array( 'textarea_name' => 'wpfunos_servicioPosiblesExtras', );
     ?>
     <li><label for="'.$this->plugin_name.'_servicioPrecioBaseComentario" style="font-size: 32px;">Notas Precio Base</label>
-      <?php	wp_editor( $notes_servicioPrecioBaseComentario, $this->plugin_name . '_servicioPrecioBaseComentario',$args_servicioPrecioBaseComentario); ?>
+      <?php	wp_editor( $notes_servicioPrecioBaseComentario, 'wpfunos_servicioPrecioBaseComentario',$args_servicioPrecioBaseComentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioDestino_1Comentario" style="font-size: 32px;">Notas Entierro</label>
-      <?php	wp_editor( $notes_servicioDestino_1Comentario, $this->plugin_name . '_servicioDestino_1Comentario',$args_servicioDestino_1Comentario); ?>
+      <?php	wp_editor( $notes_servicioDestino_1Comentario, 'wpfunos_servicioDestino_1Comentario',$args_servicioDestino_1Comentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioDestino_2Comentario" style="font-size: 32px;">Notas Incineración</label>
-      <?php	wp_editor( $notes_servicioDestino_2Comentario, $this->plugin_name . '_servicioDestino_2Comentario',$args_servicioDestino_2Comentario); ?>
+      <?php	wp_editor( $notes_servicioDestino_2Comentario, 'wpfunos_servicioDestino_2Comentario',$args_servicioDestino_2Comentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioDestino_3Comentario" style="font-size: 32px;">Notas Traslado</label>
-      <?php	wp_editor( $notes_servicioDestino_3Comentario, $this->plugin_name . '_servicioDestino_3Comentario',$args_servicioDestino_3Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaud_1Comentario" style="font-size: 32px;">Notas Ataud Económico</label>
-      <?php	wp_editor( $notes_servicioAtaud_1Comentario, $this->plugin_name . '_servicioAtaud_1Comentario',$args_servicioAtaud_1Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaud_2Comentario" style="font-size: 32px;">Notas Ataud Medio</label>
-      <?php	wp_editor( $notes_servicioAtaud_2Comentario, $this->plugin_name . '_servicioAtaud_2Comentario',$args_servicioAtaud_2Comentario); ?>
-    </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaud_3Comentario" style="font-size: 32px;">Notas Ataud Premium</label>
-      <?php	wp_editor( $notes_servicioAtaud_3Comentario, $this->plugin_name . '_servicioAtaud_3Comentario',$args_servicioAtaud_3Comentario); ?>
+      <?php	wp_editor( $notes_servicioDestino_3Comentario, 'wpfunos_servicioDestino_3Comentario',$args_servicioDestino_3Comentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_1Comentario" style="font-size: 32px;">Notas Ataud Ecológico Económico</label>
-      <?php	wp_editor( $notes_servicioAtaudEcologico_1Comentario, $this->plugin_name . '_servicioAtaudEcologico_1Comentario',$args_servicioAtaudEcologico_1Comentario); ?>
+      <?php	wp_editor( $notes_servicioAtaudEcologico_1Comentario, 'wpfunos_servicioAtaudEcologico_1Comentario',$args_servicioAtaudEcologico_1Comentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_2Comentario" style="font-size: 32px;">Notas Ataud Ecológico Medio</label>
-      <?php	wp_editor( $notes_servicioAtaudEcologico_2Comentario, $this->plugin_name . '_servicioAtaudEcologico_2Comentario',$args_servicioAtaudEcologico_2Comentario); ?>
+      <?php	wp_editor( $notes_servicioAtaudEcologico_2Comentario, 'wpfunos_servicioAtaudEcologico_2Comentario',$args_servicioAtaudEcologico_2Comentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_3Comentario" style="font-size: 32px;">Notas Ataud Ecológico Premium</label>
-      <?php	wp_editor( $notes_servicioAtaudEcologico_3Comentario, $this->plugin_name . '_servicioAtaudEcologico_3Comentario',$args_servicioAtaudEcologico_3Comentario); ?>
+      <?php	wp_editor( $notes_servicioAtaudEcologico_3Comentario, 'wpfunos_servicioAtaudEcologico_3Comentario',$args_servicioAtaudEcologico_3Comentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioVelatorioComentario" style="font-size: 32px;">Notas Velatorio</label>
-      <?php	wp_editor( $notes_servicioVelatorioComentario, $this->plugin_name . '_servicioVelatorioComentario',$args_servicioVelatorioComentario); ?>
+      <?php	wp_editor( $notes_servicioVelatorioComentario, 'wpfunos_servicioVelatorioComentario',$args_servicioVelatorioComentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioVelatorioNoComentario" style="font-size: 32px;">Notas Velatorio No</label>
-      <?php	wp_editor( $notes_servicioVelatorioNoComentario, $this->plugin_name . '_servicioVelatorioNoComentario',$args_servicioVelatorioNoComentario); ?>
+      <?php	wp_editor( $notes_servicioVelatorioNoComentario, 'wpfunos_servicioVelatorioNoComentario',$args_servicioVelatorioNoComentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioDespedida_1Comentario" style="font-size: 32px;">Notas Despedida Sala</label>
-      <?php	wp_editor( $notes_servicioDespedida_1Comentario, $this->plugin_name . '_servicioDespedida_1Comentario',$args_servicioDespedida_1Comentario); ?>
+      <?php	wp_editor( $notes_servicioDespedida_1Comentario, 'wpfunos_servicioDespedida_1Comentario',$args_servicioDespedida_1Comentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioDespedida_2Comentario" style="font-size: 32px;">Notas Despedida Civil</label>
-      <?php	wp_editor( $notes_servicioDespedida_2Comentario, $this->plugin_name . '_servicioDespedida_2Comentario',$args_servicioDespedida_2Comentario); ?>
+      <?php	wp_editor( $notes_servicioDespedida_2Comentario, 'wpfunos_servicioDespedida_2Comentario',$args_servicioDespedida_2Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioDespedida_3Comentario" style="font-size: 32px;">Notas Religiosa No</label>
-      <?php	wp_editor( $notes_servicioDespedida_3Comentario, $this->plugin_name . '_servicioDespedida_3Comentario',$args_servicioDespedida_3Comentario); ?>
+    <li><label for="'.$this->plugin_name.'_servicioDespedida_3Comentario" style="font-size: 32px;">Notas Religiosa</label>
+      <?php	wp_editor( $notes_servicioDespedida_3Comentario, 'wpfunos_servicioDespedida_3Comentario',$args_servicioDespedida_3Comentario); ?>
     </li>
     <li><label for="'.$this->plugin_name.'_servicioPosiblesExtras" style="font-size: 32px;">Posibles extras</label>
-      <?php	wp_editor( $notes_servicioPosiblesExtras, $this->plugin_name . '_servicioPosiblesExtras',$args_servicioPosiblesExtras); ?>
+      <?php	wp_editor( $notes_servicioPosiblesExtras, 'wpfunos_servicioPosiblesExtras',$args_servicioPosiblesExtras); ?>
     </li>
   </ul>
 </div>

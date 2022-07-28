@@ -247,6 +247,10 @@ class Wpfunos_Aseguradoras {
 
   /**
   * Llamada API Preventiva $this->wpfunosLlamadaAPIPreventiva( 'https://fidelity.preventiva.com/ContactsImporter/api/Contact', 'Preventiva' );
+  *
+  * $this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLPreventiva'), 'Preventiva Cold' , get_option( 'wpfunos_APIPreventivaCampainPreventiva'), 4 );
+  *
+  * $this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLElectium'), 'Electium Cold' , get_option( 'wpfunos_APIPreventivaCampainElectium'), 4 );
   */
   public function wpfunosLlamadaAPIPreventiva( $URL, $tipo, $campain, $accion ){
     $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
@@ -280,7 +284,7 @@ class Wpfunos_Aseguradoras {
         {"key": "CP", "value": "' . $CP . '"},
         {"key": "E-mail", "value": "' . $email . '"},
         {"key": "Edad", "value": "' . $edad . '"},
-        {"key": "Sexo", "value": "' . $sexo . '"},
+        {"key": "Ayuda a la venta", "value": "' . $ayuda . '"},
         {"key": "Id_cliente", "value": "' . $nuevareferencia . '"},
         {"key": "FechaCarga", "value": "' . $fechacarga . '"}
       ]
@@ -802,7 +806,7 @@ class Wpfunos_Aseguradoras {
     //
     $admin = apply_filters('wpfunos_reserved_email','dummy') ;
     $headers[] = 'Content-Type: text/html; charset=UTF-8';
-    if( get_option('wpfunos_activarCorreoPedirPresupuestoAseguradora') && ! $admin){
+    if( get_option('wpfunos_activarCorreoPedirPresupuestoAseguradora') ){
       $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPedirPresupuestoAseguradora'), get_option('wpfunos_asuntoCorreoPedirPresupuestoAseguradora') );
       require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
       if(!empty( get_option('wpfunos_mailCorreoCcoPedirPresupuestoAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPedirPresupuestoAseguradora' ) ;
