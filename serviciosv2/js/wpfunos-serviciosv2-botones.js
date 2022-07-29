@@ -1,3 +1,498 @@
 <script type="text/javascript" id="wpfunos-serviciosv2-botones">
-$=jQuery.noConflict(),$(document).ready((function(){$((function(){var e=document.getElementsByClassName("wpfunos-boton-llamen"),t=document.getElementsByClassName("wpfunos-boton-llamar"),o=document.getElementsByClassName("wpfunos-boton-presupuesto"),n=document.getElementsByClassName("wpfunos-boton-detalles"),l=function(){var e=this.getAttribute("wpfn"),t=this.getAttribute("wpfid"),o=this.getAttribute("wpfp"),n=this.getAttribute("wpftitulo");document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length<9||document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length<9?p():(console.log("boton Llamen servicio: "+t+" titulo "+n),elementorFrontend.documentsManager.documents[56684].showModal(),document.getElementById("wpfunos-modal-llamen-titulo").innerHTML=n,document.getElementById("wpfunos-modal-llamen-telefono").innerHTML=document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono"),document.getElementById("wpfunos-modal-llamen-telefono-movil").innerHTML=document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono"),jQuery.ajax({type:"post",dataType:"json",url:WpfAjax.ajaxurl,data:{action:"wpfunos_ajax_serviciosv2_llamen",servicio:t,wpnonce:e,precio:o,titulo:n},success:function(e){console.log(e),"success"==e.type?(console.log("success"),document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref",e.newref),$("#wpfunos-modal-fin-formulario").show()):console.log("fail")}}))},s=function(){var e=this.getAttribute("wpfn"),t=this.getAttribute("wpfid"),o=this.getAttribute("wpfp"),n=this.getAttribute("wpftitulo"),l=this.getAttribute("wpftelefono");if(document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length<9||document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length<9)p();else{console.log("boton Llamar servicio: "+t+" titulo "+n),elementorFrontend.documentsManager.documents[56680].showModal(),document.getElementById("wpfunos-modal-llamar-telefono").innerHTML=l;let a=window.matchMedia("only screen and (max-width: 760px)").matches;if(console.log("isMobile: "+a),a){var s="tel:"+l;console.log("tel: "+s),window.location=s}jQuery.ajax({type:"post",dataType:"json",url:WpfAjax.ajaxurl,data:{action:"wpfunos_ajax_serviciosv2_llamar",servicio:t,wpnonce:e,precio:o,titulo:n},success:function(e){console.log(e),"success"==e.type?(console.log("success"),document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref",e.newref),$("#wpfunos-modal-fin-formulario-llamar").show()):console.log("fail")}})}},a=function(){var e=this.getAttribute("wpfn"),t=this.getAttribute("wpfid"),o=this.getAttribute("wpfp"),n=this.getAttribute("wpftitulo");document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length<9||document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length<9?p():(console.log("boton Presupuesto servicio: "+t+" titulo "+n),elementorFrontend.documentsManager.documents[56676].showModal(),document.getElementById("wpfunos-modal-presupuesto-nombre").innerHTML=n,document.getElementById("botonEnviarPresupuesto").setAttribute("wpfn",e),document.getElementById("botonEnviarPresupuesto").setAttribute("wpfid",t),document.getElementById("botonEnviarPresupuesto").setAttribute("wpfp",o),document.getElementById("botonEnviarPresupuesto").setAttribute("wpftitulo",n),document.getElementById("botonEnviarPresupuesto").addEventListener("click",m,!1))},i=function(){var e=this.getAttribute("wpfn"),t=this.getAttribute("wpfid"),o=this.getAttribute("wpfp"),n=this.getAttribute("wpftitulo"),l=this.getAttribute("wpfdistancia");document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length<9||document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length<9?p():(console.log("boton Detalles servicio: "+t+" titulo "+n),elementorFrontend.documentsManager.documents[84639].showModal(),jQuery.ajax({type:"post",dataType:"json",url:WpfAjax.ajaxurl,data:{action:"wpfunos_ajax_serviciosv2_detalles",servicio:t,wpnonce:e,precio:o,titulo:n,distancia:l},success:function(l){console.log(l),"success"==l.type?(console.log("success"),elementorFrontend.documentsManager.documents[56672].showModal(),document.getElementById("wpf-detalles-logo").innerHTML=l.valor_logo,document.getElementById("wpf-detalles-logo-movil").innerHTML=l.valor_logo,document.getElementById("wpf-detalles-logo-confirmado").innerHTML=l.valor_logo_confirmado,document.getElementById("wpf-detalles-logo-confirmado-movil").innerHTML=l.valor_logo_confirmado,document.getElementById("wpf-detalles-nombre").innerHTML=l.valor_nombre,document.getElementById("wpf-detalles-nombre-movil").innerHTML=l.valor_nombre,document.getElementById("wpf-detalles-servicio").innerHTML=l.valor_servicio,document.getElementById("wpf-detalles-servicio-movil").innerHTML=l.valor_servicio,document.getElementById("wpf-detalles-precio").innerHTML=l.valor_precio,document.getElementById("wpf-detalles-precio-movil").innerHTML=l.valor_precio,document.getElementById("wpf-detalles-nombrepack").innerHTML=l.valor_nombrepack,document.getElementById("wpf-detalles-nombrepack-movil").innerHTML=l.valor_nombrepack,document.getElementById("wpf-detalles-textoprecio").innerHTML=l.valor_textoprecio,document.getElementById("wpf-detalles-textoprecio-movil").innerHTML=l.valor_textoprecio,document.getElementById("wpf-detalles-direccion").innerHTML=l.valor_direccion,document.getElementById("wpf-detalles-direccion-movil").innerHTML=l.valor_direccion,document.getElementById("wpf-detalles-distancia").innerHTML=l.valor_distancia+" Km.",document.getElementById("wpf-detalles-comentarios").innerHTML=l.comentarios,document.getElementById("wpf-detalles-comentarios-movil").innerHTML=l.comentarios,$("#elementor-popup-modal-84639").hide(),document.getElementById("wpfunos-detalles-llamen").addEventListener("click",r,!1),document.getElementById("wpfunos-detalles-llamen").setAttribute("wpfid",t),document.getElementById("wpfunos-detalles-llamen").setAttribute("wpnonce",e),document.getElementById("wpfunos-detalles-llamen").setAttribute("precio",o),document.getElementById("wpfunos-detalles-llamen").setAttribute("titulo",n),document.getElementById("wpfunos-detalles-llamar").addEventListener("click",u,!1),document.getElementById("wpfunos-detalles-llamar").setAttribute("wpfid",t),document.getElementById("wpfunos-detalles-llamar").setAttribute("wpnonce",e),document.getElementById("wpfunos-detalles-llamar").setAttribute("precio",o),document.getElementById("wpfunos-detalles-llamar").setAttribute("titulo",n),document.getElementById("wpfunos-detalles-email").addEventListener("click",c,!1),document.getElementById("wpfunos-detalles-email").setAttribute("wpfid",t),document.getElementById("wpfunos-detalles-email").setAttribute("wpnonce",e),document.getElementById("wpfunos-detalles-email").setAttribute("precio",o),document.getElementById("wpfunos-detalles-email").setAttribute("titulo",n),document.getElementById("wpfunos-detalles-presupuesto").addEventListener("click",d,!1),document.getElementById("wpfunos-detalles-presupuesto").setAttribute("wpfid",t),document.getElementById("wpfunos-detalles-presupuesto").setAttribute("wpnonce",e),document.getElementById("wpfunos-detalles-presupuesto").setAttribute("precio",o),document.getElementById("wpfunos-detalles-presupuesto").setAttribute("titulo",n),document.getElementById("wpfunos-detalles-email-movil").addEventListener("click",c,!1),document.getElementById("wpfunos-detalles-email-movil").setAttribute("wpfid",t),document.getElementById("wpfunos-detalles-email-movil").setAttribute("wpnonce",e),document.getElementById("wpfunos-detalles-email-movil").setAttribute("precio",o),document.getElementById("wpfunos-detalles-email-movil").setAttribute("titulo",n),document.getElementById("wpfunos-detalles-presupuesto-movil").addEventListener("click",d,!1),document.getElementById("wpfunos-detalles-presupuesto-movil").setAttribute("wpfid",t),document.getElementById("wpfunos-detalles-presupuesto-movil").setAttribute("wpnonce",e),document.getElementById("wpfunos-detalles-presupuesto-movil").setAttribute("precio",o),document.getElementById("wpfunos-detalles-presupuesto-movil").setAttribute("titulo",n)):console.log("fail")}}))},r=function(){var e=this.getAttribute("wpfid"),t=this.getAttribute("wpnonce"),o=this.getAttribute("precio"),n=this.getAttribute("titulo");this.getAttribute("wpftelefono");console.log("boton Detalles llamen servicio: "+e+" Precio: "+o+" Título "+n),$("#elementor-popup-modal-56672").hide(),elementorFrontend.documentsManager.documents[56684].showModal(),document.getElementById("wpfunos-modal-llamen-titulo").innerHTML=n,document.getElementById("wpfunos-modal-llamen-telefono").innerHTML=document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono"),document.getElementById("wpfunos-modal-llamen-telefono-movil").innerHTML=document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono"),jQuery.ajax({type:"post",dataType:"json",url:WpfAjax.ajaxurl,data:{action:"wpfunos_ajax_serviciosv2_llamen",servicio:e,wpnonce:t,precio:o,titulo:n},success:function(e){console.log(e),"success"==e.type?(console.log("success"),document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref",e.newref),$("#wpfunos-modal-fin-formulario").show()):console.log("fail")}})},u=function(){var e=this.getAttribute("wpfid"),t=this.getAttribute("wpnonce"),o=this.getAttribute("precio"),n=this.getAttribute("titulo");console.log("boton Detalles llamar servicio: "+e+" Precio: "+o+" Título "+n),$("#elementor-popup-modal-56672").hide(),elementorFrontend.documentsManager.documents[56680].showModal();var l=document.getElementById("wpf-detalles-boton-llamar").getAttribute("wpftelefono");document.getElementById("wpfunos-modal-llamar-telefono").innerHTML=l;let s=window.matchMedia("only screen and (max-width: 760px)").matches;if(console.log("isMobile: "+s),s){var a="tel:"+l;console.log("teléfono: "+a),window.location=a}jQuery.ajax({type:"post",dataType:"json",url:WpfAjax.ajaxurl,data:{action:"wpfunos_ajax_serviciosv2_llamar",servicio:e,wpnonce:t,precio:o,titulo:n},success:function(e){console.log(e),"success"==e.type?(console.log("success"),document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref",e.newref),$("#wpfunos-modal-fin-formulario-llamar").show()):console.log("fail")}})},c=function(){var e=this.getAttribute("wpfid"),t=this.getAttribute("wpnonce"),o=this.getAttribute("precio"),n=this.getAttribute("titulo"),l=document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfemailactual"),s=document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfnombreactual"),a=document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpftelefonoactual");console.log("boton Detalles email servicio: "+e+" Precio: "+o+" Título "+n),elementorFrontend.documentsManager.documents[47448].showModal(),document.getElementById("wpfunos-modal-email-email").innerHTML=l,$("#elementor-popup-modal-56672").hide(),jQuery.ajax({type:"post",dataType:"json",url:WpfAjax.ajaxurl,data:{action:"wpfunos_ajax_serviciosv2_email",servicio:e,wpnonce:t,precio:o,titulo:n,wpfemailactual:l,wpfnombreactual:s,wpftelefonoactual:a},success:function(e){console.log(e),"success"==e.type?console.log("success"):console.log("fail")}})},d=function(){var e=this.getAttribute("wpfid"),t=this.getAttribute("wpnonce"),o=this.getAttribute("precio"),n=this.getAttribute("titulo");console.log("boton Detalles presupuesto servicio: "+e+" Precio: "+o+" Título "+n),$("#elementor-popup-modal-56672").hide(),elementorFrontend.documentsManager.documents[56676].showModal(),document.getElementById("wpfunos-modal-presupuesto-nombre").innerHTML=n,document.getElementById("botonEnviarPresupuesto").setAttribute("wpfn",t),document.getElementById("botonEnviarPresupuesto").setAttribute("wpfid",e),document.getElementById("botonEnviarPresupuesto").setAttribute("wpfp",o),document.getElementById("botonEnviarPresupuesto").setAttribute("wpftitulo",n),document.getElementById("botonEnviarPresupuesto").addEventListener("click",m,!1)},m=function(){var e=this.getAttribute("wpfn"),t=this.getAttribute("wpfid"),o=this.getAttribute("wpfp"),n=this.getAttribute("wpftitulo"),l=document.getElementById("form-field-mensajePresupuesto").value;document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length<9||document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length<9?p():(console.log("boton Enviar presupuesto servicio: "+t+" titulo "+n),console.log("mensaje: "+l),jQuery.ajax({type:"post",dataType:"json",url:WpfAjax.ajaxurl,data:{action:"wpfunos_ajax_serviciosv2_presupuesto",servicio:t,wpnonce:e,precio:o,titulo:n,mensaje:l},success:function(e){console.log(e),"success"==e.type?(console.log("success"),document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref",e.newref),$("#wpfunos-modal-fin-formulario-presupuesto").show(),$("#elementor-popup-modal-56676").hide()):console.log("fail")}}))};function p(){elementorFrontend.documentsManager.documents[73657].showModal(),document.getElementById("wpfunos-v2-enviar-datos").addEventListener("click",(function(){console.log("click botón enviar, Creando entrada.");var e=document.getElementById("form-field-Nombre").value,t=document.getElementById("form-field-Email").value,o=document.getElementById("form-field-Telefono").value,n=document.getElementById("form-field-aceptacion").validity.valueMissing;if(""!=e&&""!=t&&""!=o&&!n){console.log("campos OK");var l=new Date;l.setTime(l.getTime()+2592e6),expires="; expires="+l.toUTCString(),document.cookie="wpfn="+e+expires+"; path=/; SameSite=Lax; secure",document.cookie="wpfe="+t+expires+"; path=/; SameSite=Lax; secure",document.cookie="wpft="+o+expires+"; path=/; SameSite=Lax; secure";var s=document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfip"),a=(document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfref"),document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfn"));document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfemail",t),document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpftelefono",o),elementorFrontend.documentsManager.documents[84639].showModal(),$("#elementor-popup-modal-73657").hide(),jQuery.ajax({type:"post",dataType:"json",url:WpfAjax.ajaxurl,data:{action:"wpfunos_ajax_serviciosv2_entrada_datos",wpfnombre:e,wpfemail:t,wpftelefono:o,wpfurl:"",wpnonce:a,wpfip:s},success:function(e){console.log(e),"success"==e.type?(console.log("success"),$("#elementor-popup-modal-84639").hide()):"unwanted"==e.type?(console.log("unwanted"),window.location.href="/"):(console.log("fail"),window.location.href="/")}})}}))}for(var f=0;f<e.length;f++)e[f].addEventListener("click",l,!1);for(f=0;f<t.length;f++)t[f].addEventListener("click",s,!1);for(f=0;f<o.length;f++)o[f].addEventListener("click",a,!1);for(f=0;f<n.length;f++)n[f].addEventListener("click",i,!1)}))}));
+$ = jQuery.noConflict();
+$(document).ready(function(){
+  $(function(){
+    var elementsLlamen = document.getElementsByClassName("wpfunos-boton-llamen");
+    var elementsLlamar = document.getElementsByClassName("wpfunos-boton-llamar");
+    var elementsPresupuesto = document.getElementsByClassName("wpfunos-boton-presupuesto");
+    var elementsDetalles = document.getElementsByClassName("wpfunos-boton-detalles");
+
+    var wpfFunctionLlamen = function() {
+      var wpnonce = this.getAttribute("wpfn");
+      var servicio = this.getAttribute("wpfid");
+      var precio = this.getAttribute("wpfp");
+      var titulo = this.getAttribute("wpftitulo");
+      if ( document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length < 9
+      || document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length < 9 ){
+        wpfDatosUsuario();
+        return;
+      }else{
+        console.log('boton Llamen servicio: '+servicio+' titulo '+titulo );
+
+        elementorFrontend.documentsManager.documents['56684'].showModal(); //show the popup
+
+        document.getElementById("wpfunos-modal-llamen-titulo").innerHTML = titulo;
+        document.getElementById("wpfunos-modal-llamen-telefono").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono");
+        document.getElementById("wpfunos-modal-llamen-telefono-movil").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono");
+
+        jQuery.ajax({
+          type : "post",
+          dataType : "json",
+          url : WpfAjax.ajaxurl,
+          data: {
+            "action": "wpfunos_ajax_serviciosv2_llamen",
+            "servicio": servicio,
+            "wpnonce": wpnonce,
+            "precio" : precio,
+            "titulo" : titulo,
+          },
+          success: function(response) {
+            console.log(response)	;
+            if(response.type == "success") {
+              console.log('success');
+              document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
+              $('#wpfunos-modal-fin-formulario').show();
+            } else {
+              console.log('fail');
+            }
+          }
+        });
+      }
+    }
+
+    var wpfFunctionLlamar = function() {
+      var wpnonce = this.getAttribute("wpfn");
+      var servicio = this.getAttribute("wpfid");
+      var precio = this.getAttribute("wpfp");
+      var titulo = this.getAttribute("wpftitulo");
+      var telefono = this.getAttribute("wpftelefono");
+      if ( document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length < 9
+      || document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length < 9 ){
+        wpfDatosUsuario();
+        return;
+      }else{
+        console.log('boton Llamar servicio: '+servicio+' titulo '+titulo );
+
+        elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
+
+        document.getElementById("wpfunos-modal-llamar-telefono").innerHTML = telefono;
+
+        let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+        console.log('isMobile: '+isMobile);
+        if ( isMobile ) {
+          var tel = 'tel:'+telefono;
+          console.log('tel: '+tel);
+          window.location = tel;
+        }
+
+        jQuery.ajax({
+          type : "post",
+          dataType : "json",
+          url : WpfAjax.ajaxurl,
+          data: {
+            "action": "wpfunos_ajax_serviciosv2_llamar",
+            "servicio": servicio,
+            "wpnonce": wpnonce,
+            "precio" : precio,
+            "titulo" : titulo,
+          },
+          success: function(response) {
+            console.log(response)	;
+            if(response.type == "success") {
+              console.log('success');
+              document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
+              $('#wpfunos-modal-fin-formulario-llamar').show();
+            } else {
+              console.log('fail');
+            }
+          }
+        });
+      }
+    }
+
+    var wpfFunctionPresupuesto = function() {
+      var wpnonce = this.getAttribute("wpfn");
+      var servicio = this.getAttribute("wpfid");
+      var precio = this.getAttribute("wpfp");
+      var titulo = this.getAttribute("wpftitulo");
+      if ( document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length < 9
+      || document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length < 9 ){
+        wpfDatosUsuario();
+        return;
+      }else{
+        console.log('boton Presupuesto servicio: '+servicio+' titulo '+titulo );
+
+        elementorFrontend.documentsManager.documents['56676'].showModal(); //show the popup
+
+        document.getElementById("wpfunos-modal-presupuesto-nombre").innerHTML = titulo;
+        document.getElementById("botonEnviarPresupuesto").setAttribute("wpfn", wpnonce );
+        document.getElementById("botonEnviarPresupuesto").setAttribute("wpfid", servicio );
+        document.getElementById("botonEnviarPresupuesto").setAttribute("wpfp", precio );
+        document.getElementById("botonEnviarPresupuesto").setAttribute("wpftitulo", titulo );
+        document.getElementById("botonEnviarPresupuesto").addEventListener('click', wpfFunctionEnviaPresupuesto, false);
+      }
+    }
+
+    var wpfFunctionDetalles = function() {
+      var wpnonce = this.getAttribute("wpfn");
+      var servicio = this.getAttribute("wpfid");
+      var precio = this.getAttribute("wpfp");
+      var titulo = this.getAttribute("wpftitulo");
+      var distancia = this.getAttribute("wpfdistancia");
+      if ( document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length < 9
+      || document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length < 9 ){
+        wpfDatosUsuario();
+        return;
+      }else{
+        console.log('boton Detalles servicio: '+servicio+' titulo '+titulo );
+
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+
+        jQuery.ajax({
+          type : "post",
+          dataType : "json",
+          url : WpfAjax.ajaxurl,
+          data: {
+            "action": "wpfunos_ajax_serviciosv2_detalles",
+            "servicio": servicio,
+            "wpnonce": wpnonce,
+            "precio" : precio,
+            "titulo" : titulo,
+            "distancia" : distancia,
+          },
+          success: function(response) {
+            console.log(response)	;
+            if(response.type == "success") {
+              console.log('success');
+              //response.comentarios;
+              elementorFrontend.documentsManager.documents['56672'].showModal(); //show the popup
+
+              document.getElementById("wpf-detalles-logo").innerHTML = response.valor_logo;
+              document.getElementById("wpf-detalles-logo-movil").innerHTML = response.valor_logo;
+
+              document.getElementById("wpf-detalles-logo-confirmado").innerHTML = response.valor_logo_confirmado;
+              document.getElementById("wpf-detalles-logo-confirmado-movil").innerHTML = response.valor_logo_confirmado;
+
+              document.getElementById("wpf-detalles-nombre").innerHTML = response.valor_nombre;
+              document.getElementById("wpf-detalles-nombre-movil").innerHTML = response.valor_nombre;
+
+              document.getElementById("wpf-detalles-servicio").innerHTML = response.valor_servicio;
+              document.getElementById("wpf-detalles-servicio-movil").innerHTML = response.valor_servicio;
+
+              document.getElementById("wpf-detalles-precio").innerHTML = response.valor_precio;
+              document.getElementById("wpf-detalles-precio-movil").innerHTML = response.valor_precio;
+
+              document.getElementById("wpf-detalles-nombrepack").innerHTML = response.valor_nombrepack;
+              document.getElementById("wpf-detalles-nombrepack-movil").innerHTML = response.valor_nombrepack;
+
+              document.getElementById("wpf-detalles-textoprecio").innerHTML = response.valor_textoprecio;
+              document.getElementById("wpf-detalles-textoprecio-movil").innerHTML = response.valor_textoprecio;
+
+              document.getElementById("wpf-detalles-direccion").innerHTML = response.valor_direccion;
+              document.getElementById("wpf-detalles-direccion-movil").innerHTML = response.valor_direccion;
+
+              document.getElementById("wpf-detalles-distancia").innerHTML = response.valor_distancia+' Km.';
+
+              document.getElementById("wpf-detalles-comentarios").innerHTML = response.comentarios;
+              document.getElementById("wpf-detalles-comentarios-movil").innerHTML = response.comentarios;
+              $('#elementor-popup-modal-84639').hide()
+
+              document.getElementById("wpfunos-detalles-llamen").addEventListener('click', wpfDetallesLlamen, false);
+              document.getElementById("wpfunos-detalles-llamen").setAttribute('wpfid', servicio);
+              document.getElementById("wpfunos-detalles-llamen").setAttribute('wpnonce', wpnonce);
+              document.getElementById("wpfunos-detalles-llamen").setAttribute('precio', precio);
+              document.getElementById("wpfunos-detalles-llamen").setAttribute('titulo', titulo);
+              document.getElementById("wpfunos-detalles-llamar").addEventListener('click', wpfDetallesLlamar, false);
+              document.getElementById("wpfunos-detalles-llamar").setAttribute('wpfid', servicio);
+              document.getElementById("wpfunos-detalles-llamar").setAttribute('wpnonce', wpnonce);
+              document.getElementById("wpfunos-detalles-llamar").setAttribute('precio', precio);
+              document.getElementById("wpfunos-detalles-llamar").setAttribute('titulo', titulo);
+              document.getElementById("wpfunos-detalles-email").addEventListener('click', wpfDetallesEmail, false);
+              document.getElementById("wpfunos-detalles-email").setAttribute('wpfid', servicio);
+              document.getElementById("wpfunos-detalles-email").setAttribute('wpnonce', wpnonce);
+              document.getElementById("wpfunos-detalles-email").setAttribute('precio', precio);
+              document.getElementById("wpfunos-detalles-email").setAttribute('titulo', titulo);
+              document.getElementById("wpfunos-detalles-presupuesto").addEventListener('click', wpfDetallesPresupuesto, false);
+              document.getElementById("wpfunos-detalles-presupuesto").setAttribute('wpfid', servicio);
+              document.getElementById("wpfunos-detalles-presupuesto").setAttribute('wpnonce', wpnonce);
+              document.getElementById("wpfunos-detalles-presupuesto").setAttribute('precio', precio);
+              document.getElementById("wpfunos-detalles-presupuesto").setAttribute('titulo', titulo);
+              document.getElementById("wpfunos-detalles-email-movil").addEventListener('click', wpfDetallesEmail, false);
+              document.getElementById("wpfunos-detalles-email-movil").setAttribute('wpfid', servicio);
+              document.getElementById("wpfunos-detalles-email-movil").setAttribute('wpnonce', wpnonce);
+              document.getElementById("wpfunos-detalles-email-movil").setAttribute('precio', precio);
+              document.getElementById("wpfunos-detalles-email-movil").setAttribute('titulo', titulo);
+              document.getElementById("wpfunos-detalles-presupuesto-movil").addEventListener('click', wpfDetallesPresupuesto, false);
+              document.getElementById("wpfunos-detalles-presupuesto-movil").setAttribute('wpfid', servicio);
+              document.getElementById("wpfunos-detalles-presupuesto-movil").setAttribute('wpnonce', wpnonce);
+              document.getElementById("wpfunos-detalles-presupuesto-movil").setAttribute('precio', precio);
+              document.getElementById("wpfunos-detalles-presupuesto-movil").setAttribute('titulo', titulo);
+
+            } else {
+              console.log('fail');
+            }
+          }
+        });
+
+      }
+    }
+
+    var wpfDetallesLlamen = function() {
+      var servicio = this.getAttribute("wpfid");
+      var wpnonce = this.getAttribute("wpnonce");
+      var precio = this.getAttribute("precio");
+      var titulo = this.getAttribute("titulo");
+      var telefono = this.getAttribute("wpftelefono");
+
+      console.log('boton Detalles llamen servicio: '+servicio+ ' Precio: ' +precio+ ' Título ' +titulo);
+
+      $('#elementor-popup-modal-56672').hide()
+      elementorFrontend.documentsManager.documents['56684'].showModal(); //show the popup
+
+      document.getElementById("wpfunos-modal-llamen-titulo").innerHTML = titulo;
+      document.getElementById("wpfunos-modal-llamen-telefono").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono");
+      document.getElementById("wpfunos-modal-llamen-telefono-movil").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono");
+
+      jQuery.ajax({
+        type : "post",
+        dataType : "json",
+        url : WpfAjax.ajaxurl,
+        data: {
+          "action": "wpfunos_ajax_serviciosv2_llamen",
+          "servicio": servicio,
+          "wpnonce": wpnonce,
+          "precio" : precio,
+          "titulo" : titulo,
+        },
+        success: function(response) {
+          console.log(response)	;
+          if(response.type == "success") {
+            console.log('success');
+            document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
+            $('#wpfunos-modal-fin-formulario').show();
+          } else {
+            console.log('fail');
+          }
+        }
+      });
+    }
+
+    var wpfDetallesLlamar = function() {
+      var servicio = this.getAttribute("wpfid");
+      var wpnonce = this.getAttribute("wpnonce");
+      var precio = this.getAttribute("precio");
+      var titulo = this.getAttribute("titulo");
+
+      console.log('boton Detalles llamar servicio: '+servicio+ ' Precio: ' +precio+ ' Título ' +titulo);
+
+      $('#elementor-popup-modal-56672').hide()
+      elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
+
+      var telefono = document.getElementById("wpf-detalles-boton-llamar").getAttribute("wpftelefono");
+      document.getElementById("wpfunos-modal-llamar-telefono").innerHTML = telefono;
+
+      let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+      console.log('isMobile: '+isMobile);
+      if ( isMobile ) {
+        var tel = 'tel:'+telefono;
+        console.log('teléfono: '+tel);
+        window.location = tel;
+      }
+
+      jQuery.ajax({
+        type : "post",
+        dataType : "json",
+        url : WpfAjax.ajaxurl,
+        data: {
+          "action": "wpfunos_ajax_serviciosv2_llamar",
+          "servicio": servicio,
+          "wpnonce": wpnonce,
+          "precio" : precio,
+          "titulo" : titulo,
+        },
+        success: function(response) {
+          console.log(response)	;
+          if(response.type == "success") {
+            console.log('success');
+            document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
+            $('#wpfunos-modal-fin-formulario-llamar').show();
+          } else {
+            console.log('fail');
+          }
+        }
+      });
+    }
+
+
+    var wpfDetallesEmail = function() {
+      var servicio = this.getAttribute("wpfid");
+      var wpnonce = this.getAttribute("wpnonce");
+      var precio = this.getAttribute("precio");
+      var titulo = this.getAttribute("titulo");
+      //wpf-resultados-cabecera-referencia
+      var wpfemailactual = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfemailactual");
+      var wpfnombreactual = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfnombreactual");
+      var wpftelefonoactual = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpftelefonoactual");
+
+      console.log('boton Detalles email servicio: '+servicio+ ' Precio: ' +precio+ ' Título ' +titulo);
+      elementorFrontend.documentsManager.documents['47448'].showModal(); //show the popup
+      if (document.getElementById("wpf-resultados-cabecera-cuando").hasAttribute("wpfemailactual") ){
+        document.getElementById("wpfunos-modal-email-email").innerHTML = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfemailactual");
+      }else{
+        document.getElementById("wpfunos-modal-email-email").innerHTML = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail");
+      }
+      $('#elementor-popup-modal-56672').hide()
+      jQuery.ajax({
+        type : "post",
+        dataType : "json",
+        url : WpfAjax.ajaxurl,
+        data: {
+          "action": "wpfunos_ajax_serviciosv2_email",
+          "servicio": servicio,
+          "wpnonce": wpnonce,
+          "precio" : precio,
+          "titulo" : titulo,
+          "wpfemailactual": wpfemailactual,
+          "wpfnombreactual": wpfnombreactual,
+          "wpftelefonoactual": wpftelefonoactual,
+        },
+        success: function(response) {
+          console.log(response)	;
+          if(response.type == "success") {
+            console.log('success');
+          } else {
+            console.log('fail');
+          }
+        }
+      });
+    }
+
+    var wpfDetallesPresupuesto = function() {
+      var servicio = this.getAttribute("wpfid");
+      var wpnonce = this.getAttribute("wpnonce");
+      var precio = this.getAttribute("precio");
+      var titulo = this.getAttribute("titulo");
+
+      console.log('boton Detalles presupuesto servicio: '+servicio+ ' Precio: ' +precio+ ' Título ' +titulo);
+
+      $('#elementor-popup-modal-56672').hide()
+      elementorFrontend.documentsManager.documents['56676'].showModal(); //show the popup
+
+      document.getElementById("wpfunos-modal-presupuesto-nombre").innerHTML = titulo;
+      document.getElementById("botonEnviarPresupuesto").setAttribute("wpfn", wpnonce );
+      document.getElementById("botonEnviarPresupuesto").setAttribute("wpfid", servicio );
+      document.getElementById("botonEnviarPresupuesto").setAttribute("wpfp", precio );
+      document.getElementById("botonEnviarPresupuesto").setAttribute("wpftitulo", titulo );
+      document.getElementById("botonEnviarPresupuesto").addEventListener('click', wpfFunctionEnviaPresupuesto, false);
+
+    }
+
+    var wpfFunctionEnviaPresupuesto = function() {
+      var wpnonce = this.getAttribute("wpfn");
+      var servicio = this.getAttribute("wpfid");
+      var precio = this.getAttribute("wpfp");
+      var titulo = this.getAttribute("wpftitulo");
+      var mensaje = document.getElementById("form-field-mensajePresupuesto").value;
+      if ( document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfemail").length < 9
+      || document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpftelefono").length < 9 ){
+        wpfDatosUsuario();
+        return;
+      }else{
+        console.log('boton Enviar presupuesto servicio: '+servicio+' titulo '+titulo );
+        console.log('mensaje: '+mensaje );
+
+        jQuery.ajax({
+          type : "post",
+          dataType : "json",
+          url : WpfAjax.ajaxurl,
+          data: {
+            "action": "wpfunos_ajax_serviciosv2_presupuesto",
+            "servicio": servicio,
+            "wpnonce": wpnonce,
+            "precio" : precio,
+            "titulo" : titulo,
+            "mensaje" : mensaje,
+          },
+          success: function(response) {
+            console.log(response)	;
+            if(response.type == "success") {
+              console.log('success');
+              document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
+              $('#wpfunos-modal-fin-formulario-presupuesto').show();
+              $('#elementor-popup-modal-56676').hide()
+
+            } else {
+              console.log('fail');
+            }
+          }
+        });
+      }
+    }
+
+    function wpfDatosUsuario(){
+      elementorFrontend.documentsManager.documents['73657'].showModal(); //show the popup
+      document.getElementById("wpfunos-v2-enviar-datos").addEventListener('click', function() {
+        console.log('click botón enviar, Creando entrada.');
+        var nombre = document.getElementById("form-field-Nombre").value;
+        var email = document.getElementById("form-field-Email").value;
+        var telefono = document.getElementById("form-field-Telefono").value;
+        var acepta = document.getElementById("form-field-aceptacion").validity.valueMissing;  //(true = no ha validado  false = ha validado)
+        if( nombre != '' && email != '' && telefono != '' && !acepta ){
+          console.log('campos OK');
+          var date = new Date();
+          date.setTime(date.getTime() + (30*24*60*60*1000));
+          expires = "; expires=" + date.toUTCString();
+          document.cookie = "wpfn=" + nombre + expires + "; path=/; SameSite=Lax; secure";
+          document.cookie = "wpfe=" + email + expires + "; path=/; SameSite=Lax; secure";
+          document.cookie = "wpft=" + telefono + expires + "; path=/; SameSite=Lax; secure";
+          var ip = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfip");
+          var wpfref = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfref");
+          var wpnonce = document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfn");
+          var params = new URLSearchParams(location.search);
+          var url = params.toString();
+          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfemail", email);
+          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpftelefono", telefono);
+          elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+          $('#elementor-popup-modal-73657').hide();
+          jQuery.ajax({
+            type : "post",
+            dataType : "json",
+            url : WpfAjax.ajaxurl,
+            data: {
+              "action": "wpfunos_ajax_serviciosv2_entrada_datos",
+              "wpfnombre": nombre,
+              "wpfemail": email,
+              "wpftelefono": telefono,
+              "wpfurl" : url,
+              "wpnonce" : wpnonce,
+              "wpfip" : ip,
+            },
+            success: function(response) {
+              console.log(response)	;
+              if(response.type == "success") {
+                console.log('success');
+                $('#elementor-popup-modal-84639').hide();
+                window.location.href = response.transient['wpfurl'];
+              } else {
+                if(response.type == "unwanted") {
+                  console.log('unwanted');
+                  window.location.href = "/";
+                }else{
+                  console.log('fail');
+                  window.location.href = "/";
+                }
+              }
+            }
+          });
+        }
+      });
+
+      return;
+    }
+
+    for (var i = 0; i < elementsLlamen.length; i++) {
+      elementsLlamen[i].addEventListener('click', wpfFunctionLlamen, false);
+    }
+    for (var i = 0; i < elementsLlamar.length; i++) {
+      elementsLlamar[i].addEventListener('click', wpfFunctionLlamar, false);
+    }
+    for (var i = 0; i < elementsPresupuesto.length; i++) {
+      elementsPresupuesto[i].addEventListener('click', wpfFunctionPresupuesto, false);
+    }
+    for (var i = 0; i < elementsDetalles.length; i++) {
+      elementsDetalles[i].addEventListener('click', wpfFunctionDetalles, false);
+    }
+  });
+});
+
 </script>

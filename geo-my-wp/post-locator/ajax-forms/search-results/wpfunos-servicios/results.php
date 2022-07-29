@@ -21,25 +21,64 @@
 		<div class="gmw-results">
 
 			<?php
-			$wpfunos_confirmado = [];
-			$wpfunos_sinconfirmar = [];
-			$cont_blur = 0;
-			$mas_barato = 0;
-			foreach ($gmw['results'] as $key=>$resultado) {
-				//echo $resultado->post_title .' =>' .$resultado->ID. '<br/>';
-				$servicioID = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecioID', true );
-				$servicioPrecio = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecio', true );
 
-				$activo = (get_post_meta( $servicioID, 'wpfunos_servicioActivo', true ) == 1) ? 'si' : 'no' ;
-				$confirmado = (get_post_meta( $servicioID, 'wpfunos_servicioPrecioConfirmado', true ) == 1) ? 'si' : 'no' ;
-				//echo $resultado->ID. ' => ' .$activo. ' => ' .$confirmado. '<br/>';
-				if( 'si' == $activo && 'si' == $confirmado ){
-					if( $mas_barato == 0 || (int)$servicioPrecio < $mas_barato ) $mas_barato = (int)$servicioPrecio;
+			$transient = get_transient('wpfunos-wpfid-' .apply_filters('wpfunos_userIP','dummy') );
+
+			if( $transient === false || $transient['wpfadr'] != $_GET['address'][0] || $transient['wpfdist'] != $_GET['distance'] || $transient['wpflat'] != $_GET['lat'] || $transient['wpflng'] != $_GET['lng']
+			|| $transient['wpfresp1'] != $_GET['cf']['resp1'] || $transient['wpfresp2'] != $_GET['cf']['resp2'] || $transient['wpfresp3'] != $_GET['cf']['resp3'] || $transient['wpfresp4'] != $_GET['cf']['resp4'] ){
+				// Si no existe transient o no es la misma busqueda
+
+				?><script>console.log('Search transient: Transient not existent or not valid.' );</script><?php
+
+				$wpfunos_confirmado = [];
+				$wpfunos_sinconfirmar = [];
+				$wpf_search = [];
+				$mas_barato = 0;
+
+				foreach ($gmw['results'] as $key=>$resultado) {
+					//echo $resultado->post_title .' =>' .$resultado->ID. '<br/>';
+					$wpf_search[] = array ( $resultado->ID, $resultado->distance );
+					$servicioID = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecioID', true );
+					$servicioPrecio = get_post_meta( $resultado->ID, 'wpfunos_servicioPrecio', true );
+
+					$activo = (get_post_meta( $servicioID, 'wpfunos_servicioActivo', true ) == 1) ? 'si' : 'no' ;
+					$confirmado = (get_post_meta( $servicioID, 'wpfunos_servicioPrecioConfirmado', true ) == 1) ? 'si' : 'no' ;
+					//echo $resultado->ID. ' => ' .$activo. ' => ' .$confirmado. '<br/>';
+					if( 'si' == $activo && 'si' == $confirmado ){
+						if( $mas_barato == 0 || (int)$servicioPrecio < $mas_barato ) $mas_barato = (int)$servicioPrecio;
+					}
+					//
+					if( 'si' == $activo && 'si' == $confirmado ) $wpfunos_confirmado[] = array ($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance );
+					if( 'si' == $activo && 'no' == $confirmado ) $wpfunos_sinconfirmar[] = array ($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance );
 				}
-				//
-				if( 'si' == $activo && 'si' == $confirmado ) $wpfunos_confirmado[] = array ($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance );
-				if( 'si' == $activo && 'no' == $confirmado ) $wpfunos_sinconfirmar[] = array ($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance );
+
+				$transient_data = array(
+					'wpfadr' => $_GET['address'][0],
+					'wpfdist' => $_GET['distance'],
+					'wpflat' => $_GET['lat'],
+					'wpflng' => $_GET['lng'],
+					'wpfresp1' => $_GET['cf']['resp1'],
+					'wpfresp2' => $_GET['cf']['resp2'],
+					'wpfresp3' => $_GET['cf']['resp3'],
+					'wpfresp4' => $_GET['cf']['resp4'],
+					'wpfid' => $wpf_search,
+					'wpfprice' => $mas_barato,
+					'wpfcon' => $wpfunos_confirmado,
+					'wpfsin' => $wpfunos_sinconfirmar,
+				);
+				set_transient( 'wpfunos-wpfid-' .apply_filters('wpfunos_userIP','dummy'), $transient_data, HOUR_IN_SECONDS );
+
+			}else{
+				// Si existe transient y es la misma busqueda
+
+				?><script>console.log('Search transient: Valid transient.' );</script><?php
+				$mas_barato = $transient['wpfprice'];
+				$wpfunos_confirmado = $transient['wpfcon'];
+				$wpfunos_sinconfirmar = $transient['wpfsin'];
+
 			}
+			// Fin transient
+
 			?>
 			<div id="wpfunos-resultados-contador">
 

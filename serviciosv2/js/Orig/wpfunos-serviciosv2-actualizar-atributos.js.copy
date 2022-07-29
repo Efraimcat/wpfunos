@@ -17,6 +17,7 @@ $(document).ready(function(){
           console.log('success');
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.wpfref);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfact", response.wpfact);
+          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfip", response.wpfip);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfnombre", response.wpfn);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfemail", response.wpfe);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpftelefono", response.wpft);
@@ -32,10 +33,13 @@ $(document).ready(function(){
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfdest", response.wpfdest);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfcp", response.wpfcp);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfurl", response.wpfurl);
-          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfip", response.wpfip);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfvision", response.wpfvision);
-          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfcuando", response.wpfcuando);
+          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpftipo", response.wpftipo);
+          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpftipoid", response.wpftipoid);
           document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfwpf", response.wpfwpf);
+          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfcuando", response.wpfcuando);
+          document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfnuevaentrada", response.wpfnuevaentrada);
+
         } else {
           console.log('fail');
         }

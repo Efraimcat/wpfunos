@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 
 //
-//apply_filters('wpfunos_email_colaborador','dummy')
+$colaborador = apply_filters('wpfunos_email_colaborador','dummy');
 //
 
 if( apply_filters('wpfunos_email_colaborador','dummy') ){
