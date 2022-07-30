@@ -22,15 +22,15 @@ if( apply_filters('wpfunos_email_colaborador','dummy') ){
   $mensaje = str_replace( '[nombreUsuario]' , $COOKIE['wpfnactual'] , $mensaje );
   $mensaje = str_replace( '[telefonoUsuario]' , $COOKIE['wpftactual'] , $mensaje );
 }else{
-  $mensaje = str_replace( '[email]' , $transient['wpfe'] , $mensaje );
-  $mensaje = str_replace( '[nombreUsuario]' , $transient['wpfn'] , $mensaje );
+  $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
+  $mensaje = str_replace( '[nombreUsuario]' , $transient_ref['wpfn'] , $mensaje );
   $mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
 }
 
-$mensaje = str_replace( '[referencia]' , $transient['wpfref'] , $mensaje );
+$mensaje = str_replace( '[referencia]' , $transient_ref['wpfref'] , $mensaje );
 $mensaje = str_replace( '[IP]' , $IP , $mensaje );
-$mensaje = str_replace( '[poblacion]' , $transient['wpfadr'] , $mensaje );
-$mensaje = str_replace( '[CP]' , $transient['wpfcp'] , $mensaje );
+$mensaje = str_replace( '[poblacion]' , $transient_ref['wpfadr'] , $mensaje );
+$mensaje = str_replace( '[CP]' , $transient_ref['wpfcp'] , $mensaje );
 $mensaje = str_replace( '[destino]' , $nombredestino , $mensaje );
 $mensaje = str_replace( '[ataud]' , $nombreataud , $mensaje );
 $mensaje = str_replace( '[velatorio]' ,$nombrevelatorio , $mensaje );

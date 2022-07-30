@@ -12,35 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/servicios
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-/**
-* TRANSIENT MAP
-*
-*$transient['wpfref'];
-*$transient['wpfact'];
-*$transient['wpfip'];
-*$transient['wpfn'];
-*$transient['wpfe'];
-*$transient['wpft'];
-*$transient['wpfadr'];
-*$transient['wpfdist'];
-*$transient['wpflat'];
-*$transient['wpflng'];
-*$transient['wpfresp1'];
-*$transient['wpfresp2'];
-*$transient['wpfresp3'];
-*$transient['wpfresp4'];
-*$transient['wpforden'];
-*$transient['wpfdest'];
-*$transient['wpfcp'];
-*$transient['wpfurl'];
-*$transient['wpfvision'];
-*$transient['wpftipo'];
-*$transient['wpftipoid'];
-*$transient['wpfwpf'];
-*$transient['wpfcuando'];
-*$transient['wpfnuevaentrada'];
-*
-*/
 class Wpfunos_ServiciosV2 {
   private $plugin_name;
   private $version;
@@ -226,15 +197,15 @@ class Wpfunos_ServiciosV2 {
         ?><script>console.log('Verificaciones entrada: SI tiene código wpf: Codigo wpf CORRECTO');</script><?php
         $_GET['wpfvision'] = 'clear';
         $IP = apply_filters('wpfunos_userIP','dummy');
-        $transient = get_transient('wpfunos-wpfref-' .$IP );
-        $nuevaentrada = $transient['wpfnuevaentrada'];
+        $transient_ref = get_transient('wpfunos-wpfref-' .$IP );
+        $nuevaentrada = $transient_ref['wpfnuevaentrada'];
         $this->wpftransients( 'entradadatos', $newref );
 
         if( $nuevaentrada  != '' ){
           ?><script>console.log('Verificaciones entrada: Cambiar transient nuevaentrada.');</script><?php
-          $transient = get_transient('wpfunos-wpfref-' .$IP );
-          $transient['wpfnuevaentrada'] = $nuevaentrada;
-          set_transient( 'wpfunos-wpfref-' .$IP, $transient, DAY_IN_SECONDS );
+          $transient_ref = get_transient('wpfunos-wpfref-' .$IP );
+          $transient_ref['wpfnuevaentrada'] = $nuevaentrada;
+          set_transient( 'wpfunos-wpfref-' .$IP, $transient_ref, DAY_IN_SECONDS );
         }
 
       }
@@ -377,8 +348,8 @@ class Wpfunos_ServiciosV2 {
     ?><script>console.log('Atributos actualizados.');</script><?php
     // Guardar cookie última búsqueda
     $expiry = strtotime('+1 year');
-    $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
-    $wpflast = apply_filters( 'wpfunos_crypt', $transient['wpfurl'] , 'e' );
+    $transient_ref = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
+    $wpflast = apply_filters( 'wpfunos_crypt', $transient_ref['wpfurl'] , 'e' );
     setcookie('wpflast', $wpflast, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
     setcookie('wpflasttime', date( 'd/m/y', current_time( 'timestamp', 0 ) ) , ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
 
@@ -387,34 +358,48 @@ class Wpfunos_ServiciosV2 {
     //
     //
     /** ?><script>console.log('Llegada a formulario resultados.');</script><?php **/
-    echo do_shortcode( '[gmw_ajax_form search_results="7"]' );
+    $transient_id = get_transient('wpfunos-wpfid-' .apply_filters('wpfunos_userIP','dummy') );
+    $transient_ref = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
 
-    // Mostrar resultados según tengamos los datos del usuario o no.
-    if ( $_GET['wpfvision'] == 'clear' ){
-      require 'js/wpfunos-serviciosv2-botones.js';
-    }else{
-      require 'js/wpfunos-serviciosv2-botones-blur.js';
+    // multistep
+    //if( ! isset( $_GET['dest'] ) || $_GET['dest'] == 'dummy' )
+    // multistep
+    //
+    if( isset( $_GET['dest'] ) && $_GET['dest'] != 'dummy' ){
+
+      echo do_shortcode( '[gmw_ajax_form search_results="7"]' );
+
+      // Mostrar resultados según tengamos los datos del usuario o no.
+      if ( $_GET['wpfvision'] == 'clear' ){
+        require 'js/wpfunos-serviciosv2-botones.js';
+      }else{
+        require 'js/wpfunos-serviciosv2-botones-blur.js';
+      }
+
+      if ( $transient_ref['wpfnuevaentrada'] != '' ){
+        ?><script>console.log('Nueva Entrada. Enviando al usuario a la acción que seleccionó.');</script><?php
+
+        if($_GET['wpftipo'] == 'Llamen') require 'js/wpfunos-serviciosv2-nueva-llamen.js';
+        if($_GET['wpftipo'] == 'Llamar') require 'js/wpfunos-serviciosv2-nueva-llamar.js';
+        if($_GET['wpftipo'] == 'Detalles') require 'js/wpfunos-serviciosv2-nueva-detalles.js';
+        if($_GET['wpftipo'] == 'Presupuesto') require 'js/wpfunos-serviciosv2-nueva-presupuesto.js';
+
+        $transient_ref = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
+        $transient_ref['wpfnuevaentrada'] = '';
+        set_transient( 'wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy'), $transient_ref, DAY_IN_SECONDS );
+        ?><script>console.log('Fin de Nueva Entrada.');</script><?php
+      }
+
+      if ( apply_filters('wpfunos_email_colaborador','dummy') && $_GET['wpfvision'] == 'clear' ){
+        /** ?><script>console.log('Servicios colaboradores.');</script><?php **/
+        require 'js/wpfunos-serviciosv2-colab.js';
+      }
+
     }
-
-    if ( $transient['wpfnuevaentrada'] != '' ){
-      ?><script>console.log('Nueva Entrada. Enviando al usuario a la acción que seleccionó.');</script><?php
-
-      if($_GET['wpftipo'] == 'Llamen') require 'js/wpfunos-serviciosv2-nueva-llamen.js';
-      if($_GET['wpftipo'] == 'Llamar') require 'js/wpfunos-serviciosv2-nueva-llamar.js';
-      if($_GET['wpftipo'] == 'Detalles') require 'js/wpfunos-serviciosv2-nueva-detalles.js';
-      if($_GET['wpftipo'] == 'Presupuesto') require 'js/wpfunos-serviciosv2-nueva-presupuesto.js';
-
-      $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
-      $transient['wpfnuevaentrada'] = '';
-      set_transient( 'wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy'), $transient, DAY_IN_SECONDS );
-      ?><script>console.log('Fin de Nueva Entrada.');</script><?php
-    }
-
-    if ( apply_filters('wpfunos_email_colaborador','dummy') && $_GET['wpfvision'] == 'clear' ){
-      /** ?><script>console.log('Servicios colaboradores.');</script><?php **/
-      require 'js/wpfunos-serviciosv2-colab.js';
-    }
-
+    //
+    // multistep
+    //if( ! isset( $_GET['dest'] ) || $_GET['dest'] == 'dummy' )
+    // multistep
   }
 
   /**
@@ -705,7 +690,7 @@ class Wpfunos_ServiciosV2 {
       $seccionClass_llamadas = (get_post_meta( $servicioID, 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
       $valor_precio = number_format($servicioPrecio, 0, ',', '.') . '€';
 
-      $valores[] = array (
+      $valores[$servicioID] = array (
         'ID_servicio' => $servicioID,
         'valor_titulo' => get_post_meta( $servicioID, 'wpfunos_servicio' .$campo. '_texto' , true ),
         'seccionClass_presupuesto' => $seccionClass_presupuesto,
@@ -767,11 +752,11 @@ class Wpfunos_ServiciosV2 {
   */
   public function wpftransients( $action, $newref = 'dummy', $valor = 'dummy' ){
 
-    $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
+    $transient_ref = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
 
     // Si no es la acción de inicio y el transient no existe devuelve FALSE
     if( $action != 'inicio' && $action != 'entradadatos' ){
-      if( $transient === false ) {
+      if( $transient_ref === false ) {
         return false;
         /** ?><script>console.log('Transients: fail.' );</script><?php **/
       }
@@ -784,7 +769,7 @@ class Wpfunos_ServiciosV2 {
     }
 
     //  Si la acción es 'datos', devuelve el dato pedido
-    if( $action == 'datos' ) return $transient[$valor];
+    if( $action == 'datos' ) return $transient_ref[$valor];
 
     //https://funos.es/compara-nuevos-datos?address%5B%5D=Barcelona&post%5B%5D=precio_serv_wpfunos&cf%5Bresp1%5D=2&cf%5Bresp2%5D=2&cf%5Bresp3%5D=2&cf%5Bresp4%5D=2&distance=20
     //&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=7&action=fs&CP=08002&wpfref=funos-457537623&orden=dist&dest=incineracion&wpfvision=clear&wpftipo=Detalles&wpftipoid=15979
@@ -819,16 +804,16 @@ class Wpfunos_ServiciosV2 {
         'wpfnuevaentrada' => '',
       );
 
-      $transient_id = set_transient( 'wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy'), $transient_data, DAY_IN_SECONDS );
+      $transient_set = set_transient( 'wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy'), $transient_data, DAY_IN_SECONDS );
       /** ?><script>console.log('Transients: entradadatos OK.' );</script><?php **/
-      return $transient_id;
+      return $transient_set;
     }
 
     // Si la acción es 'inicio' crea un nuevo transient o modifica el existente
     if( $action == 'inicio' ){
 
       //  SI ya existe un transient y es de un 'inicio', conserva la referencia
-      if( $transient && $transient['wpfact'] == 'inicio' ) $newref = $transient['wpfref'];
+      if( $transient_ref && $transient_ref['wpfact'] == 'inicio' ) $newref = $transient_ref['wpfref'];
 
       //Si todavia no tenemos el CP, lo calculamos
       $CP = $this->wpfunosCodigoPostal( $_GET['CP'], $_GET['address'][0] );
@@ -860,9 +845,9 @@ class Wpfunos_ServiciosV2 {
         'wpfnuevaentrada' => '',
       );
 
-      $transient_id = set_transient( 'wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy'), $transient_data, DAY_IN_SECONDS );
+      $transient_set = set_transient( 'wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy'), $transient_data, DAY_IN_SECONDS );
       /** ?><script>console.log('Transients: inicio OK.' );</script><?php **/
-      return $transient_id;
+      return $transient_set;
     }
 
     return false;
@@ -978,8 +963,8 @@ class Wpfunos_ServiciosV2 {
     $wpnonce = $_POST['wpnonce'];
     $IP = apply_filters('wpfunos_userIP','dummy');
 
-    $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
-    if( $transient === false ){
+    $transient_ref = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
+    if( $transient_ref === false ){
       $result['type'] = "No transient";
       $result = json_encode($result);
       echo $result;
@@ -995,7 +980,7 @@ class Wpfunos_ServiciosV2 {
 
     $this->wpfunosServiciosv2Indeseados( $wpfemail, $wpftelefono );
 
-    $wpfwpf = apply_filters( 'wpfunos_crypt', $transient['wpfref'] , 'e' );
+    $wpfwpf = apply_filters( 'wpfunos_crypt', $transient_ref['wpfref'] , 'e' );
 
     $URL = home_url().'/compara-nuevos-datos?' .$wpfurl. '&wpfwpf=' .$wpfwpf ;
 
@@ -1013,20 +998,20 @@ class Wpfunos_ServiciosV2 {
       switch ( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $ceremonia = 'Sin ceremonia'; break; case '2': $ceremonia = 'Solo sala'; break; case '3': $ceremonia = 'Ceremonia civil'; break; case '4': $ceremonia = 'Ceremonia religiosa'; break; }
 
       $my_post = array(
-        'post_title' => $transient['wpfref'],
+        'post_title' => $transient_ref['wpfref'],
         'post_type' => 'usuarios_wpfunos',
         'post_status'  => 'publish',
         'meta_input'   => array(
           'wpfunos_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
           'wpfunos_userMail' => sanitize_text_field( $wpfemail ),
-          'wpfunos_userReferencia' => sanitize_text_field( $transient['wpfref'] ),
+          'wpfunos_userReferencia' => sanitize_text_field( $transient_ref['wpfref'] ),
           'wpfunos_userName' => sanitize_text_field( $wpfnombre ),
           'wpfunos_userPhone' => sanitize_text_field( $tel ),
-          'wpfunos_userCP' => sanitize_text_field( $transient['wpfcp'] ),
+          'wpfunos_userCP' => sanitize_text_field( $transient_ref['wpfcp'] ),
           'wpfunos_userAccion' => '0',
           'wpfunos_userNombreAccion' => sanitize_text_field( 'Entrada datos servicios' ),
-          'wpfunos_userNombreSeleccionUbicacion' => sanitize_text_field( $transient['wpfadr'] ),
-          'wpfunos_userNombreSeleccionDistancia' => sanitize_text_field( $transient['wpfdist'] ),
+          'wpfunos_userNombreSeleccionUbicacion' => sanitize_text_field( $transient_ref['wpfadr'] ),
+          'wpfunos_userNombreSeleccionDistancia' => sanitize_text_field( $transient_ref['wpfdist'] ),
           'wpfunos_userNombreSeleccionServicio' => sanitize_text_field( $servicio ),
           'wpfunos_userNombreSeleccionAtaud' => sanitize_text_field( $ataud ),
           'wpfunos_userNombreSeleccionVelatorio' => sanitize_text_field( $velatorio ),
@@ -1035,8 +1020,8 @@ class Wpfunos_ServiciosV2 {
           'wpfunos_userURL' => sanitize_text_field( $userURL ),
           'wpfunos_userURLlarga' => sanitize_text_field( $URL ),
           'wpfunos_userAceptaPolitica' => '1',
-          'wpfunos_userLAT' => sanitize_text_field( $transient['wpflat'] ),
-          'wpfunos_userLNG' => sanitize_text_field( $transient['wpflng'] ),
+          'wpfunos_userLAT' => sanitize_text_field( $transient_ref['wpflat'] ),
+          'wpfunos_userLNG' => sanitize_text_field( $transient_ref['wpflng'] ),
           'wpfunos_userPluginVersion' => sanitize_text_field( $this->version ),
           'wpfunos_userVisitas' => $contador,
           'wpfunos_userLead' => true,
@@ -1051,21 +1036,21 @@ class Wpfunos_ServiciosV2 {
       do_action('wpfunos_log', 'userIP: ' . $IP );
       do_action('wpfunos_log', 'Nombre: ' .  $wpfnombre );
       do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
-      do_action('wpfunos_log', 'referencia: ' . $transient['wpfref'] );
+      do_action('wpfunos_log', 'referencia: ' . $transient_ref['wpfref'] );
       do_action('wpfunos_log', 'Telefono: ' . $tel );
 
       if( get_option('wpfunos_activarCorreov2Admin') ){
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') );
         $mensaje = str_replace( '[email]' , $wpfemail , $mensaje );
-        $mensaje = str_replace( '[referencia]' , $transient['wpfref'] , $mensaje );
+        $mensaje = str_replace( '[referencia]' , $transient_ref['wpfref'] , $mensaje );
         $mensaje = str_replace( '[IP]' , $IP , $mensaje );
         $mensaje = str_replace( '[URL]' , $URL , $mensaje );
         $mensaje = str_replace( '[nombre]' , $wpfnombre , $mensaje );
         $mensaje = str_replace( '[telefono]' , $tel , $mensaje );
-        $mensaje = str_replace( '[poblacion]' , $transient['wpfadr'] , $mensaje );
-        $mensaje = str_replace( '[distancia]' , $transient['wpfdist'] , $mensaje );
-        $mensaje = str_replace( '[CP]' , $transient['wpfcp'] , $mensaje );
+        $mensaje = str_replace( '[poblacion]' , $transient_ref['wpfadr'] , $mensaje );
+        $mensaje = str_replace( '[distancia]' , $transient_ref['wpfdist'] , $mensaje );
+        $mensaje = str_replace( '[CP]' , $transient_ref['wpfcp'] , $mensaje );
         $mensaje = str_replace( '[destino]' , $servicio , $mensaje );
         $mensaje = str_replace( '[ataud]' , $ataud , $mensaje );
         $mensaje = str_replace( '[velatorio]' , $velatorio , $mensaje );
@@ -1087,7 +1072,7 @@ class Wpfunos_ServiciosV2 {
               //wp_mail ( get_post_meta( $post->ID, 'wpfunos_servicioEmail', true ), get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
               do_action('wpfunos_log', '==============' );
               do_action('wpfunos_log', 'Enviar correo entrada datos al servicio v2' );
-              do_action('wpfunos_log', 'referencia: ' . $transient['wpfref'] );
+              do_action('wpfunos_log', 'referencia: ' . $transient_ref['wpfref'] );
               do_action('wpfunos_log', 'userIP: ' . $IP );
               do_action('wpfunos_log', '$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
               do_action('wpfunos_log', 'servicioEmail: ' . get_post_meta( $post->ID, 'wpfunos_servicioEmail', true ) );
@@ -1100,7 +1085,7 @@ class Wpfunos_ServiciosV2 {
           wp_mail ( get_option('wpfunos_mailCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
           do_action('wpfunos_log', '==============' );
           do_action('wpfunos_log', 'Enviar correo entrada datos al admin v2' );
-          do_action('wpfunos_log', 'referencia: ' . $transient['wpfref'] );
+          do_action('wpfunos_log', 'referencia: ' . $transient_ref['wpfref'] );
           do_action('wpfunos_log', 'userIP: ' . $IP );
           do_action('wpfunos_log', '$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
           do_action('wpfunos_log', 'mailCorreov2Admin: ' . get_option('wpfunos_mailCorreov2Admin') );
@@ -1110,15 +1095,15 @@ class Wpfunos_ServiciosV2 {
 
     }
 
-    $transient['wpfact'] = 'datos';
-    $transient['wpfvision'] = 'clear';
-    $transient['wpfurl'] = $URL;
-    $transient['wpfwpf'] = $wpfwpf;
-    $transient['wpfnuevaentrada'] = 'NuevaEntrada';
-    set_transient( 'wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy'), $transient, DAY_IN_SECONDS );
+    $transient_ref['wpfact'] = 'datos';
+    $transient_ref['wpfvision'] = 'clear';
+    $transient_ref['wpfurl'] = $URL;
+    $transient_ref['wpfwpf'] = $wpfwpf;
+    $transient_ref['wpfnuevaentrada'] = 'NuevaEntrada';
+    set_transient( 'wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy'), $transient_ref, DAY_IN_SECONDS );
 
     $result['type'] = "success";
-    $result['transient'] = $transient;
+    $result['transient'] = $transient_ref;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -1141,9 +1126,9 @@ class Wpfunos_ServiciosV2 {
   *        "wpfip": document.getElementById("wpf-resultados-cabecera-cuando").getAttribute("wpfip"),
   */
   public function wpfunosServiciosv2Transients(){
-    $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
+    $transient_ref = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
 
-    if( $transient === false ){
+    if( $transient_ref === false ){
       //
       //No existe el transient.
 
@@ -1167,30 +1152,30 @@ class Wpfunos_ServiciosV2 {
     //
 
     $result['type'] = "success";
-    $result['wpfref'] = $transient['wpfref'];
-    $result['wpfact'] = $transient['wpfact'];
-    $result['wpfip'] = $transient['wpfip'];
-    $result['wpfn'] = $transient['wpfn'];
-    $result['wpfe'] = $transient['wpfe'];
-    $result['wpft'] = $transient['wpft'];
-    $result['wpfadr'] = $transient['wpfadr'];
-    $result['wpfdist'] = $transient['wpfdist'];
-    $result['wpflat'] = $transient['wpflat'];
-    $result['wpflng'] = $transient['wpflng'];
-    $result['wpfresp1'] = $transient['wpfresp1'];
-    $result['wpfresp2'] = $transient['wpfresp2'];
-    $result['wpfresp3'] = $transient['wpfresp3'];
-    $result['wpfresp4'] = $transient['wpfresp4'];
-    $result['wpforden'] = $transient['wpforden'];
-    $result['wpfdest'] = $transient['wpfdest'];
-    $result['wpfcp'] = $transient['wpfcp'];
-    $result['wpfurl'] = $transient['wpfurl'];
-    $result['wpfvision'] = $transient['wpfvision'];
-    $result['wpftipo'] = $transient['wpftipo'];
-    $result['wpftipoid'] = $transient['wpftipoid'];
-    $result['wpfwpf'] = $transient['wpfwpf'];
-    $result['wpfcuando'] = $transient['wpfcuando'];
-    $result['wpfnuevaentrada'] = $transient['wpfnuevaentrada'];
+    $result['wpfref'] = $transient_ref['wpfref'];
+    $result['wpfact'] = $transient_ref['wpfact'];
+    $result['wpfip'] = $transient_ref['wpfip'];
+    $result['wpfn'] = $transient_ref['wpfn'];
+    $result['wpfe'] = $transient_ref['wpfe'];
+    $result['wpft'] = $transient_ref['wpft'];
+    $result['wpfadr'] = $transient_ref['wpfadr'];
+    $result['wpfdist'] = $transient_ref['wpfdist'];
+    $result['wpflat'] = $transient_ref['wpflat'];
+    $result['wpflng'] = $transient_ref['wpflng'];
+    $result['wpfresp1'] = $transient_ref['wpfresp1'];
+    $result['wpfresp2'] = $transient_ref['wpfresp2'];
+    $result['wpfresp3'] = $transient_ref['wpfresp3'];
+    $result['wpfresp4'] = $transient_ref['wpfresp4'];
+    $result['wpforden'] = $transient_ref['wpforden'];
+    $result['wpfdest'] = $transient_ref['wpfdest'];
+    $result['wpfcp'] = $transient_ref['wpfcp'];
+    $result['wpfurl'] = $transient_ref['wpfurl'];
+    $result['wpfvision'] = $transient_ref['wpfvision'];
+    $result['wpftipo'] = $transient_ref['wpftipo'];
+    $result['wpftipoid'] = $transient_ref['wpftipoid'];
+    $result['wpfwpf'] = $transient_ref['wpfwpf'];
+    $result['wpfcuando'] = $transient_ref['wpfcuando'];
+    $result['wpfnuevaentrada'] = $transient_ref['wpfnuevaentrada'];
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -1213,8 +1198,8 @@ class Wpfunos_ServiciosV2 {
     $precio = $_POST['precio'];
     $IP = apply_filters('wpfunos_userIP','dummy');
 
-    $transient = get_transient('wpfunos-wpfref-' .$IP );
-    if( $transient === false ){
+    $transient_ref = get_transient('wpfunos-wpfref-' .$IP );
+    if( $transient_ref === false ){
       $result['type'] = "No transient";
       $result = json_encode($result);
       echo $result;
@@ -1238,7 +1223,7 @@ class Wpfunos_ServiciosV2 {
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp3' ) ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
-      $tel =  substr($transient['wpft'],0,3). ' ' .substr($transient['wpft'],3,2). ' ' .substr($transient['wpft'],5,2). ' ' .substr($transient['wpft'],7,2) ;
+      $tel =  substr($transient_ref['wpft'],0,3). ' ' .substr($transient_ref['wpft'],3,2). ' ' .substr($transient_ref['wpft'],5,2). ' ' .substr($transient_ref['wpft'],7,2) ;
       $userAccion = '1';
       $userNombreAccion = 'Botón llamen servicios';
       require 'partials/wpfunos-array-usuarios.php';
@@ -1249,8 +1234,8 @@ class Wpfunos_ServiciosV2 {
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1v2Admin'), get_option('wpfunos_asuntoCorreoBoton1v2Admin') );
 
-        $email = $transient['wpfe'] ;
-        $nombreUsuario = $transient['wpfn'] ;
+        $email = $transient_ref['wpfe'] ;
+        $nombreUsuario = $transient_ref['wpfn'] ;
 
         if( apply_filters('wpfunos_email_colaborador','dummy') ){
           $email = $COOKIE['wpfeactual'] ;
@@ -1261,10 +1246,10 @@ class Wpfunos_ServiciosV2 {
         $mensaje = str_replace( '[email]' , $email , $mensaje );
         $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );
         $mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
-        $mensaje = str_replace( '[referencia]' , $transient['wpfref'] , $mensaje );
+        $mensaje = str_replace( '[referencia]' , $transient_ref['wpfref'] , $mensaje );
         $mensaje = str_replace( '[IP]' , $IP , $mensaje );
-        $mensaje = str_replace( '[poblacion]' , $transient['wpfadr'] , $mensaje );
-        $mensaje = str_replace( '[CP]' , $transient['wpfcp'] , $mensaje );
+        $mensaje = str_replace( '[poblacion]' , $transient_ref['wpfadr'] , $mensaje );
+        $mensaje = str_replace( '[CP]' , $transient_ref['wpfcp'] , $mensaje );
         $mensaje = str_replace( '[destino]' , $nombredestino , $mensaje );
         $mensaje = str_replace( '[ataud]' , $nombreataud , $mensaje );
         $mensaje = str_replace( '[velatorio]' ,$nombrevelatorio , $mensaje );
@@ -1291,12 +1276,12 @@ class Wpfunos_ServiciosV2 {
 
     mt_srand(time());
     $newref = 'funos-'.(string)mt_rand();
-    $transient['wpfref'] = $newref;
-    set_transient( 'wpfunos-wpfref-' .$IP, $transient, DAY_IN_SECONDS );
+    $transient_ref['wpfref'] = $newref;
+    set_transient( 'wpfunos-wpfref-' .$IP, $transient_ref, DAY_IN_SECONDS );
 
     $result['type'] = "success";
     $result['newref'] = $newref;
-    $result['transient'] = $transient;
+    $result['transient'] = $transient_ref;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -1319,8 +1304,8 @@ class Wpfunos_ServiciosV2 {
     $titulo = $_POST['titulo'];
     $IP = apply_filters('wpfunos_userIP','dummy');
 
-    $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
-    if( $transient === false ){
+    $transient_ref = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
+    if( $transient_ref === false ){
       $result['type'] = "No transient";
       $result = json_encode($result);
       echo $result;
@@ -1344,7 +1329,7 @@ class Wpfunos_ServiciosV2 {
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp3' ) ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
-      $tel =  substr($transient['wpft'],0,3). ' ' .substr($transient['wpft'],3,2). ' ' .substr($transient['wpft'],5,2). ' ' .substr($transient['wpft'],7,2) ;
+      $tel =  substr($transient_ref['wpft'],0,3). ' ' .substr($transient_ref['wpft'],3,2). ' ' .substr($transient_ref['wpft'],5,2). ' ' .substr($transient_ref['wpft'],7,2) ;
       $userAccion = '2';
       $userNombreAccion = 'Botón llamar servicios';
       require 'partials/wpfunos-array-usuarios.php';
@@ -1355,8 +1340,8 @@ class Wpfunos_ServiciosV2 {
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2v2Admin'), get_option('wpfunos_asuntoCorreoBoton2v2Admin') );
 
-        $email = $transient['wpfe'] ;
-        $nombreUsuario = $transient['wpfn'] ;
+        $email = $transient_ref['wpfe'] ;
+        $nombreUsuario = $transient_ref['wpfn'] ;
 
         if( apply_filters('wpfunos_email_colaborador','dummy') ){
           $email = $COOKIE['wpfeactual'] ;
@@ -1367,10 +1352,10 @@ class Wpfunos_ServiciosV2 {
         $mensaje = str_replace( '[email]' , $email , $mensaje );
         $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );
         $mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
-        $mensaje = str_replace( '[referencia]' , $transient['wpfref'] , $mensaje );
+        $mensaje = str_replace( '[referencia]' , $transient_ref['wpfref'] , $mensaje );
         $mensaje = str_replace( '[IP]' , $IP , $mensaje );
-        $mensaje = str_replace( '[poblacion]' , $transient['wpfadr'] , $mensaje );
-        $mensaje = str_replace( '[CP]' , $transient['wpfcp'] , $mensaje );
+        $mensaje = str_replace( '[poblacion]' , $transient_ref['wpfadr'] , $mensaje );
+        $mensaje = str_replace( '[CP]' , $transient_ref['wpfcp'] , $mensaje );
         $mensaje = str_replace( '[destino]' , $nombredestino , $mensaje );
         $mensaje = str_replace( '[ataud]' , $nombreataud , $mensaje );
         $mensaje = str_replace( '[velatorio]' ,$nombrevelatorio , $mensaje );
@@ -1397,12 +1382,12 @@ class Wpfunos_ServiciosV2 {
 
     mt_srand(time());
     $newref = 'funos-'.(string)mt_rand();
-    $transient['wpfref'] = $newref;
-    set_transient( 'wpfunos-wpfref-' .$IP, $transient, DAY_IN_SECONDS );
+    $transient_ref['wpfref'] = $newref;
+    set_transient( 'wpfunos-wpfref-' .$IP, $transient_ref, DAY_IN_SECONDS );
 
     $result['type'] = "success";
     $result['newref'] = $newref;
-    $result['transient'] = $transient;
+    $result['transient'] = $transient_ref;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -1426,8 +1411,8 @@ class Wpfunos_ServiciosV2 {
     $mensajeusuario = $_POST['mensaje'];
     $IP = apply_filters('wpfunos_userIP','dummy');
 
-    $transient = get_transient('wpfunos-wpfref-' .$IP );
-    if( $transient === false ){
+    $transient_ref = get_transient('wpfunos-wpfref-' .$IP );
+    if( $transient_ref === false ){
       $result['type'] = "No transient";
       $result = json_encode($result);
       echo $result;
@@ -1451,7 +1436,7 @@ class Wpfunos_ServiciosV2 {
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp3' ) ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
-      $tel =  substr($transient['wpft'],0,3). ' ' .substr($transient['wpft'],3,2). ' ' .substr($transient['wpft'],5,2). ' ' .substr($transient['wpft'],7,2) ;
+      $tel =  substr($transient_ref['wpft'],0,3). ' ' .substr($transient_ref['wpft'],3,2). ' ' .substr($transient_ref['wpft'],5,2). ' ' .substr($transient_ref['wpft'],7,2) ;
       $userAccion = '5';
       $userNombreAccion = 'Botón pedir presupuesto';
       require 'partials/wpfunos-array-usuarios.php';
@@ -1462,8 +1447,8 @@ class Wpfunos_ServiciosV2 {
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestoLead'), get_option('wpfunos_asuntoCorreoPresupuestoLead') );
 
-        $email = $transient['wpfe'] ;
-        $nombreUsuario = $transient['wpfn'] ;
+        $email = $transient_ref['wpfe'] ;
+        $nombreUsuario = $transient_ref['wpfn'] ;
 
         if( apply_filters('wpfunos_email_colaborador','dummy') ){
           $email = $COOKIE['wpfeactual'] ;
@@ -1474,10 +1459,10 @@ class Wpfunos_ServiciosV2 {
         $mensaje = str_replace( '[email]' , $email , $mensaje );
         $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );
         $mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
-        $mensaje = str_replace( '[referencia]' , $transient['wpfref'] , $mensaje );
+        $mensaje = str_replace( '[referencia]' , $transient_ref['wpfref'] , $mensaje );
         $mensaje = str_replace( '[IP]' , $IP , $mensaje );
-        $mensaje = str_replace( '[poblacion]' , $transient['wpfadr'] , $mensaje );
-        $mensaje = str_replace( '[CP]' , $transient['wpfcp'] , $mensaje );
+        $mensaje = str_replace( '[poblacion]' , $transient_ref['wpfadr'] , $mensaje );
+        $mensaje = str_replace( '[CP]' , $transient_ref['wpfcp'] , $mensaje );
         $mensaje = str_replace( '[destino]' , $nombredestino , $mensaje );
         $mensaje = str_replace( '[ataud]' , $nombreataud , $mensaje );
         $mensaje = str_replace( '[velatorio]' ,$nombrevelatorio , $mensaje );
@@ -1506,12 +1491,12 @@ class Wpfunos_ServiciosV2 {
 
     mt_srand(time());
     $newref = 'funos-'.(string)mt_rand();
-    $transient['wpfref'] = $newref;
-    set_transient( 'wpfunos-wpfref-' .$IP, $transient, DAY_IN_SECONDS );
+    $transient_ref['wpfref'] = $newref;
+    set_transient( 'wpfunos-wpfref-' .$IP, $transient_ref, DAY_IN_SECONDS );
 
     $result['type'] = "success";
     $result['newref'] = $newref;
-    $result['transient'] = $transient;
+    $result['transient'] = $transient_ref;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -1536,8 +1521,8 @@ class Wpfunos_ServiciosV2 {
 
     $IP = apply_filters('wpfunos_userIP','dummy');
 
-    $transient = get_transient('wpfunos-wpfref-' .$IP );
-    if( $transient === false ){
+    $transient_ref = get_transient('wpfunos-wpfref-' .$IP );
+    if( $transient_ref === false ){
       $result['type'] = "No transient";
       $result = json_encode($result);
       echo $result;
@@ -1639,8 +1624,8 @@ class Wpfunos_ServiciosV2 {
     $wpftelefonoactual = $_POST['wpftelefonoactual'];
     $IP = apply_filters('wpfunos_userIP','dummy');
 
-    $transient = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
-    if( $transient === false ){
+    $transient_ref = get_transient('wpfunos-wpfref-' .apply_filters('wpfunos_userIP','dummy') );
+    if( $transient_ref === false ){
       $result['type'] = "No transient";
       $result = json_encode($result);
       echo $result;
@@ -1663,12 +1648,12 @@ class Wpfunos_ServiciosV2 {
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp3' ) ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
-      $tel =  substr($transient['wpft'],0,3). ' ' .substr($transient['wpft'],3,2). ' ' .substr($transient['wpft'],5,2). ' ' .substr($transient['wpft'],7,2) ;
+      $tel =  substr($transient_ref['wpft'],0,3). ' ' .substr($transient_ref['wpft'],3,2). ' ' .substr($transient_ref['wpft'],5,2). ' ' .substr($transient_ref['wpft'],7,2) ;
 
       if( apply_filters('wpfunos_email_colaborador','dummy') ){
         $email = $wpfemailactual;
       }else{
-        $email = $transient['wpfe'];
+        $email = $transient_ref['wpfe'];
       }
 
       $headers[] = 'Content-Type: text/html; charset=UTF-8';
@@ -1679,14 +1664,14 @@ class Wpfunos_ServiciosV2 {
         $mensaje = str_replace( '[nombreUsuario]' , $wpfnombreactual , $mensaje );
         $mensaje = str_replace( '[telefonoUsuario]' , $wpftelefonoactual , $mensaje );
       }else{
-        $mensaje = str_replace( '[email]' , $transient['wpfe'] , $mensaje );
-        $mensaje = str_replace( '[nombreUsuario]' , $transient['wpfn'] , $mensaje );
+        $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
+        $mensaje = str_replace( '[nombreUsuario]' , $transient_ref['wpfn'] , $mensaje );
         $mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
       }
-      $mensaje = str_replace( '[referencia]' , $transient['wpfref'] , $mensaje );
+      $mensaje = str_replace( '[referencia]' , $transient_ref['wpfref'] , $mensaje );
       $mensaje = str_replace( '[IP]' , $IP , $mensaje );
-      $mensaje = str_replace( '[poblacion]' , $transient['wpfadr'] , $mensaje );
-      $mensaje = str_replace( '[CP]' , $transient['wpfcp'] , $mensaje );
+      $mensaje = str_replace( '[poblacion]' , $transient_ref['wpfadr'] , $mensaje );
+      $mensaje = str_replace( '[CP]' , $transient_ref['wpfcp'] , $mensaje );
       $mensaje = str_replace( '[destino]' , $nombredestino , $mensaje );
       $mensaje = str_replace( '[ataud]' , $nombreataud , $mensaje );
       $mensaje = str_replace( '[velatorio]' ,$nombrevelatorio , $mensaje );
