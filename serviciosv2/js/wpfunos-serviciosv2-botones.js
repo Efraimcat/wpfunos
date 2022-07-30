@@ -37,9 +37,9 @@ $(document).ready(function(){
             "titulo" : titulo,
           },
           success: function(response) {
+            console.log('wpfunos_ajax_serviciosv2_llamen response:');
             console.log(response)	;
             if(response.type == "success") {
-              console.log('success');
               document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
               $('#wpfunos-modal-fin-formulario').show();
             } else {
@@ -87,9 +87,9 @@ $(document).ready(function(){
             "titulo" : titulo,
           },
           success: function(response) {
+            console.log('wpfunos_ajax_serviciosv2_llamar response:');
             console.log(response)	;
             if(response.type == "success") {
-              console.log('success');
               document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
               $('#wpfunos-modal-fin-formulario-llamar').show();
             } else {
@@ -151,9 +151,9 @@ $(document).ready(function(){
             "distancia" : distancia,
           },
           success: function(response) {
+            console.log('wpfunos_ajax_serviciosv2_detalles response:');
             console.log(response)	;
             if(response.type == "success") {
-              console.log('success');
               //response.comentarios;
               elementorFrontend.documentsManager.documents['56672'].showModal(); //show the popup
 
@@ -255,9 +255,9 @@ $(document).ready(function(){
           "titulo" : titulo,
         },
         success: function(response) {
+          console.log('wpfunos_ajax_serviciosv2_llamen response:');
           console.log(response)	;
           if(response.type == "success") {
-            console.log('success');
             document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
             $('#wpfunos-modal-fin-formulario').show();
           } else {
@@ -301,9 +301,9 @@ $(document).ready(function(){
           "titulo" : titulo,
         },
         success: function(response) {
+          console.log('wpfunos_ajax_serviciosv2_llamar response:');
           console.log(response)	;
           if(response.type == "success") {
-            console.log('success');
             document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
             $('#wpfunos-modal-fin-formulario-llamar').show();
           } else {
@@ -347,9 +347,10 @@ $(document).ready(function(){
           "wpftelefonoactual": wpftelefonoactual,
         },
         success: function(response) {
+          console.log('wpfunos_ajax_serviciosv2_email response:');
           console.log(response)	;
           if(response.type == "success") {
-            console.log('success');
+            console.log('correo enviado');
           } else {
             console.log('fail');
           }
@@ -404,9 +405,9 @@ $(document).ready(function(){
             "mensaje" : mensaje,
           },
           success: function(response) {
+            console.log('wpfunos_ajax_serviciosv2_presupuesto response:');
             console.log(response)	;
             if(response.type == "success") {
-              console.log('success');
               document.getElementById("wpf-resultados-cabecera-referencia").setAttribute("wpfref", response.newref);
               $('#wpfunos-modal-fin-formulario-presupuesto').show();
               $('#elementor-popup-modal-56676').hide()
@@ -458,9 +459,9 @@ $(document).ready(function(){
               "wpfip" : ip,
             },
             success: function(response) {
+              console.log('wpfunos_ajax_serviciosv2_entrada_datos response:');
               console.log(response)	;
               if(response.type == "success") {
-                console.log('success');
                 $('#elementor-popup-modal-84639').hide();
                 window.location.href = response.transient['wpfurl'];
               } else {

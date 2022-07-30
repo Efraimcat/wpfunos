@@ -4,7 +4,7 @@ $(document).ready(function(){
   $(function(){
     var checkExist = setInterval(function() {
       if (document.getElementById("wpf-resultados-cabecera-referencia").hasAttribute("wpfwpf") ) {
-        console.log("Exists!");
+        console.log("wpfwpf available");
         clearInterval(checkExist);
 
         var wpfwpf = document.getElementById("wpf-resultados-cabecera-referencia").getAttribute("wpfwpf");
@@ -18,9 +18,9 @@ $(document).ready(function(){
             "wpfwpf": wpfwpf,
           },
           success: function(response) {
+            console.log('wpfunos_ajax_serviciosv2_colab response:');
             console.log(response)	;
             if(response.type == "success") {
-              console.log('success');
 
               let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
               if ( !isMobile ) {
