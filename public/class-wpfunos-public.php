@@ -83,7 +83,7 @@ class Wpfunos_Public {
       }
       break;
       case '2':	//población
-      esc_html_e( '<span id="wpf-texto-poblacion">'.strtr($respuesta[0],"+",",").'</span>' ); break;
+      echo( '<span id="wpf-texto-poblacion">'.strtr($respuesta[0],"+",",").'</span>' ); break;
       case '3':	//Destino
       switch($respuesta[3]){
         case '1': esc_html_e( 'Entierro' ); break;

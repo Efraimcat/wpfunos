@@ -29,9 +29,17 @@ class Wpfunos_Aseguradoras {
     add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
     add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
 
-    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradoras_llamen', function () { $this->wpfunosAseguradorasLlamen();});
-    add_action('wp_ajax_wpfunos_ajax_aseguradoras_llamen', function () {$this->wpfunosAseguradorasLlamen();});
+    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradora_llamame', function () { $this->wpfunosAseguradoraBotonLlamame();});
+    add_action('wp_ajax_wpfunos_ajax_aseguradora_llamame', function () {$this->wpfunosAseguradoraBotonLlamame();});
 
+    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradora_llamar', function () { $this->wpfunosAseguradoraBotonLlamar();});
+    add_action('wp_ajax_wpfunos_ajax_aseguradora_llamar', function () {$this->wpfunosAseguradoraBotonLlamar();});
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradora_presupuesto', function () { $this->wpfunosAseguradoraBotonPresupuesto();});
+    add_action('wp_ajax_wpfunos_ajax_aseguradora_presupuesto', function () {$this->wpfunosAseguradoraBotonPresupuesto();});
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradora_enviar_presupuesto', function () { $this->wpfunosAseguradoraBotonEnviarPresupuesto();});
+    add_action('wp_ajax_wpfunos_ajax_aseguradora_enviar_presupuesto', function () {$this->wpfunosAseguradoraBotonEnviarPresupuesto();});
   }
 
   public function enqueue_styles() {
@@ -186,7 +194,7 @@ class Wpfunos_Aseguradoras {
     $_GET['Email'] = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
     $_GET['idUsuario'] = $IDusuario;
     $_GET['seguro'] = get_post_meta( $IDusuario, 'wpfunos_userSeguro', true );
-    $nonce = wp_create_nonce("wpfunos_aseguradoras_nonce".apply_filters('wpfunos_userIP','dummy'));
+    $nonce = wp_create_nonce("wpfunos_aseguradoras_nonce");
 
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '55817' ); //Boton Te llamamos
 
@@ -635,39 +643,210 @@ class Wpfunos_Aseguradoras {
   }
 
   /*********************************/
-  /*****  AJAX                ******/
+  /***** AJAX                 ******/
   /*********************************/
-  /**
-  * Botón 'Te Llamamos'
-  *
-  * add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradoras_llamen', function () { $this->wpfunosAseguradorasLlamen();});
-  * add_action('wp_ajax_wpfunos_ajax_aseguradoras_llamen', function () {$this->wpfunosAseguradorasLlamen();});
-  *
-  */
-  public function wpfunosAseguradorasLlamen(){
-    $servicio = $_POST['wpfid'];
-    $wpnonce = $_POST['wpfn'];
-    $usuario = $_POST['wpfu'];
-    $mensaje  = $_POST['wpfm'];
-    $IP = apply_filters('wpfunos_userIP','dummy');
 
-    // $nonce = wp_create_nonce("wpfunos_aseguradoras_nonce".apply_filters('wpfunos_userIP','dummy'));
-    if ( !wp_verify_nonce( $wpnonce, "wpfunos_aseguradoras_nonce".$IP) ) {
-      $result['type'] = "Bad nonce";
-      $result = json_encode($result);
-      echo $result;
-      // don't forget to end your scripts with a die() function - very important
-      die();
+  public function wpfunosAseguradoraBotonLlamame(){
+    $IDaseguradora = $_POST['wpfunosid'];
+    $IDusuario = $_POST['wpusuario'];
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax BotonLlamame' );
+    do_action('wpfunos_log', 'IDaseguradora: ' . $IDaseguradora );
+    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
+    //
+    if ( !wp_verify_nonce( $_POST['noncevalue'], "wpfunos_aseguradoras_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
     }
-
-
-
-
+    //
+    $nombre = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasNombre", true);
+    $titulo = get_the_title( $_POST["wpfunosid"] );
+    do_action('wpfunos_log', 'nombre: ' . $nombre );
+    do_action('wpfunos_log', 'titulo: ' . $titulo );
+    //
+    mt_srand(mktime());
+    $referencia = 'funos-'.(string)mt_rand();
+    $accion = '6';
+    $textoaccion = 'Botón llamen aseguradora' ;
+    if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+    require 'partials/' . $this->plugin_name . '-aseguradoras-nueva-entrada.php';
+    $post_id = wp_insert_post($my_post);
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', '6. - Botón llamen aseguradora' );
+    do_action('wpfunos_log', 'userIP: ' . apply_filters('wpfunos_userIP','dummy') );
+    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
+    do_action('wpfunos_log', 'referencia: ' . $referencia );
+    do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
+    //
+    $admin = apply_filters('wpfunos_reserved_email','dummy') ;
+    $headers[] = 'Content-Type: text/html; charset=UTF-8';
+    if( get_option('wpfunos_activarCorreoBoton1LeadAseguradora') && ! $admin){
+      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1LeadAseguradora'), get_option('wpfunos_asuntoCorreoBoton1LeadAseguradora') );
+      require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
+      if(!empty( get_option('wpfunos_mailCorreoCcoBoton1LeadAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1LeadAseguradora' ) ;
+      if(!empty( get_option('wpfunos_mailCorreoBccBoton1LeadAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1LeadAseguradora' ) ;
+      wp_mail (  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true ) , get_option('wpfunos_asuntoCorreoBoton1LeadAseguradora') , $mensaje, $headers );
+      update_post_meta( $post_id, $this->plugin_name . '_userLead', true );
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', 'Enviado correo lead1 Aseguradora ' . apply_filters('wpfunos_dumplog', get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true )  ) );
+      do_action('wpfunos_log', 'userIP: ' . $userIP );
+      do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
+      do_action('wpfunos_log', '$referencia: ' . $referencia );
+    }
+    //
     $result['type'] = "success";
+    $result['nombre'] = $nombre;
+    $result['titulo'] = $titulo;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
     die();
   }
 
+  public function wpfunosAseguradoraBotonLlamar(){
+    $IDaseguradora = $_POST['wpfunosid'];
+    $IDusuario = $_POST['wpusuario'];
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax BotonLlamar' );
+    do_action('wpfunos_log', 'IDaseguradora: ' . $IDaseguradora );
+    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
+    //
+    if ( !wp_verify_nonce( $_POST['noncevalue'], "wpfunos_aseguradoras_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
+    //
+    $nombre = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasNombre", true);
+    $titulo = get_the_title( $_POST["wpfunosid"] );
+    $tel = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasTelefono", true);
+    $telefono =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+    do_action('wpfunos_log', 'nombre: ' . $nombre );
+    do_action('wpfunos_log', 'titulo: ' . $titulo );
+    //
+    mt_srand(mktime());
+    $referencia = 'funos-'.(string)mt_rand();
+    $accion = '7';
+    $textoaccion = 'Botón llamar aseguradora' ;
+    if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+    require 'partials/' . $this->plugin_name . '-aseguradoras-nueva-entrada.php';
+    $post_id = wp_insert_post($my_post);
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', '7. - Botón llamar aseguradora' );
+    do_action('wpfunos_log', 'userIP: ' . apply_filters('wpfunos_userIP','dummy') );
+    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
+    do_action('wpfunos_log', 'referencia: ' . $referencia );
+    do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
+    //
+    $admin = apply_filters('wpfunos_reserved_email','dummy') ;
+    $headers[] = 'Content-Type: text/html; charset=UTF-8';
+    if( get_option('wpfunos_activarCorreoBoton2LeadAseguradora') && ! $admin){
+      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2LeadAseguradora'), get_option('wpfunos_asuntoCorreoBoton2LeadAseguradora') );
+      require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
+      if(!empty( get_option('wpfunos_mailCorreoCcoBoton2LeadAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2LeadAseguradora' ) ;
+      if(!empty( get_option('wpfunos_mailCorreoBccBoton2LeadAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2LeadAseguradora' ) ;
+      wp_mail (  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true ) , get_option('wpfunos_asuntoCorreoBoton2LeadAseguradora') , $mensaje, $headers );
+      update_post_meta( $post_id, $this->plugin_name . '_userLead', true );
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', 'Enviado correo lead2 Aseguradora ' . apply_filters('wpfunos_dumplog', get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true )  ) );
+      do_action('wpfunos_log', 'userIP: ' . $userIP );
+      do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
+      do_action('wpfunos_log', '$referencia: ' . $referencia );
+    }
+    //
+    $result['type'] = "success";
+    $result['nombre'] = $nombre;
+    $result['titulo'] = $titulo;
+    $result['telefono'] = $telefono;
+    $result['tel'] = $tel;
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  public function wpfunosAseguradoraBotonPresupuesto(){
+    $IDaseguradora = $_POST['wpfunosid'];
+    $IDusuario = $_POST['wpusuario'];
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax BotonPresupuesto' );
+    do_action('wpfunos_log', 'IDaseguradora: ' . $IDaseguradora );
+    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
+    //
+    if ( !wp_verify_nonce( $_POST['noncevalue'], "wpfunos_aseguradoras_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
+    //
+    $nombre = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasNombre", true);
+    $titulo = get_the_title( $_POST["wpfunosid"] );
+    do_action('wpfunos_log', 'nombre: ' . $nombre );
+    do_action('wpfunos_log', 'titulo: ' . $titulo );
+    //
+
+
+    //
+    $result['type'] = "success";
+    $result['nombre'] = $nombre;
+    $result['titulo'] = $titulo;
+    $result['aseguradora'] = $IDaseguradora;
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  public function wpfunosAseguradoraBotonEnviarPresupuesto(){
+    $IDaseguradora = $_POST['wpfunosid'];
+    $IDusuario = $_POST['wpusuario'];
+    $mensajePopup = wp_kses_post( $_POST['wpmensaje'] );
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax BotonEnviarPresupuesto' );
+    do_action('wpfunos_log', 'IDaseguradora: ' . $IDaseguradora );
+    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
+    do_action('wpfunos_log', 'mensaje: ' . $mensajePopup );
+    //
+    if ( !wp_verify_nonce( $_POST['noncevalue'], "wpfunos_aseguradoras_nonce")) {
+      do_action('wpfunos_log', 'nonce incorrecto' );
+      exit("Woof Woof Woof");
+    }
+    //
+    mt_srand(mktime());
+    $referencia = 'funos-'.(string)mt_rand();
+    $accion = '8';
+    $textoaccion = 'Botón pedir presupuesto aseguradora' ;
+    $nombre = get_post_meta( $_POST["wpfunosid"], "wpfunos_aseguradorasNombre", true);
+    $titulo = get_the_title( $_POST["wpfunosid"] );
+    if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
+    require 'partials/' . $this->plugin_name . '-aseguradoras-nueva-entrada.php';
+    $post_id = wp_insert_post($my_post);
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', '8. - Botón pedir presupuesto aseguradora' );
+    do_action('wpfunos_log', 'userIP: ' . apply_filters('wpfunos_userIP','dummy') );
+    do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
+    do_action('wpfunos_log', 'referencia: ' . $referencia );
+    do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
+    update_post_meta( $post_id, $this->plugin_name . '_userComentarios', $mensajePopup );
+    //
+    $admin = apply_filters('wpfunos_reserved_email','dummy') ;
+    $headers[] = 'Content-Type: text/html; charset=UTF-8';
+    if( get_option('wpfunos_activarCorreoPedirPresupuestoAseguradora') ){
+      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPedirPresupuestoAseguradora'), get_option('wpfunos_asuntoCorreoPedirPresupuestoAseguradora') );
+      require 'partials/mensajes/' . $this->plugin_name . '-Mensajes-Datos-Usuario.php';
+      if(!empty( get_option('wpfunos_mailCorreoCcoPedirPresupuestoAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPedirPresupuestoAseguradora' ) ;
+      if(!empty( get_option('wpfunos_mailCorreoBccPedirPresupuestoAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPedirPresupuestoAseguradora' ) ;
+      wp_mail (  get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true ) , get_option('wpfunos_asuntoCorreoBoton2LeadAseguradora') , $mensaje, $headers );
+      update_post_meta( $post_id, $this->plugin_name . '_userLead', true );
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', 'Enviado correo Pedir Presupuesto Aseguradora ' . apply_filters('wpfunos_dumplog', get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasCorreo', true )  ) );
+      do_action('wpfunos_log', 'userIP: ' . $userIP );
+      do_action('wpfunos_log', 'Nombre: ' .  get_post_meta( $IDusuario, 'wpfunos_userName', true )  );
+      do_action('wpfunos_log', '$referencia: ' . $referencia );
+    }
+    //
+    $result['type'] = "success";
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
 }
