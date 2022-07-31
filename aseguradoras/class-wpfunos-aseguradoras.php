@@ -99,6 +99,7 @@ class Wpfunos_Aseguradoras {
       $_GET['referencia'] = $codigo[0];
       $_GET['CP'] = $codigo[1];
       $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', '4. - Página Resultados Aseguradoras' );
       do_action('wpfunos_log', 'Usuario: ' .  $userIP  );
@@ -140,8 +141,10 @@ class Wpfunos_Aseguradoras {
   */
   public function wpfunosAseguradorasFiltrosShortcode( $atts, $content = "" ) {
     if( ! isset($_GET['wpf'] ) ) return;
-
-
+    $cryptcode = apply_filters( 'wpfunos_crypt', $_GET['wpf'], 'd' );
+    $codigo = ( explode( ',' , $cryptcode ) );
+    $_GET['referencia'] = $codigo[0];
+    echo do_shortcode( '[elementor-template id="86728"]' );
   }
 
   /*********************************/
@@ -205,8 +208,7 @@ class Wpfunos_Aseguradoras {
         $my_query->the_post();
         $temp_query = $wp_query;  // store it
         $IDtipo = get_the_ID();
-        ?><div class="wpfunos-titulo-aseguradoras"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
-
+        ?><div class="wpfunos-titulo-aseguradoras" id="<?php echo str_replace(" ","-", get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ) ); ?>"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
         ?> <div class="clear"></div><?php
         ?><div class="wpfunos-busqueda-contenedor"><?php
         echo do_shortcode( get_post_meta( $IDtipo, 'wpfunos_tipoSeguroComentario', true ) );
