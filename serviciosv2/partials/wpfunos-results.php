@@ -61,7 +61,7 @@
 
         <div class="wpfunos-search-results-map">
 
-          <?php echo do_shortcode( '[gmw_ajax_form map="7"]' ); ?>
+
 
         </div>
 
@@ -69,7 +69,7 @@
 
         <div class="wpfunos-search-results-map" style="-webkit-filter: blur(10px);filter: blur(10px); pointer-events: none;">
 
-          <?php echo do_shortcode( '[gmw_ajax_form map="7"]' ); ?>
+
 
         </div>
 

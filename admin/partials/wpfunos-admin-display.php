@@ -40,7 +40,7 @@ $current_user = wp_get_current_user();
         </div>
         <div id="Numeros" class="w3-container wpftab" style="top: -300px;position: relative;" >
 
-          <?php if ( $current_user->ID == 7 ){ ?>
+          <?php if ( $current_user->ID == 9999 ){ ?>
             <hr/>
             <?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-numeros-entradas.php'; ?>
             <hr/>
@@ -55,7 +55,7 @@ $current_user = wp_get_current_user();
         </div>
         <div id="Graficas" class="w3-container wpftab" style="display:none; top: -300px;position: relative;">
           <h2>Gráficas</h2>
-          <?php if ( $current_user->ID == 7 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-graficas-superior.php';	?>
+          <?php if ( $current_user->ID == 9999 ) include 'admin-menu/' . $this->plugin_name . '-admin-menu-graficas-superior.php';	?>
         </div>
         <div id="Enlaces" class="w3-container wpftab" style="display:none; top: -300px;position: relative;">
           <h2>Enlaces</h2>

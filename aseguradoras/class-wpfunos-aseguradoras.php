@@ -24,6 +24,7 @@ class Wpfunos_Aseguradoras {
     add_shortcode( 'wpfunos-aseguradoras-page-switch', array( $this, 'wpfunosAseguradorasPageSwitchShortcode' ));
     add_shortcode( 'wpfunos-pagina-aseguradoras', array( $this, 'wpfunosPaginaAseguradorasShortcode' ));
     add_shortcode( 'wpfunos-pagina-resultados-aseguradoras', array( $this, 'wpfunosPaginaResultadosAseguradorasShortcode' ));
+    add_shortcode( 'wpfunos-aseguradoras-filtros', array( $this, 'wpfunosAseguradorasFiltrosShortcode' ));
 
     add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
     add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
@@ -132,6 +133,15 @@ class Wpfunos_Aseguradoras {
   */
   public function wpfunosPaginaResultadosAseguradorasShortcode( $atts, $content = "" ) {
     echo get_option('wpfunos_paginaURLResultadosAseguradoras');
+  }
+
+  /**
+  * Shortcode [wpfunos-aseguradoras-filtros]
+  */
+  public function wpfunosAseguradorasFiltrosShortcode( $atts, $content = "" ) {
+    if( ! isset($_GET['wpf'] ) ) return;
+
+
   }
 
   /*********************************/

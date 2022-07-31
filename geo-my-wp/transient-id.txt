@@ -75,6 +75,7 @@
  |   |   [valor_textoprecio] = String: ''</br>
  |   |   [valor_direccion] = String: 'Carretera Poligono de las Mercedes, s/n, 28821 Coslada, Madrid'</br>
  |   |   [valor_precio] = String: '2.742€'</br>
+ |   |   [valor_telefono]
  |   [49297] = </br>
  |   |   [ID_servicio] = Number: 49297</br>
  |   |   [valor_titulo] = String: ''</br>
@@ -87,6 +88,7 @@
  |   |   [valor_textoprecio] = String: ''</br>
  |   |   [valor_direccion] = String: 'Av. Villaviciosa, s/n, 28922 Alcorcón, Madrid'</br>
  |   |   [valor_precio] = String: '2.742€'</br>
+ |   |   [valor_telefono]
  |   [49272] = </br>
  |   |   [ID_servicio] = Number: 49272</br>
  |   |   [valor_titulo] = String: ''</br>
@@ -99,6 +101,7 @@
  |   |   [valor_textoprecio] = String: ''</br>
  |   |   [valor_direccion] = String: 'Ctra. del Cementerio, s/n, 28905 Getafe, Madrid'</br>
  |   |   [valor_precio] = String: '2.742€'</br>
+ |   |   [valor_telefono]
  |   [49289] = </br>
  |   |   [ID_servicio] = Number: 49289</br>
  |   |   [valor_titulo] = String: ''</br>
@@ -111,6 +114,7 @@
  |   |   [valor_textoprecio] = String: ''</br>
  |   |   [valor_direccion] = String: 'C. el Barbero de Sevilla, 21R, 28222 Majadahonda, Madrid'</br>
  |   |   [valor_precio] = String: '2.742€'</br>
+ |   |   [valor_telefono]
  |   [49291] = </br>
  |   |   [ID_servicio] = Number: 49291</br>
  |   |   [valor_titulo] = String: ''</br>
@@ -123,6 +127,7 @@
  |   |   [valor_textoprecio] = String: ''</br>
  |   |   [valor_direccion] = String: 'M-506, km 13500, 28946 Fuenlabrada, Madrid'</br>
  |   |   [valor_precio] = String: '2.742€'</br>
+ |   |   [valor_telefono]
  |   [49290] = </br>
  |   |   [ID_servicio] = Number: 49290</br>
  |   |   [valor_titulo] = String: ''</br>
@@ -135,4 +140,5 @@
  |   |   [valor_textoprecio] = String: ''</br>
  |   |   [valor_direccion] = String: 'Camino el Esparragal, 28320 Pinto, Madrid'</br>
  |   |   [valor_precio] = String: '2.742€'
+ |   |   [valor_telefono]
  [wpfnonce] = String: 'fba8b30899''

@@ -1507,6 +1507,7 @@ class Wpfunos_Admin {
       foreach ( $post_list as $post ) {
         //$this->custom_logs('Wpfunos services: ' .$post->ID. ' Activo: ' .$activo );
         $nombre_servicio = get_the_title( $post->ID );
+        $nombre_titulo = get_post_meta( $post->ID, 'wpfunos_servicioNombre', true );
         $direccion = get_post_meta( $post->ID, 'wpfunos_servicioDireccion', true );
         foreach ( $tipos as $tipo ) {
           // comprobar que tiene precios del nuevo buscador
@@ -1536,12 +1537,19 @@ class Wpfunos_Admin {
             if( $newpost_list ){
               // Update
               $newcontador ++;
+
+              $post_update = array(
+                'ID'         => $post->ID,
+                'post_title' => $nombre_titulo,
+              );
+              wp_update_post( $post_update );
+
               update_post_meta($post->ID, 'wpfunos_servicioPrecio',  $precio );
               //$this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' ya tiene precios. ' .$precio. ',' .$resp1. ', ' .$resp2. ', ' .$resp3. ', ' .$resp4. ' => '    .$newcontador);
             }else{
               // Create
               $my_post = array(
-                'post_title' => $tipo.' - '. $nombre_servicio,
+                'post_title' => $nombre_titulo,
                 'post_type' => 'precio_serv_wpfunos',
                 'post_status'  => 'publish',
                 'meta_input'   => array(
