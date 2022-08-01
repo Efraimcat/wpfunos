@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 $aseguradorasNombre = sanitize_text_field( $_POST['wpfunos_aseguradorasNombre'] );
+$aseguradorasEmpresa = sanitize_text_field( $_POST['wpfunos_aseguradorasEmpresa'] );
 $aseguradorasDireccion = sanitize_text_field( $_POST['wpfunos_aseguradorasDireccion'] );
 $aseguradorasCorreo = sanitize_text_field( $_POST['wpfunos_aseguradorasCorreo'] );
 $aseguradorasTelefono = sanitize_text_field( $_POST['wpfunos_aseguradorasTelefono'] );
@@ -28,6 +29,7 @@ $aseguradorasNotas = wp_kses_post( $_POST['wpfunos_aseguradorasNotas'] );
 $aseguradorasDummy = sanitize_text_field( $_POST['wpfunos_aseguradorasDummy'] );
 
 update_post_meta($post_id, 'wpfunos_aseguradorasNombre', $aseguradorasNombre);
+update_post_meta($post_id, 'wpfunos_aseguradorasEmpresa', $aseguradorasEmpresa);
 update_post_meta($post_id, 'wpfunos_aseguradorasDireccion', $aseguradorasDireccion);
 update_post_meta($post_id, 'wpfunos_aseguradorasCorreo', $aseguradorasCorreo);
 update_post_meta($post_id, 'wpfunos_aseguradorasTelefono', $aseguradorasTelefono);

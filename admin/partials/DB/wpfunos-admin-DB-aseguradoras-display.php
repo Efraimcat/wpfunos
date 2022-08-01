@@ -41,6 +41,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="usuarios_wpfunos_list">
       <table>
         <tr>
+          <td><?php esc_html_e('Empresa', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
           <td><?php esc_html_e('Telefono', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Tipo de Seguro', 'wpfunos');?></td>
@@ -50,6 +52,8 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Orden', 'wpfunos');?></td>
         </tr>
         <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_aseguradorasEmpresa','name' => 'wpfunos_aseguradorasEmpresa','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
+          <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_aseguradorasTelefono','name' => 'wpfunos_aseguradorasTelefono','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_aseguradorasTipoSeguro','name' => 'wpfunos_aseguradorasTipoSeguro','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>

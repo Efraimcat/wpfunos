@@ -20,6 +20,8 @@
 
 		<div id="wpfunos-search-form-results"  name="wpfunos-v2-results"></div>
 
+		<?php if ( apply_filters('wpfunos_email_colaborador','dummy') ){ echo '<div id="wpf-es-colaborador" name="si"></div>'; }	?>
+
 		<div class="gmw-results">
 
 			<?php

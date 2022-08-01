@@ -8,7 +8,7 @@ $(document).ready(function(){
 
     document.getElementById("wpf-resultados-cabecera-poblacion-boton-movil").addEventListener('click', function(){
       elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
-      window.location.href = "/comparar-precios-v2";
+      window.location.href = "/comparar-precios";
     } , false);
 
     document.getElementById("wpf-resultados-cabecera-cuando-boton-movil").addEventListener('click', function(){

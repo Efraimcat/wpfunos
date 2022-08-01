@@ -26,7 +26,6 @@ class Wpfunos_Aseguradoras {
     add_shortcode( 'wpfunos-pagina-resultados-aseguradoras', array( $this, 'wpfunosPaginaResultadosAseguradorasShortcode' ));
     add_shortcode( 'wpfunos-aseguradoras-filtros', array( $this, 'wpfunosAseguradorasFiltrosShortcode' ));
 
-    add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
     add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
 
     add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradoras_llamen', function () { $this->wpfunosAseguradorasLlamen();});
@@ -145,29 +144,6 @@ class Wpfunos_Aseguradoras {
   /*********************************/
 
   /**
-  * Hook Cold Lead Aseguradoras
-  *
-  * add_action( 'wpfunos_aseguradoras_cold_lead', array( $this, 'wpfunosAseguradorasColdLead' ), 10, 1 );
-  */
-  public function wpfunosAseguradorasColdLead( ){
-    $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
-    $seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
-    $CP = get_post_meta( $IDusuario, $this->plugin_name . '_userCP', true );
-    $seguro = get_post_meta( $IDusuario, $this->plugin_name . '_userSeguro', true );
-    $respuesta = (explode(',',$seleccion));
-    //Si|1 , No|2
-    if( $seguro == 1 && get_option( 'wpfunos_APIPreventivaColdLeadPreventiva') ){
-      $this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLPreventiva'), 'Preventiva Cold' , get_option( 'wpfunos_APIPreventivaCampainPreventiva'), 4 );
-    }elseif( $seguro == 2 && get_option( 'wpfunos_APIPreventivaColdLeadElectium') ){
-      $this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLElectium'), 'Electium Cold' , get_option( 'wpfunos_APIPreventivaCampainElectium'), 4 );
-    }
-
-    if( get_option( 'wpfunos_APIDKVColdLead') ){
-      $this->wpfunosLlamadaAPIDKV();
-    }
-  }
-
-  /**
   * Hook Resultados Aseguradoras
   *
   * add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
@@ -257,242 +233,18 @@ class Wpfunos_Aseguradoras {
   }
 
   /*********************************/
-  /*****                      ******/
+  /***** APIS                 ******/
   /*********************************/
 
   /**
-  * Llamada API Preventiva $this->wpfunosLlamadaAPIPreventiva( 'https://fidelity.preventiva.com/ContactsImporter/api/Contact', 'Preventiva' );
+  * API Preventiva
   *
-  * $this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLPreventiva'), 'Preventiva Cold' , get_option( 'wpfunos_APIPreventivaCampainPreventiva'), 4 );
   *
-  * $this->wpfunosLlamadaAPIPreventiva( get_option( 'wpfunos_APIPreventivaURLElectium'), 'Electium Cold' , get_option( 'wpfunos_APIPreventivaCampainElectium'), 4 );
   */
-  public function wpfunosLlamadaAPIPreventiva( $URL, $tipo, $campain, $accion ){
-    $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
-    if( $IDusuario == 0 ) return;
-    $userIP = apply_filters('wpfunos_userIP','dummy');
-    $local_time  = current_datetime();
-    $current_time = $local_time->getTimestamp() + $local_time->getOffset();
-    $fecha = gmdate("Ymd His",$current_time);
-    $fechacarga = gmdate("Y-m-d H:i:s",$current_time);
-    mt_srand(mktime());
-    $nuevareferencia = 'funos-'.(string)mt_rand();
-    $CP = get_post_meta( $IDusuario, $this->plugin_name . '_userCP', true );
-    $email = get_post_meta( $IDusuario, $this->plugin_name . '_userMail', true );
-    $nombre = get_post_meta( $IDusuario, $this->plugin_name . '_userName', true );
-    $telefono =  str_replace(' ','', get_post_meta( $IDusuario, $this->plugin_name . '_userPhone', true ) ) ;
-    $seguro = get_post_meta( $IDusuario, $this->plugin_name . '_userSeguro', true );
-    $seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
-    $respuesta = (explode(',',$seleccion));
-    switch($respuesta[2]){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
-    $edad =  date("Y") - (int)$respuesta[3];
-    $ubicacion = strtr($respuesta[0],"+",",");
-    //
-    $headers = array( 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'Authorization' => 'Basic ' . base64_encode( get_option( 'wpfunos_APIPreventivaUsuarioPreventiva') . ':' . get_option( 'wpfunos_APIPreventivaPasswordPreventiva')  ), );
-    $body = '{
-      "phone": "' . $telefono . '",
-      "campaign": "'. $campain .'",
-      "initDate": "' . $fecha .'",
-      "data": [
-        {"key": "Direccion", "value": "' . $ubicacion . '" },
-        {"key": "Nombre Y Apellidos", "value": "' . $nombre . '"},
-        {"key": "CP", "value": "' . $CP . '"},
-        {"key": "E-mail", "value": "' . $email . '"},
-        {"key": "Edad", "value": "' . $edad . '"},
-        {"key": "Ayuda a la venta", "value": "' . $ayuda . '"},
-        {"key": "Id_cliente", "value": "' . $nuevareferencia . '"},
-        {"key": "FechaCarga", "value": "' . $fechacarga . '"}
-      ]
-    }';
-    do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', 'Request: $URL: ' .  $URL );
-    do_action('wpfunos_log', 'Request: $headers: ' .  $headers );
-    do_action('wpfunos_log', 'Request: $body: ' .  $body );
-    $request = wp_remote_post( $URL, array( 'headers' => $headers, 'body' => $body, 'timeout' => 45 ) );
-    if ( is_wp_error($request) ) {
-      esc_html_e('alguna cosa ha ido mal','wpfunos');
-      esc_html_e(': ' . $request->get_error_message() );
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Request: Error message: ' .  $request->get_error_message() );
-      do_action('wpfunos_log', '==============' );
-      return;
-    }
-    do_action('wpfunos_log', 'Request: $request: ' . $request );
-    $codigo = json_decode( $request['code'] );
-    $my_post = array(
-      'post_title' => $nuevareferencia,
-      'post_type' => 'usuarios_wpfunos',
-      'post_status'  => 'publish',
-      'meta_input'   => array(
-        $this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-        $this->plugin_name . '_userReferencia' => sanitize_text_field( $nuevareferencia ),
-        $this->plugin_name . '_userName' => sanitize_text_field( $nombre ),
-        $this->plugin_name . '_userPhone' => sanitize_text_field( substr($telefono,0,3).' '. substr($telefono,3,2).' '. substr($telefono,5,2).' '. substr($telefono,7,2) ),
-        $this->plugin_name . '_userSeleccion' => sanitize_text_field( $seleccion ),
-        $this->plugin_name . '_userAccion' => sanitize_text_field( $accion ),
-        $this->plugin_name . '_userCP' => sanitize_text_field( $CP ),
-        $this->plugin_name . '_userMail' => sanitize_text_field( $email ),
-        $this->plugin_name . '_userSeguro' => sanitize_text_field( $seguro ),
-        $this->plugin_name . '_userAPITipo' => sanitize_text_field( $tipo ),
-        $this->plugin_name . '_userAPIBody' => sanitize_text_field( $body),
-        $this->plugin_name . '_userAPIMessage' => $request,
-        $this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
-        $this->plugin_name . '_userAceptaPolitica' => '1',
-        $this->plugin_name . '_userLAT' => sanitize_text_field( $_GET['lat'] ),
-        $this->plugin_name . '_userLNG' => sanitize_text_field( $_GET['lng'] ),
-        $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
-        $this->plugin_name . '_Dummy' => true,
-        'IDstamp' => $_COOKIE['wpfid'],
-      ),
-    );
-    $userIP = apply_filters('wpfunos_userIP','dummy');
-    if( !strrpos($request,'Conflict') ){
-      $post_id = wp_insert_post($my_post);
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Nueva API: ' .  $userIP );
-      do_action('wpfunos_log', 'ID: ' .  $post_id );
-      do_action('wpfunos_log', 'referencia: ' . $nuevareferencia );
-    }else{
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Error 3 Nueva API: ' .  $userIP );
-      do_action('wpfunos_log', 'referencia: ' . $nuevareferencia );
-    }
-  }
 
-  /**
-  * Llamada API DKV
-  */
-  public function wpfunosLlamadaAPIDKV( $producto = 'DKV Integral' ){
-    $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
-    if( $IDusuario == 0 ) return;
-    $userIP = apply_filters('wpfunos_userIP','dummy');
-    $local_time  = current_datetime();
-    $current_time = $local_time->getTimestamp() + $local_time->getOffset();
-    $fechacarga = gmdate("Y/m/d H:i:s",$current_time);
-    mt_srand(mktime());
-    $nuevareferencia = 'funos-'.(string)mt_rand();
-    $CP = get_post_meta( $IDusuario, $this->plugin_name . '_userCP', true );
-    if( strlen( $CP ) != 5 ) return;
-    $provincia = $this->wpfunosProvincia( $CP );
-    $email = get_post_meta( $IDusuario, $this->plugin_name . '_userMail', true );
-    $nombre = get_post_meta( $IDusuario, $this->plugin_name . '_userName', true );
-    $telefono =  str_replace(' ','', get_post_meta( $IDusuario, $this->plugin_name . '_userPhone', true ) ) ;
-
-    $seguro = get_post_meta( $IDusuario, $this->plugin_name . '_userSeguro', true );
-    $seguroSiNo = 'Si';
-    if( $seguro == '2' ) $seguroSiNo = 'No';
-
-    $seleccion = get_post_meta( $IDusuario, $this->plugin_name . '_userSeleccion', true );
-    $respuesta = (explode(',',$seleccion));
-    switch( $respuesta[2] ){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
-    $edad = (int)$respuesta[3];
-    $ubicacion = strtr($respuesta[0],"+",",");
-
-    $textoaccion = "Llamada API DKV";
-    if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";
-    //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
-
-    $other_data = 'Producto: ' .$producto. '. Sexo: ' .$sexo. '. Año nacimiento: ' .$edad. '. Seguro decesos: ' .$seguroSiNo. '.' ;
-
-    $provider_name = get_option( $this->plugin_name . '_APIDKVProviderName' );
-    $provider_id = get_option( $this->plugin_name . '_APIDKVProviderID' );
-    $provider_password = get_option( $this->plugin_name . '_APIDKVProviderPasswordPRO' );
-    $URL = get_option( $this->plugin_name . '_APIDKVURLPRO' );
-    if( ! get_option( $this->plugin_name . '_APIDKVProductionOK' ) ) {
-      $provider_password = get_option( $this->plugin_name . '_APIDKVProviderPasswordPRE' );
-      $URL = get_option( $this->plugin_name . '_APIDKVURLPRE' );
-    }
-
-    $headers = array( 'Content-Type' => 'application/json' );
-    $body = '{
-      "lead":
-      {
-        "id": "' .$nuevareferencia. '",
-        "firstName": "",
-        "lastName": "' .$nombre. '",
-        "date": "' .$fechacarga. '",
-        "phone": "' .$telefono. '",
-        "email": "' .$email. '",
-        "city": "' .$ubicacion. '",
-        "zip": "' .$CP. '",
-        "state": "' .$provincia. '",
-        "other_data": "' .$other_data. '"
-      },
-      "provider_name": "' .$provider_name. '",
-      "provider_id": "' .$provider_id. '",
-      "provider_password": "' .$provider_password. '"
-    }';
-    do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', 'Request: $URL: ' .  $URL );
-    do_action('wpfunos_log', 'Request: $headers: ' .  apply_filters('wpfunos_dumplog', $headers ) );
-    do_action('wpfunos_log', 'Request: $body: ' .  $body );
-
-    $request = wp_remote_post( $URL, array( 'headers' => $headers, 'body' => $body, 'timeout' => 45 ) );
-    do_action('wpfunos_log', 'Request: $request: ' . apply_filters('wpfunos_dumplog', $request ) );
-    do_action('wpfunos_log', 'Request: CODE: ' .  $request['response']['code'] );
-    do_action('wpfunos_log', 'Request: MESSAGE: ' .  $request['response']['message'] );
-    if ( is_wp_error($request) ) {
-      esc_html_e('alguna cosa ha ido mal','wpfunos');
-      esc_html_e(': ' . $request->get_error_message() );
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Request: Error message: ' .  $request->get_error_message() );
-      do_action('wpfunos_log', '==============' );
-      return;
-    }
-
-    $userAPIMessage = apply_filters('wpfunos_dumplog', $request );
-    $messageresponse = apply_filters('wpfunos_dumplog', $request['response'] );
-
-    $my_post = array(
-      'post_title' => $nuevareferencia,
-      'post_type' => 'usuarios_wpfunos',
-      'post_status'  => 'publish',
-      'meta_input'   => array(
-        $this->plugin_name . '_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-        $this->plugin_name . '_userReferencia' => sanitize_text_field( $nuevareferencia ),
-        $this->plugin_name . '_userName' => sanitize_text_field( $nombre ),
-        $this->plugin_name . '_userPhone' => sanitize_text_field( substr($telefono,0,3).' '. substr($telefono,3,2).' '. substr($telefono,5,2).' '. substr($telefono,7,2) ),
-        $this->plugin_name . '_userSeleccion' => sanitize_text_field( $seleccion ),
-        $this->plugin_name . '_userAccion' => '4',
-        $this->plugin_name . '_userSeguro' => sanitize_text_field( $seguro ),
-        $this->plugin_name . '_userNombreAccion' => sanitize_text_field( $textoaccion ),
-        $this->plugin_name . '_userNombreSeleccionUbicacion' => sanitize_text_field( $ubicacion ),
-        $this->plugin_name . '_userCP' => sanitize_text_field( $CP ),
-        $this->plugin_name . '_userMail' => sanitize_text_field( $email ),
-        $this->plugin_name . '_userAPITipo' => 'DKV',
-        $this->plugin_name . '_userAPIBody' => sanitize_text_field( $body ),
-        $this->plugin_name . '_userAPIMessage' => sanitize_text_field( $userAPIMessage ),
-        $this->plugin_name . '_userAPIMessagebody' => sanitize_text_field( $request['body']),
-        $this->plugin_name . '_userAPIMessageresponse' => sanitize_text_field( $messageresponse ),
-        $this->plugin_name . '_userAPIMessagecode' => sanitize_text_field( $request['response']['code'] ),
-        $this->plugin_name . '_userAPIMessagemessage' => sanitize_text_field( $request['response']['message'] ),
-        $this->plugin_name . '_userIP' => sanitize_text_field( $userIP ),
-        $this->plugin_name . '_userAceptaPolitica' => '1',
-        $this->plugin_name . '_userLAT' => sanitize_text_field( $_GET['lat'] ),
-        $this->plugin_name . '_userLNG' => sanitize_text_field( $_GET['lng'] ),
-        $this->plugin_name . '_userPluginVersion' => sanitize_text_field( $this->version ),
-        $this->plugin_name . '_userLead' => true,
-        $this->plugin_name . '_Dummy' => true,
-        'IDstamp' => $_COOKIE['wpfid'],
-      ),
-    );
-    $userIP = apply_filters('wpfunos_userIP','dummy');
-    if( 'OK' === $request['response']['message'] ) {
-      $post_id = wp_insert_post($my_post);
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Nueva API: ' .  $userIP );
-      do_action('wpfunos_log', 'ID: ' .  $post_id );
-      do_action('wpfunos_log', 'referencia: ' . $nuevareferencia );
-    }else{
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Error 3 Nueva API: ' .  $userIP );
-      do_action('wpfunos_log', 'Error: ' .  $request['response']['message'] );
-      do_action('wpfunos_log', 'referencia: ' . $nuevareferencia );
-    }
-  }
 
   /*********************************/
-  /*****                      ******/
+  /***** UTILIDADES           ******/
   /*********************************/
 
   /**
