@@ -217,6 +217,7 @@ class Wpfunos_ServiciosV2 {
 
     // Multiform
     if( ! isset( $_GET['dest'] ) || $_GET['dest'] == 'dummy' ){
+      $this->wpfunosEntradaUbicacion();
       require 'js/wpfunos-serviciosv2-multistep-cuando.js';
     }
     // End Multiform
@@ -825,6 +826,48 @@ class Wpfunos_ServiciosV2 {
 
   }
 
+  /**
+  * Entrada ubicación
+  */
+  public function wpfunosEntradaUbicacion( ){
+    //$ubicacionIP, $ubicacionwpf, $ubicacionReferencia, $ubicacionDireccion, $ubicacionCP, $ubicacionDistancia
+    //
+    //https://funos.es/compara-nuevos-datos?address[]=Badalona&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50
+    //&lat=41.446988&lng=2.245033&form=7&action=fs&CP=undefined&wpfref=dummy&orden=dist&dest=dummy&wpfvision=dummy
+    //
+    if ( apply_filters('wpfunos_email_colaborador','dummy') ) return;
+    $userIP = apply_filters('wpfunos_userIP','dummy');
+    $args = array(
+      'post_status' => 'publish',
+      'post_type' => 'ubicaciones_wpfunos',
+      'posts_per_page' => -1,
+      'meta_key' =>  'wpfunos_ubicacionIP',
+      'meta_value' => $userIP,
+    );
+    $post_list = get_posts( $args );
+    $contador = 1;
+    if( $post_list ) $contador=count($post_list)+1;
+
+    mt_srand(time());
+    $newref = 'funos-'.(string)mt_rand();
+
+    $my_post = array(
+      'post_title' => $newref,
+      'post_type' => 'ubicaciones_wpfunos',
+      'post_status'  => 'publish',
+      'meta_input'   => array(
+        $this->plugin_name . '_ubicacionIP' => sanitize_text_field( $userIP ),
+        $this->plugin_name . '_ubicacionReferencia' => sanitize_text_field( $newref ),
+        $this->plugin_name . '_ubicacionDireccion' => sanitize_text_field( $_GET['address'][0] ),
+        $this->plugin_name . '_ubicacionDistancia' => sanitize_text_field( $_GET['distance']),
+        $this->plugin_name . '_ubicacionVisitas' => $contador,
+        $this->plugin_name . '_ubicacionVersion' => 'v2',
+        $this->plugin_name . '_Dummy' => true,
+      ),
+    );
+    $post_id = wp_insert_post($my_post);
+  }
+
 
   /*********************************/
   /*****  UTILS               ******/
@@ -1084,6 +1127,7 @@ class Wpfunos_ServiciosV2 {
       $userURL = apply_filters('wpfunos_shortener', $URL );
 
       do_action('wpfunos_update phone',$wpftelefono);
+      $wpftelefono = str_replace(" ","",$wpftelefono);
       $tel =  substr($wpftelefono,0,3).' '. substr($wpftelefono,3,2).' '. substr($wpftelefono,5,2).' '. substr($wpftelefono,7,2);
 
       $contador = $this->wpfunosServiciosv2ContadorEntradas( $IP, '0' );
@@ -1319,7 +1363,8 @@ class Wpfunos_ServiciosV2 {
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp3' ) ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
-      $tel =  substr($transient_ref['wpft'],0,3). ' ' .substr($transient_ref['wpft'],3,2). ' ' .substr($transient_ref['wpft'],5,2). ' ' .substr($transient_ref['wpft'],7,2) ;
+      $telefono = str_replace(" ","",$transient_ref['wpft']);
+      $tel =  substr($telefono,0,3). ' ' .substr($telefono,3,2). ' ' .substr($telefono,5,2). ' ' .substr($telefono,7,2) ;
       $userAccion = '1';
       $userNombreAccion = 'Botón llamen servicios';
       require 'partials/wpfunos-array-usuarios.php';
@@ -1425,7 +1470,8 @@ class Wpfunos_ServiciosV2 {
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp3' ) ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
-      $tel =  substr($transient_ref['wpft'],0,3). ' ' .substr($transient_ref['wpft'],3,2). ' ' .substr($transient_ref['wpft'],5,2). ' ' .substr($transient_ref['wpft'],7,2) ;
+      $telefono = str_replace(" ","",$transient_ref['wpft']);
+      $tel =  substr($telefono,0,3). ' ' .substr($telefono,3,2). ' ' .substr($telefono,5,2). ' ' .substr($telefono,7,2) ;
       $userAccion = '2';
       $userNombreAccion = 'Botón llamar servicios';
       require 'partials/wpfunos-array-usuarios.php';
@@ -1532,7 +1578,8 @@ class Wpfunos_ServiciosV2 {
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp3' ) ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
-      $tel =  substr($transient_ref['wpft'],0,3). ' ' .substr($transient_ref['wpft'],3,2). ' ' .substr($transient_ref['wpft'],5,2). ' ' .substr($transient_ref['wpft'],7,2) ;
+      $telefono = str_replace(" ","",$transient_ref['wpft']);
+      $tel =  substr($telefono,0,3). ' ' .substr($telefono,3,2). ' ' .substr($telefono,5,2). ' ' .substr($telefono,7,2) ;
       $userAccion = '5';
       $userNombreAccion = 'Botón pedir presupuesto';
       require 'partials/wpfunos-array-usuarios.php';
@@ -1744,7 +1791,8 @@ class Wpfunos_ServiciosV2 {
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp3' ) ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
       switch( $this->wpftransients( 'datos', 'dummy', 'wpfresp4' ) ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
-      $tel =  substr($transient_ref['wpft'],0,3). ' ' .substr($transient_ref['wpft'],3,2). ' ' .substr($transient_ref['wpft'],5,2). ' ' .substr($transient_ref['wpft'],7,2) ;
+      $telefono = str_replace(" ","",$transient_ref['wpft']);
+      $tel =  substr($telefono,0,3). ' ' .substr($telefono,3,2). ' ' .substr($telefono,5,2). ' ' .substr($telefono,7,2) ;
 
       if( apply_filters('wpfunos_email_colaborador','dummy') ){
         $email = $wpfemailactual;

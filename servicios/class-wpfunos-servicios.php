@@ -1510,6 +1510,7 @@ class Wpfunos_Servicios {
         $this->plugin_name . '_ubicacionDistancia' => sanitize_text_field( $ubicacionDistancia ),
         $this->plugin_name . '_ubicacionCP' => sanitize_text_field( $ubicacionCP ),
         $this->plugin_name . '_ubicacionVisitas' => $contador,
+        $this->plugin_name . '_ubicacionVersion' => 'v1',
         $this->plugin_name . '_Dummy' => true,
       ),
     );

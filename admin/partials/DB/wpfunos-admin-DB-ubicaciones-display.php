@@ -16,36 +16,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="ubicaciones_wpfunos_containers">
   <ul class="ubicaciones_wpfunos_data_metabox">
     <li class="ubicaciones_wpfunos_list">
-      <label for="<?php esc_html_e($this->plugin_name . '_ubicacionIP' ); ?>"> <?php esc_html_e('IP', 'wpfunos');?></label> 
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_ubicacionIP','name' => $this->plugin_name . '_ubicacionIP','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
+      <label for="<?php esc_html_e('wpfunos_ubicacionIP' ); ?>"> <?php esc_html_e('IP', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ubicacionIP','name' => 'wpfunos_ubicacionIP','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
     </li>
     <li class="ubicaciones_wpfunos_list">
-      <label for="<?php esc_html_e($this->plugin_name . '_ubicacionwpf' ); ?>"> <?php esc_html_e('wpf', 'wpfunos');?></label> 
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_ubicacionwpf','name' => $this->plugin_name . '_ubicacionwpf','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
+      <label for="<?php esc_html_e('wpfunos_ubicacionwpf' ); ?>"> <?php esc_html_e('wpf', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ubicacionwpf','name' => 'wpfunos_ubicacionwpf','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
     </li>
     <li class="ubicaciones_wpfunos_list">
-      <label for="<?php esc_html_e($this->plugin_name . '_ubicacionReferencia' ); ?>"> <?php esc_html_e('Referencia', 'wpfunos');?></label> 
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_ubicacionReferencia','name' => $this->plugin_name . '_ubicacionReferencia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
+      <label for="<?php esc_html_e('wpfunos_ubicacionReferencia' ); ?>"> <?php esc_html_e('Referencia', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ubicacionReferencia','name' => 'wpfunos_ubicacionReferencia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
     </li>
     <li class="ubicaciones_wpfunos_list">
-      <label for="<?php esc_html_e($this->plugin_name . '_ubicacionDireccion' ); ?>"> <?php esc_html_e('Dirección', 'wpfunos');?></label> 
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_ubicacionDireccion','name' => $this->plugin_name . '_ubicacionDireccion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
+      <label for="<?php esc_html_e('wpfunos_ubicacionDireccion' ); ?>"> <?php esc_html_e('Dirección', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ubicacionDireccion','name' => 'wpfunos_ubicacionDireccion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
     </li>
     <li class="ubicaciones_wpfunos_list">
-      <label for="<?php esc_html_e($this->plugin_name . '_ubicacionDistancia' ); ?>"> <?php esc_html_e('Distancia', 'wpfunos');?></label> 
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_ubicacionDistancia','name' => $this->plugin_name . '_ubicacionDistancia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
+      <label for="<?php esc_html_e('wpfunos_ubicacionDistancia' ); ?>"> <?php esc_html_e('Distancia', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ubicacionDistancia','name' => 'wpfunos_ubicacionDistancia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
     </li>
     <li class="ubicaciones_wpfunos_list">
-      <label for="<?php esc_html_e($this->plugin_name . '_ubicacionCP' ); ?>"> <?php esc_html_e('CP', 'wpfunos');?></label> 
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_ubicacionCP','name' => $this->plugin_name . '_ubicacionCP','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
+      <label for="<?php esc_html_e('wpfunos_ubicacionCP' ); ?>"> <?php esc_html_e('CP', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ubicacionCP','name' => 'wpfunos_ubicacionCP','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
     </li>
     <li class="ubicaciones_wpfunos_list">
-      <label for="<?php esc_html_e($this->plugin_name . '_ubicacionVisitas' ); ?>"> <?php esc_html_e('Visitas', 'wpfunos');?></label> 
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_ubicacionVisitas','name' => $this->plugin_name . '_ubicacionVisitas','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
+      <label for="<?php esc_html_e('wpfunos_ubicacionVisitas' ); ?>"> <?php esc_html_e('Visitas', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ubicacionVisitas','name' => 'wpfunos_ubicacionVisitas','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
     </li>
     <li class="ubicaciones_wpfunos_list">
-      <label for="<?php esc_html_e($this->plugin_name . '_Dummy' ); ?>"> <?php esc_html_e('', 'wpfunos');?></label> 
-      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_Dummy','name' => $this->plugin_name . '_Dummy','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
+      <label for="<?php esc_html_e('wpfunos_ubicacionVersion' ); ?>"> <?php esc_html_e('Version', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_ubicacionVersion','name' => 'wpfunos_ubicacionVersion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?>
+    </li>
+    <li class="ubicaciones_wpfunos_list">
+      <label for="<?php esc_html_e('wpfunos_Dummy' ); ?>"> <?php esc_html_e('', 'wpfunos');?></label>
+      <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_Dummy','name' => 'wpfunos_Dummy','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
     </li>
     <li class="entradaServicios_wpfunos_list">
       <label for="<?php esc_html_e( 'IDstamp' ); ?>"> <?php esc_html_e('IDstamp', 'wpfunos');?></label>

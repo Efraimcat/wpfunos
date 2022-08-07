@@ -111,6 +111,7 @@ $my_post = array(
 	'meta_input'   => array(
 		$this->plugin_name . '_entradaServiciosIP' => $ipaddress ,
 		$this->plugin_name . '_entradaServiciosReferer' => $referer,
+		$this->plugin_name . '_entradaServiciosVersion' => 'v2',
 		$this->plugin_name . '_Dummy' => true,
 	),
 );

@@ -12,14 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$entradaServiciosIP = sanitize_text_field( $_POST[$this->plugin_name . '_entradaServiciosIP'] );
-$entradaServiciosReferer = sanitize_text_field( $_POST[$this->plugin_name . '_entradaServiciosReferer'] );
-$entradaServiciosVisitas = sanitize_text_field( $_POST[$this->plugin_name . '_entradaServiciosVisitas'] );
-$Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
+$entradaServiciosIP = sanitize_text_field( $_POST['wpfunos_entradaServiciosIP'] );
+$entradaServiciosReferer = sanitize_text_field( $_POST['wpfunos_entradaServiciosReferer'] );
+$entradaServiciosVisitas = sanitize_text_field( $_POST['wpfunos_entradaServiciosVisitas'] );
+$entradaServiciosVersion = sanitize_text_field( $_POST['wpfunos_entradaServiciosVersion'] );
+$Dummy = sanitize_text_field( $_POST['wpfunos_Dummy'] );
 $IDstamp= sanitize_text_field( $_POST['IDstamp'] );
 
-update_post_meta($post_id, $this->plugin_name . '_entradaServiciosIP', $entradaServiciosIP);
-update_post_meta($post_id, $this->plugin_name . '_entradaServiciosReferer', $entradaServiciosReferer);
-update_post_meta($post_id, $this->plugin_name . '_entradaServiciosVisitas', $entradaServiciosVisitas);
-update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
+update_post_meta($post_id, 'wpfunos_entradaServiciosIP', $entradaServiciosIP);
+update_post_meta($post_id, 'wpfunos_entradaServiciosReferer', $entradaServiciosReferer);
+update_post_meta($post_id, 'wpfunos_entradaServiciosVisitas', $entradaServiciosVisitas);
+update_post_meta($post_id, 'wpfunos_entradaServiciosVersion', $entradaServiciosVersion);
+update_post_meta($post_id, 'wpfunos_Dummy', $Dummy);
 update_post_meta($post_id, 'IDstamp', $IDstamp);

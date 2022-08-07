@@ -70,28 +70,29 @@ do_action('wpfunos_log', 'referer: ' . apply_filters('wpfunos_dumplog', substr($
 do_action('wpfunos_log', 'cookie wpfe: ' . $_COOKIE['wpfe']);
 do_action('wpfunos_log', 'cookie wpfn: ' . $_COOKIE['wpfn']);
 do_action('wpfunos_log', 'cookie wpft: ' . $_COOKIE['wpft']);
-//$args = array(
-//  'post_status' => 'publish',
-//  'post_type' => 'pag_serv_wpfunos',
-//  'posts_per_page' => -1,
-//  'meta_key' =>  'wpfunos_entradaServiciosIP',
-//  'meta_value' => $ipaddress,
-//);
-//$post_list = get_posts( $args );
-//$contador = 1;
-//if( $post_list ) $contador=count($post_list)+1;
-//$my_post = array(
-//  'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-//  'post_type' => 'pag_serv_wpfunos',
-//  'post_status'  => 'publish',
-//  'meta_input'   => array(
-//    'wpfunos_entradaServiciosIP' => $ipaddress ,
-//    'wpfunos_entradaServiciosReferer' => $referer,
-//    'wpfunos_entradaServiciosVisitas' => $contador,
-//    'wpfunos_Dummy' => true,
-//  ),
-//);
-if( ! apply_filters('wpfunos_reserved_email','dummy') ) $post_id = wp_insert_post($my_post);
+$args = array(
+  'post_status' => 'publish',
+  'post_type' => 'pag_serv_wpfunos',
+  'posts_per_page' => -1,
+  'meta_key' =>  'wpfunos_entradaServiciosIP',
+  'meta_value' => $ipaddress,
+);
+$post_list = get_posts( $args );
+$contador = 1;
+if( $post_list ) $contador=count($post_list)+1;
+$my_post = array(
+  'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+  'post_type' => 'pag_serv_wpfunos',
+  'post_status'  => 'publish',
+  'meta_input'   => array(
+    'wpfunos_entradaServiciosIP' => $ipaddress ,
+    'wpfunos_entradaServiciosReferer' => $referer,
+    'wpfunos_entradaServiciosVisitas' => $contador,
+	'wpfunos_entradaServiciosVersion' => 'v2',
+    'wpfunos_Dummy' => true,
+  ),
+);
+if( ! apply_filters('wpfunos_email_colaborador','dummy') ) $post_id = wp_insert_post($my_post);
 ?>
 
 <script>

@@ -10,8 +10,21 @@ $(document).ready(function(){
       elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
       window.location.href = "/comparar-precios";
     } , false);
+    document.getElementById("wpfunos-boton-donde").addEventListener('click', function(){
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+      window.location.href = "/comparar-precios";
+    } , false);
 
     document.getElementById("wpf-resultados-cabecera-cuando-boton").addEventListener('click', function(){
+      if( params.get('cuando') == 'Ahora'){
+        params.set('cuando', 'Proximamente');
+      }else{
+        params.set('cuando', 'Ahora');
+      }
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+      window.location.search = params.toString();
+    } , false);
+    document.getElementById("wpfunos-boton-cuando").addEventListener('click', function(){
       if( params.get('cuando') == 'Ahora'){
         params.set('cuando', 'Proximamente');
       }else{

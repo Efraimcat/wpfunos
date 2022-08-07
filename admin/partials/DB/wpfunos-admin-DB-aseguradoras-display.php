@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Correo', 'wpfunos');?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('API (DKV/PREVENTIVA)', 'wpfunos');?></td>
+          <td><?php esc_html_e('API (DKV/PREVENTIVA/ELECTIUM)', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_aseguradorasNombre','name' => 'wpfunos_aseguradorasNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>

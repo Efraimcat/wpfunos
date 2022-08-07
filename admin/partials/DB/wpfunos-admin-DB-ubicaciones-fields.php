@@ -12,22 +12,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$ubicacionIP = sanitize_text_field( $_POST[$this->plugin_name . '_ubicacionIP'] );
-$ubicacionwpf = sanitize_text_field( $_POST[$this->plugin_name . '_ubicacionwpf'] );
-$ubicacionReferencia = sanitize_text_field( $_POST[$this->plugin_name . '_ubicacionReferencia'] );
-$ubicacionDireccion = sanitize_text_field( $_POST[$this->plugin_name . '_ubicacionDireccion'] );
-$ubicacionDistancia = sanitize_text_field( $_POST[$this->plugin_name . '_ubicacionDistancia'] );
-$ubicacionCP = sanitize_text_field( $_POST[$this->plugin_name . '_ubicacionCP'] );
-$ubicacionVisitas = sanitize_text_field( $_POST[$this->plugin_name . '_ubicacionVisitas'] )
-$Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
+$ubicacionIP = sanitize_text_field( $_POST['wpfunos_ubicacionIP'] );
+$ubicacionwpf = sanitize_text_field( $_POST['wpfunos_ubicacionwpf'] );
+$ubicacionReferencia = sanitize_text_field( $_POST['wpfunos_ubicacionReferencia'] );
+$ubicacionDireccion = sanitize_text_field( $_POST['wpfunos_ubicacionDireccion'] );
+$ubicacionDistancia = sanitize_text_field( $_POST['wpfunos_ubicacionDistancia'] );
+$ubicacionCP = sanitize_text_field( $_POST['wpfunos_ubicacionCP'] );
+$ubicacionVisitas = sanitize_text_field( $_POST['wpfunos_ubicacionVisitas'] );
+$ubicacionVersion = sanitize_text_field( $_POST['wpfunos_ubicacionVersion'] );
+$Dummy = sanitize_text_field( $_POST['wpfunos_Dummy'] );
 $IDstamp= sanitize_text_field( $_POST['IDstamp'] );
 
-update_post_meta($post_id, $this->plugin_name . '_ubicacionIP', $ubicacionIP);
-update_post_meta($post_id, $this->plugin_name . '_ubicacionwpf', $ubicacionwpf);
-update_post_meta($post_id, $this->plugin_name . '_ubicacionReferencia', $ubicacionReferencia);
-update_post_meta($post_id, $this->plugin_name . '_ubicacionDireccion', $ubicacionDireccion);
-update_post_meta($post_id, $this->plugin_name . '_ubicacionDistancia', $ubicacionDistancia);
-update_post_meta($post_id, $this->plugin_name . '_ubicacionCP', $ubicacionCP);
-update_post_meta($post_id, $this->plugin_name . '_ubicacionVisitas', $ubicacionVisitas);
-update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
+update_post_meta($post_id, 'wpfunos_ubicacionIP', $ubicacionIP);
+update_post_meta($post_id, 'wpfunos_ubicacionwpf', $ubicacionwpf);
+update_post_meta($post_id, 'wpfunos_ubicacionReferencia', $ubicacionReferencia);
+update_post_meta($post_id, 'wpfunos_ubicacionDireccion', $ubicacionDireccion);
+update_post_meta($post_id, 'wpfunos_ubicacionDistancia', $ubicacionDistancia);
+update_post_meta($post_id, 'wpfunos_ubicacionCP', $ubicacionCP);
+update_post_meta($post_id, 'wpfunos_ubicacionVisitas', $ubicacionVisitas);
+update_post_meta($post_id, 'wpfunos_ubicacionVersion', $ubicacionVersion);
+update_post_meta($post_id, 'wpfunos_Dummy', $Dummy);
 update_post_meta($post_id, 'IDstamp', $IDstamp);

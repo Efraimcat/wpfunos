@@ -225,6 +225,7 @@ class Wpfunos_Utils {
         $this->plugin_name . '_entradaServiciosIP' => $userIP ,
         $this->plugin_name . '_entradaServiciosReferer' => $referer,
         $this->plugin_name . '_entradaServiciosVisitas' => $contador,
+        $this->plugin_name . '_entradaServiciosVersion' => 'v1',
         $this->plugin_name . '_Dummy' => true,
       ),
     );
