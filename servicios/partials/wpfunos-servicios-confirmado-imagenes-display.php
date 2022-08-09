@@ -33,9 +33,9 @@ $url3 = wp_get_attachment_url ( get_post_meta( $_GET['servicio'], 'wpfunos_servi
         <div class="wpfunos-slider-resultados">
           <div class="wpfunos-slider-imagenes">
 
-            <a href="<?php echo $url1; ?>" style="margin: 8px;"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider1', true ) ) > 1 ) echo $img1 ?></a>
-            <a href="<?php echo $url2; ?>" style="margin: 8px;"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider2', true ) ) > 1 ) echo $img2 ?></a>
-            <a href="<?php echo $url3; ?>" style="margin: 8px;"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider3', true ) ) > 1 ) echo $img3 ?></a>
+            <a href="<?php echo $url1; ?>" style="margin: 3px;"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider1', true ) ) > 1 ) echo $img1 ?></a>
+            <a href="<?php echo $url2; ?>" style="margin: 3px;"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider2', true ) ) > 1 ) echo $img2 ?></a>
+            <a href="<?php echo $url3; ?>" style="margin: 3px;"><?php if( strlen( get_post_meta( $_GET['servicio'], 'wpfunos_servicioImagenSlider3', true ) ) > 1 ) echo $img3 ?></a>
 
           </div>
         </div>
