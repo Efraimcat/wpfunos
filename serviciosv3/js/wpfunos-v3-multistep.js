@@ -185,14 +185,6 @@ jQuery( document ).ready( function() { //wait for the page to load
           var wpflat = document.getElementById("wpf-resultados-referencia").getAttribute("wpflat");
           var wpflng = document.getElementById("wpf-resultados-referencia").getAttribute("wpflng");
 
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfnombre", nombre);
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfemail", email);
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpftelefono", telefono);
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfcuando", cuando);
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfdest", destino);
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfvela", velatorio);
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfcere", ceremonia);
-
           var params = new URLSearchParams(location.search);
 
           if ( destino == "incineracion" ){
@@ -221,6 +213,7 @@ jQuery( document ).ready( function() { //wait for the page to load
           }
 
           params.set('cuando', cuando);
+          params.set('CP', wpfcp);
 
           var url = params.toString();
 

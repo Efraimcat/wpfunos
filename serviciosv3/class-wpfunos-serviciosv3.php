@@ -29,6 +29,7 @@ class Wpfunos_ServiciosV3 {
     add_shortcode( 'wpfunos-v3-filtros-movil', array( $this, 'wpfunosV3FiltrosMovilShortcode' ));
     add_shortcode( 'wpfunos-v3-precio-zona-movil', array( $this, 'wpfunosV3PrecioZonaMovilShortcode' ));
     add_shortcode( 'wpfunos-v3-resultados-movil', array( $this, 'wpfunosV3ResultadosMovilShortcode' ));
+    add_shortcode( 'wpfunos-v3-cambiar-distancia', array( $this, 'wpfunosV3CambiarDistanciaShortcode' ));
 
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_multiform', function () { $this->wpfunosV3Multiform();});
     add_action('wp_ajax_wpfunos_ajax_v3_multiform', function () {$this->wpfunosV3Multiform();});
@@ -139,21 +140,32 @@ class Wpfunos_ServiciosV3 {
 
       ?><script>console.log('Direcciones especiales comprobadas.' );</script><?php
 
-      $nonce = wp_create_nonce("wpfunos_serviciosv3_nonce".apply_filters('wpfunos_userIP','dummy'));
       mt_srand(time());
       $newref = 'funos-'.(string)mt_rand();
       $address = $_GET['address'][0];
       $cp = $_GET['CP'];
       $CP = $this->wpfunosCodigoPostal( $cp, $address );
 
+      $IP = apply_filters('wpfunos_userIP','dummy');
+      $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
+      $nonce = wp_create_nonce("wpfunos_serviciosv3_nonce".$IP );
+
       $_GET['AttsV3'] = 'wpfn|' .$nonce. '
-      wpfip|' .apply_filters('wpfunos_userIP','dummy'). '
+      wpfip|' .$IP. '
       wpfnewref|' .$newref. '
       wpfcp|' .$CP. '
       wpfubic|' .$address.'
       wpfdist|' .$_GET['distance']. '
       wpflat|' .$_GET['lat']. '
-      wpflng|' .$_GET['lng'] ;
+      wpflng|' .$_GET['lng']. '
+      wpfnombre|' .$transient_ref['wpfn']. '
+      wpfemail|' .$transient_ref['wpfe']. '
+      wpftelefono|' .$transient_ref['wpft']. '
+      wpfcuando|' .$transient_ref['wpfcuando']. '
+      wpfresp1|' .$transient_ref['wpfresp1']. '
+      wpfresp2|' .$transient_ref['wpfresp2']. '
+      wpfresp3|' .$transient_ref['wpfresp3']. '
+      wpfresp4|' .$transient_ref['wpfresp4'] ;
 
       // Comprobar cookies
       $expiry = strtotime('+1 month');
@@ -189,21 +201,6 @@ class Wpfunos_ServiciosV3 {
           ?><script>console.log('Verificaciones entrada: SI tiene código wpf: Codigo wpf INCORRECTO');</script><?php
         }else{
           ?><script>console.log('Verificaciones entrada: SI tiene código wpf: Codigo wpf CORRECTO');</script><?php
-          /**
-          $transient_ref = get_transient('wpfunos-wpfref-v3-' .$wpfip );
-          ?>
-          <script type="text/javascript">
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfnombre", <?php echo $transient_ref['wpfn']; ?> );
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfemail", <?php echo $transient_ref['wpfe']; ?> );
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpftelefono", <?php echo $transient_ref['wpft']; ?> );
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfcuando", <?php echo $transient_ref['wpfcuando']; ?> ); //Ahora, Próximamente
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfdest", <?php echo $transient_ref['wpfresp1']; ?> ); //Entierro, Incineración
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfdest", <?php echo $transient_ref['resp2']; ?> ); //Entierro, Incineración
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfvela", <?php echo $transient_ref['resp3']; ?> ); //Velatorio, Sin velatorio
-          document.getElementById("wpf-resultados-referencia").setAttribute("wpfcere", <?php echo $transient_ref['resp4']; ?> ); //Sin ceremonia, Solo sala, Ceremonia civil, Ceremonia religiosa
-          </script>
-          <?php
-          */
           $Tienewpfwpf = true;
         }
       }
@@ -243,15 +240,24 @@ class Wpfunos_ServiciosV3 {
   * add_shortcode( 'wpfunos-v3-columna-izquierda', array( $this, 'wpfunosV3ColumnaIzquierdaShortcode' ));
   */
   public function wpfunosV3ColumnaIzquierdaShortcode($atts, $content = ""){
-    ?><script>console.log('Columna izquierda: $_GET cuando: <?php  echo $_GET['cuando']; ?>');</script><?php
     if( ! isset($_GET['cuando']) ) return;
+    if ( ! wp_is_mobile() ){
+      ?><script>console.log('Filtros desktop.' );</script><?php
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '84639' ); //Ventana Popup Esperando (loader2)
+      require 'js/wpfunos-v3-filtros-desktop.js';
+      ?><script>console.log('Filtros desktop END.' );</script><?php
+    }
   }
   /**
   * add_shortcode( 'wpfunos-v3-filtros-movil', array( $this, 'wpfunosV3FiltrosMovilShortcode' ));
   */
   public function wpfunosV3FiltrosMovilShortcode($atts, $content = ""){
-    ?><script>console.log('Filtros movil: $_GET cuando: <?php  echo $_GET['cuando']; ?>');</script><?php
     if( ! isset($_GET['cuando']) ) return;
+    if ( wp_is_mobile() ){
+      ?><script>console.log('Filtros movil.' );</script><?php
+
+      ?><script>console.log('Filtros movil END.' );</script><?php
+    }
   }
 
   /*********************************/
@@ -262,22 +268,12 @@ class Wpfunos_ServiciosV3 {
   */
   public function wpfunosV3ColumnaCentralShortcode($atts, $content = ""){
     if( ! isset($_GET['cuando']) ) return;
-    if ( ! wp_is_mobile() ){
-      ?><script>console.log('Resultados.' );</script><?php
-
-      ?><script>console.log('Fin Resultados.' );</script><?php
-    }
   }
   /**
   * add_shortcode( 'wpfunos-v3-resultados-movil', array( $this, 'wpfunosV3ResultadosMovilShortcode' ));
   */
   public function wpfunosV3ResultadosMovilShortcode($atts, $content = ""){
     if( ! isset($_GET['cuando']) ) return;
-    if ( wp_is_mobile() ){
-      ?><script>console.log('Resultados movil.' );</script><?php
-
-      ?><script>console.log('Fin Resultados movil.' );</script><?php
-    }
   }
 
   /*********************************/
@@ -337,7 +333,20 @@ class Wpfunos_ServiciosV3 {
       ?><h6 style="text-align: center;margin-top: 20px;border-style: solid;border-width: thin;padding: 20px;border-radius: 4px;">No hay datos de precio medio para la zona de <?php echo $address;?></h6><?php
     }
 
-    ?><script>console.log('Fin Precio medio zona.' );</script><?php
+    ?><script>console.log('Precio medio zona END.' );</script><?php
+  }
+
+  /*********************************/
+  /*****  CAMBIAR DISTANCIA   ******/
+  /*********************************/
+  /**
+  * add_shortcode( 'wpfunos-v3-cambiar-distancia', array( $this, 'wpfunosV3CambiarDistanciaShortcode' ));
+  */
+  public function wpfunosV3CambiarDistanciaShortcode($atts, $content = ""){
+    ?><script>console.log('Boton cambiar distancia.' );</script><?php
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '84639' ); //Ventana Popup Esperando (loader2)
+    require 'js/wpfunos-v3-ventana-distancia.js';
+    ?><script>console.log('Boton cambiar distancia END.' );</script><?php
   }
 
   /*********************************/
