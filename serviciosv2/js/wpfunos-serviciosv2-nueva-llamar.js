@@ -13,8 +13,8 @@ $(document).ready(function(){
         var titulo = document.getElementById("wpf-boton-llamar-" + servicio).getAttribute('wpftitulo');
         var wpnonce = document.getElementById("wpf-boton-llamar-" + servicio).getAttribute('wpfn');
         var precio = document.getElementById("wpf-boton-llamar-" + servicio).getAttribute('wpfp');
-        var distancia = document.getElementById("wpf-boton-llamar--" + servicio).getAttribute('wpfdistancia');
-        var telefono = document.getElementById("wpf-boton-llamar--" + servicio).getAttribute('wpftelefono');
+        var distancia = document.getElementById("wpf-boton-llamar-" + servicio).getAttribute('wpfdistancia');
+        var telefono = document.getElementById("wpf-boton-llamar-" + servicio).getAttribute('wpftelefono');
         console.log('Nueva entrada: Presupuesto. servicio: '+servicio+' titulo '+titulo+ ' telefono '+telefono );
 
         elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup

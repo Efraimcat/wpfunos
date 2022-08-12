@@ -10,6 +10,7 @@
 *
 * @param $gmw  ( array ) the form being useds
 */
+$IP = apply_filters('wpfunos_userIP','dummy');
 
 ?>
 <div class="gmw-results-inner">
@@ -18,7 +19,7 @@
 
 	<div class="wpfunos-search-results">
 
-		<div id="wpfunos-search-form-results"  name="wpfunos-v2-results"></div>
+		<div id="wpfunos-search-form-results"  name="wpfunos-v3-results"></div>
 
 		<?php if ( apply_filters('wpfunos_email_colaborador','dummy') ){ echo '<div id="wpf-es-colaborador" name="si"></div>'; }	?>
 
@@ -26,15 +27,16 @@
 
 			<?php
 
-			$transient_id = get_transient('wpfunos-wpfid-' .apply_filters('wpfunos_userIP','dummy') );
+			$transient_id = get_transient('wpfunos-wpfid-v3-' .$IP );
 
 			if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
 			|| $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
 
 				?><script>console.log('results.php: Transient not existent or not valid.' );</script><?php
 
-				do_action('wpfunos_resultv2_resultados', $gmw['results'] );
-				$transient_id = get_transient('wpfunos-wpfid-' .apply_filters('wpfunos_userIP','dummy') );
+				do_action('wpfunos_v3_crear_trans_resultados', $gmw['results'] );
+
+				$transient_id = get_transient('wpfunos-wpfid-v3-' .$IP );
 
 			}else{
 
@@ -54,71 +56,35 @@
 
 				<script type="text/javascript">
 
-				document.getElementById("wpf-resultados-cabecera-cuando").setAttribute("wpfcount",<?php echo (count($wpfunos_confirmado)+count($wpfunos_sinconfirmar)); ?>);
-				document.getElementById("wpf-resultados-cabecera-cuando").setAttribute("wpfmejorprecio",<?php echo $mas_barato; ?> + '€');
+				document.getElementById("wpf-resultados-referencia").setAttribute("wpfcount",<?php echo (count($wpfunos_confirmado)+count($wpfunos_sinconfirmar)); ?>);
+				document.getElementById("wpf-resultados-referencia").setAttribute("wpfmejorprecio",<?php echo $mas_barato; ?> + '€');
 
 				</script>
 
 			</div>
 
-			<?php
-
-			if ( $_GET['wpfvision'] == 'clear' ){
-
-				do_action( 'wpfunos_resultv2_grid_confirmado', $wpfunos_confirmado );
-				do_action( 'wpfunos_resultv2_grid_sinconfirmar', $wpfunos_sinconfirmar );
-
-			}else{
-
-				?>
-
-				<div id="wpfunos-resultados-contador-blur">
-
-					<?php if (count($wpfunos_confirmado) > 4 ){ ?>
-
-						<h6 style="text-align: center;font-weight: 500;font-size: 12px;">(Mostrando los primeros 5 resultados)</h6>
-
-					<?php }?>
-
-				</div>
+			<div id="wpfunos-resultados">
 
 				<?php
 
-				do_action( 'wpfunos_resultv2_blur_confirmado', $wpfunos_confirmado );
-				do_action( 'wpfunos_resultv2_blur_sinconfirmar', $wpfunos_sinconfirmar );
+				//do_action( 'wpfunos_v3_confirmado_dummy', $wpfunos_confirmado );
+				//do_action( 'wpfunos_v3_sinconfirmar_dummy', $wpfunos_sinconfirmar );
+				do_action( 'wpfunos_v3_confirmado', $wpfunos_confirmado );
+				do_action( 'wpfunos_v3_sinconfirmar', $wpfunos_sinconfirmar );
 
-			}
-			?>
+				?>
 
-			<?php if ( $_GET['wpfvision'] == 'clear' ){ ?>
+			</div>
 
-				<div class="wpfunos-search-results-map">
-
-					<?php echo do_shortcode( '[gmw_ajax_form map="7"]' ); ?>
-
-				</div>
-
-			<?php }else{ ?>
-
-				<div class="wpfunos-search-results-map" style="-webkit-filter: blur(10px);filter: blur(10px); pointer-events: none;">
-
-					<?php echo do_shortcode( '[gmw_ajax_form map="7"]' ); ?>
-
-				</div>
-
-			<?php } ?>
-
-			<div class="wpfunos-search-results-map" style="-webkit-filter: blur(10px);filter: blur(10px); pointer-events: none;">
+			<div class="wpfunos-search-results-map">
 
 				<?php echo do_shortcode( '[gmw_ajax_form map="8"]' ); ?>
 
 			</div>
 
-
 			<div id="wpfunos-resultados-despues-mapa" style="margin-bottom: 40px;"></div>
 
 		</div>
-
 
 	</div>
 

@@ -1,8 +1,11 @@
 <script type="text/javascript" id="wpfunos-v3-multistep">
-jQuery( document ).ready( function() { //wait for the page to load
-  /* You can do more here, this will just show the popup on refresh of page, but hey this is JQuery so you can do more things here depending on your condition to trigger the popup */
-  jQuery( window ).on( 'elementor/frontend/init', function() { //wait for elementor to load
-    elementorFrontend.on( 'components:init', function() { //wait for elementor pro to load
+$ = jQuery.noConflict();
+$(document).ready(function(){
+  $(function(){
+
+    setTimeout(function(){
+
+
       elementorFrontend.documentsManager.documents['89340'].showModal(); //show the popup Cuando
 
       var cuando = 'dummy';
@@ -217,9 +220,9 @@ jQuery( document ).ready( function() { //wait for the page to load
 
           var url = params.toString();
 
-          elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+          //elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
           $('#elementor-popup-modal-89354').hide();
-          elementorFrontend.documentsManager.documents['77005'].showModal(); //Ventana Popup Esperando (entrada datos GTM)
+          //elementorFrontend.documentsManager.documents['77005'].showModal(); //Ventana Popup Esperando (entrada datos GTM)
 
           jQuery.ajax({
             type : "post",
@@ -266,7 +269,7 @@ jQuery( document ).ready( function() { //wait for the page to load
       }
 
 
-    } );
+    }, 1000);
   } );
 } );
 </script>
