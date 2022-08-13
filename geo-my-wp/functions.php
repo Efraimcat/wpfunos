@@ -99,11 +99,9 @@ function wpf_admin_notice_warn() {
     echo '<div class="notice notice-warning is-dismissible">
     <p><strong>IMPORTANTE</strong>: <u>Entorno de desarrollo de funos.es</u></p>
     <p><strong>IMPORTANTE</strong>: El entorno de DESARROLLO se reinicia durante los primeros días de cada mes. Manten siempre una copia actualizada y documentada de todo tu trabajo.</p>
-    <p><strong>IMPORTANTE: Este fin de semana se va a refrescar test1 con los datos de producción.</strong></p>
-    <p><strong>IMPORTANTE: Es muy importante tener copia local del trabajo. Todos los cambios hechos en test1 desaparecerán</strong></p>
     </div>';
     echo '<div class="notice notice-warning is-dismissible">
-    <p><strong>Documentación</strong>: Hoja de cálculo con plantillas de <a href="https://docs.google.com/spreadsheets/d/1dDGNIhx5UCLK0-bYeM8y6Yp-QEn5GqHt9Wn6WOrj0UQ/edit?usp=sharing" target="_blank">"Funos Seguros"</a>.</p>
+    <p><strong>Documentación</strong>: Hoja de cálculo con plantillas de "<a href="https://docs.google.com/spreadsheets/d/1dDGNIhx5UCLK0-bYeM8y6Yp-QEn5GqHt9Wn6WOrj0UQ/edit?usp=sharing" target="_blank">Funos Seguros</a>".</p>
     </div>';
     if ( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && $_GET['post_type'] ==  'custom-css-js') {
       echo '<div class="notice notice-warning is-dismissible">
@@ -127,3 +125,19 @@ function jc_custom_upload_mimes( $existing_mimes = array() ) {
   $existing_mimes['svg'] = 'image/svg+xml';
   return $existing_mimes;
 }
+
+add_filter('add_to_cart_redirect', 'wpf_add_to_cart_redirect');
+function wpf_add_to_cart_redirect() {
+ global $woocommerce;
+ $wpf_redirect_checkout = $woocommerce->cart->get_checkout_url();
+ return $wpf_redirect_checkout;
+}
+
+// is logged in
+//
+function ajax_check_user_logged_in() {
+    echo is_user_logged_in()?'yes':'no';
+    die();
+}
+add_action('wp_ajax_is_user_logged_in', 'ajax_check_user_logged_in');
+add_action('wp_ajax_nopriv_is_user_logged_in', 'ajax_check_user_logged_in');
