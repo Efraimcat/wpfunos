@@ -4,7 +4,7 @@ Donate link: https://efraim.cat
 Tags: comments, spam
 Requires at least: 6.0.1
 Tested up to: 6.0.1
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
