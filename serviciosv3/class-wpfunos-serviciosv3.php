@@ -170,8 +170,8 @@ class Wpfunos_ServiciosV3 {
         if( apply_filters('wpfunos_reserved_email','dummy') ){  // usuario colaborador. Tomamos los datos de usuario de la entrada wpf
 
           ?><script>console.log('Verificaciones entrada: Colaborador');</script><?php
-
           $Tienewpfwpf = 1;
+
           if( $IDusuario == 0 ) {
             $nombre = $_COOKIE['wpfn'];
             $email = $_COOKIE['wpfe'];
@@ -192,8 +192,8 @@ class Wpfunos_ServiciosV3 {
 
           if( $_COOKIE['wpfn'] != '' ) { // tenemos sus datos
             ?><script>console.log('Verificaciones entrada: Usuario con cookies');</script><?php
-
             $Tienewpfwpf = 1;
+
             $nombre = $_COOKIE['wpfn'];
             $email = $_COOKIE['wpfe'];
             $phone = $_COOKIE['wpfe'];
@@ -243,13 +243,12 @@ class Wpfunos_ServiciosV3 {
         ElementorPro\Modules\Popup\Module::add_popup_to_location( '89351' ); //Servicios Multistep (4)
         ElementorPro\Modules\Popup\Module::add_popup_to_location( '89354' ); //Servicios Multistep (4)
 
-
         $this->wpfunosEntradaUbicacion();
 
         if( !isset($_GET['land'])){
           require 'js/wpfunos-v3-multistep.js';
         }else{
-          //require 'js/wpfunos-v3-multistep-land.js'; //viene de una landing. Solo preguntar cuando y datos personales.
+          require 'js/wpfunos-v3-multistep-land.js'; //viene de una landing. Solo preguntar cuando y datos personales.
         }
 
       }
@@ -770,6 +769,9 @@ class Wpfunos_ServiciosV3 {
     $wpflat = $_POST["wpflat"];
     $wpflng = $_POST["wpflng"];
 
+    $wpfataud = ( isset($_POST["wpfataud"]) ) ? $_POST["wpfataud"] : 'Económico' ;
+
+
     if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$wpfip ) ) {
       $result['type'] = "Bad nonce";
       $result = json_encode($result);
@@ -816,7 +818,7 @@ class Wpfunos_ServiciosV3 {
           'wpfunos_userNombreSeleccionUbicacion' => sanitize_text_field( $wpfubic ),
           'wpfunos_userNombreSeleccionDistancia' => sanitize_text_field( $wpfdist ),
           'wpfunos_userNombreSeleccionServicio' => sanitize_text_field( $wpfdestino ),
-          'wpfunos_userNombreSeleccionAtaud' => 'Económico',
+          'wpfunos_userNombreSeleccionAtaud' => sanitize_text_field( $wpfataud ),
           'wpfunos_userNombreSeleccionVelatorio' => sanitize_text_field( $wpfvelatorio ),
           'wpfunos_userNombreSeleccionDespedida' => sanitize_text_field( $wpfceremonia ),
           'wpfunos_userIP' => sanitize_text_field( $wpfip ),
@@ -855,7 +857,7 @@ class Wpfunos_ServiciosV3 {
         $mensaje = str_replace( '[distancia]' , $wpfdist , $mensaje );
         $mensaje = str_replace( '[CP]' , $wpfcp , $mensaje );
         $mensaje = str_replace( '[destino]' , $wpfdestino , $mensaje );
-        $mensaje = str_replace( '[ataud]' , 'Económico' , $mensaje );
+        $mensaje = str_replace( '[ataud]' , $wpfataud , $mensaje );
         $mensaje = str_replace( '[velatorio]' , $wpfvelatorio , $mensaje );
         $mensaje = str_replace( '[ceremonia]' , $wpfceremonia , $mensaje );
         if(!empty( get_option('wpfunos_mailCorreoCcov2Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcov2Admin' ) ;
@@ -909,18 +911,20 @@ class Wpfunos_ServiciosV3 {
     $transient_ref['wpflat'] = $wpflat;
     $transient_ref['wpflng'] = $wpflng;
     $transient_ref['wpfresp1'] = $wpfdestino;
-    $transient_ref['wpfresp2'] = 'Económico';
+    $transient_ref['wpfresp2'] = $wpfataud;
     $transient_ref['wpfresp3'] = $wpfvelatorio;
     $transient_ref['wpfresp4'] = $wpfceremonia;
     $transient_ref['wpforden'] = 'dist';
     $transient_ref['wpfcuando'] = $wpfcuando;
     $transient_ref['wpfurl'] = $URL;
     $transient_ref['wpfwpf'] = $wpfwpf;
-    set_transient( 'wpfunos-wpfref-v3-' .$wpfip, $transient_ref, DAY_IN_SECONDS );
+    $transient_ref['wpfwpf'] = (isset($_POST['wpfland'])) ? 1 : 0 ;
 
+    set_transient( 'wpfunos-wpfref-v3-' .$wpfip, $transient_ref, DAY_IN_SECONDS );
 
     $result['type'] = "success";
     $result['wpfurl'] = $URL;
+    $result['wpftrans'] = $transient_ref;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
