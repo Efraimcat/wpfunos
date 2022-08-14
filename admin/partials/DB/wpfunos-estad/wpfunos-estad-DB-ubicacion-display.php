@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasUbicacionVisitas','name' => 'wpfunos_estadistcasUbicacionVisitas','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
         </tr>
         <tr>
-          <td><?php esc_html_e('Visitas', 'wpfunos');?></td>
+          <td><?php esc_html_e('Versión', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasUbicacionVersion','name' => 'wpfunos_estadistcasUbicacionVersion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
         </tr>

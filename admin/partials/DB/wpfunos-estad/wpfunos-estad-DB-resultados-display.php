@@ -58,21 +58,6 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasResultadosResp4','name' => 'wpfunos_estadistcasResultadosResp4','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
         </tr>
         <tr>
-          <td><?php esc_html_e('Nombre', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasResultadosNombre','name' => 'wpfunos_estadistcasResultadosNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
-        </tr>
-        <tr>
-          <td><?php esc_html_e('Email', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasResultadosEmail','name' => 'wpfunos_estadistcasResultadosEmail','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
-        </tr>
-        <tr>
-          <td><?php esc_html_e('Teléfono', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasResultadosPhone','name' => 'wpfunos_estadistcasResultadosPhone','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
-        </tr>
-        <tr>
           <td><?php esc_html_e('Landing', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasResultadosLand','name' => 'wpfunos_estadistcasResultadosLand','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>

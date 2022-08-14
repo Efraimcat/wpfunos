@@ -21,9 +21,6 @@ $estadistcasResultadosResp1 = sanitize_text_field( $_POST['wpfunos_estadistcasRe
 $estadistcasResultadosResp2 = sanitize_text_field( $_POST['wpfunos_estadistcasResultadosResp2'] );
 $estadistcasResultadosResp3 = sanitize_text_field( $_POST['wpfunos_estadistcasResultadosResp3'] );
 $estadistcasResultadosResp4 = sanitize_text_field( $_POST['wpfunos_estadistcasResultadosResp4'] );
-$estadistcasResultadosNombre = sanitize_text_field( $_POST['wpfunos_estadistcasResultadosNombre'] );
-$estadistcasResultadosEmail = sanitize_text_field( $_POST['wpfunos_estadistcasResultadosEmail'] );
-$estadistcasResultadosPhone = sanitize_text_field( $_POST['wpfunos_estadistcasResultadosPhone'] );
 $estadistcasResultadosLand = sanitize_text_field( $_POST['wpfunos_estadistcasResultadosLand'] );
 $estadistcasResultadosVisitas = sanitize_text_field( $_POST['wpfunos_estadistcasResultadosVisitas'] );
 $estadistcasResultadosVersion = sanitize_text_field( $_POST['wpfunos_estadistcasResultadosVersion'] );
@@ -37,9 +34,6 @@ update_post_meta($post_id, 'wpfunos_estadistcasResultadosResp1', $estadistcasRes
 update_post_meta($post_id, 'wpfunos_estadistcasResultadosResp2', $estadistcasResultadosResp2);
 update_post_meta($post_id, 'wpfunos_estadistcasResultadosResp3', $estadistcasResultadosResp3);
 update_post_meta($post_id, 'wpfunos_estadistcasResultadosResp4', $estadistcasResultadosResp4);
-update_post_meta($post_id, 'wpfunos_estadistcasResultadosNombre', $estadistcasResultadosNombre);
-update_post_meta($post_id, 'wpfunos_estadistcasResultadosEmail', $estadistcasResultadosEmail);
-update_post_meta($post_id, 'wpfunos_estadistcasResultadosPhone', $estadistcasResultadosPhone);
 update_post_meta($post_id, 'wpfunos_estadistcasResultadosLand', $estadistcasResultadosLand);
 update_post_meta($post_id, 'wpfunos_estadistcasResultadosVisitas', $estadistcasResultadosVisitas);
 update_post_meta($post_id, 'wpfunos_estadistcasResultadosVersion', $estadistcasResultadosVersion);

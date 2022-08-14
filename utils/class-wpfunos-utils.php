@@ -490,8 +490,8 @@ class Wpfunos_Utils {
   * https://developers.google.com/identity/gsi/web/guides/overview
   */
   public function wpfunos_SIWG_init(){
-    $pagina = get_the_ID();
-    if( 1734 !== $pagina && 37332 !== $pagina && 56915 !== $pagina && 56988 !== $pagina && 58520 !== $pagina) return false;
+    $pagina = get_the_ID();// 1734 = v1 , 37332 = aseguradoras,  58520 = v2 result, 56915 = v2 entrada, 89167 = v3 entrada, 89187 = v3 resultados, 56988 = ??
+    if( 1734 !== $pagina && 37332 !== $pagina &&  89167 !== $pagina && 89187 !== $pagina ) return false;
     if (is_user_logged_in()) return false;
     echo '<script src="https://accounts.google.com/gsi/client" async defer></script>
     <div id="g_id_onload" data-client_id="336511646507-dejbd1hln47qavqi0ncnq6hd0v2pdafl.apps.googleusercontent.com" data-context="use"

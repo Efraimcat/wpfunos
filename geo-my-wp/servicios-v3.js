@@ -1,0 +1,665 @@
+$ = jQuery.noConflict();
+$(document).ready(function(){
+  $(function(){
+    var params = new URLSearchParams(location.search);
+
+    var elementsLlamamos = document.getElementsByClassName("wpf-v3-boton-llamamos");
+    var elementsLlamar = document.getElementsByClassName("wpf-v3-boton-llamar");
+    var elementsPresupuesto = document.getElementsByClassName("wpf-v3-boton-presupuesto");
+    var elementsDetalles = document.getElementsByClassName("wpf-v3-boton-detalles");
+
+    //
+
+    [document.getElementById("wpfunos-v3-distancia-boton"), document.getElementById("wpfunos-v3-distancia-texto"), document.getElementById("wpfunos-v3-distancia-boton-movil"), document.getElementById("wpfunos-v3-distancia-texto-movil") ].forEach(function(element) {
+      element.addEventListener('click', wpfdistancia, false);
+    });
+
+    //
+
+    document.getElementById("wpfunos-v3-donde-boton").addEventListener('click', function(){
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      window.location.href = "/comparar-precios-nueva";
+    } , false);
+
+    document.getElementById("wpfunos-v3-donde-texto").addEventListener('click', function(){
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      window.location.href = "/comparar-precios-nueva";
+    } , false);
+
+    document.getElementById("wpfunos-v3-donde-texto").innerHTML = document.getElementById("wpf-resultados-referencia").getAttribute("wpfubic");
+
+    document.getElementById("wpfunos-v3-donde-boton-movil").addEventListener('click', function(){
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      window.location.href = "/comparar-precios-nueva";
+    } , false);
+
+    document.getElementById("wpfunos-v3-donde-texto-movil").addEventListener('click', function(){
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      window.location.href = "/comparar-precios-nueva";
+    } , false);
+
+    document.getElementById("wpfunos-v3-donde-texto-movil").innerHTML = document.getElementById("wpf-resultados-referencia").getAttribute("wpfubic");
+
+    //
+
+    document.getElementById("wpfunos-v3-cuando-boton").addEventListener('click', function(){
+      if( params.get('cuando') == 'Ahora'){
+        params.set('cuando', 'Próximamente');
+      }else{
+        params.set('cuando', 'Ahora');
+      }
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      window.location.search = params.toString();
+    } , false);
+
+    document.getElementById("wpfunos-v3-cuando-texto").addEventListener('click', function(){
+      if( params.get('cuando') == 'Ahora'){
+        params.set('cuando', 'Próximamente');
+      }else{
+        params.set('cuando', 'Ahora');
+      }
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      window.location.search = params.toString();
+    } , false);
+
+    document.getElementById("wpfunos-v3-cuando-boton-movil").addEventListener('click', function(){
+      if( params.get('cuando') == 'Ahora'){
+        params.set('cuando', 'Próximamente');
+      }else{
+        params.set('cuando', 'Ahora');
+      }
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      window.location.search = params.toString();
+    } , false);
+
+    document.getElementById("wpfunos-v3-cuando-texto-movil").addEventListener('click', function(){
+      if( params.get('cuando') == 'Ahora'){
+        params.set('cuando', 'Próximamente');
+      }else{
+        params.set('cuando', 'Ahora');
+      }
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      window.location.search = params.toString();
+    } , false);
+
+    //
+
+    var orden = params.get('orden');
+
+    if( params.get('orden') === 'precios'){
+      document.getElementById("wpfunos-titulo-orden").innerHTML = 'Resultados ordenados por precio.';
+      document.getElementById("wpfunos-boton-precio").innerHTML = 'Distancia';
+    }else{
+      document.getElementById("wpfunos-titulo-orden").innerHTML = 'Resultados ordenados por distancia.';
+      document.getElementById("wpfunos-boton-precio").innerHTML = 'Precio';
+    }
+
+    document.getElementById("wpfunos-boton-precio").addEventListener('click', function(){
+      console.log('click cambiar orden');
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+      if( orden == 'dist' ){
+        params.set('orden', 'precios' );
+        window.location.search = params.toString();
+      }else{
+        params.set('orden', 'dist' );
+        window.location.search = params.toString();
+      }
+    }, false);
+
+    if( params.get('orden') === 'precios'){
+      document.getElementById("wpfunos-titulo-orden-movil").innerHTML = 'Resultados ordenados por precio.';
+      document.getElementById("wpfunos-boton-precio-movil").innerHTML = 'Distancia';
+    }else{
+      document.getElementById("wpfunos-titulo-orden-movil").innerHTML = 'Resultados ordenados por distancia.';
+      document.getElementById("wpfunos-boton-precio-movil").innerHTML = 'Precio';
+    }
+
+    document.getElementById("wpfunos-boton-precio-movil").addEventListener('click', function(){
+      console.log('click cambiar orden');
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+      if( orden == 'dist' ){
+        params.set('orden', 'precios' );
+        window.location.search = params.toString();
+      }else{
+        params.set('orden', 'dist' );
+        window.location.search = params.toString();
+      }
+    }, false);
+
+    //
+
+    if( params.get('cf[resp1]') == '1' ){
+      document.getElementById("wpfunos-boton-destino-entierro").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-destino-entierro").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-destino-entierro").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-destino-entierro-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-destino-entierro-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-destino-entierro-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp1]') == '2' ){
+      document.getElementById("wpfunos-boton-destino-incineracion").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-destino-incineracion").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-destino-incineracion").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-destino-incineracion-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-destino-incineracion-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-destino-incineracion-movil").style.borderStyle="none" ;
+    }
+
+    if( params.get('cf[resp2]') == '1' ){
+      document.getElementById("wpfunos-boton-ataud-normal").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ataud-normal").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ataud-normal").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-ataud-normal-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ataud-normal-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ataud-normal-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp2]') == '2' ){
+      document.getElementById("wpfunos-boton-destino-economico").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-destino-economico").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-destino-economico").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-destino-economico-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-destino-economico-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-destino-economico-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp2]') == '3' ){
+      document.getElementById("wpfunos-boton-destino-premium").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-destino-premium").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-destino-premium").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-destino-premium-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-destino-premium-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-destino-premium-movil").style.borderStyle="none" ;
+    }
+
+    if( params.get('cf[resp3]') == '1' ){
+      document.getElementById("wpfunos-boton-velatorio-si").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-velatorio-si").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-velatorio-si").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-velatorio-si-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-velatorio-si-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-velatorio-si-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp3]') == '2' ){
+      document.getElementById("wpfunos-boton-velatorio-no").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-velatorio-no").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-velatorio-no").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-velatorio-no-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-velatorio-no-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-velatorio-no-movil").style.borderStyle="none" ;
+    }
+
+    if( params.get('cf[resp4]') == '1' ){
+      document.getElementById("wpfunos-boton-ceremonia-sin").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ceremonia-sin").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ceremonia-sin").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-ceremonia-sin-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ceremonia-sin-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ceremonia-sin-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp4]') == '2' ){
+      document.getElementById("wpfunos-boton-ceremonia-sala").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ceremonia-sala").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ceremonia-sala").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-ceremonia-sala-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ceremonia-sala-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ceremonia-sala-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp4]') == '3' ){
+      document.getElementById("wpfunos-boton-ceremonia-civil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ceremonia-civil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ceremonia-civil").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-ceremonia-civil-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ceremonia-civil-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ceremonia-civil-movil").style.borderStyle="none" ;
+    }
+    if( params.get('cf[resp4]') == '4' ){
+      document.getElementById("wpfunos-boton-ceremonia-religiosa").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ceremonia-religiosa").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ceremonia-religiosa").style.borderStyle="none" ;
+      document.getElementById("wpfunos-boton-ceremonia-religiosa-movil").style.backgroundColor = "rgb(57, 194, 243)";
+      document.getElementById("wpfunos-boton-ceremonia-religiosa-movil").style.color = "rgb(255, 255, 255)";
+      document.getElementById("wpfunos-boton-ceremonia-religiosa-movil").style.borderStyle="none" ;
+    }
+
+    [ document.getElementById("wpfunos-boton-destino-entierro"), document.getElementById("wpfunos-boton-destino-incineracion"), document.getElementById("wpfunos-boton-destino-entierro-movil"), document.getElementById("wpfunos-boton-destino-incineracion-movil") ].forEach(function(element) {
+      element.addEventListener('click', wpfFunctionResp , false);
+      element.resp = 'resp1';
+    });
+    document.getElementById("wpfunos-boton-destino-entierro").opcion = '1';
+    document.getElementById("wpfunos-boton-destino-incineracion").opcion = '2';
+    document.getElementById("wpfunos-boton-destino-entierro-movil").opcion = '1';
+    document.getElementById("wpfunos-boton-destino-incineracion-movil").opcion = '2';
+
+    //
+
+    [ document.getElementById("wpfunos-boton-ataud-normal"), document.getElementById("wpfunos-boton-destino-economico"), document.getElementById("wpfunos-boton-destino-premium"), document.getElementById("wpfunos-boton-ataud-normal-movil"), document.getElementById("wpfunos-boton-destino-economico-movil"), document.getElementById("wpfunos-boton-destino-premium-movil") ].forEach(function(element) {
+      element.addEventListener('click', wpfFunctionResp , false);
+      element.resp = 'resp2';
+    });
+    document.getElementById("wpfunos-boton-ataud-normal").opcion = '1';
+    document.getElementById("wpfunos-boton-destino-economico").opcion = '2';
+    document.getElementById("wpfunos-boton-destino-premium").opcion = '3';
+    document.getElementById("wpfunos-boton-ataud-normal-movil").opcion = '1';
+    document.getElementById("wpfunos-boton-destino-economico-movil").opcion = '2';
+    document.getElementById("wpfunos-boton-destino-premium-movil").opcion = '3';
+
+    //
+
+    [ document.getElementById("wpfunos-boton-velatorio-si"), document.getElementById("wpfunos-boton-velatorio-no"), document.getElementById("wpfunos-boton-velatorio-si-movil"), document.getElementById("wpfunos-boton-velatorio-no-movil") ].forEach(function(element) {
+      element.addEventListener('click', wpfFunctionResp , false);
+      element.resp = 'resp3';
+    });
+    document.getElementById("wpfunos-boton-velatorio-si").opcion = '1';
+    document.getElementById("wpfunos-boton-velatorio-no").opcion = '2';
+    document.getElementById("wpfunos-boton-velatorio-si-movil").opcion = '1';
+    document.getElementById("wpfunos-boton-velatorio-no-movil").opcion = '2';
+
+    //
+
+    [ document.getElementById("wpfunos-boton-ceremonia-sin"), document.getElementById("wpfunos-boton-ceremonia-sala"), document.getElementById("wpfunos-boton-ceremonia-civil"), document.getElementById("wpfunos-boton-ceremonia-religiosa"), document.getElementById("wpfunos-boton-ceremonia-sin-movil"), document.getElementById("wpfunos-boton-ceremonia-sala-movil"), document.getElementById("wpfunos-boton-ceremonia-civil-movil"), document.getElementById("wpfunos-boton-ceremonia-religiosa-movil") ].forEach(function(element) {
+      element.addEventListener('click', wpfFunctionResp , false);
+      element.resp = 'resp4';
+    });
+    document.getElementById("wpfunos-boton-ceremonia-sin").opcion = '1';
+    document.getElementById("wpfunos-boton-ceremonia-sala").opcion = '2';
+    document.getElementById("wpfunos-boton-ceremonia-civil").opcion = '3';
+    document.getElementById("wpfunos-boton-ceremonia-religiosa").opcion = '4';
+    document.getElementById("wpfunos-boton-ceremonia-sin-movil").opcion = '1';
+    document.getElementById("wpfunos-boton-ceremonia-sala-movil").opcion = '2';
+    document.getElementById("wpfunos-boton-ceremonia-civil-movil").opcion = '3';
+    document.getElementById("wpfunos-boton-ceremonia-religiosa-movil").opcion = '4';
+
+    //
+
+    for (var i = 0; i < elementsLlamamos.length; i++) {
+      elementsLlamamos[i].addEventListener('click', wpfFunctionLlamamos, false);
+    }
+    for (var i = 0; i < elementsLlamar.length; i++) {
+      elementsLlamar[i].addEventListener('click', wpfFunctionLlamar, false);
+    }
+    for (var i = 0; i < elementsPresupuesto.length; i++) {
+      elementsPresupuesto[i].addEventListener('click', wpfFunctionPresupuesto, false);
+    }
+    for (var i = 0; i < elementsDetalles.length; i++) {
+      elementsDetalles[i].addEventListener('click', wpfFunctionDetalles, false);
+    }
+
+    // Multistep Form
+
+    var checkExist = setInterval(function() {
+      if (document.getElementById("wpf-resultados-referencia").hasAttribute("wpfmultistep") ) {
+        console.log("Lanzar Multistep Form");
+        clearInterval(checkExist);
+
+        elementorFrontend.documentsManager.documents['89340'].showModal(); //show the popup Cuando
+
+        var cuando = 'dummy';
+        var destino = 'dummy';
+        var velatorio = 'dummy';
+        var ceremonia = 'dummy';
+
+        [ document.getElementById("wpfunos-multistep-ahora"), document.getElementById("wpfunos-multistep-ahora-icon")].forEach(function(element) {
+          element.addEventListener('click', function() {
+            cuando = 'Ahora';
+            console.log('cuando: Ahora');
+
+            if( document.getElementById("wpf-resultados-referencia").getAttribute("wpfland") == '1'){
+              document.getElementById("elementor-popup-modal-89340").style.display = "none"
+              elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup datos usuario
+              document.getElementById("wpfunos-v3-enviar-datos").addEventListener('click', wpfdatosusuario, false);
+            }else{
+              document.getElementById("elementor-popup-modal-89340").style.display = "none"
+              elementorFrontend.documentsManager.documents['89344'].showModal(); //show the popup Destino
+
+              [ document.getElementById("wpfunos-multistep-entierro"),document.getElementById("wpfunos-multistep-entierro-icon")  ].forEach(function(element) {
+                element.addEventListener('click', wpfentierro, false);
+              });
+              [ document.getElementById("wpfunos-multistep-incineracion"),document.getElementById("wpfunos-multistep-incineracion-icon"), document.getElementById("wpfunos-multistep-nolose"), document.getElementById("wpfunos-multistep-nolose-icon")].forEach(function(element) {
+                element.addEventListener('click', wpfincineracion, false);
+              });
+            }
+          }, false);
+        });
+
+        [ document.getElementById("wpfunos-multistep-prox"),document.getElementById("wpfunos-multistep-prox-icon") ].forEach(function(element) {
+          element.addEventListener('click', function() {
+            cuando = 'Próximamente';
+            console.log('cuando: Proximamente');
+
+            if( document.getElementById("wpf-resultados-referencia").getAttribute("wpfland") == '1'){
+              document.getElementById("elementor-popup-modal-89340").style.display = "none"
+              elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup datos usuario
+              document.getElementById("wpfunos-v3-enviar-datos").addEventListener('click', wpfdatosusuario, false);
+            }else{
+              document.getElementById("elementor-popup-modal-89340").style.display = "none"
+              elementorFrontend.documentsManager.documents['89344'].showModal(); //show the popup Destino
+
+              [ document.getElementById("wpfunos-multistep-entierro"),document.getElementById("wpfunos-multistep-entierro-icon")  ].forEach(function(element) {
+                element.addEventListener('click', wpfentierro, false);
+              });
+              [ document.getElementById("wpfunos-multistep-incineracion"),document.getElementById("wpfunos-multistep-incineracion-icon"), document.getElementById("wpfunos-multistep-nolose"), document.getElementById("wpfunos-multistep-nolose-icon")].forEach(function(element) {
+                element.addEventListener('click', wpfincineracion, false);
+              });
+            }
+          }, false);
+        });
+
+        var wpfentierro = function() {
+          destino = 'Entierro';
+          console.log('destino: entierro');
+
+          document.getElementById("elementor-popup-modal-89344").style.display = "none";
+          elementorFrontend.documentsManager.documents['89348'].showModal(); //show the popup Velatorio
+
+          [ document.getElementById("wpfunos-multistep-velatorio"),document.getElementById("wpfunos-multistep-velatorio-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfvelatorio, false);
+          });
+          [ document.getElementById("wpfunos-multistep-sinvelatorio"),document.getElementById("wpfunos-multistep-sinvelatorio-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfsinvelatorio, false);
+          });
+        }
+
+        var wpfincineracion = function() {
+          destino = 'Incineración';
+          console.log('destino: incineracion');
+
+          document.getElementById("elementor-popup-modal-89344").style.display = "none";
+          elementorFrontend.documentsManager.documents['89348'].showModal(); //show the popup Velatorio
+
+          [ document.getElementById("wpfunos-multistep-velatorio"),document.getElementById("wpfunos-multistep-velatorio-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfvelatorio, false);
+          });
+          [ document.getElementById("wpfunos-multistep-sinvelatorio"),document.getElementById("wpfunos-multistep-sinvelatorio-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfsinvelatorio, false);
+          });
+        }
+        //
+        //
+        var wpfvelatorio = function() {
+          velatorio = 'Velatorio';
+          console.log('velatorio: si');
+
+          document.getElementById("elementor-popup-modal-89348").style.display = "none";
+          elementorFrontend.documentsManager.documents['89351'].showModal(); //show the popup Ceremonia
+
+          [ document.getElementById("wpfunos-multistep-sinceremonia"),document.getElementById("wpfunos-multistep-sinceremonia-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfsinceremonia, false);
+          });
+          [ document.getElementById("wpfunos-multistep-solosala"),document.getElementById("wpfunos-multistep-solosala-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfsolosala, false);
+          });
+          [ document.getElementById("wpfunos-multistep-civil"),document.getElementById("wpfunos-multistep-civil-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfcivil, false);
+          });
+          [ document.getElementById("wpfunos-multistep-religiosa"),document.getElementById("wpfunos-multistep-religiosa-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfreligiosa, false);
+          });
+
+        }
+
+        var wpfsinvelatorio = function() {
+          velatorio = 'Sin velatorio';
+          console.log('velatorio: no');
+
+          document.getElementById("elementor-popup-modal-89348").style.display = "none";
+          elementorFrontend.documentsManager.documents['89351'].showModal(); //show the popup Ceremonia
+
+          [ document.getElementById("wpfunos-multistep-sinceremonia"),document.getElementById("wpfunos-multistep-sinceremonia-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfsinceremonia, false);
+          });
+          [ document.getElementById("wpfunos-multistep-solosala"),document.getElementById("wpfunos-multistep-solosala-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfsolosala, false);
+          });
+          [ document.getElementById("wpfunos-multistep-civil"),document.getElementById("wpfunos-multistep-civil-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfcivil, false);
+          });
+          [ document.getElementById("wpfunos-multistep-religiosa"),document.getElementById("wpfunos-multistep-religiosa-icon")  ].forEach(function(element) {
+            element.addEventListener('click', wpfreligiosa, false);
+          });
+
+        }
+        //
+        var wpfsinceremonia = function() {
+          ceremonia = 'Sin ceremonia';
+          console.log('ceremonia: no');
+
+          document.getElementById("elementor-popup-modal-89351").style.display = "none";
+          elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
+          document.getElementById("wpfunos-v3-enviar-datos").addEventListener('click', wpfdatosusuario, false);
+
+        }
+
+        var wpfsolosala = function() {
+          ceremonia = 'Solo sala';
+          console.log('ceremonia: sala');
+
+          document.getElementById("elementor-popup-modal-89351").style.display = "none";
+          elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
+          document.getElementById("wpfunos-v3-enviar-datos").addEventListener('click', wpfdatosusuario, false);
+        }
+
+        var wpfcivil = function() {
+          ceremonia = 'Ceremonia civil';
+          console.log('ceremonia: civil');
+
+          document.getElementById("elementor-popup-modal-89351").style.display = "none";
+          elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
+          document.getElementById("wpfunos-v3-enviar-datos").addEventListener('click', wpfdatosusuario, false);
+        }
+
+        var wpfreligiosa = function() {
+          ceremonia = 'Ceremonia religiosa';
+          console.log('ceremonia: religiosa');
+
+          document.getElementById("elementor-popup-modal-89351").style.display = "none";
+          elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
+          document.getElementById("wpfunos-v3-enviar-datos").addEventListener('click', wpfdatosusuario, false);
+        }
+
+        //
+        //
+        var wpfdatosusuario = function() {
+          console.log('click botón enviar datos');
+          var nombre = document.getElementById("form-field-Nombre").value;
+          var email = document.getElementById("form-field-Email").value;
+          var telefono = document.getElementById("form-field-Telefono").value;
+          var acepta = document.getElementById("form-field-aceptacion").validity.valueMissing;  //(true = no ha validado  false = ha validado)
+          if( nombre != '' && email != '' && telefono != '' && !acepta ){
+            console.log('Finalmente: Cuando ' +cuando+ ', Destino ' +destino+ ', Velatorio ' +velatorio+ ' , Ceremonia ' +ceremonia+ ', Nombre ' +nombre+ ' , Email ' +email+ ' , Teléfono ' +telefono);
+            console.log('datos correctos. creando entrada.');
+
+            var date = new Date();
+            date.setTime(date.getTime() + (30*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+            document.cookie = "wpfn=" + nombre + expires + "; path=/; SameSite=Lax; secure";
+            document.cookie = "wpfe=" + email + expires + "; path=/; SameSite=Lax; secure";
+            document.cookie = "wpft=" + telefono + expires + "; path=/; SameSite=Lax; secure";
+
+            var ip = document.getElementById("wpf-resultados-referencia").getAttribute("wpfip");
+            var wpnonce = document.getElementById("wpf-resultados-referencia").getAttribute("wpfn");
+            var wpfnewref = document.getElementById("wpf-resultados-referencia").getAttribute("wpfnewref");
+            var wpfcp = document.getElementById("wpf-resultados-referencia").getAttribute("wpfcp");
+            var wpfubic = document.getElementById("wpf-resultados-referencia").getAttribute("wpfubic");
+            var wpfdist = document.getElementById("wpf-resultados-referencia").getAttribute("wpfdist");
+            var wpflat = document.getElementById("wpf-resultados-referencia").getAttribute("wpflat");
+            var wpflng = document.getElementById("wpf-resultados-referencia").getAttribute("wpflng");
+
+            if( document.getElementById("wpf-resultados-referencia").getAttribute("wpfland") == '1'){
+              destino = params.get('cf[resp1]');
+              velatorio = params.get('cf[resp3]');
+              ceremonia = params.get('cf[resp4]');
+            }else{
+              if ( destino == "incineracion" ){
+                params.set('cf[resp1]', '2');
+              }
+              if ( destino == "entierro" ){
+                params.set('cf[resp1]', '1');
+              }
+              if ( velatorio =='si' ){
+                params.set('cf[resp3]', '1');
+              }
+              if ( velatorio =='no' ){
+                params.set('cf[resp3]', '2');
+              }
+              if ( ceremonia =='no' ){
+                params.set('cf[resp4]', '1');
+              }
+              if ( ceremonia =='sala' ){
+                params.set('cf[resp4]', '2');
+              }
+              if( ceremonia =='civil' ){
+                params.set('cf[resp4]', '3');
+              }
+              if( ceremonia =='religiosa' ){
+                params.set('cf[resp4]', '4');
+              }
+            }
+            ataud =  params.get('cf[resp2]');
+
+            params.set('cuando', cuando);
+            params.set('CP', wpfcp);
+
+            var url = params.toString();
+
+            elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+            $('#elementor-popup-modal-89354').hide();
+            elementorFrontend.documentsManager.documents['77005'].showModal(); //Ventana Popup Esperando (entrada datos GTM)
+
+            jQuery.ajax({
+              type : "post",
+              dataType : "json",
+              url : WpfAjax.ajaxurl,
+              data: {
+                "action": "wpfunos_ajax_v3_multiform",
+                "wpfnombre": nombre,
+                "wpfemail": email,
+                "wpftelefono": telefono,
+                "wpfurl" : url,
+                "wpnonce" : wpnonce,
+                "wpfip" : ip,
+                "wpfnewref" : wpfnewref,
+                "wpfcuando" : cuando,
+                "wpfdestino" : destino,
+                "wpfataud" : ataud,
+                "wpfvelatorio" : velatorio,
+                "wpfceremonia" : ceremonia,
+                "wpfcp" : wpfcp,
+                "wpfubic" : wpfubic,
+                "wpfdist" : wpfdist,
+                "wpflat" : wpflat,
+                "wpflng" : wpflng,
+                "wpfland" : document.getElementById("wpf-resultados-referencia").getAttribute("wpfland"),
+              },
+              success: function(response) {
+                console.log(response)	;
+                if(response.type == "success") {
+                  console.log('success');
+                  window.location.href = response.wpfurl;
+                } else {
+                  if(response.type == "unwanted") {
+                    console.log('unwanted');
+                    window.location.href = "/";
+                  }else{
+                    console.log('fail');
+                    window.location.href = "/";
+                  }
+                }
+              }
+            });
+          }
+        }
+      }
+    }, 100); // check every 100ms
+    // Multistep Form END
+  }); // Function END
+}); // Document ready END
+
+
+var wpfFunctionLlamamos = function() {
+  var wpnonce = this.getAttribute("wpfn");
+  var servicio = this.getAttribute("wpfid");
+  var precio = this.getAttribute("wpfp");
+  var titulo = this.getAttribute("wpftitulo");
+  var distancia = this.getAttribute("wpfdistancia");
+  var telefono = this.getAttribute("wpftelefono");
+
+  console.log('Botón Llamamos: Servicio: '+servicio+' Título: '+titulo );
+
+  elementorFrontend.documentsManager.documents['56684'].showModal(); //show the popup
+
+  document.getElementById("wpfunos-modal-llamen-titulo").innerHTML = titulo;
+  document.getElementById("wpfunos-modal-llamen-telefono").innerHTML = document.getElementById("wpf-resultados-referencia").getAttribute("wpftelefono");
+  document.getElementById("wpfunos-modal-llamen-telefono-movil").innerHTML = document.getElementById("wpf-resultados-referencia").getAttribute("wpftelefono");
+
+}
+
+var wpfFunctionLlamar = function() {
+  var wpnonce = this.getAttribute("wpfn");
+  var servicio = this.getAttribute("wpfid");
+  var precio = this.getAttribute("wpfp");
+  var titulo = this.getAttribute("wpftitulo");
+  var distancia = this.getAttribute("wpfdistancia");
+  var telefono = this.getAttribute("wpftelefono");
+
+  console.log('Botón Llamar: Servicio: '+servicio+' Título: '+titulo );
+
+}
+
+var wpfFunctionPresupuesto = function() {
+  var wpnonce = this.getAttribute("wpfn");
+  var servicio = this.getAttribute("wpfid");
+  var precio = this.getAttribute("wpfp");
+  var titulo = this.getAttribute("wpftitulo");
+  var distancia = this.getAttribute("wpfdistancia");
+  var telefono = this.getAttribute("wpftelefono");
+
+  console.log('Botón Presupuesto: Servicio: '+servicio+' Título: '+titulo );
+
+}
+
+var wpfFunctionDetalles = function() {
+  var wpnonce = this.getAttribute("wpfn");
+  var servicio = this.getAttribute("wpfid");
+  var precio = this.getAttribute("wpfp");
+  var titulo = this.getAttribute("wpftitulo");
+  var distancia = this.getAttribute("wpfdistancia");
+  var telefono = this.getAttribute("wpftelefono");
+
+  console.log('Botón Detalles: Servicio: '+servicio+' Título: '+titulo );
+
+}
+
+var wpfdistancia = function() {
+  // 1 second delay
+  setTimeout(function(){
+    console.log("Formulario cambiar distancia");
+    document.getElementById("wpfunos-v3-boton-formulario-distancia").addEventListener('click', function(){
+      console.log('click botón cambiar distancia');
+      var newdistance = document.getElementById("form-field-nuevadistancia").value;
+      if( newdistance != ''){
+        $('#wpfunos-formulario-nueva-distancia').hide();
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+        document.getElementById("elementor-popup-modal-89948").style.display = "none"
+        if( parseInt(newdistance) < 5 ) newdistance = '5';
+        if( parseInt(newdistance) > 200 ) newdistance = '200';
+        var params = new URLSearchParams(location.search);
+        params.set('distance', newdistance );
+        window.location.search = params.toString();
+      }
+    }, false);
+  }, 1000);
+}
+
+function wpfFunctionResp(evt){
+  var params = new URLSearchParams(location.search);
+  console.log( 'click botón '+evt.currentTarget.resp+' '+evt.currentTarget.opcion);
+  if( params.get('cf['+evt.currentTarget.resp+']') != evt.currentTarget.opcion){
+    elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+    params.set('cf['+evt.currentTarget.resp+']', evt.currentTarget.opcion );
+    if( params.get('cf[resp3]') == '2' && params.get('cf[resp4]') == '1' && parseInt(params.get('distance')) < 100 ){
+      console.log('Cambiando distancia 100km y orden a precios.')
+      params.set('distance', '100' );
+      params.set('orden', 'precios' );
+    }
+    window.location.search = params.toString();
+  }
+}
