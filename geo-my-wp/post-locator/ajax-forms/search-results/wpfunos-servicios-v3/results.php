@@ -32,7 +32,7 @@ $IP = apply_filters('wpfunos_userIP','dummy');
 			if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
 			|| $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
 
-				?><script>console.log('results.php: Transient not existent or not valid.' );</script><?php
+				/** ?><script>console.log('results.php: Transient not existent or not valid.' );</script><?php **/
 
 				do_action('wpfunos_v3_crear_trans_resultados', $gmw['results'] );
 
@@ -40,7 +40,7 @@ $IP = apply_filters('wpfunos_userIP','dummy');
 
 			}else{
 
-				?><script>console.log('results.php: Valid transient.' );</script><?php
+				/** ?><script>console.log('results.php: Valid transient.' );</script><?php **/
 
 			}
 
