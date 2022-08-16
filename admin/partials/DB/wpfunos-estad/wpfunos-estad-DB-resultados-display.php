@@ -63,6 +63,11 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasResultadosLand','name' => 'wpfunos_estadistcasResultadosLand','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
         </tr>
         <tr>
+          <td><?php esc_html_e('URI', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasResultadosURI','name' => 'wpfunos_estadistcasResultadosURI','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
+        </tr>
+        <tr>
           <td><?php esc_html_e('Visitas', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_estadistcasResultadosVisitas','name' => 'wpfunos_estadistcasResultadosVisitas','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>

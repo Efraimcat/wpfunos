@@ -113,7 +113,7 @@ class Wpfunos_ServiciosV3 {
 
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&land=1
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&wpfwpf=a3Q0Uld1M0RxY1RSTjcrMStLT3VadzZsSm45RGpnRHhXSHM2elhTZlJrbz0=
-      /** ?><script>console.log('Cargando popups Elementor.' );</script><?php **/
+      ?><script>console.log('Cargando popups Elementor.' );</script><?php
 
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '47448' ); //Servicios Enviar Email
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '56672' ); //Servicio Detalles
@@ -128,9 +128,9 @@ class Wpfunos_ServiciosV3 {
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '89351' ); //Servicios Multistep (4)
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '89354' ); //Servicios Multistep (5)
 
-      /** ?><script>console.log('Cargando popups Elementor END.' );</script><?php **/
+      ?><script>console.log('Cargando popups Elementor END.' );</script><?php
 
-      /** ?><script>console.log('Comprobando direcciones especiales.' );</script><?php **/
+      ?><script>console.log('Comprobando direcciones especiales.' );</script><?php
 
       // Excepción provincia
       $nueva_distancia = 0;
@@ -180,7 +180,7 @@ class Wpfunos_ServiciosV3 {
       }
       // END Excepción provincia
 
-      /** ?><script>console.log('Comprobando direcciones especiales END.' );</script><?php **/
+      ?><script>console.log('Comprobando direcciones especiales END.' );</script><?php
 
       // Comprobar cookies
       $expiry = strtotime('+1 month');
@@ -208,18 +208,18 @@ class Wpfunos_ServiciosV3 {
       // No tiene wpfwpf
       if( !isset( $_GET['wpfwpf'] ) ) {
 
-        /** ?><script>console.log('Verificaciones entrada: NO tiene código wpf' );</script><?php **/
+        ?><script>console.log('Verificaciones entrada: NO tiene código wpf' );</script><?php
 
       }else{
 
         $wpfwpf = apply_filters( 'wpfunos_crypt', $_GET['wpfwpf'], 'd' );
         $IDusuario = apply_filters('wpfunos_userID', $wpfwpf );
 
-        /** ?><script>console.log('Verificaciones entrada: SI tiene código wpf: <?php  echo $wpfwpf; ?> => <?php  echo $IDusuario; ?>' );</script><?php **/
+        ?><script>console.log('Verificaciones entrada: SI tiene código wpf: <?php  echo $wpfwpf; ?> => <?php  echo $IDusuario; ?>' );</script><?php
 
         if( apply_filters('wpfunos_reserved_email','dummy') ){  // usuario colaborador. Tomamos los datos de usuario de la entrada wpf
 
-          /** ?><script>console.log('Verificaciones entrada: Colaborador');</script><?php **/
+          ?><script>console.log('Verificaciones entrada: Colaborador');</script><?php
           $Tienewpfwpf = 1;
 
           if( $IDusuario == 0 ) {
@@ -234,14 +234,14 @@ class Wpfunos_ServiciosV3 {
 
         }elseif( $IDusuario == 0 ) {  // tiene código pero no existe.
 
-          /** ?><script>console.log('Verificaciones entrada: SI tiene código wpf: Codigo wpf INCORRECTO');</script><?php **/
+          ?><script>console.log('Verificaciones entrada: Codigo wpf INCORRECTO');</script><?php
 
         }else{  // es un usuario normal
 
-          /** ?><script>console.log('Verificaciones entrada: Usuario');</script><?php **/
+          ?><script>console.log('Verificaciones entrada: Usuario');</script><?php
 
           if( $_COOKIE['wpfn'] != '' ) { // tenemos sus datos
-            /** ?><script>console.log('Verificaciones entrada: Usuario con cookies');</script><?php **/
+            ?><script>console.log('Verificaciones entrada: Usuario con cookies');</script><?php
             $Tienewpfwpf = 1;
 
             $nombre = $_COOKIE['wpfn'];
@@ -251,8 +251,12 @@ class Wpfunos_ServiciosV3 {
           }
 
         }
+
       }
       // END comprobar veracidad de wpfwpf
+
+      ?><script>console.log('Verificaciones entrada: $Tienewpfwpf: <?php  echo $Tienewpfwpf; ?> ' );</script><?php
+
       //$_GET['poblacion'] = $_GET['address'][0];
       $IP = apply_filters('wpfunos_userIP','dummy');
       $nonce = wp_create_nonce("wpfunos_serviciosv3_nonce".$IP );
@@ -286,7 +290,7 @@ class Wpfunos_ServiciosV3 {
       // Actualizar transient
       if( $Tienewpfwpf == 1 ){
         $transient_ref = get_transient('wpfunos-wpfref-' .$IP );
-        /** ?><script>console.log('Transient búsqueda actualizar.' );</script><?php **/
+        ?><script>console.log('Transient búsqueda actualizar.' );</script><?php
 
         $transient_ref['wpfref'] = $wpfwpf;
         $transient_ref['wpfip'] = $IP;
@@ -310,14 +314,14 @@ class Wpfunos_ServiciosV3 {
 
         set_transient( 'wpfunos-wpfref-v3-' .$IP, $transient_ref, DAY_IN_SECONDS );
 
-        /** ?><script>console.log('Transient búsqueda actualizar END.' );</script><?php **/
+        ?><script>console.log('Transient búsqueda actualizar END.' );</script><?php
       }
       // Actualizar transient END
 
       // No tiene entrada usuario
       if( !isset( $_GET['cuando'] ) || $Tienewpfwpf == 0 ){
 
-        /** ?><script>console.log('Sin entrada de usuario.' );</script><?php **/
+        ?><script>console.log('Sin entrada de usuario.' );</script><?php
 
         $this->wpfunosEntradaResultados(); //registro entrada página resultados antes de entrar datos personales
 
@@ -341,7 +345,7 @@ class Wpfunos_ServiciosV3 {
       }
       // END No tiene entrada usuario
 
-    }
+    } //END count($_GET) > 0
 
   }
 
@@ -353,9 +357,9 @@ class Wpfunos_ServiciosV3 {
   */
   public function wpfunosV3ColumnaCentralShortcode($atts, $content = ""){
     if( ! isset($_GET['cuando']) ) return;
-    /** ?><script>console.log('Resultados.' );</script><?php **/
+    ?><script>console.log('Resultados.' );</script><?php
     echo do_shortcode( '[gmw_ajax_form search_results="8"]' );
-    /** ?><script>console.log('Resultados END.' );</script><?php **/
+    ?><script>console.log('Resultados END.' );</script><?php
   }
 
   /*********************************/
@@ -365,7 +369,7 @@ class Wpfunos_ServiciosV3 {
   * add_shortcode( 'wpfunos-v3-columna-derecha', array( $this, 'wpfunosV3ColumnaDerechaShortcode' ));
   */
   public function wpfunosV3ColumnaDerechaShortcode($atts, $content = ""){
-    /** ?><script>console.log('Precio medio zona.' );</script><?php **/
+    ?><script>console.log('Precio medio zona.' );</script><?php
 
     $respuesta = $this->wpfunosFiltros();
     //case '1': $result['resp1'] = array( 'desc' => 'Destino', 'inicial' => 'E', 'texto' => 'Entierro' ); break;
@@ -403,7 +407,7 @@ class Wpfunos_ServiciosV3 {
       ?><h6 style="text-align: center;margin-top: 20px;border-style: solid;border-width: thin;padding: 20px;border-radius: 4px;">No hay datos de precio medio para la zona de <?php echo $address;?></h6><?php
     }
 
-    /** ?><script>console.log('Precio medio zona END.' );</script><?php **/
+    ?><script>console.log('Precio medio zona END.' );</script><?php
   }
 
 
@@ -727,13 +731,12 @@ class Wpfunos_ServiciosV3 {
         'wpfunos_estadistcasResultadosReferer' => sanitize_text_field( $_SERVER['HTTP_REFERER'] ),
         'wpfunos_estadistcasResultadosDireccion' => sanitize_text_field( $_GET['address'][0] ),
         'wpfunos_estadistcasResultadosDistancia' => sanitize_text_field( $_GET['distance'] ),
-
         'wpfunos_estadistcasResultadosResp1' => $resp1,
         'wpfunos_estadistcasResultadosResp2' => $resp2,
         'wpfunos_estadistcasResultadosResp3' => $resp3,
         'wpfunos_estadistcasResultadosResp4' => $resp4,
         'wpfunos_estadistcasResultadosLand' => $_GET['land'],
-
+        'wpfunos_estadistcasResultadosURI' => esc_url_raw( $_SERVER['REQUEST_URI'] ),
         'wpfunos_estadistcasResultadosVisitas' => $contador ,
         'wpfunos_estadistcasResultadosVersion' => 'v3',
         'wpfunos_Dummy' => true,
@@ -1078,10 +1081,121 @@ class Wpfunos_ServiciosV3 {
       die();
     }
 
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax Servicio Boton llamen' );
+    do_action('wpfunos_log', 'Ajax: wpfnombre ' .$transient_ref['wpfn'] );
+    do_action('wpfunos_log', 'Ajax: wpfemail ' .$transient_ref['wpfe'] );
+    do_action('wpfunos_log', 'Ajax: wpftelefono ' .$transient_ref['wpft'] );
+    do_action('wpfunos_log', 'Ajax: IP ' .$IP );
+    do_action('wpfunos_log', 'Ajax: Servicio titulo: ' . $titulo );
+    do_action('wpfunos_log', 'Ajax: Servicio ' . $servicio );
 
+    if( ! apply_filters('wpfunos_reserved_email','dummy') ){
 
+      switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = 'Entierro'; break; case '2': $destino = 'I' ; $nombredestino = 'Incineración'; break; }
+      switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = 'Ataúd medio'; break; case '2': $ataud = 'E' ; $nombreataud = 'Ataúd económico'; break; case '3': $ataud = 'P' ; $nombreataud = 'Ataúd premium'; break; }
+      switch( $transient_ref['wpfresp3'] ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
+      switch( $transient_ref['wpfresp4'] ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
+
+      $telefono = str_replace(" ","",$transient_ref['wpft']);
+      $tel =  substr($telefono,0,3). ' ' .substr($telefono,3,2). ' ' .substr($telefono,5,2). ' ' .substr($telefono,7,2) ;
+
+      mt_srand(time());
+      $newref = 'funos-'.(string)mt_rand();
+
+      $my_post = array(
+        'post_title' => $newref,
+        'post_type' => 'usuarios_wpfunos',
+        'post_status'  => 'publish',
+        'meta_input'   => array(
+          'wpfunos_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+          'wpfunos_userMail' => sanitize_text_field( $transient_ref['wpfe'] ),
+          'wpfunos_userReferencia' => sanitize_text_field( $newref ),
+          'wpfunos_userName' => sanitize_text_field( $transient_ref['wpfn'] ),
+          'wpfunos_userPhone' => sanitize_text_field( $tel ),
+          'wpfunos_userCP' => sanitize_text_field( $transient_ref['wpfcp'] ),
+          'wpfunos_userAccion' => '1',
+          'wpfunos_userNombreAccion' => 'Botón llamamos servicios',
+          'wpfunos_userNombreSeleccionUbicacion' => sanitize_text_field( $transient_ref['wpfadr'] ),
+          'wpfunos_userNombreSeleccionDistancia' => sanitize_text_field( $transient_ref['wpfdist'] ),
+          'wpfunos_userNombreSeleccionServicio' => sanitize_text_field( $nombredestino ),
+          'wpfunos_userNombreSeleccionAtaud' => sanitize_text_field( $nombreataud ),
+          'wpfunos_userNombreSeleccionVelatorio' => sanitize_text_field( $nombrevelatorio  ),
+          'wpfunos_userNombreSeleccionDespedida' => sanitize_text_field( $nombredespedida ),
+          'wpfunos_userServicio' => sanitize_text_field( $servicio ),
+          'wpfunos_userServicioEnviado' => true,
+          'wpfunos_userAceptaPolitica' => true,
+          'wpfunos_userServicioTitulo' => sanitize_text_field( get_the_title( $servicio ) ),
+          'wpfunos_userServicioEmpresa' => sanitize_text_field( get_post_meta( $servicio, 'wpfunos_servicioEmpresa', true ) ),
+          'wpfunos_userServicioPoblacion' => sanitize_text_field( get_post_meta( $servicio, 'wpfunos_servicioPoblacion', true ) ),
+          'wpfunos_userServicioProvincia' => sanitize_text_field( get_post_meta( $servicio, 'wpfunos_servicioProvincia', true ) ),
+          'wpfunos_userPrecio' => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
+          'wpfunos_userComentarios' => wp_kses_post( $mensajeusuario ),
+          'wpfunos_userIP' => sanitize_text_field( $IP ),
+          'wpfunos_userLAT' => sanitize_text_field( $transient_ref['wpflat'] ),
+          'wpfunos_userLNG' => sanitize_text_field( $transient_ref['wpflng'] ),
+          'wpfunos_userPluginVersion' => sanitize_text_field( $this->version ),
+          'wpfunos_Dummy' => true,
+        ),
+      );
+
+      $post_id = wp_insert_post($my_post);
+
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', '1. - Botón Te llamamos servicio' );
+      do_action('wpfunos_log', 'userIP: ' . $IP );
+      do_action('wpfunos_log', 'Nombre: ' .  $transient_ref['wpfn'] );
+      do_action('wpfunos_log', 'referencia: ' . $newref );
+      do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
+
+      if( get_option('wpfunos_activarCorreoBoton1v2Admin') ){
+        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1v2Admin'), get_option('wpfunos_asuntoCorreoBoton1v2Admin') );
+
+        $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
+        $mensaje = str_replace( '[nombreUsuario]' , $transient_ref['wpfn'] , $mensaje );
+        $mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
+        $mensaje = str_replace( '[referencia]' , $newref , $mensaje );
+        $mensaje = str_replace( '[IP]' , $IP , $mensaje );
+        $mensaje = str_replace( '[poblacion]' , $transient_ref['wpfadr'] , $mensaje );
+        $mensaje = str_replace( '[CP]' , $transient_ref['wpfcp'] , $mensaje );
+        $mensaje = str_replace( '[destino]' , $nombredestino , $mensaje );
+        $mensaje = str_replace( '[ataud]' , $nombreataud , $mensaje );
+        $mensaje = str_replace( '[velatorio]' ,$nombrevelatorio , $mensaje );
+        $mensaje = str_replace( '[ceremonia]' , $nombredespedida , $mensaje );
+        $mensaje = str_replace( '[precio]' , number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€' , $mensaje );
+        $mensaje = str_replace( '[nombreServicio]' , $titulo , $mensaje );
+        $mensaje = str_replace( '[telefonoServicio]' , get_post_meta( $servicio, "wpfunos_servicioTelefono", true)  , $mensaje );
+        $mensaje = str_replace( '[comentarios]' , get_post_meta( $servicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) , $mensaje );
+        $mensaje = str_replace( '[comentariosUsuario]' , apply_filters('wpfunos_comentario', $mensajeusuario ) , $mensaje );
+
+        $mensaje = str_replace( '[logoServicio]' , wp_get_attachment_image (  get_post_meta( $servicio, 'wpfunos_servicioLogo', true ) , 'full' ) , $mensaje );
+        $mensaje = str_replace( '[imagenconfirmado]' , wp_get_attachment_image ( 83459 , 'full') , $mensaje );
+        $mensaje = str_replace( '[nombrepack]' , get_post_meta( $servicio, 'wpfunos_servicioPackNombre', true ) , $mensaje );
+        $mensaje = str_replace( '[textoprecio]' , get_post_meta( $servicio, 'wpfunos_servicioTextoPrecio', true ) , $mensaje );
+
+        if(!empty( get_option('wpfunos_mailCorreoCcoBoton1v2Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1v2Admin' ) ;
+        if(!empty( get_option('wpfunos_mailCorreoBccBoton1v2Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1v2Admin' ) ;
+        //wp_mail (  get_post_meta( $_POST['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton1v2Admin') , $mensaje, $headers );
+        wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoBoton1v2Admin') , $mensaje, $headers );
+        update_post_meta( $post_id, 'wpfunos_userLead', true );
+
+        do_action('wpfunos_log', '==============' );
+        //do_action('wpfunos_log', 'Enviado correo lead1 ' . get_post_meta( $_POST['servicio'], 'wpfunos_servicioEmail', true ) );
+        do_action('wpfunos_log', 'Enviado correo lead1 efraim@efraim.cat' );
+        do_action('wpfunos_log', 'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoBoton1v2Admin' ) ) );
+        do_action('wpfunos_log', 'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccBoton1v2Admin' ) ) );
+        do_action('wpfunos_log', 'userIP: ' . $IP );
+        do_action('wpfunos_log', 'Nombre: ' . $transient_ref['wpfn'] );
+        do_action('wpfunos_log', '$referencia: ' . $newref );
+
+      }
+
+    }
 
     $result['type'] = "success";
+    $result['newref'] = $newref;
+    $result['transient'] = $transient_ref;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -1121,10 +1235,121 @@ class Wpfunos_ServiciosV3 {
       die();
     }
 
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax Servicio Boton llamar' );
+    do_action('wpfunos_log', 'Ajax: wpfnombre ' .$transient_ref['wpfn'] );
+    do_action('wpfunos_log', 'Ajax: wpfemail ' .$transient_ref['wpfe'] );
+    do_action('wpfunos_log', 'Ajax: wpftelefono ' .$transient_ref['wpft'] );
+    do_action('wpfunos_log', 'Ajax: IP ' .$IP );
+    do_action('wpfunos_log', 'Ajax: Servicio titulo: ' . $titulo );
+    do_action('wpfunos_log', 'Ajax: Servicio ' . $servicio );
 
+    if( ! apply_filters('wpfunos_reserved_email','dummy') ){
 
+      switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = 'Entierro'; break; case '2': $destino = 'I' ; $nombredestino = 'Incineración'; break; }
+      switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = 'Ataúd medio'; break; case '2': $ataud = 'E' ; $nombreataud = 'Ataúd económico'; break; case '3': $ataud = 'P' ; $nombreataud = 'Ataúd premium'; break; }
+      switch( $transient_ref['wpfresp3'] ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
+      switch( $transient_ref['wpfresp4'] ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
+
+      $telefono = str_replace(" ","",$transient_ref['wpft']);
+      $tel =  substr($telefono,0,3). ' ' .substr($telefono,3,2). ' ' .substr($telefono,5,2). ' ' .substr($telefono,7,2) ;
+
+      mt_srand(time());
+      $newref = 'funos-'.(string)mt_rand();
+
+      $my_post = array(
+        'post_title' => $newref,
+        'post_type' => 'usuarios_wpfunos',
+        'post_status'  => 'publish',
+        'meta_input'   => array(
+          'wpfunos_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+          'wpfunos_userMail' => sanitize_text_field( $transient_ref['wpfe'] ),
+          'wpfunos_userReferencia' => sanitize_text_field( $newref ),
+          'wpfunos_userName' => sanitize_text_field( $transient_ref['wpfn'] ),
+          'wpfunos_userPhone' => sanitize_text_field( $tel ),
+          'wpfunos_userCP' => sanitize_text_field( $transient_ref['wpfcp'] ),
+          'wpfunos_userAccion' => '2',
+          'wpfunos_userNombreAccion' => 'Botón llamar servicios',
+          'wpfunos_userNombreSeleccionUbicacion' => sanitize_text_field( $transient_ref['wpfadr'] ),
+          'wpfunos_userNombreSeleccionDistancia' => sanitize_text_field( $transient_ref['wpfdist'] ),
+          'wpfunos_userNombreSeleccionServicio' => sanitize_text_field( $nombredestino ),
+          'wpfunos_userNombreSeleccionAtaud' => sanitize_text_field( $nombreataud ),
+          'wpfunos_userNombreSeleccionVelatorio' => sanitize_text_field( $nombrevelatorio  ),
+          'wpfunos_userNombreSeleccionDespedida' => sanitize_text_field( $nombredespedida ),
+          'wpfunos_userServicio' => sanitize_text_field( $servicio ),
+          'wpfunos_userServicioEnviado' => true,
+          'wpfunos_userAceptaPolitica' => true,
+          'wpfunos_userServicioTitulo' => sanitize_text_field( get_the_title( $servicio ) ),
+          'wpfunos_userServicioEmpresa' => sanitize_text_field( get_post_meta( $servicio, 'wpfunos_servicioEmpresa', true ) ),
+          'wpfunos_userServicioPoblacion' => sanitize_text_field( get_post_meta( $servicio, 'wpfunos_servicioPoblacion', true ) ),
+          'wpfunos_userServicioProvincia' => sanitize_text_field( get_post_meta( $servicio, 'wpfunos_servicioProvincia', true ) ),
+          'wpfunos_userPrecio' => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
+          'wpfunos_userComentarios' => wp_kses_post( $mensajeusuario ),
+          'wpfunos_userIP' => sanitize_text_field( $IP ),
+          'wpfunos_userLAT' => sanitize_text_field( $transient_ref['wpflat'] ),
+          'wpfunos_userLNG' => sanitize_text_field( $transient_ref['wpflng'] ),
+          'wpfunos_userPluginVersion' => sanitize_text_field( $this->version ),
+          'wpfunos_Dummy' => true,
+        ),
+      );
+
+      $post_id = wp_insert_post($my_post);
+
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', '2. - Botón llamar servicio' );
+      do_action('wpfunos_log', 'userIP: ' . $IP );
+      do_action('wpfunos_log', 'Nombre: ' .  $transient_ref['wpfn'] );
+      do_action('wpfunos_log', 'referencia: ' . $newref );
+      do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
+
+      if( get_option('wpfunos_activarCorreoBoton2v2Admin') ){
+        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2v2Admin'), get_option('wpfunos_asuntoCorreoBoton2v2Admin') );
+
+        $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
+        $mensaje = str_replace( '[nombreUsuario]' , $transient_ref['wpfn'] , $mensaje );
+        $mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
+        $mensaje = str_replace( '[referencia]' , $newref , $mensaje );
+        $mensaje = str_replace( '[IP]' , $IP , $mensaje );
+        $mensaje = str_replace( '[poblacion]' , $transient_ref['wpfadr'] , $mensaje );
+        $mensaje = str_replace( '[CP]' , $transient_ref['wpfcp'] , $mensaje );
+        $mensaje = str_replace( '[destino]' , $nombredestino , $mensaje );
+        $mensaje = str_replace( '[ataud]' , $nombreataud , $mensaje );
+        $mensaje = str_replace( '[velatorio]' ,$nombrevelatorio , $mensaje );
+        $mensaje = str_replace( '[ceremonia]' , $nombredespedida , $mensaje );
+        $mensaje = str_replace( '[precio]' , number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€' , $mensaje );
+        $mensaje = str_replace( '[nombreServicio]' , $titulo , $mensaje );
+        $mensaje = str_replace( '[telefonoServicio]' , get_post_meta( $servicio, "wpfunos_servicioTelefono", true)  , $mensaje );
+        $mensaje = str_replace( '[comentarios]' , get_post_meta( $servicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) , $mensaje );
+        $mensaje = str_replace( '[comentariosUsuario]' , apply_filters('wpfunos_comentario', $mensajeusuario ) , $mensaje );
+
+        $mensaje = str_replace( '[logoServicio]' , wp_get_attachment_image (  get_post_meta( $servicio, 'wpfunos_servicioLogo', true ) , 'full' ) , $mensaje );
+        $mensaje = str_replace( '[imagenconfirmado]' , wp_get_attachment_image ( 83459 , 'full') , $mensaje );
+        $mensaje = str_replace( '[nombrepack]' , get_post_meta( $servicio, 'wpfunos_servicioPackNombre', true ) , $mensaje );
+        $mensaje = str_replace( '[textoprecio]' , get_post_meta( $servicio, 'wpfunos_servicioTextoPrecio', true ) , $mensaje );
+
+        if(!empty( get_option('wpfunos_mailCorreoCcoBoton2v2Admin' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2v2Admin' ) ;
+        if(!empty( get_option('wpfunos_mailCorreoBccBoton2v2Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2v2Admin' ) ;
+        //wp_mail (  get_post_meta( $_POST['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoBoton2v2Admin') , $mensaje, $headers );
+        wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoBoton2v2Admin') , $mensaje, $headers );
+        update_post_meta( $post_id, 'wpfunos_userLead', true );
+
+        do_action('wpfunos_log', '==============' );
+        //do_action('wpfunos_log', 'Enviado correo lead2 ' . get_post_meta( $_POST['servicio'], 'wpfunos_servicioEmail', true ) );
+        do_action('wpfunos_log', 'Enviado correo lead2 efraim@efraim.cat' );
+        do_action('wpfunos_log', 'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoBoton2v2Admin' ) ) );
+        do_action('wpfunos_log', 'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccBoton2v2Admin' ) ) );
+        do_action('wpfunos_log', 'userIP: ' . "IP" );
+        do_action('wpfunos_log', 'Nombre: ' . $transient_ref['wpfn'] );
+        do_action('wpfunos_log', '$referencia: ' . $newref );
+
+      }
+
+    }
 
     $result['type'] = "success";
+    $result['newref'] = $newref;
+    $result['transient'] = $transient_ref;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -1145,7 +1370,7 @@ class Wpfunos_ServiciosV3 {
     $wpnonce = $_POST['wpnonce'];
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
-    $mensaje = $_POST['mensaje'];
+    $mensajeusuario = $_POST['mensaje'];
     $IP = apply_filters('wpfunos_userIP','dummy');
 
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
@@ -1165,9 +1390,123 @@ class Wpfunos_ServiciosV3 {
       die();
     }
 
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Llegada ajax Servicio Boton Presupuesto' );
+    do_action('wpfunos_log', 'Ajax: wpfnombre ' .$transient_ref['wpfn'] );
+    do_action('wpfunos_log', 'Ajax: wpfemail ' .$transient_ref['wpfe'] );
+    do_action('wpfunos_log', 'Ajax: wpftelefono ' .$transient_ref['wpft'] );
+    do_action('wpfunos_log', 'Ajax: IP ' .$IP );
+    do_action('wpfunos_log', 'Ajax: Servicio titulo: ' . $titulo );
+    do_action('wpfunos_log', 'Ajax: Servicio ' . $servicio );
+    do_action('wpfunos_log', 'Ajax: Mensaje: ' . $mensajeusuario );
 
+    if( ! apply_filters('wpfunos_reserved_email','dummy') ){
+
+      switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = 'Entierro'; break; case '2': $destino = 'I' ; $nombredestino = 'Incineración'; break; }
+      switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = 'Ataúd medio'; break; case '2': $ataud = 'E' ; $nombreataud = 'Ataúd económico'; break; case '3': $ataud = 'P' ; $nombreataud = 'Ataúd premium'; break; }
+      switch( $transient_ref['wpfresp3'] ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
+      switch( $transient_ref['wpfresp4'] ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
+
+      $telefono = str_replace(" ","",$transient_ref['wpft']);
+      $tel =  substr($telefono,0,3). ' ' .substr($telefono,3,2). ' ' .substr($telefono,5,2). ' ' .substr($telefono,7,2) ;
+
+      mt_srand(time());
+      $newref = 'funos-'.(string)mt_rand();
+
+      $my_post = array(
+        'post_title' => $newref,
+        'post_type' => 'usuarios_wpfunos',
+        'post_status'  => 'publish',
+        'meta_input'   => array(
+          'wpfunos_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+          'wpfunos_userMail' => sanitize_text_field( $transient_ref['wpfe'] ),
+          'wpfunos_userReferencia' => sanitize_text_field( $newref ),
+          'wpfunos_userName' => sanitize_text_field( $transient_ref['wpfn'] ),
+          'wpfunos_userPhone' => sanitize_text_field( $tel ),
+          'wpfunos_userCP' => sanitize_text_field( $transient_ref['wpfcp'] ),
+          'wpfunos_userAccion' => '5',
+          'wpfunos_userNombreAccion' => 'Botón pedir presupuesto',
+          'wpfunos_userNombreSeleccionUbicacion' => sanitize_text_field( $transient_ref['wpfadr'] ),
+          'wpfunos_userNombreSeleccionDistancia' => sanitize_text_field( $transient_ref['wpfdist'] ),
+          'wpfunos_userNombreSeleccionServicio' => sanitize_text_field( $nombredestino ),
+          'wpfunos_userNombreSeleccionAtaud' => sanitize_text_field( $nombreataud ),
+          'wpfunos_userNombreSeleccionVelatorio' => sanitize_text_field( $nombrevelatorio  ),
+          'wpfunos_userNombreSeleccionDespedida' => sanitize_text_field( $nombredespedida ),
+          'wpfunos_userServicio' => sanitize_text_field( $servicio ),
+          'wpfunos_userServicioEnviado' => true,
+          'wpfunos_userAceptaPolitica' => true,
+          'wpfunos_userServicioTitulo' => sanitize_text_field( get_the_title( $servicio ) ),
+          'wpfunos_userServicioEmpresa' => sanitize_text_field( get_post_meta( $servicio, 'wpfunos_servicioEmpresa', true ) ),
+          'wpfunos_userServicioPoblacion' => sanitize_text_field( get_post_meta( $servicio, 'wpfunos_servicioPoblacion', true ) ),
+          'wpfunos_userServicioProvincia' => sanitize_text_field( get_post_meta( $servicio, 'wpfunos_servicioProvincia', true ) ),
+          'wpfunos_userPrecio' => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
+          'wpfunos_userComentarios' => wp_kses_post( $mensajeusuario ),
+          'wpfunos_userIP' => sanitize_text_field( $IP ),
+          'wpfunos_userLAT' => sanitize_text_field( $transient_ref['wpflat'] ),
+          'wpfunos_userLNG' => sanitize_text_field( $transient_ref['wpflng'] ),
+          'wpfunos_userPluginVersion' => sanitize_text_field( $this->version ),
+          'wpfunos_Dummy' => true,
+        ),
+      );
+
+      $post_id = wp_insert_post($my_post);
+
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', '2. - Botón Prdir presupuesto' );
+      do_action('wpfunos_log', 'userIP: ' . $IP );
+      do_action('wpfunos_log', 'Nombre: ' .  $transient_ref['wpfn'] );
+      do_action('wpfunos_log', 'referencia: ' . $newref );
+      do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
+
+      if( get_option('wpfunos_activarCorreoPresupuestoLead') ){
+        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestoLead'), get_option('wpfunos_asuntoCorreoPresupuestoLead') );
+
+        $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
+        $mensaje = str_replace( '[nombreUsuario]' , $transient_ref['wpfn'] , $mensaje );
+        $mensaje = str_replace( '[telefonoUsuario]' , $tel , $mensaje );
+        $mensaje = str_replace( '[referencia]' , $newref , $mensaje );
+        $mensaje = str_replace( '[IP]' , $IP , $mensaje );
+        $mensaje = str_replace( '[poblacion]' , $transient_ref['wpfadr'] , $mensaje );
+        $mensaje = str_replace( '[CP]' , $transient_ref['wpfcp'] , $mensaje );
+        $mensaje = str_replace( '[destino]' , $nombredestino , $mensaje );
+        $mensaje = str_replace( '[ataud]' , $nombreataud , $mensaje );
+        $mensaje = str_replace( '[velatorio]' ,$nombrevelatorio , $mensaje );
+        $mensaje = str_replace( '[ceremonia]' , $nombredespedida , $mensaje );
+        $mensaje = str_replace( '[precio]' , number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€' , $mensaje );
+        $mensaje = str_replace( '[nombreServicio]' , $titulo , $mensaje );
+        $mensaje = str_replace( '[telefonoServicio]' , get_post_meta( $servicio, "wpfunos_servicioTelefono", true)  , $mensaje );
+        $mensaje = str_replace( '[comentarios]' , get_post_meta( $servicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) , $mensaje );
+        $mensaje = str_replace( '[comentariosUsuario]' , apply_filters('wpfunos_comentario', $mensajeusuario ) , $mensaje );
+
+        $mensaje = str_replace( '[logoServicio]' , wp_get_attachment_image (  get_post_meta( $servicio, 'wpfunos_servicioLogo', true ) , 'full' ) , $mensaje );
+        $mensaje = str_replace( '[imagenconfirmado]' , wp_get_attachment_image ( 83459 , 'full') , $mensaje );
+        $mensaje = str_replace( '[nombrepack]' , get_post_meta( $servicio, 'wpfunos_servicioPackNombre', true ) , $mensaje );
+        $mensaje = str_replace( '[textoprecio]' , get_post_meta( $servicio, 'wpfunos_servicioTextoPrecio', true ) , $mensaje );
+
+        if(!empty( get_option('wpfunos_mailCorreoCcoPresupuestoLead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPresupuestoLead' ) ;
+        if(!empty( get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ;
+
+        //wp_mail (  get_post_meta( $_POST['servicio'], 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoPresupuestoLead') , $mensaje, $headers );
+        wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoPresupuestoLead') , $mensaje, $headers );
+        update_post_meta( $post_id, 'wpfunos_userLead', true );
+
+        do_action('wpfunos_log', '==============' );
+        //do_action('wpfunos_log', 'Enviado correo pedir presupuesto ' . get_post_meta( $_POST['servicio'], 'wpfunos_servicioEmail', true ) );
+        do_action('wpfunos_log', 'Enviado correo pedir presupuesto efraim@efraim.cat' );
+        do_action('wpfunos_log', 'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoPresupuestoLead' ) ) );
+        do_action('wpfunos_log', 'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ) );
+        do_action('wpfunos_log', 'userIP: ' . "IP" );
+        do_action('wpfunos_log', 'Nombre: ' . $transient_ref['wpfn'] );
+        do_action('wpfunos_log', '$referencia: ' . $transient_ref['wpfref'] );
+
+      }
+
+    }
 
     $result['type'] = "success";
+    $result['newref'] = $newref;
+    $result['transient'] = $transient_ref;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
