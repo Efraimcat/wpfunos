@@ -12,6 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/aseguradoras
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
+//<div id="anchor-planificacion"></div>
+//<div id="anchor-prima-unica"></div>
+//<div id="anchor-prima-natural"></div>
+//<div id="anchor-prima-nivelada"></div>
+//<div id="anchor-prima-semi-natural"></div>
+//<h4 style="color: #00ccff;">
 class Wpfunos_Aseguradoras {
 
   private $plugin_name;
@@ -178,54 +184,59 @@ class Wpfunos_Aseguradoras {
     if ( $my_query->have_posts() ) :
 
       while ( $my_query->have_posts() ) :
+
         $my_query->the_post();
         $temp_query = $wp_query;  // store it
         $IDtipo = get_the_ID();
-        ?><div class="wpfunos-titulo-aseguradoras" id="<?php echo str_replace(" ","-", get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ) ); ?>"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
-        ?> <div class="clear"></div><?php
-        ?><div class="wpfunos-busqueda-contenedor"><?php
-        echo do_shortcode( get_post_meta( $IDtipo, 'wpfunos_tipoSeguroComentario', true ) );
-        ?></div><?php
+        if( get_post_meta( $IDtipo, 'wpfunos_tipoSeguroActivo' , true ) ){
+          ?><div class="wpfunos-titulo-aseguradoras" id="<?php echo str_replace(" ","-", get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ) ); ?>"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
+          ?> <div class="clear"></div><?php
+          ?><div class="wpfunos-busqueda-contenedor wpfunos-busqueda-contenedor-argumentario"><?php
+          echo do_shortcode( get_post_meta( $IDtipo, 'wpfunos_tipoSeguroComentario', true ) );
+          ?></div><?php
 
-        $args = array(
-          'post_status' => 'publish',
-          'post_type' => 'aseguradoras_wpfunos',
-          'meta_query' => array(
-            array(
-              'key'     => 'wpfunos_aseguradorasTipoSeguro',
-              'value'   => $IDtipo,
-              'compare' => 'IN',
+          $args = array(
+            'post_status' => 'publish',
+            'post_type' => 'aseguradoras_wpfunos',
+            'meta_query' => array(
+              array(
+                'key'     => 'wpfunos_aseguradorasTipoSeguro',
+                'value'   => $IDtipo,
+                'compare' => 'IN',
+              ),
             ),
-          ),
-          'meta_key'   => 'wpfunos_aseguradorasOrden',
-          'orderby'    => 'meta_value_num',
-          "order" => 'ASC'
-        );
-        $wp_query = new WP_Query($args);
-        while ($wp_query->have_posts()) :
-          $wp_query->the_post();
-          $IDaseguradora = get_the_ID();
-          if( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasActivo', true ) ){
-            ?><div class="wpfunos-busqueda-contenedor"><?php
-            $titulo = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNombre', true );
-            $_GET['nombre'] = $titulo;
-            $_GET['telefonoEmpresa'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasTelefono', true );
-            $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo', true ) ,'full' );
-            $_GET['AttsLlamen'] = $IDaseguradora.'
-            data-wpnonce|' . $nonce .'
-            wpusuario|' . $IDusuario.'
-            wptitulo|' .$titulo.'
-            wpftelus|' .$telefonoUsuario;
+            'meta_key'   => 'wpfunos_aseguradorasOrden',
+            'orderby'    => 'meta_value_num',
+            "order" => 'ASC'
+          );
+          $wp_query = new WP_Query($args);
+          while ($wp_query->have_posts()) :
+            $wp_query->the_post();
+            $IDaseguradora = get_the_ID();
+            if( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasActivo', true ) ){
+              ?><div class="wpfunos-busqueda-contenedor"><?php
+              $titulo = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNombre', true );
+              $_GET['nombre'] = $titulo;
+              $_GET['telefonoEmpresa'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasTelefono', true );
+              $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo', true ) ,'full' );
+              $_GET['AttsLlamen'] = $IDaseguradora.'
+              data-wpnonce|' . $nonce .'
+              wpusuario|' . $IDusuario.'
+              wptitulo|' .$titulo.'
+              wpftelus|' .$telefonoUsuario;
 
-            echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	// cabecera con logo
-            ?><div class="wpfunos-busqueda-aseguradoras-inferior" id="wpfunosID-<?php echo $IDaseguradora; ?>"><?php
-            echo do_shortcode( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true ) );
-            ?></div></div><?php
-            //css #wpfunos-boton-llamen
-            //atts AttsLlamen
-          }
-        endwhile;
-        if (isset($wp_query)) $wp_query = $temp_query; // restore loop
+              echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	// cabecera con logo
+              ?><div class="wpfunos-busqueda-aseguradoras-inferior" id="wpfunosID-<?php echo $IDaseguradora; ?>"><?php
+              echo do_shortcode( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true ) );
+              ?></div></div><?php
+              //css #wpfunos-boton-llamen
+              //atts AttsLlamen
+            }
+          endwhile;
+          if (isset($wp_query)) $wp_query = $temp_query; // restore loop
+
+        }
+
       endwhile;
     endif;
     wp_reset_postdata();

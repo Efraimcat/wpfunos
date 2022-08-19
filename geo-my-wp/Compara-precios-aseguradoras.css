@@ -1,0 +1,48 @@
+.wpfunos-busqueda-contenedor{
+  margin-bottom:5% !important;
+  box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.11) !important;
+  border-radius: 11px !important;
+}
+#wpf-texto-poblacion {
+  font-weight: 400;
+}
+.wpfunos-boton-llamen {
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  .wpfunos-boton-llamen,
+  .wpfunos-boton-llamar{
+    margin: 15px 15px 15px 15px;
+  }
+
+  .elementor-55689 .elementor-element.elementor-element-57a1afe > .elementor-widget-container,
+  .elementor-55689 .elementor-element.elementor-element-e46990a > .elementor-widget-container,
+  .elementor-55662 .elementor-element.elementor-element-2f82038 > .elementor-widget-container,
+  .elementor-55662 .elementor-element.elementor-element-08fd98c > .elementor-widget-container,
+  .elementor-55695 .elementor-element.elementor-element-0a745dc > .elementor-widget-container,
+  .elementor-55695 .elementor-element.elementor-element-24d9308 > .elementor-widget-container,
+  .elementor-55665 .elementor-element.elementor-element-0600b36 > .elementor-widget-container,
+  .elementor-55665 .elementor-element.elementor-element-355842f > .elementor-widget-container,
+  .elementor-55692 .elementor-element.elementor-element-8ef32a0 > .elementor-widget-container,
+  .elementor-55692 .elementor-element.elementor-element-578d179 > .elementor-widget-container,
+  .elementor-55667 .elementor-element.elementor-element-cb7db34 > .elementor-widget-container,
+  .elementor-55667 .elementor-element.elementor-element-3bfec82 > .elementor-widget-container,
+  .elementor-55672 .elementor-element.elementor-element-6e64592 > .elementor-widget-container,
+  .elementor-55672 .elementor-element.elementor-element-2c69013 > .elementor-widget-container,
+  .elementor-55669 .elementor-element.elementor-element-dc1b695 > .elementor-widget-container,
+  .elementor-55669 .elementor-element.elementor-element-d54b1e3 > .elementor-widget-container,
+  .elementor-55699 .elementor-element.elementor-element-f11dfea > .elementor-widget-container,
+  .elementor-55699 .elementor-element.elementor-element-7a34967 > .elementor-widget-container,
+  .elementor-55697 .elementor-element.elementor-element-c8ff9a7 > .elementor-widget-container,
+  .elementor-55697 .elementor-element.elementor-element-c11f7a2 > .elementor-widget-container{
+    margin: 0px 0px 0px 0px !important;
+  }
+
+  .elementor-86728 .elementor-element.elementor-element-0727a44 {
+    z-index: 999;
+  }
+  .wpfunos-boton-llamen, .wpfunos-boton-presupuesto{
+    margin: 12px 0 0 0 !important;
+  }
+
+}

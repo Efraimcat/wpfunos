@@ -1,6 +1,13 @@
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
+
+    setTimeout(function() {
+      $('.elementor-tab-title').removeClass('elementor-active');
+      $('.elementor-tab-content').css('display', 'none');
+    }
+    , 1000 );
+
     var params = new URLSearchParams(location.search);
 
     var elementsLlamamos = document.getElementsByClassName('wpf-v3-boton-llamamos');

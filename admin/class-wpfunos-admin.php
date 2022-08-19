@@ -1414,7 +1414,8 @@ class Wpfunos_Admin {
 
             if( strlen($comentarioactual) < 5 || $ActualizarComentario ){
 
-              $comentarios = '<h3><strong>QUÉ ESTÁ INCLUIDO EN EL PRECIO</strong></h3><p></p>';
+              $comentarios = '<h3><strong>Qúe está incluido en el precio</strong></h3><p></p>';
+              $comentarios .= '<h4><strong>Detalles de servicio base</strong></h3>';
 
               $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioPrecioBaseComentario', true ) );
               $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
@@ -1455,29 +1456,29 @@ class Wpfunos_Admin {
                 $comentarios .= $customfield_content ;
               }
 
-              if( substr( $key, 2, 1) == 'S' ) {
+              if( substr( $key, 2, 1) == 'V' ) {
                 $comentarios .= '<h4><strong>Detalles de  velatorio</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoComentario', true ) );
+                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioVelatorioComentario', true ) );
                 $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
                 $comentarios .= $customfield_content ;
               }
 
               if( substr( $key, 3, 1) == 'O' ) {
-                $comentarios .= '<h4><strong>Detalles de  ceremonia Sólo la sala</strong></h4>';
+                $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
                 $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Comentario', true ) );
                 $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
                 $comentarios .= $customfield_content ;
               }
 
               if( substr( $key, 3, 1) == 'C' ) {
-                $comentarios .= '<h4><strong>Detalles de  ceremonia civil</strong></h4>';
+                $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
                 $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Comentario', true ) );
                 $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
                 $comentarios .= $customfield_content ;
               }
 
               if( substr( $key, 3, 1) == 'R' ) {
-                $comentarios .= '<h4><strong>Detalles de ceremonia religiosa</strong></h4>';
+                $comentarios .= '<h4><strong>Detalles de ceremonia</strong></h4>';
                 $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Comentario', true ) );
                 $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
                 $comentarios .= $customfield_content ;

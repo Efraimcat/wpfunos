@@ -379,7 +379,7 @@ class Wpfunos_ServiciosV3 {
     $codigo_provincia = substr( trim( $CP, " " ), 0, 2 );
     $campo = $respuesta['resp1']['inicial'] . $respuesta['resp2']['inicial'] . $respuesta['resp3']['inicial'] . $respuesta['resp4']['inicial'];
 
-    echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
+
 
     $args = array(
       'post_type' => 'prov_zona_wpfunos',
@@ -406,6 +406,10 @@ class Wpfunos_ServiciosV3 {
     }else{
       ?><h6 style="text-align: center;margin-top: 20px;border-style: solid;border-width: thin;padding: 20px;border-radius: 4px;">No hay datos de precio medio para la zona de <?php echo $address;?></h6><?php
     }
+
+    echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
+
+    echo do_shortcode( '[elementor-template id="96919"]' );
 
     ?><script>console.log('Precio medio zona END.' );</script><?php
   }
@@ -584,6 +588,89 @@ class Wpfunos_ServiciosV3 {
 
       foreach ($wpfunos_confirmado as $value) {
 
+
+        //if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
+        //|| $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
+
+        $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+        $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+        $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
+
+        $_GET['valor-nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
+        $_GET['valor-nombrepack'] = get_post_meta( $value[0], 'wpfunos_servicioPackNombre', true );
+        $_GET['valor-valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
+        $_GET['valor-precio'] = number_format($value[2], 0, ',', '.') . '€';
+        $_GET['valor-textoprecio'] = get_post_meta( $value[0], 'wpfunos_servicioTextoPrecio', true );
+        $_GET['valor-direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
+
+        $_GET['AttsServicio'] = 'wpfid|' .$value[0].'
+        wpfn|' .$nonce.'
+        wpfp|' .$value[2].'
+        wpfdistancia|' .$value[3].'
+        wpftitulo|' .get_post_meta( $value[0], 'wpfunos_servicioNombre', true ). '
+        wpftelefono|' .str_replace(" ","",get_post_meta( $value[0], 'wpfunos_servicioTelefono', true ) );
+        //}else{
+        //  $_GET['seccionClass-presupuesto'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_presupuesto'];
+        //  $_GET['seccionClass-llamadas'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_llamadas'];
+        //  $_GET['valor-logo'] = $transient_id['wpfvalor'][$value[0]]['valor_logo'];
+        //
+        //  $_GET['valor-nombre'] = $transient_id['wpfvalor'][$value[0]]['valor_nombre'];
+        //  $_GET['valor-nombrepack'] = $transient_id['wpfvalor'][$value[0]]['valor_nombrepack'];
+        //  $_GET['valor-valoracion'] = $transient_id['wpfvalor'][$value[0]]['valor_valoracion'];
+        //  $_GET['valor-precio'] = $transient_id['wpfvalor'][$value[0]]['valor_precio'];
+        //  $_GET['valor-textoprecio'] = $transient_id['wpfvalor'][$value[0]]['valor_textoprecio'];
+        //  $_GET['valor-direccion'] = $transient_id['wpfvalor'][$value[0]]['valor_direccion'];
+        //
+        //  $_GET['AttsServicio'] = 'wpfid|' .$value[0].'
+        //  wpfn|' .$nonce.'
+        //  wpfp|' .$value[2].'
+        //  wpfdistancia|' .$value[3].'
+        //  wpftitulo|' .$transient_id['wpfvalor'][$value[0]]['valor_nombre']. '
+        //  wpftelefono|' .str_replace(" ","",$transient_id['wpfvalor'][$value[0]]['valor_telefono'] );
+        //}
+
+        $_GET['seccionID-servicio'] = $value[0];
+        $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
+        $_GET['valor-distancia'] = $value[3] ;
+
+        ?><div class="wpfunos-busqueda-contenedor" id="wpfunos-busqueda-resultado-<?php echo $value[0];?>"><?php
+        echo do_shortcode( '[elementor-template id="90421"]' ) ; //Compara precios resultadosV3
+        ?></div><?php
+
+      }
+    }
+  }
+
+  /**
+  * Crear ficha sin confirmar
+  *
+  * add_action( 'wpfunos_v3_sinconfirmar', array( $this, 'wpfunosResultV3SinConfirmar' ), 10, 2 );
+  * do_action( 'wpfunos_v3_sinconfirmar', $wpfunos_sinconfirmar );
+  *
+  */
+  public function wpfunosResultV3SinConfirmar( $wpfunos_sinconfirmar ){
+    if(is_array($wpfunos_sinconfirmar) && count( $wpfunos_sinconfirmar ) != 0 ){
+      $IP = apply_filters('wpfunos_userIP','dummy');
+      ?><div class="wpfunos-titulo" id="wpfunos-titulo-sin-confirmar"><p></p><center><h2>Precio sin confirmar</h2></center></div><?php
+
+      if(isset($_GET['orden']) && $_GET['orden'] == 'precios' ){
+        $columns = array_column( $wpfunos_confirmado, 2 );
+        array_multisort( $columns, SORT_ASC, $wpfunos_confirmado );
+      }
+
+      $transient_id = get_transient('wpfunos-wpfid-v3-' .$IP );
+
+      $_GET['valor-logo-confirmado'] = ( $transient_id === false ) ? wp_get_attachment_image ( 83458 , array(66,66)) : $transient_id["valor-logo-no-confirmado"] ;
+
+      $nonce = wp_create_nonce("wpfunos_serviciosv3_nonce".$IP);
+      $respuesta = $this->wpfunosFiltros();
+
+      $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
+      $_GET['seccionClass-detalles'] = 'wpf-detalles-no';
+      $_GET['seccionClass-mapas'] = 'wpf-mapas-no';
+
+      foreach ($wpfunos_sinconfirmar as $value) {
+
         if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
         || $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
 
@@ -633,20 +720,10 @@ class Wpfunos_ServiciosV3 {
         ?></div><?php
 
       }
-    }
-  }
 
-  /**
-  * Crear ficha sin confirmar
-  *
-  * add_action( 'wpfunos_v3_sinconfirmar', array( $this, 'wpfunosResultV3SinConfirmar' ), 10, 2 );
-  * do_action( 'wpfunos_v3_sinconfirmar', $wpfunos_sinconfirmar );
-  *
-  */
-  public function wpfunosResultV3SinConfirmar( $wpfunos_sinconfirmar ){
-    if(is_array($wpfunos_sinconfirmar) && count( $wpfunos_sinconfirmar ) != 0 ){
-      $IP = apply_filters('wpfunos_userIP','dummy');
-      ?><div class="wpfunos-titulo" id="wpfunos-titulo-sin-confirmar"><p></p><center><h2>Precio sin confirmar</h2></center></div><?php
+
+
+
     }
   }
 

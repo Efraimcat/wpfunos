@@ -567,7 +567,7 @@ class Wpfunos_Servicios {
       'meta_key' =>  $this->plugin_name . '_provinciasCodigo',
       'meta_value' => $codigo_provincia,
     );
-    echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
+
     ?>
     <div class="wpfunos-prov-zona">
       <?php
@@ -593,6 +593,11 @@ class Wpfunos_Servicios {
       ?>
     </div>
     <?php
+
+    echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
+
+    echo do_shortcode( '[elementor-template id="96919"]' );
+
   }
 
   /*********************************/
