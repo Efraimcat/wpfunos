@@ -6,9 +6,24 @@
 #wpf-texto-poblacion {
   font-weight: 400;
 }
+
+textarea{
+  resize:none;
+}
+
+.wpfunos-boton-aseguradora-llamamos,
+.wpfunos-boton-aseguradora-llamamos-movil,
+.wpfunos-boton-aseguradora-presupuesto,
+.wpfunos-boton-aseguradora-presupuesto-movil,
+.wpfunos-boton-aseguradoras-detalles,
 .wpfunos-boton-llamen {
   cursor: pointer;
 }
+
+.wpfunos-busqueda-contenedor-argumentario {
+  background-color: rgb(95, 100, 113) !important;
+}
+
 @media (max-width: 767px) {
   .wpfunos-boton-llamen,
   .wpfunos-boton-llamar{
@@ -41,8 +56,8 @@
   .elementor-86728 .elementor-element.elementor-element-0727a44 {
     z-index: 999;
   }
-  .wpfunos-boton-llamen, .wpfunos-boton-presupuesto{
-    margin: 12px 0 0 0 !important;
-  }
 
+  .elementor-56054 .elementor-element.elementor-element-201835a > .elementor-element-populated {
+    margin: 0px 20px 0px 20px;
+  }
 }

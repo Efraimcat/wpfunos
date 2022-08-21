@@ -34,8 +34,10 @@ class Wpfunos_Aseguradoras {
 
     add_action( 'wpfunos-aseguradoras-resultados', array( $this, 'wpfunosAseguradorasResultados' ), 10, 1 );
 
-    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradoras_llamen', function () { $this->wpfunosAseguradorasLlamen();});
-    add_action('wp_ajax_wpfunos_ajax_aseguradoras_llamen', function () {$this->wpfunosAseguradorasLlamen();});
+    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradoras_llamamos', function () { $this->wpfunosAseguradorasLlamamos();});
+    add_action('wp_ajax_wpfunos_ajax_aseguradoras_llamamos', function () {$this->wpfunosAseguradorasLlamamos();});
+    add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradoras_presupuesto', function () { $this->wpfunosAseguradorasPresupuesto();});
+    add_action('wp_ajax_wpfunos_ajax_aseguradoras_presupuesto', function () {$this->wpfunosAseguradorasPresupuesto();});
 
   }
 
@@ -171,6 +173,7 @@ class Wpfunos_Aseguradoras {
     $nonce = wp_create_nonce("wpfunos_aseguradoras_nonce".apply_filters('wpfunos_userIP','dummy'));
 
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '55817' ); //Boton Te llamamos
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '56054' ); //Boton Presupuesto
 
     $args = array(
       'post_status' => 'publish',
@@ -220,6 +223,7 @@ class Wpfunos_Aseguradoras {
               $_GET['telefonoEmpresa'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasTelefono', true );
               $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo', true ) ,'full' );
               $_GET['AttsLlamen'] = $IDaseguradora.'
+              wpfid|' . $IDaseguradora .'
               data-wpnonce|' . $nonce .'
               wpusuario|' . $IDusuario.'
               wptitulo|' .$titulo.'
@@ -240,7 +244,7 @@ class Wpfunos_Aseguradoras {
       endwhile;
     endif;
     wp_reset_postdata();
-    require 'js/wpfunos-aseguradoras-botones.js';
+    //require 'js/wpfunos-aseguradoras-botones.js';
   }
 
   /*********************************/
@@ -537,7 +541,47 @@ class Wpfunos_Aseguradoras {
   * add_action('wp_ajax_wpfunos_ajax_aseguradoras_llamen', function () {$this->wpfunosAseguradorasLlamen();});
   *
   */
-  public function wpfunosAseguradorasLlamen(){
+  public function wpfunosAseguradorasLlamamos(){
+    $servicio = $_POST['wpfid'];
+    $wpnonce = $_POST['wpfn'];
+    $usuario = $_POST['wpfu'];
+    $mensaje  = $_POST['wpfm'];
+    $IP = apply_filters('wpfunos_userIP','dummy');
+
+    // $nonce = wp_create_nonce("wpfunos_aseguradoras_nonce".apply_filters('wpfunos_userIP','dummy'));
+    if ( !wp_verify_nonce( $wpnonce, "wpfunos_aseguradoras_nonce".$IP) ) {
+      $result['type'] = "Bad nonce";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+
+    $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje );
+
+    //
+    // Si se ha enviado correctamente, enviar correo colaboradores.
+    //
+
+    $result['type'] = "success";
+    $result['respuesta'] = $respuesta;
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  /*********************************/
+  /*****  AJAX                ******/
+  /*********************************/
+  /**
+  * Botón 'Te Llamamos'
+  *
+  * add_action('wp_ajax_nopriv_wpfunos_ajax_aseguradoras_presupuesto', function () { $this->wpfunosAseguradorasPresupuesto();});
+  * add_action('wp_ajax_wpfunos_ajax_aseguradoras_presupuesto', function () {$this->wpfunosAseguradorasPresupuesto();});
+  *
+  */
+  public function wpfunosAseguradorasPresupuesto(){
     $servicio = $_POST['wpfid'];
     $wpnonce = $_POST['wpfn'];
     $usuario = $_POST['wpfu'];
