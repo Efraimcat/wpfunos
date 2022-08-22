@@ -497,28 +497,28 @@ $(document).ready(function(){
                 velatorio = params.get('cf[resp3]');
                 ceremonia = params.get('cf[resp4]');
               }else{
-                if ( destino == 'incineracion' ){
+                if ( destino == 'Incineracion' ){
                   params.set('cf[resp1]', '2');
                 }
-                if ( destino == 'entierro' ){
+                if ( destino == 'Entierro' ){
                   params.set('cf[resp1]', '1');
                 }
-                if ( velatorio =='si' ){
+                if ( velatorio =='Velatorio' ){
                   params.set('cf[resp3]', '1');
                 }
-                if ( velatorio =='no' ){
+                if ( velatorio =='Sin velatorio' ){
                   params.set('cf[resp3]', '2');
                 }
-                if ( ceremonia =='no' ){
+                if ( ceremonia =='Sin ceremonia' ){
                   params.set('cf[resp4]', '1');
                 }
-                if ( ceremonia =='sala' ){
+                if ( ceremonia =='Solo sala' ){
                   params.set('cf[resp4]', '2');
                 }
-                if( ceremonia =='civil' ){
+                if( ceremonia =='Ceremonia civil' ){
                   params.set('cf[resp4]', '3');
                 }
-                if( ceremonia =='religiosa' ){
+                if( ceremonia =='Ceremonia religiosa' ){
                   params.set('cf[resp4]', '4');
                 }
               }

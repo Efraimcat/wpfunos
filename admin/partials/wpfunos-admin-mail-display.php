@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   <li><a href="#wpfunos-lead-colaboradores">Correo Envio Lead Colaboradores</a></li>
   <li><a href="#wpfunos-pedir-presupuesto">Correo Pedir presupuesto Servicios</a></li>
   <li><a href="#wpfunos-pedir-presupuesto-aseguradora">Correo Pedir presupuesto Aseguradora</a></li>
-  <li><a href="#wpfunos-api-preventiva">Correo Aviso Envio API Preventiva</a></li>
+  <li><a href="#wpfunos-api-preventiva">Correo Aviso Envio API Aseguradora</a></li>
   <hr/>
   <h2><?php esc_html_e( 'Correo nuevos servicios', 'wpfunos' ); ?></h2>
   <li><a href="#wpfunos-entrada-admin-v2">Correo al administrador nuevos datos usuario</a></li>

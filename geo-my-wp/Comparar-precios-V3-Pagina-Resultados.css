@@ -1,3 +1,10 @@
+#wpfunos-preciomedio-titulo h4 {
+  font-size: 20px;
+}
+.elementor-element.elementor-element-a3f858f.elementor-widget.elementor-widget-heading h4 {
+  font-size: 20px;
+}
+
 #wpf-llamamos-cerrar,#wpf-llamar-cerrar,.wpf-v3-boton-filtro,.wpf-multiform-button,.wpf-v3-boton-filtro-movil, .wpf-v3-boton-llamamos, .wpf-v3-boton-llamar, .wpf-v3-boton-presupuesto, .wpf-v3-boton-detalles, .wpfunos-detalles-botones{
   cursor: pointer;
 }
@@ -11,6 +18,11 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 #wpfunos-logo-confirmado {
   text-align: right;
 }
+
+.elementor-56672 .elementor-element.elementor-element-17561c83 .elementor-button{
+  padding: 15px !important;
+}
+
 @media (max-width: 767px) {
   .elementor-56676 .elementor-element.elementor-element-392c216 > .elementor-widget-container {
     margin: 0px 10px 60px 10px !important;
@@ -37,11 +49,15 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
   .elementor-90421 .elementor-element.elementor-element-5555c1be,
   .elementor-90421 .elementor-element.elementor-element-25abed0,
   .elementor-90421 .elementor-element.elementor-element-36d668dc,
-  .elementor-90421 .elementor-element.elementor-element-18eaf89f
+  .elementor-90421 .elementor-element.elementor-element-18eaf89f,
+  .elementor-90421 .elementor-element.elementor-element-4b4c36b8 > .elementor-element-populated,
+  .elementor-90421 .elementor-element.elementor-element-5555c1be > .elementor-element-populated
   {
     width: 100% !important;
   }
-  .elementor-90421 .elementor-element.elementor-element-1a728eb8 > .elementor-widget-container {
+  .elementor-90421 .elementor-element.elementor-element-1a728eb8 > .elementor-widget-container,
+  .elementor-90421 .elementor-element.elementor-element-55008bd7 > .elementor-widget-container,
+  .elementor-90421 .elementor-element.elementor-element-6472ad92 > .elementor-widget-container {
     margin: 0px 0px 0px 0px !important;
   }
   .elementor-90421 .elementor-element.elementor-element-55008bd7,
@@ -98,29 +114,29 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
     width: 48%
   }
 
-  .elementor-89788 .elementor-element.elementor-element-5bcb91b,
+  /*.elementor-89788 .elementor-element.elementor-element-5bcb91b,
   .elementor-89788 .elementor-element.elementor-element-59d5e6f,
   .elementor-89788 .elementor-element.elementor-element-f6f4d95,
   .elementor-89788 .elementor-element.elementor-element-a69cfda
   {
-    margin-bottom: -45px;
-  }
+  margin-bottom: -45px;
+  }*/
 
-  .elementor-89788 .elementor-element.elementor-element-0807a33,
+  /* .elementor-89788 .elementor-element.elementor-element-0807a33,
   .elementor-89788 .elementor-element.elementor-element-c973639{
-    margin-top: -35px;
-  }
+  margin-top: -35px;
+  }*/
 
-  .elementor-89788 .elementor-element.elementor-element-6985504,
+  /*.elementor-89788 .elementor-element.elementor-element-6985504,
   .elementor-89788 .elementor-element.elementor-element-455c714{
-    margin-top: -10px;
-  }
+  margin-top: -10px;
+  }*/
 
-  .elementor-89788 .elementor-element.elementor-element-a2ab720,
+  /*.elementor-89788 .elementor-element.elementor-element-a2ab720,
   .elementor-89788 .elementor-element.elementor-element-4b628c3,
   .elementor-89788 .elementor-element.elementor-element-8c2fab7{
-    margin-top: -15px;
-  }
+  margin-top: -15px;
+  }*/
 
   .elementor-56672 .elementor-element.elementor-element-1784eb3e{
     padding: 0px 0px 0px 0px !important;
@@ -190,6 +206,18 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
     font-size: 11px !important;
   }
 
+  .elementor-column.elementor-col-50.elementor-top-column.elementor-element.elementor-element-25abed0,
+  .elementor-column.elementor-col-50.elementor-top-column.elementor-element.elementor-element-36d668dc {
+    margin: 0 40px 0 40px;
+  }
 
+  .elementor-column.elementor-col-50.elementor-top-column.elementor-element.elementor-element-74b427e6,
+  .elementor-column.elementor-col-50.elementor-top-column.elementor-element.elementor-element-4b4c36b8 {
+    margin-bottom: 15px;
+  }
+  .elementor-90421 .elementor-element.elementor-element-72edd1e6 .elementor-button,
+  .elementor-90421 .elementor-element.elementor-element-2c95cdc6 .elementor-button {
+    padding: 15px 15px 15px 15px !important;
+  }
 
 }

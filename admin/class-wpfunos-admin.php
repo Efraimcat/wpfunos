@@ -618,10 +618,7 @@ class Wpfunos_Admin {
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
     <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
-    <p>==POR DEFINIR==</p>
-    <p>[referencia], [IP], [Email], [Nombre], [Telefono], [address], [CP], [edad], [sexo], [any], [seguro], [URL] [MensajePopup]</p>
-    <p>[aseguradoraNombre], [aseguradoraDireccion], [aseguradoraCorreo], [aseguradoraTelefono], [aseguradoraTipoSeguro]</p>
-    <p>==POR DEFINIR==</p>
+    <p>[referencia], [IP], [Email], [Nombre], [Telefono], [address], [CP], [edad], [any], [URL], [aseguradoraNombre], [aseguradoraTipoSeguro]</p>
     <hr />
     <?php
   }

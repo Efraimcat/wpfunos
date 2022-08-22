@@ -589,45 +589,45 @@ class Wpfunos_ServiciosV3 {
       foreach ($wpfunos_confirmado as $value) {
 
 
-        //if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
-        //|| $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
+        if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
+        || $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
 
-        $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
-        $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
-        $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
+          $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+          $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+          $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
 
-        $_GET['valor-nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
-        $_GET['valor-nombrepack'] = get_post_meta( $value[0], 'wpfunos_servicioPackNombre', true );
-        $_GET['valor-valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
-        $_GET['valor-precio'] = number_format($value[2], 0, ',', '.') . '€';
-        $_GET['valor-textoprecio'] = get_post_meta( $value[0], 'wpfunos_servicioTextoPrecio', true );
-        $_GET['valor-direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
+          $_GET['valor-nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
+          $_GET['valor-nombrepack'] = get_post_meta( $value[0], 'wpfunos_servicioPackNombre', true );
+          $_GET['valor-valoracion'] = get_post_meta( $value[0], 'wpfunos_servicioValoracion', true );
+          $_GET['valor-precio'] = number_format($value[2], 0, ',', '.') . '€';
+          $_GET['valor-textoprecio'] = get_post_meta( $value[0], 'wpfunos_servicioTextoPrecio', true );
+          $_GET['valor-direccion'] = get_post_meta( $value[0], 'wpfunos_servicioDireccion', true );
 
-        $_GET['AttsServicio'] = 'wpfid|' .$value[0].'
-        wpfn|' .$nonce.'
-        wpfp|' .$value[2].'
-        wpfdistancia|' .$value[3].'
-        wpftitulo|' .get_post_meta( $value[0], 'wpfunos_servicioNombre', true ). '
-        wpftelefono|' .str_replace(" ","",get_post_meta( $value[0], 'wpfunos_servicioTelefono', true ) );
-        //}else{
-        //  $_GET['seccionClass-presupuesto'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_presupuesto'];
-        //  $_GET['seccionClass-llamadas'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_llamadas'];
-        //  $_GET['valor-logo'] = $transient_id['wpfvalor'][$value[0]]['valor_logo'];
-        //
-        //  $_GET['valor-nombre'] = $transient_id['wpfvalor'][$value[0]]['valor_nombre'];
-        //  $_GET['valor-nombrepack'] = $transient_id['wpfvalor'][$value[0]]['valor_nombrepack'];
-        //  $_GET['valor-valoracion'] = $transient_id['wpfvalor'][$value[0]]['valor_valoracion'];
-        //  $_GET['valor-precio'] = $transient_id['wpfvalor'][$value[0]]['valor_precio'];
-        //  $_GET['valor-textoprecio'] = $transient_id['wpfvalor'][$value[0]]['valor_textoprecio'];
-        //  $_GET['valor-direccion'] = $transient_id['wpfvalor'][$value[0]]['valor_direccion'];
-        //
-        //  $_GET['AttsServicio'] = 'wpfid|' .$value[0].'
-        //  wpfn|' .$nonce.'
-        //  wpfp|' .$value[2].'
-        //  wpfdistancia|' .$value[3].'
-        //  wpftitulo|' .$transient_id['wpfvalor'][$value[0]]['valor_nombre']. '
-        //  wpftelefono|' .str_replace(" ","",$transient_id['wpfvalor'][$value[0]]['valor_telefono'] );
-        //}
+          $_GET['AttsServicio'] = 'wpfid|' .$value[0].'
+          wpfn|' .$nonce.'
+          wpfp|' .$value[2].'
+          wpfdistancia|' .$value[3].'
+          wpftitulo|' .get_post_meta( $value[0], 'wpfunos_servicioNombre', true ). '
+          wpftelefono|' .str_replace(" ","",get_post_meta( $value[0], 'wpfunos_servicioTelefono', true ) );
+        }else{
+          $_GET['seccionClass-presupuesto'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_presupuesto'];
+          $_GET['seccionClass-llamadas'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_llamadas'];
+          $_GET['valor-logo'] = $transient_id['wpfvalor'][$value[0]]['valor_logo'];
+
+          $_GET['valor-nombre'] = $transient_id['wpfvalor'][$value[0]]['valor_nombre'];
+          $_GET['valor-nombrepack'] = $transient_id['wpfvalor'][$value[0]]['valor_nombrepack'];
+          $_GET['valor-valoracion'] = $transient_id['wpfvalor'][$value[0]]['valor_valoracion'];
+          $_GET['valor-precio'] = $transient_id['wpfvalor'][$value[0]]['valor_precio'];
+          $_GET['valor-textoprecio'] = $transient_id['wpfvalor'][$value[0]]['valor_textoprecio'];
+          $_GET['valor-direccion'] = $transient_id['wpfvalor'][$value[0]]['valor_direccion'];
+
+          $_GET['AttsServicio'] = 'wpfid|' .$value[0].'
+          wpfn|' .$nonce.'
+          wpfp|' .$value[2].'
+          wpfdistancia|' .$value[3].'
+          wpftitulo|' .$transient_id['wpfvalor'][$value[0]]['valor_nombre']. '
+          wpftelefono|' .str_replace(" ","",$transient_id['wpfvalor'][$value[0]]['valor_telefono'] );
+        }
 
         $_GET['seccionID-servicio'] = $value[0];
         $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
