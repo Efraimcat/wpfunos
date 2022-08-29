@@ -614,56 +614,6 @@ class Wpfunos_Aseguradoras {
 
     $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje );
 
-    //return 'OK:' . $referencia;
-
-    if( substr($respuesta,0,2)  == 'OK' && ! apply_filters('wpfunos_reserved_email','dummy') && get_option('wpfunos_activarCorreoBoton1LeadAseguradora)') ){
-      $newref = str_replace("OK:","",$respuesta);
-      //'wpfunos_userName' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userName', true ) ),
-      $headers[] = 'Content-Type: text/html; charset=UTF-8';
-      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1LeadAseguradora'), get_option('wpfunos_asuntoCorreoBoton1LeadAseguradora') );
-
-      $seleccion = get_post_meta( $usuario, 'wpfunos_userSeleccion', true );
-      $respuesta = (explode(',',$seleccion));
-      $ubicacion = strtr($respuesta[0],"+",",");
-      $userIP = apply_filters('wpfunos_userIP','dummy');
-      $Email = get_post_meta( $usuario, 'wpfunos_userMail', true );
-      $Nombre = get_post_meta( $usuario, 'wpfunos_userName', true );
-      $Telefono = get_post_meta( $usuario, 'wpfunos_userPhone', true );
-      $CP = get_post_meta( $usuario, 'wpfunos_userCP', true );
-      $edad =  date("Y") - (int)$respuesta[3];
-      $any = $respuesta[3];
-      $URL = get_post_meta( $usuario, 'wpfunos_userURL', true );
-
-      $aseguradoraNombre = get_post_meta( $servicio, 'wpfunos_aseguradorasNombre', true );
-      $aseguradoraEmail = get_post_meta( $servicio, 'wpfunos_aseguradorasCorreo', true );
-      $aseguradoraLogo = wp_get_attachment_image ( get_post_meta( $servicio, 'wpfunos_aseguradorasLogo' , array(45,46) ) );
-      $aseguradoraTipoSeguro = get_post_meta( $servicio, 'wpfunos_aseguradorasTipoSeguroNombre', true );
-
-      $mensaje = str_replace( '[referencia]' , $newref , $mensaje );
-      $mensaje = str_replace( '[IP]' , $IP , $mensaje );
-      $mensaje = str_replace( '[Email]' , $Email , $mensaje );
-      $mensaje = str_replace( '[Nombre]' , $Nombre , $mensaje );
-      $mensaje = str_replace( '[Telefono]' , $Telefono , $mensaje );
-      $mensaje = str_replace( '[address]' , $ubicacion , $mensaje );
-      $mensaje = str_replace( '[CP]' , $CP , $mensaje );
-      $mensaje = str_replace( '[edad]' , $edad , $mensaje );
-      $mensaje = str_replace( '[any]' , $any , $mensaje );
-      $mensaje = str_replace( '[URL]' , $URL , $mensaje );
-      $mensaje = str_replace( '[aseguradoraNombre]' , $aseguradoraNombre , $mensaje );
-      $mensaje = str_replace( '[aseguradoraTipoSeguro]' , $aseguradoraTipoSeguro , $mensaje );
-      $mensaje = str_replace( '[logoServicio]' , $aseguradoraLogo , $mensaje );
-
-      if(!empty( get_option('wpfunos_mailCorreoCcoBoton1LeadAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1LeadAseguradora' ) ;
-      if(!empty( get_option('wpfunos_mailCorreoBccBoton1LeadAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1LeadAseguradora' ) ;
-
-      //wp_mail ( $aseguradoraEmail, get_option('wpfunos_asuntoCorreoBoton1LeadAseguradora') , $mensaje, $headers );
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Enviar correo Aseguradora Te llamamos ' );
-      do_action('wpfunos_log', 'referencia: ' . $referencia );
-      do_action('wpfunos_log', 'userIP: ' . $userIP );
-      do_action('wpfunos_log', 'wpfunos_aseguradorasCorreo: ' . $aseguradoraEmail );
-    }
-
     $result['type'] = "success";
     $result['respuesta'] = $respuesta;
     $result = json_encode($result);
@@ -699,56 +649,6 @@ class Wpfunos_Aseguradoras {
     }
 
     $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje );
-
-    //return 'OK:' . $referencia;
-
-    if( substr($respuesta,0,2)  == 'OK' && ! apply_filters('wpfunos_reserved_email','dummy') && get_option('wpfunos_activarCorreoPedirPresupuestoAseguradora)') ){
-      $newref = str_replace("OK:","",$respuesta);
-      //'wpfunos_userName' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userName', true ) ),
-      $headers[] = 'Content-Type: text/html; charset=UTF-8';
-      $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPedirPresupuestoAseguradora'), get_option('wpfunos_asuntoCorreoPedirPresupuestoAseguradora') );
-
-      $seleccion = get_post_meta( $usuario, 'wpfunos_userSeleccion', true );
-      $respuesta = (explode(',',$seleccion));
-      $ubicacion = strtr($respuesta[0],"+",",");
-      $userIP = apply_filters('wpfunos_userIP','dummy');
-      $Email = get_post_meta( $usuario, 'wpfunos_userMail', true );
-      $Nombre = get_post_meta( $usuario, 'wpfunos_userName', true );
-      $Telefono = get_post_meta( $usuario, 'wpfunos_userPhone', true );
-      $CP = get_post_meta( $usuario, 'wpfunos_userCP', true );
-      $edad =  date("Y") - (int)$respuesta[3];
-      $any = $respuesta[3];
-      $URL = get_post_meta( $usuario, 'wpfunos_userURL', true );
-
-      $aseguradoraNombre = get_post_meta( $servicio, 'wpfunos_aseguradorasNombre', true );
-      $aseguradoraEmail = get_post_meta( $servicio, 'wpfunos_aseguradorasCorreo', true );
-      $aseguradoraLogo = wp_get_attachment_image ( get_post_meta( $servicio, 'wpfunos_aseguradorasLogo' , array(45,46) ) );
-      $aseguradoraTipoSeguro = get_post_meta( $servicio, 'wpfunos_aseguradorasTipoSeguroNombre', true );
-
-      $mensaje = str_replace( '[referencia]' , $newref , $mensaje );
-      $mensaje = str_replace( '[IP]' , $IP , $mensaje );
-      $mensaje = str_replace( '[Email]' , $Email , $mensaje );
-      $mensaje = str_replace( '[Nombre]' , $Nombre , $mensaje );
-      $mensaje = str_replace( '[Telefono]' , $Telefono , $mensaje );
-      $mensaje = str_replace( '[address]' , $ubicacion , $mensaje );
-      $mensaje = str_replace( '[CP]' , $CP , $mensaje );
-      $mensaje = str_replace( '[edad]' , $edad , $mensaje );
-      $mensaje = str_replace( '[any]' , $any , $mensaje );
-      $mensaje = str_replace( '[URL]' , $URL , $mensaje );
-      $mensaje = str_replace( '[aseguradoraNombre]' , $aseguradoraNombre , $mensaje );
-      $mensaje = str_replace( '[aseguradoraTipoSeguro]' , $aseguradoraTipoSeguro , $mensaje );
-      $mensaje = str_replace( '[logoServicio]' , $aseguradoraLogo , $mensaje );
-
-      if(!empty( get_option('wpfunos_mailCorreoCcoPedirPresupuestoAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPedirPresupuestoAseguradora' ) ;
-      if(!empty( get_option('wpfunos_mailCorreoBccPedirPresupuestoAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPedirPresupuestoAseguradora' ) ;
-
-      //wp_mail ( $aseguradoraEmail, get_option('wpfunos_asuntoCorreoPedirPresupuestoAseguradora') , $mensaje, $headers );
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Enviar correo Aseguradora Presupuesto ' );
-      do_action('wpfunos_log', 'referencia: ' . $referencia );
-      do_action('wpfunos_log', 'userIP: ' . $userIP );
-      do_action('wpfunos_log', 'wpfunos_aseguradorasCorreo: ' . $aseguradoraEmail );
-    }
 
     $result['type'] = "success";
     $result['respuesta'] = $respuesta;

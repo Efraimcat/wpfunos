@@ -1611,14 +1611,16 @@ class Wpfunos_Admin {
               // Update
               $newcontador ++;
 
-              $post_update = array(
-                'ID'         => $post->ID,
-                'post_title' => $nombre_titulo,
-              );
-              wp_update_post( $post_update );
+              foreach ( $newpost_list as $newpost ) {
+                $post_update = array(
+                  'ID'         => $newpost->ID,
+                  'post_title' => $nombre_titulo,
+                );
+                wp_update_post( $post_update );
 
-              update_post_meta($post->ID, 'wpfunos_servicioPrecio',  $precio );
-              //$this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' ya tiene precios. ' .$precio. ',' .$resp1. ', ' .$resp2. ', ' .$resp3. ', ' .$resp4. ' => '    .$newcontador);
+                update_post_meta($newpost->ID, 'wpfunos_servicioPrecio',  $precio );
+                //$this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' ya tiene precios. ' .$precio. ',' .$resp1. ', ' .$resp2. ', ' .$resp3. ', ' .$resp4. ' => '    .$newcontador);
+              }
             }else{
               // Create
               $my_post = array(
@@ -1638,7 +1640,12 @@ class Wpfunos_Admin {
               gmw_update_post_location( $post_id, $direccion, 7, $direccion, true );
               $this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' no tiene precios. Creando entrada. ' .$post_id );
             }
+
+
           }
+
+
+
         }
         wp_reset_postdata();
       }

@@ -1,160 +1,169 @@
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
-    console.log('Compara precios aseguradoras');
 
-    var elementsLlamamos = document.getElementsByClassName('wpfunos-boton-aseguradora-llamamos');
-    var elementsLlamamosMovil = document.getElementsByClassName('wpfunos-boton-aseguradora-llamamos-movil');
-    var elementsPresupuesto = document.getElementsByClassName('wpfunos-boton-aseguradora-presupuesto');
-    var elementsPresupuestoMovil = document.getElementsByClassName('wpfunos-boton-aseguradora-presupuesto-movil');
-    var elementsDetalles = document.getElementsByClassName('wpfunos-boton-aseguradoras-detalles');
+    var checkExist = setInterval(function() {
+      if (document.getElementById('wpf-aseg-1') ) {
+        console.log('Compara precios aseguradoras');
+        clearInterval(checkExist);
 
-    setTimeout(function() {
-      $('.elementor-tab-title').removeClass('elementor-active');
-      $('.elementor-tab-content').css('display', 'none');
-    }, 1000 );
+        var elementsLlamamos = document.getElementsByClassName('wpfunos-boton-aseguradora-llamamos');
+        var elementsLlamamosMovil = document.getElementsByClassName('wpfunos-boton-aseguradora-llamamos-movil');
+        var elementsPresupuesto = document.getElementsByClassName('wpfunos-boton-aseguradora-presupuesto');
+        var elementsPresupuestoMovil = document.getElementsByClassName('wpfunos-boton-aseguradora-presupuesto-movil');
+        var elementsDetalles = document.getElementsByClassName('wpfunos-boton-aseguradoras-detalles');
 
-    [document.getElementById('wpf-aseg-1'), document.getElementById('wpf-aseg-2'), document.getElementById('wpf-aseg-3'), document.getElementById('wpf-aseg-4'), document.getElementById('wpf-aseg-5') ].forEach(function(element) {
-      element.addEventListener('click', wpfcerrarfiltros, false);
-    });
+        setTimeout(function() {
+          $('.elementor-tab-title').removeClass('elementor-active');
+          $('.elementor-tab-content').css('display', 'none');
 
-    var wpfcerrarfiltros = function() {
-      $('.elementor-tab-title').removeClass('elementor-active');
-      $('.elementor-tab-content').css('display', 'none');
-    };
+          [document.getElementById('wpf-movil-aseg-1'), document.getElementById('wpf-movil-aseg-2'), document.getElementById('wpf-movil-aseg-3'), document.getElementById('wpf-movil-aseg-4'), document.getElementById('wpf-movil-aseg-5'), document.getElementById('wpf-movil-aseg-6') ].forEach(function(element) {
+            element.addEventListener('click', wpfcerrarfiltros, false);
+          });
 
-    var myFunctionLlamamos = function() {
-      var wpnonce = this.getAttribute('data-wpnonce');
-      var servicio = this.getAttribute('wpfid');
-      var usuario = this.getAttribute('wpusuario');
-      var titulo = this.getAttribute('wptitulo');
-      var telusuario = this.getAttribute('wpftelus');
+        }, 1000 );
 
-      console.log('boton Llamen Aseguradora: '+servicio+ ' Título: ' +titulo+ ' TelUsuario: ' +telusuario );
+        var wpfcerrarfiltros = function() {
+          $('.elementor-tab-title').removeClass('elementor-active');
+          $('.elementor-tab-content').css('display', 'none');
+        };
 
-      elementorFrontend.documentsManager.documents['55817'].showModal(); //show the popup
+        var myFunctionLlamamos = function() {
+          var wpnonce = this.getAttribute('data-wpnonce');
+          var servicio = this.getAttribute('wpfid');
+          var usuario = this.getAttribute('wpusuario');
+          var titulo = this.getAttribute('wptitulo');
+          var telusuario = this.getAttribute('wpftelus');
 
-      setTimeout(function(){
+          console.log('boton Llamen Aseguradora: '+servicio+ ' Título: ' +titulo+ ' TelUsuario: ' +telusuario );
 
-        document.getElementById('wpfunos-modal-llamen-titulo').innerHTML = titulo;
-        document.getElementById('wpfunos-modal-llamen-numero').innerHTML = telusuario;
+          elementorFrontend.documentsManager.documents['55817'].showModal(); //show the popup
 
-        document.getElementById('botonTeLlamaran').setAttribute('wpfn', wpnonce );
-        document.getElementById('botonTeLlamaran').setAttribute('wpfid', servicio );
-        document.getElementById('botonTeLlamaran').setAttribute('wpfu', usuario );
-        document.getElementById('botonTeLlamaran').addEventListener('click', wpfFunctionLeadLlamamos, false);
+          setTimeout(function(){
 
-      }, 1000);
+            document.getElementById('wpfunos-modal-llamen-titulo').innerHTML = titulo;
+            document.getElementById('wpfunos-modal-llamen-numero').innerHTML = telusuario;
 
-    };
-    var myFunctionPresupuesto = function() {
-      var wpnonce = this.getAttribute('data-wpnonce');
-      var servicio = this.getAttribute('wpfid');
-      var usuario = this.getAttribute('wpusuario');
-      var titulo = this.getAttribute('wptitulo');
-      var telusuario = this.getAttribute('wpftelus');
+            document.getElementById('botonTeLlamaran').setAttribute('wpfn', wpnonce );
+            document.getElementById('botonTeLlamaran').setAttribute('wpfid', servicio );
+            document.getElementById('botonTeLlamaran').setAttribute('wpfu', usuario );
+            document.getElementById('botonTeLlamaran').addEventListener('click', wpfFunctionLeadLlamamos, false);
 
-      console.log('boton Llamen Aseguradora: '+servicio+ ' Título: ' +titulo+ ' TelUsuario: ' +telusuario );
+          }, 1000);
 
-      elementorFrontend.documentsManager.documents['56054'].showModal(); //show the popup
+        };
+        var myFunctionPresupuesto = function() {
+          var wpnonce = this.getAttribute('data-wpnonce');
+          var servicio = this.getAttribute('wpfid');
+          var usuario = this.getAttribute('wpusuario');
+          var titulo = this.getAttribute('wptitulo');
+          var telusuario = this.getAttribute('wpftelus');
 
-      setTimeout(function(){
+          console.log('boton Llamen Aseguradora: '+servicio+ ' Título: ' +titulo+ ' TelUsuario: ' +telusuario );
 
-        document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
+          elementorFrontend.documentsManager.documents['56054'].showModal(); //show the popup
 
-        document.getElementById('botonEnviarPresupuesto').setAttribute('wpfn', wpnonce );
-        document.getElementById('botonEnviarPresupuesto').setAttribute('wpfid', servicio );
-        document.getElementById('botonEnviarPresupuesto').setAttribute('wpfu', usuario );
-        document.getElementById('botonEnviarPresupuesto').addEventListener('click', wpfFunctionLeadPresupuesto, false);
+          setTimeout(function(){
 
-      }, 1000);
+            document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
 
-    };
-    var myFunctionDetalles = function() {
+            document.getElementById('botonEnviarPresupuesto').setAttribute('wpfn', wpnonce );
+            document.getElementById('botonEnviarPresupuesto').setAttribute('wpfid', servicio );
+            document.getElementById('botonEnviarPresupuesto').setAttribute('wpfu', usuario );
+            document.getElementById('botonEnviarPresupuesto').addEventListener('click', wpfFunctionLeadPresupuesto, false);
 
-    };
-    var wpfFunctionLeadLlamamos = function() {
-      var wpnonce = this.getAttribute('wpfn');
-      var servicio = this.getAttribute('wpfid');
-      var usuario = this.getAttribute('wpfu');
-      var mensaje = document.getElementById('form-field-mensajePresupuesto').value;
+          }, 1000);
 
-      console.log('boton Enviar API servicio: '+servicio );
-      console.log('mensaje: '+mensaje );
+        };
+        var myFunctionDetalles = function() {
 
-      jQuery.ajax({
-        type : 'post',
-        dataType : 'json',
-        url : WpfAjax.ajaxurl,
-        data: {
-          'action': 'wpfunos_ajax_aseguradoras_llamamos',
-          'wpfid': servicio,
-          'wpfn': wpnonce,
-          'wpfu' : usuario,
-          'wpfm' : mensaje,
-        },
-        success: function(response) {
-          console.log('wpfunos_ajax_aseguradoras_llamamos response:');
-          console.log(response)	;
-          if(response.type === 'success') {
-            $('#elementor-popup-modal-55817').hide();
-          } else {
-            console.log('fail');
-          }
+        };
+        var wpfFunctionLeadLlamamos = function() {
+          var wpnonce = this.getAttribute('wpfn');
+          var servicio = this.getAttribute('wpfid');
+          var usuario = this.getAttribute('wpfu');
+          var mensaje = document.getElementById('form-field-mensajePresupuesto').value;
+
+          console.log('boton Enviar API servicio: '+servicio );
+          console.log('mensaje: '+mensaje );
+
+          jQuery.ajax({
+            type : 'post',
+            dataType : 'json',
+            url : WpfAjax.ajaxurl,
+            data: {
+              'action': 'wpfunos_ajax_aseguradoras_llamamos',
+              'wpfid': servicio,
+              'wpfn': wpnonce,
+              'wpfu' : usuario,
+              'wpfm' : mensaje,
+            },
+            success: function(response) {
+              console.log('wpfunos_ajax_aseguradoras_llamamos response:');
+              console.log(response)	;
+              if(response.type === 'success') {
+                $('#elementor-popup-modal-55817').hide();
+              } else {
+                console.log('fail');
+              }
+            }
+          });
+        };
+
+        var wpfFunctionLeadPresupuesto = function() {
+          var wpnonce = this.getAttribute('wpfn');
+          var servicio = this.getAttribute('wpfid');
+          var usuario = this.getAttribute('wpfu');
+          var mensaje = document.getElementById('form-field-mensajePresupuesto').value;
+
+          console.log('boton Enviar API servicio: '+servicio );
+          console.log('mensaje: '+mensaje );
+
+          jQuery.ajax({
+            type : 'post',
+            dataType : 'json',
+            url : WpfAjax.ajaxurl,
+            data: {
+              'action': 'wpfunos_ajax_aseguradoras_presupuesto',
+              'wpfid': servicio,
+              'wpfn': wpnonce,
+              'wpfu' : usuario,
+              'wpfm' : mensaje,
+            },
+            success: function(response) {
+              console.log('wpfunos_ajax_aseguradoras_presupuesto response:');
+              console.log(response)	;
+              if(response.type === 'success') {
+                $('#elementor-popup-modal-56054').hide();
+              } else {
+                console.log('fail');
+              }
+            }
+          });
+
+
+        };
+
+        for (var i = 0; i < elementsLlamamos.length; i++) {
+          elementsLlamamos[i].addEventListener('click', myFunctionLlamamos, false);
         }
-      });
-    };
-
-    var wpfFunctionLeadPresupuesto = function() {
-      var wpnonce = this.getAttribute('wpfn');
-      var servicio = this.getAttribute('wpfid');
-      var usuario = this.getAttribute('wpfu');
-      var mensaje = document.getElementById('form-field-mensajePresupuesto').value;
-
-      console.log('boton Enviar API servicio: '+servicio );
-      console.log('mensaje: '+mensaje );
-
-      jQuery.ajax({
-        type : 'post',
-        dataType : 'json',
-        url : WpfAjax.ajaxurl,
-        data: {
-          'action': 'wpfunos_ajax_aseguradoras_presupuesto',
-          'wpfid': servicio,
-          'wpfn': wpnonce,
-          'wpfu' : usuario,
-          'wpfm' : mensaje,
-        },
-        success: function(response) {
-          console.log('wpfunos_ajax_aseguradoras_presupuesto response:');
-          console.log(response)	;
-          if(response.type === 'success') {
-            $('#elementor-popup-modal-56054').hide();
-          } else {
-            console.log('fail');
-          }
+        for (var i = 0; i < elementsLlamamosMovil.length; i++) {
+          elementsLlamamosMovil[i].addEventListener('click', myFunctionLlamamos, false);
         }
-      });
+        for (var i = 0; i < elementsPresupuesto.length; i++) {
+          elementsPresupuesto[i].addEventListener('click', myFunctionPresupuesto, false);
+        }
+        for (var i = 0; i < elementsPresupuestoMovil.length; i++) {
+          elementsPresupuestoMovil[i].addEventListener('click', myFunctionPresupuesto, false);
+        }
 
+        for (var i = 0; i < elementsDetalles.length; i++) {
+          elementsDetalles[i].addEventListener('click', myFunctionDetalles, false);
+        }
 
-    };
+      }
+    }, 100); // check every 100ms
 
-    for (var i = 0; i < elementsLlamamos.length; i++) {
-      elementsLlamamos[i].addEventListener('click', myFunctionLlamamos, false);
-    }
-    for (var i = 0; i < elementsLlamamosMovil.length; i++) {
-      elementsLlamamosMovil[i].addEventListener('click', myFunctionLlamamos, false);
-    }
-    for (var i = 0; i < elementsPresupuesto.length; i++) {
-      elementsPresupuesto[i].addEventListener('click', myFunctionPresupuesto, false);
-    }
-    for (var i = 0; i < elementsPresupuestoMovil.length; i++) {
-      elementsPresupuestoMovil[i].addEventListener('click', myFunctionPresupuesto, false);
-    }
-
-    for (var i = 0; i < elementsDetalles.length; i++) {
-      elementsDetalles[i].addEventListener('click', myFunctionDetalles, false);
-    }
   }); // Function END
 
 }); // Document ready END
