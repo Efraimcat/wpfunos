@@ -246,7 +246,7 @@ class Wpfunos_ServiciosV3 {
 
             $nombre = $_COOKIE['wpfn'];
             $email = $_COOKIE['wpfe'];
-            $phone = $_COOKIE['wpfe'];
+            $phone = $_COOKIE['wpft'];
 
           }
 
@@ -292,6 +292,8 @@ class Wpfunos_ServiciosV3 {
         $transient_ref = get_transient('wpfunos-wpfref-' .$IP );
         ?><script>console.log('Transient búsqueda actualizar.' );</script><?php
 
+        $colaborador = ( apply_filters('wpfunos_email_colaborador','dummy') ) ? 'si' : 'no' ;
+
         $transient_ref['wpfref'] = $wpfwpf;
         $transient_ref['wpfip'] = $IP;
         $transient_ref['wpfn'] = $nombre;
@@ -311,6 +313,7 @@ class Wpfunos_ServiciosV3 {
         $transient_ref['wpfurl'] = home_url().$_SERVER['REQUEST_URI'];
         $transient_ref['wpfwpf'] = $_GET['wpfwpf'];
         $transient_ref['wpfland'] = (isset($_GET['land']) ) ? 1 : 0 ;
+        $transient_ref['wpfcolab'] = $colaborador;
 
         set_transient( 'wpfunos-wpfref-v3-' .$IP, $transient_ref, DAY_IN_SECONDS );
 
@@ -1092,6 +1095,8 @@ class Wpfunos_ServiciosV3 {
     setcookie('wpflasttime', date( 'd/m/y', current_time( 'timestamp', 0 ) ) , ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
     //Última Búsqueda END
 
+    $colaborador = ( apply_filters('wpfunos_email_colaborador','dummy') ) ? 'si' : 'no' ;
+
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$wpfip );
     $transient_ref['wpfref'] = $wpfnewref;
     $transient_ref['wpfip'] = $wpfip;
@@ -1112,6 +1117,7 @@ class Wpfunos_ServiciosV3 {
     $transient_ref['wpfurl'] = $URL;
     $transient_ref['wpfwpf'] = $wpfwpf;
     $transient_ref['wpfland'] = (isset($_POST['wpfland'])) ? 1 : 0 ;
+    $transient_ref['wpfcolab'] = $colaborador;
 
     set_transient( 'wpfunos-wpfref-v3-' .$wpfip, $transient_ref, DAY_IN_SECONDS );
 
