@@ -43,8 +43,8 @@ if ( ! defined( 'ABSPATH' ) ) {
   <hr/>
   <h2><?php esc_html_e( 'Correo nuevos servicios', 'wpfunos' ); ?></h2>
   <li><a href="#wpfunos-entrada-admin-v2">Correo al administrador nuevos datos usuario</a></li>
-  <li><a href="#wpfunos-llamen-admin-v2">Correo al administrador botón "Quiero que me llamen"</a></li>
-  <li><a href="#wpfunos-llamar-admin-v2">Correo al administrador botón "Llamar"</a></li>
+  <li><a href="#wpfunos-llamen-admin-v2">Correo botón "Te llamamos"</a></li>
+  <li><a href="#wpfunos-llamar-admin-v2">Correo botón "Llamar"</a></li>
   <li><a href="#wpfunos-llamen-lead-v2">Correo lead botón "Quiero que me llamen"</a></li>
   <li><a href="#wpfunos-llamar-lead-v2">Correo lead botón "Llamar"</a></li>
   <li><a href="#wpfunos-presupuesto-admin-v2">Correo al administrador pedir presupuesto</a></li>

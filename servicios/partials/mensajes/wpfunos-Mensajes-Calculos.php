@@ -37,6 +37,7 @@ if( $respuesta[6] == 4 ) $comentariosDespedida = apply_filters('wpfunos_comentar
 
 $mensaje = str_replace( '[nombreUsuario]' , $_GET['nombreUsuario'] , $mensaje );
 $mensaje = str_replace( '[nombreServicio]' , $_GET['desgloseBaseNombre'] , $mensaje );
+$mensaje = str_replace( '[nombreFuneraria]' , get_the_title( $_GET['servicio'] ) , $mensaje );
 $mensaje = str_replace( '[nombrepack]' , $_GET['nombrepack'] , $mensaje );
 $mensaje = str_replace( '[precio]' , $_GET['precio'] , $mensaje );
 $mensaje = str_replace( '[telefono]' , $_GET['telefono'] , $mensaje );

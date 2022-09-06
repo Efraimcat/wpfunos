@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 add_settings_section(
   'wpfunos_mailadminboton1v2_section',    							// ID used to identify this section and with which to register options
-  '<span id="wpfunos-llamen-admin-v2">Correo al administrador botón "Quiero que me llamen"</span>',               // Title to be displayed on the administration page
+  '<span id="wpfunos-llamen-admin-v2">Correo botón "Te llamamos"</span>',               // Title to be displayed on the administration page
   array( $this, 'wpfunos_display_mail_account_v2' ), 		// Callback used to render the description of the section
   'wpfunos_mail_settings'                 				// Page on which to add this section of options
 );
-// Activar correo al administrador botón "Quiero que me llamen"
+// Activar correo botón "Te llamamos"
 add_settings_field(
   'wpfunos_activarCorreoBoton1v2Admin',
-  'Activar correo al administrador botón "Quiero que me llamen" <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoBoton1v2Admin)</h6>',
+  'Activar correo botón "Te llamamos" <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoBoton1v2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mailadminboton1v2_section',

@@ -69,8 +69,8 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
 
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail1' ));		//Correo al administrador nuevos datos usuario
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail2' ));		//Correo al administrador botón "Quiero que me llamen"
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail3' ));		//Correo al administrador botón "Llamar"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail2' ));		//Correo "Te llamamos"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail3' ));		//Correo botón "Llamar"
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail4' ));		//Correo lead botón "Quiero que me llamen"
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail5' ));		//Correo lead botón "Llamar"
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail6' ));		//Correo al administrador pedir presupuesto
@@ -550,7 +550,7 @@ class Wpfunos_Admin {
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
     <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
-    <p>[nombreServicio], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
+    <p>[nombreServicio], [nombreFuneraria], [telefono], [telefonoUsuario], [telefonoServicio], [precio], [nombreUsuario], [referencia], [Email], [CPUsuario], [ubicacion]</p>
     <p>[desgloseBaseNombre], [TotaldesgloseBaseTotal] = ( <i>[desgloseBasePrecio] + [desgloseBaseDescuento] + [desgloseBaseTotal]</i> )</p>
     <p>[desgloseDestinoNombre], [TotaldesgloseDestinoTotal] = ( <i>[desgloseDestinoPrecio] + [desgloseDestinoDescuento] + [desgloseDestinoTotal]</i> )</p>
     <p>[desgloseAtaudNombre], [TotaldesgloseAtaudTotal] = ( <i>[desgloseAtaudPrecio] + [desgloseAtaudDescuento] + [desgloseAtaudTotal]</i> )</p>
@@ -628,7 +628,7 @@ class Wpfunos_Admin {
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
     <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
-    <p>[nombreServicio], [nombreUsuario], [telefonoServicio], [telefonoUsuario], [email], [CP], [poblacion], [referencia]</p>
+    <p>[nombreServicio], [nombreFuneraria], [nombreUsuario], [telefonoServicio], [telefonoUsuario], [email], [CP], [poblacion], [referencia]</p>
     <p>[precio], [destino], [ataud], [velatorio], [ceremonia], [comentarios], [IP]</p>
     <hr />
     <?php
@@ -639,7 +639,7 @@ class Wpfunos_Admin {
     <li><a href="#wpfunos-inicio">Ir al inicio de la página</a></li>
     <hr/>
     <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
-    <p>[nombreServicio], [nombreUsuario], [telefonoServicio], [telefonoUsuario], [email], [CP], [poblacion], [referencia]</p>
+    <p>[nombreServicio], [nombreFuneraria], [nombreUsuario], [telefonoServicio], [telefonoUsuario], [email], [CP], [poblacion], [referencia]</p>
     <p>[precio], [destino], [ataud], [velatorio], [ceremonia], [comentarios], [comentariosUsuario], [IP]</p>
     <hr />
     <?php

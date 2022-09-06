@@ -50,18 +50,6 @@ function gmw_custom_get_zipcode_on_form_submission() {
 }
 add_action( 'wp_footer', 'gmw_custom_get_zipcode_on_form_submission', 50 );
 
-# Automatically clear autoptimizeCache if it goes beyond 256MB
-if (class_exists('autoptimizeCache')) {
-  $myMaxSize = 256000; # You may change this value to lower like 100000 for 100MB if you have limited server space
-  $statArr=autoptimizeCache::stats();
-  $cacheSize=round($statArr[1]/1024);
-
-  if ($cacheSize>$myMaxSize){
-    autoptimizeCache::clearall();
-    header("Refresh:0"); # Refresh the page so that autoptimize can create new cache files and it does breaks the page after clearall.
-  }
-}
-
 function add_meta_for_search_excluded()
 {
   global $post;
@@ -100,24 +88,22 @@ function wpf_admin_notice_warn() {
     <p><strong>IMPORTANTE</strong>: <u>Entorno de desarrollo de funos.es</u></p>
     <p><strong>IMPORTANTE</strong>: El entorno de DESARROLLO se reinicia durante los primeros días de cada mes. Manten siempre una copia actualizada y documentada de todo tu trabajo.</p>
     </div>';
-    echo '<div class="notice notice-warning is-dismissible">
-    <p><strong>Documentación</strong>: Hoja de cálculo con plantillas de "<a href="https://docs.google.com/spreadsheets/d/1dDGNIhx5UCLK0-bYeM8y6Yp-QEn5GqHt9Wn6WOrj0UQ/edit?usp=sharing" target="_blank">Funos Seguros</a>".</p>
-    </div>';
     if ( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && $_GET['post_type'] ==  'custom-css-js') {
       echo '<div class="notice notice-warning is-dismissible">
       <p>funos.es: <a href="https://docs.google.com/document/d/1oBmkyGh-2G3qywJNFI-Q1_iGJ6TEO7jvBylJ-muPjw4/edit?usp=sharing" target="_blank">Documentación de ayuda para Custom CSS & JS</a>.</p>
       </div>';
     }
-    if ( $pagenow == 'edit.php' && isset( $_GET['ac-actions-form'] ) && $_GET['ac-actions-form'] ==  '1') {
-      if( $current_user->user_email == 'agencia.balabox@gmail.com'){
-        echo '<div class="notice notice-warning is-dismissible">
-        <p>funos.es: Exsite una categoría Balabox donde agrupar todos tus trabajos y encontrar la plantilla facilmente. Utiliza esta categoria en tus trabajos y pruebas.</p>
-        </div>';
-      }
-    }
   }
 }
 add_action( 'admin_notices', 'wpf_admin_notice_warn' );
+
+/*
+* WOOCOMMERCE
+*/
+include("wpfunoscommerce.php");
+/*
+*
+*/
 
 // Habilitar la subida de imágenes en formato SVG en WordPress
 add_filter( 'upload_mimes', 'jc_custom_upload_mimes' );
@@ -126,18 +112,11 @@ function jc_custom_upload_mimes( $existing_mimes = array() ) {
   return $existing_mimes;
 }
 
-add_filter('add_to_cart_redirect', 'wpf_add_to_cart_redirect');
-function wpf_add_to_cart_redirect() {
- global $woocommerce;
- $wpf_redirect_checkout = $woocommerce->cart->get_checkout_url();
- return $wpf_redirect_checkout;
-}
-
 // is logged in
 //
 function ajax_check_user_logged_in() {
-    echo is_user_logged_in()?'yes':'no';
-    die();
+  echo is_user_logged_in()?'yes':'no';
+  die();
 }
 add_action('wp_ajax_is_user_logged_in', 'ajax_check_user_logged_in');
 add_action('wp_ajax_nopriv_is_user_logged_in', 'ajax_check_user_logged_in');

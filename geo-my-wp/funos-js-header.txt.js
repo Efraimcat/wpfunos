@@ -43,3 +43,34 @@ window.onload = function () {
 	}
 }
 </script>
+
+
+================================================================================
+05-09-2022
+================================================================================
+
+document.addEventListener('readystatechange', () => {
+	const headerTop = document.getElementById('wpfunos-header-bot')
+
+	document.addEventListener('scroll', () => {
+		if(window.scrollY > 360)
+			headerTop.classList.add('active')
+		else
+			headerTop.classList.remove('active')
+	})
+})
+console.log( "document loaded" );
+
+
+var data = {
+    action: 'is_user_logged_in'
+};
+
+jQuery.post('https://funos.es/wp-admin/admin-ajax.php', data, function(response) {
+    if(response == 'yes') {
+    	console.log( "logged-in");
+		document.cookie = "wpfunosloggedin=yes;expires=session; path=/;SameSite=Lax;secure";
+    } else {
+        console.log( "not logged-in");
+    }
+});

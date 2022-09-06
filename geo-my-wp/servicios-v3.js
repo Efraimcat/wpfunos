@@ -351,9 +351,6 @@ $(document).ready(function(){
             }, false);
           });
 
-
-
-
           [ document.getElementById('wpfunos-multistep-futuro'), document.getElementById('wpfunos-multistep-futuro-icon')].forEach(function(element) {
             element.addEventListener('click', function() {
               elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
@@ -361,8 +358,10 @@ $(document).ready(function(){
             }, false);
           });
 
+          //
+
           var wpfentierro = function() {
-            destino = 'Entierro';
+            destino = '1';
             console.log('destino: entierro');
 
             document.getElementById('elementor-popup-modal-89344').style.display = 'none';
@@ -377,7 +376,7 @@ $(document).ready(function(){
           };
 
           var wpfincineracion = function() {
-            destino = 'Incineración';
+            destino = '2';
             console.log('destino: incineracion');
 
             document.getElementById('elementor-popup-modal-89344').style.display = 'none';
@@ -393,7 +392,7 @@ $(document).ready(function(){
           //
           //
           var wpfvelatorio = function() {
-            velatorio = 'Velatorio';
+            velatorio = '1';
             console.log('velatorio: si');
 
             document.getElementById('elementor-popup-modal-89348').style.display = 'none';
@@ -415,7 +414,7 @@ $(document).ready(function(){
           };
 
           var wpfsinvelatorio = function() {
-            velatorio = 'Sin velatorio';
+            velatorio = '2';
             console.log('velatorio: no');
 
             document.getElementById('elementor-popup-modal-89348').style.display = 'none';
@@ -437,7 +436,7 @@ $(document).ready(function(){
           };
           //
           var wpfsinceremonia = function() {
-            ceremonia = 'Sin ceremonia';
+            ceremonia = '1';
             console.log('ceremonia: no');
 
             document.getElementById('elementor-popup-modal-89351').style.display = 'none';
@@ -447,7 +446,7 @@ $(document).ready(function(){
           };
 
           var wpfsolosala = function() {
-            ceremonia = 'Solo sala';
+            ceremonia = '2';
             console.log('ceremonia: sala');
 
             document.getElementById('elementor-popup-modal-89351').style.display = 'none';
@@ -456,7 +455,7 @@ $(document).ready(function(){
           };
 
           var wpfcivil = function() {
-            ceremonia = 'Ceremonia civil';
+            ceremonia = '3';
             console.log('ceremonia: civil');
 
             document.getElementById('elementor-popup-modal-89351').style.display = 'none';
@@ -465,7 +464,7 @@ $(document).ready(function(){
           };
 
           var wpfreligiosa = function() {
-            ceremonia = 'Ceremonia religiosa';
+            ceremonia = '4';
             console.log('ceremonia: religiosa');
 
             document.getElementById('elementor-popup-modal-89351').style.display = 'none';
@@ -482,7 +481,7 @@ $(document).ready(function(){
             var telefono = document.getElementById('form-field-Telefono').value;
             var acepta = document.getElementById('form-field-aceptacion').validity.valueMissing;  //(true = no ha validado  false = ha validado)
             if( nombre !== '' && email !== '' && telefono !== '' && !acepta ){
-              console.log('Finalmente: Cuando ' +cuando+ ', Destino ' +destino+ ', Velatorio ' +velatorio+ ' , Ceremonia ' +ceremonia+ ', Nombre ' +nombre+ ' , Email ' +email+ ' , Teléfono ' +telefono);
+
               console.log('datos correctos. creando entrada.');
 
               var date = new Date();
@@ -503,38 +502,19 @@ $(document).ready(function(){
 
               if( document.getElementById('wpf-resultados-referencia').getAttribute('wpfland') === '1'){
                 destino = params.get('cf[resp1]');
+                ataud = params.get('cf[resp2]');
                 velatorio = params.get('cf[resp3]');
                 ceremonia = params.get('cf[resp4]');
               }else{
-                if ( destino === 'Incineracion' ){
-                  params.set('cf[resp1]', '2');
-                }
-                if ( destino === 'Entierro' ){
-                  params.set('cf[resp1]', '1');
-                }
-                if ( velatorio ==='Velatorio' ){
-                  params.set('cf[resp3]', '1');
-                }
-                if ( velatorio ==='Sin velatorio' ){
-                  params.set('cf[resp3]', '2');
-                }
-                if ( ceremonia ==='Sin ceremonia' ){
-                  params.set('cf[resp4]', '1');
-                }
-                if ( ceremonia ==='Solo sala' ){
-                  params.set('cf[resp4]', '2');
-                }
-                if( ceremonia ==='Ceremonia civil' ){
-                  params.set('cf[resp4]', '3');
-                }
-                if( ceremonia ==='Ceremonia religiosa' ){
-                  params.set('cf[resp4]', '4');
-                }
+                ataud = '2';
               }
-              var ataud = 'Ataúd económico';
-              if (params.get('cf[resp2]') === 1 ){ ataud = 'Ataúd medio';}
-              if (params.get('cf[resp2]') === 2 ){ ataud = 'Ataúd económico';}
-              if (params.get('cf[resp2]') === 3 ){ ataud = 'Ataúd premium';}
+
+              params.set('cf[resp1]', destino);
+              params.set('cf[resp2]', ataud);
+              params.set('cf[resp3]', velatorio);
+              params.set('cf[resp4]', ceremonia);
+
+              console.log('Finalmente: Cuando ' +cuando+ ', Destino ' +destino+ ', Ataud ' +ataud+ ', Velatorio ' +velatorio+ ' , Ceremonia ' +ceremonia+ ', Nombre ' +nombre+ ' , Email ' +email+ ' , Teléfono ' +telefono);
 
               params.set('cuando', cuando);
               params.set('CP', wpfcp);
