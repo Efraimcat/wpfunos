@@ -347,16 +347,7 @@ class Wpfunos_ServiciosV3 {
         }, 100); // check every 100ms
         </script><?php
 
-        //if( !isset($_GET['land'])){
-        //  require 'js/wpfunos-v3-multistep.js';
-        //}else{
-        //  require 'js/wpfunos-v3-multistep-land.js'; //viene de una landing. Solo preguntar cuando y datos personales.
-        //}
-
-      }
-      // END No tiene entrada usuario
-
-    } //END count($_GET) > 0
+0
 
   }
 

@@ -1,0 +1,97 @@
+#wpfunos-servicios-form-v2 .gmw-search-form-custom-fields.gmw-search-form-multiple-fields-wrapper {
+	display: none;
+}
+#wpfunos-servicios-form-v2 .gmw-form-field-wrapper.gmw-radius-slider-wrapper {
+	display: none;
+}
+
+.gmw-ajax-form-wrapper.gmw-form-wrapper.gmw-ajax-form-element.template-custom_wpfunos-servicios-v2.auto-submission.results-page-enabled.ajaxfmspt,
+.gmw-ajax-form-wrapper.gmw-form-wrapper.gmw-ajax-form-element.template-custom_wpfunos-servicios-v2.auto-submission.results-page-disabled.ajaxfmspt,
+.gmw-ajax-form-wrapper.gmw-form-wrapper.gmw-ajax-form-element.template-custom_wpfunos-servicios.auto-submission.results-page-disabled.ajaxfmspt,
+.gmw-ajax-form-wrapper.gmw-form-wrapper.gmw-ajax-form-element.template-custom_wpfunos-servicios.auto-submission.results-page-enabled.ajaxfmspt,
+.gmw-ajax-form-wrapper.gmw-form-wrapper.gmw-ajax-form-element.template-default.auto-submission.results-page-enabled.ajaxfmspt{
+	background-color: white;
+}
+
+@media (max-width: 500px) {
+	#wpfunos-boton-precio {
+		margin-bottom: 20px;
+	}
+}
+.gmw-field-label {
+	background-color: white !important;
+	color: #444 !important;
+	font-size: 26px !important;
+	font-weight: 700 !important;
+	text-transform: initial !important;
+}
+
+#gmw-address-field-6 {
+	font-size: 16px;
+	padding: 16px;
+	border-radius: 4px;
+	border: 2px solid #5F6471;
+	font-weight: 500;
+	color: #999999;
+}
+#gmw-address-field-7 {
+	font-size: 16px;
+	padding: 16px;
+	border-radius: 4px;
+	border: 2px solid #5F6471;
+	font-weight: 500;
+	color: #999999;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+#wpfunos-search-form-compara {
+	font-size: 16px;
+	font-weight: 600;
+	color: #444;
+}
+#gmw-submit-7,
+#gmw-submit-6{
+    display: block;
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    background: #FF9C00;
+    border-radius: 24px;
+}
+.gmw-field-label {
+	/* font-size: 18px !important;*/
+}
+.wpfunos-pregunta {
+	font-size: 16px;
+	padding: 10px 15px 10px 15px;
+}
+.wpfunos-pregunta-div {
+	text-align: center;
+}
+.wpfunos-titulo-pregunta {
+	padding-top: 23px;
+	color: #0274be;
+	text-align: center;
+	font-size: 20px;
+}
+#wpfunos-enviando,
+#gmw-submit-6,
+#gmw-cf-resp1-6,
+#gmw-cf-resp2-6,
+#gmw-cf-resp3-6,
+#gmw-cf-resp4-6{
+	display: none;
+}
+
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

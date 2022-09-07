@@ -1,0 +1,103 @@
+.wpfunos-busqueda-contenedor {
+	margin: 20px 0 20px 0;
+}
+
+#wpf-detalles-logo-confirmado,
+#wpfunos-logo-confirmado {
+	text-align: right;
+}
+
+.wpfunos-boton-llamar,
+.wpfunos-boton-llamen,
+.wpfunos-boton-presupuesto,
+.wpfunos-boton-detalles,
+#wpfunos-multistep-entierro-icon,
+#wpfunos-multistep-incineracion-icon,
+#wpfunos-multistep-nolose-icon,
+#wpfunos-multistep-ahora-icon,
+#wpfunos-multistep-prox-icon,
+#wpfunos-multistep-velatorio-icon,
+#wpfunos-multistep-sinvelatorio-icon,
+#wpfunos-multistep-sinceremonia-icon,
+#wpfunos-multistep-solosala-icon,
+#wpfunos-multistep-civil-icon,
+#wpfunos-multistep-religiosa-icon
+{
+	cursor: pointer;
+}
+
+.wpfunos-boton-presupuesto .elementor-button-icon.elementor-align-icon-right {
+	margin-right: 15px;
+	margin-left: -15px;
+}
+
+@media (max-width: 500px) {
+	#wpfunos-logo-movil,
+	#wpfunos-logo-confirmado-movil,
+	#wpf-detalles-logo-confirmado-movil,
+	#wpf-detalles-logo-movil{
+		text-align: center;
+	}
+	.elementor-element.elementor-element-d5b4fe1.elementor-widget.elementor-widget-spacer {
+ 		display: none;
+ 	}
+ 	.elementor-element.elementor-element-324cb7e.elementor-widget.elementor-widget-spacer {
+		display: none;
+	}
+	#wpfunos-multistep-entierro,
+	#wpfunos-multistep-entierro-icon,
+	#wpfunos-multistep-incineracion,
+	#wpfunos-multistep-incineracion-icon,
+	#wpfunos-multistep-nolose,
+	#wpfunos-multistep-nolose-icon,
+	#wpfunos-multistep-ahora,
+    #wpfunos-multistep-ahora-icon,
+    #wpfunos-multistep-prox,
+    #wpfunos-multistep-prox-icon
+	{
+		margin-top: -18px;
+	}
+
+	.elementor-element.elementor-element-d1ff54e.elementor-widget.elementor-widget-heading h2,
+	.elementor-element.elementor-element-335a23f.elementor-widget.elementor-widget-heading h2 {
+ 		font-size: 20px;
+ 	}
+	.elementor-element.elementor-element-2b725fb6.elementor-widget.elementor-widget-heading h4,
+ 	.elementor-element.elementor-element-c25caf4.elementor-widget.elementor-widget-heading h4 {
+		font-size: 14px;
+	}
+	.elementor-button-text {
+		font-size: 13px;
+	}
+
+	.attachment-large.size-large.entered.litespeed-loaded {
+		/* width: 20%; */
+	}
+	#wpfunos-preciomedio-titulo h4 {
+		font-size: 18px;
+	}
+	#wpfunos-preciomedio-titulo {
+		margin-bottom: 0px;
+	}
+	.elementor-element.elementor-element-972ced3.elementor-widget.elementor-widget-heading h4{
+		/* color: #ff9c00; */
+	}
+	.elementor-element.elementor-element-972ced3.elementor-widget.elementor-widget-heading {
+		margin-bottom: 0px;
+	}
+	.elementor-element.elementor-element-516660e.elementor-widget.elementor-widget-heading {
+		margin-bottom: 5px;
+	}
+}
+
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

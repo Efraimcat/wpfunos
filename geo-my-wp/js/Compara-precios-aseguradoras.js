@@ -16,11 +16,9 @@ $(document).ready(function(){
         setTimeout(function() {
           $('.elementor-tab-title').removeClass('elementor-active');
           $('.elementor-tab-content').css('display', 'none');
-
           [document.getElementById('wpf-movil-aseg-1'), document.getElementById('wpf-movil-aseg-2'), document.getElementById('wpf-movil-aseg-3'), document.getElementById('wpf-movil-aseg-4'), document.getElementById('wpf-movil-aseg-5'), document.getElementById('wpf-movil-aseg-6') ].forEach(function(element) {
             element.addEventListener('click', wpfcerrarfiltros, false);
           });
-
         }, 1000 );
 
         var wpfcerrarfiltros = function() {

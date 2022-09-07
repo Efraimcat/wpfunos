@@ -1,0 +1,11 @@
+.woocommerce-message {
+	display: none;
+}
+
+#billing_company_field {
+	display: none;
+}
+
+#billing_country_field {
+	display: none;
+}
