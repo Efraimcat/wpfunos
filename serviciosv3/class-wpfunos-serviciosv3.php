@@ -347,8 +347,6 @@ class Wpfunos_ServiciosV3 {
         }, 100); // check every 100ms
         </script><?php
 
-0
-
   }
 
   /*********************************/
