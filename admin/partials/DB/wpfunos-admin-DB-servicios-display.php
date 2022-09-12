@@ -155,12 +155,14 @@ if ( ! defined( 'ABSPATH' ) ) {
         <tr>
           <td style="width:20%"><?php esc_html_e('Botones llamar', 'wpfunos');?></td>
           <td style="width:20%"><?php esc_html_e('Botón presupuesto', 'wpfunos');?></td>
+          <td style="width:20%"><?php esc_html_e('Botón financiación', 'wpfunos');?></td>
           <td style="width:20%"><?php esc_html_e('Bloquear comentarios', 'wpfunos');?></td>
           <td style="width:20%"><?php esc_html_e('Actualizar comentarios', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBotonesLlamar','name' => 'wpfunos_servicioBotonesLlamar','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBotonPresupuesto','name' => 'wpfunos_servicioBotonPresupuesto','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBotonFinanciacion','name' => 'wpfunos_servicioBotonFinanciacion','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBloquearComentario','name' => 'wpfunos_servicioBloquearComentario','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioActualizarComentario','name' => 'wpfunos_servicioActualizarComentario','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
         </tr>

@@ -33,6 +33,7 @@ class Wpfunos_Public {
   public function __construct( $plugin_name, $version ) {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
+    add_shortcode( 'wpfunos-financiacion', array( $this, 'wpfunosFinanciacionShortcode' ));
     add_shortcode( 'wpfunos-resultados', array( $this, 'wpfunosResultadosShortcode' ));
     add_shortcode( 'wpfunos-correo-popup', array( $this, 'wpfunosCorreoPopupShortcode' ));
     add_shortcode( 'wpfunos-mensaje-usuario-correo-popup', array( $this, 'wpfunosCorreoUsuarioPopupShortcode' ));
@@ -62,6 +63,14 @@ class Wpfunos_Public {
   /*********************************/
   /*****  SHORTCODES          ******/
   /*********************************/
+
+
+  /**
+  * Shortcode [wpfunos-financiacion]
+  */
+  public function wpfunosFinanciacionShortcode( $atts, $content = "" ) {
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '111305' );
+  }
 
   /**
   * Shortcode [wpfunos-resultados]

@@ -13,6 +13,9 @@ $(document).ready(function(){
     var elementsLlamar = document.getElementsByClassName('wpf-v3-boton-llamar');
     var elementsPresupuesto = document.getElementsByClassName('wpf-v3-boton-presupuesto');
     var elementsDetalles = document.getElementsByClassName('wpf-v3-boton-detalles');
+    var elementsFinanciacion = document.getElementsByClassName('wpf-v3-boton-financiacion');
+
+    var elementsFinanciacionNo = document.getElementsByClassName('wpf-financiacion-no');
 
     //
 
@@ -287,6 +290,14 @@ $(document).ready(function(){
     }
     for (var i = 0; i < elementsDetalles.length; i++) {
       elementsDetalles[i].addEventListener('click', wpfFunctionDetalles, false);
+    }
+    for (var i = 0; i < elementsFinanciacion.length; i++) {
+      elementsFinanciacion[i].addEventListener('click', wpfFunctionFinanciacion, false);
+      elementsFinanciacion[i].style.cursor = 'pointer';
+    }
+
+    for (var i = 0; i < elementsFinanciacionNo.length; i++) {
+      elementsFinanciacionNo[i].style.display = 'none';
     }
 
     // Multistep Form
@@ -730,8 +741,9 @@ var wpfFunctionDetalles = function() {
   var titulo = this.getAttribute('wpftitulo');
   var distancia = this.getAttribute('wpfdistancia');
   var telefono = this.getAttribute('wpftelefono');
+  var financiacion = this.getAttribute('wpffinanciacion');
 
-  console.log('Botón Detalles: Servicio: '+servicio+' Título: '+titulo );
+  console.log('Botón Detalles: Servicio: '+servicio+' Título: '+titulo+' Financiación: '+financiacion );
 
   elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
 
@@ -828,6 +840,22 @@ var wpfFunctionDetalles = function() {
         document.getElementById('wpfunos-detalles-presupuesto-movil').setAttribute('wpftitulo', titulo);
         document.getElementById('wpfunos-detalles-presupuesto-movil').setAttribute('wpfdistancia', distancia);
         document.getElementById('wpfunos-detalles-presupuesto-movil').setAttribute('wpftelefono', telefono);
+        document.getElementById('wpfunos-detalles-financiacion').addEventListener('click', wpfFunctionFinanciacion, false);
+        document.getElementById('wpfunos-detalles-financiacion').setAttribute('wpfid', servicio);
+        document.getElementById('wpfunos-detalles-financiacion').setAttribute('wpfn', wpnonce);
+        document.getElementById('wpfunos-detalles-financiacion').setAttribute('wpfp', precio);
+        document.getElementById('wpfunos-detalles-financiacion').setAttribute('wpftitulo', titulo);
+        document.getElementById('wpfunos-detalles-financiacion').setAttribute('wpfdistancia', distancia);
+        document.getElementById('wpfunos-detalles-financiacion').setAttribute('wpftelefono', telefono);
+        document.getElementById('wpf-icono-whatsapp').addEventListener('click', wpfFunctionWhatsApp, false);
+        document.getElementById('wpf-icono-whatsapp').setAttribute('wpfid', servicio);
+        document.getElementById('wpf-icono-whatsapp').setAttribute('wpfn', wpnonce);
+        document.getElementById('wpf-icono-whatsapp').setAttribute('wpfp', precio);
+        document.getElementById('wpf-icono-whatsapp').setAttribute('wpftitulo', titulo);
+        document.getElementById('wpf-icono-whatsapp').setAttribute('wpfdistancia', distancia);
+        document.getElementById('wpf-icono-whatsapp').setAttribute('wpftelefono', telefono);
+
+        if ( financiacion == 1 ) {document.getElementById('wpf-detalles-boton-financiacion').style.display = 'block';}
 
       } else {
         console.log('fail');
@@ -984,6 +1012,91 @@ var wpfDetallesPresupuesto = function() {
   document.getElementById('botonEnviarPresupuesto').setAttribute('wpfp', precio );
   document.getElementById('botonEnviarPresupuesto').setAttribute('wpftitulo', titulo );
   document.getElementById('botonEnviarPresupuesto').addEventListener('click', wpfFunctionEnviaPresupuesto, false);
+};
+
+var wpfFunctionFinanciacion = function() {
+  var servicio = this.getAttribute('wpfid');
+  var precio = this.getAttribute('wpfp');
+  var titulo = this.getAttribute('wpftitulo');
+
+  console.log('Botón Financiación: '+servicio+' Título: '+titulo );
+
+  elementorFrontend.documentsManager.documents['111301'].showModal(); //show the popup
+
+  document.getElementById('wpf-financiacion-funeraria').innerHTML = titulo;
+  document.getElementById('wpf-financiacion-tipo').innerHTML = document.getElementsByClassName('elementor-element-6472ad92')[0].innerText;
+
+  document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='none';
+  document.getElementsByClassName('elementor-field-group-plazos_superior')[0].style.display='none';
+  document.getElementById('form-field-importe').disabled = true;
+  document.getElementById('form-field-financiar').disabled = true;
+
+  document.getElementById('form-field-importe').value = precio;
+  document.getElementById('form-field-wpfn').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+  document.getElementById('form-field-wpfe').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
+  document.getElementById('form-field-wpft').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
+  document.getElementById('form-field-wpfp').value = precio;
+  document.getElementById('form-field-wpftitulo').value = titulo;
+  document.getElementById('form-field-wpftipo').value = document.getElementsByClassName('elementor-element-6472ad92')[0].innerText;
+
+  setInterval(function() {
+    if ( !document.getElementById('form-field-importe') ) {return;}
+    document.getElementById('form-field-financiar').value = ( precio - document.getElementById('form-field-entrada').value );
+
+    if ( document.getElementById('form-field-financiar').value < 1501 ){
+      document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='block';
+      document.getElementsByClassName('elementor-field-group-plazos_superior')[0].style.display='none';
+    }
+
+    if ( document.getElementById('form-field-financiar').value > 1500 ){
+      document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='none';
+      document.getElementsByClassName('elementor-field-group-plazos_superior')[0].style.display='block';
+    }
+
+    if( document.getElementById('form-field-financiar').value < 0 ){
+      document.getElementById('wpfFinanciacionEnviar').disabled = true;
+    }else{
+      document.getElementById('wpfFinanciacionEnviar').disabled = false;
+    }
+
+
+  }, 100); // check every 100ms
+};
+
+var wpfFunctionWhatsApp = function() {
+  var wpnonce = this.getAttribute('wpfn');
+  var servicio = this.getAttribute('wpfid');
+  var precio = this.getAttribute('wpfp');
+  var titulo = this.getAttribute('wpftitulo');
+  var telefono = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
+  document.getElementById('wpf-icono-whatsapp').removeEventListener('click', wpfFunctionWhatsApp );
+  document.getElementById('wpf-icono-whatsapp').style.cursor = 'auto';
+
+
+  console.log('Botón WhatsApp: '+servicio+' Título: '+titulo+' Teléfono: ' + telefono );
+
+  jQuery.ajax({
+    type : 'post',
+    dataType : 'json',
+    url : WpfAjax.ajaxurl,
+    data: {
+      'action': 'wpfunos_ajax_v3_whatsapp',
+      'servicio': servicio,
+      'wpnonce': wpnonce,
+      'precio' : precio,
+      'titulo' : titulo,
+      'telefono' : telefono,
+    },
+    success: function(response) {
+      console.log('wpfunos_ajax_v3_whatsapp response:');
+      console.log(response)	;
+      if(response.type === 'success') {
+        console.log('OK');
+      } else {
+        console.log('fail');
+      }
+    }
+  });
 };
 
 var wpfdistancia = function() {

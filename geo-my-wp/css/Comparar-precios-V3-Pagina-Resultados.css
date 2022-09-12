@@ -221,3 +221,21 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
   }
 
 }
+
+#wpf-financiacion-funeraria {
+  font-size: 24px;
+  font-weight: 600;
+}
+#wpf-financiacion-tipo {
+  font-size: 16px;
+}
+#form-field-importe {
+  border: 0;
+  font-size: 26px;
+  font-weight: 600;
+}
+#form-field-financiar {
+  border: 0;
+  font-size: 26px;
+  font-weight: 600;
+}

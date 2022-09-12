@@ -29,6 +29,7 @@ $servicioActivo = sanitize_text_field( $_POST['wpfunos_servicioActivo'] );
 
 $servicioBotonesLlamar = sanitize_text_field( $_POST['wpfunos_servicioBotonesLlamar'] );
 $servicioBotonPresupuesto = sanitize_text_field( $_POST['wpfunos_servicioBotonPresupuesto'] );
+$servicioBotonFinanciacion = sanitize_text_field( $_POST['wpfunos_servicioBotonFinanciacion'] );
 $servicioTextoPrecio = sanitize_text_field( $_POST['wpfunos_servicioTextoPrecio'] );
 $servicioImagenPromo = sanitize_text_field( $_POST['wpfunos_servicioImagenPromo'] );
 $Dummy = sanitize_text_field( $_POST['wpfunos_Dummy'] );
@@ -296,6 +297,7 @@ update_post_meta($post_id, 'wpfunos_servicioActivo', $servicioActivo);
 
 update_post_meta($post_id, 'wpfunos_servicioBotonesLlamar', $servicioBotonesLlamar);
 update_post_meta($post_id, 'wpfunos_servicioBotonPresupuesto', $servicioBotonPresupuesto);
+update_post_meta($post_id, 'wpfunos_servicioBotonFinanciacion', $servicioBotonFinanciacion);
 update_post_meta($post_id, 'wpfunos_servicioTextoPrecio', $servicioTextoPrecio);
 update_post_meta($post_id, 'wpfunos_servicioImagenPromo', $servicioImagenPromo);
 update_post_meta($post_id, 'wpfunos_Dummy', $Dummy);

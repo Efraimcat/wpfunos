@@ -47,6 +47,8 @@ class Wpfunos_ServiciosV3 {
     add_action('wp_ajax_wpfunos_ajax_v3_detalles', function () {$this->wpfunosV3Detalles();});
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_email', function () { $this->wpfunosV3Email();});
     add_action('wp_ajax_wpfunos_ajax_v3_email', function () {$this->wpfunosV3Email();});
+    add_action('wp_ajax_nopriv_wpfunos_ajax_v3_whatsapp', function () { $this->wpfunosV3WhatsApp();});
+    add_action('wp_ajax_wpfunos_ajax_v3_whatsapp', function () {$this->wpfunosV3WhatsApp();});
 
   }
   public function enqueue_styles() {
@@ -127,6 +129,7 @@ class Wpfunos_ServiciosV3 {
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '89348' ); //Servicios Multistep (3)
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '89351' ); //Servicios Multistep (4)
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '89354' ); //Servicios Multistep (5)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '111301' ); //Servicios Financiación
 
       /** ?><script>console.log('Cargando popups Elementor END.' );</script><?php **/
 
@@ -425,8 +428,6 @@ class Wpfunos_ServiciosV3 {
     /** ?><script>console.log('Precio medio zona END.' );</script><?php **/
   }
 
-
-
   /*********************************/
   /*****  IMAGENES FICHA      ******/
   /*********************************/
@@ -442,6 +443,7 @@ class Wpfunos_ServiciosV3 {
       case 'confirmado': echo $_GET['valor-logo-confirmado'] ; break;
     }
   }
+
   /*********************************/
   /*****  HOOKS               ******/
   /*********************************/
@@ -477,6 +479,7 @@ class Wpfunos_ServiciosV3 {
       if( 'si' == $activo && 'si' == $confirmado ) $wpfunos_confirmado[] = array ($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance );
       if( 'si' == $activo && 'no' == $confirmado ) $wpfunos_sinconfirmar[] = array ($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance );
 
+      $seccionClass_financiacion = (get_post_meta( $servicioID, 'wpfunos_servicioBotonFinanciacion', true ) ) ? 'wpf-financiacion-si' : 'wpf-financiacion-no';
       $seccionClass_presupuesto = (get_post_meta( $servicioID, 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
       $seccionClass_llamadas = (get_post_meta( $servicioID, 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
       $valor_precio = number_format($servicioPrecio, 0, ',', '.') . '€';
@@ -484,6 +487,7 @@ class Wpfunos_ServiciosV3 {
       $valores[$servicioID] = array (
         'ID_servicio' => $servicioID,
         'valor_titulo' => get_post_meta( $servicioID, 'wpfunos_servicio' .$campo. '_texto' , true ),
+        'seccionClass_financiacion' => $seccionClass_financiacion,
         'seccionClass_presupuesto' => $seccionClass_presupuesto,
         'seccionClass_llamadas' => $seccionClass_llamadas,
         'valor_logo' => wp_get_attachment_image ( get_post_meta( $servicioID, 'wpfunos_servicioLogo', true ) ,'full' ),
@@ -619,11 +623,13 @@ class Wpfunos_ServiciosV3 {
           wpfp|' .$value[2].'
           wpfdistancia|' .$value[3].'
           wpftitulo|' .get_post_meta( $value[0], 'wpfunos_servicioNombre', true ). '
-          wpftelefono|' .str_replace(" ","",get_post_meta( $value[0], 'wpfunos_servicioTelefono', true ) );
+          wpftelefono|' .str_replace(" ","",get_post_meta( $value[0], 'wpfunos_servicioTelefono', true ) ). '
+          wpffinanciacion|' .get_post_meta( $value[0], 'wpfunos_servicioBotonFinanciacion', true );
         }else{
-          $_GET['seccionClass-presupuesto'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_presupuesto'];
-          $_GET['seccionClass-llamadas'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_llamadas'];
-          $_GET['valor-logo'] = $transient_id['wpfvalor'][$value[0]]['valor_logo'];
+          $_GET['seccionClass-financiacion'] = $transient_id['wpfvalor'][ $value[0] ]['seccionClass_financiacion'];
+          $_GET['seccionClass-presupuesto'] = $transient_id['wpfvalor'][ $value[0] ]['seccionClass_presupuesto'];
+          $_GET['seccionClass-llamadas'] = $transient_id['wpfvalor'][ $value[0] ]['seccionClass_llamadas'];
+          $_GET['valor-logo'] = $transient_id['wpfvalor'][ $value[0] ]['valor_logo'];
 
           $_GET['valor-nombre'] = $transient_id['wpfvalor'][$value[0]]['valor_nombre'];
           $_GET['valor-nombrepack'] = $transient_id['wpfvalor'][$value[0]]['valor_nombrepack'];
@@ -637,12 +643,14 @@ class Wpfunos_ServiciosV3 {
           wpfp|' .$value[2].'
           wpfdistancia|' .$value[3].'
           wpftitulo|' .$transient_id['wpfvalor'][$value[0]]['valor_nombre']. '
-          wpftelefono|' .str_replace(" ","",$transient_id['wpfvalor'][$value[0]]['valor_telefono'] );
+          wpftelefono|' .str_replace(" ","",$transient_id['wpfvalor'][$value[0]]['valor_telefono'] ). '
+          wpffinanciacion|' .get_post_meta( $value[0], 'wpfunos_servicioBotonFinanciacion', true );
         }
 
         $_GET['seccionID-servicio'] = $value[0];
         $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
         $_GET['valor-distancia'] = $value[3] ;
+        $_GET['seccionClass_financiacion'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonFinanciacion', true ) ) ? 'wpf-financiacion-si' : 'wpf-financiacion-no';
 
         ?><div class="wpfunos-busqueda-contenedor" id="wpfunos-busqueda-resultado-<?php echo $value[0];?>"><?php
         echo do_shortcode( '[elementor-template id="90421"]' ) ; //Compara precios resultadosV3
@@ -685,6 +693,7 @@ class Wpfunos_ServiciosV3 {
         if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
         || $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
 
+          $_GET['seccionClass_financiacion'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonFinanciacion', true ) ) ? 'wpf-financiacion-si' : 'wpf-financiacion-no';
           $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
           $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
           $_GET['valor-logo'] = wp_get_attachment_image ( get_post_meta( $value[0], 'wpfunos_servicioLogo', true ) ,'full' );
@@ -701,8 +710,10 @@ class Wpfunos_ServiciosV3 {
           wpfp|' .$value[2].'
           wpfdistancia|' .$value[3].'
           wpftitulo|' .get_post_meta( $value[0], 'wpfunos_servicioNombre', true ). '
-          wpftelefono|' .str_replace(" ","",get_post_meta( $value[0], 'wpfunos_servicioTelefono', true ) );
+          wpftelefono|' .str_replace(" ","",get_post_meta( $value[0], 'wpfunos_servicioTelefono', true ) ). '
+          wpffinanciacion|' .get_post_meta( $value[0], 'wpfunos_servicioBotonFinanciacion', true );
         }else{
+          $_GET['seccionClass-financiacion'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_financiacion'];
           $_GET['seccionClass-presupuesto'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_presupuesto'];
           $_GET['seccionClass-llamadas'] = $transient_id['wpfvalor'][$value[0]]['seccionClass_llamadas'];
           $_GET['valor-logo'] = $transient_id['wpfvalor'][$value[0]]['valor_logo'];
@@ -719,7 +730,8 @@ class Wpfunos_ServiciosV3 {
           wpfp|' .$value[2].'
           wpfdistancia|' .$value[3].'
           wpftitulo|' .$transient_id['wpfvalor'][$value[0]]['valor_nombre']. '
-          wpftelefono|' .str_replace(" ","",$transient_id['wpfvalor'][$value[0]]['valor_telefono'] );
+          wpftelefono|' .str_replace(" ","",$transient_id['wpfvalor'][$value[0]]['valor_telefono'] ). '
+          wpffinanciacion|' .get_post_meta( $value[0], 'wpfunos_servicioBotonFinanciacion', true );
         }
 
         $_GET['seccionID-servicio'] = $value[0];
@@ -731,10 +743,6 @@ class Wpfunos_ServiciosV3 {
         ?></div><?php
 
       }
-
-
-
-
     }
   }
 
@@ -1812,6 +1820,94 @@ class Wpfunos_ServiciosV3 {
     }
     $result['type'] = "success";
     $result['email'] = $email;
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  /*********************************/
+  /*****  AJAX                ******/
+  /*********************************/
+  /**
+  * Ver detalles
+  *
+  * add_action('wp_ajax_nopriv_wpfunos_ajax_v3_whatsapp', function () { $this->wpfunosV3WhatsApp();});
+  * add_action('wp_ajax_wpfunos_ajax_v3_whatsapp', function () {$this->wpfunosV3WhatsApp();});
+  */
+  public function wpfunosV3WhatsApp(){
+    $servicio = $_POST['servicio'];
+    $wpnonce = $_POST['wpnonce'];
+    $titulo = $_POST['titulo'];
+    $precio = $_POST['precio'];
+    $telefono = $_POST['telefono'];
+
+    $IP = apply_filters('wpfunos_userIP','dummy');
+
+    if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$IP ) ) {
+      $result['type'] = "Bad nonce";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+
+    //
+    $tel = str_replace(" ","", $telefono );
+    $tel = str_replace("-","",$tel);
+    $tel = str_replace("+","",$tel);
+
+    if( strlen($tel) == 9 ) $tel = '34'.$tel;
+
+    if( strlen($tel) != 11 ) $tel = '0';
+
+    if( substr($tel,0,2) != '34' ) $tel = '0';
+
+    if ( $tel == '0' ) {
+      $result['type'] = "Bad phone number";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+    //
+    $URL = 'https://graph.facebook.com/v14.0/106068092247041/messages';
+
+    $body =  array(
+      'messaging_product' => 'whatsapp',
+      'to' => $tel,
+      'recipient_type' => 'individual',
+      'type' => 'text',
+      'text' => array(
+        'preview_url' => true,
+        'body' => 'Mensaje de prueba desde el pop detalles de ' .$titulo. ' en https://funos.es
+        Saludos.',
+      ),
+    );
+
+    $body_media =  array(
+      'messaging_product' => 'whatsapp',
+      'to' => $tel,
+      'recipient_type' => 'individual',
+      'type' => 'document',
+      'document' => array(
+        'link' => 'https://funos.es/wp-content/uploads/2022/09/prueba.pdf',
+        'caption' => 'Documento enviado desde funos.es',
+      ),
+    );
+
+    $args = array(
+      'headers'     => array(
+        'Authorization'  => 'Bearer EAAHZBvLqqgtgBADCWyYOQ85b8pg1X24K58TIAHMnPzbPN40N951v23pgzEtLfUZBOt29ZCkRoYmdFLuVMmHqBTDbi21RF6BmZAW5rH04eYEKKwiwHXrGhSx36P1L8iAZBhDKgFI6obsOfWp50uKoqdTdou3UeCDQRbuFMHXfLMZBJ71AC5UD3K4Lg6AgvOWDHp6s3Evzjhb8iBuEOX4QJ3KobjoGZBDZCtIZD',
+        'Content-Type'  => 'application/json',
+      ),
+      'body'  => json_encode($body_media),
+    );
+
+    $request = wp_remote_post( $URL, $args );
+
+    $result['type'] = "success";
+    $result['request'] = $request;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
