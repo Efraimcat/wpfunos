@@ -1245,6 +1245,7 @@ class Wpfunos_Admin {
     //
     // BEGINING
     $this->wpfunosMaintenanceLogRotate();
+    $this->wpfunosMaintenanceUsuariosCSV();
     $this->wpfunosMaintenancePreciosFunerarias();
     //
     // END
@@ -1681,8 +1682,73 @@ class Wpfunos_Admin {
         $this->custom_logs('Wpfunos 2FA: ---------------------------' );
       }
     }
+  }
+  /**
+  * Cron job maintenance log CSV usuarios
+  */
+  protected function wpfunosMaintenanceUsuariosCSV(){
+    $this->custom_logs('CSV usuarios funos');
 
+    $now = current_datetime();
+    $yesterday = $now->sub(new DateInterval('P1D'));
 
+    $args = array(
+      'post_status' => 'publish',
+      'post_type' => 'usuarios_wpfunos',
+      'posts_per_page' => -1,
+      'date_query' => array(
+        array(
+          'year' => $yesterday->format("Y"),
+          'month' => $yesterday->format("m"),
+          'day' => $yesterday->format("d"),
+        )
+      ),
+    );
+    $post_list = get_posts( $args );
+    if( $post_list ){
+      //cabecera
+      $csv_output = 'Fecha entrada, Canal entrada, ID, Referencia, Nombre, Teléfono, Email, Población, CP, Provincia, Funeraria, Tanatorio, Precio, Destino, Ataúd, Velatorio, Despedida, Visitas';
+      $csv_output .= "\n";
+      foreach ( $post_list as $post ){
+        $this->custom_logs('Usuario: '.$post->ID );
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_TimeStamp', true ).","; //Fecha entrada
+        $csv_output .= "Comparador funerarias,"; //Canal entrada
+        $csv_output .= $post->ID.","; // ID
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userReferencia', true ).",";//Referencia
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userName', true ).",";//Nombre
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userPhone', true ).",";//Teléfono
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userMail', true ).",";// Email
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionUbicacion', true ).",";// Población
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userCP', true ).",";// CP
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userServicioProvincia', true ).",";// Provincia
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userServicioEmpresa', true ).",";// Funeraria
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userServicioTitulo', true ).",";// Tanatorio
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userPrecio', true ).",";// Precio
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionServicio', true ).",";// Destino
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionAtaud', true ).",";// Ataúd
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionVelatorio', true ).",";// Velatorio
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionDespedida', true ).",";// Despedida
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userVisitas', true ).",";// Visitas
+        //
+        $csv_output .= "\n";
+      }
+
+      $upload_dir = wp_upload_dir();
+      if (!file_exists( $upload_dir['basedir'] . '/wpfunos-reportes') ) {
+        mkdir( $upload_dir['basedir'] . '/wpfunos-reportes' );
+      }
+      $file = $upload_dir['basedir'] . '/wpfunos-reportes/reporte-usuarios-'. $yesterday->format("d-m-Y") . '.csv';
+      $open = fopen( $file, "w" );
+      fputs( $open, $csv_output );
+      fclose( $open );
+
+      $attachments = array( $upload_dir['basedir'] . '/wpfunos-reportes/reporte-usuarios-'. $yesterday->format("d-m-Y") . '.csv' );
+      $headers[] = 'Content-Type: text/html; charset=UTF-8';
+      $headers[] = 'Cc: efraim@efraim.cat' ;
+      wp_mail (  'clientes@funos.es' , 'Reporte usuarios' , 'Usuarios del día ' .$yesterday->format("d-m-Y"). '.', $headers, $attachments );
+
+    }
+    $this->custom_logs('Usuarios con fecha '.$yesterday->format("d").'-'.$yesterday->format("m").'-'.$yesterday->format("Y").': '. count( $post_list ));
   }
 
   /*********************************/
