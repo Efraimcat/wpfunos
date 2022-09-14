@@ -126,6 +126,7 @@ class Wpfunos_Admin {
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_precios', function () { $this->wpfunosProcesarPrecios();});
     add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
 
+    add_action( 'wpfunos_hojas_calculo', array( $this, 'wpfunosHojasCalculo' ), 10, 1 );
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-admin.css', array(), $this->version, 'all' );
@@ -1201,6 +1202,17 @@ class Wpfunos_Admin {
     $editor_id = $args['content_id'] ;
     $settings  = array('wpautop' => false,);
     wp_editor( $content, $editor_id, $settings );
+  }
+
+  /*********************************/
+  /*****  HOJAS DE CALCULO    ******/
+  /*********************************/
+  /**
+  * add_action( 'wpfunos_hojas_calculo', array( $this, 'wpfunosHojasCalculo' ), 10, 1 );
+  */
+
+  public function wpfunosHojasCalculo(){
+    include 'partial/wpfunos-admin-hojas-calculo.php';
   }
 
   /** **/

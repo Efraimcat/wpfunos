@@ -55,6 +55,18 @@ $post_list = get_posts( $args );
       <td>
         <div id="config" style="top: -300px;position: relative;" >
           <?php include 'admin-menu/wpfunos-admin-menu-enlaces-superior.php';	?>
+          <hr />
+          <div id="spreadsheet">
+            <h2>Hojas de cálculo</h2>
+            <form action="" method="post">
+              <input type="hidden" name="hojascalculo" id="hojascalculo" value="1" >
+              <div class="wpfunos-hojascalculo">
+                <input type="submit" value="<?php _e( 'Crear hojas de cálculo', 'wpfunos' ); ?>" style="background: #135e96;color: #fff;padding: 5px;font-weight: 700;margin-top: 10px;border-radius: 3px;">
+              </div>
+            </form>
+            <hr/>
+            <?php do_action('wpfunos_hojas_calculo'); ?>
+          </div>
         </div>
       </td>
       <td style="width:350px" >
