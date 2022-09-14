@@ -67,7 +67,6 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
     add_action('admin_init', array( $this, 'registerAndBuildMail9' ));		//Correo pedir presupuesto aseguradora
     add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
-
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail1' ));		//Correo al administrador nuevos datos usuario
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail2' ));		//Correo "Te llamamos"
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail3' ));		//Correo botón "Llamar"
@@ -76,14 +75,13 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail6' ));		//Correo al administrador pedir presupuesto
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail7' ));		//Correo lead pedir presupuesto
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail8' ));		//Correo usuario copia detalles
-
     add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildAPIDKV' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDireccionesIP' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDirectorio' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsPreciosPoblacion' ));
     add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
-    add_action('add_meta_boxes_funerarias_wpfunos', array( $this, 'setupfunerarias_wpfunosMetaboxes' ));
+    //add_action('add_meta_boxes_funerarias_wpfunos', array( $this, 'setupfunerarias_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_cpostales_wpfunos', array( $this, 'setupcpostales_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_provincias_wpfunos', array( $this, 'setupprovincias_wpfunosMetaboxes' ));
@@ -92,18 +90,18 @@ class Wpfunos_Admin {
     add_action('add_meta_boxes_tipos_seguro_wpfunos', array( $this, 'setuptiposseguro_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_tanatorio_d_wpfunos', array( $this, 'setuptanatoriodirectorio_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_conf_img_wpfunos', array( $this, 'setupconfimgwpfunos_wpfunosMetaboxes' ));
-    add_action('add_meta_boxes_ubicaciones_wpfunos', array( $this, 'setupubicaciones_wpfunosMetaboxes' ));
-    add_action('add_meta_boxes_ubic_aseg_wpfunos', array( $this, 'setupubic_aseg_wpfunosMetaboxes' ));
-    add_action('add_meta_boxes_pag_serv_wpfunos', array( $this, 'setuppag_serv_wpfunosMetaboxes' ));
-    add_action('add_meta_boxes_pag_aseg_wpfunos', array( $this, 'setuppag_aseg_wpfunosMetaboxes' ));
+    //add_action('add_meta_boxes_ubicaciones_wpfunos', array( $this, 'setupubicaciones_wpfunosMetaboxes' ));
+    //add_action('add_meta_boxes_ubic_aseg_wpfunos', array( $this, 'setupubic_aseg_wpfunosMetaboxes' ));
+    //add_action('add_meta_boxes_pag_serv_wpfunos', array( $this, 'setuppag_serv_wpfunosMetaboxes' ));
+    //add_action('add_meta_boxes_pag_aseg_wpfunos', array( $this, 'setuppag_aseg_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_precio_funer_wpfunos', array( $this, 'setupprecio_funer_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_excep_prov_wpfunos', array( $this, 'setupexcep_prov_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_precio_serv_wpfunos', array( $this, 'setupprecio_serv_wpfunosMetaboxes' ));
-    add_action('add_meta_boxes_estad_boton_wpfunos', array( $this, 'setupestad_boton_wpfunosMetaboxes' ));
-    add_action('add_meta_boxes_estad_resul_wpfunos', array( $this, 'setupestad_resul_wpfunosMetaboxes' ));
-    add_action('add_meta_boxes_estad_ubica_wpfunos', array( $this, 'setupestad_ubica_wpfunosMetaboxes' ));
+    //add_action('add_meta_boxes_estad_boton_wpfunos', array( $this, 'setupestad_boton_wpfunosMetaboxes' ));
+    //add_action('add_meta_boxes_estad_resul_wpfunos', array( $this, 'setupestad_resul_wpfunosMetaboxes' ));
+    //add_action('add_meta_boxes_estad_ubica_wpfunos', array( $this, 'setupestad_ubica_wpfunosMetaboxes' ));
     add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
-    add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
+    //add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
     add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
     add_action('save_post_cpostales_wpfunos', array( $this, 'savecpostales_wpfunosMetaBoxData' ));
     add_action('save_post_provincias_wpfunos', array( $this, 'saveprovincias_wpfunosMetaBoxData' ));
@@ -112,16 +110,16 @@ class Wpfunos_Admin {
     add_action('save_post_tipos_seguro_wpfunos', array( $this, 'savetiposeguro_wpfunosMetaBoxData' ));
     add_action('save_post_tanatorio_d_wpfunos', array( $this, 'savetanatoriodirectorio_wpfunosMetaBoxData' ));
     add_action('save_post_conf_img_wpfunos', array( $this, 'saveconfimgwpfunos_wpfunosMetaBoxData' ));
-    add_action('save_post_ubicaciones_wpfunos', array( $this, 'saveubicaciones_wpfunosMetaBoxData' ));
-    add_action('save_post_ubic_aseg_wpfunos', array( $this, 'saveubic_aseg_wpfunosMetaBoxData' ));
-    add_action('save_post_pag_serv_wpfunos', array( $this, 'savepag_serv_wpfunosMetaBoxData' ));
-    add_action('save_post_pag_aseg_wpfunos', array( $this, 'savepag_aseg_wpfunosMetaBoxData' ));
+    //add_action('save_post_ubicaciones_wpfunos', array( $this, 'saveubicaciones_wpfunosMetaBoxData' ));
+    //add_action('save_post_ubic_aseg_wpfunos', array( $this, 'saveubic_aseg_wpfunosMetaBoxData' ));
+    //add_action('save_post_pag_serv_wpfunos', array( $this, 'savepag_serv_wpfunosMetaBoxData' ));
+    //add_action('save_post_pag_aseg_wpfunos', array( $this, 'savepag_aseg_wpfunosMetaBoxData' ));
     add_action('save_post_precio_funer_wpfunos', array( $this, 'saveprecio_funer_wpfunosMetaBoxData' ));
     add_action('save_post_excep_prov_wpfunos', array( $this, 'saveexcep_prov_wpfunosMetaBoxData' ));
     add_action('save_post_precio_serv_wpfunos', array( $this, 'saveprecio_serv_wpfunosMetaBoxData' ));
-    add_action('save_post_estad_boton_wpfunos', array( $this, 'saveestad_boton_wpfunosMetaBoxData' ));
-    add_action('save_post_estad_resul_wpfunos', array( $this, 'saveestad_resul_wpfunosMetaBoxData' ));
-    add_action('save_post_estad_ubica_wpfunos', array( $this, 'saveestad_ubica_wpfunosMetaBoxData' ));
+    //add_action('save_post_estad_boton_wpfunos', array( $this, 'saveestad_boton_wpfunosMetaBoxData' ));
+    //add_action('save_post_estad_resul_wpfunos', array( $this, 'saveestad_resul_wpfunosMetaBoxData' ));
+    //add_action('save_post_estad_ubica_wpfunos', array( $this, 'saveestad_ubica_wpfunosMetaBoxData' ));
 
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_precios', function () { $this->wpfunosProcesarPrecios();});
     add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
@@ -192,11 +190,11 @@ class Wpfunos_Admin {
   */
   public function addPluginAdminMenu() {
     //add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
-    add_menu_page( 'WpFunos', 'WpFunos', 'administrator', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'WpFunos Config', 'WpFunos Config', 'administrator', $this->plugin_name.'config', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'WpFunos Directorio', 'WpFunos Directorio', 'administrator', $this->plugin_name.'directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'WpFunos Precios Población', 'WpFunos Precios Población', 'administrator', $this->plugin_name.'precios_poblacion', array( $this, 'display_plugin_admin_precios_poblacion_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'WpFunos Import', 'WpFunos Import', 'administrator', $this->plugin_name.'import', array( $this, 'display_plugin_admin_import_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Comparador', 'Índice comparador', 'administrator', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Configuración', 'Índice configuración', 'administrator', $this->plugin_name.'config', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Directorio', 'Índice directorio', 'administrator', $this->plugin_name.'directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Landings Población', 'Índice landings población', 'administrator', $this->plugin_name.'precios_poblacion', array( $this, 'display_plugin_admin_precios_poblacion_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Import', 'Import', 'administrator', $this->plugin_name.'import', array( $this, 'display_plugin_admin_import_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     // add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
     add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', $this->plugin_name . '-settings', array( $this, 'displayPluginAdminSettings' ));
     add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', $this->plugin_name . '-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
@@ -697,10 +695,10 @@ class Wpfunos_Admin {
     add_meta_box('usuarios_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'usuarios_wpfunos_data_meta_box'), 'usuarios_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'usuarios_wpfunos', 'normal');
   }
-  public function setupfunerarias_wpfunosMetaboxes(){
-    add_meta_box('funerarias_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'funerarias_wpfunos_data_meta_box'), 'funerarias_wpfunos', 'normal', 'high' );
-    remove_meta_box('wpseo_meta', 'funerarias_wpfunos', 'normal');
-  }
+  //public function setupfunerarias_wpfunosMetaboxes(){
+  //  add_meta_box('funerarias_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'funerarias_wpfunos_data_meta_box'), 'funerarias_wpfunos', 'normal', 'high' );
+  //  remove_meta_box('wpseo_meta', 'funerarias_wpfunos', 'normal');
+  //}
   public function setupservicios_wpfunosMetaboxes(){
     add_meta_box('servicios_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'servicios_wpfunos_data_meta_box'), 'servicios_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'servicios_wpfunos', 'normal');
@@ -732,22 +730,22 @@ class Wpfunos_Admin {
     add_meta_box('conf_img_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'conf_img_wpfunos_data_meta_box'), 'conf_img_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'conf_img_wpfunos', 'normal');
   }
-  public function setupubicaciones_wpfunosMetaboxes(){
-    add_meta_box('ubicaciones_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubicaciones_wpfunos_data_meta_box'), 'ubicaciones_wpfunos', 'normal', 'high' );
-    remove_meta_box('wpseo_meta', 'ubicaciones_wpfunos', 'normal');
-  }
-  public function setupubic_aseg_wpfunosMetaboxes(){
-    add_meta_box('ubic_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubic_aseg_wpfunos_data_meta_box'), 'ubic_aseg_wpfunos', 'normal', 'high' );
-    remove_meta_box('wpseo_meta', 'ubic_aseg_wpfunos', 'normal');
-  }
-  public function setuppag_serv_wpfunosMetaboxes(){
-    add_meta_box('pag_serv_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_serv_wpfunos_data_meta_box'), 'pag_serv_wpfunos', 'normal', 'high' );
-    remove_meta_box('wpseo_meta', 'pag_serv_wpfunos', 'normal');
-  }
-  public function setuppag_aseg_wpfunosMetaboxes(){
-    add_meta_box('pag_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_aseg_wpfunos_data_meta_box'), 'pag_aseg_wpfunos', 'normal', 'high' );
-    remove_meta_box('wpseo_meta', 'pag_aseg_wpfunos', 'normal');
-  }
+  //public function setupubicaciones_wpfunosMetaboxes(){
+  //  add_meta_box('ubicaciones_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubicaciones_wpfunos_data_meta_box'), 'ubicaciones_wpfunos', 'normal', 'high' );
+  //  remove_meta_box('wpseo_meta', 'ubicaciones_wpfunos', 'normal');
+  //}
+  //public function setupubic_aseg_wpfunosMetaboxes(){
+  //  add_meta_box('ubic_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubic_aseg_wpfunos_data_meta_box'), 'ubic_aseg_wpfunos', 'normal', 'high' );
+  //  remove_meta_box('wpseo_meta', 'ubic_aseg_wpfunos', 'normal');
+  //}
+  //public function setuppag_serv_wpfunosMetaboxes(){
+  //  add_meta_box('pag_serv_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_serv_wpfunos_data_meta_box'), 'pag_serv_wpfunos', 'normal', 'high' );
+  //  remove_meta_box('wpseo_meta', 'pag_serv_wpfunos', 'normal');
+  //}
+  //public function setuppag_aseg_wpfunosMetaboxes(){
+  //  add_meta_box('pag_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_aseg_wpfunos_data_meta_box'), 'pag_aseg_wpfunos', 'normal', 'high' );
+  //  remove_meta_box('wpseo_meta', 'pag_aseg_wpfunos', 'normal');
+  //}
   public function setupprecio_funer_wpfunosMetaboxes(){
     add_meta_box('precio_funer_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'precio_funer_wpfunos_data_meta_box'), 'precio_funer_wpfunos', 'normal', 'high' );
   }
@@ -760,18 +758,18 @@ class Wpfunos_Admin {
     remove_meta_box('wpseo_meta', 'precio_serv_wpfunos', 'normal');
   }
 
-  public function setupestad_boton_wpfunosMetaboxes(){
-    add_meta_box('estad_boton_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'estad_boton_wpfunos_data_meta_box'), 'estad_boton_wpfunos', 'normal', 'high' );
-    remove_meta_box('wpseo_meta', 'estad_boton_wpfunos', 'normal');
-  }
-  public function setupestad_resul_wpfunosMetaboxes(){
-    add_meta_box('estad_resul_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'estad_resul_wpfunos_data_meta_box'), 'estad_resul_wpfunos', 'normal', 'high' );
-    remove_meta_box('wpseo_meta', 'estad_resul_wpfunos', 'normal');
-  }
-  public function setupestad_ubica_wpfunosMetaboxes(){
-    add_meta_box('estad_ubica_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'estad_ubica_wpfunos_data_meta_box'), 'estad_ubica_wpfunos', 'normal', 'high' );
-    remove_meta_box('wpseo_meta', 'estad_ubica_wpfunos', 'normal');
-  }
+  //public function setupestad_boton_wpfunosMetaboxes(){
+  //  add_meta_box('estad_boton_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'estad_boton_wpfunos_data_meta_box'), 'estad_boton_wpfunos', 'normal', 'high' );
+  //  remove_meta_box('wpseo_meta', 'estad_boton_wpfunos', 'normal');
+  //}
+  //public function setupestad_resul_wpfunosMetaboxes(){
+  //  add_meta_box('estad_resul_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'estad_resul_wpfunos_data_meta_box'), 'estad_resul_wpfunos', 'normal', 'high' );
+  //  remove_meta_box('wpseo_meta', 'estad_resul_wpfunos', 'normal');
+  //}
+  //public function setupestad_ubica_wpfunosMetaboxes(){
+  //  add_meta_box('estad_ubica_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'estad_ubica_wpfunos_data_meta_box'), 'estad_ubica_wpfunos', 'normal', 'high' );
+  //  remove_meta_box('wpseo_meta', 'estad_ubica_wpfunos', 'normal');
+  //}
 
   /*********************************/
   /*****  SALVAR DATOS META CPT ****/
@@ -794,13 +792,13 @@ class Wpfunos_Admin {
 
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-usuarios-fields.php';
   }
-  public function savefunerarias_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_funerarias_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_funerarias_wpfunos_meta_box_nonce'], $this->plugin_name . '_funerarias_wpfunos_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-funerarias-fields.php';
-  }
+  //public function savefunerarias_wpfunosMetaBoxData( $post_id ){
+  //  if (! isset($_POST[$this->plugin_name . '_funerarias_wpfunos_meta_box_nonce'])) return;
+  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_funerarias_wpfunos_meta_box_nonce'], $this->plugin_name . '_funerarias_wpfunos_meta_box')) return;
+  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  //  if (! current_user_can('manage_options')) return;
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-funerarias-fields.php';
+  //}
   public function saveservicios_wpfunosMetaBoxData( $post_id ){
     if (! isset($_POST[$this->plugin_name . '_servicios_wpfunos_meta_box_nonce'])) return;
     if (! wp_verify_nonce($_POST[$this->plugin_name . '_servicios_wpfunos_meta_box_nonce'], $this->plugin_name . '_servicios_wpfunos_meta_box')) return;
@@ -857,34 +855,34 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-fields.php';
   }
-  public function saveubicaciones_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_ubicaciones_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_ubicaciones_wpfunos_meta_box_nonce'], $this->plugin_name . '_ubicaciones_wpfunos_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-fields.php';
-  }
-  public function saveubic_aseg_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_ubic_aseg_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_ubic_aseg_wpfunos_meta_box_nonce'], $this->plugin_name . '_ubic_aseg_wpfunos_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubic-aseg-fields.php';
-  }
-  public function savepag_serv_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_pag_serv_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_pag_serv_wpfunos_meta_box_nonce'], $this->plugin_name . '_pag_serv_wpfunos_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-serv-fields.php';
-  }
-  public function savepag_aseg_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_pag_aseg_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_pag_aseg_wpfunos_meta_box_nonce'], $this->plugin_name . '_pag_aseg_wpfunos_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-aseg-fields.php';
-  }
+  //public function saveubicaciones_wpfunosMetaBoxData( $post_id ){
+  //  if (! isset($_POST[$this->plugin_name . '_ubicaciones_wpfunos_meta_box_nonce'])) return;
+  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_ubicaciones_wpfunos_meta_box_nonce'], $this->plugin_name . '_ubicaciones_wpfunos_meta_box')) return;
+  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  //  if (! current_user_can('manage_options')) return;
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-fields.php';
+  //}
+  //public function saveubic_aseg_wpfunosMetaBoxData( $post_id ){
+  //  if (! isset($_POST[$this->plugin_name . '_ubic_aseg_wpfunos_meta_box_nonce'])) return;
+  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_ubic_aseg_wpfunos_meta_box_nonce'], $this->plugin_name . '_ubic_aseg_wpfunos_meta_box')) return;
+  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  //  if (! current_user_can('manage_options')) return;
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubic-aseg-fields.php';
+  //}
+  //public function savepag_serv_wpfunosMetaBoxData( $post_id ){
+  //  if (! isset($_POST[$this->plugin_name . '_pag_serv_wpfunos_meta_box_nonce'])) return;
+  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_pag_serv_wpfunos_meta_box_nonce'], $this->plugin_name . '_pag_serv_wpfunos_meta_box')) return;
+  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  //  if (! current_user_can('manage_options')) return;
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-serv-fields.php';
+  //}
+  //public function savepag_aseg_wpfunosMetaBoxData( $post_id ){
+  //  if (! isset($_POST[$this->plugin_name . '_pag_aseg_wpfunos_meta_box_nonce'])) return;
+  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_pag_aseg_wpfunos_meta_box_nonce'], $this->plugin_name . '_pag_aseg_wpfunos_meta_box')) return;
+  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  //  if (! current_user_can('manage_options')) return;
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-aseg-fields.php';
+  //}
   public function saveprecio_funer_wpfunosMetaBoxData( $post_id ){
     if (! isset($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'])) return;
     if (! wp_verify_nonce($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'], $this->plugin_name . '_precio_funer_wpfunos_meta_box')) return;
@@ -906,27 +904,27 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-fields.php';
   }
-  public function saveestad_boton_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST['wpfunos_estad_boton_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST['wpfunos_estad_boton_wpfunos_meta_box_nonce'], 'wpfunos_estad_boton_wpfunos_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-botones-fields.php';
-  }
-  public function saveestad_resul_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST['wpfunos_estad_resul_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST['wpfunos_estad_resul_wpfunos_meta_box_nonce'], 'wpfunos_estad_resul_wpfunos_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-resultados-fields.php';
-  }
-  public function saveestad_ubica_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST['wpfunos_estad_ubica_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST['wpfunos_estad_ubica_wpfunos_meta_box_nonce'], 'wpfunos_estad_ubica_wpfunos_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-ubicacion-fields.php';
-  }
+  //public function saveestad_boton_wpfunosMetaBoxData( $post_id ){
+  //  if (! isset($_POST['wpfunos_estad_boton_wpfunos_meta_box_nonce'])) return;
+  //  if (! wp_verify_nonce($_POST['wpfunos_estad_boton_wpfunos_meta_box_nonce'], 'wpfunos_estad_boton_wpfunos_meta_box')) return;
+  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  //  if (! current_user_can('manage_options')) return;
+  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-botones-fields.php';
+  //}
+  //public function saveestad_resul_wpfunosMetaBoxData( $post_id ){
+  //  if (! isset($_POST['wpfunos_estad_resul_wpfunos_meta_box_nonce'])) return;
+  //  if (! wp_verify_nonce($_POST['wpfunos_estad_resul_wpfunos_meta_box_nonce'], 'wpfunos_estad_resul_wpfunos_meta_box')) return;
+  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  //  if (! current_user_can('manage_options')) return;
+  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-resultados-fields.php';
+  //}
+  //public function saveestad_ubica_wpfunosMetaBoxData( $post_id ){
+  //  if (! isset($_POST['wpfunos_estad_ubica_wpfunos_meta_box_nonce'])) return;
+  //  if (! wp_verify_nonce($_POST['wpfunos_estad_ubica_wpfunos_meta_box_nonce'], 'wpfunos_estad_ubica_wpfunos_meta_box')) return;
+  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  //  if (! current_user_can('manage_options')) return;
+  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-ubicacion-fields.php';
+  //}
   /*********************************/
   /*****  CPT                 ******/
   /*********************************/
@@ -939,9 +937,9 @@ class Wpfunos_Admin {
   /**
   * funerarias_wpfunos
   */
-  public function funerarias_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-funerarias.php';
-  }
+  //public function funerarias_custom_post_type(){
+  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-funerarias.php';
+  //}
   /**
   * servicios_wpfunos
   */
@@ -993,69 +991,63 @@ class Wpfunos_Admin {
   /**
   * ubicaciones_wpfunos
   */
-  public function entrada_ubicaciones_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-ubicaciones.php';
-  }
+  //public function entrada_ubicaciones_custom_post_type(){
+  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-ubicaciones.php';
+  //}
   /**
   * ubic_aseg_wpfunos
   */
-  public function entrada_ubicaciones_aseguradoras_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-ubic-aseg.php';
-  }
+  //public function entrada_ubicaciones_aseguradoras_custom_post_type(){
+  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-ubic-aseg.php';
+  //}
   /**
   * Entrada Servicios_wpfunos
   */
-  public function entrada_servicios_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-pag-serv.php';
-  }
+  //public function entrada_servicios_custom_post_type(){
+  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-pag-serv.php';
+  //}
   /**
   * Entrada Aseguradoras_wpfunos
   */
-  public function entrada_aseguradoras_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-pag-aseg.php';
-  }
-
+  //public function entrada_aseguradoras_custom_post_type(){
+  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-pag-aseg.php';
+  //}
   /**
   * Entrada Precios Poblacion  precio_funer_wpfunos
   */
   public function precios_poblacion_funeraria_custom_post_type(){
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-precio-funer.php';
   }
-
   /**
   * Entrada busquedas en provincias e islas excep_prov_wpfunos
   */
   public function excepciones_provincias_custom_post_type(){
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-excep-prov.php';
   }
-
   /**
   * precio_serv_wpfunos
   */
   public function precios_servicios_custom_post_type(){
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-precio-serv.php';
   }
-
   /**
   * estad_boton_wpfunos
   */
-  public function estad_boton_custom_post_type(){
-    require_once 'partials/cpt/wpfunos-admin-cpt-estad-boton.php';
-  }
-
+  //public function estad_boton_custom_post_type(){
+  //  require_once 'partials/cpt/wpfunos-admin-cpt-estad-boton.php';
+  //}
   /**
   * estad_resul_wpfunos
   */
-  public function estad_resul_custom_post_type(){
-    require_once 'partials/cpt/wpfunos-admin-cpt-estad-resul.php';
-  }
-
+  //public function estad_resul_custom_post_type(){
+  //  require_once 'partials/cpt/wpfunos-admin-cpt-estad-resul.php';
+  //}
   /**
   * estad_ubica_wpfunos
   */
-  public function estad_ubica_custom_post_type(){
-    require_once 'partials/cpt/wpfunos-admin-cpt-estad-ubica.php';
-  }
+  //public function estad_ubica_custom_post_type(){
+  //  require_once 'partials/cpt/wpfunos-admin-cpt-estad-ubica.php';
+  //}
 
   /*********************************/
   /*****  MOSTRAR METABOXES   ******/
@@ -1072,10 +1064,10 @@ class Wpfunos_Admin {
     wp_nonce_field( $this->plugin_name.'_usuarios_wpfunos_meta_box', $this->plugin_name.'_usuarios_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-usuarios-display.php';
   }
-  public function funerarias_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_funerarias_wpfunos_meta_box', $this->plugin_name.'_funerarias_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-funerarias-display.php';
-  }
+  //public function funerarias_wpfunos_data_meta_box($post){
+  //  wp_nonce_field( $this->plugin_name.'_funerarias_wpfunos_meta_box', $this->plugin_name.'_funerarias_wpfunos_meta_box_nonce' );
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-funerarias-display.php';
+  //}
   public function cpostales_wpfunos_data_meta_box($post){
     wp_nonce_field( $this->plugin_name.'_cpostales_wpfunos_meta_box', $this->plugin_name.'_cpostales_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-cpostales-display.php';
@@ -1104,22 +1096,22 @@ class Wpfunos_Admin {
     wp_nonce_field( $this->plugin_name.'_conf_img_wpfunos_meta_box', $this->plugin_name.'_conf_img_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-display.php';
   }
-  public function ubicaciones_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_ubicaciones_wpfunos_meta_box', $this->plugin_name.'_ubicaciones_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-display.php';
-  }
-  public function ubic_aseg_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_ubic_aseg_wpfunos_meta_box', $this->plugin_name.'_ubic_aseg_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubic-aseg-display.php';
-  }
-  public function pag_serv_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_pag_serv_wpfunos_meta_box', $this->plugin_name.'_pag_serv_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-serv-display.php';
-  }
-  public function pag_aseg_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_pag_aseg_wpfunos_meta_box', $this->plugin_name.'_pag_aseg_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-aseg-display.php';
-  }
+  //public function ubicaciones_wpfunos_data_meta_box($post){
+  //  wp_nonce_field( $this->plugin_name.'_ubicaciones_wpfunos_meta_box', $this->plugin_name.'_ubicaciones_wpfunos_meta_box_nonce' );
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-display.php';
+  //}
+  //public function ubic_aseg_wpfunos_data_meta_box($post){
+  //  wp_nonce_field( $this->plugin_name.'_ubic_aseg_wpfunos_meta_box', $this->plugin_name.'_ubic_aseg_wpfunos_meta_box_nonce' );
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubic-aseg-display.php';
+  //}
+  //public function pag_serv_wpfunos_data_meta_box($post){
+  //  wp_nonce_field( $this->plugin_name.'_pag_serv_wpfunos_meta_box', $this->plugin_name.'_pag_serv_wpfunos_meta_box_nonce' );
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-serv-display.php';
+  //}
+  //public function pag_aseg_wpfunos_data_meta_box($post){
+  //  wp_nonce_field( $this->plugin_name.'_pag_aseg_wpfunos_meta_box', $this->plugin_name.'_pag_aseg_wpfunos_meta_box_nonce' );
+  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-aseg-display.php';
+  //}
   public function precio_funer_wpfunos_data_meta_box($post){
     wp_nonce_field( $this->plugin_name.'_precio_funer_wpfunos_meta_box', $this->plugin_name.'_precio_funer_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-funer-display.php';
@@ -1132,19 +1124,18 @@ class Wpfunos_Admin {
     wp_nonce_field( $this->plugin_name.'_precio_serv_wpfunos_meta_box', $this->plugin_name.'_precio_serv_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-display.php';
   }
-
-  public function estad_boton_wpfunos_data_meta_box($post){
-    wp_nonce_field( 'wpfunos_estad_boton_wpfunos_meta_box', 'wpfunos_estad_boton_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-botones-display.php';
-  }
-  public function estad_resul_wpfunos_data_meta_box($post){
-    wp_nonce_field( 'wpfunos_estad_resul_wpfunos_meta_box', 'wpfunos_estad_resul_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-resultados-display.php';
-  }
-  public function estad_ubica_wpfunos_data_meta_box($post){
-    wp_nonce_field( 'wpfunos_estad_ubica_wpfunos_meta_box', 'wpfunos_estad_ubica_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-ubicacion-display.php';
-  }
+  //public function estad_boton_wpfunos_data_meta_box($post){
+  //  wp_nonce_field( 'wpfunos_estad_boton_wpfunos_meta_box', 'wpfunos_estad_boton_wpfunos_meta_box_nonce' );
+  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-botones-display.php';
+  //}
+  //public function estad_resul_wpfunos_data_meta_box($post){
+  //  wp_nonce_field( 'wpfunos_estad_resul_wpfunos_meta_box', 'wpfunos_estad_resul_wpfunos_meta_box_nonce' );
+  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-resultados-display.php';
+  //}
+  //public function estad_ubica_wpfunos_data_meta_box($post){
+  //  wp_nonce_field( 'wpfunos_estad_ubica_wpfunos_meta_box', 'wpfunos_estad_ubica_wpfunos_meta_box_nonce' );
+  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-ubicacion-display.php';
+  //}
 
   /*********************************/
   /*****  RENDERS             ******/
@@ -1212,7 +1203,7 @@ class Wpfunos_Admin {
   */
 
   public function wpfunosHojasCalculo(){
-    include 'partial/wpfunos-admin-hojas-calculo.php';
+    include 'partials/wpfunos-admin-hojas-calculo.php';
   }
 
   /** **/
@@ -1659,10 +1650,7 @@ class Wpfunos_Admin {
               $this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' no tiene precios. Creando entrada. ' .$post_id );
             }
 
-
           }
-
-
 
         }
         wp_reset_postdata();
@@ -1760,13 +1748,30 @@ class Wpfunos_Admin {
       fputs( $open, $csv_output );
       fclose( $open );
 
-      $attachments = array( $upload_dir['basedir'] . '/wpfunos-reportes/reporte-usuarios-'. $yesterday->format("d-m-Y") . '.csv' );
+      $Excelfile = $upload_dir['basedir'] . '/wpfunos-reportes/reporte-usuarios-'. $yesterday->format("d-m-Y") . '.xlsx';
+
+      require WFUNOS_BASE_DIR.'/admin/partials/vendor/autoload.php';
+
+      $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+      $spreadsheet = $reader->load($file);
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      $writer->save($Excelfile);
+
+      $message = '<p>Usuarios del día ' .$yesterday->format("d-m-Y"). '.</p>';
+      $message .= '<p>Total '.count( $post_list ).' usuarios.';
+      $message .= '<p></p>';
+      $message .= '<p>Enlace .csv: <a href="https://funos.es/wp-content/uploads/wpfunos-reportes/reporte-usuarios-'.$yesterday->format("d-m-Y").'.csv">Fichero csv</a></p>';
+      $message .= '<p>Enlace .xlsx: <a href="https://funos.es/wp-content/uploads/wpfunos-reportes/reporte-usuarios-'.$yesterday->format("d-m-Y").'.xlsx">Fichero xlsx</a></p>';
+      $message .= '<p></p>';
+      $message .= '<p>---</p>';
+
+      $attachments = array( $file, $Excelfile );
       $headers[] = 'Content-Type: text/html; charset=UTF-8';
-      $headers[] = 'Cc: efraim@efraim.cat' ;
-      wp_mail (  'clientes@funos.es' , 'Reporte usuarios' , 'Usuarios del día ' .$yesterday->format("d-m-Y"). '.', $headers, $attachments );
+      $headers[] = 'Cc: comercial.alejandrolopez@yahoo.com, efraim@efraim.cat' ;
+      wp_mail (  'clientes@funos.es' , 'Reporte usuarios' , $message, $headers, $attachments );
 
     }
-    $this->custom_logs('Usuarios con fecha '.$yesterday->format("d").'-'.$yesterday->format("m").'-'.$yesterday->format("Y").': '. count( $post_list ));
+    $this->custom_logs('Usuarios con fecha '.$yesterday->format("d-m-Y").': '. count( $post_list ));
   }
 
   /*********************************/

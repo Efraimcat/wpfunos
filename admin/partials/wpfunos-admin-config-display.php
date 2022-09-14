@@ -65,6 +65,7 @@ $post_list = get_posts( $args );
               </div>
             </form>
             <hr/>
+            <script>console.log('Hojas de cálculo.' );</script>
             <?php do_action('wpfunos_hojas_calculo'); ?>
           </div>
         </div>
