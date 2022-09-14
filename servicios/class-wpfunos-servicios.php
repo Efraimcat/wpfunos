@@ -1519,7 +1519,7 @@ class Wpfunos_Servicios {
         $this->plugin_name . '_Dummy' => true,
       ),
     );
-    $post_id = wp_insert_post($my_post);
+    //$post_id = wp_insert_post($my_post);
   }
 
   /**

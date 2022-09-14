@@ -69,7 +69,7 @@ $post_list = get_posts( $args );
     <div id="myBar"><span id="porcentaje"></span></div>
   </div>
   <br>
-  <button onclick="procesar(0);return false;">Actualizar</button>
+  <button onclick="procesar(0, 200);return false;">Actualizar</button>
 </div>
 
 <script>
@@ -77,15 +77,22 @@ $post_list = get_posts( $args );
 document.getElementById('porcentaje').style.color='#fff';
 document.getElementById('porcentaje').style.paddingLeft = '50%';
 
-function procesar(offset){
+function procesar( offset, batch ){
   var cuantos = document.getElementById('myProgress').getAttribute('cuantos');
-  var elem = document.getElementById("myBar");
+
+  if( offset > cuantos ){
+    document.getElementById('contador').innerHTML = cuantos;
+    document.getElementById('myProgress').setAttribute('hechos', cuantos );
+    document.getElementById('porcentaje').innerHTML = '100%';
+    document.getElementById('myBar').style.width = '100%';
+    return;
+  }
 
   if( offset > 0 ){
     document.getElementById('contador').innerHTML = offset;
     document.getElementById('myProgress').setAttribute('hechos',offset)
-    document.getElementById('porcentaje').innerHTML = Math.round(((offset*100)/cuantos) * 100) / 100 + "%";
-    elem.style.width = (offset*100)/cuantos + "%";
+    document.getElementById('porcentaje').innerHTML = Math.round(((offset*100)/cuantos) * 100) / 100 + '%';
+    document.getElementById('myBar').style.width = (offset*100)/cuantos + '%';
   }
 
   jQuery.ajax({
@@ -95,15 +102,13 @@ function procesar(offset){
     data: {
       'action': 'wpfunos_ajax_v3_procesar_actualizar_precios',
       'offset': offset,
+      'batch' : batch,
     },
     success: function(response) {
-      
-
-
-
-
-
-
+      if(response.type === 'success') {
+        newoffset = response.newoffset;
+        procesar( newoffset, batch );
+      }
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       if (textStatus == 'parsererror') {
@@ -111,9 +116,7 @@ function procesar(offset){
       }
       alert(textStatus);
     }
-
   });
-
 }
 
 </script>

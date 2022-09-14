@@ -791,7 +791,7 @@ class Wpfunos_ServiciosV3 {
         'wpfunos_Dummy' => true,
       ),
     );
-    $post_id = wp_insert_post($my_post);
+    //$post_id = wp_insert_post($my_post);
   }
 
   /**
@@ -838,7 +838,7 @@ class Wpfunos_ServiciosV3 {
         'wpfunos_Dummy' => true,
       ),
     );
-    $post_id = wp_insert_post($my_post);
+    //$post_id = wp_insert_post($my_post);
   }
 
   /**

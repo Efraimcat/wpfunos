@@ -22,25 +22,25 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'codigospostales_custom_post_type' ));
     add_action('init', array( $this, 'provincias_custom_post_type' ));
     add_action('init', array( $this, 'prov_zona_custom_post_type' ));
-    add_action('init', array( $this, 'entrada_servicios_custom_post_type' ));
-    add_action('init', array( $this, 'funerarias_custom_post_type' ));
+    //add_action('init', array( $this, 'entrada_servicios_custom_post_type' ));
+    //add_action('init', array( $this, 'funerarias_custom_post_type' ));
     add_action('init', array( $this, 'config_imagenes_custom_post_type' ));
     add_action('init', array( $this, 'servicios_custom_post_type' ));
     add_action('init', array( $this, 'directorio_tanatorio_custom_post_type' ));
     add_action('init', array( $this, 'tipos_seguro_custom_post_type' ));
-    add_action('init', array( $this, 'entrada_ubicaciones_custom_post_type' ));
-    add_action('init', array( $this, 'entrada_ubicaciones_aseguradoras_custom_post_type' ));
+    //add_action('init', array( $this, 'entrada_ubicaciones_custom_post_type' ));
+    //add_action('init', array( $this, 'entrada_ubicaciones_aseguradoras_custom_post_type' ));
     add_action('init', array( $this, 'usuarios_registrados_custom_post_type' ));
-    add_action('init', array( $this, 'entrada_aseguradoras_custom_post_type' ));
+    //add_action('init', array( $this, 'entrada_aseguradoras_custom_post_type' ));
     add_action('init', array( $this, 'precios_poblacion_funeraria_custom_post_type' ));
     add_action('init', array( $this, 'excepciones_provincias_custom_post_type' ));
     add_action('init', array( $this, 'precios_servicios_custom_post_type' ));
-    add_action('init', array( $this, 'estad_boton_custom_post_type' ));
-    add_action('init', array( $this, 'estad_resul_custom_post_type' ));
-    add_action('init', array( $this, 'estad_ubica_custom_post_type' ));
+    //add_action('init', array( $this, 'estad_boton_custom_post_type' ));
+    //add_action('init', array( $this, 'estad_resul_custom_post_type' ));
+    //add_action('init', array( $this, 'estad_ubica_custom_post_type' ));
     add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
     add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
-    add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuracciín Imágenes
+    add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuración Imágenes
     add_action('admin_init', array( $this, 'registerAndBuildFieldsAseguradoras' ));			// Compara Debug
     add_action('admin_init', array( $this, 'registerAndBuildFieldsPagina' ));				// Página inicial
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDatos' ));				// Compara Datos
@@ -122,12 +122,17 @@ class Wpfunos_Admin {
     add_action('save_post_estad_boton_wpfunos', array( $this, 'saveestad_boton_wpfunosMetaBoxData' ));
     add_action('save_post_estad_resul_wpfunos', array( $this, 'saveestad_resul_wpfunosMetaBoxData' ));
     add_action('save_post_estad_ubica_wpfunos', array( $this, 'saveestad_ubica_wpfunosMetaBoxData' ));
+
+    add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_precios', function () { $this->wpfunosProcesarPrecios();});
+    add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
+
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-admin.css', array(), $this->version, 'all' );
   }
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-admin.js', array( 'jquery' ), $this->version, false );
+    wp_localize_script( $this->plugin_name, 'WpfAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
   }
 
   /*********************************/
@@ -1682,6 +1687,7 @@ class Wpfunos_Admin {
         $this->custom_logs('Wpfunos 2FA: ---------------------------' );
       }
     }
+
   }
   /**
   * Cron job maintenance log CSV usuarios
@@ -1715,14 +1721,14 @@ class Wpfunos_Admin {
         $csv_output .= "Comparador funerarias,"; //Canal entrada
         $csv_output .= $post->ID.","; // ID
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userReferencia', true ).",";//Referencia
-        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userName', true ).",";//Nombre
-        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userPhone', true ).",";//Teléfono
-        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userMail', true ).",";// Email
-        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionUbicacion', true ).",";// Población
-        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userCP', true ).",";// CP
-        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userServicioProvincia', true ).",";// Provincia
-        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userServicioEmpresa', true ).",";// Funeraria
-        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userServicioTitulo', true ).",";// Tanatorio
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userName', true )).",";//Nombre
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userPhone', true )).",";//Teléfono
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userMail', true )).",";// Email
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionUbicacion', true )).",";// Población
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userCP', true )).",";// CP
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioProvincia', true )).",";// Provincia
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioEmpresa', true )).",";// Funeraria
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioTitulo', true )).",";// Tanatorio
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userPrecio', true ).",";// Precio
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionServicio', true ).",";// Destino
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionAtaud', true ).",";// Ataúd
@@ -1899,5 +1905,45 @@ class Wpfunos_Admin {
     //run the udpate location function
     gmw_update_post_location( $post_id, $address );
   }
+
+  /*********************************/
+  /*****  AJAX                ******/
+  /*********************************/
+  /**
+  * Procesar Precios
+  *
+  * add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_precios', function () { $this->wpfunosProcesarPrecios();});
+  * add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
+  *
+  * 'numberposts' => 5, 'offset' => 0,
+  * 'numberposts' - Default is 5. Total number of posts to retrieve.
+  * 'offset' - Default is 0. The number of posts you want to skip.
+  * $args = array(
+  *   'post_type' => 'precio_serv_wpfunos',
+  *   'post_status' => 'publish',
+  *   'numberposts' => 1,
+  *   'offset' => x,
+  * )
+  *
+  **/
+  public function wpfunosProcesarPrecios(){
+    $offset = $_POST['offset'];
+    $batch = $_POST['batch'];
+    $args = array(
+      'post_type' => 'precio_serv_wpfunos',
+      'post_status' => 'publish',
+      'numberposts' => $batch,
+      'offset' =>$offset,
+    );
+    $post_list = get_posts( $args );
+
+    $result['type'] = "success";
+    $result['newoffset'] = (int)$offset + (int)$batch ;
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
 
 }
