@@ -79,28 +79,30 @@ if( isset( $_POST['hojascalculo'] ) && $_POST['hojascalculo'] == 1 ){
   if( $post_list ){
     echo 'Encontrados '.count( $post_list ).' resultados.</br>';
     //cabecera
-    $csv_output = 'Fecha entrada, Canal entrada, ID, Referencia, Nombre, Teléfono, Email, Población, CP, Provincia, Funeraria, Tanatorio, Precio, Destino, Ataúd, Velatorio, Despedida, Visitas';
+    $csv_output = 'Fecha de la acción realizada, ID, Referencia, Nombre y apellidos, Teléfono, Email, Ubicación del usuario, CP, Provincia, Empresa, Servicio demandado, API, Precio, Nombre servicio, Nombre ataúd, Nombre velatorio, Nombre despedida, Visitas, URL, Nombre acción';
     $csv_output .= "\n";
     foreach ( $post_list as $post ){
       $this->custom_logs('Usuario: '.$post->ID );
-      $csv_output .= get_post_meta( $post->ID, 'wpfunos_TimeStamp', true ).","; //Fecha entrada
-      $csv_output .= "Comparador funerarias,"; //Canal entrada
+      $csv_output .= get_post_meta( $post->ID, 'wpfunos_TimeStamp', true ).","; //Fecha de la acción realizada
       $csv_output .= $post->ID.","; // ID
       $csv_output .= get_post_meta( $post->ID, 'wpfunos_userReferencia', true ).",";//Referencia
-      $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userName', true )).",";//Nombre
+      $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userName', true )).",";//Nombre y apellidos
       $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userPhone', true )).",";//Teléfono
       $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userMail', true )).",";// Email
-      $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionUbicacion', true )).",";// Población
+      $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionUbicacion', true )).",";// Ubicación del usuario
       $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userCP', true )).",";// CP
       $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioProvincia', true )).",";// Provincia
-      $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioEmpresa', true )).",";// Funeraria
-      $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioTitulo', true )).",";// Tanatorio
+      $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioEmpresa', true )).",";// Empresa
+      $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userDesgloseBaseNombre', true )).",";// Servicio demandado
+      $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userAPITipo', true )).",";// API
       $csv_output .= get_post_meta( $post->ID, 'wpfunos_userPrecio', true ).",";// Precio
       $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionServicio', true ).",";// Destino
       $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionAtaud', true ).",";// Ataúd
       $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionVelatorio', true ).",";// Velatorio
       $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionDespedida', true ).",";// Despedida
       $csv_output .= get_post_meta( $post->ID, 'wpfunos_userVisitas', true ).",";// Visitas
+      $csv_output .= get_post_meta( $post->ID, 'wpfunos_userURLlarga', true ).",";// URL
+      $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreAccion', true ).",";// nombre acción
       //
       $csv_output .= "\n";
     }

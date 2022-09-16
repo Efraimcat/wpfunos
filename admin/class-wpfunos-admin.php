@@ -22,22 +22,14 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'codigospostales_custom_post_type' ));
     add_action('init', array( $this, 'provincias_custom_post_type' ));
     add_action('init', array( $this, 'prov_zona_custom_post_type' ));
-    //add_action('init', array( $this, 'entrada_servicios_custom_post_type' ));
-    //add_action('init', array( $this, 'funerarias_custom_post_type' ));
     add_action('init', array( $this, 'config_imagenes_custom_post_type' ));
     add_action('init', array( $this, 'servicios_custom_post_type' ));
     add_action('init', array( $this, 'directorio_tanatorio_custom_post_type' ));
     add_action('init', array( $this, 'tipos_seguro_custom_post_type' ));
-    //add_action('init', array( $this, 'entrada_ubicaciones_custom_post_type' ));
-    //add_action('init', array( $this, 'entrada_ubicaciones_aseguradoras_custom_post_type' ));
     add_action('init', array( $this, 'usuarios_registrados_custom_post_type' ));
-    //add_action('init', array( $this, 'entrada_aseguradoras_custom_post_type' ));
     add_action('init', array( $this, 'precios_poblacion_funeraria_custom_post_type' ));
     add_action('init', array( $this, 'excepciones_provincias_custom_post_type' ));
     add_action('init', array( $this, 'precios_servicios_custom_post_type' ));
-    //add_action('init', array( $this, 'estad_boton_custom_post_type' ));
-    //add_action('init', array( $this, 'estad_resul_custom_post_type' ));
-    //add_action('init', array( $this, 'estad_ubica_custom_post_type' ));
     add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
     add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
     add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuración Imágenes
@@ -81,7 +73,6 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDirectorio' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsPreciosPoblacion' ));
     add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
-    //add_action('add_meta_boxes_funerarias_wpfunos', array( $this, 'setupfunerarias_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_cpostales_wpfunos', array( $this, 'setupcpostales_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_provincias_wpfunos', array( $this, 'setupprovincias_wpfunosMetaboxes' ));
@@ -90,18 +81,10 @@ class Wpfunos_Admin {
     add_action('add_meta_boxes_tipos_seguro_wpfunos', array( $this, 'setuptiposseguro_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_tanatorio_d_wpfunos', array( $this, 'setuptanatoriodirectorio_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_conf_img_wpfunos', array( $this, 'setupconfimgwpfunos_wpfunosMetaboxes' ));
-    //add_action('add_meta_boxes_ubicaciones_wpfunos', array( $this, 'setupubicaciones_wpfunosMetaboxes' ));
-    //add_action('add_meta_boxes_ubic_aseg_wpfunos', array( $this, 'setupubic_aseg_wpfunosMetaboxes' ));
-    //add_action('add_meta_boxes_pag_serv_wpfunos', array( $this, 'setuppag_serv_wpfunosMetaboxes' ));
-    //add_action('add_meta_boxes_pag_aseg_wpfunos', array( $this, 'setuppag_aseg_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_precio_funer_wpfunos', array( $this, 'setupprecio_funer_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_excep_prov_wpfunos', array( $this, 'setupexcep_prov_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_precio_serv_wpfunos', array( $this, 'setupprecio_serv_wpfunosMetaboxes' ));
-    //add_action('add_meta_boxes_estad_boton_wpfunos', array( $this, 'setupestad_boton_wpfunosMetaboxes' ));
-    //add_action('add_meta_boxes_estad_resul_wpfunos', array( $this, 'setupestad_resul_wpfunosMetaboxes' ));
-    //add_action('add_meta_boxes_estad_ubica_wpfunos', array( $this, 'setupestad_ubica_wpfunosMetaboxes' ));
     add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
-    //add_action('save_post_funerarias_wpfunos', array( $this, 'savefunerarias_wpfunosMetaBoxData' ));
     add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
     add_action('save_post_cpostales_wpfunos', array( $this, 'savecpostales_wpfunosMetaBoxData' ));
     add_action('save_post_provincias_wpfunos', array( $this, 'saveprovincias_wpfunosMetaBoxData' ));
@@ -110,16 +93,9 @@ class Wpfunos_Admin {
     add_action('save_post_tipos_seguro_wpfunos', array( $this, 'savetiposeguro_wpfunosMetaBoxData' ));
     add_action('save_post_tanatorio_d_wpfunos', array( $this, 'savetanatoriodirectorio_wpfunosMetaBoxData' ));
     add_action('save_post_conf_img_wpfunos', array( $this, 'saveconfimgwpfunos_wpfunosMetaBoxData' ));
-    //add_action('save_post_ubicaciones_wpfunos', array( $this, 'saveubicaciones_wpfunosMetaBoxData' ));
-    //add_action('save_post_ubic_aseg_wpfunos', array( $this, 'saveubic_aseg_wpfunosMetaBoxData' ));
-    //add_action('save_post_pag_serv_wpfunos', array( $this, 'savepag_serv_wpfunosMetaBoxData' ));
-    //add_action('save_post_pag_aseg_wpfunos', array( $this, 'savepag_aseg_wpfunosMetaBoxData' ));
     add_action('save_post_precio_funer_wpfunos', array( $this, 'saveprecio_funer_wpfunosMetaBoxData' ));
     add_action('save_post_excep_prov_wpfunos', array( $this, 'saveexcep_prov_wpfunosMetaBoxData' ));
     add_action('save_post_precio_serv_wpfunos', array( $this, 'saveprecio_serv_wpfunosMetaBoxData' ));
-    //add_action('save_post_estad_boton_wpfunos', array( $this, 'saveestad_boton_wpfunosMetaBoxData' ));
-    //add_action('save_post_estad_resul_wpfunos', array( $this, 'saveestad_resul_wpfunosMetaBoxData' ));
-    //add_action('save_post_estad_ubica_wpfunos', array( $this, 'saveestad_ubica_wpfunosMetaBoxData' ));
 
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_precios', function () { $this->wpfunosProcesarPrecios();});
     add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
@@ -695,10 +671,6 @@ class Wpfunos_Admin {
     add_meta_box('usuarios_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'usuarios_wpfunos_data_meta_box'), 'usuarios_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'usuarios_wpfunos', 'normal');
   }
-  //public function setupfunerarias_wpfunosMetaboxes(){
-  //  add_meta_box('funerarias_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'funerarias_wpfunos_data_meta_box'), 'funerarias_wpfunos', 'normal', 'high' );
-  //  remove_meta_box('wpseo_meta', 'funerarias_wpfunos', 'normal');
-  //}
   public function setupservicios_wpfunosMetaboxes(){
     add_meta_box('servicios_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'servicios_wpfunos_data_meta_box'), 'servicios_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'servicios_wpfunos', 'normal');
@@ -730,22 +702,6 @@ class Wpfunos_Admin {
     add_meta_box('conf_img_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'conf_img_wpfunos_data_meta_box'), 'conf_img_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'conf_img_wpfunos', 'normal');
   }
-  //public function setupubicaciones_wpfunosMetaboxes(){
-  //  add_meta_box('ubicaciones_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubicaciones_wpfunos_data_meta_box'), 'ubicaciones_wpfunos', 'normal', 'high' );
-  //  remove_meta_box('wpseo_meta', 'ubicaciones_wpfunos', 'normal');
-  //}
-  //public function setupubic_aseg_wpfunosMetaboxes(){
-  //  add_meta_box('ubic_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'ubic_aseg_wpfunos_data_meta_box'), 'ubic_aseg_wpfunos', 'normal', 'high' );
-  //  remove_meta_box('wpseo_meta', 'ubic_aseg_wpfunos', 'normal');
-  //}
-  //public function setuppag_serv_wpfunosMetaboxes(){
-  //  add_meta_box('pag_serv_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_serv_wpfunos_data_meta_box'), 'pag_serv_wpfunos', 'normal', 'high' );
-  //  remove_meta_box('wpseo_meta', 'pag_serv_wpfunos', 'normal');
-  //}
-  //public function setuppag_aseg_wpfunosMetaboxes(){
-  //  add_meta_box('pag_aseg_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'pag_aseg_wpfunos_data_meta_box'), 'pag_aseg_wpfunos', 'normal', 'high' );
-  //  remove_meta_box('wpseo_meta', 'pag_aseg_wpfunos', 'normal');
-  //}
   public function setupprecio_funer_wpfunosMetaboxes(){
     add_meta_box('precio_funer_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'precio_funer_wpfunos_data_meta_box'), 'precio_funer_wpfunos', 'normal', 'high' );
   }
@@ -757,19 +713,6 @@ class Wpfunos_Admin {
     add_meta_box('precio_serv_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'precio_serv_wpfunos_data_meta_box'), 'precio_serv_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'precio_serv_wpfunos', 'normal');
   }
-
-  //public function setupestad_boton_wpfunosMetaboxes(){
-  //  add_meta_box('estad_boton_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'estad_boton_wpfunos_data_meta_box'), 'estad_boton_wpfunos', 'normal', 'high' );
-  //  remove_meta_box('wpseo_meta', 'estad_boton_wpfunos', 'normal');
-  //}
-  //public function setupestad_resul_wpfunosMetaboxes(){
-  //  add_meta_box('estad_resul_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'estad_resul_wpfunos_data_meta_box'), 'estad_resul_wpfunos', 'normal', 'high' );
-  //  remove_meta_box('wpseo_meta', 'estad_resul_wpfunos', 'normal');
-  //}
-  //public function setupestad_ubica_wpfunosMetaboxes(){
-  //  add_meta_box('estad_ubica_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'estad_ubica_wpfunos_data_meta_box'), 'estad_ubica_wpfunos', 'normal', 'high' );
-  //  remove_meta_box('wpseo_meta', 'estad_ubica_wpfunos', 'normal');
-  //}
 
   /*********************************/
   /*****  SALVAR DATOS META CPT ****/
@@ -792,13 +735,6 @@ class Wpfunos_Admin {
 
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-usuarios-fields.php';
   }
-  //public function savefunerarias_wpfunosMetaBoxData( $post_id ){
-  //  if (! isset($_POST[$this->plugin_name . '_funerarias_wpfunos_meta_box_nonce'])) return;
-  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_funerarias_wpfunos_meta_box_nonce'], $this->plugin_name . '_funerarias_wpfunos_meta_box')) return;
-  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-  //  if (! current_user_can('manage_options')) return;
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-funerarias-fields.php';
-  //}
   public function saveservicios_wpfunosMetaBoxData( $post_id ){
     if (! isset($_POST[$this->plugin_name . '_servicios_wpfunos_meta_box_nonce'])) return;
     if (! wp_verify_nonce($_POST[$this->plugin_name . '_servicios_wpfunos_meta_box_nonce'], $this->plugin_name . '_servicios_wpfunos_meta_box')) return;
@@ -855,34 +791,6 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-fields.php';
   }
-  //public function saveubicaciones_wpfunosMetaBoxData( $post_id ){
-  //  if (! isset($_POST[$this->plugin_name . '_ubicaciones_wpfunos_meta_box_nonce'])) return;
-  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_ubicaciones_wpfunos_meta_box_nonce'], $this->plugin_name . '_ubicaciones_wpfunos_meta_box')) return;
-  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-  //  if (! current_user_can('manage_options')) return;
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-fields.php';
-  //}
-  //public function saveubic_aseg_wpfunosMetaBoxData( $post_id ){
-  //  if (! isset($_POST[$this->plugin_name . '_ubic_aseg_wpfunos_meta_box_nonce'])) return;
-  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_ubic_aseg_wpfunos_meta_box_nonce'], $this->plugin_name . '_ubic_aseg_wpfunos_meta_box')) return;
-  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-  //  if (! current_user_can('manage_options')) return;
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubic-aseg-fields.php';
-  //}
-  //public function savepag_serv_wpfunosMetaBoxData( $post_id ){
-  //  if (! isset($_POST[$this->plugin_name . '_pag_serv_wpfunos_meta_box_nonce'])) return;
-  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_pag_serv_wpfunos_meta_box_nonce'], $this->plugin_name . '_pag_serv_wpfunos_meta_box')) return;
-  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-  //  if (! current_user_can('manage_options')) return;
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-serv-fields.php';
-  //}
-  //public function savepag_aseg_wpfunosMetaBoxData( $post_id ){
-  //  if (! isset($_POST[$this->plugin_name . '_pag_aseg_wpfunos_meta_box_nonce'])) return;
-  //  if (! wp_verify_nonce($_POST[$this->plugin_name . '_pag_aseg_wpfunos_meta_box_nonce'], $this->plugin_name . '_pag_aseg_wpfunos_meta_box')) return;
-  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-  //  if (! current_user_can('manage_options')) return;
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-aseg-fields.php';
-  //}
   public function saveprecio_funer_wpfunosMetaBoxData( $post_id ){
     if (! isset($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'])) return;
     if (! wp_verify_nonce($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'], $this->plugin_name . '_precio_funer_wpfunos_meta_box')) return;
@@ -904,27 +812,7 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-fields.php';
   }
-  //public function saveestad_boton_wpfunosMetaBoxData( $post_id ){
-  //  if (! isset($_POST['wpfunos_estad_boton_wpfunos_meta_box_nonce'])) return;
-  //  if (! wp_verify_nonce($_POST['wpfunos_estad_boton_wpfunos_meta_box_nonce'], 'wpfunos_estad_boton_wpfunos_meta_box')) return;
-  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-  //  if (! current_user_can('manage_options')) return;
-  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-botones-fields.php';
-  //}
-  //public function saveestad_resul_wpfunosMetaBoxData( $post_id ){
-  //  if (! isset($_POST['wpfunos_estad_resul_wpfunos_meta_box_nonce'])) return;
-  //  if (! wp_verify_nonce($_POST['wpfunos_estad_resul_wpfunos_meta_box_nonce'], 'wpfunos_estad_resul_wpfunos_meta_box')) return;
-  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-  //  if (! current_user_can('manage_options')) return;
-  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-resultados-fields.php';
-  //}
-  //public function saveestad_ubica_wpfunosMetaBoxData( $post_id ){
-  //  if (! isset($_POST['wpfunos_estad_ubica_wpfunos_meta_box_nonce'])) return;
-  //  if (! wp_verify_nonce($_POST['wpfunos_estad_ubica_wpfunos_meta_box_nonce'], 'wpfunos_estad_ubica_wpfunos_meta_box')) return;
-  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-  //  if (! current_user_can('manage_options')) return;
-  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-ubicacion-fields.php';
-  //}
+
   /*********************************/
   /*****  CPT                 ******/
   /*********************************/
@@ -934,12 +822,6 @@ class Wpfunos_Admin {
   public function usuarios_registrados_custom_post_type(){
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-usuarios.php';
   }
-  /**
-  * funerarias_wpfunos
-  */
-  //public function funerarias_custom_post_type(){
-  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-funerarias.php';
-  //}
   /**
   * servicios_wpfunos
   */
@@ -989,30 +871,6 @@ class Wpfunos_Admin {
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-conf-img.php';
   }
   /**
-  * ubicaciones_wpfunos
-  */
-  //public function entrada_ubicaciones_custom_post_type(){
-  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-ubicaciones.php';
-  //}
-  /**
-  * ubic_aseg_wpfunos
-  */
-  //public function entrada_ubicaciones_aseguradoras_custom_post_type(){
-  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-ubic-aseg.php';
-  //}
-  /**
-  * Entrada Servicios_wpfunos
-  */
-  //public function entrada_servicios_custom_post_type(){
-  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-pag-serv.php';
-  //}
-  /**
-  * Entrada Aseguradoras_wpfunos
-  */
-  //public function entrada_aseguradoras_custom_post_type(){
-  //  require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-pag-aseg.php';
-  //}
-  /**
   * Entrada Precios Poblacion  precio_funer_wpfunos
   */
   public function precios_poblacion_funeraria_custom_post_type(){
@@ -1030,24 +888,6 @@ class Wpfunos_Admin {
   public function precios_servicios_custom_post_type(){
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-precio-serv.php';
   }
-  /**
-  * estad_boton_wpfunos
-  */
-  //public function estad_boton_custom_post_type(){
-  //  require_once 'partials/cpt/wpfunos-admin-cpt-estad-boton.php';
-  //}
-  /**
-  * estad_resul_wpfunos
-  */
-  //public function estad_resul_custom_post_type(){
-  //  require_once 'partials/cpt/wpfunos-admin-cpt-estad-resul.php';
-  //}
-  /**
-  * estad_ubica_wpfunos
-  */
-  //public function estad_ubica_custom_post_type(){
-  //  require_once 'partials/cpt/wpfunos-admin-cpt-estad-ubica.php';
-  //}
 
   /*********************************/
   /*****  MOSTRAR METABOXES   ******/
@@ -1064,10 +904,6 @@ class Wpfunos_Admin {
     wp_nonce_field( $this->plugin_name.'_usuarios_wpfunos_meta_box', $this->plugin_name.'_usuarios_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-usuarios-display.php';
   }
-  //public function funerarias_wpfunos_data_meta_box($post){
-  //  wp_nonce_field( $this->plugin_name.'_funerarias_wpfunos_meta_box', $this->plugin_name.'_funerarias_wpfunos_meta_box_nonce' );
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-funerarias-display.php';
-  //}
   public function cpostales_wpfunos_data_meta_box($post){
     wp_nonce_field( $this->plugin_name.'_cpostales_wpfunos_meta_box', $this->plugin_name.'_cpostales_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-cpostales-display.php';
@@ -1096,22 +932,6 @@ class Wpfunos_Admin {
     wp_nonce_field( $this->plugin_name.'_conf_img_wpfunos_meta_box', $this->plugin_name.'_conf_img_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-display.php';
   }
-  //public function ubicaciones_wpfunos_data_meta_box($post){
-  //  wp_nonce_field( $this->plugin_name.'_ubicaciones_wpfunos_meta_box', $this->plugin_name.'_ubicaciones_wpfunos_meta_box_nonce' );
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubicaciones-display.php';
-  //}
-  //public function ubic_aseg_wpfunos_data_meta_box($post){
-  //  wp_nonce_field( $this->plugin_name.'_ubic_aseg_wpfunos_meta_box', $this->plugin_name.'_ubic_aseg_wpfunos_meta_box_nonce' );
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-ubic-aseg-display.php';
-  //}
-  //public function pag_serv_wpfunos_data_meta_box($post){
-  //  wp_nonce_field( $this->plugin_name.'_pag_serv_wpfunos_meta_box', $this->plugin_name.'_pag_serv_wpfunos_meta_box_nonce' );
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-serv-display.php';
-  //}
-  //public function pag_aseg_wpfunos_data_meta_box($post){
-  //  wp_nonce_field( $this->plugin_name.'_pag_aseg_wpfunos_meta_box', $this->plugin_name.'_pag_aseg_wpfunos_meta_box_nonce' );
-  //  require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-pag-aseg-display.php';
-  //}
   public function precio_funer_wpfunos_data_meta_box($post){
     wp_nonce_field( $this->plugin_name.'_precio_funer_wpfunos_meta_box', $this->plugin_name.'_precio_funer_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-funer-display.php';
@@ -1124,18 +944,6 @@ class Wpfunos_Admin {
     wp_nonce_field( $this->plugin_name.'_precio_serv_wpfunos_meta_box', $this->plugin_name.'_precio_serv_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-display.php';
   }
-  //public function estad_boton_wpfunos_data_meta_box($post){
-  //  wp_nonce_field( 'wpfunos_estad_boton_wpfunos_meta_box', 'wpfunos_estad_boton_wpfunos_meta_box_nonce' );
-  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-botones-display.php';
-  //}
-  //public function estad_resul_wpfunos_data_meta_box($post){
-  //  wp_nonce_field( 'wpfunos_estad_resul_wpfunos_meta_box', 'wpfunos_estad_resul_wpfunos_meta_box_nonce' );
-  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-resultados-display.php';
-  //}
-  //public function estad_ubica_wpfunos_data_meta_box($post){
-  //  wp_nonce_field( 'wpfunos_estad_ubica_wpfunos_meta_box', 'wpfunos_estad_ubica_wpfunos_meta_box_nonce' );
-  //  require_once 'partials/DB/wpfunos-estad/wpfunos-estad-DB-ubicacion-display.php';
-  //}
 
   /*********************************/
   /*****  RENDERS             ******/
@@ -1713,28 +1521,32 @@ class Wpfunos_Admin {
     $post_list = get_posts( $args );
     if( $post_list ){
       //cabecera
-      $csv_output = 'Fecha entrada, Canal entrada, ID, Referencia, Nombre, Teléfono, Email, Población, CP, Provincia, Funeraria, Tanatorio, Precio, Destino, Ataúd, Velatorio, Despedida, Visitas';
+      //$csv_output = 'Fecha entrada, ID, Referencia, Nombre, Teléfono, Email, Población, CP, Provincia, Funeraria, Tanatorio, Precio, Destino, Ataúd, Velatorio, Despedida, Visitas';
+      $csv_output = 'Fecha de la acción realizada, ID, Referencia, Nombre y apellidos, Teléfono, Email, Ubicación del usuario, CP, Provincia, Empresa, Servicio demandado, API, Precio, Nombre servicio, Nombre ataúd, Nombre velatorio, Nombre despedida, Visitas, URL, Nombre acción';
       $csv_output .= "\n";
       foreach ( $post_list as $post ){
         $this->custom_logs('Usuario: '.$post->ID );
-        $csv_output .= get_post_meta( $post->ID, 'wpfunos_TimeStamp', true ).","; //Fecha entrada
-        $csv_output .= "Comparador funerarias,"; //Canal entrada
+
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_TimeStamp', true ).","; //Fecha de la acción realizada
         $csv_output .= $post->ID.","; // ID
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userReferencia', true ).",";//Referencia
-        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userName', true )).",";//Nombre
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userName', true )).",";//Nombre y apellidos
         $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userPhone', true )).",";//Teléfono
         $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userMail', true )).",";// Email
-        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionUbicacion', true )).",";// Población
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionUbicacion', true )).",";// Ubicación del usuario
         $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userCP', true )).",";// CP
         $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioProvincia', true )).",";// Provincia
-        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioEmpresa', true )).",";// Funeraria
-        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioTitulo', true )).",";// Tanatorio
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userServicioEmpresa', true )).",";// Empresa
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userDesgloseBaseNombre', true )).",";// Servicio demandado
+        $csv_output .= str_replace(",","",get_post_meta( $post->ID, 'wpfunos_userAPITipo', true )).",";// API
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userPrecio', true ).",";// Precio
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionServicio', true ).",";// Destino
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionAtaud', true ).",";// Ataúd
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionVelatorio', true ).",";// Velatorio
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreSeleccionDespedida', true ).",";// Despedida
         $csv_output .= get_post_meta( $post->ID, 'wpfunos_userVisitas', true ).",";// Visitas
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userURLlarga', true ).",";// URL
+        $csv_output .= get_post_meta( $post->ID, 'wpfunos_userNombreAccion', true ).",";// nombre acción
         //
         $csv_output .= "\n";
       }
@@ -1758,12 +1570,12 @@ class Wpfunos_Admin {
       $writer->save($Excelfile);
 
       $message = '<p>Usuarios del día ' .$yesterday->format("d-m-Y"). '.</p>';
-      $message .= '<p>Total '.count( $post_list ).' usuarios.';
-      $message .= '<p></p>';
-      $message .= '<p>Enlace .csv: <a href="https://funos.es/wp-content/uploads/wpfunos-reportes/reporte-usuarios-'.$yesterday->format("d-m-Y").'.csv">Fichero csv</a></p>';
-      $message .= '<p>Enlace .xlsx: <a href="https://funos.es/wp-content/uploads/wpfunos-reportes/reporte-usuarios-'.$yesterday->format("d-m-Y").'.xlsx">Fichero xlsx</a></p>';
-      $message .= '<p></p>';
-      $message .= '<p>---</p>';
+      //$message .= '<p>Total '.count( $post_list ).' usuarios.';
+      //$message .= '<p></p>';
+      //$message .= '<p>Enlace .csv: <a href="https://funos.es/wp-content/uploads/wpfunos-reportes/reporte-usuarios-'.$yesterday->format("d-m-Y").'.csv">Fichero csv</a></p>';
+      //$message .= '<p>Enlace .xlsx: <a href="https://funos.es/wp-content/uploads/wpfunos-reportes/reporte-usuarios-'.$yesterday->format("d-m-Y").'.xlsx">Fichero xlsx</a></p>';
+      //$message .= '<p></p>';
+      //$message .= '<p>---</p>';
 
       $attachments = array( $file, $Excelfile );
       $headers[] = 'Content-Type: text/html; charset=UTF-8';

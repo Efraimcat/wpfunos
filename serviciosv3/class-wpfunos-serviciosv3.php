@@ -413,7 +413,7 @@ class Wpfunos_ServiciosV3 {
           $_GET['prov_zona_titulo'] = $titulo;
           $_GET['prov_zona_comentarios'] = $comentarios;
           $_GET['prov_zona_precio'] = number_format($precio, 0, ',', '.');
-          echo do_shortcode( get_option('wpfunos_seccionPreciosMedioZona') );
+          echo do_shortcode( get_option('wpfunos_seccionPreciosMedioZona') ); //[elementor-template id="52324"]
         }
       endforeach;
       wp_reset_postdata();
@@ -421,9 +421,11 @@ class Wpfunos_ServiciosV3 {
       ?><h6 style="text-align: center;margin-top: 20px;border-style: solid;border-width: thin;padding: 20px;border-radius: 4px;">No hay datos de precio medio para la zona de <?php echo $address;?></h6><?php
     }
 
-    echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') );
+    echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') ); //[elementor-template id="51893"]
 
-    echo do_shortcode( '[elementor-template id="96919"]' );
+    echo do_shortcode( '[elementor-template id="96919"]' );//Precio medio zona gestoría gratis -> [elementor-template id="96650"] Gestoría post-defunción gratis
+
+    //echo do_shortcode( '[elementor-template id="116230"]' );//Precio medio zona financiación para el funeral
 
     /** ?><script>console.log('Precio medio zona END.' );</script><?php **/
   }
