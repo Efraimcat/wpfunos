@@ -82,7 +82,6 @@ class Wpfunos {
 		$this->define_aseguradoras_hooks();
 		$this->define_directorio_hooks();
 		$this->define_servicios_hooks();
-		$this->define_serviciosv2_hooks();
 		$this->define_serviciosv3_hooks();
 		$this->define_estadisticas_hooks();
 		$this->define_colaboradores_hooks();
@@ -150,11 +149,6 @@ class Wpfunos {
 		* Servicios
 		*/
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'servicios/class-wpfunos-servicios.php';
-
-		/**
-		* Servicios V2
-		*/
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'serviciosv2/class-wpfunos-serviciosv2.php';
 
 		/**
 		* Servicios V3
@@ -289,22 +283,6 @@ class Wpfunos {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_servicios, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_servicios, 'enqueue_scripts' );
-
-	}
-
-	/**
-	* Register all of the hooks servicios
-	* of the plugin.
-	*
-	* @since    1.0.0
-	* @access   private
-	*/
-	private function define_serviciosv2_hooks() {
-
-		$plugin_serviciosv2 = new Wpfunos_ServiciosV2( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_serviciosv2, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_serviciosv2, 'enqueue_scripts' );
 
 	}
 
