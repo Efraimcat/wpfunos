@@ -64,8 +64,8 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoBoton2v2Admin')
 );
 
-register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoBoton2v2Admin');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoBoton2v2Admin');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccBoton2v2Admin');
-register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoBoton2v2Admin');
-register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoBoton2v2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_activarCorreoBoton2v2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mailCorreoCcoBoton2v2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mailCorreoBccBoton2v2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_asuntoCorreoBoton2v2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mensajeCorreoBoton2v2Admin');

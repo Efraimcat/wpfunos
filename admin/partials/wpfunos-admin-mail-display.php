@@ -34,8 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     <h6 style="font-weight: 600;font-size: 18px;">Comparador nuevo</h6>
     <li><a href="#wpfunos-entrada-admin-v2">Correo al administrador nuevos datos usuario</a></li>
     <li><a href="#wpfunos-llamen-admin-v2">Correo funeraria botón "Te llamamos"</a></li>
+    <li><a href="#wpfunos-llamen-usuario-v2">Correo usuario botón "Te llamamos"</a></li>
     <li><a href="#wpfunos-llamar-admin-v2">Correo funeraria botón "Llamar"</a></li>
+    <li><a href="#wpfunos-llamar-usuario-v2">Correo usuario botón "Llamar"</a></li>
     <li><a href="#wpfunos-presupuesto-lead-v2">Correo funeraria botón "pedir presupuesto"</a></li>
+    <li><a href="#wpfunos-presupuesto-usuario-v2">Correo usuario botón "pedir presupuesto"</a></li>
     <li><a href="#wpfunos-popup-detalles-v2">Correo usuario botón "copia detalles"</a></li>
     <hr />
     <div class="wpfunos-correos-admin">
@@ -98,17 +101,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     }
     document.getElementById(tabName).style.display = "block";
   }
-</script>
+  </script>
 
-<?php settings_errors(); ?>
-<div class="wpfunos-correos-admin">
-  <form method="POST" action="options.php">
-    <?php
-    //settings_fields('wpfunos_mail_settings');
-    //do_settings_sections('wpfunos_mail_settings');
-    ?>
-    <hr />
-    <?php //submit_button(); ?>
-  </form>
-</div>
+  <?php settings_errors(); ?>
 </div>

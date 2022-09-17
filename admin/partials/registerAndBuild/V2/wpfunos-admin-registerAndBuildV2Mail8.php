@@ -64,8 +64,8 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoUsuarioDetalles')
 );
 
-register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoUsuarioDetalles');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoUsuarioDetalles');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccUsuarioDetalles');
-register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoUsuarioDetalles');
-register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoUsuarioDetalles');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_activarCorreoUsuarioDetalles');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mailCorreoCcoUsuarioDetalles');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mailCorreoBccUsuarioDetalles');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_asuntoCorreoUsuarioDetalles');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mensajeCorreoUsuarioDetalles');

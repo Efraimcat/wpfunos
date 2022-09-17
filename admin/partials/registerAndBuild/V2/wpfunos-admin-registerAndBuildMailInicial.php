@@ -28,4 +28,4 @@ add_settings_field(
   array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoCcoPopup','name' => $this->plugin_name . '_mailCorreoCcoPopup','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoCcoPopup');
+register_setting('wpfunos_mail_settings_v3', $this->plugin_name . '_mailCorreoCcoPopup');

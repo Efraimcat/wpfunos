@@ -73,9 +73,9 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreov2Admin')
 );
 
-register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreov2Admin');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreov2Admin');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcov2Admin');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccv2Admin');
-register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreov2Admin');
-register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreov2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_activarCorreov2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mailCorreov2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mailCorreoCcov2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mailCorreoBccv2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_asuntoCorreov2Admin');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mensajeCorreov2Admin');

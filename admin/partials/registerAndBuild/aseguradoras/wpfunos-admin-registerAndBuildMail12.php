@@ -73,9 +73,9 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoDatosEntradosAseguradora')
 );
 
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_activarCorreoDatosEntradosAseguradora');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoDatosEntradosAseguradora');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoCcoDatosEntradosAseguradora');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoBccDatosEntradosAseguradora');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_asuntoCorreoDatosEntradosAseguradora');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mensajeCorreoDatosEntradosAseguradora');
+register_setting('wpfunos_mail_settings_aseguradoras', $this->plugin_name . '_activarCorreoDatosEntradosAseguradora');
+register_setting('wpfunos_mail_settings_aseguradoras', $this->plugin_name . '_mailCorreoDatosEntradosAseguradora');
+register_setting('wpfunos_mail_settings_aseguradoras', $this->plugin_name . '_mailCorreoCcoDatosEntradosAseguradora');
+register_setting('wpfunos_mail_settings_aseguradoras', $this->plugin_name . '_mailCorreoBccDatosEntradosAseguradora');
+register_setting('wpfunos_mail_settings_aseguradoras', $this->plugin_name . '_asuntoCorreoDatosEntradosAseguradora');
+register_setting('wpfunos_mail_settings_aseguradoras', $this->plugin_name . '_mensajeCorreoDatosEntradosAseguradora');

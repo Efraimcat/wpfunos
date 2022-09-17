@@ -64,8 +64,8 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoPresupuestoLead')
 );
 
-register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoPresupuestoLead');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoPresupuestoLead');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccPresupuestoLead');
-register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoPresupuestoLead');
-register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoPresupuestoLead');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_activarCorreoPresupuestoLead');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mailCorreoCcoPresupuestoLead');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mailCorreoBccPresupuestoLead');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_asuntoCorreoPresupuestoLead');
+register_setting('wpfunos_mail_settings_v3', 'wpfunos_mensajeCorreoPresupuestoLead');

@@ -73,9 +73,9 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoPreventiva')
 );
 
-register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoPreventiva');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoPreventiva');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoPreventiva');
-register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccPreventiva');
-register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoPreventiva');
-register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoPreventiva');
+register_setting('wpfunos_mail_settings_aseguradoras', 'wpfunos_activarCorreoPreventiva');
+register_setting('wpfunos_mail_settings_aseguradoras', 'wpfunos_mailCorreoPreventiva');
+register_setting('wpfunos_mail_settings_aseguradoras', 'wpfunos_mailCorreoCcoPreventiva');
+register_setting('wpfunos_mail_settings_aseguradoras', 'wpfunos_mailCorreoBccPreventiva');
+register_setting('wpfunos_mail_settings_aseguradoras', 'wpfunos_asuntoCorreoPreventiva');
+register_setting('wpfunos_mail_settings_aseguradoras', 'wpfunos_mensajeCorreoPreventiva');
