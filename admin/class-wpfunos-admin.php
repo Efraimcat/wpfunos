@@ -42,36 +42,43 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildFieldsSinConfirmar' ));			// Compara Resultados Sin Confirmar superior e inferior
     add_action('admin_init', array( $this, 'registerAndBuildFieldsSinPrecio' ));			// Compara Resultados Sin Precio superior e inferior
     add_action('admin_init', array( $this, 'registerAndBuildFieldsServiciosV2' ));			// Compara Resultados Sin Precio superior e inferior
-    add_action('admin_init', array( $this, 'registerAndBuildMailInicial' ));		//Inicio
-    add_action('admin_init', array( $this, 'registerAndBuildMailDatosUsuario' ));		//Inicio
-    add_action('admin_init', array( $this, 'registerAndBuildMailPopupUsuario' ));		//Inicio
-    add_action('admin_init', array( $this, 'registerAndBuildMail' ));		//Boton 1 Admin
-    add_action('admin_init', array( $this, 'registerAndBuildMail2' ));		//Boton 2 Admin
-    add_action('admin_init', array( $this, 'registerAndBuildMail3' ));		//Botón "Que me llamen"
-    add_action('admin_init', array( $this, 'registerAndBuildMail10' ));		//Correo Botón "Que me llamen" aseguradora
-    add_action('admin_init', array( $this, 'registerAndBuildMail4' ));		//Botón "Llamar"
-    add_action('admin_init', array( $this, 'registerAndBuildMail11' ));		//Correo Botón "Llamar" aseguradora
-    add_action('admin_init', array( $this, 'registerAndBuildMail5' ));		//Datos usuario enviados servicios
-    add_action('admin_init', array( $this, 'registerAndBuildMail12' ));		//Datos usuario enviados aseguradora
-    add_action('admin_init', array( $this, 'registerAndBuildMail6' ));		//Correo popup detalles servicios
-    add_action('admin_init', array( $this, 'registerAndBuildMail13' ));		//Correo popup detalles aseguradora
-    add_action('admin_init', array( $this, 'registerAndBuildMail7' ));		//Correo envios colaboradores servicios
-    add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
-    add_action('admin_init', array( $this, 'registerAndBuildMail9' ));		//Correo pedir presupuesto aseguradora
-    add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' ));
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail1' ));		//Correo al administrador nuevos datos usuario
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail2' ));		//Correo "Te llamamos"
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail3' ));		//Correo botón "Llamar"
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail4' ));		//Correo lead botón "Quiero que me llamen"
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail5' ));		//Correo lead botón "Llamar"
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail6' ));		//Correo al administrador pedir presupuesto
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail7' ));		//Correo lead pedir presupuesto
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail8' ));		//Correo usuario copia detalles
     add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildAPIDKV' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDireccionesIP' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDirectorio' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsPreciosPoblacion' ));
+    //
+    add_action('admin_init', array( $this, 'registerAndBuildMailInicial' ));		//Configuración General
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail1' ));		//Correo al administrador nuevos datos usuario
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail2' ));		//Correo "Te llamamos"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail3' ));		//Correo botón "Llamar"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail7' ));		//Correo botón "Pedir presupuesto"
+    add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
+    //
+    add_action('admin_init', array( $this, 'registerAndBuildMail12' ));		//Datos usuario enviados aseguradora
+    add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' )); //Correo Aviso Envio API
+    //
+    add_action('admin_init', array( $this, 'registerAndBuildMailDatosUsuario' ));		//Inicio
+    add_action('admin_init', array( $this, 'registerAndBuildMailPopupUsuario' ));		//Inicio
+    add_action('admin_init', array( $this, 'registerAndBuildMail' ));		//Boton 1 Admin
+    add_action('admin_init', array( $this, 'registerAndBuildMail2' ));		//Boton 2 Admin
+    add_action('admin_init', array( $this, 'registerAndBuildMail3' ));		//Botón "Que me llamen"
+
+    add_action('admin_init', array( $this, 'registerAndBuildMail4' ));		//Botón "Llamar"
+    //add_action('admin_init', array( $this, 'registerAndBuildMail11' ));		//Correo Botón "Llamar" aseguradora
+    add_action('admin_init', array( $this, 'registerAndBuildMail5' ));		//Datos usuario enviados servicios
+    //add_action('admin_init', array( $this, 'registerAndBuildMail10' ));		//Correo Botón "Que me llamen" aseguradora
+    add_action('admin_init', array( $this, 'registerAndBuildMail6' ));		//Correo popup detalles servicios
+    //add_action('admin_init', array( $this, 'registerAndBuildMail13' ));		//Correo popup detalles aseguradora
+    add_action('admin_init', array( $this, 'registerAndBuildMail7' ));		//Correo envios colaboradores servicios
+    //add_action('admin_init', array( $this, 'registerAndBuildMail9' ));		//Correo pedir presupuesto aseguradora
+
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail4' ));		//Correo lead botón "Quiero que me llamen"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail5' ));		//Correo lead botón "Llamar"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail6' ));		//Correo al administrador pedir presupuesto
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail7' ));		//Correo lead pedir presupuesto
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail8' ));		//Correo usuario copia detalles
+    //
     add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_cpostales_wpfunos', array( $this, 'setupcpostales_wpfunosMetaboxes' ));
@@ -318,9 +325,46 @@ class Wpfunos_Admin {
   public function registerAndBuildFieldsPagina() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildPagina.php';
   }
+  //
   public function registerAndBuildMailInicial() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailInicial.php';
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildMailInicial.php';
   }
+  public function registerAndBuildV2Mail1() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail1.php';
+  }
+  public function registerAndBuildV2Mail2() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail2.php';
+  }
+  public function registerAndBuildV2Mail3() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail3.php';
+  }
+  public function registerAndBuildV2Mail7() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail7.php';
+  }
+  public function registerAndBuildV2Mail8() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail8.php';
+  }
+  //
+  public function registerAndBuildMail12() {
+    require_once 'partials/registerAndBuild/aseguradoras/wpfunos-admin-registerAndBuildMail12.php';
+  }
+  public function registerAndBuildCorreoAPIPreventiva() {
+    require_once 'partials/registerAndBuild/aseguradoras/wpfunos-admin-registerAndBuildMailPreventiva.php';
+  }
+
+
+  //
+  public function registerAndBuildV2Mail4() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail4.php';
+  }
+  public function registerAndBuildV2Mail5() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail5.php';
+  }
+  public function registerAndBuildV2Mail6() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail6.php';
+  }
+
+
   public function registerAndBuildMailDatosUsuario() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailDatosUsuario.php';
   }
@@ -351,30 +395,25 @@ class Wpfunos_Admin {
   public function registerAndBuildMail8() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail8.php';
   }
-  public function registerAndBuildMail9() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail9.php';
-  }
-  public function registerAndBuildMail10() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail10.php';
-  }
-  public function registerAndBuildMail11() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail11.php';
-  }
-  public function registerAndBuildMail12() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail12.php';
-  }
-  public function registerAndBuildMail13() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail13.php';
-  }
+  //public function registerAndBuildMail9() {
+  //  require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail9.php';
+  //}
+  //  public function registerAndBuildMail10() {
+  //    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail10.php';
+  //  }
+  //public function registerAndBuildMail11() {
+  //  require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail11.php';
+  //}
+  //public function registerAndBuildMail13() {
+  //  require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail13.php';
+  //}
   public function registerAndBuildAPIPreventiva() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIPreventiva.php';
   }
   public function registerAndBuildAPIDKV() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIDKV.php';
   }
-  public function registerAndBuildCorreoAPIPreventiva() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailPreventiva.php';
-  }
+
   public function registerAndBuildFieldsDireccionesIP() {
     require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDireccionesIP.php';
   }
@@ -405,30 +444,7 @@ class Wpfunos_Admin {
   public function registerAndBuildFieldsServiciosV2(){
     require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildServiciosV2.php';
   }
-  public function registerAndBuildV2Mail1() {
-    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail1.php';
-  }
-  public function registerAndBuildV2Mail2() {
-    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail2.php';
-  }
-  public function registerAndBuildV2Mail3() {
-    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail3.php';
-  }
-  public function registerAndBuildV2Mail4() {
-    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail4.php';
-  }
-  public function registerAndBuildV2Mail5() {
-    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail5.php';
-  }
-  public function registerAndBuildV2Mail6() {
-    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail6.php';
-  }
-  public function registerAndBuildV2Mail7() {
-    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail7.php';
-  }
-  public function registerAndBuildV2Mail8() {
-    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail8.php';
-  }
+
 
   /**
   * Display Admin settings error messages.

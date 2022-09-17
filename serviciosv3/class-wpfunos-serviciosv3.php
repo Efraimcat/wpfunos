@@ -425,7 +425,7 @@ class Wpfunos_ServiciosV3 {
 
     echo do_shortcode( '[elementor-template id="96919"]' );//Precio medio zona gestoría gratis -> [elementor-template id="96650"] Gestoría post-defunción gratis
 
-    //echo do_shortcode( '[elementor-template id="116230"]' );//Precio medio zona financiación para el funeral
+    echo do_shortcode( '[elementor-template id="116230"]' );//Precio medio zona financiación para el funeral
 
     /** ?><script>console.log('Precio medio zona END.' );</script><?php **/
   }
