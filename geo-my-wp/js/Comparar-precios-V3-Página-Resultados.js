@@ -583,10 +583,26 @@ $(document).ready(function(){
       }
     }, 100); // check every 100ms
     // Multistep Form END
+    // Multistep Form
+
+    setInterval(function() {
+      if ( document.getElementsByClassName('wpf-boton-financiacion')[0] ) {
+        console.log('Modal financiación');
+        var elementsBotonFinanciacion = document.getElementsByClassName('wpf-boton-financiacion');
+        for (var i = 0; i < elementsBotonFinanciacion.length; i++) {
+          //elementsFinanciacionNo[i].style.display = 'none';
+          if( elementsBotonFinanciacion[i].getAttribute('listener') !== 'true'){
+            elementsBotonFinanciacion[i].setAttribute('listener', 'true');
+            console.log('Modal financiación listener false');
+            elementsBotonFinanciacion[i].addEventListener('click', wpfFunctionBotonFinanciacion, false);
+            elementsBotonFinanciacion[i].style.cursor = 'pointer';
+          }
+        }
+      }
+    }, 1000) ; // check every 1 sec.
 
   }); // Function END
 }); // Document ready END
-
 
 var wpfFunctionLlamamos = function() {
   var wpnonce = this.getAttribute('wpfn');
@@ -1060,6 +1076,39 @@ var wpfFunctionFinanciacion = function() {
     }
 
 
+  }, 100); // check every 100ms
+};
+
+var wpfFunctionBotonFinanciacion = function() {
+  elementorFrontend.documentsManager.documents['111305'].showModal(); //show the popup
+
+  document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='none';
+  document.getElementsByClassName('elementor-field-group-plazos_superior')[0].style.display='none';
+  document.getElementById('form-field-financiar').disabled = true;
+  document.getElementById('form-field-importe').style.borderStyle = 'solid';
+  document.getElementById('form-field-importe').style.borderWidth = '2px' ;
+  document.getElementById('form-field-importe').style.fontSize = '15px' ;
+  document.getElementById('form-field-importe').style.fontWeight = '400' ;
+
+  setInterval(function() {
+    if ( !document.getElementById('form-field-importe') ) return;
+    document.getElementById('form-field-financiar').value = ( document.getElementById('form-field-importe').value - document.getElementById('form-field-entrada').value );
+
+    if ( document.getElementById('form-field-financiar').value < 1501 ){
+      document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='block';
+      document.getElementsByClassName('elementor-field-group-plazos_superior')[0].style.display='none';
+    }
+
+    if ( document.getElementById('form-field-financiar').value > 1500 ){
+      document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='none';
+      document.getElementsByClassName('elementor-field-group-plazos_superior')[0].style.display='block';
+    }
+
+    if( document.getElementById('form-field-financiar').value < 0 ){
+      document.getElementById('wpfFinanciacionEnviar').disabled = true;
+    }else{
+      document.getElementById('wpfFinanciacionEnviar').disabled = false;
+    }
   }, 100); // check every 100ms
 };
 

@@ -32,7 +32,8 @@ if ( ! defined( 'ABSPATH' ) ) {
   </div>
   <div id="V3" class="w3-container wpftab" >
     <h6 style="font-weight: 600;font-size: 18px;">Comparador nuevo</h6>
-    <li><a href="#wpfunos-entrada-admin-v2">Correo al administrador nuevos datos usuario</a></li>
+    <li><a href="#wpfunos-entrada-admin-v2">Correo al administrador formulario datos usuario</a></li>
+    <li><a href="#wpfunos-entrada-usuario-v2">Correo al usuario formulario datos usuario</a></li>
     <li><a href="#wpfunos-llamen-admin-v2">Correo funeraria botón "Te llamamos"</a></li>
     <li><a href="#wpfunos-llamen-usuario-v2">Correo usuario botón "Te llamamos"</a></li>
     <li><a href="#wpfunos-llamar-admin-v2">Correo funeraria botón "Llamar"</a></li>

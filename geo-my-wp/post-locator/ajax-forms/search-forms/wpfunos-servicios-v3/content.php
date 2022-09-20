@@ -12,7 +12,8 @@
 *
 * @package gmw-ajax-forms
 */
-
+//document.getElementsByClassName('gmw-radius-slider')[0].value
+//id input población = gmw-address-field-8
 ?>
 <?php do_action( 'gmw_before_search_form', $gmw ); ?>
 

@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 add_settings_section(
   'wpfunos_mailadminv2_section',    							// ID used to identify this section and with which to register options
-  '<span id="wpfunos-entrada-admin-v2">Correo al administrador nuevos datos usuario</span>',               // Title to be displayed on the administration page
+  '<span id="wpfunos-entrada-admin-v2">Correo al administrador formulario datos usuario</span>',               // Title to be displayed on the administration page
   array( $this, 'wpfunos_display_mail_account_admin_v2' ), 		// Callback used to render the description of the section
   'wpfunos_mail_settings_v3'                 				// Correo al administrador nuevos datos usuario
 );
 // Activar correo al administrador nuevos datos usuario
 add_settings_field(
   'wpfunos_activarCorreov2Admin',
-  'Activar correo al administrador nuevos datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreov2Admin)</h6>',
+  'Activar correo al administrador formulario datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreov2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_v3',
   'wpfunos_mailadminv2_section',
@@ -30,7 +30,7 @@ add_settings_field(
 // Dirección correo administrador nuevos datos usuario
 add_settings_field(
   'wpfunos_mailCorreov2Admin',
-  'Dirección correo administrador nuevos datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreov2Admin)</h6>',
+  'Dirección correo administrador formulario datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreov2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_v3',
   'wpfunos_mailadminv2_section',
@@ -39,7 +39,7 @@ add_settings_field(
 // Dirección correo Cco nuevos datos usuario
 add_settings_field(
   'wpfunos_mailCorreoCcov2Admin',
-  'Dirección correo Cco nuevos datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcov2Admin)</h6>',
+  'Dirección correo Cco formulario datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcov2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_v3',
   'wpfunos_mailadminv2_section',
@@ -48,7 +48,7 @@ add_settings_field(
 // Dirección correo Bcc nuevos datos usuario
 add_settings_field(
   'wpfunos_mailCorreoBccv2Admin',
-  'Dirección correo Bcc nuevos datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccv2Admin)</h6>',
+  'Dirección correo Bcc formulario datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccv2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_v3',
   'wpfunos_mailadminv2_section',
@@ -57,7 +57,7 @@ add_settings_field(
 // Asunto correo administrador nuevos datos usuario
 add_settings_field(
   'wpfunos_asuntoCorreov2Admin',
-  'Asunto correo administrador nuevos datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreov2Admin)</h6>',
+  'Asunto correo administrador formulario datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreov2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_v3',
   'wpfunos_mailadminv2_section',
@@ -66,7 +66,7 @@ add_settings_field(
 // Mensaje correo administrador nuevos datos usuario
 add_settings_field(
   'wpfunos_mensajeCorreov2Admin',
-  'Mensaje correo administrador nuevos datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreov2Admin)</h6>',
+  'Mensaje correo administrador formulario datos usuario <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreov2Admin)</h6>',
   array( $this, 'wpfunos_intro_render' ),
   'wpfunos_mail_settings_v3',
   'wpfunos_mailadminv2_section',

@@ -1,10 +1,3 @@
-#wpfunos-preciomedio-titulo h4 {
-  font-size: 20px;
-}
-.elementor-element.elementor-element-a3f858f.elementor-widget.elementor-widget-heading h4 {
-  font-size: 20px;
-}
-
 #wpf-llamamos-cerrar,#wpf-llamar-cerrar,.wpf-v3-boton-filtro,.wpf-multiform-button,.wpf-v3-boton-filtro-movil, .wpf-v3-boton-llamamos, .wpf-v3-boton-llamar, .wpf-v3-boton-presupuesto, .wpf-v3-boton-detalles, .wpfunos-detalles-botones{
   cursor: pointer;
 }
@@ -24,6 +17,24 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 }
 
 @media (max-width: 767px) {
+
+  #elementor-popup-modal-84639 .dialog-message,
+  #elementor-popup-modal-89354 .dialog-message {
+    padding: 75px 0 75px 0 !important;
+  }
+
+  #wpf-formulario-datos-texto1 {
+    font-size: 13px !important;
+    padding: 0 9px 0 9px !important;
+  }
+  #wpf-formulario-datos-texto2 {
+    font-size: 10px !important;
+    margin: 10px 48px 0 48px !important;
+  }
+  .elementor-element.elementor-element-602438cf.elementor-widget.elementor-widget-spacer {
+    margin: 0px !important;
+  }
+
   .elementor-56676 .elementor-element.elementor-element-392c216 > .elementor-widget-container {
     margin: 0px 10px 60px 10px !important;
   }

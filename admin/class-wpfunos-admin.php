@@ -30,6 +30,8 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'precios_poblacion_funeraria_custom_post_type' ));
     add_action('init', array( $this, 'excepciones_provincias_custom_post_type' ));
     add_action('init', array( $this, 'precios_servicios_custom_post_type' ));
+    add_action('init', array( $this, 'dist_local_custom_post_type' ));
+
     add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
     add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
     add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuración Imágenes
@@ -49,11 +51,15 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildFieldsPreciosPoblacion' ));
     //
     add_action('admin_init', array( $this, 'registerAndBuildMailInicial' ));		//Configuración General
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail1' ));		//Correo al administrador nuevos datos usuario
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail2' ));		//Correo "Te llamamos"
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail3' ));		//Correo botón "Llamar"
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail7' ));		//Correo botón "Pedir presupuesto"
-    add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail1' ));		//Correo al administrador formulario datos usuario
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail1usuario' ));		//Correo al administrador formulario datos usuario
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail2' ));		//Correo funeraria botón "Te llamamos"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail2usuario' ));		//Correo usuario botón "Te llamamos"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail3' ));		//Correo funeraria botón "Llamar"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail3usuario' ));		//Correo usuario botón "Llamar"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail7' ));		//Correo funeraria botón "Pedir presupuesto"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail7usuario' ));		//Correo usuario botón "Pedir presupuesto"
+    add_action('admin_init', array( $this, 'registerAndBuildV2Mail8' ));		//Correo usuario copia detalles
     //
     add_action('admin_init', array( $this, 'registerAndBuildMail12' ));		//Datos usuario enviados aseguradora
     add_action('admin_init', array( $this, 'registerAndBuildCorreoAPIPreventiva' )); //Correo Aviso Envio API
@@ -63,21 +69,15 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildMail' ));		//Boton 1 Admin
     add_action('admin_init', array( $this, 'registerAndBuildMail2' ));		//Boton 2 Admin
     add_action('admin_init', array( $this, 'registerAndBuildMail3' ));		//Botón "Que me llamen"
-
     add_action('admin_init', array( $this, 'registerAndBuildMail4' ));		//Botón "Llamar"
-    //add_action('admin_init', array( $this, 'registerAndBuildMail11' ));		//Correo Botón "Llamar" aseguradora
     add_action('admin_init', array( $this, 'registerAndBuildMail5' ));		//Datos usuario enviados servicios
-    //add_action('admin_init', array( $this, 'registerAndBuildMail10' ));		//Correo Botón "Que me llamen" aseguradora
     add_action('admin_init', array( $this, 'registerAndBuildMail6' ));		//Correo popup detalles servicios
-    //add_action('admin_init', array( $this, 'registerAndBuildMail13' ));		//Correo popup detalles aseguradora
     add_action('admin_init', array( $this, 'registerAndBuildMail7' ));		//Correo envios colaboradores servicios
-    //add_action('admin_init', array( $this, 'registerAndBuildMail9' ));		//Correo pedir presupuesto aseguradora
-
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail4' ));		//Correo lead botón "Quiero que me llamen"
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail5' ));		//Correo lead botón "Llamar"
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail6' ));		//Correo al administrador pedir presupuesto
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail7' ));		//Correo lead pedir presupuesto
-    add_action('admin_init', array( $this, 'registerAndBuildV2Mail8' ));		//Correo usuario copia detalles
+
     //
     add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
@@ -91,6 +91,8 @@ class Wpfunos_Admin {
     add_action('add_meta_boxes_precio_funer_wpfunos', array( $this, 'setupprecio_funer_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_excep_prov_wpfunos', array( $this, 'setupexcep_prov_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_precio_serv_wpfunos', array( $this, 'setupprecio_serv_wpfunosMetaboxes' ));
+    add_action('add_meta_boxes_dist_local_wpfunos', array( $this, 'setupdist_local_wpfunosMetaboxes' ));
+
     add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
     add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
     add_action('save_post_cpostales_wpfunos', array( $this, 'savecpostales_wpfunosMetaBoxData' ));
@@ -103,6 +105,8 @@ class Wpfunos_Admin {
     add_action('save_post_precio_funer_wpfunos', array( $this, 'saveprecio_funer_wpfunosMetaBoxData' ));
     add_action('save_post_excep_prov_wpfunos', array( $this, 'saveexcep_prov_wpfunosMetaBoxData' ));
     add_action('save_post_precio_serv_wpfunos', array( $this, 'saveprecio_serv_wpfunosMetaBoxData' ));
+    add_action('save_post_dist_local_wpfunos', array( $this, 'savedist_local_wpfunosMetaBoxData' ));
+    add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
 
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_precios', function () { $this->wpfunosProcesarPrecios();});
     add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
@@ -332,15 +336,31 @@ class Wpfunos_Admin {
   public function registerAndBuildV2Mail1() {
     require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail1.php';
   }
+  public function registerAndBuildV2Mail1usuario() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail1usuario.php';
+  }
+
   public function registerAndBuildV2Mail2() {
     require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail2.php';
   }
+  public function registerAndBuildV2Mail2usuario() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail2usuario.php';
+  }
+
   public function registerAndBuildV2Mail3() {
     require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail3.php';
   }
+  public function registerAndBuildV2Mail3usuario() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail3usuario.php';
+  }
+
   public function registerAndBuildV2Mail7() {
     require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail7.php';
   }
+  public function registerAndBuildV2Mail7usuario() {
+    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail7usuario.php';
+  }
+
   public function registerAndBuildV2Mail8() {
     require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail8.php';
   }
@@ -729,7 +749,10 @@ class Wpfunos_Admin {
     add_meta_box('precio_serv_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'precio_serv_wpfunos_data_meta_box'), 'precio_serv_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'precio_serv_wpfunos', 'normal');
   }
-
+  public function setupdist_local_wpfunosMetaboxes(){
+    add_meta_box('dist_local_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'dist_local_wpfunos_data_meta_box'), 'dist_local_wpfunos', 'normal', 'high' );
+    remove_meta_box('wpseo_meta', 'dist_local_wpfunos', 'normal');
+  }
   /*********************************/
   /*****  SALVAR DATOS META CPT ****/
   /*********************************/
@@ -828,6 +851,13 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-fields.php';
   }
+  public function savedist_local_wpfunosMetaBoxData( $post_id ){
+    if (! isset($_POST[$this->plugin_name . '_dist_local_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST[$this->plugin_name . '_dist_local_wpfunos_meta_box_nonce'], $this->plugin_name . '_dist_local_wpfunos_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (! current_user_can('manage_options')) return;
+    require_once 'partials/DB/wpfunos-admin-DB-dist-local-fields.php';
+  }
 
   /*********************************/
   /*****  CPT                 ******/
@@ -904,6 +934,13 @@ class Wpfunos_Admin {
   public function precios_servicios_custom_post_type(){
     require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-precio-serv.php';
   }
+  /**
+  * distancia búsqueda localidades: dist_local_wpfunos
+  */
+  public function dist_local_custom_post_type(){
+    require_once 'partials/cpt/wpfunos-admin-cpt-dist-local.php';
+  }
+
 
   /*********************************/
   /*****  MOSTRAR METABOXES   ******/
@@ -959,6 +996,10 @@ class Wpfunos_Admin {
   public function precio_serv_wpfunos_data_meta_box($post){
     wp_nonce_field( $this->plugin_name.'_precio_serv_wpfunos_meta_box', $this->plugin_name.'_precio_serv_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-display.php';
+  }
+  public function dist_local_wpfunos_data_meta_box($post){
+    wp_nonce_field( $this->plugin_name.'_dist_local_wpfunos_meta_box', $this->plugin_name.'_dist_local_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-dist-local-display.php';
   }
 
   /*********************************/

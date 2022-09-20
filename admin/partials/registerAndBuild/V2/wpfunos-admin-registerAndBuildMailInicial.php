@@ -21,7 +21,7 @@ add_settings_section(
 // correos cc: en popup que me llamen
 add_settings_field(
   $this->plugin_name . '_mailCorreoCcoPopup',
-  'Direcciones de correo a enviar copias mensaje popup <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoPopup)</h6>',
+  'Direcciones de correo a utilizar en mensajes Elementor <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoPopup)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_v3',
   'wpfunos_mailinicial_section',
