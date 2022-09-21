@@ -10,11 +10,11 @@ $(document).ready(function(){
         dataType : 'json',
         url : WpfAjax.ajaxurl,
         data: {
-          'action': 'wpfunos_ajax_v3_dist-local',
+          'action': 'wpfunos_ajax_v3_dist_local',
           'wpflocalidad': localidad,
         },
         success: function(response) {
-          console.log('wpfunos_ajax_v3_dist-local response:');
+          console.log('wpfunos_ajax_v3_dist_local response:');
           console.log(response)	;
           if(response.type === 'success') {
             console.log('OK');

@@ -21,7 +21,7 @@ add_settings_section(
 // Página comparador
 add_settings_field(
   'wpfunos_paginaComparador',
-  'Página comparador <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparador)</h6>',
+  'Página comparador * <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaComparador)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
@@ -30,7 +30,7 @@ add_settings_field(
 // Página detalles
 add_settings_field(
   'wpfunos_paginaDetalles',
-  'Página detalles <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaDetalles)</h6>',
+  'Página detalles * <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_paginaDetalles)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
