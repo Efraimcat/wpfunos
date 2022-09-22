@@ -169,7 +169,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <h3><?php echo '<strong>ANTIGUO COMPARADOR</strong>';?></h3>
+    <h3><?php echo '<strong>PRECIOS ACTUALES</strong>';?></h3>
     <hr/>
     <h3><?php esc_html_e('PRECIO BASE', 'wpfunos');?></h3>
     <?php  //Precio base?>
@@ -268,7 +268,94 @@ if ( ! defined( 'ABSPATH' ) ) {
       </tr>
     </table>
     <hr/>
-
+    <h3><?php echo '<strong>PRECIOS ANTERIORES</strong>';?></h3>
+    <hr/>
+    <h3><?php esc_html_e('PRECIO BASE', 'wpfunos');?></h3>
+    <?php  //Precio base?>
+    <li class="servicios_wpfunos_list">
+      <table>
+        <tr>
+          <td></td><td>Precio</td>
+        </tr>
+        <tr>
+          <td>Precio Base</td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioPrecioBase_anterior','name' => 'wpfunos_servicioPrecioBase_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+        </tr>
+      </table>
+    </li>
+    <hr/>
+    <h3><?php esc_html_e('DESTINO', 'wpfunos');?></h3>
+    <table style="width:100%">
+      <tr>
+        <td>Tipo</td><td>Precio</td>
+      </tr>
+      <tr>
+        <td>Entierro</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDestino_1Precio_anterior','name' => 'wpfunos_servicioDestino_1Precio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Incineración</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDestino_2Precio_anterior','name' => 'wpfunos_servicioDestino_2Precio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Traslado</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDestino_3Precio_anterior','name' => 'wpfunos_servicioDestino_3Precio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+    </table>
+    <hr/>
+    <h3><?php esc_html_e('ATAÚD', 'wpfunos');?></h3>
+    <table style="width:100%">
+      <tr>
+        <td>Tipo</td><td>Precio</td>
+      </tr>
+      <tr>
+        <td>Económico (Ecológico)</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioAtaudEcologico_1Precio_anterior','name' => 'wpfunos_servicioAtaudEcologico_1Precio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Medio (Ecológico)</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioAtaudEcologico_2Precio_anterior','name' => 'wpfunos_servicioAtaudEcologico_2Precio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Premium (Ecológico)</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioAtaudEcologico_3Precio_anterior','name' => 'wpfunos_servicioAtaudEcologico_3Precio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+    </table>
+    <hr/>
+    <h3><?php esc_html_e('VELATORIO', 'wpfunos');?></h3>
+    <table style="width:100%">
+      <tr>
+        <td>Tipo</td><td>Precio</td>
+      </tr>
+      <tr>
+        <td>Velatorio</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioVelatorioPrecio_anterior','name' => 'wpfunos_servicioVelatorioPrecio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Sin</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioVelatorioNoPrecio_anterior','name' => 'wpfunos_servicioVelatorioNoPrecio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+    </table>
+    <hr/>
+    <h3><?php esc_html_e('DESPEDIDA', 'wpfunos');?></h3>
+    <table style="width:100%">
+      <tr>
+        <td>Tipo</td><td>Precio</td>
+      </tr>
+      <tr>
+        <td>Solo sala</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDespedida_1Precio_anterior','name' => 'wpfunos_servicioDespedida_1Precio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Civil</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDespedida_2Precio_anterior','name' => 'wpfunos_servicioDespedida_2Precio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+      <tr>
+        <td>Religiosa</td>
+        <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioDespedida_3Precio_anterior','name' => 'wpfunos_servicioDespedida_3Precio_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+      </tr>
+    </table>
+    <hr/>
     <h3><?php echo '<strong>NUEVO COMPARADOR</strong>';?></h3>
     <?php
     $titulo = array(
@@ -318,14 +405,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     $cuentatitulos = 0;
     ?>
     <table style="width:100%">
-      <tr><td></td><td></td><td>Sin ceremonia</td><td>Oferta</td><td></td><td>Solo sala</td><td>Oferta</td><td></td><td>Civil</td><td>Oferta</td><td></td><td>Religiosa</td><td>Oferta</td></tr>
+      <tr><td></td><td></td><td>Sin ceremonia</td><td>Anterior</td><td></td><td>Solo sala</td><td>Anterior</td><td></td><td>Civil</td><td>Anterior</td><td></td><td>Religiosa</td><td>Oferta</td></tr>
       <tr><td style="width: 400px;"><?php echo $titulo[$cuentatitulos]; ?></td>
         <?php
         foreach ( $tipos as $tipo ) {
           ?>
           <td><?php echo $tipo; ?></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicio'.$tipo,'name' => 'wpfunos_servicio'.$tipo,'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicio'.$tipo.'_oferta','name' => 'wpfunos_servicio'.$tipo.'_oferta','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicio'.$tipo,'name' => 'wpfunos_servicio'.$tipo,'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 7));?>€</td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicio'.$tipo.'_anterior','name' => 'wpfunos_servicio'.$tipo.'_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 7));?>€</td>
           <?php
           $cuatro ++;
           if( $cuatro == 4 ){

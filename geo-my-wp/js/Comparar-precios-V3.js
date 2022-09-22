@@ -2,28 +2,31 @@ $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
     document.getElementById('gmw-address-field-8').addEventListener('change', function(){
-      var localidad = document.getElementById('gmw-address-field-8').value;
-      console.log('Localidad ' +localidad);
+      setTimeout(function() {
 
-      jQuery.ajax({
-        type : 'post',
-        dataType : 'json',
-        url : WpfAjax.ajaxurl,
-        data: {
-          'action': 'wpfunos_ajax_v3_dist_local',
-          'wpflocalidad': localidad,
-        },
-        success: function(response) {
-          console.log('wpfunos_ajax_v3_dist_local response:');
-          console.log(response)	;
-          if(response.type === 'success') {
-            console.log('OK');
-            document.getElementsByClassName('gmw-radius-slider')[0].value = response.distancia
-          } else {
-            console.log('fail');
+        var localidad = document.getElementById('gmw-address-field-8').value;
+        console.log('Localidad ' +localidad);
+
+        jQuery.ajax({
+          type : 'post',
+          dataType : 'json',
+          url : WpfAjax.ajaxurl,
+          data: {
+            'action': 'wpfunos_ajax_v3_dist_local',
+            'wpflocalidad': localidad,
+          },
+          success: function(response) {
+            console.log('wpfunos_ajax_v3_dist_local response:');
+            console.log(response)	;
+            if(response.type === 'success') {
+              console.log('OK');
+              document.getElementsByClassName('gmw-radius-slider')[0].value = response.distancia
+            } else {
+              console.log('fail');
+            }
           }
-        }
-      });
+        });
+      }, 1000 );
 
     }, false);
 
