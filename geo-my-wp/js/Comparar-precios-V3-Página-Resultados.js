@@ -510,6 +510,7 @@ $(document).ready(function(){
               var wpfdist = document.getElementById('wpf-resultados-referencia').getAttribute('wpfdist');
               var wpflat = document.getElementById('wpf-resultados-referencia').getAttribute('wpflat');
               var wpflng = document.getElementById('wpf-resultados-referencia').getAttribute('wpflng');
+              document.getElementById('wpf-resultados-referencia').setAttribute('wpfnombre',nombre);
 
               if( document.getElementById('wpf-resultados-referencia').getAttribute('wpfland') === '1'){
                 destino = params.get('cf[resp1]');
@@ -525,6 +526,7 @@ $(document).ready(function(){
               params.set('cf[resp3]', velatorio);
               params.set('cf[resp4]', ceremonia);
 
+              console.log('wpf-resultados-referencia NOMBRE: ' +document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre') );
               console.log('Finalmente: Cuando ' +cuando+ ', Destino ' +destino+ ', Ataud ' +ataud+ ', Velatorio ' +velatorio+ ' , Ceremonia ' +ceremonia+ ', Nombre ' +nombre+ ' , Email ' +email+ ' , Teléfono ' +telefono);
 
               params.set('cuando', cuando);

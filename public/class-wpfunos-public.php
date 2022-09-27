@@ -238,22 +238,33 @@ class Wpfunos_Public {
   *    return current( $fields );
   *  }
   *
+  * Formularios:
+  * wpfunosDatosServiciosV3 -> Telefono
+  * FormularioDatosAseguradoras -> Telefono
+  * PaginaFinanciacion -> telefono
+  * AsesoramientoGratuito -> telefonoasesor
+  * TeLlamamosGratisv2 -> telefono
   */
   public function wpfunosFormValidation($record, $ajax_handler){
     $form_name = $record->get_form_settings( 'form_name' );
+
     if( "FormularioDatosAseguradora" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
-        if( (int)$field['value'] < date("Y") - 80 || (int)$field['value'] > date("Y") - 20 ){
+        if( (int)$field['value'] < date("Y") - 100 || (int)$field['value'] > date("Y") - 18 ){
           $ajax_handler->add_error( $field['id'], 'Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990' );
         }
       }
     }
 
-    if( "FormularioDatosAseguradora" === $form_name || "FormularioDatos" === $form_name ){
+    if( "FormularioDatosAseguradora" === $form_name ||
+    "FormularioDatos" === $form_name ||
+    "wpfunosDatosServiciosV3" === $form_name ||
+    "FormularioDatosAseguradoras" === $form_name ||
+    "PaginaFinanciacion" === $form_name ||
+    "AsesoramientoGratuito" === $form_name ||
+    "TeLlamamosGratisv2" === $form_name  ){
+
       if( $field = $this->wpfunos_elementor_get_field( 'Telefono', $record ) ){
-        //if( substr($field['value'],0,3) != '+34' ){
-        //  $ajax_handler->add_error( $field['id'], 'El número de teléfono debe empezar por +34' );
-        //}
         $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
         if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
           $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
@@ -262,21 +273,27 @@ class Wpfunos_Public {
           $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
         }
       }
-    }
 
-    if( "AsesoramientoGratuito" === $form_name || "TeLlamamosGratis" === $form_name || "FormularioDatos" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
-        //if( substr($field['value'],0,3) != '+34' ){
-        //  $ajax_handler->add_error( $field['id'], 'El número de teléfono debe empezar por +34' );
-        //}
-        $tel =  $field['value'] ;
-        //if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
-        //  $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
-        //}
+        $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
+        if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
+          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+        }
         if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
           $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
         }
       }
+
+      if( $field = $this->wpfunos_elementor_get_field( 'telefonoasesor', $record ) ){
+        $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
+        if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
+          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+        }
+        if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
+          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+        }
+      }
+
     }
   }
 
@@ -287,7 +304,6 @@ class Wpfunos_Public {
     }
     return current( $fields );
   }
-
 
   /**
   * Hook Elementor Form New Record

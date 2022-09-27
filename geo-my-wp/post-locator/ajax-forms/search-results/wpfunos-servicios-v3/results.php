@@ -27,22 +27,27 @@ $IP = apply_filters('wpfunos_userIP','dummy');
 
 			<?php
 
+			// $transient_id = get_transient('wpfunos-wpfid-v3-' .$IP );
+
+			// if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
+			//	|| $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
+
+			/** ?><script>console.log('results.php: Transient not existent or not valid.' );</script><?php **/
+
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', '==============' );
+			do_action('wpfunos_log', '$gmw[results]: ' . apply_filters('wpfunos_dumplog', $gmw['results'] ) );
+			do_action('wpfunos_log', '==============' );
+
+			do_action('wpfunos_v3_crear_trans_resultados', $gmw['results'] );
+
 			$transient_id = get_transient('wpfunos-wpfid-v3-' .$IP );
 
-			if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
-			|| $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
+			// }else{
 
-				/** ?><script>console.log('results.php: Transient not existent or not valid.' );</script><?php **/
+			/** ?><script>console.log('results.php: Valid transient.' );</script><?php **/
 
-				do_action('wpfunos_v3_crear_trans_resultados', $gmw['results'] );
-
-				$transient_id = get_transient('wpfunos-wpfid-v3-' .$IP );
-
-			}else{
-
-				/** ?><script>console.log('results.php: Valid transient.' );</script><?php **/
-
-			}
+			// }
 
 			$mas_barato = $transient_id['wpfprice'];
 			$wpfunos_confirmado = $transient_id['wpfcon'];

@@ -436,8 +436,6 @@ class Wpfunos_ServiciosV3 {
     $codigo_provincia = substr( trim( $CP, " " ), 0, 2 );
     $campo = $respuesta['resp1']['inicial'] . $respuesta['resp2']['inicial'] . $respuesta['resp3']['inicial'] . $respuesta['resp4']['inicial'];
 
-
-
     $args = array(
       'post_type' => 'prov_zona_wpfunos',
       'meta_key' =>  'wpfunos_provinciasCodigo',
@@ -509,6 +507,11 @@ class Wpfunos_ServiciosV3 {
 
     $nonce = wp_create_nonce("wpfunos_serviciosv3_nonce".$IP);
     $respuesta = $this->wpfunosFiltros();
+
+    if (array_key_exists("post_title",$results)){
+      $newArr[] = $results;
+      $results = $newArr;
+    }
 
     foreach ($results as $key=>$resultado) {
       $wpf_search[] = array ( $resultado->ID, $resultado->distance );
@@ -695,7 +698,17 @@ class Wpfunos_ServiciosV3 {
         $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
         $_GET['valor-distancia'] = $value[3] ;
         $_GET['seccionClass_financiacion'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonFinanciacion', true ) ) ? 'wpf-financiacion-si' : 'wpf-financiacion-no';
-
+        //
+        // TODO: Precio anterior
+        $precio_anterior = ' ';
+        $campo = $respuesta['resp1']['inicial'] . $respuesta['resp2']['inicial'] . $respuesta['resp3']['inicial'] . $respuesta['resp4']['inicial'];
+        $valor_anterior = (get_post_meta( $value[0], 'wpfunos_servicio'.$campo.'_anterior', true ) );
+        if( $valor_anterior != '' ){
+          $precio_anterior = number_format($valor_anterior, 0, ',', '.') . '€';
+        }
+        $_GET['valor-precio-anterior'] = $precio_anterior;
+        //
+        //
         ?><div class="wpfunos-busqueda-contenedor" id="wpfunos-busqueda-resultado-<?php echo $value[0];?>"><?php
         echo do_shortcode( '[elementor-template id="90421"]' ) ; //Compara precios resultadosV3
         ?></div><?php
@@ -781,7 +794,17 @@ class Wpfunos_ServiciosV3 {
         $_GET['seccionID-servicio'] = $value[0];
         $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
         $_GET['valor-distancia'] = $value[3] ;
-
+        //
+        // TODO: Precio anterior
+        $precio_anterior = ' ';
+        $campo = $respuesta['resp1']['inicial'] . $respuesta['resp2']['inicial'] . $respuesta['resp3']['inicial'] . $respuesta['resp4']['inicial'];
+        $valor_anterior = (get_post_meta( $value[0], 'wpfunos_servicio'.$campo.'_anterior', true ) );
+        if( $valor_anterior != '' ){
+          $precio_anterior = number_format($valor_anterior, 0, ',', '.') . '€';
+        }
+        $_GET['valor-precio-anterior'] = $precio_anterior;
+        //
+        //
         ?><div class="wpfunos-busqueda-contenedor" id="wpfunos-busqueda-resultado-<?php echo $value[0];?>"><?php
         echo do_shortcode( '[elementor-template id="90421"]' ) ; //Compara precios resultadosV3
         ?></div><?php

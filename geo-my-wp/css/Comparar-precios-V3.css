@@ -1,4 +1,4 @@
-#wpfunos-servicios-form-v3 .gmw-search-form-custom-fields.gmw-search-form-multiple-fields-wrapper {
+wpfunos-servicios-form-v3 .gmw-search-form-custom-fields.gmw-search-form-multiple-fields-wrapper {
 	display: none;
 }
 #wpfunos-servicios-form-v3 .gmw-form-field-wrapper.gmw-radius-slider-wrapper {
@@ -16,6 +16,10 @@
 @media (max-width: 500px) {
 	#wpfunos-boton-precio {
 		margin-bottom: 20px;
+	}
+
+	#elementor-popup-modal-84626 .dialog-message{
+		padding: 75px 0 75px 0 !important;
 	}
 }
 .gmw-field-label {
@@ -42,13 +46,13 @@
 	color: #444;
 }
 #gmw-submit-8{
-    display: block;
-    width: 100%;
-    padding: 16px;
-    font-size: 16px;
-    font-weight: 700;
-    background: #FF9C00;
-    border-radius: 24px;
+	display: block;
+	width: 100%;
+	padding: 16px;
+	font-size: 16px;
+	font-weight: 700;
+	background: #FF9C00;
+	border-radius: 24px;
 }
 .gmw-field-label {
 	/* font-size: 18px !important;*/
@@ -75,15 +79,15 @@
 }
 
 .rotate {
-  animation: rotation 2s infinite linear;
+	animation: rotation 2s infinite linear;
 }
 @keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(359deg);
+	}
 }
 
 .wpfunos-busqueda-contenedor {

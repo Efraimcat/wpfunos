@@ -11,6 +11,38 @@ ul.gmw-posts-wrapper{
 	display: none;
 }
 
+.woocommerce-product-gallery.woocommerce-product-gallery--without-images.woocommerce-product-gallery--columns-4.images {
+	display: none;
+}
+
+.woocommerce #content .ast-woocommerce-container div.product div.summary, .woocommerce .ast-woocommerce-container div.product div.summary, .woocommerce-page #content .ast-woocommerce-container div.product div.summary, .woocommerce-page .ast-woocommerce-container div.product div.summary {
+	width: 100% !important;
+	padding-left: 33%;
+	padding-right: 33%;
+}
+
+.woocommerce.single-product .sale > span.onsale {
+	font-size: 1em;
+	left: -.5em;
+	display: none;
+}
+
+.woocommerce-page.woocommerce-checkout form #order_review td.product-name .product-quantity, .woocommerce.woocommerce-checkout form #order_review td.product-name .product-quantity {
+	font-weight: 400;
+	display: none;
+}
+
+.bundled_product_title_link {
+	display: none;
+}
+
+.bundle_table_item .product-quantity {
+	display: none;
+}
+
+.bundled_table_item_indent .product-quantity {
+	display: none;
+}
 
 .elementor-field-group.elementor-column.elementor-field-type-submit.elementor-col-100.e-form__buttons {
 	margin-top: 30px;
@@ -200,8 +232,8 @@ ul.gmw-posts-wrapper{
 }
 
 #wpfunos-detalles-precios .elementor-image-box-img {
-	  margin: 0 auto 16px auto;
-    display: block;
+	margin: 0 auto 16px auto;
+	display: block;
 }
 
 /* COMPARA PRECIOS */
@@ -257,17 +289,17 @@ ul.gmw-posts-wrapper{
 
 div.gmw-form-wrapper div.gmw-locator-button-wrapper.text {
 	background: transparent;
-	 font-size: 16px;
-	 font-weight: 600;
-	 border: none;
-	 outline: none;
-	 padding: 0;
-	 color: #39C2F3;
-	 margin-top: -30px;
+	font-size: 16px;
+	font-weight: 600;
+	border: none;
+	outline: none;
+	padding: 0;
+	color: #39C2F3;
+	margin-top: -30px;
 }
 
- div.gmw-form-wrapper div.gmw-locator-button-wrapper.text:hover {
-	 background: transparent;
+div.gmw-form-wrapper div.gmw-locator-button-wrapper.text:hover {
+	background: transparent;
 }
 
 #wpfunos-search-form-mensaje-radius {
@@ -430,7 +462,7 @@ div.gmw-form-wrapper div.gmw-locator-button-wrapper.text {
 	.wpfunos-busqueda-contenedor input[type="submit"] {
 		font-size: 13px!important;
 		padding: 13px 20px;
-			width: 100%;
+		width: 100%;
 	}
 
 	.wpfunos-btn-cta {
@@ -461,10 +493,10 @@ div.gmw-form-wrapper div.gmw-locator-button-wrapper.text {
 
 
 	.wpfunos-botones-resultados {
-  	width: 100%!important;
-    display: flex!important;
-/*    flex-wrap: nowrap!important; */
-/*    flex-direction: column!important; */
+		width: 100%!important;
+		display: flex!important;
+		/*    flex-wrap: nowrap!important; */
+		/*    flex-direction: column!important; */
 	}
 
 	#wpfunos-close-form {
@@ -481,8 +513,8 @@ div.gmw-form-wrapper div.gmw-locator-button-wrapper.text {
 	}
 
 	.wpfunos-boton-llamar {
-    width: 100%!important;
-    /*margin-top: 13px;*/
+		width: 100%!important;
+		/*margin-top: 13px;*/
 	}
 
 	#wpfunos-fixed-form-wrapper .form-separator {

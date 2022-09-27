@@ -30,6 +30,7 @@ remove_action ('woocommerce_single_product_summary', 'woocommerce_template_singl
 
 /*
 * AÑADIR CAMPO NIF/CIF EN EL FORMULARIO DE PAGO
+* https://woodemia.com/insertar-un-campo-en-la-pagina-de-pago-de-woocommerce/
 */
 function woo_custom_field_checkout($checkout) {
   echo '<div id="additional_checkout_field">';
@@ -70,3 +71,19 @@ function woo_custom_field_checkout_email($keys) {
   return $keys;
 }
 add_filter('woocommerce_email_order_meta_keys', 'woo_custom_field_checkout_email');
+
+
+// Displaying product description in new email notifications
+
+function product_description_in_new_email_notification( $item_id, $item, $order = null, $plain_text = false ){
+
+  $product_id = $item['product_id']; // Get The product ID (for simple products)
+  $product = wc_get_product($item['product_id']);
+
+  if( $product->is_type( 'simple' ) ){
+    $product_description = $product->get_description(); // for WC 3.0+ (new)
+    // Display the product description
+    echo '<div class="product-description"><p>' . $product_description . '</p></div>';
+  }
+}
+add_action( 'woocommerce_order_item_meta_end', 'product_description_in_new_email_notification', 10, 4 );

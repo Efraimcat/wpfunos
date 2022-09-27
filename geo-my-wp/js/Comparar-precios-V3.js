@@ -1,9 +1,10 @@
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
-    document.getElementById('gmw-address-field-8').addEventListener('change', function(){
-      setTimeout(function() {
 
+    document.getElementById('gmw-address-field-8').addEventListener('change', function(){
+      document.getElementById("gmw-submit-8").disabled = true;
+      setTimeout(function() {
         var localidad = document.getElementById('gmw-address-field-8').value;
         console.log('Localidad ' +localidad);
 
@@ -21,13 +22,15 @@ $(document).ready(function(){
             if(response.type === 'success') {
               console.log('OK');
               document.getElementsByClassName('gmw-radius-slider')[0].value = response.distancia
+              document.getElementById("gmw-submit-8").disabled = false;
             } else {
               console.log('fail');
+              document.getElementById("gmw-submit-8").disabled = false;
             }
           }
         });
-      }, 1000 );
 
+      }, 500 );
     }, false);
 
     document.getElementById('gmw-submit-8').addEventListener('click', function(){
@@ -40,9 +43,11 @@ $(document).ready(function(){
         elementorFrontend.documentsManager.documents['84626'].showModal(); //show the popup
       }
     }, false);
+
     document.getElementById('gmw-cf-resp1-8').value = '2' ;
     document.getElementById('gmw-cf-resp2-8').value = '2' ;
     document.getElementById('gmw-cf-resp3-8').value = '2' ;
     document.getElementById('gmw-cf-resp4-8').value = '2' ;
+
   });
 });
