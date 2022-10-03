@@ -35,10 +35,10 @@ $customPostTypeArgs = array(
   'exclude_from_search' => false,
   'show_ui' => true,
   'show_in_menu' => $this->plugin_name.'precios_poblacion',
-  'supports'=>array('title', 'custom_fields', 'editor', 'author', 'thumbnail', 'excerpt'),
+  'supports'=>array('title', 'editor', 'author', 'thumbnail'),
   'capability_type' => 'post',
   'capabilities' => array('create_posts' => true),
-  'rewrite' => array( 'with_front'=> false ), 'capability_type' => 'post',
+  'rewrite' => array( 'slug' => '' ),
   'hierarchical' => true,
   'map_meta_cap' => true,
 );
@@ -73,4 +73,4 @@ array(
   'show_tagcloud'              => true,
 )
 );
-register_taxonomy_for_object_type( 'precio_funeraria', 'precio_funer_wpfunos' );
+//register_taxonomy_for_object_type( 'precio_funeraria', 'precio_funer_wpfunos' );

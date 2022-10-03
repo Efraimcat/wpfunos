@@ -140,6 +140,7 @@ class Wpfunos_ServiciosV3 {
       /** ?><script>console.log('Comprobando direcciones especiales.' );</script><?php **/
 
       // Excepción provincia
+      $provincia_excepcion = 0;
       $nueva_distancia = 0;
       $nueva_lat = 0;
       $nueva_lng = 0;
@@ -152,6 +153,7 @@ class Wpfunos_ServiciosV3 {
       $post_list = get_posts( $args );
       if( $post_list ){
         foreach ( $post_list as $post ) :
+          $provincia_excepcion = 1;
           $nueva_distancia = get_post_meta( $post->ID, 'wpfunos_excep_provDistancia', true );
           $nueva_lat = get_post_meta( $post->ID, 'wpfunos_excep_provLat', true );
           $nueva_lng = get_post_meta( $post->ID, 'wpfunos_excep_provLng', true );
@@ -164,23 +166,26 @@ class Wpfunos_ServiciosV3 {
         <script type="text/javascript" id="wpfunos-v3-excepcion-provincia">
 
         jQuery( document ).ready( function() { //wait for the page to load
-          /* You can do more here, this will just show the popup on refresh of page, but hey this is JQuery so you can do more things here depending on your condition to trigger the popup */
-          jQuery( window ).on( 'elementor/frontend/init', function() { //wait for elementor to load
-            elementorFrontend.on( 'components:init', function() { //wait for elementor pro to load
-              elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup Esperando (loader2)
 
-              var params = new URLSearchParams(location.search);
-              var lat = <?php  echo $nueva_lat; ?>;
-              var lng = <?php  echo $nueva_lng; ?>;
-              var distance = <?php  echo $nueva_distancia; ?>;
-              params.set('lat', lat );
-              params.set('lng', lng );
-              params.set('distance', distance );
-              window.location.search = params.toString();
+          //jQuery( window ).on( 'elementor/frontend/init', function() { //wait for elementor to load
+          //  elementorFrontend.on( 'components:init', function() { //wait for elementor pro to load
+          //    elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup Esperando (loader2)
 
-            } );
-          } );
+
+          var params = new URLSearchParams(location.search);
+          var lat = <?php  echo $nueva_lat; ?>;
+          var lng = <?php  echo $nueva_lng; ?>;
+          var distance = <?php  echo $nueva_distancia; ?>;
+          params.set('lat', lat );
+          params.set('lng', lng );
+          params.set('distance', distance );
+          window.location.search = params.toString();
+
+          //  } );
+          //} );
+
         } );
+
         </script>
         <?php
         return;
@@ -188,18 +193,6 @@ class Wpfunos_ServiciosV3 {
       /** ?><script>console.log('Comprobando direcciones especiales END.' );</script><?php **/
       // END Excepción provincia
       // Servicios directos - sin velatorio - sin sala -
-      $provincia_excepcion = 0;
-      $args = array(
-        'post_type' => 'excep_prov_wpfunos',	//
-        'meta_key' =>  'wpfunos_excep_provProvincia',
-        'meta_value' => $_GET['address'][0],
-      );
-      $post_list = get_posts( $args );
-      if( $post_list ){
-        foreach ( $post_list as $post ) :
-          $provincia_excepcion = 1;
-        endforeach;
-      }
       if ( $_GET['cf']['resp3'] == '2' && $_GET['cf']['resp4'] == '1' && $_GET['distance'] != '100' && $provincia_excepcion == 0 ){
         ?>
         <script type="text/javascript" id="wpfunos-v3-excepcion-provincia">
@@ -210,16 +203,19 @@ class Wpfunos_ServiciosV3 {
             elementorFrontend.on( 'components:init', function() { //wait for elementor pro to load
               elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup Esperando (loader2)
               var params = new URLSearchParams(location.search);
-              var distance = '100';
+              var distance = <?php  echo $distanciaDirecto; ?>;
               params.set('distance', distance );
+              params.set('orden', 'precios' );//&orden=precios
               window.location.search = params.toString();
             } );
           } );
         } );
+
         </script>
         <?php
         return;
       }
+      // END Servicios directos - sin velatorio - sin sala -
       // Comprobar cookies
       $expiry = strtotime('+1 month');
       if (is_user_logged_in()){
@@ -825,7 +821,8 @@ class Wpfunos_ServiciosV3 {
     $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '1. - Entrada comparador servicios v3' );
-    do_action('wpfunos_log', 'IP: ' . $ipaddress);
+    do_action('wpfunos_log', 'IP: ' . $userIP);
+    do_action('wpfunos_log', 'address: ' . $_GET['address'][0]);
     do_action('wpfunos_log', 'referer: ' . apply_filters('wpfunos_dumplog', substr($referer,0,150) ) );
     do_action('wpfunos_log', 'cookie wpfe: ' . $_COOKIE['wpfe']);
     do_action('wpfunos_log', 'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -1337,7 +1334,7 @@ class Wpfunos_ServiciosV3 {
       mt_srand(time());
       $newref = 'funos-'.(string)mt_rand();
 
-      $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '1' );
+      $contador = $this->wpfunosV3ContadorEntradas( $IP, '1' );
       //'wpfunos_userVisitas' => $contador,
 
       $my_post = array(
@@ -1548,7 +1545,7 @@ class Wpfunos_ServiciosV3 {
       mt_srand(time());
       $newref = 'funos-'.(string)mt_rand();
 
-      $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '2' );
+      $contador = $this->wpfunosV3ContadorEntradas( $IP, '2' );
       //'wpfunos_userVisitas' => $contador,
 
       $my_post = array(
@@ -1764,7 +1761,7 @@ class Wpfunos_ServiciosV3 {
       mt_srand(time());
       $newref = 'funos-'.(string)mt_rand();
 
-      $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '5' );
+      $contador = $this->wpfunosV3ContadorEntradas( $IP, '5' );
       //'wpfunos_userVisitas' => $contador,
 
       $my_post = array(

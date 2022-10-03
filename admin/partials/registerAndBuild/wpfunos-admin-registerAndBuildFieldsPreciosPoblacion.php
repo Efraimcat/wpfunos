@@ -20,12 +20,22 @@ add_settings_section(
 );
 
 add_settings_field(
-  $this->plugin_name . '_PlantillaPreciosPoblacionFuneraria',
+  'wpfunos_PlantillaPreciosPoblacionFuneraria',
   'Plantilla Precios Funeraria <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_PlantillaPreciosPoblacionFuneraria)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_precio_poblacion_settings',
   'wpfunos_precio_poblacion_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_PlantillaPreciosPoblacionFuneraria','name' => $this->plugin_name . '_PlantillaPreciosPoblacionFuneraria','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_PlantillaPreciosPoblacionFuneraria','name' => 'wpfunos_PlantillaPreciosPoblacionFuneraria','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+);
+add_settings_field(
+  'wpfunos_PlantillaPreciosPoblacionIncineracion',
+  'Plantilla Precios Incineracion <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_PlantillaPreciosPoblacionIncineracion)</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_precio_poblacion_settings',
+  'wpfunos_precio_poblacion_section',
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_PlantillaPreciosPoblacionIncineracion','name' => 'wpfunos_PlantillaPreciosPoblacionIncineracion','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_precio_poblacion_settings', $this->plugin_name . '_PlantillaPreciosPoblacionFuneraria');
+
+register_setting('wpfunos_precio_poblacion_settings', 'wpfunos_PlantillaPreciosPoblacionFuneraria');
+register_setting('wpfunos_precio_poblacion_settings', 'wpfunos_PlantillaPreciosPoblacionIncineracion');

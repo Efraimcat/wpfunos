@@ -120,3 +120,19 @@ function ajax_check_user_logged_in() {
 }
 add_action('wp_ajax_is_user_logged_in', 'ajax_check_user_logged_in');
 add_action('wp_ajax_nopriv_is_user_logged_in', 'ajax_check_user_logged_in');
+
+
+/**
+* WordPress function for redirecting users on login based on user role. https://developer.wordpress.org/reference/hooks/login_redirect/
+*/
+function wpfunos_login_redirect( $url, $request, $user ) {
+  if ( $user && is_object( $user ) && is_a( $user, 'WP_User' ) ) {
+    if ( in_array( 'contributor', (array) $user->roles ) || in_array( 'Colaborador', (array) $user->roles ) ) {
+      $url = home_url( '/' );
+    } else {
+      $url = admin_url();
+    }
+  }
+  return $url;
+}
+add_filter( 'login_redirect', 'wpfunos_login_redirect', 10, 3 );

@@ -13,6 +13,7 @@
 $IP = apply_filters('wpfunos_userIP','dummy');
 
 ?>
+
 <div class="gmw-results-inner">
 
 	<div class="gmw-ajax-loader-element gmw-ajax-loader"></div>
@@ -27,32 +28,15 @@ $IP = apply_filters('wpfunos_userIP','dummy');
 
 			<?php
 
-			// $transient_id = get_transient('wpfunos-wpfid-v3-' .$IP );
-
-			// if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
-			//	|| $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
-
-			/** ?><script>console.log('results.php: Transient not existent or not valid.' );</script><?php **/
-
-			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', '==============' );
-			do_action('wpfunos_log', '$gmw[results]: ' . apply_filters('wpfunos_dumplog', $gmw['results'] ) );
-			do_action('wpfunos_log', '==============' );
-
 			do_action('wpfunos_v3_crear_trans_resultados', $gmw['results'] );
 
 			$transient_id = get_transient('wpfunos-wpfid-v3-' .$IP );
 
-			// }else{
-
-			/** ?><script>console.log('results.php: Valid transient.' );</script><?php **/
-
-			// }
-
 			$mas_barato = $transient_id['wpfprice'];
 			$wpfunos_confirmado = $transient_id['wpfcon'];
 			$wpfunos_sinconfirmar = $transient_id['wpfsin'];
-
+			ElementorPro\Modules\Popup\Module::add_popup_to_location( '84639' ); //Ventana Popup Esperando (loader2)
+			
 			?>
 
 			<div id="wpfunos-resultados-contador">
@@ -64,6 +48,23 @@ $IP = apply_filters('wpfunos_userIP','dummy');
 				document.getElementById("wpf-resultados-referencia").setAttribute("wpfcount",<?php echo (count($wpfunos_confirmado)+count($wpfunos_sinconfirmar)); ?>);
 				document.getElementById("wpf-resultados-referencia").setAttribute("wpfmejorprecio",<?php echo $mas_barato; ?> + '€');
 
+				// No hay resulados
+				if ( document.getElementById("wpf-resultados-referencia").getAttribute("wpfcount") === '0'){
+					var params = new URLSearchParams(location.search);
+					if( params.get('distance') !== '100' ){
+						if( params.get('distance') !== '300') {
+							jQuery( window ).on( 'elementor/frontend/init', function() { //wait for elementor to load
+								elementorFrontend.on( 'components:init', function() { //wait for elementor pro to load
+									elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup Esperando (loader2)
+									params.set('distance', '300' );
+									window.location.search = params.toString();
+								});
+							});
+						}
+					}
+				}
+				// END No hay resulados
+
 				</script>
 
 			</div>
@@ -72,8 +73,6 @@ $IP = apply_filters('wpfunos_userIP','dummy');
 
 				<?php
 
-				//do_action( 'wpfunos_v3_confirmado_dummy', $wpfunos_confirmado );
-				//do_action( 'wpfunos_v3_sinconfirmar_dummy', $wpfunos_sinconfirmar );
 				do_action( 'wpfunos_v3_confirmado', $wpfunos_confirmado );
 				do_action( 'wpfunos_v3_sinconfirmar', $wpfunos_sinconfirmar );
 
