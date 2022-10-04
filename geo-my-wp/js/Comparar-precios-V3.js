@@ -2,9 +2,11 @@ $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
     $('#gmw-submit-8').hide();
+
     document.getElementById('gmw-address-field-8').addEventListener('change', function(){
       document.getElementById("gmw-submit-8").disabled = true;
       elementorFrontend.documentsManager.documents['84626'].showModal(); //show the popup
+
       setTimeout(function() {
         var localidad = document.getElementById('gmw-address-field-8').value;
         console.log('Localidad ' +localidad);
@@ -24,8 +26,9 @@ $(document).ready(function(){
               console.log('OK');
               document.getElementsByClassName('gmw-radius-slider')[0].value = response.distancia
               document.getElementById("gmw-submit-8").disabled = false;
-              $('#gmw-submit-8').show();
-              $('#elementor-popup-modal-84626').hide();
+
+              $('#gmw-submit-8').click();
+
             } else {
               console.log('fail');
               document.getElementById("gmw-submit-8").disabled = false;
@@ -35,17 +38,6 @@ $(document).ready(function(){
         });
 
       }, 500 );
-    }, false);
-
-    document.getElementById('gmw-submit-8').addEventListener('click', function(){
-      console.log('click');
-      if( document.getElementById('gmw-address-field-8').value != ''){
-        $('#gmw-submit-8').hide();
-        $('#wpfunos-enviando').show();
-        console.log('Enviando. Botón envio desactivado.');
-        console.log(new Date());
-        elementorFrontend.documentsManager.documents['84626'].showModal(); //show the popup
-      }
     }, false);
 
     document.getElementById('gmw-cf-resp1-8').value = '2' ;
