@@ -1214,10 +1214,20 @@ class Wpfunos_Admin {
           //
           //echo 'Servicio: ' .$post->ID. ' Tipo: ' .$key. ' Valores: ' .$valor[1]. '|' .$valor[2]. '|' .$valor[3]. '|' .$valor[4]. ' => '
           // .$precio[0]. '-'.$precio[ (int)$valor[1] ]. '-' .$precio[ (int)$valor[2] ]. '-' .$precio[ (int)$valor[3] ]. '-' .$precio[ (int)$valor[4] ]. '<br/>';
-          $total = (int)$precio[0] + (int)$precio[ (int)$valor[1] ] + (int)$precio[ (int)$valor[2] ] + (int)$precio[ (int)$valor[3] ] + (int)$precio[ (int)$valor[4] ];
-          $total_anterior = (int)$precio_anterior[0] + (int)$precio_anterior[ (int)$valor[1] ] + (int)$precio_anterior[ (int)$valor[2] ] + (int)$precio_anterior[ (int)$valor[3] ] + (int)$precio_anterior[ (int)$valor[4] ];
-          if ($total != 0) update_post_meta( $post->ID, 'wpfunos_servicio'.$key, $total );
-          if ( $total_anterior != 0 ) update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', $total_anterior );
+
+          if( $precio[0] != '' && $precio[ (int)$valor[1] ] != '' && $precio[ (int)$valor[2] ] != '' && $precio[ (int)$valor[3] ] != '' && $precio[ (int)$valor[4] ] != '' ){
+            $total = (int)$precio[0] + (int)$precio[ (int)$valor[1] ] + (int)$precio[ (int)$valor[2] ] + (int)$precio[ (int)$valor[3] ] + (int)$precio[ (int)$valor[4] ];
+            update_post_meta( $post->ID, 'wpfunos_servicio'.$key, $total );
+          }else{
+            update_post_meta( $post->ID, 'wpfunos_servicio'.$key, '' );
+          }
+          if( $precio_anterior[0] != '' && $precio_anterior[ (int)$valor[1] ] != '' && $precio_anterior[ (int)$valor[2] ] != '' && $precio_anterior[ (int)$valor[3] ] != '' && $precio_anterior[ (int)$valor[4] ] != '' ){
+            $total_anterior = (int)$precio_anterior[0] + (int)$precio_anterior[ (int)$valor[1] ] + (int)$precio_anterior[ (int)$valor[2] ] + (int)$precio_anterior[ (int)$valor[3] ] + (int)$precio_anterior[ (int)$valor[4] ];
+            update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', $total_anterior );
+          }else{
+            update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', '' );
+          }
+
         }
       }
       wp_reset_postdata();

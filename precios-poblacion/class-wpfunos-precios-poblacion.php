@@ -334,6 +334,7 @@ class Wpfunos_PreciosPoblacion {
       'style'=>'',
       'styleend'=> '',
     ), $atts );
+    $content = str_replace( '{titulo-provincia}' , get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaTitulo', true ) , $content );
     $content = str_replace( '{nombre-provincia}' , get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ) , $content );
     $content = str_replace( '{precio-entierro}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroDesde', true ), 0, ',', '.') , $content );
     $content = str_replace( '{precio-incineracion}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionDesde', true ), 0, ',', '.') , $content );
