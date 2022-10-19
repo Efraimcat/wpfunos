@@ -23,6 +23,7 @@ class Wpfunos_PreciosPoblacion {
     add_shortcode( 'wpfunos-precios-funerarias', array( $this, 'wpfunosPreciosFunerariasShortcode' ));
     add_shortcode( 'wpfunos-precios-incineracion', array( $this, 'wpfunosPreciosIncineracionShortcode' ));
     add_shortcode( 'wpfunos-nombre-provincia', array( $this, 'wpfunosNombreProvinciaShortcode' ));
+    add_shortcode( 'wpfunos-provincia-desde', array( $this, 'wpfunosProvinciaDesdeShortcode' ));
 
     add_shortcode( 'wpfunos-prefun-enlace-ahora', array( $this, 'wpfunosEnlaceAhoraShortcode' ));
     add_shortcode( 'wpfunos-prefun-enlace-proximamente', array( $this, 'wpfunosEnlaceProximamenteShortcode' ));
@@ -84,6 +85,13 @@ class Wpfunos_PreciosPoblacion {
   */
   public function wpfunosNombreProvinciaShortcode( $atts, $content = "" ) {
     echo get_post_meta( get_the_ID(), 'wpfunos_precioFunerariaPoblacion', true );
+    return;
+  }
+  /**
+  * Shortcode [wpfunos-provincia-desde]
+  */
+  public function wpfunosProvinciaDesdeShortcode( $atts, $content = "" ) {
+    echo get_post_meta( get_the_ID(), 'SeoDesde', true );
     return;
   }
 
@@ -336,6 +344,8 @@ class Wpfunos_PreciosPoblacion {
     ), $atts );
     $content = str_replace( '{titulo-provincia}' , get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaTitulo', true ) , $content );
     $content = str_replace( '{nombre-provincia}' , get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ) , $content );
+    $content = str_replace( '{precio-desde}' , get_post_meta( get_the_ID() , 'SeoDesde', true ) , $content );
+
     $content = str_replace( '{precio-entierro}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroDesde', true ), 0, ',', '.') , $content );
     $content = str_replace( '{precio-incineracion}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionDesde', true ), 0, ',', '.') , $content );
     $content = str_replace( '{precio-entierro-velatorio}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroVelatorioDesde', true ), 0, ',', '.') , $content );
@@ -380,10 +390,13 @@ class Wpfunos_PreciosPoblacion {
   * Shortcode [wpfunos-prefun-paginas-relacionadas]
   */
   public function wpfunosPrefunPaginasRelacionadasShortcode( $atts, $content = "" ) {
+    if( strlen( get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPaginasRelacionadas', true ) ) < 1 ) return;
     $paginas = (explode(',',get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPaginasRelacionadas', true )));
     foreach( $paginas as $pagina ){
       if( get_post_type( $pagina ) == 'precio_funer_wpfunos'){
-        echo '<li><a href="'.get_post_permalink( $pagina ).'">'.get_post_meta( $pagina , 'wpfunos_precioFunerariaTitulo', true ).'</a></li>';
+        $pos = strpos( get_post_permalink( $pagina ), 'funerarias' );
+        $tipopagina = ($pos === false) ? 'inicineración' : 'funerarias';
+        echo '<li><a href="'.get_post_permalink( $pagina ).'"> Precios '.$tipopagina.' en '.get_post_meta( $pagina , 'wpfunos_precioFunerariaPoblacion', true ).' desde '.get_post_meta( $pagina , 'SeoDesde', true ).'</a></li>';
       }
     }
   }

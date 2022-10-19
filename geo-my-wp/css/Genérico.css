@@ -7,6 +7,10 @@ ul.gmw-posts-wrapper{
 	margin: 0;
 }
 
+.single .post-navigation .nav-links{
+	display: none !important;
+}
+
 .page-header {
 	display: none;
 }
@@ -42,6 +46,13 @@ ul.gmw-posts-wrapper{
 
 .bundled_table_item_indent .product-quantity {
 	display: none;
+}
+
+.related.products {
+	display: none !important;
+}
+#tab-title-additional_information {
+	display: none !important;
 }
 
 .elementor-field-group.elementor-column.elementor-field-type-submit.elementor-col-100.e-form__buttons {

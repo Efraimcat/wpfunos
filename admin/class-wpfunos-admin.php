@@ -1089,6 +1089,7 @@ class Wpfunos_Admin {
     $this->wpfunosMaintenanceHourly2FA();
     $this->wpfunosMaintenancePreciosv1Preciosv2();
     $this->wpfunosMaintenanceComentariosFunerarias();
+    $this->wpfunosMaintenancePreciosSeoFunerarias();
     //
     // END
     $this->custom_logs('Wpfunos Hourly ends');
@@ -1145,6 +1146,62 @@ class Wpfunos_Admin {
       }
     }
   }
+
+
+
+  /**
+  * Cron job precios seo funeraarias
+  */
+  protected function wpfunosMaintenancePreciosSeoFunerarias(){
+
+    //  Precios Funerarias
+    $this->custom_logs('---');
+    $this->custom_logs('Wpfunos precio_funer_wpfunos starts');
+    $args = array(
+      'post_type' => 'precio_funer_wpfunos',
+      'post_status' => 'any', // para incluir borradores
+      'posts_per_page' => -1,
+    );
+    $post_list = get_posts( $args );
+    if( $post_list ){
+      foreach ( $post_list as $post ) :
+        $entierro = (int)str_replace(".","",get_post_meta( $post->ID, 'wpfunos_precioFunerariaEntierroDesde', true ));
+        $incineracion = (int)str_replace(".","",get_post_meta( $post->ID, 'wpfunos_precioFunerariaIncineracionDesde', true ));
+        //landings incineración
+        if( $incineracion == 0 ){
+          $incineracion = (int)str_replace(".","",get_post_meta( $post->ID, 'wpfunos_precioIncineracionBasicoDesde', true ));
+          update_post_meta($post->ID, 'SeoEntierro',  '');
+          update_post_meta($post->ID, 'SeoIncineracion', number_format($incineracion, 0, ',', '.') . '€');
+          update_post_meta($post->ID, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
+        }else{//END landings incineración
+          update_post_meta($post->ID, 'SeoEntierro',  number_format($entierro, 0, ',', '.') . '€');
+          update_post_meta($post->ID, 'SeoIncineracion', number_format($incineracion, 0, ',', '.') . '€');
+          if($entierro < $incineracion ){
+            update_post_meta($post->ID, 'SeoDesde',  number_format($entierro, 0, ',', '.') . '€');
+          }else{
+            update_post_meta($post->ID, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
+          }
+        }
+        // Páginas relacionadas
+        $paginas = (explode(',',get_post_meta( $post->ID , 'wpfunos_precioFunerariaPaginasRelacionadas', true )));
+        $textopaginas = '';
+        foreach( $paginas as $pagina ){
+          if( get_post_type( $pagina ) == 'precio_funer_wpfunos'){
+            $entrada = get_post( $pagina );
+            $slug = $entrada->post_name;
+            $textopaginas .= $slug . ', ';
+          }
+        }
+        update_post_meta($post->ID, 'wpfunos_precioFunerariaPaginasRelacionadasTexto', $textopaginas );
+        //
+        $this->custom_logs('precio_funer_wpfunos ' .$post->ID. ' updated');
+      endforeach;
+      wp_reset_postdata();
+    }
+    $this->custom_logs('Wpfunos precio_funer_wpfunos ends');
+    //
+  }
+
 
   /**
   * Cron job precios v1 -> v2

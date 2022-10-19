@@ -411,6 +411,8 @@ class Wpfunos_ServiciosV3 {
     /** ?><script>console.log('Resultados.' );</script><?php **/
     echo do_shortcode( '[gmw_ajax_form search_results="8"]' );
     /** ?><script>console.log('Resultados END.' );</script><?php **/
+    $_GET['seccionClass-presupuesto'] = 'wpf-presupuesto-si';
+    $_GET['seccionClass-llamadas'] = 'wpf-llamadas-si';
   }
 
 
@@ -702,6 +704,8 @@ class Wpfunos_ServiciosV3 {
         $_GET['seccionID-precio'] = 'wpf-precio-'. $value[0];
         $_GET['valor-distancia'] = $value[3] ;
         $_GET['seccionClass_financiacion'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonFinanciacion', true ) ) ? 'wpf-financiacion-si' : 'wpf-financiacion-no';
+        $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+        $_GET['seccionClass-llamadas'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
         //
         // TODO: Precio anterior
         $precio_anterior = ' ';

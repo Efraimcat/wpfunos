@@ -54,6 +54,7 @@ $precioIncineracionCeremoniaDesdeEnlace = sanitize_text_field( $_POST['wpfunos_p
 $precioIncineracionVelatorioDesdeEnlace = sanitize_text_field( $_POST['wpfunos_precioIncineracionVelatorioDesdeEnlace'] );
 //
 $precioFunerariaPaginasRelacionadas = sanitize_text_field( $_POST['wpfunos_precioFunerariaPaginasRelacionadas'] );
+$precioFunerariaPaginasRelacionadasTexto = sanitize_text_field( $_POST['wpfunos_precioFunerariaPaginasRelacionadasTexto'] );
 $precioFunerariaPoblacionesCercanas = wp_kses_post( $_POST['wpfunos_precioFunerariaPoblacionesCercanas'] );
 $precioFunerariaTextoLibre = wp_kses_post( $_POST['wpfunos_precioFunerariaTextoLibre'] );
 $SeoEntierro = sanitize_text_field( $_POST['SeoEntierro'] );
@@ -102,6 +103,7 @@ update_post_meta($post_id, 'wpfunos_precioIncineracionCeremoniaDesdeEnlace', $pr
 update_post_meta($post_id, 'wpfunos_precioIncineracionVelatorioDesdeEnlace', $precioIncineracionVelatorioDesdeEnlace);
 
 update_post_meta($post_id, 'wpfunos_precioFunerariaPaginasRelacionadas', $precioFunerariaPaginasRelacionadas);
+update_post_meta($post_id, 'wpfunos_precioFunerariaPaginasRelacionadasTexto', $precioFunerariaPaginasRelacionadasTexto);
 update_post_meta($post_id, 'wpfunos_precioFunerariaPoblacionesCercanas', $precioFunerariaPoblacionesCercanas);
 update_post_meta($post_id, 'wpfunos_precioFunerariaTextoLibre', $precioFunerariaTextoLibre);
 update_post_meta($post_id, 'SeoEntierro', $SeoEntierro);

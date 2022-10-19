@@ -25,14 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {
         <tr>
           <td><?php esc_html_e('Población', 'wpfunos');?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Título', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
           <td><?php esc_html_e('Páginas relacionadas', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaPoblacion','name' => 'wpfunos_precioFunerariaPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaTitulo','name' => 'wpfunos_precioFunerariaTitulo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 40));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaPaginasRelacionadas','name' => 'wpfunos_precioFunerariaPaginasRelacionadas','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
         </tr>
@@ -204,16 +200,11 @@ if ( ! defined( 'ABSPATH' ) ) {
     <?php
     $notes_precioFunerariaPoblacionesCercanas = get_post_meta( $post->ID, 'wpfunos_precioFunerariaPoblacionesCercanas', true );
     $args_precioFunerariaPoblacionesCercanas = array( 'textarea_name' => 'wpfunos_precioFunerariaPoblacionesCercanas', );
-    $notes_precioFunerariaTextoLibre = get_post_meta( $post->ID, 'wpfunos_precioFunerariaTextoLibre', true );
-    $args_precioFunerariaTextoLibre = array( 'textarea_name' => 'wpfunos_precioFunerariaTextoLibre', );
     ?>
     <li><label for="'.$this->plugin_name.'_precioFunerariaPoblacionesCercanas" style="font-size: 32px;">Poblaciones cercanas</label>
       <?php	wp_editor( $notes_precioFunerariaPoblacionesCercanas, 'wpfunos_precioFunerariaPoblacionesCercanas',$args_precioFunerariaPoblacionesCercanas); ?>
     </li>
-    <hr/>
-    <li><label for="'.$this->plugin_name.'_precioFunerariaTextoLibre" style="font-size: 32px;">Texto libre</label>
-      <?php	wp_editor( $notes_precioFunerariaTextoLibre, 'wpfunos_precioFunerariaTextoLibre',$args_precioFunerariaTextoLibre); ?>
-    </li>
+
     <hr/>
     <li class="precio_funer_wpfunos_list">
       <table>
