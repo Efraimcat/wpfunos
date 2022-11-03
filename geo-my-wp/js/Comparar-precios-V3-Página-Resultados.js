@@ -619,6 +619,10 @@ var wpfFunctionLlamamos = function() {
 
   console.log('Botón Llamamos: Servicio: '+servicio+' Título: '+titulo );
 
+  // EBG 03-11-22
+  var nombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+  var email = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
+  //
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
 
   elementorFrontend.documentsManager.documents['56684'].showModal(); //show the popup
@@ -640,6 +644,9 @@ var wpfFunctionLlamamos = function() {
       'wpnonce': wpnonce,
       'precio' : precio,
       'titulo' : titulo,
+      'nombre' : nombre,
+      'email' : email,
+      'phone' : phone,
     },
     success: function(response) {
       console.log('wpfunos_ajax_v3_llamamos response:');
@@ -667,6 +674,12 @@ var wpfFunctionLlamar = function() {
 
   console.log('Botón Llamar: Servicio: '+servicio+' Título: '+titulo );
 
+  // EBG 03-11-22
+  var nombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+  var email = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
+  var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
+  //
+
   elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
 
   document.getElementById('wpfunos-modal-llamar-titulo').innerHTML = titulo;
@@ -691,6 +704,9 @@ var wpfFunctionLlamar = function() {
       'wpnonce': wpnonce,
       'precio' : precio,
       'titulo' : titulo,
+      'nombre' : nombre,
+      'email' : email,
+      'phone' : phone,
     },
     success: function(response) {
       console.log('wpfunos_ajax_v3_llamar response:');
@@ -732,6 +748,12 @@ var wpfFunctionEnviaPresupuesto = function() {
   console.log('Botón Enviar presupuesto: Servicio: '+servicio+' Título: '+titulo );
   console.log('mensaje: '+mensaje );
 
+  // EBG 03-11-22
+  var nombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+  var email = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
+  var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
+  //
+
   jQuery.ajax({
     type : 'post',
     dataType : 'json',
@@ -743,6 +765,9 @@ var wpfFunctionEnviaPresupuesto = function() {
       'precio' : precio,
       'titulo' : titulo,
       'mensaje' : mensaje,
+      'nombre' : nombre,
+      'email' : email,
+      'phone' : phone,
     },
     success: function(response) {
       console.log('wpfunos_ajax_v3_presupuesto response:');
@@ -768,6 +793,12 @@ var wpfFunctionDetalles = function() {
 
   console.log('Botón Detalles: Servicio: '+servicio+' Título: '+titulo+' Financiación: '+financiacion );
 
+  // EBG 03-11-22
+  var nombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+  var email = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
+  var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
+  //
+
   elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
 
   jQuery.ajax({
@@ -782,6 +813,9 @@ var wpfFunctionDetalles = function() {
       'titulo' : titulo,
       'distancia' : distancia,
       'telefono' : telefono,
+      'nombre' : nombre,
+      'email' : email,
+      'phone' : phone,
     },
     success: function(response) {
       console.log('wpfunos_ajax_v3_detalles response:');
@@ -895,6 +929,10 @@ var wpfDetallesLlamamos = function() {
 
   console.log('Botón Detalles Llamamos: Servicio: '+servicio+' Título: '+titulo );
 
+  // EBG 03-11-22
+  var nombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+  var email = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
+  //
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
 
   $('#elementor-popup-modal-56672').hide();
@@ -917,6 +955,9 @@ var wpfDetallesLlamamos = function() {
       'wpnonce': wpnonce,
       'precio' : precio,
       'titulo' : titulo,
+      'nombre' : nombre,
+      'email' : email,
+      'phone' : phone,
     },
     success: function(response) {
       console.log('wpfunos_ajax_v3_llamamos response:');
@@ -944,6 +985,12 @@ var wpfDetallesLlamar = function() {
 
   console.log('Botón Llamar: Servicio: '+servicio+' Título: '+titulo );
 
+  // EBG 03-11-22
+  var nombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+  var email = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
+  var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
+  //
+
   $('#elementor-popup-modal-56672').hide();
   elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
 
@@ -969,6 +1016,9 @@ var wpfDetallesLlamar = function() {
       'wpnonce': wpnonce,
       'precio' : precio,
       'titulo' : titulo,
+      'nombre' : nombre,
+      'email' : email,
+      'phone' : phone,
     },
     success: function(response) {
       console.log('wpfunos_ajax_v3_llamar response:');
@@ -990,6 +1040,12 @@ var wpfDetallesEmail = function() {
 
   console.log('boton Detalles email servicio: '+servicio+ ' Precio: ' +precio+ ' Título ' +titulo);
 
+  // EBG 03-11-22
+  var nombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+  var email = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
+  var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
+  //
+
   $('#elementor-popup-modal-56672').hide();
   elementorFrontend.documentsManager.documents['47448'].showModal(); //show the popup
   document.getElementById('wpfunos-modal-email-email').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
@@ -1005,6 +1061,9 @@ var wpfDetallesEmail = function() {
       'wpnonce': wpnonce,
       'precio' : precio,
       'titulo' : titulo,
+      'nombre' : nombre,
+      'email' : email,
+      'phone' : phone,
     },
     success: function(response) {
       console.log('wpfunos_ajax_v3_email response:');

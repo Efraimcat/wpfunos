@@ -52,6 +52,8 @@ class Wpfunos_ServiciosV3 {
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_dist_local', function () { $this->wpfunosV3DistLocal();});
     add_action('wp_ajax_wpfunos_ajax_v3_dist_local', function () {$this->wpfunosV3DistLocal();});
 
+    add_action('wp_ajax_nopriv_wpfunos_ajax_v3_cambiar_datos_usuario', function () { $this->wpfunosV3CambiarDatosUsuario();});
+    add_action('wp_ajax_wpfunos_ajax_v3_cambiar_datos_usuario', function () {$this->wpfunosV3CambiarDatosUsuario();});
 
   }
   public function enqueue_styles() {
@@ -219,6 +221,7 @@ class Wpfunos_ServiciosV3 {
       ?><script>console.log('Comprobando Servicios directos END.' );</script><?php
       // END Servicios directos - sin velatorio - sin sala -
       // Comprobar cookies
+      // cookielawinfo-checkbox-functional = yes
       ?><script>console.log('Comprobando Cookies.' );</script><?php
       $expiry = strtotime('+1 month');
       if (is_user_logged_in()){
@@ -230,12 +233,18 @@ class Wpfunos_ServiciosV3 {
         $_GET['Email'] = $current_user->user_email;
         $_GET['nombreUsuario'] = $current_user->display_name;
       }else{
-        if( ! isset( $_COOKIE['wpfn'] ) ) setcookie('wpfn', '', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-        if( ! isset( $_COOKIE['wpfe'] ) ) setcookie('wpfe', '', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-        if( ! isset( $_COOKIE['wpft'] ) ) setcookie('wpft', '', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-        $_GET['usuario_telefono'] = $_COOKIE['wpft'];
-        $_GET['Email'] = $_COOKIE['wpfe'];
-        $_GET['nombreUsuario'] = $_COOKIE['wpfn'];
+        if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){
+          if( ! isset( $_COOKIE['wpfn'] ) ) setcookie('wpfn', '', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+          if( ! isset( $_COOKIE['wpfe'] ) ) setcookie('wpfe', '', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+          if( ! isset( $_COOKIE['wpft'] ) ) setcookie('wpft', '', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+          $_GET['usuario_telefono'] = $_COOKIE['wpft'];
+          $_GET['Email'] = $_COOKIE['wpfe'];
+          $_GET['nombreUsuario'] = $_COOKIE['wpfn'];
+        }else{
+          $_GET['usuario_telefono'] = '';
+          $_GET['Email'] = '';
+          $_GET['nombreUsuario'] = '';
+        }
       }
       ?><script>console.log('Comprobando Cookies END.' );</script><?php
       // End Comprobar cookies
@@ -317,6 +326,10 @@ class Wpfunos_ServiciosV3 {
 
       // id = wpf-resultados-referencia
       ?><script>console.log('wpf-resultados-referencia.' );</script><?php
+      $current_user = wp_get_current_user();
+      $wpfcolabnombre = sanitize_text_field( $current_user->display_name );
+      $wpfcolabemail = sanitize_text_field( $current_user->user_email );
+      $wpfcolabtelefono = sanitize_text_field( get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
       $_GET['AttsV3'] = 'wpfn|' .$nonce. '
       wpfip|' .$IP. '
       wpfnewref|' .$newref. '
@@ -328,8 +341,15 @@ class Wpfunos_ServiciosV3 {
       wpfnombre|' .$nombre. '
       wpfemail|' .$email. '
       wpftelefono|' .$Telefono. '
+      wpfcolabnombre|' .$wpfcolabnombre. '
+      wpfcolabemail|' .$wpfcolabemail. '
+      wpfcolabtelefono|' .$wpfcolabtelefono. '
+      wpfusuarionombre|' .$nombre. '
+      wpfusuarioemail|' .$email. '
+      wpfusuariotelefono|' .$Telefono. '
       wpfcuando|' .$_GET['cuando']. '
       wpfland|' .$_GET['land']. '
+      wpfIDusuario|' .$IDusuario. '
       wpfresp1|' .$_GET['cf']['resp1']. '
       wpfresp2|' .$_GET['cf']['resp2']. '
       wpfresp3|' .$_GET['cf']['resp3']. '
@@ -408,6 +428,16 @@ class Wpfunos_ServiciosV3 {
   */
   public function wpfunosV3ColumnaCentralShortcode($atts, $content = ""){
     if( ! isset($_GET['cuando']) ) return;
+    //
+    // VENTANA COLABORADOR
+    //if( apply_filters('wpfunos_email_colaborador','dummy') ){  // usuario colaborador.
+    //if( is_user_logged_in()  && get_current_user_id() == '7' ) {
+    if( apply_filters('wpfunos_reserved_email','dummy') ){
+
+      echo do_shortcode( '[elementor-template id="119957"]' );//Compara precios resultadosV3 Ventana Colaborador
+    }
+    // END VENTANA COLABORADOR
+    //
     /** ?><script>console.log('Resultados.' );</script><?php **/
     echo do_shortcode( '[gmw_ajax_form search_results="8"]' );
     /** ?><script>console.log('Resultados END.' );</script><?php **/
@@ -1243,10 +1273,12 @@ class Wpfunos_ServiciosV3 {
     }
 
     //Última Búsqueda
-    $expiry = strtotime('+1 year');
-    $wpflast = apply_filters( 'wpfunos_crypt', $URL , 'e' );
-    setcookie('wpflast', $wpflast, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-    setcookie('wpflasttime', date( 'd/m/y', current_time( 'timestamp', 0 ) ) , ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+    if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){
+      $expiry = strtotime('+1 year');
+      $wpflast = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+      setcookie('wpflast', $wpflast, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+      setcookie('wpflasttime', date( 'd/m/y', current_time( 'timestamp', 0 ) ) , ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+    }
     //Última Búsqueda END
 
     $colaborador = ( apply_filters('wpfunos_email_colaborador','dummy') ) ? 'si' : 'no' ;
@@ -1299,6 +1331,11 @@ class Wpfunos_ServiciosV3 {
     $wpnonce = $_POST['wpnonce'];
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
+    //  EBG 03-11-22
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    //
     $IP = apply_filters('wpfunos_userIP','dummy');
 
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
@@ -1309,6 +1346,12 @@ class Wpfunos_ServiciosV3 {
       // don't forget to end your scripts with a die() function - very important
       die();
     }
+    //  EBG 03-11-22
+    $transient_ref['wpfn'] = $nombre;
+    $transient_ref['wpfe'] = $email;
+    $transient_ref['wpft'] = $phone;
+    set_transient( 'wpfunos-wpfref-v3-' .$IP, $transient_ref, DAY_IN_SECONDS );
+    //
 
     if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$IP ) ) {
       $result['type'] = "Bad nonce";
@@ -1511,6 +1554,11 @@ class Wpfunos_ServiciosV3 {
     $wpnonce = $_POST['wpnonce'];
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
+    //  EBG 03-11-22
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    //
     $IP = apply_filters('wpfunos_userIP','dummy');
 
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
@@ -1521,6 +1569,12 @@ class Wpfunos_ServiciosV3 {
       // don't forget to end your scripts with a die() function - very important
       die();
     }
+    //  EBG 03-11-22
+    $transient_ref['wpfn'] = $nombre;
+    $transient_ref['wpfe'] = $email;
+    $transient_ref['wpft'] = $phone;
+    set_transient( 'wpfunos-wpfref-v3-' .$IP, $transient_ref, DAY_IN_SECONDS );
+    //
 
     if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$IP ) ) {
       $result['type'] = "Bad nonce";
@@ -1726,6 +1780,11 @@ class Wpfunos_ServiciosV3 {
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
     $mensajeusuario = $_POST['mensaje'];
+    //  EBG 03-11-22
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    //
     $IP = apply_filters('wpfunos_userIP','dummy');
 
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
@@ -1736,6 +1795,12 @@ class Wpfunos_ServiciosV3 {
       // don't forget to end your scripts with a die() function - very important
       die();
     }
+    //  EBG 03-11-22
+    $transient_ref['wpfn'] = $nombre;
+    $transient_ref['wpfe'] = $email;
+    $transient_ref['wpft'] = $phone;
+    set_transient( 'wpfunos-wpfref-v3-' .$IP, $transient_ref, DAY_IN_SECONDS );
+    //
 
     if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$IP ) ) {
       $result['type'] = "Bad nonce";
@@ -1942,6 +2007,11 @@ class Wpfunos_ServiciosV3 {
     $precio = $_POST['precio'];
     $distancia = $_POST['distancia'];
     $telefonoservicio = $_POST['telefono'];
+    //  EBG 03-11-22
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    //
     $IP = apply_filters('wpfunos_userIP','dummy');
 
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
@@ -1952,6 +2022,12 @@ class Wpfunos_ServiciosV3 {
       // don't forget to end your scripts with a die() function - very important
       die();
     }
+    //  EBG 03-11-22
+    $transient_ref['wpfn'] = $nombre;
+    $transient_ref['wpfe'] = $email;
+    $transient_ref['wpft'] = $phone;
+    set_transient( 'wpfunos-wpfref-v3-' .$IP, $transient_ref, DAY_IN_SECONDS );
+    //
 
     if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$IP ) ) {
       $result['type'] = "Bad nonce";
@@ -2001,6 +2077,11 @@ class Wpfunos_ServiciosV3 {
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
     $mensaje = $_POST['mensaje'];
+    //  EBG 03-11-22
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    //
     $IP = apply_filters('wpfunos_userIP','dummy');
 
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
@@ -2011,6 +2092,12 @@ class Wpfunos_ServiciosV3 {
       // don't forget to end your scripts with a die() function - very important
       die();
     }
+    //  EBG 03-11-22
+    $transient_ref['wpfn'] = $nombre;
+    $transient_ref['wpfe'] = $email;
+    $transient_ref['wpft'] = $phone;
+    set_transient( 'wpfunos-wpfref-v3-' .$IP, $transient_ref, DAY_IN_SECONDS );
+    //
 
     if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$IP ) ) {
       $result['type'] = "Bad nonce";
@@ -2198,6 +2285,58 @@ class Wpfunos_ServiciosV3 {
     echo $result;
     // don't forget to end your scripts with a die() function - very important
     die();
+  }
+
+
+  /*********************************/
+  /*****  AJAX                ******/
+  /*********************************/
+  /**
+  * Ver detalles
+  *
+  * add_action('wp_ajax_nopriv_wpfunos_ajax_v3_cambiar_datos_usuario', function () { $this->wpfunosV3CambiarDatosUsuario();});
+  * add_action('wp_ajax_wpfunos_ajax_v3_cambiar_datos_usuario', function () {$this->wpfunosV3CambiarDatosUsuario();});
+  */
+  public function wpfunosV3CambiarDatosUsuario(){
+    $wpnonce = $_POST['wpnonce'];
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $idusuario = $_POST['idusuario'];
+    $firma = $_POST['firma'];
+
+    if( $idusuario == 0 ){
+      $result['type'] = "ID Cero";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+
+    $IP = apply_filters('wpfunos_userIP','dummy');
+
+    if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$IP ) ) {
+      $result['type'] = "Bad nonce";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+
+    $blogtime = current_time( 'mysql' );
+
+    update_post_meta( $idusuario, 'wpfunos_userName', $nombre );
+    update_post_meta( $idusuario, 'wpfunos_userMail', $email );
+    update_post_meta( $idusuario, 'wpfunos_userPhone', $phone );
+    update_post_meta( $idusuario, 'IDstamp', $firma. ': ' .$blogtime );
+
+    $result['type'] = "success";
+    $result['distancia'] = $distancia;
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+
   }
 
 }

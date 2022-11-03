@@ -1090,6 +1090,8 @@ class Wpfunos_Admin {
     $this->wpfunosMaintenancePreciosv1Preciosv2();
     $this->wpfunosMaintenanceComentariosFunerarias();
     $this->wpfunosMaintenancePreciosSeoFunerarias();
+    //  Crear nuevas entradas
+    //$this->wpfunosMaintenancePreciosFunerarias();
     //
     // END
     $this->custom_logs('Wpfunos Hourly ends');

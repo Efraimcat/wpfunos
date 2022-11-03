@@ -283,6 +283,11 @@ class Wpfunos_Aseguradoras {
     $provincia = $this->wpfunosProvincia( $CP );
     $nombre = get_post_meta( $usuario, 'wpfunos_userName', true );
     $telefono = get_post_meta( $usuario, 'wpfunos_userPhone', true );
+    // EBG 03-11-22
+    $telefono = str_replace(" ","", $telefono );
+    $telefono = str_replace("-","",$telefono);
+    $telefono = str_replace("+","00",$telefono);
+    //
     $email = get_post_meta( $usuario, 'wpfunos_userMail', true );
 
     $api = get_post_meta( $servicio, 'wpfunos_aseguradorasAPI', true );
