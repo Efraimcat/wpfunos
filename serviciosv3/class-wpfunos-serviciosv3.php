@@ -430,9 +430,9 @@ class Wpfunos_ServiciosV3 {
     if( ! isset($_GET['cuando']) ) return;
     //
     // VENTANA COLABORADOR
-    //if( apply_filters('wpfunos_email_colaborador','dummy') ){  // usuario colaborador.
-    //if( is_user_logged_in()  && get_current_user_id() == '7' ) {
-    if( apply_filters('wpfunos_reserved_email','dummy') ){
+    if( apply_filters('wpfunos_email_colaborador','dummy') ){  // usuario colaborador.
+      //if( is_user_logged_in()  && get_current_user_id() == '7' ) {
+      //if( apply_filters('wpfunos_reserved_email','dummy') ){
 
       echo do_shortcode( '[elementor-template id="119957"]' );//Compara precios resultadosV3 Ventana Colaborador
     }
@@ -746,6 +746,11 @@ class Wpfunos_ServiciosV3 {
         }
         $_GET['valor-precio-anterior'] = $precio_anterior;
         //
+        $_GET['valor-empresa']='';
+        if( apply_filters('wpfunos_email_colaborador','dummy') ){  // usuario colaborador.
+          $_GET['valor-empresa'] = get_post_meta( $value[0], 'wpfunos_servicioEmpresa', true );
+        }
+        //
         //
         ?><div class="wpfunos-busqueda-contenedor" id="wpfunos-busqueda-resultado-<?php echo $value[0];?>"><?php
         echo do_shortcode( '[elementor-template id="90421"]' ) ; //Compara precios resultadosV3
@@ -1027,7 +1032,10 @@ class Wpfunos_ServiciosV3 {
   * Filtro indeseados
   */
   public function wpfunosServiciosv2Indeseados( $email, $tel ){
-    if (  "luisa_stfost87@hotmail.com" == $email || "652552825" == $tel ){
+    if (  "luisa_stfost87@hotmail.com" == $email || "652552825" == $tel ||
+    "uy@gmail.com" == $email || "+34657707520" == $tel || "657707520" == $tel
+    || "654 78 39 12"  == $tel || "654783912"  == $tel || "+34654783912"  == $tel
+    || "768 54 63 45"  == $tel || "768546345"  == $tel || "+34768546345"  == $tel ){
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Entrada no deseada' );
       $result['type'] = "unwanted";
