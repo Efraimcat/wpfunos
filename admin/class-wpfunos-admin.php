@@ -1358,87 +1358,90 @@ class Wpfunos_Admin {
           if( $precio[ (int)$valor[1] ] != '' && $precio[ (int)$valor[2] ] != '' && $precio[ (int)$valor[3] ] != '' && $precio[ (int)$valor[4] ] != '' && !$BloquearComentario ){
             $comentarioactual = get_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_Comentario', true );
 
-            if( strlen($comentarioactual) < 5 || $ActualizarComentario ){
+            //if( strlen($comentarioactual) < 5 || $ActualizarComentario ){
 
-              $comentarios = '<h3><strong>Qúe está incluido en el precio</strong></h3><p></p>';
-              $comentarios .= '<h4><strong>Detalles de servicio base</strong></h3>';
+            $comentarios = '<h3><strong>Qúe está incluido en el precio</strong></h3><p></p>';
+            $comentarios .= '<h4><strong>Detalles de servicio base</strong></h3>';
 
-              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioPrecioBaseComentario', true ) );
+            $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioPrecioBaseComentario', true ) );
+            $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+            $comentarios .= $customfield_content ;
+
+            if( substr( $key, 0, 1) == 'E' ){
+              $comentarios .= '<h4><strong>Detalles de entierro</strong></h4>';
+              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Comentario', true ) );
               $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
               $comentarios .= $customfield_content ;
-
-              if( substr( $key, 0, 1) == 'E' ){
-                $comentarios .= '<h4><strong>Detalles de entierro</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Comentario', true ) );
-                $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-                $comentarios .= $customfield_content ;
-              }
-
-              if( substr( $key, 0, 1) == 'I' ) {
-                $comentarios .= '<h4><strong>Detalles de  incineración</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Comentario', true ) );
-                $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-                $comentarios .= $customfield_content ;
-              }
-
-              if( substr( $key, 1, 1) == 'E' ) {
-                $comentarios .= '<h4><strong>Detalles de  ataúd gama económica</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Comentario', true ) );
-                $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-                $comentarios .= $customfield_content ;
-              }
-
-              if( substr( $key, 1, 1) == 'M' ) {
-                $comentarios .= '<h4><strong>Detalles de  ataúd gama media</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Comentario', true ) );
-                $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-                $comentarios .= $customfield_content ;
-              }
-
-              if( substr( $key, 1, 1) == 'P' ) {
-                $comentarios .= '<h4><strong>Detalles de  ataúd gama premium</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Comentario', true ) );
-                $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-                $comentarios .= $customfield_content ;
-              }
-
-              if( substr( $key, 2, 1) == 'V' ) {
-                $comentarios .= '<h4><strong>Detalles de  velatorio</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioVelatorioComentario', true ) );
-                $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-                $comentarios .= $customfield_content ;
-              }
-
-              if( substr( $key, 3, 1) == 'O' ) {
-                $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Comentario', true ) );
-                $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-                $comentarios .= $customfield_content ;
-              }
-
-              if( substr( $key, 3, 1) == 'C' ) {
-                $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Comentario', true ) );
-                $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-                $comentarios .= $customfield_content ;
-              }
-
-              if( substr( $key, 3, 1) == 'R' ) {
-                $comentarios .= '<h4><strong>Detalles de ceremonia</strong></h4>';
-                $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Comentario', true ) );
-                $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-                $comentarios .= $customfield_content ;
-              }
-
-              $comentarios .= '<h4><strong>Posibles Extras</strong></h4>';
-              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioPosiblesExtras', true ) );
-              $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
-              $comentarios .= $customfield_content ;
-
-              update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_Comentario', $comentarios );
-
-              $contadorTrue ++;
             }
+
+            if( substr( $key, 0, 1) == 'I' ) {
+              $comentarios .= '<h4><strong>Detalles de  incineración</strong></h4>';
+              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Comentario', true ) );
+              $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+              $comentarios .= $customfield_content ;
+            }
+
+            if( substr( $key, 1, 1) == 'E' ) {
+              $comentarios .= '<h4><strong>Detalles de  ataúd gama económica</strong></h4>';
+              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Comentario', true ) );
+              $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+              $comentarios .= $customfield_content ;
+            }
+
+            if( substr( $key, 1, 1) == 'M' ) {
+              $comentarios .= '<h4><strong>Detalles de  ataúd gama media</strong></h4>';
+              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Comentario', true ) );
+              $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+              $comentarios .= $customfield_content ;
+            }
+
+            if( substr( $key, 1, 1) == 'P' ) {
+              $comentarios .= '<h4><strong>Detalles de  ataúd gama premium</strong></h4>';
+              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Comentario', true ) );
+              $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+              $comentarios .= $customfield_content ;
+            }
+
+            if( substr( $key, 2, 1) == 'V' ) {
+              $comentarios .= '<h4><strong>Detalles de  velatorio</strong></h4>';
+              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioVelatorioComentario', true ) );
+              $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+              $comentarios .= $customfield_content ;
+            }
+
+            if( substr( $key, 3, 1) == 'O' ) {
+              $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
+              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Comentario', true ) );
+              $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+              $comentarios .= $customfield_content ;
+            }
+
+            if( substr( $key, 3, 1) == 'C' ) {
+              $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
+              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Comentario', true ) );
+              $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+              $comentarios .= $customfield_content ;
+            }
+
+            if( substr( $key, 3, 1) == 'R' ) {
+              $comentarios .= '<h4><strong>Detalles de ceremonia</strong></h4>';
+              $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Comentario', true ) );
+              $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+              $comentarios .= $customfield_content ;
+            }
+
+            $comentarios .= '<h4><strong>Posibles Extras</strong></h4>';
+            $customfield_content = apply_filters( 'the_content', get_post_meta( $post->ID, 'wpfunos_servicioPosiblesExtras', true ) );
+            $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
+            $comentarios .= $customfield_content ;
+
+            update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_Comentario', $comentarios );
+
+            $contadorTrue ++;
+
+            //}
+
+
             $contador ++;
           }
           update_post_meta( $post->ID, 'wpfunos_servicioActualizarComentario', false );

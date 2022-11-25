@@ -228,7 +228,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-incineracion-desde-texto', array( $this, 'wpfunosIncineracionDesdeTextoShortcode' ));
   */
   public function wpfunosIncineracionDesdeTextoShortcode( $atts, $content = "" ) {
-    echo 'Incineracio en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionDesde', true ), 0, ',', '.');
+    echo 'Incineración en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionDesde', true ), 0, ',', '.');
     return;
   }
   /**

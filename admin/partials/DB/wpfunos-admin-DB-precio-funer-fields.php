@@ -61,6 +61,11 @@ $SeoEntierro = sanitize_text_field( $_POST['SeoEntierro'] );
 $SeoIncineracion = sanitize_text_field( $_POST['SeoIncineracion'] );
 $SeoDesde = sanitize_text_field( $_POST['SeoDesde'] );
 
+$precioFunerariaEnlaceDistancia = sanitize_text_field( $_POST['wpfunos_EnlaceDistancia'] );
+$precioFunerariaEnlaceLatitud = sanitize_text_field( $_POST['wpfunos_EnlaceLatitud'] );
+$precioFunerariaEnlaceLonguitud = sanitize_text_field( $_POST['wpfunos_EnlaceLonguitud'] );
+
+
 update_post_meta($post_id, 'wpfunos_precioFunerariaPoblacion', $precioFunerariaPoblacion);
 update_post_meta($post_id, 'wpfunos_precioFunerariaTitulo', $precioFunerariaTitulo);
 update_post_meta($post_id, 'wpfunos_precioFunerariaURL', $precioFunerariaURL);
@@ -85,22 +90,38 @@ update_post_meta($post_id, 'wpfunos_precioIncineracionBasicoDesde', $precioIncin
 update_post_meta($post_id, 'wpfunos_precioIncineracionCeremoniaDesde', $precioIncineracionCeremoniaDesde);
 update_post_meta($post_id, 'wpfunos_precioIncineracionVelatorioDesde', $precioIncineracionVelatorioDesde);
 
-update_post_meta($post_id, 'wpfunos_precioFunerariaEnlaceAhora', $precioFunerariaEnlaceAhora);
-update_post_meta($post_id, 'wpfunos_precioFunerariaEnlaceProximamente', $precioFunerariaEnlaceProximamente);
-update_post_meta($post_id, 'wpfunos_precioFunerariaEnlaceVerPrecios', $precioFunerariaEnlaceVerPrecios);
+//https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora
+update_post_meta($post_id, 'wpfunos_precioFunerariaEnlaceAhora', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
+//https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=dist&cuando=Próximamente
+update_post_meta($post_id, 'wpfunos_precioFunerariaEnlaceProximamente', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Proximamente');
+https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora
+update_post_meta($post_id, 'wpfunos_precioFunerariaEnlaceVerPrecios', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
 
-update_post_meta($post_id, 'wpfunos_precioFunerariaEntierroDesdeEnlace', $precioFunerariaEntierroDesdeEnlace);
-update_post_meta($post_id, 'wpfunos_precioFunerariaIncineracionDesdeEnlace', $precioFunerariaIncineracionDesdeEnlace);
-update_post_meta($post_id, 'wpfunos_precioFunerariaEntierroVelatorioDesdeEnlace', $precioFunerariaEntierroVelatorioDesdeEnlace);
-update_post_meta($post_id, 'wpfunos_precioFunerariaIncineracionVelatorioDesdeEnlace', $precioFunerariaIncineracionVelatorioDesdeEnlace);
-update_post_meta($post_id, 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesdeEnlace', $precioFunerariaEntierroVelatorioCeremoniaDesdeEnlace);
-update_post_meta($post_id, 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesdeEnlace', $precioFunerariaIncineracionVelatorioCeremoniaDesdeEnlace);
-update_post_meta($post_id, 'wpfunos_precioFunerariaEntierroPremiumDesdeEnlace', $precioFunerariaEntierroPremiumDesdeEnlace);
-update_post_meta($post_id, 'wpfunos_precioFunerariaIncineracionPremiumDesdeEnlace', $precioFunerariaIncineracionPremiumDesdeEnlace);
 
-update_post_meta($post_id, 'wpfunos_precioIncineracionBasicoDesdeEnlace', $precioIncineracionBasicoDesdeEnlace);
-update_post_meta($post_id, 'wpfunos_precioIncineracionCeremoniaDesdeEnlace', $precioIncineracionCeremoniaDesdeEnlace);
-update_post_meta($post_id, 'wpfunos_precioIncineracionVelatorioDesdeEnlace', $precioIncineracionVelatorioDesdeEnlace);
+//https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioFunerariaEntierroDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+//	https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioFunerariaIncineracionDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+//https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioFunerariaEntierroVelatorioDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+//https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioFunerariaIncineracionVelatorioDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+//https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+//https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+//https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=3&cf[resp3]=1&cf[resp4]=3&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioFunerariaEntierroPremiumDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=3&cf[resp3]=1&cf[resp4]=3&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+//https://funos.es/comparar-precios-resultados?address[]=Alcalá+de+Henares&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=3&cf[resp3]=1&cf[resp4]=3&distance=20&units=metric&paged=1&per_page=50&lat=40.484390&lng=-3.368802&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioFunerariaIncineracionPremiumDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=3&cf[resp3]=1&cf[resp4]=3&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+
+//https://funos.es/comparar-precios-resultados?address[]=Alicante&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance=80&units=metric&paged=1&per_page=50&lat=38.345996&lng=-0.490685&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioIncineracionBasicoDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+//https://funos.es/comparar-precios-resultados?address[]=Alicante&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance=80&units=metric&paged=1&per_page=50&lat=38.345996&lng=-0.490685&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioIncineracionCeremoniaDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+//https://funos.es/comparar-precios-resultados?address[]=Alicante&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=80&units=metric&paged=1&per_page=50&lat=38.345996&lng=-0.490685&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&land=1
+update_post_meta($post_id, 'wpfunos_precioIncineracionVelatorioDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$precioFunerariaPoblacion.' s&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance='.$precioFunerariaEnlaceDistancia.'&units=metric&paged=1&per_page=50&lat='.$precioFunerariaEnlaceLatitud.'&lng='.$precioFunerariaEnlaceLonguitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+
 
 update_post_meta($post_id, 'wpfunos_precioFunerariaPaginasRelacionadas', $precioFunerariaPaginasRelacionadas);
 update_post_meta($post_id, 'wpfunos_precioFunerariaPaginasRelacionadasTexto', $precioFunerariaPaginasRelacionadasTexto);
@@ -109,3 +130,7 @@ update_post_meta($post_id, 'wpfunos_precioFunerariaTextoLibre', $precioFuneraria
 update_post_meta($post_id, 'SeoEntierro', $SeoEntierro);
 update_post_meta($post_id, 'SeoIncineracion', $SeoIncineracion);
 update_post_meta($post_id, 'SeoDesde', $SeoDesde);
+
+update_post_meta($post_id, 'wpfunos_EnlaceDistancia', $precioFunerariaEnlaceDistancia);
+update_post_meta($post_id, 'wpfunos_EnlaceLatitud', $precioFunerariaEnlaceLatitud);
+update_post_meta($post_id, 'wpfunos_EnlaceLonguitud', $precioFunerariaEnlaceLonguitud);

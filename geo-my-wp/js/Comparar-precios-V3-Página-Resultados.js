@@ -798,6 +798,12 @@ var wpfFunctionDetalles = function() {
   var email = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
   //
+  var resp1 = document.getElementById('wpf-resultados-referencia').getAttribute('wpfresp1');
+  var resp2 = document.getElementById('wpf-resultados-referencia').getAttribute('wpfresp2');
+  var resp3 = document.getElementById('wpf-resultados-referencia').getAttribute('wpfresp3');
+  var resp4 = document.getElementById('wpf-resultados-referencia').getAttribute('wpfresp4');
+  //
+  console.log('Botón Detalles: resp1: '+resp1+' reps2: '+resp2+' resp3: '+resp3+' resp4: '+resp4 );
 
   elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
 
@@ -816,6 +822,10 @@ var wpfFunctionDetalles = function() {
       'nombre' : nombre,
       'email' : email,
       'phone' : phone,
+      'resp1' : resp1,
+      'resp2' : resp2,
+      'resp3' : resp3,
+      'resp4' : resp4,
     },
     success: function(response) {
       console.log('wpfunos_ajax_v3_detalles response:');
@@ -911,6 +921,13 @@ var wpfFunctionDetalles = function() {
         document.getElementById('wpf-icono-whatsapp').setAttribute('wpftitulo', titulo);
         document.getElementById('wpf-icono-whatsapp').setAttribute('wpfdistancia', distancia);
         document.getElementById('wpf-icono-whatsapp').setAttribute('wpftelefono', telefono);
+        document.getElementById('wpfunos-detalles-producto-1').addEventListener('click', wpfDetallesProducto1, false);
+        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpfid', servicio);
+        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpfn', wpnonce);
+        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpfp', precio);
+        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpftitulo', titulo);
+        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpfdistancia', distancia);
+        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpftelefono', telefono);
 
         if ( financiacion == 1 ) {document.getElementById('wpf-detalles-boton-financiacion').style.display = 'block';}
 
@@ -1075,6 +1092,17 @@ var wpfDetallesEmail = function() {
       }
     }
   });
+};
+
+var wpfDetallesProducto1 = function() {
+  var wpnonce = this.getAttribute('wpfn');
+  var servicio = this.getAttribute('wpfid');
+  var precio = this.getAttribute('wpfp');
+  var titulo = this.getAttribute('wpftitulo');
+
+  elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+
+  window.location.href = "https://funos.es/producto/servicio-de-gestion-personalizada";
 };
 
 var wpfDetallesPresupuesto = function() {

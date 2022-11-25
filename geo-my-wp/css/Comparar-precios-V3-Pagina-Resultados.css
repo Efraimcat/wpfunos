@@ -230,7 +230,18 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
   .elementor-90421 .elementor-element.elementor-element-2c95cdc6 .elementor-button {
     padding: 15px 15px 15px 15px !important;
   }
-
+  #precios-productos {
+    padding: 0px 30px 0px 30px;
+  }
+  #te-recomedamos {
+    padding: 0px 30px 0px 30px;
+  }
+  .elementor-56672 .elementor-element.elementor-element-9870863 {
+    width: 100% !important;
+  }
+  .elementor-56672 .elementor-element.elementor-element-24cd7ff {
+    width: 100% !important;
+  }
 }
 
 #wpf-financiacion-funeraria {

@@ -84,6 +84,20 @@ class Wpfunos_ServiciosV3 {
   */
   public function wpfunosV3UltimaBusquedaShortcode($atts, $content = ""){
     if( ! isset( $_COOKIE['wpflast'] ) ) return;
+    if( $_GET['autoload'] && $_GET['autoload'] == 'yes' ){
+      $wpflasturl = apply_filters( 'wpfunos_crypt', $_COOKIE['wpflast'] , 'd' );
+      ?>
+      <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
+      $ = jQuery.noConflict();
+      $(document).ready(function(){
+        $(function(){
+          elementorFrontend.documentsManager.documents['84626'].showModal(); //show the popup
+          window.open("<?php echo $wpflasturl; ?>","_self");
+        });
+      });
+      </script>
+      <?php
+    }
     $last = str_replace("+"," ",$_COOKIE['wpflasttime']);
     $_GET['wpflasttime'] = str_replace("-",":",$last);
     echo do_shortcode( '[elementor-template id="75197"]' );
@@ -101,7 +115,6 @@ class Wpfunos_ServiciosV3 {
     <?php
   }
 
-
   /**
   * Shortcode [wpfunos-v3-last-url]
   *
@@ -111,6 +124,9 @@ class Wpfunos_ServiciosV3 {
     $wpflasturl = apply_filters( 'wpfunos_crypt', $_COOKIE['wpflast'] , 'd' );
     return $wpflasturl;
   }
+
+
+
 
   /**
   * add_shortcode( 'wpfunos-v3-resultados', array( $this, 'wpfunosV3ResultadosShortcode' ));
@@ -1035,7 +1051,11 @@ class Wpfunos_ServiciosV3 {
     if (  "luisa_stfost87@hotmail.com" == $email || "652552825" == $tel ||
     "uy@gmail.com" == $email || "+34657707520" == $tel || "657707520" == $tel
     || "654 78 39 12"  == $tel || "654783912"  == $tel || "+34654783912"  == $tel
+    || "630 06 96 01"  == $tel || "630069601"  == $tel || "+34630069601"  == $tel
+    || "659 87 77 76"  == $tel || "659877776"  == $tel || "+34659877776"  == $tel
     || "768 54 63 45"  == $tel || "768546345"  == $tel || "+34768546345"  == $tel ){
+
+
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', 'Entrada no deseada' );
       $result['type'] = "unwanted";
@@ -1178,6 +1198,10 @@ class Wpfunos_ServiciosV3 {
           'wpfunos_userPluginVersion' => sanitize_text_field( $this->version ),
           'wpfunos_userVisitas' => $contador,
           'wpfunos_userLead' => true,
+          'resp1' => $wpfresp1,
+          'resp2' => $wpfresp2,
+          'resp3' => $wpfresp3,
+          'resp4' => $wpfresp4,
           'wpfunos_Dummy' => true,
         ),
       );
@@ -1269,8 +1293,8 @@ class Wpfunos_ServiciosV3 {
           wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreov2usuario') , $mensaje, $headers );
           do_action('wpfunos_log', 'Enviado correo usuario efraim@efraim.cat' );
         }else{
-          wp_mail ( $transient_ref['wpfe'] , get_option('wpfunos_asuntoCorreov2usuario') , $mensaje, $headers );
-          do_action('wpfunos_log', 'Enviado correo formulario datos usuario ' . $transient_ref['wpfe'] );
+          wp_mail ( $wpfemail , get_option('wpfunos_asuntoCorreov2usuario') , $mensaje, $headers );
+          do_action('wpfunos_log', 'Enviado correo formulario datos usuario ' . $wpfemail );
         }
         do_action('wpfunos_log', 'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcov2usuario' ) ) );
         do_action('wpfunos_log', 'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccv2usuario' ) ) );
@@ -2020,6 +2044,11 @@ class Wpfunos_ServiciosV3 {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     //
+    $resp1 = $_POST['resp1'];
+    $resp2 = $_POST['resp2'];
+    $resp3 = $_POST['resp3'];
+    $resp4 = $_POST['resp4'];
+
     $IP = apply_filters('wpfunos_userIP','dummy');
 
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
@@ -2045,10 +2074,15 @@ class Wpfunos_ServiciosV3 {
       die();
     }
 
-    switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = 'Entierro'; break; case '2': $destino = 'I' ; $nombredestino = 'Incineración'; break; }
-    switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = 'Ataúd medio'; break; case '2': $ataud = 'E' ; $nombreataud = 'Ataúd económico'; break; case '3': $ataud = 'P' ; $nombreataud = 'Ataúd premium'; break; }
-    switch( $transient_ref['wpfresp3'] ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
-    switch( $transient_ref['wpfresp4'] ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
+    //switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = 'Entierro'; break; case '2': $destino = 'I' ; $nombredestino = 'Incineración'; break; }
+    //switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = 'Ataúd medio'; break; case '2': $ataud = 'E' ; $nombreataud = 'Ataúd económico'; break; case '3': $ataud = 'P' ; $nombreataud = 'Ataúd premium'; break; }
+    //switch( $transient_ref['wpfresp3'] ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
+    //switch( $transient_ref['wpfresp4'] ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
+
+    switch( $resp1 ) { case '1': $destino = 'E' ; $nombredestino = 'Entierro'; break; case '2': $destino = 'I' ; $nombredestino = 'Incineración'; break; }
+    switch( $resp2 ) { case '1': $ataud = 'M' ; $nombreataud = 'Ataúd medio'; break; case '2': $ataud = 'E' ; $nombreataud = 'Ataúd económico'; break; case '3': $ataud = 'P' ; $nombreataud = 'Ataúd premium'; break; }
+    switch( $resp3 ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
+    switch( $resp4 ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
 
     $comentarios = get_post_meta( $servicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) ;
 
