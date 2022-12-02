@@ -25,10 +25,14 @@ if ( ! defined( 'ABSPATH' ) ) {
         <tr>
           <td><?php esc_html_e('Población', 'wpfunos');?></td>
           <td style="width:5px;"></td>
+          <td><?php esc_html_e('Provincia', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
           <td><?php esc_html_e('Páginas relacionadas', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaPoblacion','name' => 'wpfunos_precioFunerariaPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaProvincia','name' => 'wpfunos_precioFunerariaProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaPaginasRelacionadas','name' => 'wpfunos_precioFunerariaPaginasRelacionadas','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
         </tr>
@@ -62,56 +66,38 @@ if ( ! defined( 'ABSPATH' ) ) {
         <tr>
           <td><?php esc_html_e('Entierro desde', 'wpfunos');?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Incineración desde', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
           <td><?php esc_html_e('Entierro y velatorio desde', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Incineración y velatorio desde', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Entierro, velatorio y ceremonia desde', 'wpfunos');?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Incineración, velatorio y ceremonia desde', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
           <td><?php esc_html_e('Entierro Premium desde', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Incineración desde', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Incineración y velatorio desde', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Incineración, velatorio y ceremonia desde', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Incineración Premium desde', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaEntierroDesde','name' => 'wpfunos_precioFunerariaEntierroDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaIncineracionDesde','name' => 'wpfunos_precioFunerariaIncineracionDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-          <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaEntierroVelatorioDesde','name' => 'wpfunos_precioFunerariaEntierroVelatorioDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaIncineracionVelatorioDesde','name' => 'wpfunos_precioFunerariaIncineracionVelatorioDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesde','name' => 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde','name' => 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-          <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaEntierroPremiumDesde','name' => 'wpfunos_precioFunerariaEntierroPremiumDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
           <td style="width:5px;"></td>
+
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaIncineracionDesde','name' => 'wpfunos_precioFunerariaIncineracionDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaIncineracionVelatorioDesde','name' => 'wpfunos_precioFunerariaIncineracionVelatorioDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde','name' => 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+          <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaIncineracionPremiumDesde','name' => 'wpfunos_precioFunerariaIncineracionPremiumDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-        </tr>
-      </table>
-    </li>
-    <hr/>
-    <h2>Páginas PRECIOS INCINERACIÓN EN – precios:</h2>
-    <li class="precio_funer_wpfunos_list">
-      <table>
-        <tr>
-          <td><?php esc_html_e('Página Incineración Básico desde', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Página Incineración Velatorio desde', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Página Incineración Velatorio y ceremonia desde', 'wpfunos');?></td>
-        </tr>
-        <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioIncineracionBasicoDesde','name' => 'wpfunos_precioIncineracionBasicoDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioIncineracionVelatorioDesde','name' => 'wpfunos_precioIncineracionVelatorioDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioIncineracionCeremoniaDesde','name' => 'wpfunos_precioIncineracionCeremoniaDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
+
         </tr>
       </table>
     </li>

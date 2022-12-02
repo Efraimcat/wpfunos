@@ -242,6 +242,15 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
   .elementor-56672 .elementor-element.elementor-element-24cd7ff {
     width: 100% !important;
   }
+  .elementor-accordion .elementor-tab-title .elementor-accordion-icon svg {
+    width: 47px !important;
+    height: 23px !important;
+  }
+  .elementor-accordion .elementor-tab-title .elementor-accordion-icon {
+    width: 47px !important;
+    margin-top: -4px !important;
+  }
+
 }
 
 #wpf-financiacion-funeraria {

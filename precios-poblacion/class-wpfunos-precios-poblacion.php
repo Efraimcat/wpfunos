@@ -29,6 +29,10 @@ class Wpfunos_PreciosPoblacion {
     add_shortcode( 'wpfunos-prefun-enlace-proximamente', array( $this, 'wpfunosEnlaceProximamenteShortcode' ));
     add_shortcode( 'wpfunos-prefun-enlace-ver-precios', array( $this, 'wpfunosEnlaceVerPreciosShortcode' ));
 
+    add_shortcode( 'wpfunos-prefun-incineracion-enlace-ahora', array( $this, 'wpfunosEnlaceIncineracionAhoraShortcode' ));
+    add_shortcode( 'wpfunos-prefun-incineracion-enlace-proximamente', array( $this, 'wpfunosEnlaceIncineracionProximamenteShortcode' ));
+    add_shortcode( 'wpfunos-prefun-incineracion-enlace-ver-precios', array( $this, 'wpfunosEnlaceIncineracionVerPreciosShortcode' ));
+
     add_shortcode( 'wpfunos-prefun-entierro-desde-enlace', array( $this, 'wpfunosEntierroDesdeEnlaceShortcode' ));
     add_shortcode( 'wpfunos-prefun-incineracion-desde-enlace', array( $this, 'wpfunosIncineracionDesdeEnlaceShortcode' ));
     add_shortcode( 'wpfunos-prefun-entierro-velatorio-desde-enlace', array( $this, 'wpfunosEntierroVelatorioDesdeEnlaceShortcode' ));
@@ -38,9 +42,9 @@ class Wpfunos_PreciosPoblacion {
     add_shortcode( 'wpfunos-prefun-entierro-premium-desde-enlace', array( $this, 'wpfunosEntierroPremiumDesdeEnlaceShortcode' ));
     add_shortcode( 'wpfunos-prefun-incineracion-premium-desde-enlace', array( $this, 'wpfunosIncineracionPremiumDesdeEnlaceShortcode' ));
 
-    add_shortcode( 'wpfunos-prefun-incineracion-basico-enlace', array( $this, 'wpfunosIncineracionBasicoEnlaceShortcode' ));
-    add_shortcode( 'wpfunos-prefun-incineracion-ceremonia-enlace', array( $this, 'wpfunosIncineracionCeremoniaEnlaceShortcode' ));
-    add_shortcode( 'wpfunos-prefun-incineracion-velatorio-enlace', array( $this, 'wpfunosIncineracionVelatorioEnlaceShortcode' ));
+    //add_shortcode( 'wpfunos-prefun-incineracion-basico-enlace', array( $this, 'wpfunosIncineracionBasicoEnlaceShortcode' ));
+    //add_shortcode( 'wpfunos-prefun-incineracion-ceremonia-enlace', array( $this, 'wpfunosIncineracionCeremoniaEnlaceShortcode' ));
+    //add_shortcode( 'wpfunos-prefun-incineracion-velatorio-enlace', array( $this, 'wpfunosIncineracionVelatorioEnlaceShortcode' ));
 
     add_shortcode( 'wpfunos-prefun-entierro-desde-texto', array( $this, 'wpfunosEntierroDesdeTextoShortcode' ));
     add_shortcode( 'wpfunos-prefun-incineracion-desde-texto', array( $this, 'wpfunosIncineracionDesdeTextoShortcode' ));
@@ -51,9 +55,9 @@ class Wpfunos_PreciosPoblacion {
     add_shortcode( 'wpfunos-prefun-entierro-premium-desde-texto', array( $this, 'wpfunosEntierroPremiumDesdeTextoShortcode' ));
     add_shortcode( 'wpfunos-prefun-incineracion-premium-desde-texto', array( $this, 'wpfunosIncineracionPremiumDesdeTextoShortcode' ));
 
-    add_shortcode( 'wpfunos-prefun-incineracion-basico-texto', array( $this, 'wpfunosIncineracionBasicoTextoShortcode' ));
-    add_shortcode( 'wpfunos-prefun-incineracion-ceremonia-texto', array( $this, 'wpfunosIncineracionCeremoniaTextoShortcode' ));
-    add_shortcode( 'wpfunos-prefun-incineracion-velatorio-texto', array( $this, 'wpfunosIncineracionVelatorioTextoShortcode' ));
+    //add_shortcode( 'wpfunos-prefun-incineracion-basico-texto', array( $this, 'wpfunosIncineracionBasicoTextoShortcode' ));
+    //add_shortcode( 'wpfunos-prefun-incineracion-ceremonia-texto', array( $this, 'wpfunosIncineracionCeremoniaTextoShortcode' ));
+    //add_shortcode( 'wpfunos-prefun-incineracion-velatorio-texto', array( $this, 'wpfunosIncineracionVelatorioTextoShortcode' ));
 
     add_shortcode( 'wpfunos-prefun', array( $this, 'wpfunosPrefunShortcode' ));
     add_shortcode( 'wpfunos-prefun-texto-libre', array( $this, 'wpfunosPrefunTextolibreShortcode' ));
@@ -118,6 +122,31 @@ class Wpfunos_PreciosPoblacion {
   */
   public function wpfunosEnlaceVerPreciosShortcode( $atts, $content = "" ) {
     echo get_post_meta( get_the_ID(), 'wpfunos_precioFunerariaEnlaceVerPrecios', true );
+    return;
+  }
+
+  /**
+  * Shortcode [wpfunos-prefun-incineracion-enlace-ahora]
+  * add_shortcode( 'wpfunos-prefun-incineracion-enlace-ahora', array( $this, 'wpfunosEnlaceIncineracionAhoraShortcode' ));
+  */
+  public function wpfunosEnlaceIncineracionAhoraShortcode( $atts, $content = "" ) {
+    echo get_post_meta( get_the_ID(), 'wpfunos_precioIncineracionEnlaceAhora', true );
+    return;
+  }
+  /**
+  * Shortcode [wpfunos-prefun-incineracion-enlace-proximamente]
+  * add_shortcode( 'wpfunos-prefun-incineracion-enlace-proximamente', array( $this, 'wpfunosEnlaceIncineracionProximamenteShortcode' ));
+  */
+  public function wpfunosEnlaceIncineracionProximamenteShortcode( $atts, $content = "" ) {
+    echo get_post_meta( get_the_ID(), 'wpfunos_precioIncineracionEnlaceProximamente', true );
+    return;
+  }
+  /**
+  * Shortcode [wpfunos-prefun-incineracion-enlace-ver-precios]
+  * add_shortcode( 'wpfunos-prefun-incineracion-enlace-ver-precios', array( $this, 'wpfunosEnlaceIncineracionVerPreciosShortcode' ));
+  */
+  public function wpfunosEnlaceIncineracionVerPreciosShortcode( $atts, $content = "" ) {
+    echo get_post_meta( get_the_ID(), 'wpfunos_precioIncineracionEnlaceVerPrecios', true );
     return;
   }
 
