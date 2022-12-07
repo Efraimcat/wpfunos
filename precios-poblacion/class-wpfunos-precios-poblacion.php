@@ -63,6 +63,10 @@ class Wpfunos_PreciosPoblacion {
     add_shortcode( 'wpfunos-prefun-texto-libre', array( $this, 'wpfunosPrefunTextolibreShortcode' ));
     add_shortcode( 'wpfunos-prefun-poblaciones-cercanas', array( $this, 'wpfunosPrefunPoblacionesCercanaShortcode' ));
     add_shortcode( 'wpfunos-prefun-paginas-relacionadas', array( $this, 'wpfunosPrefunPaginasRelacionadasShortcode' ));
+
+    add_shortcode( 'wpfunos-prefun-zona-funeraria-entierro', array( $this, 'wpfunosPrefunZonaFunerariaEntierroShortcode' ));
+    add_shortcode( 'wpfunos-prefun-zona-funeraria-incineracion', array( $this, 'wpfunosPrefunZonaFunerariaIncineracionShortcode' ));
+    add_shortcode( 'wpfunos-prefun-zona-incineracion-incineracion', array( $this, 'wpfunosPrefunZonaIncineracionIncineracionShortcode' ));
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-precios-poblacion.css', array(), $this->version, 'all' );
@@ -430,5 +434,100 @@ class Wpfunos_PreciosPoblacion {
     }
   }
 
+  /**
+  * Shortcode [wpfunos-prefun-zona-funeraria-entierro]
+  * add_shortcode( 'wpfunos-prefun-zona-funeraria-entierro', array( $this, 'wpfunosPrefunZonaFunerariaEntierroShortcode' ));
+  */
+  public function wpfunosPrefunZonaFunerariaEntierroShortcode( $atts, $content = "" ) {
+    $codigo_provincia = get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaCodigoPoblacion', true );
+    if( strlen($codigo_provincia) > 1 ){
+      $args = array(
+        'post_type' => 'prov_zona_wpfunos',
+        'meta_key' =>  'wpfunos_provinciasCodigo',
+        'meta_value' => $codigo_provincia,
+      );
+      $post_list = get_posts( $args );
+      if( $post_list ){
+        foreach ( $post_list as $post ) :
+          $check = get_post_meta( $post->ID, 'wpfunos_provincias' . 'EESS_ck', true );
+          $precio = get_post_meta( $post->ID, 'wpfunos_provincias' . 'EESS', true );
+          $titulo = get_post_meta( $post->ID, 'wpfunos_provinciasTitulo', true );
+          $comentarios = get_post_meta( $post->ID, 'wpfunos_provinciasComentarios', true );
+          if( $check == '1'){
+            $_GET['prov_zona_titulo'] = $titulo;
+            $_GET['prov_zona_comentarios'] = $comentarios;
+            $_GET['prov_zona_precio'] = number_format($precio, 0, ',', '.');
+            echo do_shortcode( get_option('wpfunos_seccionPreciosMedioZona') ); //[elementor-template id="52324"]
+          }
+        endforeach;
+        wp_reset_postdata();
+      }
+    }
+    return;
+  }
+
+  /**
+  * Shortcode [wpfunos-prefun-zona-funeraria-incineracion]
+  * add_shortcode( 'wpfunos-prefun-zona-funeraria-incineracion', array( $this, 'wpfunosPrefunZonaFunerariaIncineracionShortcode' ));
+  */
+  public function wpfunosPrefunZonaFunerariaIncineracionShortcode( $atts, $content = "" ) {
+    $codigo_provincia = get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaCodigoPoblacion', true );
+    if( strlen($codigo_provincia) > 1 ){
+      $args = array(
+        'post_type' => 'prov_zona_wpfunos',
+        'meta_key' =>  'wpfunos_provinciasCodigo',
+        'meta_value' => $codigo_provincia,
+      );
+      $post_list = get_posts( $args );
+      if( $post_list ){
+        foreach ( $post_list as $post ) :
+          $check = get_post_meta( $post->ID, 'wpfunos_provincias' . 'IESS_ck', true );
+          $precio = get_post_meta( $post->ID, 'wpfunos_provincias' . 'IESS', true );
+          $titulo = get_post_meta( $post->ID, 'wpfunos_provinciasTitulo', true );
+          $comentarios = get_post_meta( $post->ID, 'wpfunos_provinciasComentarios', true );
+          if( $check == '1'){
+            $_GET['prov_zona_titulo'] = $titulo;
+            $_GET['prov_zona_comentarios'] = $comentarios;
+            $_GET['prov_zona_precio'] = number_format($precio, 0, ',', '.');
+            echo do_shortcode( get_option('wpfunos_seccionPreciosMedioZona') ); //[elementor-template id="52324"]
+          }
+        endforeach;
+        wp_reset_postdata();
+      }
+    }
+    return;
+  }
+
+  /**
+  * Shortcode [wpfunos-prefun-zona-incineracion-incineracion]
+  * add_shortcode( 'wpfunos-prefun-zona-incineracion-incineracion', array( $this, 'wpfunosPrefunZonaIncineracionIncineracionShortcode' ));
+  */
+  public function wpfunosPrefunZonaIncineracionIncineracionShortcode( $atts, $content = "" ) {
+    $codigo_provincia = get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaCodigoPoblacion', true );
+    if( strlen($codigo_provincia) > 1 ){
+      $args = array(
+        'post_type' => 'prov_zona_wpfunos',
+        'meta_key' =>  'wpfunos_provinciasCodigo',
+        'meta_value' => $codigo_provincia,
+      );
+      $post_list = get_posts( $args );
+      if( $post_list ){
+        foreach ( $post_list as $post ) :
+          $check = get_post_meta( $post->ID, 'wpfunos_provincias' . 'IESS_ck', true );
+          $precio = get_post_meta( $post->ID, 'wpfunos_provincias' . 'IESS', true );
+          $titulo = get_post_meta( $post->ID, 'wpfunos_provinciasTitulo', true );
+          $comentarios = get_post_meta( $post->ID, 'wpfunos_provinciasComentarios', true );
+          if( $check == '1'){
+            $_GET['prov_zona_titulo'] = $titulo;
+            $_GET['prov_zona_comentarios'] = $comentarios;
+            $_GET['prov_zona_precio'] = number_format($precio, 0, ',', '.');
+            echo do_shortcode( get_option('wpfunos_seccionPreciosMedioZona') ); //[elementor-template id="52324"]
+          }
+        endforeach;
+        wp_reset_postdata();
+      }
+    }
+    return;
+  }
 
 }
