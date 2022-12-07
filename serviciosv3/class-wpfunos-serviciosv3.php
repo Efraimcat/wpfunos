@@ -659,7 +659,7 @@ class Wpfunos_ServiciosV3 {
   public function wpfunosResultV3Confirmado( $wpfunos_confirmado ){
     if(is_array($wpfunos_confirmado) && count( $wpfunos_confirmado ) != 0 ){
       $IP = apply_filters('wpfunos_userIP','dummy');
-      ?><div class="wpfunos-titulo" id="wpfunos-titulo-confirmado"><p></p><center><h2>Precio confirmado</h2></center></div><?php
+      ?><div class="wpfunos-titulo" id="wpfunos-titulo-confirmado"><p></p><center><h2><?php esc_html_e( 'Precio confirmado', 'wpfunos' )?></h2></center></div><?php
 
       if(isset($_GET['orden']) && $_GET['orden'] == 'precios' ){
         $columns = array_column( $wpfunos_confirmado, 2 );
@@ -762,7 +762,7 @@ class Wpfunos_ServiciosV3 {
   public function wpfunosResultV3SinConfirmar( $wpfunos_sinconfirmar ){
     if(is_array($wpfunos_sinconfirmar) && count( $wpfunos_sinconfirmar ) != 0 ){
       $IP = apply_filters('wpfunos_userIP','dummy');
-      ?><div class="wpfunos-titulo" id="wpfunos-titulo-sin-confirmar"><p></p><center><h2>Precio sin confirmar</h2></center></div><?php
+      ?><div class="wpfunos-titulo" id="wpfunos-titulo-sin-confirmar"><p></p><center><h2><?php esc_html_e( 'Precio sin confirmar', 'wpfunos' )?></h2></center></div><?php
 
       if(isset($_GET['orden']) && $_GET['orden'] == 'precios' ){
         $columns = array_column( $wpfunos_confirmado, 2 );
@@ -951,23 +951,23 @@ class Wpfunos_ServiciosV3 {
     $result = array();
 
     switch($_GET['cf']['resp1']){
-      case '1': $result['resp1'] = array( 'desc' => 'Destino', 'inicial' => 'E', 'texto' => 'Entierro' ); break;
-      case '2': $result['resp1'] = array( 'desc' => 'Destino', 'inicial' => 'I', 'texto' => 'Incineración' ); break;
+      case '1': $result['resp1'] = array( 'desc' => esc_html__('Destino', 'wpfunos'), 'inicial' => 'E', 'texto' => esc_html__('Entierro', 'wpfunos') ); break;
+      case '2': $result['resp1'] = array( 'desc' => esc_html__('Destino', 'wpfunos'), 'inicial' => 'I', 'texto' => esc_html__('Incineración', 'wpfunos') ); break;
     }
     switch($_GET['cf']['resp2']){
-      case '1': $result['resp2'] = array( 'desc' => 'Ataúd', 'inicial' => 'M', 'texto' => 'Ataúd Normal' ); break;
-      case '2': $result['resp2'] = array( 'desc' => 'Ataúd', 'inicial' => 'E', 'texto' => 'Ataúd Económico' ); break;
-      case '3': $result['resp2'] = array( 'desc' => 'Ataúd', 'inicial' => 'P', 'texto' => 'Ataúd Premium' ); break;
+      case '1': $result['resp2'] = array( 'desc' =>  esc_html__('Ataúd', 'wpfunos'), 'inicial' => 'M', 'texto' =>  esc_html__('Ataúd Normal', 'wpfunos') ); break;
+      case '2': $result['resp2'] = array( 'desc' =>  esc_html__('Ataúd', 'wpfunos'), 'inicial' => 'E', 'texto' =>  esc_html__('Ataúd Económico', 'wpfunos') ); break;
+      case '3': $result['resp2'] = array( 'desc' =>  esc_html__('Ataúd', 'wpfunos'), 'inicial' => 'P', 'texto' =>  esc_html__('Ataúd Premium', 'wpfunos') ); break;
     }
     switch($_GET['cf']['resp3']){
-      case '1': $result['resp3'] = array( 'desc' => 'Velatorio', 'inicial' => 'V', 'texto' => 'Velatorio' ); break;
-      case '2': $result['resp3'] = array( 'desc' => 'Velatorio', 'inicial' => 'S', 'texto' => 'Sin velatorio' ); break;
+      case '1': $result['resp3'] = array( 'desc' => esc_html__('Velatorio', 'wpfunos'), 'inicial' => 'V', 'texto' => esc_html__('Velatorio', 'wpfunos') ); break;
+      case '2': $result['resp3'] = array( 'desc' => esc_html__('Velatorio', 'wpfunos'), 'inicial' => 'S', 'texto' => esc_html__('Sin velatorio', 'wpfunos') ); break;
     }
     switch($_GET['cf']['resp4']){
-      case '1': $result['resp4'] = array( 'desc' => 'Ceremonia', 'inicial' => 'S', 'texto' => 'Sin ceremonia' ); break;
-      case '2': $result['resp4'] = array( 'desc' => 'Ceremonia', 'inicial' => 'O', 'texto' => 'Solo sala' ); break;
-      case '3': $result['resp4'] = array( 'desc' => 'Ceremonia', 'inicial' => 'C', 'texto' => 'Ceremonia civil' ); break;
-      case '4': $result['resp4'] = array( 'desc' => 'Ceremonia', 'inicial' => 'R', 'texto' => 'Ceremonia religiosa' ); break;
+      case '1': $result['resp4'] = array( 'desc' => esc_html__('Ceremonia', 'wpfunos'), 'inicial' => 'S', 'texto' => esc_html__('Sin ceremonia', 'wpfunos') ); break;
+      case '2': $result['resp4'] = array( 'desc' => esc_html__('Ceremonia', 'wpfunos'), 'inicial' => 'O', 'texto' => esc_html__('Solo sala', 'wpfunos') ); break;
+      case '3': $result['resp4'] = array( 'desc' => esc_html__('Ceremonia', 'wpfunos'), 'inicial' => 'C', 'texto' => esc_html__('Ceremonia civil', 'wpfunos') ); break;
+      case '4': $result['resp4'] = array( 'desc' => esc_html__('Ceremonia', 'wpfunos'), 'inicial' => 'R', 'texto' => esc_html__('Ceremonia religiosa', 'wpfunos') ); break;
     }
     return $result;
   }
@@ -1108,7 +1108,9 @@ public function wpfunosV3Multiform(){
 
   $wpfwpf = apply_filters( 'wpfunos_crypt', $wpfnewref , 'e' );
 
-  $URL = home_url().'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
+  $wpml_path = ( $COOKIE['wp-wpml_current_language'] == 'es') ? '' : '/'. $COOKIE['wp-wpml_current_language'] ;
+
+  $URL = home_url().$wpml_path.'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
 
   do_action('wpfunos_update phone',$wpftelefono);
 
@@ -1127,23 +1129,23 @@ public function wpfunosV3Multiform(){
     //'wpfunos_userVisitas' => $contador,
 
     switch((int)$wpfresp1){
-      case 1: $wpfdestino = 'Entierro'; break;
-      case 2: $wpfdestino = 'Incineración'; break;
+      case 1: $wpfdestino = esc_html__('Entierro', 'wpfunos'); break;
+      case 2: $wpfdestino = esc_html__('Incineración', 'wpfunos'); break;
     }
     switch((int)$wpfresp2){
-      case 1: $wpfataud = 'Ataúd medio' ; break;
-      case 2: $wpfataud = 'Ataúd económico' ; break;
-      case 3: $wpfataud = 'Ataúd premium' ; break;
+      case 1: $wpfataud = esc_html__('Ataúd medio', 'wpfunos') ; break;
+      case 2: $wpfataud = esc_html__('Ataúd económico', 'wpfunos') ; break;
+      case 3: $wpfataud = esc_html__('Ataúd premium', 'wpfunos') ; break;
     }
     switch((int)$wpfresp3){
-      case 1: $wpfvelatorio = 'Velatorio' ; break;
-      case 2: $wpfvelatorio = 'Sin velatorio' ; break;
+      case 1: $wpfvelatorio = esc_html__('Velatorio', 'wpfunos') ; break;
+      case 2: $wpfvelatorio = esc_html__('Sin velatorio', 'wpfunos') ; break;
     }
     switch((int)$wpfresp4){
-      case 1: $wpfceremonia = 'Sin ceremonia' ; break;
-      case 2: $wpfceremonia = 'Solo sala' ; break;
-      case 3: $wpfceremonia = 'Ceremonia civil' ; break;
-      case 4: $wpfceremonia = 'Ceremonia religiosa' ; break;
+      case 1: $wpfceremonia = esc_html__('Sin ceremonia', 'wpfunos') ; break;
+      case 2: $wpfceremonia = esc_html__('Solo sala', 'wpfunos') ; break;
+      case 3: $wpfceremonia = esc_html__('Ceremonia civil', 'wpfunos') ; break;
+      case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos') ; break;
     }
 
     $my_post = array(
@@ -1380,11 +1382,10 @@ public function wpfunosV3Llamamos(){
 
   if( ! apply_filters('wpfunos_reserved_email','dummy') ){
 
-    switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = 'Entierro'; break; case '2': $destino = 'I' ; $nombredestino = 'Incineración'; break; }
-    switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = 'Ataúd medio'; break; case '2': $ataud = 'E' ; $nombreataud = 'Ataúd económico'; break; case '3': $ataud = 'P' ; $nombreataud = 'Ataúd premium'; break; }
-    switch( $transient_ref['wpfresp3'] ) { case '1': $velatorio = 'V' ; $nombrevelatorio = 'Velatorio' ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = 'Sin velatorio' ; break; }
-    switch( $transient_ref['wpfresp4'] ) { case '1': $despedida = 'S' ; $nombredespedida = 'Sin ceremonia' ; break; case '2': $despedida = 'O' ; $nombredespedida = 'Solo sala' ; break; case '3': $despedida = 'C' ; $nombredespedida = 'Ceremonia civil' ; break; case '4': $despedida = 'R' ; $nombredespedida = 'Ceremonia religiosa' ; break; }
-
+    switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = esc_html__('Entierro', 'wpfunos'); break; case '2': $destino = 'I' ; $nombredestino = esc_html__('Incineración', 'wpfunos'); break; }
+    switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = esc_html__('Ataúd medio', 'wpfunos'); break; case '2': $ataud = 'E' ; $nombreataud = esc_html__('Ataúd económico', 'wpfunos'); break; case '3': $ataud = 'P' ; $nombreataud = esc_html__('Ataúd premium', 'wpfunos'); break; }
+    switch( $transient_ref['wpfresp3'] ) { case '1': $velatorio = 'V' ; $nombrevelatorio = esc_html__('Velatorio', 'wpfunos') ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = esc_html__('Sin velatorio', 'wpfunos') ; break; }
+    switch( $transient_ref['wpfresp4'] ) { case '1': $despedida = 'S' ; $nombredespedida = esc_html__('Sin ceremonia', 'wpfunos') ; break; case '2': $despedida = 'O' ; $nombredespedida = esc_html__('Solo sala', 'wpfunos') ; break; case '3': $despedida = 'C' ; $nombredespedida = esc_html__('Ceremonia civil', 'wpfunos') ; break; case '4': $despedida = 'R' ; $nombredespedida = esc_html__('Ceremonia religiosa', 'wpfunos') ; break; }
 
     $tel = str_replace(" ","", $transient_ref['wpft'] );
     $tel = str_replace("-","",$tel);
