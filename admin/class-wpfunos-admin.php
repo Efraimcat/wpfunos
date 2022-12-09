@@ -834,7 +834,7 @@ class Wpfunos_Admin {
     if (! isset($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'])) return;
     if (! wp_verify_nonce($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'], $this->plugin_name . '_precio_funer_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
+    //if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-funer-fields.php';
   }
   public function saveexcep_prov_wpfunosMetaBoxData( $post_id ){

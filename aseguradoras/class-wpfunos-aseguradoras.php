@@ -163,7 +163,7 @@ class Wpfunos_Aseguradoras {
     $_GET['telefonoUsuario'] = $telefonoUsuario;
     $seleccion = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
     $respuesta = (explode(',',$seleccion));
-    switch($respuesta[2]){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
+    switch($respuesta[2]){ case '1': $sexo = esc_html__('Hombre', 'wpfunos_es'); break; case '2'; $sexo = esc_html__('Mujer', 'wpfunos_es'); break; }
     $_GET['edad'] =  date("Y") - (int)$respuesta[3];
     $_GET['seleccionUsuario'] = $seleccion;
     $_GET['CPUsuario'] = get_post_meta( $IDusuario, 'wpfunos_userCP', true );

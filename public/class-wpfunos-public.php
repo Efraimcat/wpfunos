@@ -86,43 +86,43 @@ class Wpfunos_Public {
     switch ( $a['boton'] ) {
       case '1':	//cuando
       switch($respuesta[2]){
-        case '1': esc_html_e( 'Ahora mismo' ); break;
-        case '2': esc_html_e( 'Proximamente' ); break;
-        case '3': esc_html_e( 'En el futuro' ); break;
+        case '1': esc_html_e( 'Ahora mismo', 'wpfunos_es' ); break;
+        case '2': esc_html_e( 'Proximamente', 'wpfunos_es' ); break;
+        case '3': esc_html_e( 'En el futuro', 'wpfunos_es' ); break;
       }
       break;
       case '2':	//población
       echo( '<span id="wpf-texto-poblacion">'.strtr($respuesta[0],"+",",").'</span>' ); break;
       case '3':	//Destino
       switch($respuesta[3]){
-        case '1': esc_html_e( 'Entierro' ); break;
-        case '2': esc_html_e( 'Incineración' ); break;
-        case '3': esc_html_e( 'Traslado' ); break;
+        case '1': esc_html_e( 'Entierro', 'wpfunos_es' ); break;
+        case '2': esc_html_e( 'Incineración', 'wpfunos_es' ); break;
+        case '3': esc_html_e( 'Traslado', 'wpfunos_es' ); break;
       }
       break;
       case '4':	//Ataúd
       switch($respuesta[4]){
-        case '1': esc_html_e( 'Económico' ); break;
-        case '2': esc_html_e( 'Gama media' ); break;
-        case '3': esc_html_e( 'Premium' ); break;
+        case '1': esc_html_e( 'Económico', 'wpfunos_es' ); break;
+        case '2': esc_html_e( 'Gama media', 'wpfunos_es' ); break;
+        case '3': esc_html_e( 'Premium', 'wpfunos_es' ); break;
       }
       break;
       case '5':	//Velatorio
       switch($respuesta[5]){
-        case '1': esc_html_e( 'Si' ); break;
-        case '2': esc_html_e( 'No' ); break;
+        case '1': esc_html_e( 'Si', 'wpfunos_es' ); break;
+        case '2': esc_html_e( 'No', 'wpfunos_es' ); break;
       }
       break;
       case '6':	//Despedida
       switch($respuesta[6]){
-        case '1': esc_html_e( 'No' ); break;
-        case '2': esc_html_e( 'Solo sala' ); break;
-        case '3': esc_html_e( 'Ceremonia civil' ); break;
-        case '4': esc_html_e( 'Ceremonia Religiosa' ); break;
+        case '1': esc_html_e( 'No', 'wpfunos_es' ); break;
+        case '2': esc_html_e( 'Solo sala', 'wpfunos_es' ); break;
+        case '3': esc_html_e( 'Ceremonia civil', 'wpfunos_es' ); break;
+        case '4': esc_html_e( 'Ceremonia Religiosa', 'wpfunos_es' ); break;
       }
       break;
       // ASEGURADORAS
-      case '7': switch($respuesta[2]){ case '1': esc_html_e( 'Hombre' ); break; case '2'; esc_html_e( 'Mujer' ); break; } break; //Sexo
+      case '7': switch($respuesta[2]){ case '1': esc_html_e( 'Hombre', 'wpfunos_es' ); break; case '2'; esc_html_e( 'Mujer', 'wpfunos_es' ); break; } break; //Sexo
       case '8': echo( '<span id="wpf-texto-poblacion">'.$respuesta[3].'</span>' );break; //Año de nacimiento
     }
   }
@@ -251,7 +251,7 @@ class Wpfunos_Public {
     if( "FormularioDatosAseguradora" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
         if( (int)$field['value'] < date("Y") - 100 || (int)$field['value'] > date("Y") - 18 ){
-          $ajax_handler->add_error( $field['id'], 'Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990' );
+          $ajax_handler->add_error( $field['id'], esc_html__('Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990', 'wpfunos_es') );
         }
       }
     }
@@ -267,30 +267,30 @@ class Wpfunos_Public {
       if( $field = $this->wpfunos_elementor_get_field( 'Telefono', $record ) ){
         $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
         if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
-          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         }
         if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
-          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         }
       }
 
       if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
         $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
         if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
-          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         }
         if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
-          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         }
       }
 
       if( $field = $this->wpfunos_elementor_get_field( 'telefonoasesor', $record ) ){
         $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
         if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
-          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         }
         if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
-          $ajax_handler->add_error( $field['id'], 'Introduce un número de teléfono válido' );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         }
       }
 
@@ -333,26 +333,30 @@ class Wpfunos_Public {
     }
     $userIP = apply_filters('wpfunos_userIP','dummy');
     //https://funos.es/comparar-precios?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"]&orden=precios
-    $URL= get_site_url() . '/comparar-precios?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=4&action=fs&wpf=' .$fields['wpf']. '&orden=dist';
+
+    $wpml_path = ( $_COOKIE['wp-wpml_current_language'] == 'es') ? '' : '/'. $_COOKIE['wp-wpml_current_language'] ;
+
+    $URL= get_site_url() .$wpml_path. '/comparar-precios?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=4&action=fs&wpf=' .$fields['wpf']. '&orden=dist';
+
     $userURL = apply_filters('wpfunos_shortener', $URL );
     switch ( $fields['Destino'] ) {
-      case '1': $userNombreSeleccionServicio = 'Entierro'; break;
-      case '2': $userNombreSeleccionServicio = 'Incineración'; break;
+      case '1': $userNombreSeleccionServicio = esc_html__('Entierro', 'wpfunos_es'); break;
+      case '2': $userNombreSeleccionServicio = esc_html__('Incineración', 'wpfunos_es'); break;
     }
     switch ( $fields['Ataud'] ) {
-      case '1': $userNombreSeleccionAtaud = 'Ataúd Económico'; break;
-      case '2': $userNombreSeleccionAtaud = 'Ataúd Medio'; break;
-      case '3': $userNombreSeleccionAtaud = 'Ataúd Premium'; break;
+      case '1': $userNombreSeleccionAtaud = esc_html__('Ataúd Económico', 'wpfunos_es'); break;
+      case '2': $userNombreSeleccionAtaud = esc_html__('Ataúd Medio', 'wpfunos_es'); break;
+      case '3': $userNombreSeleccionAtaud = esc_html__('Ataúd Premium', 'wpfunos_es'); break;
     }
     switch ( $fields['Velatorio'] ) {
-      case '1': $userNombreSeleccionVelatorio = 'Velatorio'; break;
-      case '2': $userNombreSeleccionVelatorio = 'Sin Velatorio'; break;
+      case '1': $userNombreSeleccionVelatorio = esc_html__('Velatorio', 'wpfunos_es'); break;
+      case '2': $userNombreSeleccionVelatorio = esc_html__('Sin Velatorio', 'wpfunos_es'); break;
     }
     switch ( $fields['Despedida'] ) {
-      case '1': $userNombreSeleccionDespedida = 'Sin ceremonia'; break;
-      case '2': $userNombreSeleccionDespedida = 'Solo sala'; break;
-      case '3': $userNombreSeleccionDespedida = 'Ceremonia civil'; break;
-      case '4': $userNombreSeleccionDespedida = 'Ceremonia religiosa'; break;
+      case '1': $userNombreSeleccionDespedida = esc_html__('Sin ceremonia', 'wpfunos_es'); break;
+      case '2': $userNombreSeleccionDespedida = esc_html__('Solo sala', 'wpfunos_es'); break;
+      case '3': $userNombreSeleccionDespedida = esc_html__('Ceremonia civil', 'wpfunos_es'); break;
+      case '4': $userNombreSeleccionDespedida = esc_html__('Ceremonia religiosa', 'wpfunos_es'); break;
     }
 
     if( $form_name == 'FormularioDatos' ){
@@ -415,7 +419,11 @@ class Wpfunos_Public {
       );
     }elseif( $form_name == 'FormularioDatosAseguradoras' ){
       //https://funos.es/compara-precios-aseguradoras?address%5B%5D=Barcelona&post%5B%5D=aseguradoras_wpfunos&distance=&units=&page1=&per_page=50&lat=41.387397&lng=2.168568&form=3&action=fs&wpf=WFYrckFUZE1rSUdEYUQ4WlE4NkZydEc0b0IxNU8ya2t2S1FCRk4zdHRGTT0%3D
-      $URL= get_site_url() . '/compara-precios-aseguradoras?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=3&action=fs&wpf=' .$fields['wpf'];
+
+      $wpml_path = ( $_COOKIE['wp-wpml_current_language'] == 'es') ? '' : '/'. $_COOKIE['wp-wpml_current_language'] ;
+
+      $URL= get_site_url() .$wpml_path. '/compara-precios-aseguradoras?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=3&action=fs&wpf=' .$fields['wpf'];
+
       $userURL = apply_filters('wpfunos_shortener', $URL );
       $textoaccion = "Entrada datos aseguradoras";
       //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";

@@ -27,12 +27,16 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Provincia', 'wpfunos');?></td>
           <td style="width:5px;"></td>
+          <td><?php esc_html_e('Código', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
           <td><?php esc_html_e('Páginas relacionadas', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaPoblacion','name' => 'wpfunos_precioFunerariaPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaProvincia','name' => 'wpfunos_precioFunerariaProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaCodigoPoblacion','name' => 'wpfunos_precioFunerariaCodigoPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_precioFunerariaPaginasRelacionadas','name' => 'wpfunos_precioFunerariaPaginasRelacionadas','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20));?></td>
         </tr>

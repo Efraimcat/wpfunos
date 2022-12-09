@@ -30,26 +30,33 @@ $(document).ready(function(){
 
     //
 
+    var idioma_wpml = getCookie('wp-wpml_current_language');
+    if (idioma_wpml === 'es'){
+      idioma_wpml = '';
+    }else{
+      idioma_wpml = '/' + idioma_wpml;
+    }
+
     document.getElementById('wpfunos-v3-donde-boton').addEventListener('click', function(){
       elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      window.location.href = '/comparar-precios-nueva';
+      window.location.href = idioma_wpml+'/comparar-precios-nueva';
     } , false);
 
     document.getElementById('wpfunos-v3-donde-texto').addEventListener('click', function(){
       elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      window.location.href = '/comparar-precios-nueva';
+      window.location.href = idioma_wpml+'/comparar-precios-nueva';
     } , false);
 
     document.getElementById('wpfunos-v3-donde-texto').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfubic');
 
     document.getElementById('wpfunos-v3-donde-boton-movil').addEventListener('click', function(){
       elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      window.location.href = '/comparar-precios-nueva';
+      window.location.href = idioma_wpml+'/comparar-precios-nueva';
     } , false);
 
     document.getElementById('wpfunos-v3-donde-texto-movil').addEventListener('click', function(){
       elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      window.location.href = '/comparar-precios-nueva';
+      window.location.href = idioma_wpml+'/comparar-precios-nueva';
     } , false);
 
     document.getElementById('wpfunos-v3-donde-texto-movil').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfubic');
@@ -367,10 +374,17 @@ $(document).ready(function(){
             }, false);
           });
 
+          var idioma_wpml =  getCookie('wp-wpml_current_language');
+          if (idioma_wpml === 'es'){
+            idioma_wpml = '';
+          }else{
+            idioma_wpml = '/' + idioma_wpml;
+          }
+
           [ document.getElementById('wpfunos-multistep-futuro'), document.getElementById('wpfunos-multistep-futuro-icon')].forEach(function(element) {
             element.addEventListener('click', function() {
               elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-              window.location.href = '/compara-precios-aseguradoras';
+              window.location.href = idioma_wpml+'/compara-precios-aseguradoras';
             }, false);
           });
 
@@ -1102,7 +1116,14 @@ var wpfDetallesProducto1 = function() {
 
   elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
 
-  window.location.href = "https://funos.es/producto/servicio-de-gestion-personalizada";
+  var idioma_wpml =  getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    idioma_wpml = '';
+  }else{
+    idioma_wpml = '/' + idioma_wpml;
+  }
+
+  window.location.href = 'https://funos.es'+idioma_wpml+'/producto/servicio-de-gestion-personalizada';
 };
 
 var wpfDetallesPresupuesto = function() {
@@ -1269,11 +1290,29 @@ function wpfFunctionResp(evt){
   if( params.get('cf['+evt.currentTarget.resp+']') !== evt.currentTarget.opcion){
     elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
     params.set('cf['+evt.currentTarget.resp+']', evt.currentTarget.opcion );
-    if( params.get('cf[resp3]') === '2' && params.get('cf[resp4]') === '1' && parseInt(params.get('distance')) < 100 ){
-      console.log('Cambiando distancia 100km y orden a precios.');
-      params.set('distance', '100' );
-      params.set('orden', 'precios' );
-    }
+    //    if( params.get('cf[resp3]') === '2' && params.get('cf[resp4]') === '1' && parseInt(params.get('distance')) < 100 ){
+    //      console.log('Cambiando distancia 100km y orden a precios.');
+    //      params.set('distance', '100' );
+    //      params.set('orden', 'precios' );
+    //    }
     window.location.search = params.toString();
   }
+}
+
+//getCookie('wp-wpml_current_language')
+function getCookie(c_name) {
+  var c_value = document.cookie,
+  c_start = c_value.indexOf(" " + c_name + "=");
+  if (c_start == -1) c_start = c_value.indexOf(c_name + "=");
+  if (c_start == -1) {
+    c_value = null;
+  } else {
+    c_start = c_value.indexOf("=", c_start) + 1;
+    var c_end = c_value.indexOf(";", c_start);
+    if (c_end == -1) {
+      c_end = c_value.length;
+    }
+    c_value = unescape(c_value.substring(c_start, c_end));
+  }
+  return c_value;
 }
