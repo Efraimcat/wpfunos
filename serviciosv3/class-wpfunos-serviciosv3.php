@@ -1122,7 +1122,7 @@ public function wpfunosV3Multiform(){
     $Telefono =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
   }
 
-  if( ! apply_filters('wpfunos_reserved_email','dummy') ){
+  if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') ){
     $userURL = apply_filters('wpfunos_shortener', $URL );
 
     $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '0' );
@@ -1380,7 +1380,7 @@ public function wpfunosV3Llamamos(){
   do_action('wpfunos_log', 'Ajax: Servicio titulo: ' . $titulo );
   do_action('wpfunos_log', 'Ajax: Servicio ' . $servicio );
 
-  if( ! apply_filters('wpfunos_reserved_email','dummy') ){
+  if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Llamamos') ){
 
     switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = esc_html__('Entierro', 'wpfunos_es'); break; case '2': $destino = 'I' ; $nombredestino = esc_html__('Incineración', 'wpfunos_es'); break; }
     switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = esc_html__('Ataúd medio', 'wpfunos_es'); break; case '2': $ataud = 'E' ; $nombreataud = esc_html__('Ataúd económico', 'wpfunos_es'); break; case '3': $ataud = 'P' ; $nombreataud = esc_html__('Ataúd premium', 'wpfunos_es'); break; }
@@ -1602,7 +1602,7 @@ public function wpfunosV3Llamar(){
   do_action('wpfunos_log', 'Ajax: Servicio titulo: ' . $titulo );
   do_action('wpfunos_log', 'Ajax: Servicio ' . $servicio );
 
-  if( ! apply_filters('wpfunos_reserved_email','dummy') ){
+  if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Llamar') ){
 
     switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = esc_html__('Entierro', 'wpfunos_es'); break; case '2': $destino = 'I' ; $nombredestino = esc_html__('Incineración', 'wpfunos_es'); break; }
     switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = esc_html__('Ataúd medio', 'wpfunos_es'); break; case '2': $ataud = 'E' ; $nombreataud = esc_html__('Ataúd económico', 'wpfunos_es'); break; case '3': $ataud = 'P' ; $nombreataud = esc_html__('Ataúd premium', 'wpfunos_es'); break; }
@@ -1829,7 +1829,7 @@ public function wpfunosV3Presupuesto(){
   do_action('wpfunos_log', 'Ajax: Servicio ' . $servicio );
   do_action('wpfunos_log', 'Ajax: Mensaje: ' . $mensajeusuario );
 
-  if( ! apply_filters('wpfunos_reserved_email','dummy') ){
+  if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Presupuesto') ){
 
     switch( $transient_ref['wpfresp1'] ) { case '1': $destino = 'E' ; $nombredestino = esc_html__('Entierro', 'wpfunos_es'); break; case '2': $destino = 'I' ; $nombredestino = esc_html__('Incineración', 'wpfunos_es'); break; }
     switch( $transient_ref['wpfresp2'] ) { case '1': $ataud = 'M' ; $nombreataud = esc_html__('Ataúd medio', 'wpfunos_es'); break; case '2': $ataud = 'E' ; $nombreataud = esc_html__('Ataúd económico', 'wpfunos_es'); break; case '3': $ataud = 'P' ; $nombreataud = esc_html__('Ataúd premium', 'wpfunos_es'); break; }

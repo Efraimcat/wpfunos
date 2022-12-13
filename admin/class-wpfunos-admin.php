@@ -1576,7 +1576,7 @@ class Wpfunos_Admin {
     $this->custom_logs('Wpfunos precio_funer_wpfunos ends');
     //
     $this->custom_logs('---');
-    $this->custom_logs('Wpfunos precio_serv_wpfunos starts');
+    $this->custom_logs('Wpfunos precio_serv_wpfunos update data starts');
     $tipos = array(
       "EESS", "EESO", "EESC", "EESR",
       "EEVS", "EEVO", "EEVC", "EEVR",
@@ -1629,7 +1629,7 @@ class Wpfunos_Admin {
           // comprobar que tiene precios del nuevo buscador
           $precio = get_post_meta( $post->ID, 'wpfunos_servicio'.$tipo, true );
           if( strlen ($precio) > 0 ){
-            //            $this->custom_logs('Wpfunos El post ' .$post->ID. ' de tipo ' .$tipo. ' tiene precios activos');
+            //$this->custom_logs('Wpfunos El post ' .$post->ID. ' de tipo ' .$tipo. ' tiene precios activos');
             $resp1 = (substr ($tipo,0,1) == 'E') ? '1' : '2';
             $resp3 = (substr ($tipo,2,1) == 'V') ? '1' : '2';
             switch( substr ($tipo,1,1) ){ case 'M':$resp2 = '1';break; case 'E':$resp2 = '2';break; case 'P':$resp2 = '3';break; }
@@ -1649,7 +1649,7 @@ class Wpfunos_Admin {
               ),
             );
             $newpost_list = get_posts( $newargs );
-
+            //$this->custom_logs('Wpfunos newpost_list: '.$resp1. ',' .$resp2. ',' .$resp3. ',' .$resp4. '. ' .count($newpost_list)  );
             if( $newpost_list ){
               // Update
               $newcontador ++;
@@ -1663,6 +1663,11 @@ class Wpfunos_Admin {
 
                 update_post_meta($newpost->ID, 'wpfunos_servicioPrecio',  $precio );
                 //$this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' ya tiene precios. ' .$precio. ',' .$resp1. ', ' .$resp2. ', ' .$resp3. ', ' .$resp4. ' => '    .$newcontador);
+                //
+                //
+                //gmw_update_post_location( $newpost->ID, $direccion, 7, $direccion, true );
+                //
+                //
               }
             }else{
               // Create
@@ -1678,10 +1683,10 @@ class Wpfunos_Admin {
                   'resp1' => $resp1, 'resp2' => $resp2, 'resp3' => $resp3, 'resp4' => $resp4,
                 ),
               );
-              $post_id = wp_insert_post($my_post);
+              $insertpost_id = wp_insert_post($my_post);
               $contador ++;
-              gmw_update_post_location( $post_id, $direccion, 7, $direccion, true );
-              $this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' no tiene precios. Creando entrada. ' .$post_id );
+              gmw_update_post_location( $insertpost_id, $direccion, 7, $direccion, true );
+              $this->custom_logs('Wpfunos El post ' .$post->ID. '-' .$nombre_servicio. ' de tipo ' .$tipo. ' no tiene precios. Creando entrada. ' .$insertpost_id );
             }
 
           }
@@ -1692,7 +1697,7 @@ class Wpfunos_Admin {
       $this->custom_logs('Wpfunos service Created ' .$contador. ' new entries. Updated ' .$newcontador. ' entries' );
       wp_reset_postdata();
     }
-    $this->custom_logs('Wpfunos precio_serv_wpfunos ends');
+    $this->custom_logs('Wpfunos precio_serv_wpfunos update data ends');
     $this->custom_logs('---');
   }
 

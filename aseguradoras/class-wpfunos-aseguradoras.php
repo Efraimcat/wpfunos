@@ -360,7 +360,7 @@ class Wpfunos_Aseguradoras {
     do_action('wpfunos_log', 'Request: $headers: ' .  apply_filters('wpfunos_dumplog', $headers ) );
     do_action('wpfunos_log', 'Request: $body: ' .  $body );
 
-    if( apply_filters('wpfunos_reserved_email','dummy') ) return 'Admin user';
+    if( apply_filters('wpfunos_reserved_email','wpfunosAPIAseguradora') ) return 'Admin user';
 
     $request = wp_remote_post( $URL, array( 'headers' => $headers, 'body' => $body, 'timeout' => 45 ) );
     $userAPIMessage = apply_filters('wpfunos_dumplog', $request );
@@ -541,7 +541,7 @@ class Wpfunos_Aseguradoras {
   * Enviar Correo entrada datos usuario mensaje colaboradores
   */
   public function wpfunosCorreoEntradaDatos(){
-    if( apply_filters('wpfunos_reserved_email','dummy') ) return;
+    if( apply_filters('wpfunos_reserved_email','wpfunosCorreoEntradaDatos') ) return;
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $referencia = $_GET['referencia'];
     $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
