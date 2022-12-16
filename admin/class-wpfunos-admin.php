@@ -1989,6 +1989,7 @@ class Wpfunos_Admin {
   public function wpfunosProcesarPrecios(){
     $offset = $_POST['offset'];
     $batch = $_POST['batch'];
+
     $args = array(
       'post_type' => 'precio_serv_wpfunos',
       'post_status' => 'publish',
@@ -1996,6 +1997,21 @@ class Wpfunos_Admin {
       'offset' =>$offset,
     );
     $post_list = get_posts( $args );
+    if( $post_list ){
+      foreach ( $post_list as $post ) {
+
+        $servicioPrecioID = get_post_meta( $post->ID, 'wpfunos_servicioPrecioID', true );
+
+        $direccion = get_post_meta( $servicioPrecioID, 'wpfunos_servicioDireccion', true );
+
+        //$this->custom_logs('Dirección: ' .$post->ID. ' -> '.$direccion );
+
+        if( strlen( $direccion ) > 1 ){
+          gmw_update_post_location( $post->ID, $direccion, 7, $direccion, true );
+        }
+
+      }
+    }
 
     $result['type'] = "success";
     $result['newoffset'] = (int)$offset + (int)$batch ;

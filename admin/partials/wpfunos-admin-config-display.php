@@ -76,13 +76,13 @@ $post_list = get_posts( $args );
     </tr>
   </table>
   <hr />
-  <h2>Actualización Precios <?php echo count($post_list); ?> Servicios</h2>
+  <h2>Actualización completa indices funerarias <?php echo count($post_list); ?> Servicios</h2>
   <span id="contador"></span>
   <div id="myProgress" cuantos="<?php echo count($post_list); ?>" hechos="">
     <div id="myBar"><span id="porcentaje"></span></div>
   </div>
   <br>
-  <button onclick="procesar(0, 200);return false;">Actualizar</button>
+  <button onclick="procesar(0, 50);return false;">Actualizar</button>
 </div>
 
 <script>

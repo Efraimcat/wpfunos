@@ -114,7 +114,7 @@ class Wpfunos_Utils {
     foreach( $direcciones as $direccion ) {
       $direccion = trim( $direccion );
       if( $direccion == $current_user->user_email ){
-        $this->custom_logs( $this->dumpPOST('wpfunos_DireccionesColaboradores true: ' .$current_user->user_email ) );
+        $this->custom_logs( $this->dumpPOST('wpfunos_DireccionesColaboradores true: ' .$current_user->user_email. ' acción: ' .$accion  ) );
         return true;
       }
     }
