@@ -534,6 +534,22 @@ class Wpfunos_Aseguradoras {
   * Enviar Correo entrada datos usuario lead aseguradora
   */
   public function wpfunosResultCorreoDatos( ){
+    if( apply_filters('wpfunos_reserved_email','wpfunosCorreoEntradaDatos') ) return;
+    $userIP = apply_filters('wpfunos_userIP','dummy');
+    $referencia = $_GET['referencia'];
+    $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Enviar Cold Lead a ELECTIUM' );
+    do_action('wpfunos_log', 'referencia: ' . $referencia );
+    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
+    do_action('wpfunos_log', 'userIP: ' . $userIP );
+
+    if ($IDusuario != 0){
+
+      $this->wpfunosAPIAseguradora( $IDusuario, 39084, 'Cold Lead');
+
+    }
     return;
   }
 
