@@ -52,6 +52,9 @@ class Wpfunos_ServiciosV3 {
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_dist_local', function () { $this->wpfunosV3DistLocal();});
     add_action('wp_ajax_wpfunos_ajax_v3_dist_local', function () {$this->wpfunosV3DistLocal();});
 
+    add_action('wp_ajax_nopriv_wpfunos_ajax_v3_filtros', function () { $this->wpfunosV3Filtros();});
+    add_action('wp_ajax_wpfunos_ajax_v3_filtros', function () {$this->wpfunosV3Filtros();});
+
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_cambiar_datos_usuario', function () { $this->wpfunosV3CambiarDatosUsuario();});
     add_action('wp_ajax_wpfunos_ajax_v3_cambiar_datos_usuario', function () {$this->wpfunosV3CambiarDatosUsuario();});
 
@@ -2516,4 +2519,31 @@ class Wpfunos_ServiciosV3 {
 
   }
 
+  /*********************************/
+  /*****  AJAX                ******/
+  /*********************************/
+  /**
+  * Log filtros
+  *
+  * add_action('wp_ajax_nopriv_wpfunos_ajax_v3_filtros', function () { $this->wpfunosV3Filtros();});
+  * add_action('wp_ajax_wpfunos_ajax_v3_filtros', function () {$this->wpfunosV3Filtros();});
+  */
+  public function wpfunosV3Filtros(){
+    $wpfnombre = $_POST['wpfnombre'];
+    $wpfip = $_POST['wpfip'];
+    $param = $_POST['param'];
+    $valor = $_POST['valor'];
+
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', 'Cambios con filtros v3' );
+    do_action('wpfunos_log', '$IP: ' . $wpfip );
+    do_action('wpfunos_log', 'Parámetro: ' . $param );
+    do_action('wpfunos_log', 'Valor: ' . $valor );
+
+    $result['type'] = "success";
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
 }

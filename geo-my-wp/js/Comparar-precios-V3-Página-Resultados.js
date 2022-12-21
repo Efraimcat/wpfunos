@@ -1278,6 +1278,32 @@ var wpfdistancia = function() {
         if( parseInt(newdistance) > 200 ){ newdistance = '200'; }
         var params = new URLSearchParams(location.search);
         params.set('distance', newdistance );
+
+        var wpfnombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+        var wpfip = document.getElementById('wpf-resultados-referencia').getAttribute('wpfip');
+
+        jQuery.ajax({
+          type : 'post',
+          dataType : 'json',
+          url : WpfAjax.ajaxurl,
+          data: {
+            'action': 'wpfunos_ajax_v3_filtros',
+            'wpfnombre' : wpfnombre,
+            'wpfip' : wpfip,
+            'param' : 'Distancia',
+            'valor' : newdistance,
+          },
+          success: function(response) {
+            console.log('wpfunos_ajax_v3_filtros response:');
+            console.log(response)	;
+            if(response.type === 'success') {
+              console.log('OK');
+            } else {
+              console.log('fail');
+            }
+          }
+        });
+
         window.location.search = params.toString();
       }
     }, false);
@@ -1295,6 +1321,32 @@ function wpfFunctionResp(evt){
     //      params.set('distance', '100' );
     //      params.set('orden', 'precios' );
     //    }
+
+    var wpfnombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+    var wpfip = document.getElementById('wpf-resultados-referencia').getAttribute('wpfip');
+
+    jQuery.ajax({
+      type : 'post',
+      dataType : 'json',
+      url : WpfAjax.ajaxurl,
+      data: {
+        'action': 'wpfunos_ajax_v3_filtros',
+        'wpfnombre' : wpfnombre,
+        'wpfip' : wpfip,
+        'param' : evt.currentTarget.resp,
+        'valor' : evt.currentTarget.opcion,
+      },
+      success: function(response) {
+        console.log('wpfunos_ajax_v3_filtros response:');
+        console.log(response)	;
+        if(response.type === 'success') {
+          console.log('OK');
+        } else {
+          console.log('fail');
+        }
+      }
+    });
+
     window.location.search = params.toString();
   }
 }
