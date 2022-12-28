@@ -246,7 +246,7 @@ class Wpfunos_ServiciosV3 {
 
       // comprobar veracidad de wpfwpf
       $Tienewpfwpf = 0;
-
+      $phone='';
       // No tiene wpfwpf
       ?><script>console.log('Comprobando tiene wpfwpf.' );</script><?php
       if( !isset( $_GET['wpfwpf'] ) ) {
@@ -562,6 +562,8 @@ class Wpfunos_ServiciosV3 {
       $seccionClass_presupuesto = (get_post_meta( $servicioID, 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
       $seccionClass_llamadas = (get_post_meta( $servicioID, 'wpfunos_servicioBotonesLlamar', true ) ) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
       $valor_precio = number_format($servicioPrecio, 0, ',', '.') . '€';
+
+      $campo = $respuesta['resp1']['inicial'] . $respuesta['resp2']['inicial'] . $respuesta['resp3']['inicial'] . $respuesta['resp4']['inicial'];
 
       $valores[$servicioID] = array (
         'ID_servicio' => $servicioID,

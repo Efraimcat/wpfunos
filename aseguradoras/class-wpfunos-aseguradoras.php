@@ -85,7 +85,7 @@ class Wpfunos_Aseguradoras {
       $userIP = apply_filters('wpfunos_userIP','dummy');
       $_GET['direccion'] = $_GET['address'][0];
       $_GET['tipo'] = $_GET['post'][0];
-      mt_srand(mktime());
+      mt_srand(mktime(0,0,0,1,1,2023));
       $_GET['referencia'] = 'funos-'.(string)mt_rand();
       $_GET['CP'] = $this->wpfunosCodigoPostal( $_GET['CP'], $_GET['direccion'] );
       $_GET['wpf'] = apply_filters( 'wpfunos_crypt', $_GET['referencia'] . ', ' . $_GET['CP'] , 'e' );
@@ -276,7 +276,7 @@ class Wpfunos_Aseguradoras {
     $ubicacion = strtr($respuesta[0],"+",",");
 
     $seguro = get_post_meta( $servicio, 'wpfunos_aseguradorasNombre', true );
-    mt_srand(mktime());
+    mt_srand(mktime(0,0,0,1,1,2023));
     $referencia = 'funos-'.(string)mt_rand();
 
     $CP = get_post_meta( $usuario, 'wpfunos_userCP', true );

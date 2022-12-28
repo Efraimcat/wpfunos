@@ -531,6 +531,8 @@ $(document).ready(function(){
               var wpflng = document.getElementById('wpf-resultados-referencia').getAttribute('wpflng');
               document.getElementById('wpf-resultados-referencia').setAttribute('wpfnombre',nombre);
 
+              var params = new URLSearchParams(location.search);
+
               if( document.getElementById('wpf-resultados-referencia').getAttribute('wpfland') === '1'){
                 destino = params.get('cf[resp1]');
                 ataud = params.get('cf[resp2]');

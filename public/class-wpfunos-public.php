@@ -323,7 +323,10 @@ class Wpfunos_Public {
     }
     // do_action('wpfunos_log', 'Fields: ' . $fields );
     $IDusuario = apply_filters('wpfunos_userID', $fields['referencia'] );
-    if( $IDusuario != 0 ) {mt_srand(mktime()); $fields['referencia'] = 'funos-'.(string)mt_rand(); }
+    if( $IDusuario != 0 ) {
+      mt_srand(mktime(0,0,0,1,1,2023));
+      $fields['referencia'] = 'funos-'.(string)mt_rand();
+    }
     $tel = str_replace(" ","", $fields['Telefono'] );
     $tel = str_replace("-","",$tel);
     if(substr($tel,0,1) == '+'){

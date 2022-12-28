@@ -67,6 +67,8 @@ class Wpfunos_PreciosPoblacion {
     add_shortcode( 'wpfunos-prefun-zona-funeraria-entierro', array( $this, 'wpfunosPrefunZonaFunerariaEntierroShortcode' ));
     add_shortcode( 'wpfunos-prefun-zona-funeraria-incineracion', array( $this, 'wpfunosPrefunZonaFunerariaIncineracionShortcode' ));
     add_shortcode( 'wpfunos-prefun-zona-incineracion-incineracion', array( $this, 'wpfunosPrefunZonaIncineracionIncineracionShortcode' ));
+
+    add_shortcode( 'wpfunos-prefun-mapa', array( $this, 'wpfunosPrefunMapaShortcode' ));
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-precios-poblacion.css', array(), $this->version, 'all' );
@@ -351,24 +353,9 @@ class Wpfunos_PreciosPoblacion {
   //[wpfunos-prefun style='<h2 style="text-align: center; color: #ff9c00; font-size: 36px; font-weight: 700;" >' styleend="</h2>"]Comparador de precios de cremación en distintas funerarias de {nombre-provincia}[/wpfunos-prefun]
   //[wpfunos-prefun style='<h2 style="text-align: center; color: #39c2f3; font-size: 36px; font-weight: bold;">' styleend="</h2>"]Comparador de precios de funerarias en {nombre-provincia}[/wpfunos-prefun]
 
-  // OLD
-  ////[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]Entierro en {nombre-provincia} desde {precio-entierro}€[/wpfunos-prefun]
-  ////[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]Incineración en {nombre-provincia} desde {precio-incineracion}€[/wpfunos-prefun]
-  ////[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]Entierro con velatorio en {nombre-provincia} desde {precio-entierro-velatorio}€[/wpfunos-prefun]
-  ////[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]Incineración con velatorio en {nombre-provincia} desde {precio-incineracion-velatorio}€[/wpfunos-prefun]
-  ////[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]Servicio completo de entierro en {nombre-provincia} desde {precio-entierro-completo}€[/wpfunos-prefun]
-  ////[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]Servicio completo de incineración en {nombre-provincia} desde {precio-incineracion-completo}€[/wpfunos-prefun]
-  ////[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]Servicio completo premium de entierro en {nombre-provincia} desde {precio-entierro-premium}€[/wpfunos-prefun]
-  ////[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]Servicio completo premium de incineración en {nombre-provincia} desde {precio-incineracion-premium}€[/wpfunos-prefun]
-  //// END OLD
-  //[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]<a href="{enlace-entierro}">Entierro en {nombre-provincia} desde {precio-entierro}€</a>[/wpfunos-prefun]
-  //[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]<a href="{enlace-incineracion}">Incineración en {nombre-provincia} desde {precio-incineracion}€</a>[/wpfunos-prefun]
-  //[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]<a href="{enlace-entierro-velatorio}">Entierro con velatorio en {nombre-provincia} desde {precio-entierro-velatorio}€</a>[/wpfunos-prefun]
-  //[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]<a href="{enlace-incineracion-velatorio}">Incineración con velatorio en {nombre-provincia} desde {precio-incineracion-velatorio}€</a>[/wpfunos-prefun]
-  //[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]<a href="{enlace-entierro-completo}">Servicio completo de entierro en {nombre-provincia} desde {precio-entierro-completo}€</a>[/wpfunos-prefun]
-  //[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]<a href="{enlace-incineracion-completo}">Servicio completo de incineración en {nombre-provincia} desde {precio-incineracion-completo}€</a>[/wpfunos-prefun]
-  //[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]<a href="{enlace-entierro-premium}">Servicio completo premium de entierro en {nombre-provincia} desde {precio-entierro-premium}€</a>[/wpfunos-prefun]
-  //[wpfunos-prefun style='<h4 style="text-align: center; color: #444444; font-size: 32px; font-weight: bold;">' styleend="</h4>"]<a href="{enlace-incineracion-premium}">Servicio completo premium de incineración en {nombre-provincia} desde {precio-incineracion-premium}€</a>[/wpfunos-prefun]
+  //[wpfunos-prefun style='<h1 style="text-align: center; color: #ff9c00;">' styleend='</h1>' ]Precios de Funerarias en {nombre-provincia} - Desde {precio-desde}[/wpfunos-prefun]
+  //[wpfunos-prefun style='<h1 style="text-align: center; color: #ff9c00;">' styleend='</h1>' ]Precios de incineración en {nombre-provincia} - Desde {precio-desde}[/wpfunos-prefun]
+
   //
   public function wpfunosPrefunShortcode( $atts, $content = "" ) {
     $a = shortcode_atts( array(
@@ -529,5 +516,16 @@ class Wpfunos_PreciosPoblacion {
     }
     return;
   }
+
+  /**
+  * Shortcode [wpfunos-prefun-mapa]
+  * add_shortcode( 'wpfunos-prefun-mapa', array( $this, 'wpfunosPrefunMapaShortcode' ));
+  */
+  public function wpfunosPrefunMapaShortcode( $atts, $content = "" ) {
+    echo get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true );
+    return;
+  }
+
+
 
 }

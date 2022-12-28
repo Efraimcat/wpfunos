@@ -33,14 +33,24 @@ $args = array(
   'posts_per_page' => -1,
 );
 $post_list = get_posts( $args );
+
+$args = array(
+  'post_type' => 'servicios_wpfunos',
+  'post_status' => 'publish',
+  'posts_per_page' => -1,
+  'meta_query' => array(
+    array( 'key' => 'wpfunos_servicioActivo', 'value' => '1', 'compare' => '=', ),
+  ),
+);
+$servicios_list = get_posts( $args );
 ?>
 <style>
-#myProgress {
+#myProgress, #serviciosProgress {
   width: 100%;
   background-color: #ddd;
 }
 
-#myBar {
+#myBar, #serviciosBar {
   width: 1%;
   height: 30px;
   background-color: #04AA6D;
@@ -83,12 +93,23 @@ $post_list = get_posts( $args );
   </div>
   <br>
   <button onclick="procesar(0, 50);return false;">Actualizar</button>
+
+  <hr />
+  <h2>Creación nuevos indices funerarias <?php echo count($servicios_list); ?> Servicios</h2>
+  <span id="contador_servicios"></span>
+  <div id="serviciosProgress" cuantos="<?php echo count($servicios_list); ?>" hechos="">
+    <div id="serviciosBar"><span id="serviciosporcentaje"></span></div>
+  </div>
+  <br>
+  <button onclick="procesar_servicios(0, 3);return false;">Actualizar</button>
 </div>
 
 <script>
 
 document.getElementById('porcentaje').style.color='#fff';
 document.getElementById('porcentaje').style.paddingLeft = '50%';
+document.getElementById('serviciosporcentaje').style.color='#fff';
+document.getElementById('serviciosporcentaje').style.paddingLeft = '50%';
 
 function procesar( offset, batch ){
   var cuantos = document.getElementById('myProgress').getAttribute('cuantos');
@@ -131,5 +152,45 @@ function procesar( offset, batch ){
     }
   });
 }
+function procesar_servicios( offset, batch ){
+  var cuantos = document.getElementById('serviciosProgress').getAttribute('cuantos');
+  if( offset > cuantos ){
+    document.getElementById('contador_servicios').innerHTML = cuantos;
+    document.getElementById('serviciosProgress').setAttribute('hechos', cuantos );
+    document.getElementById('serviciosporcentaje').innerHTML = '100%';
+    document.getElementById('serviciosBar').style.width = '100%';
+    return;
+  }
 
+  if( offset > 0 ){
+    document.getElementById('contador_servicios').innerHTML = offset;
+    document.getElementById('serviciosProgress').setAttribute('hechos',offset)
+    document.getElementById('serviciosporcentaje').innerHTML = Math.round(((offset*100)/cuantos) * 100) / 100 + '%';
+    document.getElementById('serviciosBar').style.width = (offset*100)/cuantos + '%';
+  }
+
+  jQuery.ajax({
+    type : 'post',
+    dataType : 'json',
+    url : WpfAjax.ajaxurl,
+    data: {
+      'action': 'wpfunos_ajax_v3_procesar_actualizar_servicios',
+      'offset': offset,
+      'batch' : batch,
+    },
+    success: function(response) {
+      if(response.type === 'success') {
+        newoffset = response.newoffset;
+        procesar_servicios( newoffset, batch );
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      if (textStatus == 'parsererror') {
+        textStatus = 'Technical error: Unexpected response returned by server. Sending stopped.';
+      }
+      alert(textStatus);
+    }
+  });
+
+}
 </script>
