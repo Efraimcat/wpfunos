@@ -342,24 +342,36 @@ class Wpfunos_Public {
     $URL= get_site_url() .$wpml_path. '/comparar-precios?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=4&action=fs&wpf=' .$fields['wpf']. '&orden=dist';
 
     $userURL = apply_filters('wpfunos_shortener', $URL );
-    switch ( $fields['Destino'] ) {
-      case '1': $userNombreSeleccionServicio = esc_html__('Entierro', 'wpfunos_es'); break;
-      case '2': $userNombreSeleccionServicio = esc_html__('Incineración', 'wpfunos_es'); break;
+
+    if ($fields['Destino']){
+      switch ( $fields['Destino'] ) {
+        case '1': $userNombreSeleccionServicio = esc_html__('Entierro', 'wpfunos_es'); break;
+        case '2': $userNombreSeleccionServicio = esc_html__('Incineración', 'wpfunos_es'); break;
+      }
     }
-    switch ( $fields['Ataud'] ) {
-      case '1': $userNombreSeleccionAtaud = esc_html__('Ataúd Económico', 'wpfunos_es'); break;
-      case '2': $userNombreSeleccionAtaud = esc_html__('Ataúd Medio', 'wpfunos_es'); break;
-      case '3': $userNombreSeleccionAtaud = esc_html__('Ataúd Premium', 'wpfunos_es'); break;
+
+    if ($fields['Ataud']){
+      switch ( $fields['Ataud'] ) {
+        case '1': $userNombreSeleccionAtaud = esc_html__('Ataúd Económico', 'wpfunos_es'); break;
+        case '2': $userNombreSeleccionAtaud = esc_html__('Ataúd Medio', 'wpfunos_es'); break;
+        case '3': $userNombreSeleccionAtaud = esc_html__('Ataúd Premium', 'wpfunos_es'); break;
+      }
     }
-    switch ( $fields['Velatorio'] ) {
-      case '1': $userNombreSeleccionVelatorio = esc_html__('Velatorio', 'wpfunos_es'); break;
-      case '2': $userNombreSeleccionVelatorio = esc_html__('Sin Velatorio', 'wpfunos_es'); break;
+
+    if ($fields['Velatorio']){
+      switch ( $fields['Velatorio'] ) {
+        case '1': $userNombreSeleccionVelatorio = esc_html__('Velatorio', 'wpfunos_es'); break;
+        case '2': $userNombreSeleccionVelatorio = esc_html__('Sin Velatorio', 'wpfunos_es'); break;
+      }
     }
-    switch ( $fields['Despedida'] ) {
-      case '1': $userNombreSeleccionDespedida = esc_html__('Sin ceremonia', 'wpfunos_es'); break;
-      case '2': $userNombreSeleccionDespedida = esc_html__('Solo sala', 'wpfunos_es'); break;
-      case '3': $userNombreSeleccionDespedida = esc_html__('Ceremonia civil', 'wpfunos_es'); break;
-      case '4': $userNombreSeleccionDespedida = esc_html__('Ceremonia religiosa', 'wpfunos_es'); break;
+
+    if ($fields['Despedida']){
+      switch ( $fields['Despedida'] ) {
+        case '1': $userNombreSeleccionDespedida = esc_html__('Sin ceremonia', 'wpfunos_es'); break;
+        case '2': $userNombreSeleccionDespedida = esc_html__('Solo sala', 'wpfunos_es'); break;
+        case '3': $userNombreSeleccionDespedida = esc_html__('Ceremonia civil', 'wpfunos_es'); break;
+        case '4': $userNombreSeleccionDespedida = esc_html__('Ceremonia religiosa', 'wpfunos_es'); break;
+      }
     }
 
     if( $form_name == 'FormularioDatos' ){

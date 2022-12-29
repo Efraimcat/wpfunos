@@ -275,8 +275,6 @@ class Wpfunos_Utils {
     );
     $reserved = apply_filters('wpfunos_reserved_email','dummy');
     //if( ! $reserved ) $post_id = wp_insert_post($my_post);
-    $this->custom_logs( $this->dumpPOST('Post ID: ' . $post_id ) );
-    $this->custom_logs( $this->dumpPOST('Visitas: ' . $contador ) );
     return;
   }
 

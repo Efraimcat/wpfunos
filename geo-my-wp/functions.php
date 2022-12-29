@@ -83,7 +83,7 @@ add_action( 'init', 'set_funos_cookie' );
 function wpf_admin_notice_warn() {
   global $pagenow;
   $user = wp_get_current_user();
-  if( site_url() === 'https://test1.efraim.cat'){
+  if( site_url() === 'https://dev.funos.es'){
     echo '<div class="notice notice-warning is-dismissible">
     <p><strong>IMPORTANTE</strong>: <u>Entorno de desarrollo de funos.es</u></p>
     <p><strong>IMPORTANTE</strong>: El entorno de DESARROLLO se reinicia durante los primeros días de cada mes. Manten siempre una copia actualizada y documentada de todo tu trabajo.</p>
@@ -123,7 +123,7 @@ add_action('wp_ajax_nopriv_is_user_logged_in', 'ajax_check_user_logged_in');
 
 
 /**
-* WordPress function for redirecting users on login based on user role. https://developer.wordpress.org/reference/hooks/login_redirect/
+* WordPress function for redirecting users on login based on user role
 */
 function wpfunos_login_redirect( $url, $request, $user ) {
   if ( $user && is_object( $user ) && is_a( $user, 'WP_User' ) ) {

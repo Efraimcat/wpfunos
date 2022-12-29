@@ -87,19 +87,21 @@ class Wpfunos_ServiciosV3 {
   */
   public function wpfunosV3UltimaBusquedaShortcode($atts, $content = ""){
     if( ! isset( $_COOKIE['wpflast'] ) ) return;
-    if( $_GET['autoload'] && $_GET['autoload'] == 'yes' ){
-      $wpflasturl = apply_filters( 'wpfunos_crypt', $_COOKIE['wpflast'] , 'd' );
-      ?>
-      <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
-      $ = jQuery.noConflict();
-      $(document).ready(function(){
-        $(function(){
-          elementorFrontend.documentsManager.documents['84626'].showModal(); //show the popup
-          window.open("<?php echo $wpflasturl; ?>","_self");
+    if( $_GET['autoload'] ){
+      if( $_GET['autoload'] == 'yes' ){
+        $wpflasturl = apply_filters( 'wpfunos_crypt', $_COOKIE['wpflast'] , 'd' );
+        ?>
+        <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
+        $ = jQuery.noConflict();
+        $(document).ready(function(){
+          $(function(){
+            elementorFrontend.documentsManager.documents['84626'].showModal(); //show the popup
+            window.open("<?php echo $wpflasturl; ?>","_self");
+          });
         });
-      });
-      </script>
-      <?php
+        </script>
+        <?php
+      }
     }
     $last = str_replace("+"," ",$_COOKIE['wpflasttime']);
     $_GET['wpflasttime'] = str_replace("-",":",$last);
@@ -247,6 +249,12 @@ class Wpfunos_ServiciosV3 {
       // comprobar veracidad de wpfwpf
       $Tienewpfwpf = 0;
       $phone='';
+      $IDusuario='';
+      $nombre='';
+      $email='';
+      if( !isset($_GET['cuando']) ){ $_GET['cuando']='' ; }
+      if( !isset($_GET['land']) ){ $_GET['land']=''; }
+
       // No tiene wpfwpf
       ?><script>console.log('Comprobando tiene wpfwpf.' );</script><?php
       if( !isset( $_GET['wpfwpf'] ) ) {

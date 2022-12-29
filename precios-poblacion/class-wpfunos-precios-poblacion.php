@@ -366,14 +366,14 @@ class Wpfunos_PreciosPoblacion {
     $content = str_replace( '{nombre-provincia}' , get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ) , $content );
     $content = str_replace( '{precio-desde}' , get_post_meta( get_the_ID() , 'SeoDesde', true ) , $content );
 
-    $content = str_replace( '{precio-entierro}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroDesde', true ), 0, ',', '.') , $content );
-    $content = str_replace( '{precio-incineracion}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionDesde', true ), 0, ',', '.') , $content );
-    $content = str_replace( '{precio-entierro-velatorio}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroVelatorioDesde', true ), 0, ',', '.') , $content );
-    $content = str_replace( '{precio-incineracion-velatorio}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionVelatorioDesde', true ), 0, ',', '.') , $content );
-    $content = str_replace( '{precio-entierro-completo}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesde', true ), 0, ',', '.') , $content );
-    $content = str_replace( '{precio-incineracion-completo}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde', true ), 0, ',', '.') , $content );
-    $content = str_replace( '{precio-entierro-premium}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroPremiumDesde', true ), 0, ',', '.') , $content );
-    $content = str_replace( '{precio-incineracion-premium}' , number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionPremiumDesde', true ), 0, ',', '.') , $content );
+    $content = str_replace( '{precio-entierro}' , number_format( floatval(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroDesde', true ), 0, ',', '.')) , $content );
+    $content = str_replace( '{precio-incineracion}' , number_format( floatval(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionDesde', true ), 0, ',', '.')) , $content );
+    $content = str_replace( '{precio-entierro-velatorio}' , number_format( floatval(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroVelatorioDesde', true ), 0, ',', '.')) , $content );
+    $content = str_replace( '{precio-incineracion-velatorio}' , number_format( floatval(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionVelatorioDesde', true ), 0, ',', '.')) , $content );
+    $content = str_replace( '{precio-entierro-completo}' , number_format( floatval(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesde', true ), 0, ',', '.')) , $content );
+    $content = str_replace( '{precio-incineracion-completo}' , number_format( floatval(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde', true ), 0, ',', '.')) , $content );
+    $content = str_replace( '{precio-entierro-premium}' , number_format( floatval(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroPremiumDesde', true ), 0, ',', '.')) , $content );
+    $content = str_replace( '{precio-incineracion-premium}' , number_format( floatval(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionPremiumDesde', true ), 0, ',', '.')) , $content );
 
     $content = str_replace( '{enlace-entierro}' , get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroDesdeEnlace', true ) , $content );
     $content = str_replace( '{enlace-incineracion}' , get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionDesdeEnlace', true ), $content );

@@ -190,7 +190,7 @@ class Wpfunos_Aseguradoras {
       while ( $my_query->have_posts() ) :
 
         $my_query->the_post();
-        $temp_query = $wp_query;  // store it
+        $temp_query = $my_query;  // store it
         $IDtipo = get_the_ID();
         if( get_post_meta( $IDtipo, 'wpfunos_tipoSeguroActivo' , true ) ){
           ?><div class="wpfunos-titulo-aseguradoras" id="<?php echo str_replace(" ","-", get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ) ); ?>"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
