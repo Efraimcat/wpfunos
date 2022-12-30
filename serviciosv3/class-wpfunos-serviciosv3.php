@@ -319,6 +319,8 @@ class Wpfunos_ServiciosV3 {
       $cp = $_GET['CP'];
       $CP = $this->wpfunosCodigoPostal( $cp, $address );
 
+      $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
+
       $tel = str_replace(" ","", $phone );
       $tel = str_replace("-","",$tel);
       if(substr($tel,0,1) == '+'){
@@ -467,6 +469,7 @@ class Wpfunos_ServiciosV3 {
 
     $respuesta = $this->wpfunosFiltros();
     //case '1': $result['resp1'] = array( 'desc' => 'Destino', 'inicial' => 'E', 'texto' => 'Entierro' ); break;
+    //$address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
     $address = $_GET['address'][0];
     $cp = $_GET['CP'];
     $CP = $this->wpfunosCodigoPostal( $cp, $address );
@@ -589,9 +592,9 @@ class Wpfunos_ServiciosV3 {
         'valor_telefono' => get_post_meta( $servicioID, 'wpfunos_servicioTelefono', true ),
       );
     }
-
+    $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
     $transient_data = array(
-      'wpfadr' => $_GET['address'][0],
+      'wpfadr' => $address,
       'wpfdist' => $_GET['distance'],
       'wpflat' => $_GET['lat'],
       'wpflng' => $_GET['lng'],
@@ -631,10 +634,10 @@ class Wpfunos_ServiciosV3 {
         $columns = array_column( $wpfunos_confirmado, 2 );
         array_multisort( $columns, SORT_ASC, $wpfunos_confirmado );
       }
-
+      $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
       foreach ($wpfunos_confirmado as $value) {
 
-        if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
+        if( $transient_id === false || $transient_id['wpfadr'] != $address || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
         || $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
           $_GET['valor-nombre'] = get_post_meta( $value[0], 'wpfunos_servicioNombre', true );
           $_GET['valor-precio'] = number_format($value[2], 0, ',', '.') . '€';
@@ -689,10 +692,10 @@ class Wpfunos_ServiciosV3 {
       $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
       $_GET['seccionClass-detalles'] = 'wpf-detalles-si';
       $_GET['seccionClass-mapas'] = 'wpf-mapas-si';
-
+      $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
       foreach ($wpfunos_confirmado as $value) {
 
-        if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
+        if( $transient_id === false || $transient_id['wpfadr'] != $address || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
         || $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
 
           $_GET['seccionClass-presupuesto'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonPresupuesto', true ) ) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
@@ -779,8 +782,8 @@ class Wpfunos_ServiciosV3 {
       ?><div class="wpfunos-titulo" id="wpfunos-titulo-sin-confirmar"><p></p><center><h2><?php esc_html_e( 'Precio sin confirmar', 'wpfunos_es' )?></h2></center></div><?php
 
       if(isset($_GET['orden']) && $_GET['orden'] == 'precios' ){
-        $columns = array_column( $wpfunos_confirmado, 2 );
-        array_multisort( $columns, SORT_ASC, $wpfunos_confirmado );
+        $columns = array_column( $wpfunos_sinconfirmar, 2 );
+        array_multisort( $columns, SORT_ASC, $wpfunos_sinconfirmar );
       }
 
       $transient_id = get_transient('wpfunos-wpfid-v3-' .$IP );
@@ -793,10 +796,10 @@ class Wpfunos_ServiciosV3 {
       $_GET['valor-servicio'] = $respuesta['resp1']['texto']. ', ' .$respuesta['resp2']['texto']. ', ' .$respuesta['resp3']['texto']. ', ' .$respuesta['resp4']['texto'];
       $_GET['seccionClass-detalles'] = 'wpf-detalles-no';
       $_GET['seccionClass-mapas'] = 'wpf-mapas-no';
-
+      $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
       foreach ($wpfunos_sinconfirmar as $value) {
 
-        if( $transient_id === false || $transient_id['wpfadr'] != $_GET['address'][0] || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
+        if( $transient_id === false || $transient_id['wpfadr'] != $address || $transient_id['wpfdist'] != $_GET['distance'] || $transient_id['wpflat'] != $_GET['lat'] || $transient_id['wpflng'] != $_GET['lng']
         || $transient_id['wpfresp1'] != $_GET['cf']['resp1'] || $transient_id['wpfresp2'] != $_GET['cf']['resp2'] || $transient_id['wpfresp3'] != $_GET['cf']['resp3'] || $transient_id['wpfresp4'] != $_GET['cf']['resp4'] ){
 
           $_GET['seccionClass_financiacion'] = (get_post_meta( $value[0], 'wpfunos_servicioBotonFinanciacion', true ) ) ? 'wpf-financiacion-si' : 'wpf-financiacion-no';
@@ -873,10 +876,11 @@ class Wpfunos_ServiciosV3 {
   public function wpfunosEntradaUbicacion(){
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+    $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '1. - Entrada comparador servicios v3' );
     do_action('wpfunos_log', 'IP: ' . $userIP);
-    do_action('wpfunos_log', 'address: ' . $_GET['address'][0]);
+    do_action('wpfunos_log', 'address: ' . $address);
     do_action('wpfunos_log', 'referer: ' . apply_filters('wpfunos_dumplog', substr($referer,0,150) ) );
     do_action('wpfunos_log', 'cookie wpfe: ' . $_COOKIE['wpfe']);
     do_action('wpfunos_log', 'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -935,6 +939,7 @@ class Wpfunos_ServiciosV3 {
     $resp2 = ( isset($_GET['land']) ) ? $_GET['cf']['resp2'] : '' ;
     $resp3 = ( isset($_GET['land']) ) ? $_GET['cf']['resp3'] : '' ;
     $resp4 = ( isset($_GET['land']) ) ? $_GET['cf']['resp4'] : '' ;
+    $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
 
     $my_post = array(
       'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
@@ -943,7 +948,7 @@ class Wpfunos_ServiciosV3 {
       'meta_input'   => array(
         'wpfunos_estadistcasResultadosIP' => sanitize_text_field( $userIP ),
         'wpfunos_estadistcasResultadosReferer' => sanitize_text_field( $_SERVER['HTTP_REFERER'] ),
-        'wpfunos_estadistcasResultadosDireccion' => sanitize_text_field( $_GET['address'][0] ),
+        'wpfunos_estadistcasResultadosDireccion' => sanitize_text_field( $address ),
         'wpfunos_estadistcasResultadosDistancia' => sanitize_text_field( $_GET['distance'] ),
         'wpfunos_estadistcasResultadosResp1' => $resp1,
         'wpfunos_estadistcasResultadosResp2' => $resp2,

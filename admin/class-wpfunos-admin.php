@@ -1172,68 +1172,69 @@ class Wpfunos_Admin {
         $latitud = get_post_meta( $post->ID, 'wpfunos_EnlaceLatitud', true );
         $longitud = get_post_meta( $post->ID, 'wpfunos_EnlaceLonguitud', true );
         $poblacion = get_post_meta( $post->ID, 'wpfunos_precioFunerariaPoblacion', true );
+        $provincia = get_post_meta( $post->ID, 'wpfunos_precioFunerariaProvincia', true );
 
         if( strlen($distancia) > 0 && strlen($latitud) > 0 && strlen($longitud) > 0 ){
           // recalcular enlaces
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaEnlaceAhora', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaEnlaceAhora', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaEnlaceProximamente', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaEnlaceProximamente', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Proximamente');
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaEnlaceVerPrecios', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Proximamente&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaEnlaceVerPrecios', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&poblacion='.$poblacion);
 
-          update_post_meta($post->ID, 'wpfunos_precioIncineracionEnlaceAhora', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          update_post_meta($post->ID, 'wpfunos_precioIncineracionEnlaceAhora', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
-          update_post_meta($post->ID, 'wpfunos_precioIncineracionEnlaceProximamente', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioIncineracionEnlaceProximamente', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Proximamente');
-          update_post_meta($post->ID, 'wpfunos_precioIncineracionEnlaceVerPrecios', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Proximamente&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioIncineracionEnlaceVerPrecios', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&poblacion='.$poblacion);
 
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaEntierroDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaEntierroDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaEntierroVelatorioDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaEntierroVelatorioDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaEntierroPremiumDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaEntierroPremiumDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=3&cf[resp3]=1&cf[resp4]=3&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
 
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaIncineracionDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaIncineracionDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaIncineracionVelatorioDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaIncineracionVelatorioDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
-          update_post_meta($post->ID, 'wpfunos_precioFunerariaIncineracionPremiumDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$poblacion
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+          update_post_meta($post->ID, 'wpfunos_precioFunerariaIncineracionPremiumDesdeEnlace', 'https://funos.es/comparar-precios-resultados?address[]='.$provincia
           .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=3&cf[resp3]=1&cf[resp4]=3&distance='.$distancia
           .'&units=metric&paged=1&per_page=50&lat='.$latitud
-          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1');
+          .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
 
         }
       endforeach;
