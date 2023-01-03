@@ -86,7 +86,7 @@ function wpf_admin_notice_warn() {
   if( site_url() === 'https://dev.funos.es'){
     echo '<div class="notice notice-warning is-dismissible">
     <p><strong>IMPORTANTE</strong>: <u>Entorno de desarrollo de funos.es</u></p>
-    <p><strong>IMPORTANTE</strong>: El entorno de DESARROLLO se reinicia durante los primeros días de cada mes. Manten siempre una copia actualizada y documentada de todo tu trabajo.</p>
+    <p><strong>IMPORTANTE</strong>: El entorno de DESARROLLO se reinicia cada semana. Todos los datos se reinician con los valores de funos.es. Manten siempre una copia actualizada y documentada de todo tu trabajo.</p>
     </div>';
     if ( $pagenow == 'edit.php' && isset( $_GET['post_type'] ) && $_GET['post_type'] ==  'custom-css-js') {
       echo '<div class="notice notice-warning is-dismissible">

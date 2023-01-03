@@ -446,30 +446,6 @@ if ( ! defined( 'ABSPATH' ) ) {
       </tr>
     </table><hr/>
 
-    <table style="width:100%">
-      <?php $cuatro = 1; foreach ( $tipos as $tipo ) { if( $cuatro == 5 ) $cuatro =1 ;if( $cuatro == 1 ){ ?>
-        <tr><td colspan="3" id=<?php echo substr($tipo,0,3); ?>><hr/></td></tr>
-        <tr>
-          <td colspan="3" >
-            <?php echo $menu; ?>
-          </td>
-        </tr>
-      <?php } ?>
-      <tr>
-        <td><?php echo $tipo; ?></td>
-        <td>
-          <?php
-          $campo_comentario = 'wpfunos_servicio'. $tipo .'_Comentario';
-          $notes_servicio = get_post_meta( $post->ID, $campo_comentario, true );
-          $args_servicio = array( 'textarea_name' => $campo_comentario,  'textarea_rows' => 10, );
-          wp_editor( $notes_servicio, $campo_comentario, $args_servicio );
-          ?>
-        </td>
-        <?php $cuatro ++; }?>
-      </tr>
-    </table>
-    <hr/>
-
     <h3><?php esc_html_e('Comentarios', 'wpfunos');?></h3>
     <?php // provide textarea name for $_POST variable
     $notes_servicioPrecioBaseComentario = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBaseComentario', true );

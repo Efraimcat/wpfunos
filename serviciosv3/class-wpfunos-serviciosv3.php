@@ -1281,7 +1281,7 @@ class Wpfunos_ServiciosV3 {
         if(!empty( get_option('wpfunos_mailCorreoBccv2usuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccv2usuario' ) ;
 
         do_action('wpfunos_log', '==============' );
-        if( site_url() === 'https://test1.efraim.cat'){
+        if( site_url() === 'https://dev.funos.es'){
           wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreov2usuario') , $mensaje, $headers );
           do_action('wpfunos_log', 'Enviado correo usuario efraim@efraim.cat' );
         }else{
@@ -1492,7 +1492,7 @@ class Wpfunos_ServiciosV3 {
         if(!empty( get_option('wpfunos_mailCorreoBccBoton1v2Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1v2Admin' ) ;
 
         do_action('wpfunos_log', '==============' );
-        if( site_url() === 'https://test1.efraim.cat'){
+        if( site_url() === 'https://dev.funos.es'){
           wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoBoton1v2Admin') , $mensaje, $headers );
           do_action('wpfunos_log', 'Enviado correo lead1 efraim@efraim.cat' );
         }else{
@@ -1538,7 +1538,7 @@ class Wpfunos_ServiciosV3 {
         if(!empty( get_option('wpfunos_mailCorreoBccBoton1v2usuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1v2usuario' ) ;
 
         do_action('wpfunos_log', '==============' );
-        if( site_url() === 'https://test1.efraim.cat'){
+        if( site_url() === 'https://dev.funos.es'){
           wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoBoton1v2usuario') , $mensaje, $headers );
           do_action('wpfunos_log', 'Enviado correo usuario efraim@efraim.cat' );
         }else{
@@ -1714,7 +1714,7 @@ class Wpfunos_ServiciosV3 {
         if(!empty( get_option('wpfunos_mailCorreoBccBoton2v2Admin' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2v2Admin' ) ;
 
         do_action('wpfunos_log', '==============' );
-        if( site_url() === 'https://test1.efraim.cat'){
+        if( site_url() === 'https://dev.funos.es'){
           wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoBoton2v2Admin') , $mensaje, $headers );
           do_action('wpfunos_log', 'Enviado correo lead2 efraim@efraim.cat' );
         }else{
@@ -1762,7 +1762,7 @@ class Wpfunos_ServiciosV3 {
         if(!empty( get_option('wpfunos_mailCorreoBccBoton2v2usuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2v2usuario' ) ;
 
         do_action('wpfunos_log', '==============' );
-        if( site_url() === 'https://test1.efraim.cat'){
+        if( site_url() === 'https://dev.funos.es'){
           wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoBoton2v2usuario') , $mensaje, $headers );
           do_action('wpfunos_log', 'Enviado correo lead2 efraim@efraim.cat' );
         }else{
@@ -1941,7 +1941,7 @@ class Wpfunos_ServiciosV3 {
         if(!empty( get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ;
 
         do_action('wpfunos_log', '==============' );
-        if( site_url() === 'https://test1.efraim.cat'){
+        if( site_url() === 'https://dev.funos.es'){
           wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoPresupuestoLead') , $mensaje, $headers );
           do_action('wpfunos_log', 'Enviado correo pedir presupuesto efraim@efraim.cat' );
         }else{
@@ -1988,7 +1988,7 @@ class Wpfunos_ServiciosV3 {
         if(!empty( get_option('wpfunos_mailCorreoBccPresupuestousuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPresupuestousuario' ) ;
 
         do_action('wpfunos_log', '==============' );
-        if( site_url() === 'https://test1.efraim.cat'){
+        if( site_url() === 'https://dev.funos.es'){
           wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoPresupuestousuario') , $mensaje, $headers );
           do_action('wpfunos_log', 'Enviado correo pedir presupuesto efraim@efraim.cat' );
         }else{
