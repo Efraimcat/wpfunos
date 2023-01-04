@@ -116,6 +116,7 @@ class Wpfunos_Admin {
     add_action( 'wpfunos_hojas_calculo', array( $this, 'wpfunosHojasCalculo' ), 10, 1 );
     add_action( 'wpfunos_schedule_procesar_precios', array( $this, 'wpfunosScheduleProcesarPrecios' ), 10, 2 );
     add_action( 'wpfunos_schedule_procesar_servicios', array( $this, 'wpfunosScheduleProcesarServicios' ), 10, 2 );
+    add_action( 'wpfunos_schedule eliminar_indices', array( $this, 'wpfunosScheduleEliminarIndices' ), 10, 2 );
   }
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-admin.css', array(), $this->version, 'all' );
@@ -1092,7 +1093,7 @@ class Wpfunos_Admin {
     // BEGINING
     $this->wpfunosMaintenanceHourly2FA();
     $this->wpfunosMaintenancePreciosv1Preciosv2();
-    $this->wpfunosMaintenanceComentariosFunerarias();
+    //$this->wpfunosMaintenanceComentariosFunerarias();
     $this->wpfunosMaintenancePreciosSeoFunerarias();
     //  Crear nuevas entradas
     //$this->wpfunosMaintenancePreciosFunerarias();
@@ -1254,7 +1255,7 @@ class Wpfunos_Admin {
 
     //  Precios Funerarias
     $this->custom_logs('---');
-    $this->custom_logs('Wpfunos precio_funer_wpfunos starts');
+    $this->custom_logs('Wpfunos precio_funer_wpfunos SEO starts');
     $args = array(
       'post_type' => 'precio_funer_wpfunos',
       'post_status' => 'any', // para incluir borradores
@@ -1286,11 +1287,11 @@ class Wpfunos_Admin {
         }
         update_post_meta($post->ID, 'wpfunos_precioFunerariaPaginasRelacionadasTexto', $textopaginas );
         //
-        $this->custom_logs('precio_funer_wpfunos ' .$post->ID. ' updated');
+        //$this->custom_logs('precio_funer_wpfunos ' .$post->ID. ' updated');
       endforeach;
       wp_reset_postdata();
     }
-    $this->custom_logs('Wpfunos precio_funer_wpfunos ends');
+    $this->custom_logs('Wpfunos precio_funer_wpfunos SEO ends');
     //
   }
 
@@ -1299,7 +1300,6 @@ class Wpfunos_Admin {
   * Cron job precios v1 -> v2
   */
   protected function wpfunosMaintenancePreciosv1Preciosv2(){
-    $this->custom_logs('---');
     $this->custom_logs('Wpfunos Actualizando registros Preciosv1Preciosv2 starts');
     $tipos = array(
       "EESS" => '1478', "EESO" => '1479', "EESC" => '147A', "EESR" => '147B',
@@ -1387,6 +1387,9 @@ class Wpfunos_Admin {
 
   /**
   * Cron job Comentarios funerarias
+  *
+  * SE PUEDE BORRAR. Con WPML ya no se calculan.
+  *
   */
   protected function wpfunosMaintenanceComentariosFunerarias(){
     $this->custom_logs('---');
@@ -1733,6 +1736,7 @@ class Wpfunos_Admin {
     //https://developer.wordpress.org/reference/functions/wp_schedule_single_event/
     //add_action( 'wpfunos_schedule_procesar_precios', array( $this, 'wpfunosScheduleProcesarPrecios' ), 10, 2 );
     //add_action( 'wpfunos_schedule_procesar_servicios', array( $this, 'wpfunosScheduleProcesarServicios' ), 10, 2 );
+    //add_action( 'wpfunos_schedule eliminar_indices', array( $this, 'wpfunosScheduleEliminarIndices' ), 10, 2 );
 
     $tiempo = 15;
     $this->custom_logs('---');
@@ -1749,7 +1753,13 @@ class Wpfunos_Admin {
       $tiempo += 120;
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos Creación nuevos indices funerarias ends');
-
+    $this->custom_logs('---');
+    $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices starts');
+    for ( $x = 1; $x <= count($indices_list); $x+=2000 ) {
+      wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule eliminar_indices', array( $x, 2000 ) );
+      $tiempo += 5;
+    }
+    $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices ends');
   }
 
   /**
@@ -1777,7 +1787,7 @@ class Wpfunos_Admin {
         $this->custom_logs('Wpfunos 2FA: ---------------------------' );
       }
     }
-
+    $this->custom_logs('Wpfunos 2FA ends');
   }
   /**
   * Cron job maintenance log CSV usuarios
@@ -2324,4 +2334,26 @@ class Wpfunos_Admin {
     $this->custom_logs('wpfunosScheduleProcesarServicios ==> ' .$offset. ' ' .$batch. ' <== END' );
   }
 
+  public function wpfunosScheduleEliminarIndices( $offset, $batch ){
+    $this->custom_logs('wpfunosScheduleEliminarIndices ==> ' .$offset. ' ' .$batch. ' <==' );
+
+    $args = array(
+      'post_type' => 'precio_serv_wpfunos',
+      'post_status' => 'publish',
+      'numberposts' => $batch,
+      'offset' =>$offset,
+    );
+    $post_list = get_posts( $args );
+
+    if( $post_list ){
+      foreach ( $post_list as $post ) {
+        $servicioPrecioID = get_post_meta( $post->ID, 'wpfunos_servicioPrecioID', true );
+        if( FALSE === get_post_status( $servicioPrecioID ) || get_post_meta( $servicioPrecioID, 'wpfunos_servicioActivo', true ) != '1' ){
+          $this->custom_logs('wpfunosScheduleEliminarIndices ==> Elimnar ' .$post->ID. ' <==' );
+          wp_delete_post( $post->ID, true);
+        }
+      }
+    }
+    $this->custom_logs('wpfunosScheduleEliminarIndices ==> ' .$offset. ' ' .$batch. ' <== END' );
+  }
 }

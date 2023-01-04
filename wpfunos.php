@@ -8,7 +8,7 @@
 * Plugin Name:       wpfunos
 * Plugin URI:        https://github.com/Efraimcat/wpfunos/
 * Description:       Funcionalidades para funos.es
-* Version:           3.0.5
+* Version:           3.0.6
 * Author:            Efraim Bayarri
 * Author URI:        https://efraim.cat
 * License:           GPL-2.0+
@@ -26,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
 *
 */
-define( 'WPFUNOS_VERSION', '3.0.5' );
+define( 'WPFUNOS_VERSION', '3.0.6' );
 /**
 *|--------------------------------------------------------------------------
 *| CONSTANTS

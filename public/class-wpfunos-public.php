@@ -324,7 +324,7 @@ class Wpfunos_Public {
     // do_action('wpfunos_log', 'Fields: ' . $fields );
     $IDusuario = apply_filters('wpfunos_userID', $fields['referencia'] );
     if( $IDusuario != 0 ) {
-      mt_srand(mktime(0,0,0,1,1,2023));
+      mt_srand(time());
       $fields['referencia'] = 'funos-'.(string)mt_rand();
     }
     $tel = str_replace(" ","", $fields['Telefono'] );
@@ -439,7 +439,8 @@ class Wpfunos_Public {
 
       $URL= get_site_url() .$wpml_path. '/compara-precios-aseguradoras?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=3&action=fs&wpf=' .$fields['wpf'];
 
-      $userURL = apply_filters('wpfunos_shortener', $URL );
+      //$userURL = apply_filters('wpfunos_shortener', $URL );
+      $userURL = $URL;
       $textoaccion = "Entrada datos aseguradoras";
       //if( $_COOKIE['wpfunosloggedin'] == 'yes' ) $textoaccion = "Acción Usuario Desarrollador";
       if( apply_filters('wpfunos_reserved_email','dummy') ) $textoaccion = "Acción Usuario Desarrollador";

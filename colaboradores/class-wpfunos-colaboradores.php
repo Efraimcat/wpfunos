@@ -413,7 +413,7 @@ class Wpfunos_Colaboradores {
     }
 
     //
-    mt_srand(mktime(0,0,0,1,1,2023));
+    mt_srand(time());
     $referencia = 'funos-'.(string)mt_rand();
     $my_post = array(
       'post_title' => $referencia,
