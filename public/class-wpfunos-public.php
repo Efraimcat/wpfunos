@@ -497,18 +497,31 @@ class Wpfunos_Public {
         ),
       );
     }
+    $log = (is_user_logged_in()) ? 'logged' : 'not logged';
     if( strlen( $fields['Telefono']) > 3 ){
       $post_id = wp_insert_post($my_post);
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'3. - Recogida datos usuario' );
-      do_action('wpfunos_log', $userIP.' - '.'Referer: ' .  sanitize_text_field( $_SERVER['HTTP_REFERER'] ) );
+      do_action('wpfunos_log', $userIP.' - '.'Recogida datos usuario' );
+      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
+      do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
+      do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
+      do_action('wpfunos_log', $userIP.' - '.'---' );
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $fields['Nombre']  );
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $fields['referencia'] );
       do_action('wpfunos_log', $userIP.' - '.'Telefono: ' . $fields['Telefono'] );
     }else{
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Error 1 Nuevo Usuario:' );
+      do_action('wpfunos_log', $userIP.' - '.'Error Nuevo Usuario:' );
+      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
+      do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
+      do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
+      do_action('wpfunos_log', $userIP.' - '.'---' );
+
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' .  $fields['referencia'] );
     }
     //if(is_wp_error($post_id)){

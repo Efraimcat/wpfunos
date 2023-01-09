@@ -22,7 +22,7 @@ $IP = apply_filters('wpfunos_userIP','dummy');
 
 		<div id="wpfunos-search-form-results"  name="wpfunos-v3-results"></div>
 
-		<?php if ( apply_filters('wpfunos_email_colaborador','dummy') ){ echo '<div id="wpf-es-colaborador" name="si"></div>'; }	?>
+		<?php if ( apply_filters('wpfunos_email_colaborador','Entrada pagina resultados') ){ echo '<div id="wpf-es-colaborador" name="si"></div>'; }	?>
 
 		<div class="gmw-results">
 

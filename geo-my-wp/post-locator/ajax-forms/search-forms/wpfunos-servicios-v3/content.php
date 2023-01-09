@@ -24,7 +24,7 @@
     <?php do_action( 'gmw_search_form_start', $gmw ); ?>
   </div>
 
-  <?php if ( apply_filters('wpfunos_email_colaborador','dummy') ){ echo '<div id="wpf-es-colaborador" name="si"></div>'; }	?>
+  <?php if ( apply_filters('wpfunos_email_colaborador','Entrada pagina ubicacion') ){ echo '<div id="wpf-es-colaborador" name="si"></div>'; }	?>
 
   <?php gmw_search_form_address_field( $gmw ); ?>
 
