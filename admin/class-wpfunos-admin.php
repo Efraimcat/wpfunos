@@ -1173,6 +1173,12 @@ class Wpfunos_Admin {
     if( $post_list ){
       foreach ( $post_list as $post ) :
 
+        $relacionadas = get_post_meta( $post->ID, 'wpfunos_precioFunerariaPaginasRelacionadas', true );
+
+        $relacionadas = str_replace(" ","",$relacionadas);
+        $relacionadas = str_replace(",",", ",$relacionadas);
+        update_post_meta( $post->ID, 'wpfunos_precioFunerariaPaginasRelacionadas', $relacionadas );
+
         $distancia = get_post_meta( $post->ID, 'wpfunos_EnlaceDistancia', true );
         $latitud = get_post_meta( $post->ID, 'wpfunos_EnlaceLatitud', true );
         $longitud = get_post_meta( $post->ID, 'wpfunos_EnlaceLonguitud', true );
@@ -1739,25 +1745,28 @@ class Wpfunos_Admin {
     //add_action( 'wpfunos_schedule eliminar_indices', array( $this, 'wpfunosScheduleEliminarIndices' ), 10, 2 );
 
     $tiempo = 15;
-    $this->custom_logs('---');
-    $this->custom_logs('Wpfunos precio_serv_wpfunos actualizar direcciones starts');
-    for ( $x = 1; $x <= count($indices_list); $x+=500 ) {
-      wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule_procesar_precios', array( $x, 500 ) );
-      $tiempo += 120;
-    }
-    $this->custom_logs('Wpfunos precio_serv_wpfunos actualizar direcciones ends');
+    //$this->custom_logs('---');
+    //$this->custom_logs('Wpfunos precio_serv_wpfunos actualizar direcciones starts');
+    //for ( $x = 1; $x <= count($indices_list); $x+=400 ) {
+    //  $this->custom_logs('==> ' .sprintf( '%05s', $x ). ' > ' .date("H:i:s",time()+$tiempo). ' UTC' );
+    //  wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule_procesar_precios', array( $x, 400 ) );
+    //  $tiempo += 120;
+    //}
+    //$this->custom_logs('Wpfunos precio_serv_wpfunos actualizar direcciones ends');
     $this->custom_logs('---');
     $this->custom_logs('Wpfunos precio_serv_wpfunos Creación nuevos indices funerarias starts');
-    for ( $x = 1; $x <= count($servicios_list); $x+=50 ) {
-      wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule_procesar_servicios', array( $x, 50 ) );
+    for ( $x = 1; $x <= count($servicios_list); $x+=35 ) {
+      $this->custom_logs('==> ' .sprintf( '%03s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
+      wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule_procesar_servicios', array( $x, 35 ) );
       $tiempo += 120;
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos Creación nuevos indices funerarias ends');
     $this->custom_logs('---');
     $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices starts');
     for ( $x = 1; $x <= count($indices_list); $x+=2000 ) {
+      $this->custom_logs('==> ' .sprintf( '%05s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
       wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule eliminar_indices', array( $x, 2000 ) );
-      $tiempo += 5;
+      $tiempo += 10;
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices ends');
   }
@@ -2210,7 +2219,6 @@ class Wpfunos_Admin {
   }
 
   //add_action( 'wpfunos_schedule_procesar_precios', array( $this, 'wpfunosScheduleProcesarPrecios' ), 10, 2 );
-  //add_action( 'wpfunos_schedule_procesar_servicios', array( $this, 'wpfunosScheduleProcesarServicios' ), 10, 2 );
 
   public function wpfunosScheduleProcesarPrecios( $offset, $batch ){
     $this->custom_logs('wpfunosScheduleProcesarPrecios ==> ' .$offset. ' ' .$batch. ' <==' );

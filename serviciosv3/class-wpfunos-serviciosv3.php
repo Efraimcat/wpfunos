@@ -222,6 +222,7 @@ class Wpfunos_ServiciosV3 {
       ?><script>console.log('Comprobando Cookies.' );</script><?php
       $expiry = strtotime('+1 month');
       if (is_user_logged_in()){
+        do_action('wpfunos_log', '==============' );
         $current_user = wp_get_current_user();
         if( ! isset( $_COOKIE['wpfn'] ) ) setcookie('wpfn', sanitize_text_field( $current_user->display_name ), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
         if( ! isset( $_COOKIE['wpfe'] ) ) setcookie('wpfe', sanitize_text_field( $current_user->user_email ), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
@@ -1161,7 +1162,7 @@ class Wpfunos_ServiciosV3 {
         case 3: $wpfceremonia = esc_html__('Ceremonia civil', 'wpfunos_es') ; break;
         case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos_es') ; break;
       }
-
+      $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
       $my_post = array(
         'post_title' => $wpfnewref,
         'post_type' => 'usuarios_wpfunos',
@@ -1182,6 +1183,7 @@ class Wpfunos_ServiciosV3 {
           'wpfunos_userNombreSeleccionVelatorio' => sanitize_text_field( $wpfvelatorio ),
           'wpfunos_userNombreSeleccionDespedida' => sanitize_text_field( $wpfceremonia ),
           'wpfunos_userIP' => sanitize_text_field( $wpfip ),
+          'wpfunos_userReferer' => sanitize_text_field( $referer ),
           'wpfunos_userURL' => sanitize_text_field( $userURL ),
           'wpfunos_userURLlarga' => sanitize_text_field( $URL ),
           'wpfunos_userAceptaPolitica' => '1',

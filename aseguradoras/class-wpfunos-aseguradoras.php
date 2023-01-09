@@ -267,7 +267,7 @@ class Wpfunos_Aseguradoras {
     $local_time  = current_datetime();
     $current_time = $local_time->getTimestamp() + $local_time->getOffset();
     $fecha = gmdate("Ymd His",$current_time);
-    $fechacarga = gmdate("Y-m-d H:i:s",$current_time);
+    $fechacarga = gmdate("Ymd His",$current_time);
     $fechacargaDKV = gmdate("Y/m/d H:i:s",$current_time);
 
     $seleccion = get_post_meta( $usuario, 'wpfunos_userSeleccion', true );
@@ -286,7 +286,11 @@ class Wpfunos_Aseguradoras {
     // EBG 03-11-22
     $telefono = str_replace(" ","", $telefono );
     $telefono = str_replace("-","",$telefono);
-    $telefono = str_replace("+","00",$telefono);
+    //
+    // Nuevo formato número telefónico
+    //
+    //$telefono = str_replace("+","00",$telefono);
+    $telefono = str_replace("+34","",$telefono);
     //
     $email = get_post_meta( $usuario, 'wpfunos_userMail', true );
 
