@@ -63,9 +63,11 @@ class Wpfunos_Aseguradoras {
       //$this->wpfunosResultCorreoLead();
     }else{
       $userIP = apply_filters('wpfunos_userIP','dummy');
+      $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Error 4 Nuevo Usuario: ' .  $userIP );
-      do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
+      do_action('wpfunos_log', $userIP.' - '.'Acciones Botones Aseguradora: ERROR' );
+      do_action('wpfunos_log', $userIP.' - '.'Referer: ' .  $referer );
+      do_action('wpfunos_log', $userIP.' - '.'referencia: ' .  $fields['referencia'] );
     }
   }
 
@@ -100,12 +102,12 @@ class Wpfunos_Aseguradoras {
       $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
 
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', '4. - Página Resultados Aseguradoras' );
-      do_action('wpfunos_log', 'Usuario: ' .  $userIP  );
-      do_action('wpfunos_log', '$_GET[wpf]: ' . $_GET['wpf'] );
-      do_action('wpfunos_log', '$cryptcode: ' . $cryptcode );
-      do_action('wpfunos_log', '$_GET[referencia]: ' . $_GET['referencia'] );
-      do_action('wpfunos_log', '$_GET[CP]: ' . $_GET['CP'] );
+      do_action('wpfunos_log', $userIP.' - '.'4. - Página Resultados Aseguradoras' );
+      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'$_GET[wpf]: ' . $_GET['wpf'] );
+      do_action('wpfunos_log', $userIP.' - '.'$cryptcode: ' . $cryptcode );
+      do_action('wpfunos_log', $userIP.' - '.'$_GET[referencia]: ' . $_GET['referencia'] );
+      do_action('wpfunos_log', $userIP.' - '.'$_GET[CP]: ' . $_GET['CP'] );
       $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
       if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){
         // Solo enviar lead si no se ha enviado anteriormente.
@@ -357,12 +359,13 @@ class Wpfunos_Aseguradoras {
       return 'NO API';
     }
 
+    $userIP = apply_filters('wpfunos_userIP','dummy');
     do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', 'API Aseguradoras.' );
-    do_action('wpfunos_log', 'API: '.$api );
-    do_action('wpfunos_log', 'Request: $URL: ' .  $URL );
-    do_action('wpfunos_log', 'Request: $headers: ' .  apply_filters('wpfunos_dumplog', $headers ) );
-    do_action('wpfunos_log', 'Request: $body: ' .  $body );
+    do_action('wpfunos_log', $userIP.' - '.'API Aseguradoras.' );
+    do_action('wpfunos_log', $userIP.' - '.'API: '.$api );
+    do_action('wpfunos_log', $userIP.' - '.'Request: $URL: ' .  $URL );
+    do_action('wpfunos_log', $userIP.' - '.'Request: $headers: ' .  apply_filters('wpfunos_dumplog', $headers ) );
+    do_action('wpfunos_log', $userIP.' - '.'Request: $body: ' .  $body );
 
     if( apply_filters('wpfunos_reserved_email','wpfunosAPIAseguradora') ) return 'Admin user';
 
@@ -373,8 +376,8 @@ class Wpfunos_Aseguradoras {
       esc_html_e('alguna cosa ha ido mal','wpfunos');
       esc_html_e(': ' . $request->get_error_message() );
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Request: Error message: ' .  $request->get_error_message() );
-      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - '.'Mensaje de error en la petición API.' );
+      do_action('wpfunos_log', $userIP.' - '.'Request: Error message: ' .  $request->get_error_message() );
       return 'Error';
     }
 
@@ -457,23 +460,25 @@ class Wpfunos_Aseguradoras {
         wp_mail ( $email_correo, get_option('wpfunos_asuntoCorreoPreventiva') , $mensaje, $headers );
 
         do_action('wpfunos_log', '==============' );
-        do_action('wpfunos_log', 'Enviar correo detalles v3' );
-        do_action('wpfunos_log', '$IP: ' . $userIP );
-        do_action('wpfunos_log', '$headers: ' . apply_filters('wpfunos_dumplog', $request['response']  ) );
-        do_action('wpfunos_log', '$email: ' . $email );
+        do_action('wpfunos_log', $userIP.' - '.'Enviar correo detalles Preventiva' );
+        do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+        do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $request['response']  ) );
+        do_action('wpfunos_log', $userIP.' - '.'$email: ' . $email );
       }
 
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Nueva API IP: ' .  $userIP );
-      do_action('wpfunos_log', 'ID: ' .  $post_id );
-      do_action('wpfunos_log', 'referencia: ' . $referencia );
+      do_action('wpfunos_log', $userIP.' - '.'Petición API correcta' );
+      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr($referer,0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'ID: ' .  $post_id );
+      do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
       $mensaje_return = ( 'Conflict' === $request['response']['message'] ) ? 'Conflict' : 'OK:' . $referencia ;
       return $mensaje_return;
     }else{
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Error 3 Nueva API: ' .  $userIP );
-      do_action('wpfunos_log', 'Error: ' .  $request['response']['message'] );
-      do_action('wpfunos_log', 'referencia: ' . $referencia );
+      do_action('wpfunos_log', $userIP.' - '.'Petición API devuelve errores' );
+      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'Error: ' .  $request['response']['message'] );
+      do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
       return $request['response']['message'];
     }
 
@@ -544,10 +549,10 @@ class Wpfunos_Aseguradoras {
     $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
 
     do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', 'Enviar Cold Lead a ELECTIUM' );
-    do_action('wpfunos_log', 'referencia: ' . $referencia );
-    do_action('wpfunos_log', 'IDusuario: ' . $IDusuario );
-    do_action('wpfunos_log', 'userIP: ' . $userIP );
+    do_action('wpfunos_log', $userIP.' - '.'Enviar Cold Lead a ELECTIUM' );
+    do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+    do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
+    do_action('wpfunos_log', $userIP.' - '.'IDusuario: ' . $IDusuario );
 
     if ($IDusuario != 0){
 
@@ -603,10 +608,10 @@ class Wpfunos_Aseguradoras {
 
       wp_mail ( get_option('wpfunos_mailCorreoDatosEntradosAseguradora'), get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora') , $mensaje, $headers );
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Enviar correo entrada datos aseguradoras al admin' );
-      do_action('wpfunos_log', 'referencia: ' . $referencia );
-      do_action('wpfunos_log', 'userIP: ' . $userIP );
-      do_action('wpfunos_log', 'mailCorreoDatosEntradosAseguradora: ' . get_option('wpfunos_mailCorreoDatosEntradosAseguradora') );
+      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'Enviar correo entrada datos aseguradoras al admin' );
+      do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
+      do_action('wpfunos_log', $userIP.' - '.'mailCorreoDatosEntradosAseguradora: ' . get_option('wpfunos_mailCorreoDatosEntradosAseguradora') );
 
     }
 

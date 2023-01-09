@@ -108,13 +108,14 @@ class Wpfunos_Utils {
   */
   public function wpfunosColabEmailAction( $accion ) {
     if (! is_user_logged_in()) return false;
+    $userIP = apply_filters('wpfunos_userIP','dummy');
     $current_user = wp_get_current_user();
     $opcion = get_option( 'wpfunos_DireccionesColaboradores' );
     $direcciones = explode ( ",", $opcion );
     foreach( $direcciones as $direccion ) {
       $direccion = trim( $direccion );
       if( $direccion == $current_user->user_email ){
-        $this->custom_logs( $this->dumpPOST('wpfunos_DireccionesColaboradores true: ' .$current_user->user_email. ' acción: ' .$accion  ) );
+        $this->custom_logs( $this->dumpPOST($userIP.' - '.'wpfunos_DireccionesColaboradores true: ' .$current_user->user_email. ' acción: ' .$accion  ) );
         return true;
       }
     }

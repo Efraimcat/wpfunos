@@ -500,16 +500,16 @@ class Wpfunos_Public {
     if( strlen( $fields['Telefono']) > 3 ){
       $post_id = wp_insert_post($my_post);
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', '3. - Recogida datos usuario' );
-      do_action('wpfunos_log', 'userIP: ' . $userIP );
-      do_action('wpfunos_log', 'Nombre: ' .  $fields['Nombre']  );
-      do_action('wpfunos_log', 'Post ID: ' .  $post_id  );
-      do_action('wpfunos_log', 'referencia: ' . $fields['referencia'] );
-      do_action('wpfunos_log', 'Telefono: ' . $fields['Telefono'] );
+      do_action('wpfunos_log', $userIP.' - '.'3. - Recogida datos usuario' );
+      do_action('wpfunos_log', $userIP.' - '.'Referer: ' .  sanitize_text_field( $_SERVER['HTTP_REFERER'] ) );
+      do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $fields['Nombre']  );
+      do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
+      do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $fields['referencia'] );
+      do_action('wpfunos_log', $userIP.' - '.'Telefono: ' . $fields['Telefono'] );
     }else{
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', 'Error 1 Nuevo Usuario: ' .  $userIP  );
-      do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
+      do_action('wpfunos_log', $userIP.' - '.'Error 1 Nuevo Usuario:' );
+      do_action('wpfunos_log', $userIP.' - '.'referencia: ' .  $fields['referencia'] );
     }
     //if(is_wp_error($post_id)){
     //  echo $post_id->get_error_message();
