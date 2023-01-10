@@ -67,6 +67,7 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Acciones Botones Aseguradora: ERROR' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -109,6 +110,7 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Página Resultados Aseguradoras' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -373,6 +375,7 @@ class Wpfunos_Aseguradoras {
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - '.'API Aseguradoras.' );
     do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+    do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
     do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -395,6 +398,7 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Mensaje de error en la petición API.' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -486,6 +490,7 @@ class Wpfunos_Aseguradoras {
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - '.'Enviar correo detalles Preventiva' );
         do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+        do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
         do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
         do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
         do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -499,6 +504,7 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Petición API correcta' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -513,6 +519,7 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Petición API devuelve errores' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -593,6 +600,7 @@ class Wpfunos_Aseguradoras {
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - '.'Enviar Cold Lead a ELECTIUM' );
     do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+    do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
     do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -659,6 +667,7 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Enviar correo entrada datos aseguradoras al admin' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);

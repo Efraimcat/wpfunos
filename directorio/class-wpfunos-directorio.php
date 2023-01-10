@@ -13,41 +13,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 class Wpfunos_Directorio {
-  
+
   private $plugin_name;
   private $version;
-  
+
   public function __construct( $plugin_name, $version ) {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
     add_shortcode( 'wpfunos-contenido-tanatorio-directorio', array( $this, 'wpfunosContenidoTanatorioDirectorioShortcode' ));
     add_shortcode( 'wpfunos-actulizar-mapas-directorio', array( $this, 'wpfunosActualizarMapasDirectorioShortcode' ));
   }
-  
+
   /*********************************/
   /*****  SHORTCODES          ******/
   /*********************************/
-  
+
   /**
   * Shortcode [wpfunos-contenido-tanatorio-directorio]
   */
   public function wpfunosContenidoTanatorioDirectorioShortcode( $atts, $content = "" ) {
-    
+
   }
-  
+
   /**
   * Shortcode [wpfunos-actulizar-mapas-directorio]
   */
   public function wpfunosActualizarMapasDirectorioShortcode( $atts, $content = "" ) {
     if ( get_post_type( get_the_ID() ) != 'tanatorio_d_wpfunos' ) return;
-    $this->gmw_update_post_type_post_location( get_the_ID() );
+    //$this->gmw_update_post_type_post_location( get_the_ID() );
   }
-  
-  
+
+
   /*********************************/
   /*****                      ******/
   /*********************************/
-  
+
   public function gmw_update_post_type_post_location(  $post_id ) {
     // Return if it's a post revision.
     if ( false !== wp_is_post_revision( $post_id ) ) {
@@ -62,7 +62,7 @@ class Wpfunos_Directorio {
       return;
     }
     // get the address from the custom field "address".
-    // 
+    //
     // _tanatorioDirectorioDireccion
     $address = get_post_meta( $post_id, 'wpfunos_tanatorioDirectorioDireccion', true );
     if( strlen( $address) < 5 )$address = get_post_meta( $post_id, 'wpfunos_tanatorioDirectorioPoblacion', true );
@@ -75,6 +75,6 @@ class Wpfunos_Directorio {
       return;
     }
     //run the udpate location function
-    gmw_update_post_location( $post_id, $address );
+    //gmw_update_post_location( $post_id, $address );
   }
 }

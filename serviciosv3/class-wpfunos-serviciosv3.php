@@ -881,6 +881,7 @@ class Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - '.'Entrada comparador página ubicación' );
     do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+    do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
     do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -1051,6 +1052,7 @@ class Wpfunos_ServiciosV3 {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Entrada no deseada' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);

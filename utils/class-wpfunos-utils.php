@@ -95,11 +95,11 @@ class Wpfunos_Utils {
     foreach( $direcciones as $direccion ) {
       $direccion = trim( $direccion );
       if( $direccion == $current_user->user_email ){
-        $this->custom_logs( $this->dumpPOST('ReservedEmailAction true: ' .$current_user->user_email. ' acción: ' .$accion ) );
+        //$this->custom_logs( $this->dumpPOST('ReservedEmailAction true: ' .$current_user->user_email. ' acción: ' .$accion ) );
         return true;
       }
     }
-    $this->custom_logs( $this->dumpPOST('ReservedEmailAction false: ' .$current_user->user_email. ' acción: ' .$accion  ) );
+    //$this->custom_logs( $this->dumpPOST('ReservedEmailAction false: ' .$current_user->user_email. ' acción: ' .$accion  ) );
     return false;
   }
 
@@ -115,7 +115,7 @@ class Wpfunos_Utils {
     foreach( $direcciones as $direccion ) {
       $direccion = trim( $direccion );
       if( $direccion == $current_user->user_email ){
-        $this->custom_logs( $this->dumpPOST($userIP.' - '.'wpfunos_DireccionesColaboradores true: ' .$current_user->user_email. ' acción: ' .$accion  ) );
+        //$this->custom_logs( $this->dumpPOST($userIP.' - '.'wpfunos_DireccionesColaboradores true: ' .$current_user->user_email. ' acción: ' .$accion  ) );
         return true;
       }
     }

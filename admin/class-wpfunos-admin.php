@@ -2239,7 +2239,7 @@ class Wpfunos_Admin {
         $direccion = get_post_meta( $servicioPrecioID, 'wpfunos_servicioDireccion', true );
 
         if( strlen( $direccion ) > 1 ){
-          gmw_update_post_location( $post->ID, $direccion, 7, $direccion, true );
+          //gmw_update_post_location( $post->ID, $direccion, 7, $direccion, true );
         }
 
       }
