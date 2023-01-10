@@ -498,12 +498,13 @@ class Wpfunos_Public {
       );
     }
     $log = (is_user_logged_in()) ? 'logged' : 'not logged';
+    $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
     if( strlen( $fields['Telefono']) > 3 ){
       $post_id = wp_insert_post($my_post);
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Recogida datos usuario' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
@@ -517,7 +518,7 @@ class Wpfunos_Public {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Error Nuevo Usuario:' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . apply_filters('wpfunos_is_mobile','' ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
