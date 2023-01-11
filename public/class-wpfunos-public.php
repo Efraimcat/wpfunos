@@ -341,7 +341,8 @@ class Wpfunos_Public {
 
     $URL= get_site_url() .$wpml_path. '/comparar-precios?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=4&action=fs&wpf=' .$fields['wpf']. '&orden=dist';
 
-    $userURL = apply_filters('wpfunos_shortener', $URL );
+    //$userURL = apply_filters('wpfunos_shortener', $URL );
+    $userURL = $URL;
 
     if ($fields['Destino']){
       switch ( $fields['Destino'] ) {
@@ -509,7 +510,6 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-      do_action('wpfunos_log', $userIP.' - '.'---' );
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $fields['Nombre']  );
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $fields['referencia'] );
@@ -523,8 +523,6 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-      do_action('wpfunos_log', $userIP.' - '.'---' );
-
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' .  $fields['referencia'] );
     }
     //if(is_wp_error($post_id)){

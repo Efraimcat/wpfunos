@@ -73,7 +73,6 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-      do_action('wpfunos_log', $userIP.' - '.'---' );
     }
   }
 
@@ -117,7 +116,6 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-      do_action('wpfunos_log', $userIP.' - '.'---' );
       do_action('wpfunos_log', $userIP.' - '.'$_GET[wpf]: ' . $_GET['wpf'] );
       do_action('wpfunos_log', $userIP.' - '.'$cryptcode: ' . $cryptcode );
       do_action('wpfunos_log', $userIP.' - '.'$_GET[referencia]: ' . $_GET['referencia'] );
@@ -280,10 +278,14 @@ class Wpfunos_Aseguradoras {
   **/
   public function wpfunosAPIAseguradora( $usuario, $servicio, $mensaje ){
 
+    if( site_url() === 'https://dev.funos.es'){
+      return;
+    }
+
     $local_time  = current_datetime();
     $current_time = $local_time->getTimestamp() + $local_time->getOffset();
     $fecha = gmdate("Ymd His",$current_time);
-    $fechacarga = gmdate("Ymd His",$current_time);
+    $fechacarga = gmdate("Y-m-d H:i:s",$current_time);
     $fechacargaDKV = gmdate("Y/m/d H:i:s",$current_time);
 
     $seleccion = get_post_meta( $usuario, 'wpfunos_userSeleccion', true );
@@ -383,7 +385,6 @@ class Wpfunos_Aseguradoras {
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
     do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-    do_action('wpfunos_log', $userIP.' - '.'---' );
     do_action('wpfunos_log', $userIP.' - '.'API: '.$api );
     do_action('wpfunos_log', $userIP.' - '.'Request: $URL: ' .  $URL );
     do_action('wpfunos_log', $userIP.' - '.'Request: $headers: ' .  apply_filters('wpfunos_dumplog', $headers ) );
@@ -407,7 +408,6 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-      do_action('wpfunos_log', $userIP.' - '.'---' );
       do_action('wpfunos_log', $userIP.' - '.'Request: Error message: ' .  $request->get_error_message() );
       return 'Error';
     }
@@ -485,10 +485,13 @@ class Wpfunos_Aseguradoras {
         $mensaje = str_replace( '[tipoAPI]' , $api , $mensaje );
         $mensaje = str_replace( '[edad]' , $edad , $mensaje );
 
-        if(!empty( get_option('wpfunos_mailCorreoCcoPreventiva' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPreventiva' ) ;
-        if(!empty( get_option('wpfunos_mailCorreoBccPreventiva' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPreventiva' ) ;
-
-        wp_mail ( $email_correo, get_option('wpfunos_asuntoCorreoPreventiva') , $mensaje, $headers );
+        if( site_url() === 'https://dev.funos.es'){
+          wp_mail ( 'efraim@efraim.cat', get_option('wpfunos_asuntoCorreoPreventiva') , $mensaje, $headers );
+        }else{
+          if(!empty( get_option('wpfunos_mailCorreoCcoPreventiva' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPreventiva' ) ;
+          if(!empty( get_option('wpfunos_mailCorreoBccPreventiva' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPreventiva' ) ;
+          wp_mail ( $email_correo, get_option('wpfunos_asuntoCorreoPreventiva') , $mensaje, $headers );
+        }
 
         $log = (is_user_logged_in()) ? 'logged' : 'not logged';
         $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
@@ -500,7 +503,6 @@ class Wpfunos_Aseguradoras {
         do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
         do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
         do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-        do_action('wpfunos_log', $userIP.' - '.'---' );
         do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $request['response']  ) );
         do_action('wpfunos_log', $userIP.' - '.'$email: ' . $email );
       }
@@ -515,7 +517,6 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-      do_action('wpfunos_log', $userIP.' - '.'---' );
       do_action('wpfunos_log', $userIP.' - '.'ID: ' .  $post_id );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
       $mensaje_return = ( 'Conflict' === $request['response']['message'] ) ? 'Conflict' : 'OK:' . $referencia ;
@@ -531,7 +532,6 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-      do_action('wpfunos_log', $userIP.' - '.'---' );
       do_action('wpfunos_log', $userIP.' - '.'Error: ' .  $request['response']['message'] );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
       return $request['response']['message'];
@@ -613,7 +613,6 @@ class Wpfunos_Aseguradoras {
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
     do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
     do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-    do_action('wpfunos_log', $userIP.' - '.'---' );
     do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
     do_action('wpfunos_log', $userIP.' - '.'IDusuario: ' . $IDusuario );
 
@@ -666,10 +665,14 @@ class Wpfunos_Aseguradoras {
       $mensaje = str_replace( '[aseguradoraNombre]' , $aseguradoraNombre , $mensaje );
       $mensaje = str_replace( '[aseguradoraTipoSeguro]' , $aseguradoraTipoSeguro , $mensaje );
 
-      if(!empty( get_option('wpfunos_mailCorreoCcoDatosEntradosAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoDatosEntradosAseguradora' ) ;
-      if(!empty( get_option('wpfunos_mailCorreoBccDatosEntradosAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccDatosEntradosAseguradora' ) ;
 
-      wp_mail ( get_option('wpfunos_mailCorreoDatosEntradosAseguradora'), get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora') , $mensaje, $headers );
+      if( site_url() === 'https://dev.funos.es'){
+        wp_mail ( 'efraim@efraim.cat', get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora') , $mensaje, $headers );
+      }else{
+        if(!empty( get_option('wpfunos_mailCorreoCcoDatosEntradosAseguradora' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoDatosEntradosAseguradora' ) ;
+        if(!empty( get_option('wpfunos_mailCorreoBccDatosEntradosAseguradora' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccDatosEntradosAseguradora' ) ;
+        wp_mail ( get_option('wpfunos_mailCorreoDatosEntradosAseguradora'), get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora') , $mensaje, $headers );
+      }
 
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
@@ -681,7 +684,6 @@ class Wpfunos_Aseguradoras {
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
       do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-      do_action('wpfunos_log', $userIP.' - '.'---' );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
       do_action('wpfunos_log', $userIP.' - '.'mailCorreoDatosEntradosAseguradora: ' . get_option('wpfunos_mailCorreoDatosEntradosAseguradora') );
 
