@@ -1948,7 +1948,7 @@ class Wpfunos_ServiciosV3 {
 
       $userIP = apply_filters('wpfunos_userIP','dummy');
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'2. - Botón Prdir presupuesto' );
+      do_action('wpfunos_log', $userIP.' - '.'Botón Prdir presupuesto' );
       do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $transient_ref['wpfn'] );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );

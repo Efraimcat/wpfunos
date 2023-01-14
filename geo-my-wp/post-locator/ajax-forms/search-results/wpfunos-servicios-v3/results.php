@@ -34,56 +34,40 @@ $IP = apply_filters('wpfunos_userIP','dummy');
 			$mas_barato = $transient_id['wpfprice'];
 			$wpfunos_confirmado = $transient_id['wpfcon'];
 			$wpfunos_sinconfirmar = $transient_id['wpfsin'];
-			ElementorPro\Modules\Popup\Module::add_popup_to_location( '84639' ); //Ventana Popup Esperando (loader2)
 			$contador = count($wpfunos_confirmado)+count($wpfunos_sinconfirmar);
 
-			$texto_contador = ($contador == '0') ? 'Ampliando el radio de búsqueda...' : 'Hemos encontrado ' .$contador. ' resultados para ti.';
+			if (isset($_GET['wpfwpf'])){
+				$texto_contador = ($contador == '0') ? 'Ampliando el radio de búsqueda...' : 'Hemos encontrado ' .$contador. ' resultados para ti.';
+			}else{
+				$texto_contador = '';
+			}
 			?>
 
-			<div id="wpfunos-resultados-contador">
-
-				<h6 style="text-align: center;"><?php echo $texto_contador; ?></h6>
-
-				<script type="text/javascript">
-
-				var contador = <?php echo $contador; ?>;
-				var mejor = <?php echo $mas_barato; ?>;
-
-				document.getElementById("wpf-resultados-referencia").setAttribute("wpfcount",contador);
-				document.getElementById("wpf-resultados-referencia").setAttribute("wpfmejorprecio",mejor + '€');
-
-				console.log('contador ' + contador);
-				// No hay resulados
-				if ( contador == '0' ){
-					var params = new URLSearchParams(location.search);
-					if( params.get('distance') !== '300') {
-						jQuery( window ).on( 'elementor/frontend/init', function() { //wait for elementor to load
-							elementorFrontend.on( 'components:init', function() { //wait for elementor pro to load
-								elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup Esperando (loader2)
-								params.set('distance', '300' );
-								window.location.search = params.toString();
-							});
-						});
-					}
-				}
-				// END No hay resulados
-
-				</script>
-
-			</div>
+			<script type="text/javascript">
+			document.getElementById("wpf-resultados-referencia").setAttribute("wpfcount",<?php echo (count($wpfunos_confirmado)+count($wpfunos_sinconfirmar)); ?>);
+			document.getElementById("wpf-resultados-referencia").setAttribute("wpfmejorprecio",<?php echo $mas_barato; ?> + '€');
+			</script>
 
 			<div id="wpfunos-resultados">
 
+				<h6 style="text-align: center;"><?php echo $texto_contador; ?></h6>
+
 				<?php
-				do_action( 'wpfunos_v3_confirmado', $wpfunos_confirmado );
-				do_action( 'wpfunos_v3_sinconfirmar', $wpfunos_sinconfirmar );
+				if (isset($_GET['wpfwpf'])){
+					do_action( 'wpfunos_v3_confirmado', $wpfunos_confirmado );
+					do_action( 'wpfunos_v3_sinconfirmar', $wpfunos_sinconfirmar );
+				}
 				?>
 
 			</div>
 
 			<div class="wpfunos-search-results-map">
 
-				<?php echo do_shortcode( '[gmw_ajax_form map="8"]' ); ?>
+				<?php
+				if (isset($_GET['wpfwpf'])){
+					echo do_shortcode( '[gmw_ajax_form map="8"]' );
+				}
+				?>
 
 			</div>
 

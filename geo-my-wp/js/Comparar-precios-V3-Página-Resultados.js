@@ -65,7 +65,7 @@ $(document).ready(function(){
 
     document.getElementById('wpfunos-v3-cuando-boton').addEventListener('click', function(){
       if( params.get('cuando') === 'Ahora'){
-        params.set('cuando', 'Próximamente');
+        params.set('cuando', 'Proximamente');
       }else{
         params.set('cuando', 'Ahora');
       }
@@ -75,7 +75,7 @@ $(document).ready(function(){
 
     document.getElementById('wpfunos-v3-cuando-texto').addEventListener('click', function(){
       if( params.get('cuando') === 'Ahora'){
-        params.set('cuando', 'Próximamente');
+        params.set('cuando', 'Proximamente');
       }else{
         params.set('cuando', 'Ahora');
       }
@@ -85,7 +85,7 @@ $(document).ready(function(){
 
     document.getElementById('wpfunos-v3-cuando-boton-movil').addEventListener('click', function(){
       if( params.get('cuando') === 'Ahora'){
-        params.set('cuando', 'Próximamente');
+        params.set('cuando', 'Proximamente');
       }else{
         params.set('cuando', 'Ahora');
       }
@@ -95,7 +95,7 @@ $(document).ready(function(){
 
     document.getElementById('wpfunos-v3-cuando-texto-movil').addEventListener('click', function(){
       if( params.get('cuando') === 'Ahora'){
-        params.set('cuando', 'Próximamente');
+        params.set('cuando', 'Proximamente');
       }else{
         params.set('cuando', 'Ahora');
       }
@@ -353,7 +353,7 @@ $(document).ready(function(){
 
           [ document.getElementById('wpfunos-multistep-prox'),document.getElementById('wpfunos-multistep-prox-icon') ].forEach(function(element) {
             element.addEventListener('click', function() {
-              cuando = 'Próximamente';
+              cuando = 'Proximamente';
               console.log('cuando: Proximamente');
 
               if( document.getElementById('wpf-resultados-referencia').getAttribute('wpfland') === '1'){
