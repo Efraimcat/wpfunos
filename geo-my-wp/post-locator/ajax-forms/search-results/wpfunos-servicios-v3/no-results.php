@@ -9,7 +9,23 @@
 * your-theme's-or-child-theme's-folder/geo-my-wp/posts-locator/ajax-forms/search-results/
 *
 * @param $gmw  ( array ) the form being useds
+*/
+/**
+*<div class="wpf-modal">
 *
+*  <div class="wpf-modal-text">
+*
+*    <h2 style="margin-top: 20%; color:white; font-size:32px; display: none;">
+*      Estamos buscando los mejores precios para ti...
+*    </h2>
+*
+*  </div>
+*
+*  <div class="wpf-modal-img rotate">
+*
+*  </div>
+*
+*</div>
 */
 ?>
 <?php if (!isset($_GET['wpfwpf'])) return; ?>
@@ -23,7 +39,17 @@
   left:       0;
   height:     100%;
   width:      100%;
-  background: rgba( 0, 0, 0, .8 ) url('https://funos.es/wp-content/uploads/2022/07/Loader.svg') 50% 50% no-repeat;
+  background: rgba( 0, 0, 0, .8 );
+}
+
+.wpf-modal-img {
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 0, 0, 0, .0 )url('https://funos.es/wp-content/uploads/2022/07/Loader.svg') 50% 50% no-repeat;
 }
 
 body.wpf-loading .wpf-modal {
@@ -32,6 +58,26 @@ body.wpf-loading .wpf-modal {
 
 body.wpf-loading .wpf-modal {
   display: block;
+}
+
+body.wpf-loading .wpf-modal-text h2{
+  display: block !important;
+}
+
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.wpfunos-busqueda-contenedor {
+  margin: 20px 0 20px 0;
 }
 
 </style>

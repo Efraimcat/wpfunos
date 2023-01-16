@@ -270,3 +270,19 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
   font-size: 26px;
   font-weight: 600;
 }
+
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.wpfunos-busqueda-contenedor {
+  margin: 20px 0 20px 0;
+}
