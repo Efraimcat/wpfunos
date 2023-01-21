@@ -66,7 +66,7 @@ var data = {
     action: 'is_user_logged_in'
 };
 
-jQuery.post('https://funos.es/wp-admin/admin-ajax.php', data, function(response) {
+jQuery.post('/wp-admin/admin-ajax.php', data, function(response) {
     if(response == 'yes') {
     	console.log( "logged-in");
 		document.cookie = "wpfunosloggedin=yes;expires=session; path=/;SameSite=Lax;secure";

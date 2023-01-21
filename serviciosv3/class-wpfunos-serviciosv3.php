@@ -12,6 +12,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/serviciosv3
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
+/*
+( '89340' );( '136565' ) //Servicios Multistep (1)
+( '89344' );( '136567' ) //Servicios Multistep (2)
+( '89348' );( '136569' ) //Servicios Multistep (3)
+( '89351' );( '136571' ) //Servicios Multistep (4)
+( '89354' );( '136573' ) //Servicios Multistep (5)
+
+
+( '84639' );( '136584' ) //Ventana Popup Esperando (loader2)
+( '77005' );( '136587' ) //Ventana Popup Esperando (entrada datos GTM)
+
+( '56684' );( '136592' ) //Servicios Te llamamos
+( '56680' );( '136595' ) //Servicios Llamar
+( '56676' );( '136598' ) //Servicio Presupuesto
+( '56672' );( '136601' ) //Servicio Detalles
+( '47448' );( '136603' ) //Servicios Enviar Email
+( '111301' );( '136605' ) //Servicios Financiación
+( '111305' );( '136607' ) //Página Financiación
+( '89948' );( '136609' ) //Servicios cambiar distancia V3
+*/
+
 class Wpfunos_ServiciosV3 {
   private $plugin_name;
   private $version;
@@ -76,6 +97,7 @@ class Wpfunos_ServiciosV3 {
   */
   public function wpfunosV3UbicacionShortcode($atts, $content = ""){
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '84626' ); //Ventana Popup Esperando (loader1)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( '136469' ); //Ventana Popup Esperando (loader1)(CA)
 
     //$this->wpfunosEntradaUbicacion();
     echo do_shortcode( '[gmw_ajax_form search_form="8"]' );
@@ -145,13 +167,24 @@ class Wpfunos_ServiciosV3 {
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '56676' ); //Servicio Presupuesto
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '56680' ); //Servicios Llamar
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '56684' ); //Servicios Llamame
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '77005' ); //Ventana Popup Esperando (entrada datos GTM)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '84639' ); //Ventana Popup Esperando (loader2)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89340' ); //Servicios Multistep (1)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89344' ); //Servicios Multistep (2)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89348' ); //Servicios Multistep (3)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89351' ); //Servicios Multistep (4)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89354' ); //Servicios Multistep (5)
+      if( $_COOKIE['wp-wpml_current_language'] == 'es'){
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89340' ); //Servicios Multistep (1)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89344' ); //Servicios Multistep (2)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89348' ); //Servicios Multistep (3)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89351' ); //Servicios Multistep (4)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89354' ); //Servicios Multistep (5)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '84639' ); //Ventana Popup Esperando (loader2)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '77005' ); //Ventana Popup Esperando (entrada datos GTM)
+      }
+      if( $_COOKIE['wp-wpml_current_language'] == 'ca'){
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136565' ); //Servicios Multistep (1)(CA)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136567' ); //Servicios Multistep (2)(CA)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136569' ); //Servicios Multistep (3)(CA)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136571' ); //Servicios Multistep (4)(CA)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136573' ); //Servicios Multistep (5)(CA)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136584' ); //Ventana Popup Esperando (loader2)(CA)
+        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136587' ); //Ventana Popup Esperando (entrada datos GTM)(CA)
+      }
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '111301' ); //Servicios Financiación
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '111305' ); //Servicios Financiación Genérico
 
@@ -187,11 +220,6 @@ class Wpfunos_ServiciosV3 {
 
         jQuery( document ).ready( function() { //wait for the page to load
 
-          //jQuery( window ).on( 'elementor/frontend/init', function() { //wait for elementor to load
-          //  elementorFrontend.on( 'components:init', function() { //wait for elementor pro to load
-          //    elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup Esperando (loader2)
-
-
           var params = new URLSearchParams(location.search);
           var lat = <?php  echo $nueva_lat; ?>;
           var lng = <?php  echo $nueva_lng; ?>;
@@ -200,9 +228,6 @@ class Wpfunos_ServiciosV3 {
           params.set('lng', lng );
           params.set('distance', distance );
           window.location.search = params.toString();
-
-          //  } );
-          //} );
 
         } );
 
@@ -421,6 +446,24 @@ class Wpfunos_ServiciosV3 {
       }
       // END No tiene entrada usuario
 
+    }else{
+      ?>
+      <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
+      $ = jQuery.noConflict();
+      $(document).ready(function(){
+        $(function(){
+          var idioma_wpml = getCookie('wp-wpml_current_language');
+          if (idioma_wpml === 'es'){
+            var URL = '/comparar-precios-nueva';
+          }else{
+            var URL = '/' + idioma_wpml + '/comparar-precios-nueva';
+          }
+          window.open(URL,"_self");
+        });
+      });
+      </script>
+      <?php
+
     } //END count($_GET) > 0
 
   }
@@ -499,7 +542,8 @@ class Wpfunos_ServiciosV3 {
       endforeach;
       wp_reset_postdata();
     }else{
-      ?><h6 style="text-align: center;margin-top: 20px;border-style: solid;border-width: thin;padding: 20px;border-radius: 4px;">No hay datos de precio medio para la zona de <?php echo $address;?></h6><?php
+      $texto = esc_html__('No hay datos de precio medio para la zona de', 'wpfunos_es');
+      ?><h6 style="text-align: center;margin-top: 20px;border-style: solid;border-width: thin;padding: 20px;border-radius: 4px;"><?php echo $texto;?> <?php echo $address;?></h6><?php
     }
 
     echo do_shortcode( get_option('wpfunos_seccionPreciosExclusivos') ); //[elementor-template id="51893"]
@@ -1157,9 +1201,10 @@ class Wpfunos_ServiciosV3 {
 
     $wpfwpf = apply_filters( 'wpfunos_crypt', $wpfnewref , 'e' );
 
-    $wpml_path = ( $_COOKIE['wp-wpml_current_language'] == 'es') ? '' : '/'. $_COOKIE['wp-wpml_current_language'] ;
-
-    $URL = home_url().$wpml_path.'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
+    //$wpml_path = ( $_COOKIE['wp-wpml_current_language'] == 'es') ? '' : '/'. $_COOKIE['wp-wpml_current_language'] ;
+    //
+    //$URL = home_url().$wpml_path.'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
+    $URL = home_url().'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
 
     do_action('wpfunos_update phone',$wpftelefono);
 
@@ -2124,72 +2169,72 @@ class Wpfunos_ServiciosV3 {
     // El cálculo del comentario se hace en la función "wpfunosMaintenanceComentariosFunerarias" en class-wpfunos-admin.php ( sobre la linea 1400 el 14-12-22)
     //
 
-    $comentarios = '<h3><strong>Qúe está incluido en el precio</strong></h3><p></p>';
-    $comentarios .= '<h4><strong>Detalles de servicio base</strong></h3>';
+    $comentarios = '<h3><strong>' .esc_html__('Qúe está incluido en el precio', 'wpfunos_es'). '</strong></h3><p></p>';
 
+    $comentarios .= '<h4><strong>' .esc_html__('Detalles de servicio base', 'wpfunos_es'). '</strong></h3>';
     $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioPrecioBaseComentario', true ) );
     $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
     $comentarios .= $customfield_content ;
 
     if( 'E' == $destino ){
-      $comentarios .= '<h4><strong>Detalles de entierro</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de entierro', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDestino_1Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'I'  == $destino ) {
-      $comentarios .= '<h4><strong>Detalles de  incineración</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de  incineración', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDestino_2Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
 
     if( 'E' == $ataud  ) {
-      $comentarios .= '<h4><strong>Detalles de  ataúd gama económica</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ataúd gama económica', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioAtaudEcologico_1Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'M' == $ataud ) {
-      $comentarios .= '<h4><strong>Detalles de  ataúd gama media</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ataúd gama media', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioAtaudEcologico_2Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'P' == $ataud ) {
-      $comentarios .= '<h4><strong>Detalles de  ataúd gama premium</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ataúd gama premium', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioAtaudEcologico_3Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
 
     if( 'V' == $velatorio ) {
-      $comentarios .= '<h4><strong>Detalles de  velatorio</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de  velatorio', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioVelatorioComentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
 
     if( 'O' == $despedida ) {
-      $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ceremonia', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDespedida_1Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'C' == $despedida ) {
-      $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ceremonia', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDespedida_2Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'R' == $despedida ) {
-      $comentarios .= '<h4><strong>Detalles de ceremonia</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de ceremonia', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDespedida_3Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
 
-    $comentarios .= '<h4><strong>Posibles Extras</strong></h4>';
+    $comentarios .= '<h4><strong>' .esc_html__('Posibles Extras', 'wpfunos_es'). '</strong></h4>';
     $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioPosiblesExtras', true ) );
     $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
     $comentarios .= $customfield_content ;

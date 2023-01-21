@@ -635,6 +635,9 @@ class Wpfunos_Aseguradoras {
     if ($IDusuario != 0){
       $headers[] = 'Content-Type: text/html; charset=UTF-8';
       $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoDatosEntradosAseguradora'), get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora') );
+      //$texto =  esc_html__( get_option('wpfunos_mensajeCorreoDatosEntradosAseguradora'), 'wpfunos_mensajes');
+      //$asunto = esc_html__( get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora'), 'wpfunos_mensajes');
+      //$mensaje = apply_filters( 'wpfunos_message_format', $texto,  $asunto );
 
       $seleccion = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
       $respuesta = (explode(',',$seleccion));

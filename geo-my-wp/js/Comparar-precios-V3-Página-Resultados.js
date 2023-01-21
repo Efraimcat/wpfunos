@@ -28,35 +28,79 @@ $(document).ready(function(){
       element.addEventListener('click', wpfdistancia, false);
     });
 
-    //
-
+    // WMPL
     var idioma_wpml = getCookie('wp-wpml_current_language');
     if (idioma_wpml === 'es'){
-      idioma_wpml = '';
+      idioma_URL = '';
     }else{
-      idioma_wpml = '/' + idioma_wpml;
+      idioma_URL = idioma_wpml;
     }
 
+    if (idioma_wpml === 'ca'){
+      if( params.get('cuando') === 'Ahora'){
+        document.getElementById('wpfunos-v3-cuando-texto').innerHTML = 'Ara';
+      }else{
+        document.getElementById('wpfunos-v3-cuando-texto').innerHTML = 'Properament';
+      }
+    }
+    // WMPL
+
     document.getElementById('wpfunos-v3-donde-boton').addEventListener('click', function(){
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      window.location.href = idioma_wpml+'/comparar-precios-nueva';
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
+      window.location.href = idioma_URL+'/comparar-precios-nueva';
     } , false);
 
     document.getElementById('wpfunos-v3-donde-texto').addEventListener('click', function(){
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      window.location.href = idioma_wpml+'/comparar-precios-nueva';
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
+      window.location.href = idioma_URL+'/comparar-precios-nueva';
     } , false);
 
     document.getElementById('wpfunos-v3-donde-texto').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfubic');
 
     document.getElementById('wpfunos-v3-donde-boton-movil').addEventListener('click', function(){
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      window.location.href = idioma_wpml+'/comparar-precios-nueva';
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
+      window.location.href = idioma_URL+'/comparar-precios-nueva';
     } , false);
 
     document.getElementById('wpfunos-v3-donde-texto-movil').addEventListener('click', function(){
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      window.location.href = idioma_wpml+'/comparar-precios-nueva';
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
+      window.location.href = idioma_URL+'/comparar-precios-nueva';
     } , false);
 
     document.getElementById('wpfunos-v3-donde-texto-movil').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfubic');
@@ -69,7 +113,16 @@ $(document).ready(function(){
       }else{
         params.set('cuando', 'Ahora');
       }
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
       window.location.search = params.toString();
     } , false);
 
@@ -79,7 +132,16 @@ $(document).ready(function(){
       }else{
         params.set('cuando', 'Ahora');
       }
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
       window.location.search = params.toString();
     } , false);
 
@@ -89,7 +151,16 @@ $(document).ready(function(){
       }else{
         params.set('cuando', 'Ahora');
       }
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
       window.location.search = params.toString();
     } , false);
 
@@ -99,7 +170,16 @@ $(document).ready(function(){
       }else{
         params.set('cuando', 'Ahora');
       }
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
       window.location.search = params.toString();
     } , false);
 
@@ -108,16 +188,45 @@ $(document).ready(function(){
     var orden = params.get('orden');
 
     if( params.get('orden') === 'precios'){
-      document.getElementById('wpfunos-titulo-orden').innerHTML = 'Resultados ordenados por precio.';
-      document.getElementById('wpfunos-boton-precio').innerHTML = 'Distancia';
+
+      // WMPL
+      if (idioma_wpml === 'es'){
+        document.getElementById('wpfunos-titulo-orden').innerHTML = 'Resultados ordenados por precio.';
+        document.getElementById('wpfunos-boton-precio').innerHTML = 'Distancia';
+      }
+      if (idioma_wpml === 'ca'){
+        document.getElementById('wpfunos-titulo-orden').innerHTML = 'Resultats ordenats per preu.';
+        document.getElementById('wpfunos-boton-precio').innerHTML = 'Distància';
+      }
+      // WMPL
+
     }else{
-      document.getElementById('wpfunos-titulo-orden').innerHTML = 'Resultados ordenados por distancia.';
-      document.getElementById('wpfunos-boton-precio').innerHTML = 'Precio';
+
+      // WMPL
+      if (idioma_wpml === 'es'){
+        document.getElementById('wpfunos-titulo-orden').innerHTML = 'Resultados ordenados por distancia.';
+        document.getElementById('wpfunos-boton-precio').innerHTML = 'Precio';
+      }
+      if (idioma_wpml === 'ca'){
+        document.getElementById('wpfunos-titulo-orden').innerHTML = 'Resultats ordenats per distància.';
+        document.getElementById('wpfunos-boton-precio').innerHTML = 'Preu';
+      }
+      // WMPL
+
     }
 
     document.getElementById('wpfunos-boton-precio').addEventListener('click', function(){
       console.log('click cambiar orden');
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
       if( orden === 'dist' ){
         params.set('orden', 'precios' );
         window.location.search = params.toString();
@@ -128,16 +237,45 @@ $(document).ready(function(){
     }, false);
 
     if( params.get('orden') === 'precios'){
-      document.getElementById('wpfunos-titulo-orden-movil').innerHTML = 'Resultados ordenados por precio.';
-      document.getElementById('wpfunos-boton-precio-movil').innerHTML = 'Distancia';
+
+      // WMPL
+      if (idioma_wpml === 'es'){
+        document.getElementById('wpfunos-titulo-orden-movil').innerHTML = 'Resultados ordenados por precio.';
+        document.getElementById('wpfunos-boton-precio-movil').innerHTML = 'Distancia';
+      }
+      if (idioma_wpml === 'ca'){
+        document.getElementById('wpfunos-titulo-orden-movil').innerHTML = 'Resultats ordenats per preu.';
+        document.getElementById('wpfunos-boton-precio-movil').innerHTML = 'Distància';
+      }
+      // WMPL
+
     }else{
-      document.getElementById('wpfunos-titulo-orden-movil').innerHTML = 'Resultados ordenados por distancia.';
-      document.getElementById('wpfunos-boton-precio-movil').innerHTML = 'Precio';
+
+      // WMPL
+      if (idioma_wpml === 'es'){
+        document.getElementById('wpfunos-titulo-orden-movil').innerHTML = 'Resultados ordenados por distancia.';
+        document.getElementById('wpfunos-boton-precio-movil').innerHTML = 'Precio';
+      }
+      if (idioma_wpml === 'ca'){
+        document.getElementById('wpfunos-titulo-orden-movil').innerHTML = 'Resultats ordenats per distància.';
+        document.getElementById('wpfunos-boton-precio-movil').innerHTML = 'Preu';
+      }
+      // WMPL
+
     }
 
     document.getElementById('wpfunos-boton-precio-movil').addEventListener('click', function(){
       console.log('click cambiar orden');
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+
+      // WPML
+      if (idioma_wpml === 'es'){
+        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      if (idioma_wpml === 'ca'){
+        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+      }
+      // WPML
+
       if( orden === 'dist' ){
         params.set('orden', 'precios' );
         window.location.search = params.toString();
@@ -312,302 +450,6 @@ $(document).ready(function(){
       elementsFinanciacionNo[i].style.display = 'none';
     }
 
-    // Multistep Form
-
-    var checkExist = setInterval(function() {
-      if (document.getElementById('wpf-resultados-referencia').hasAttribute('wpfmultistep') ) {
-        console.log('Lanzar Multistep Form');
-        clearInterval(checkExist);
-
-        setTimeout(function(){
-
-          elementorFrontend.documentsManager.documents['89340'].showModal(); //show the popup Cuando
-
-          var cuando = 'dummy';
-          var destino = 'dummy';
-          var velatorio = 'dummy';
-          var ceremonia = 'dummy';
-
-          [ document.getElementById('wpfunos-multistep-ahora'), document.getElementById('wpfunos-multistep-ahora-icon')].forEach(function(element) {
-            element.addEventListener('click', function() {
-              cuando = 'Ahora';
-              console.log('cuando: Ahora');
-
-              if( document.getElementById('wpf-resultados-referencia').getAttribute('wpfland') === '1'){
-                document.getElementById('elementor-popup-modal-89340').style.display = 'none';
-                elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup datos usuario
-                document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
-              }else{
-                document.getElementById('elementor-popup-modal-89340').style.display = 'none';
-                elementorFrontend.documentsManager.documents['89344'].showModal(); //show the popup Destino
-
-                [ document.getElementById('wpfunos-multistep-entierro'),document.getElementById('wpfunos-multistep-entierro-icon')  ].forEach(function(element) {
-                  element.addEventListener('click', wpfentierro, false);
-                });
-                [ document.getElementById('wpfunos-multistep-incineracion'),document.getElementById('wpfunos-multistep-incineracion-icon'), document.getElementById('wpfunos-multistep-nolose'), document.getElementById('wpfunos-multistep-nolose-icon')].forEach(function(element) {
-                  element.addEventListener('click', wpfincineracion, false);
-                });
-              }
-            }, false);
-          });
-
-          [ document.getElementById('wpfunos-multistep-prox'),document.getElementById('wpfunos-multistep-prox-icon') ].forEach(function(element) {
-            element.addEventListener('click', function() {
-              cuando = 'Proximamente';
-              console.log('cuando: Proximamente');
-
-              if( document.getElementById('wpf-resultados-referencia').getAttribute('wpfland') === '1'){
-                document.getElementById('elementor-popup-modal-89340').style.display = 'none';
-                elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup datos usuario
-                document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
-              }else{
-                document.getElementById('elementor-popup-modal-89340').style.display = 'none';
-                elementorFrontend.documentsManager.documents['89344'].showModal(); //show the popup Destino
-
-                [ document.getElementById('wpfunos-multistep-entierro'),document.getElementById('wpfunos-multistep-entierro-icon')  ].forEach(function(element) {
-                  element.addEventListener('click', wpfentierro, false);
-                });
-                [ document.getElementById('wpfunos-multistep-incineracion'),document.getElementById('wpfunos-multistep-incineracion-icon'), document.getElementById('wpfunos-multistep-nolose'), document.getElementById('wpfunos-multistep-nolose-icon')].forEach(function(element) {
-                  element.addEventListener('click', wpfincineracion, false);
-                });
-              }
-            }, false);
-          });
-
-          var idioma_wpml =  getCookie('wp-wpml_current_language');
-          if (idioma_wpml === 'es'){
-            idioma_wpml = '';
-          }else{
-            idioma_wpml = '/' + idioma_wpml;
-          }
-
-          [ document.getElementById('wpfunos-multistep-futuro'), document.getElementById('wpfunos-multistep-futuro-icon')].forEach(function(element) {
-            element.addEventListener('click', function() {
-              elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-              window.location.href = idioma_wpml+'/compara-precios-aseguradoras';
-            }, false);
-          });
-
-          //
-
-          var wpfentierro = function() {
-            destino = '1';
-            console.log('destino: entierro');
-
-            document.getElementById('elementor-popup-modal-89344').style.display = 'none';
-            elementorFrontend.documentsManager.documents['89348'].showModal(); //show the popup Velatorio
-
-            [ document.getElementById('wpfunos-multistep-velatorio'),document.getElementById('wpfunos-multistep-velatorio-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfvelatorio, false);
-            });
-            [ document.getElementById('wpfunos-multistep-sinvelatorio'),document.getElementById('wpfunos-multistep-sinvelatorio-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfsinvelatorio, false);
-            });
-          };
-
-          var wpfincineracion = function() {
-            destino = '2';
-            console.log('destino: incineracion');
-
-            document.getElementById('elementor-popup-modal-89344').style.display = 'none';
-            elementorFrontend.documentsManager.documents['89348'].showModal(); //show the popup Velatorio
-
-            [ document.getElementById('wpfunos-multistep-velatorio'),document.getElementById('wpfunos-multistep-velatorio-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfvelatorio, false);
-            });
-            [ document.getElementById('wpfunos-multistep-sinvelatorio'),document.getElementById('wpfunos-multistep-sinvelatorio-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfsinvelatorio, false);
-            });
-          };
-          //
-          //
-          var wpfvelatorio = function() {
-            velatorio = '1';
-            console.log('velatorio: si');
-
-            document.getElementById('elementor-popup-modal-89348').style.display = 'none';
-            elementorFrontend.documentsManager.documents['89351'].showModal(); //show the popup Ceremonia
-
-            [ document.getElementById('wpfunos-multistep-sinceremonia'),document.getElementById('wpfunos-multistep-sinceremonia-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfsinceremonia, false);
-            });
-            [ document.getElementById('wpfunos-multistep-solosala'),document.getElementById('wpfunos-multistep-solosala-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfsolosala, false);
-            });
-            [ document.getElementById('wpfunos-multistep-civil'),document.getElementById('wpfunos-multistep-civil-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfcivil, false);
-            });
-            [ document.getElementById('wpfunos-multistep-religiosa'),document.getElementById('wpfunos-multistep-religiosa-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfreligiosa, false);
-            });
-
-          };
-
-          var wpfsinvelatorio = function() {
-            velatorio = '2';
-            console.log('velatorio: no');
-
-            document.getElementById('elementor-popup-modal-89348').style.display = 'none';
-            elementorFrontend.documentsManager.documents['89351'].showModal(); //show the popup Ceremonia
-
-            [ document.getElementById('wpfunos-multistep-sinceremonia'),document.getElementById('wpfunos-multistep-sinceremonia-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfsinceremonia, false);
-            });
-            [ document.getElementById('wpfunos-multistep-solosala'),document.getElementById('wpfunos-multistep-solosala-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfsolosala, false);
-            });
-            [ document.getElementById('wpfunos-multistep-civil'),document.getElementById('wpfunos-multistep-civil-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfcivil, false);
-            });
-            [ document.getElementById('wpfunos-multistep-religiosa'),document.getElementById('wpfunos-multistep-religiosa-icon')  ].forEach(function(element) {
-              element.addEventListener('click', wpfreligiosa, false);
-            });
-
-          };
-          //
-          var wpfsinceremonia = function() {
-            ceremonia = '1';
-            console.log('ceremonia: no');
-
-            document.getElementById('elementor-popup-modal-89351').style.display = 'none';
-            elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
-            document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
-
-          };
-
-          var wpfsolosala = function() {
-            ceremonia = '2';
-            console.log('ceremonia: sala');
-
-            document.getElementById('elementor-popup-modal-89351').style.display = 'none';
-            elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
-            document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
-          };
-
-          var wpfcivil = function() {
-            ceremonia = '3';
-            console.log('ceremonia: civil');
-
-            document.getElementById('elementor-popup-modal-89351').style.display = 'none';
-            elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
-            document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
-          };
-
-          var wpfreligiosa = function() {
-            ceremonia = '4';
-            console.log('ceremonia: religiosa');
-
-            document.getElementById('elementor-popup-modal-89351').style.display = 'none';
-            elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
-            document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
-          };
-
-          //
-          //
-          var wpfdatosusuario = function() {
-            console.log('click botón enviar datos');
-            var nombre = document.getElementById('form-field-Nombre').value;
-            var email = document.getElementById('form-field-Email').value;
-            var telefono = document.getElementById('form-field-Telefono').value;
-            var acepta = document.getElementById('form-field-aceptacion').validity.valueMissing;  //(true = no ha validado  false = ha validado)
-            if( nombre !== '' && email !== '' && telefono !== '' && !acepta ){
-
-              console.log('datos correctos. creando entrada.');
-
-              var date = new Date();
-              date.setTime(date.getTime() + (30*24*60*60*1000));
-              expires = '; expires=' + date.toUTCString();
-              document.cookie = 'wpfn=' + nombre + expires + '; path=/; SameSite=Lax; secure';
-              document.cookie = 'wpfe=' + email + expires + '; path=/; SameSite=Lax; secure';
-              document.cookie = 'wpft=' + telefono + expires + '; path=/; SameSite=Lax; secure';
-
-              var ip = document.getElementById('wpf-resultados-referencia').getAttribute('wpfip');
-              var wpnonce = document.getElementById('wpf-resultados-referencia').getAttribute('wpfn');
-              var wpfnewref = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnewref');
-              var wpfcp = document.getElementById('wpf-resultados-referencia').getAttribute('wpfcp');
-              var wpfubic = document.getElementById('wpf-resultados-referencia').getAttribute('wpfubic');
-              var wpfdist = document.getElementById('wpf-resultados-referencia').getAttribute('wpfdist');
-              var wpflat = document.getElementById('wpf-resultados-referencia').getAttribute('wpflat');
-              var wpflng = document.getElementById('wpf-resultados-referencia').getAttribute('wpflng');
-              document.getElementById('wpf-resultados-referencia').setAttribute('wpfnombre',nombre);
-
-              var params = new URLSearchParams(location.search);
-
-              if( document.getElementById('wpf-resultados-referencia').getAttribute('wpfland') === '1'){
-                destino = params.get('cf[resp1]');
-                ataud = params.get('cf[resp2]');
-                velatorio = params.get('cf[resp3]');
-                ceremonia = params.get('cf[resp4]');
-              }else{
-                ataud = '2';
-              }
-
-              params.set('cf[resp1]', destino);
-              params.set('cf[resp2]', ataud);
-              params.set('cf[resp3]', velatorio);
-              params.set('cf[resp4]', ceremonia);
-
-              console.log('wpf-resultados-referencia NOMBRE: ' +document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre') );
-              console.log('Finalmente: Cuando ' +cuando+ ', Destino ' +destino+ ', Ataud ' +ataud+ ', Velatorio ' +velatorio+ ' , Ceremonia ' +ceremonia+ ', Nombre ' +nombre+ ' , Email ' +email+ ' , Teléfono ' +telefono);
-
-              params.set('cuando', cuando);
-              params.set('CP', wpfcp);
-
-              var url = params.toString();
-
-              elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-              $('#elementor-popup-modal-89354').hide();
-              elementorFrontend.documentsManager.documents['77005'].showModal(); //Ventana Popup Esperando (entrada datos GTM)
-
-              jQuery.ajax({
-                type : 'post',
-                dataType : 'json',
-                url : WpfAjax.ajaxurl,
-                data: {
-                  'action': 'wpfunos_ajax_v3_multiform',
-                  'wpfnombre': nombre,
-                  'wpfemail': email,
-                  'wpftelefono': telefono,
-                  'wpfurl' : url,
-                  'wpnonce' : wpnonce,
-                  'wpfip' : ip,
-                  'wpfnewref' : wpfnewref,
-                  'wpfcuando' : cuando,
-                  'wpfdestino' : destino,
-                  'wpfataud' : ataud,
-                  'wpfvelatorio' : velatorio,
-                  'wpfceremonia' : ceremonia,
-                  'wpfcp' : wpfcp,
-                  'wpfubic' : wpfubic,
-                  'wpfdist' : wpfdist,
-                  'wpflat' : wpflat,
-                  'wpflng' : wpflng,
-                  'wpfland' : document.getElementById('wpf-resultados-referencia').getAttribute('wpfland'),
-                },
-                success: function(response) {
-                  console.log(response)	;
-                  if(response.type === 'success') {
-                    console.log('success');
-                    window.location.href = response.wpfurl;
-                  } else {
-                    if(response.type === 'unwanted') {
-                      console.log('unwanted');
-                      window.location.href = '/';
-                    }else{
-                      console.log('fail');
-                      window.location.href = '/';
-                    }
-                  }
-                }
-              });
-            }
-          };
-        }, 1000); //timeout 1 sec.
-      }
-    }, 100); // check every 100ms
-    // Multistep Form END
-    // Multistep Form
-
     setInterval(function() {
       if ( document.getElementsByClassName('wpf-boton-financiacion')[0] ) {
         console.log('Modal financiación');
@@ -641,14 +483,30 @@ var wpfFunctionLlamamos = function() {
   //
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
 
-  elementorFrontend.documentsManager.documents['56684'].showModal(); //show the popup
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    elementorFrontend.documentsManager.documents['56684'].showModal(); //Servicios Te llamamos
+  }
+  if (idioma_wpml === 'ca'){
+    elementorFrontend.documentsManager.documents['136592'].showModal(); //Servicios Te llamamos
+  }
+  // WPML
 
   $('#wpf-llamamos-respuesta-si').hide();
   $('#wpf-llamamos-respuesta-no').hide();
   $('#wpf-llamamos-respuesta-cerrar').hide();
   document.getElementById('wpfunos-modal-llamen-titulo').innerHTML = titulo;
   document.getElementById('wpfunos-modal-llamamos-telefono').innerHTML = phone;
-  document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56684').hide(); }, false);
+
+  // WPML
+  if (idioma_wpml === 'es'){
+    document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56684').hide(); }, false);
+  }
+  if (idioma_wpml === 'ca'){
+    document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136592').hide(); }, false);
+  }
+  // WPML
 
   jQuery.ajax({
     type : 'post',
@@ -696,11 +554,27 @@ var wpfFunctionLlamar = function() {
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
   //
 
-  elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
+  }
+  if (idioma_wpml === 'ca'){
+    elementorFrontend.documentsManager.documents['136595'].showModal(); //show the popup
+  }
+  // WPML
 
   document.getElementById('wpfunos-modal-llamar-titulo').innerHTML = titulo;
   document.getElementById('wpfunos-modal-llamar-telefono').innerHTML = telefono;
-  document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56680').hide(); }, false);
+
+  // WPML
+  if (idioma_wpml === 'es'){
+    document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56680').hide(); }, false);
+  }
+  if (idioma_wpml === 'ca'){
+    document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136595').hide(); }, false);
+  }
+  // WPML
 
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
   console.log('isMobile: '+isMobile);
@@ -744,7 +618,15 @@ var wpfFunctionPresupuesto = function() {
 
   console.log('Botón Presupuesto: Servicio: '+servicio+' Título: '+titulo );
 
-  elementorFrontend.documentsManager.documents['56676'].showModal(); //show the popup
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    elementorFrontend.documentsManager.documents['56676'].showModal(); //Servicio Presupuesto
+  }
+  if (idioma_wpml === 'ca'){
+    elementorFrontend.documentsManager.documents['136598'].showModal(); //Servicio Presupuesto
+  }
+  // WPML
 
   document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
   document.getElementById('botonEnviarPresupuesto').setAttribute('wpfn', wpnonce );
@@ -821,7 +703,15 @@ var wpfFunctionDetalles = function() {
   //
   console.log('Botón Detalles: resp1: '+resp1+' reps2: '+resp2+' resp3: '+resp3+' resp4: '+resp4 );
 
-  elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+  }
+  if (idioma_wpml === 'ca'){
+    elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+  }
+  // WPML
 
   jQuery.ajax({
     type : 'post',
@@ -848,7 +738,15 @@ var wpfFunctionDetalles = function() {
       console.log(response)	;
       if(response.type === 'success') {
         console.log('success');
-        elementorFrontend.documentsManager.documents['56672'].showModal(); //show the popup
+
+        // WPML
+        if (idioma_wpml === 'es'){
+          elementorFrontend.documentsManager.documents['56672'].showModal(); //Servicio Detalles
+        }
+        if (idioma_wpml === 'ca'){
+          elementorFrontend.documentsManager.documents['136601'].showModal(); //Servicio Detalles
+        }
+        // WPML
 
         document.getElementById('wpf-detalles-logo').innerHTML = response.valor_logo;
         document.getElementById('wpf-detalles-logo-movil').innerHTML = response.valor_logo;
@@ -968,15 +866,32 @@ var wpfDetallesLlamamos = function() {
   //
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
 
-  $('#elementor-popup-modal-56672').hide();
-  elementorFrontend.documentsManager.documents['56684'].showModal(); //show the popup
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    $('#elementor-popup-modal-56672').hide();
+    elementorFrontend.documentsManager.documents['56684'].showModal(); //Servicios Te llamamos
+  }
+  if (idioma_wpml === 'ca'){
+    $('#elementor-popup-modal-136601').hide();
+    elementorFrontend.documentsManager.documents['136592'].showModal(); //Servicios Te llamamos
+  }
+  // WPML
 
   $('#wpf-llamamos-respuesta-si').hide();
   $('#wpf-llamamos-respuesta-no').hide();
   $('#wpf-llamamos-respuesta-cerrar').hide();
   document.getElementById('wpfunos-modal-llamen-titulo').innerHTML = titulo;
   document.getElementById('wpfunos-modal-llamamos-telefono').innerHTML = phone;
-  document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56684').hide(); }, false);
+
+  // WPML
+  if (idioma_wpml === 'es'){
+    document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56684').hide(); }, false);
+  }
+  if (idioma_wpml === 'ca'){
+    document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136592').hide(); }, false);
+  }
+  // WPML
 
   jQuery.ajax({
     type : 'post',
@@ -1025,11 +940,28 @@ var wpfDetallesLlamar = function() {
   //
 
   $('#elementor-popup-modal-56672').hide();
-  elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
+
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    elementorFrontend.documentsManager.documents['56680'].showModal(); //Servicios Llamar
+  }
+  if (idioma_wpml === 'ca'){
+    elementorFrontend.documentsManager.documents['136595'].showModal(); //Servicios Llamar
+  }
+  // WPML
 
   document.getElementById('wpfunos-modal-llamar-titulo').innerHTML = titulo;
   document.getElementById('wpfunos-modal-llamar-telefono').innerHTML = telefono;
-  document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56680').hide(); }, false);
+
+  // WPML
+  if (idioma_wpml === 'es'){
+    document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56680').hide(); }, false);
+  }
+  if (idioma_wpml === 'ca'){
+    document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136595').hide(); }, false);
+  }
+  // WPML
 
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
   console.log('isMobile: '+isMobile);
@@ -1079,10 +1011,21 @@ var wpfDetallesEmail = function() {
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
   //
 
-  $('#elementor-popup-modal-56672').hide();
-  elementorFrontend.documentsManager.documents['47448'].showModal(); //show the popup
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    $('#elementor-popup-modal-56672').hide();
+    elementorFrontend.documentsManager.documents['47448'].showModal(); //show the popup
+    document.getElementById('wpf-email-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-47448').hide(); }, false);
+  }
+  if (idioma_wpml === 'ca'){
+    $('#elementor-popup-modal-136601').hide();
+    elementorFrontend.documentsManager.documents['136603'].showModal(); //show the popup
+    document.getElementById('wpf-email-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136603').hide(); }, false);
+  }
+  // WPML
+
   document.getElementById('wpfunos-modal-email-email').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
-  document.getElementById('wpf-email-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-47448').hide(); }, false);
 
   jQuery.ajax({
     type : 'post',
@@ -1116,16 +1059,26 @@ var wpfDetallesProducto1 = function() {
   var precio = this.getAttribute('wpfp');
   var titulo = this.getAttribute('wpftitulo');
 
-  elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+  }
+  if (idioma_wpml === 'ca'){
+    elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+  }
+  // WPML
 
+  // WMPL
   var idioma_wpml =  getCookie('wp-wpml_current_language');
   if (idioma_wpml === 'es'){
-    idioma_wpml = '';
+    idioma_URL = '';
   }else{
-    idioma_wpml = '/' + idioma_wpml;
+    idioma_URL = '/' + idioma_wpml;
   }
+  // WMPL
 
-  window.location.href = 'https://funos.es'+idioma_wpml+'/producto/servicio-de-gestion-personalizada';
+  window.location.href = 'https://funos.es'+idioma_URL+'/producto/servicio-de-gestion-personalizada';
 };
 
 var wpfDetallesPresupuesto = function() {
@@ -1136,8 +1089,17 @@ var wpfDetallesPresupuesto = function() {
 
   console.log('Botón Presupuesto: Servicio: '+servicio+' Título: '+titulo );
 
-  $('#elementor-popup-modal-56672').hide();
-  elementorFrontend.documentsManager.documents['56676'].showModal(); //show the popup
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    $('#elementor-popup-modal-56672').hide(); //Servicio Detalles
+    elementorFrontend.documentsManager.documents['56676'].showModal(); //Servicio Presupuesto
+  }
+  if (idioma_wpml === 'ca'){
+    $('#elementor-popup-modal-136601').hide();//Servicio Detalles
+    elementorFrontend.documentsManager.documents['136598'].showModal(); //Servicio Presupuesto
+  }
+  // WPML
 
   document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
   document.getElementById('botonEnviarPresupuesto').setAttribute('wpfn', wpnonce );
@@ -1154,7 +1116,15 @@ var wpfFunctionFinanciacion = function() {
 
   console.log('Botón Financiación: '+servicio+' Título: '+titulo );
 
-  elementorFrontend.documentsManager.documents['111301'].showModal(); //show the popup
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    elementorFrontend.documentsManager.documents['111301'].showModal(); //show the popup
+  }
+  if (idioma_wpml === 'ca'){
+    elementorFrontend.documentsManager.documents['136605'].showModal(); //show the popup
+  }
+  // WPML
 
   document.getElementById('wpf-financiacion-funeraria').innerHTML = titulo;
   document.getElementById('wpf-financiacion-tipo').innerHTML = document.getElementsByClassName('elementor-element-6472ad92')[0].innerText;
@@ -1192,12 +1162,20 @@ var wpfFunctionFinanciacion = function() {
       document.getElementById('wpfFinanciacionEnviar').disabled = false;
     }
 
-
   }, 100); // check every 100ms
 };
 
 var wpfFunctionBotonFinanciacion = function() {
-  elementorFrontend.documentsManager.documents['111305'].showModal(); //show the popup
+
+  // WPML
+  var idioma_wpml = getCookie('wp-wpml_current_language');
+  if (idioma_wpml === 'es'){
+    elementorFrontend.documentsManager.documents['111305'].showModal(); //show the popup
+  }
+  if (idioma_wpml === 'ca'){
+    elementorFrontend.documentsManager.documents['136607'].showModal(); //show the popup
+  }
+  // WPML
 
   document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='none';
   document.getElementsByClassName('elementor-field-group-plazos_superior')[0].style.display='none';
@@ -1274,8 +1252,19 @@ var wpfdistancia = function() {
       var newdistance = document.getElementById('form-field-nuevadistancia').value;
       if( newdistance !== ''){
         $('#wpfunos-formulario-nueva-distancia').hide();
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //show the popup
-        document.getElementById('elementor-popup-modal-89948').style.display = 'none';
+
+        // WPML
+        var idioma_wpml = getCookie('wp-wpml_current_language');
+        if (idioma_wpml === 'es'){
+          elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+          document.getElementById('elementor-popup-modal-89948').style.display = 'none';
+        }
+        if (idioma_wpml === 'ca'){
+          elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+          document.getElementById('elementor-popup-modal-136609').style.display = 'none';
+        }
+        // WPML
+
         if( parseInt(newdistance) < 5 ){ newdistance = '5'; }
         if( parseInt(newdistance) > 200 ){ newdistance = '200'; }
         var params = new URLSearchParams(location.search);
@@ -1316,7 +1305,17 @@ function wpfFunctionResp(evt){
   var params = new URLSearchParams(location.search);
   console.log( 'click botón '+evt.currentTarget.resp+' '+evt.currentTarget.opcion);
   if( params.get('cf['+evt.currentTarget.resp+']') !== evt.currentTarget.opcion){
-    elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+
+    // WPML
+    var idioma_wpml = getCookie('wp-wpml_current_language');
+    if (idioma_wpml === 'es'){
+      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
+    }
+    if (idioma_wpml === 'ca'){
+      elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
+    }
+    // WPML
+
     params.set('cf['+evt.currentTarget.resp+']', evt.currentTarget.opcion );
     //    if( params.get('cf[resp3]') === '2' && params.get('cf[resp4]') === '1' && parseInt(params.get('distance')) < 100 ){
     //      console.log('Cambiando distancia 100km y orden a precios.');

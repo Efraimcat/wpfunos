@@ -255,7 +255,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-entierro-desde-texto', array( $this, 'wpfunosEntierroDesdeTextoShortcode' ));
   */
   public function wpfunosEntierroDesdeTextoShortcode( $atts, $content = "" ) {
-    echo 'Entierro en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroDesde', true ), 0, ',', '.');
+    echo esc_html__('Entierro en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroDesde', true ), 0, ',', '.');
     return;
   }
   /**
@@ -263,7 +263,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-incineracion-desde-texto', array( $this, 'wpfunosIncineracionDesdeTextoShortcode' ));
   */
   public function wpfunosIncineracionDesdeTextoShortcode( $atts, $content = "" ) {
-    echo 'Incineración en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionDesde', true ), 0, ',', '.');
+    echo esc_html__('Incineración en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionDesde', true ), 0, ',', '.');
     return;
   }
   /**
@@ -271,7 +271,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-entierro-velatorio-desde-texto', array( $this, 'wpfunosEntierroVelatorioDesdeTextoShortcode' ));
   */
   public function wpfunosEntierroVelatorioDesdeTextoShortcode( $atts, $content = "" ) {
-    echo 'Entierro con velatorio en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroVelatorioDesde', true ), 0, ',', '.');
+    echo esc_html__('Entierro con velatorio en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroVelatorioDesde', true ), 0, ',', '.');
     return;
   }
   /**
@@ -279,7 +279,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-incineracion-velatorio-desde-texto', array( $this, 'wpfunosIncineracionVelatorioDesdeTextoShortcode' ));
   */
   public function wpfunosIncineracionVelatorioDesdeTextoShortcode( $atts, $content = "" ) {
-    echo 'Incineración con velatorio en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionVelatorioDesde', true ), 0, ',', '.');
+    echo esc_html__('Incineración con velatorio en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionVelatorioDesde', true ), 0, ',', '.');
     return;
   }
   /**
@@ -287,7 +287,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-entierro-velatorio-ceremonia-desde-texto', array( $this, 'wpfunosEntierroVelatorioCeremoniaDesdeTextoShortcode' ));
   */
   public function wpfunosEntierroVelatorioCeremoniaDesdeTextoShortcode( $atts, $content = "" ) {
-    echo 'Servicio completo de entierro en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesde', true ), 0, ',', '.');
+    echo esc_html__('Servicio completo de entierro en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesde', true ), 0, ',', '.');
     return;
   }
   /**
@@ -295,7 +295,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-incineracion-velatorio-ceremonia-desde-texto', array( $this, 'wpfunosIncineracionVelatorioCeremoniaDesdeTextoShortcode' ));
   */
   public function wpfunosIncineracionVelatorioCeremoniaDesdeTextoShortcode( $atts, $content = "" ) {
-    echo 'Servicio completo de incineración en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde', true ), 0, ',', '.');
+    echo esc_html__('Servicio completo de incineración en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde', true ), 0, ',', '.');
     return;
   }
   /**
@@ -303,7 +303,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-entierro-premium-desde-texto', array( $this, 'wpfunosEntierroPremiumDesdeTextoShortcode' ));
   */
   public function wpfunosEntierroPremiumDesdeTextoShortcode( $atts, $content = "" ) {
-    echo 'Servicio completo premium de entierro en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroPremiumDesde', true ), 0, ',', '.');
+    echo esc_html__('Servicio completo premium de entierro en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaEntierroPremiumDesde', true ), 0, ',', '.');
     return;
   }
   /**
@@ -311,7 +311,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-incineracion-premium-desde-texto', array( $this, 'wpfunosIncineracionPremiumDesdeTextoShortcode' ));
   */
   public function wpfunosIncineracionPremiumDesdeTextoShortcode( $atts, $content = "" ) {
-    echo 'Servicio completo premium de incineración en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionPremiumDesde', true ), 0, ',', '.');
+    echo esc_html__('Servicio completo premium de incineración en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaIncineracionPremiumDesde', true ), 0, ',', '.');
     return;
   }
 
@@ -322,7 +322,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-incineracion-basico-texto', array( $this, 'wpfunosIncineracionBasicoTextoShortcode' ));
   */
   public function wpfunosIncineracionBasicoTextoShortcode( $atts, $content = "" ) {
-    echo 'Servicio de incineración básico en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioIncineracionBasicoDesde', true ), 0, ',', '.');
+    echo esc_html__('Servicio de incineración básico en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioIncineracionBasicoDesde', true ), 0, ',', '.');
     return;
   }
   /**
@@ -330,7 +330,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-incineracion-ceremonia-texto', array( $this, 'wpfunosIncineracionCeremoniaTextoShortcode' ));
   */
   public function wpfunosIncineracionCeremoniaTextoShortcode( $atts, $content = "" ) {
-    echo 'Servicio de incineración con velatorio y ceremonia en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioIncineracionCeremoniaDesde', true ), 0, ',', '.');
+    echo esc_html__('Servicio de incineración con velatorio y ceremonia en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioIncineracionCeremoniaDesde', true ), 0, ',', '.');
     return;
   }
   /**
@@ -338,7 +338,7 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-incineracion-velatorio-texto', array( $this, 'wpfunosIncineracionVelatorioTextoShortcode' ));
   */
   public function wpfunosIncineracionVelatorioTextoShortcode( $atts, $content = "" ) {
-    echo 'Servicio de incineración con velatorio en ' .get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ). ' desde ' .number_format(get_post_meta( get_the_ID() , 'wpfunos_precioIncineracionVelatorioDesde', true ), 0, ',', '.');
+    echo esc_html__('Servicio de incineración con velatorio en', 'wpfunos_es').' '.get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.number_format(get_post_meta( get_the_ID() , 'wpfunos_precioIncineracionVelatorioDesde', true ), 0, ',', '.');
     return;
   }
 
@@ -416,7 +416,7 @@ class Wpfunos_PreciosPoblacion {
       if( get_post_type( $pagina ) == 'precio_funer_wpfunos'){
         $pos = strpos( get_post_permalink( $pagina ), 'funerarias' );
         $tipopagina = ($pos === false) ? 'inicineración' : 'funerarias';
-        echo '<li><a href="'.get_post_permalink( $pagina ).'"> Precios '.$tipopagina.' en '.get_post_meta( $pagina , 'wpfunos_precioFunerariaPoblacion', true ).' desde '.get_post_meta( $pagina , 'SeoDesde', true ).'</a></li>';
+        echo '<li><a href="'.get_post_permalink( $pagina ).'"> '.esc_html__('Precios', 'wpfunos_es').' '.$tipopagina.' '.esc_html__('en', 'wpfunos_es').' '.get_post_meta( $pagina , 'wpfunos_precioFunerariaPoblacion', true ).' '.esc_html__('desde', 'wpfunos_es').' '.get_post_meta( $pagina , 'SeoDesde', true ).'</a></li>';
       }
     }
   }

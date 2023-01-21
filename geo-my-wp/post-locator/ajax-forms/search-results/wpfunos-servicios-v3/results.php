@@ -37,7 +37,10 @@ $IP = apply_filters('wpfunos_userIP','dummy');
 			$contador = count($wpfunos_confirmado)+count($wpfunos_sinconfirmar);
 
 			if (isset($_GET['wpfwpf'])){
-				$texto_contador = ($contador == '0') ? 'Ampliando el radio de búsqueda...' : 'Hemos encontrado ' .$contador. ' resultados para ti.';
+				$texto1 = esc_html__('Ampliando el radio de búsqueda...', 'wpfunos_es');
+				$texto2 = esc_html__('Hemos encontrado', 'wpfunos_es');
+				$texto3 = esc_html__('resultados para ti.', 'wpfunos_es');
+				$texto_contador = ($contador == '0') ? $texto1 : $texto2 .' '.$contador. ' ' .$texto3;
 			}else{
 				$texto_contador = '';
 			}
