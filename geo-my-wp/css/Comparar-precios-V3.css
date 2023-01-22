@@ -18,7 +18,8 @@ wpfunos-servicios-form-v3 .gmw-search-form-custom-fields.gmw-search-form-multipl
 		margin-bottom: 20px;
 	}
 
-	#elementor-popup-modal-84626 .dialog-message{
+	#elementor-popup-modal-84626 .dialog-message,
+	#elementor-popup-modal-136469 .dialog-message{
 		padding: 75px 0 75px 0 !important;
 	}
 }
@@ -70,6 +71,7 @@ wpfunos-servicios-form-v3 .gmw-search-form-custom-fields.gmw-search-form-multipl
 	text-align: center;
 	font-size: 20px;
 }
+.gmw-search-form-custom-fields,
 #wpfunos-enviando,
 #gmw-cf-resp1-8,
 #gmw-cf-resp2-8,

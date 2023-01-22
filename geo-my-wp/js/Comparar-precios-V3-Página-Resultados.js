@@ -22,6 +22,8 @@ $(document).ready(function(){
 
     var elementsFinanciacionNo = document.getElementsByClassName('wpf-financiacion-no');
 
+    var obj_id_11 = getCookie('wpf_obj_id_11');//84639 - Ventana Popup Esperando (loader2)
+
     //
 
     [document.getElementById('wpfunos-v3-distancia-boton'), document.getElementById('wpfunos-v3-distancia-texto'), document.getElementById('wpfunos-v3-distancia-boton-movil'), document.getElementById('wpfunos-v3-distancia-texto-movil') ].forEach(function(element) {
@@ -48,12 +50,7 @@ $(document).ready(function(){
     document.getElementById('wpfunos-v3-donde-boton').addEventListener('click', function(){
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       window.location.href = idioma_URL+'/comparar-precios-nueva';
@@ -62,12 +59,7 @@ $(document).ready(function(){
     document.getElementById('wpfunos-v3-donde-texto').addEventListener('click', function(){
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       window.location.href = idioma_URL+'/comparar-precios-nueva';
@@ -78,12 +70,7 @@ $(document).ready(function(){
     document.getElementById('wpfunos-v3-donde-boton-movil').addEventListener('click', function(){
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       window.location.href = idioma_URL+'/comparar-precios-nueva';
@@ -92,12 +79,7 @@ $(document).ready(function(){
     document.getElementById('wpfunos-v3-donde-texto-movil').addEventListener('click', function(){
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       window.location.href = idioma_URL+'/comparar-precios-nueva';
@@ -115,12 +97,7 @@ $(document).ready(function(){
       }
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       window.location.search = params.toString();
@@ -134,12 +111,7 @@ $(document).ready(function(){
       }
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       window.location.search = params.toString();
@@ -153,12 +125,7 @@ $(document).ready(function(){
       }
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       window.location.search = params.toString();
@@ -172,12 +139,7 @@ $(document).ready(function(){
       }
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       window.location.search = params.toString();
@@ -219,12 +181,7 @@ $(document).ready(function(){
       console.log('click cambiar orden');
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       if( orden === 'dist' ){
@@ -268,12 +225,7 @@ $(document).ready(function(){
       console.log('click cambiar orden');
 
       // WPML
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-      }
+      elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
       // WPML
 
       if( orden === 'dist' ){
@@ -475,6 +427,8 @@ var wpfFunctionLlamamos = function() {
   var precio = this.getAttribute('wpfp');
   var titulo = this.getAttribute('wpftitulo');
 
+  var obj_id_05 = getCookie('wpf_obj_id_05');//56684 - Servicios Te llamamos
+
   console.log('Botón Llamamos: Servicio: '+servicio+' Título: '+titulo );
 
   // EBG 03-11-22
@@ -484,13 +438,7 @@ var wpfFunctionLlamamos = function() {
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
 
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    elementorFrontend.documentsManager.documents['56684'].showModal(); //Servicios Te llamamos
-  }
-  if (idioma_wpml === 'ca'){
-    elementorFrontend.documentsManager.documents['136592'].showModal(); //Servicios Te llamamos
-  }
+  elementorFrontend.documentsManager.documents[obj_id_05].showModal(); //Servicios Te llamamos
   // WPML
 
   $('#wpf-llamamos-respuesta-si').hide();
@@ -500,12 +448,7 @@ var wpfFunctionLlamamos = function() {
   document.getElementById('wpfunos-modal-llamamos-telefono').innerHTML = phone;
 
   // WPML
-  if (idioma_wpml === 'es'){
-    document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56684').hide(); }, false);
-  }
-  if (idioma_wpml === 'ca'){
-    document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136592').hide(); }, false);
-  }
+  document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-'+obj_id_05).hide(); }, false);
   // WPML
 
   jQuery.ajax({
@@ -546,6 +489,8 @@ var wpfFunctionLlamar = function() {
   var titulo = this.getAttribute('wpftitulo');
   var telefono = this.getAttribute('wpftelefono');
 
+  var obj_id_04 = getCookie('wpf_obj_id_04');//56680 -Servicios Llamar
+
   console.log('Botón Llamar: Servicio: '+servicio+' Título: '+titulo );
 
   // EBG 03-11-22
@@ -555,25 +500,14 @@ var wpfFunctionLlamar = function() {
   //
 
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    elementorFrontend.documentsManager.documents['56680'].showModal(); //show the popup
-  }
-  if (idioma_wpml === 'ca'){
-    elementorFrontend.documentsManager.documents['136595'].showModal(); //show the popup
-  }
+  elementorFrontend.documentsManager.documents[obj_id_04].showModal(); //Servicios Llamar
   // WPML
 
   document.getElementById('wpfunos-modal-llamar-titulo').innerHTML = titulo;
   document.getElementById('wpfunos-modal-llamar-telefono').innerHTML = telefono;
 
   // WPML
-  if (idioma_wpml === 'es'){
-    document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56680').hide(); }, false);
-  }
-  if (idioma_wpml === 'ca'){
-    document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136595').hide(); }, false);
-  }
+  document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-'+obj_id_04).hide(); }, false);
   // WPML
 
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
@@ -616,16 +550,12 @@ var wpfFunctionPresupuesto = function() {
   var precio = this.getAttribute('wpfp');
   var titulo = this.getAttribute('wpftitulo');
 
+  var obj_id_03 = getCookie('wpf_obj_id_03');//56676 -Servicios Llamar
+
   console.log('Botón Presupuesto: Servicio: '+servicio+' Título: '+titulo );
 
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    elementorFrontend.documentsManager.documents['56676'].showModal(); //Servicio Presupuesto
-  }
-  if (idioma_wpml === 'ca'){
-    elementorFrontend.documentsManager.documents['136598'].showModal(); //Servicio Presupuesto
-  }
+  elementorFrontend.documentsManager.documents[obj_id_03].showModal(); //Servicio Presupuesto
   // WPML
 
   document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
@@ -689,6 +619,9 @@ var wpfFunctionDetalles = function() {
   var telefono = this.getAttribute('wpftelefono');
   var financiacion = this.getAttribute('wpffinanciacion');
 
+  var obj_id_11 = getCookie('wpf_obj_id_11');//84639 -Ventana Popup Esperando (loader2)
+  var obj_id_02 = getCookie('wpf_obj_id_02');//56672 -Servicio Detalles
+
   console.log('Botón Detalles: Servicio: '+servicio+' Título: '+titulo+' Financiación: '+financiacion );
 
   // EBG 03-11-22
@@ -704,13 +637,7 @@ var wpfFunctionDetalles = function() {
   console.log('Botón Detalles: resp1: '+resp1+' reps2: '+resp2+' resp3: '+resp3+' resp4: '+resp4 );
 
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-  }
-  if (idioma_wpml === 'ca'){
-    elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-  }
+  elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
   // WPML
 
   jQuery.ajax({
@@ -740,12 +667,7 @@ var wpfFunctionDetalles = function() {
         console.log('success');
 
         // WPML
-        if (idioma_wpml === 'es'){
-          elementorFrontend.documentsManager.documents['56672'].showModal(); //Servicio Detalles
-        }
-        if (idioma_wpml === 'ca'){
-          elementorFrontend.documentsManager.documents['136601'].showModal(); //Servicio Detalles
-        }
+        elementorFrontend.documentsManager.documents[obj_id_02].showModal(); //Servicio Detalles
         // WPML
 
         document.getElementById('wpf-detalles-logo').innerHTML = response.valor_logo;
@@ -777,7 +699,9 @@ var wpfFunctionDetalles = function() {
         document.getElementById('wpf-detalles-comentarios').innerHTML = response.comentarios;
         document.getElementById('wpf-detalles-comentarios-movil').innerHTML = response.comentarios;
 
-        $('#elementor-popup-modal-84639').hide();
+        // WPML
+        $('#elementor-popup-modal-'+obj_id_11).hide(); //Ventana Popup Esperando (loader2)
+        // WPML
 
         document.getElementById('wpfunos-detalles-llamamos').addEventListener('click', wpfDetallesLlamamos, false);
         document.getElementById('wpfunos-detalles-llamamos').setAttribute('wpfid', servicio);
@@ -858,6 +782,9 @@ var wpfDetallesLlamamos = function() {
   var precio = this.getAttribute('wpfp');
   var titulo = this.getAttribute('wpftitulo');
 
+  var obj_id_05 = getCookie('wpf_obj_id_05');//56684 - Servicios Te llamamos
+  var obj_id_02 = getCookie('wpf_obj_id_02');//56672 -Servicio Detalles
+
   console.log('Botón Detalles Llamamos: Servicio: '+servicio+' Título: '+titulo );
 
   // EBG 03-11-22
@@ -867,15 +794,8 @@ var wpfDetallesLlamamos = function() {
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
 
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    $('#elementor-popup-modal-56672').hide();
-    elementorFrontend.documentsManager.documents['56684'].showModal(); //Servicios Te llamamos
-  }
-  if (idioma_wpml === 'ca'){
-    $('#elementor-popup-modal-136601').hide();
-    elementorFrontend.documentsManager.documents['136592'].showModal(); //Servicios Te llamamos
-  }
+  $('#elementor-popup-modal-'+obj_id_02).hide();
+  elementorFrontend.documentsManager.documents[obj_id_05].showModal(); //Servicios Te llamamos
   // WPML
 
   $('#wpf-llamamos-respuesta-si').hide();
@@ -885,12 +805,7 @@ var wpfDetallesLlamamos = function() {
   document.getElementById('wpfunos-modal-llamamos-telefono').innerHTML = phone;
 
   // WPML
-  if (idioma_wpml === 'es'){
-    document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56684').hide(); }, false);
-  }
-  if (idioma_wpml === 'ca'){
-    document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136592').hide(); }, false);
-  }
+  document.getElementById('wpf-llamamos-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-'+obj_id_05).hide(); }, false);
   // WPML
 
   jQuery.ajax({
@@ -931,6 +846,9 @@ var wpfDetallesLlamar = function() {
   var titulo = this.getAttribute('wpftitulo');
   var telefono = this.getAttribute('wpftelefono');
 
+  var obj_id_04 = getCookie('wpf_obj_id_04');//56680 - Servicios Llamar
+  var obj_id_02 = getCookie('wpf_obj_id_02');//56672 -Servicio Detalles
+
   console.log('Botón Llamar: Servicio: '+servicio+' Título: '+titulo );
 
   // EBG 03-11-22
@@ -939,28 +857,16 @@ var wpfDetallesLlamar = function() {
   var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
   //
 
-  $('#elementor-popup-modal-56672').hide();
-
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    elementorFrontend.documentsManager.documents['56680'].showModal(); //Servicios Llamar
-  }
-  if (idioma_wpml === 'ca'){
-    elementorFrontend.documentsManager.documents['136595'].showModal(); //Servicios Llamar
-  }
+  $('#elementor-popup-modal-' + obj_id_02).hide();
+  elementorFrontend.documentsManager.documents[obj_id_04].showModal(); //Servicios Llamar
   // WPML
 
   document.getElementById('wpfunos-modal-llamar-titulo').innerHTML = titulo;
   document.getElementById('wpfunos-modal-llamar-telefono').innerHTML = telefono;
 
   // WPML
-  if (idioma_wpml === 'es'){
-    document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-56680').hide(); }, false);
-  }
-  if (idioma_wpml === 'ca'){
-    document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136595').hide(); }, false);
-  }
+  document.getElementById('wpf-llamar-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-'+obj_id_04).hide(); }, false); //Servicios Llamar
   // WPML
 
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
@@ -1003,6 +909,9 @@ var wpfDetallesEmail = function() {
   var precio = this.getAttribute('wpfp');
   var titulo = this.getAttribute('wpftitulo');
 
+  var obj_id_01 = getCookie('wpf_obj_id_01');//47448 - Servicios Enviar Email
+  var obj_id_02 = getCookie('wpf_obj_id_02');//56672 - Servicio Detalles
+
   console.log('boton Detalles email servicio: '+servicio+ ' Precio: ' +precio+ ' Título ' +titulo);
 
   // EBG 03-11-22
@@ -1012,17 +921,9 @@ var wpfDetallesEmail = function() {
   //
 
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    $('#elementor-popup-modal-56672').hide();
-    elementorFrontend.documentsManager.documents['47448'].showModal(); //show the popup
-    document.getElementById('wpf-email-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-47448').hide(); }, false);
-  }
-  if (idioma_wpml === 'ca'){
-    $('#elementor-popup-modal-136601').hide();
-    elementorFrontend.documentsManager.documents['136603'].showModal(); //show the popup
-    document.getElementById('wpf-email-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-136603').hide(); }, false);
-  }
+  $('#elementor-popup-modal-'+obj_id_02).hide(); //Servicio Detalles
+  elementorFrontend.documentsManager.documents[obj_id_01].showModal(); //Servicios Enviar Email
+  document.getElementById('wpf-email-cerrar').addEventListener('click', function(){ $('#elementor-popup-modal-'+obj_id_01).hide(); }, false); //Servicios Enviar Email
   // WPML
 
   document.getElementById('wpfunos-modal-email-email').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
@@ -1059,14 +960,10 @@ var wpfDetallesProducto1 = function() {
   var precio = this.getAttribute('wpfp');
   var titulo = this.getAttribute('wpftitulo');
 
+  var obj_id_11 = getCookie('wpf_obj_id_11');//84639 - Ventana Popup Esperando (loader2)
+
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-  }
-  if (idioma_wpml === 'ca'){
-    elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-  }
+  elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
   // WPML
 
   // WMPL
@@ -1087,18 +984,14 @@ var wpfDetallesPresupuesto = function() {
   var precio = this.getAttribute('wpfp');
   var titulo = this.getAttribute('wpftitulo');
 
+  var obj_id_03 = getCookie('wpf_obj_id_03');//56676 - Servicio Presupuesto
+  var obj_id_02 = getCookie('wpf_obj_id_02');//56672 - Servicio Detalles
+
   console.log('Botón Presupuesto: Servicio: '+servicio+' Título: '+titulo );
 
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    $('#elementor-popup-modal-56672').hide(); //Servicio Detalles
-    elementorFrontend.documentsManager.documents['56676'].showModal(); //Servicio Presupuesto
-  }
-  if (idioma_wpml === 'ca'){
-    $('#elementor-popup-modal-136601').hide();//Servicio Detalles
-    elementorFrontend.documentsManager.documents['136598'].showModal(); //Servicio Presupuesto
-  }
+  $('#elementor-popup-modal-'+obj_id_02).hide(); //Servicio Detalles
+  elementorFrontend.documentsManager.documents[obj_id_03].showModal(); //Servicio Presupuesto
   // WPML
 
   document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
@@ -1114,16 +1007,12 @@ var wpfFunctionFinanciacion = function() {
   var precio = this.getAttribute('wpfp');
   var titulo = this.getAttribute('wpftitulo');
 
+  var obj_id_13 = getCookie('wpf_obj_id_13');//111301 - Servicios Financiación
+
   console.log('Botón Financiación: '+servicio+' Título: '+titulo );
 
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    elementorFrontend.documentsManager.documents['111301'].showModal(); //show the popup
-  }
-  if (idioma_wpml === 'ca'){
-    elementorFrontend.documentsManager.documents['136605'].showModal(); //show the popup
-  }
+  elementorFrontend.documentsManager.documents[obj_id_13].showModal(); //show the popup
   // WPML
 
   document.getElementById('wpf-financiacion-funeraria').innerHTML = titulo;
@@ -1167,14 +1056,10 @@ var wpfFunctionFinanciacion = function() {
 
 var wpfFunctionBotonFinanciacion = function() {
 
+  var obj_id_14 = getCookie('wpf_obj_id_14');//111305 - Servicios Financiación Genérico
+
   // WPML
-  var idioma_wpml = getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    elementorFrontend.documentsManager.documents['111305'].showModal(); //show the popup
-  }
-  if (idioma_wpml === 'ca'){
-    elementorFrontend.documentsManager.documents['136607'].showModal(); //show the popup
-  }
+  elementorFrontend.documentsManager.documents[obj_id_14].showModal(); //Servicios Financiación Genérico
   // WPML
 
   document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='none';
@@ -1248,21 +1133,18 @@ var wpfdistancia = function() {
   setTimeout(function(){
     console.log('Formulario cambiar distancia');
     document.getElementById('wpfunos-v3-boton-formulario-distancia').addEventListener('click', function(){
+
+      var obj_id_11 = getCookie('wpf_obj_id_11');//84639 - Ventana Popup Esperando (loader2)
+      var obj_id_15 = getCookie('wpf_obj_id_15');//89948 - Servicios cambiar distancia V3
+
       console.log('click botón cambiar distancia');
       var newdistance = document.getElementById('form-field-nuevadistancia').value;
       if( newdistance !== ''){
         $('#wpfunos-formulario-nueva-distancia').hide();
 
         // WPML
-        var idioma_wpml = getCookie('wp-wpml_current_language');
-        if (idioma_wpml === 'es'){
-          elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-          document.getElementById('elementor-popup-modal-89948').style.display = 'none';
-        }
-        if (idioma_wpml === 'ca'){
-          elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-          document.getElementById('elementor-popup-modal-136609').style.display = 'none';
-        }
+        elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
+        document.getElementById('elementor-popup-modal-'+obj_id_15).style.display = 'none'; //Servicios cambiar distancia V3
         // WPML
 
         if( parseInt(newdistance) < 5 ){ newdistance = '5'; }
@@ -1306,14 +1188,10 @@ function wpfFunctionResp(evt){
   console.log( 'click botón '+evt.currentTarget.resp+' '+evt.currentTarget.opcion);
   if( params.get('cf['+evt.currentTarget.resp+']') !== evt.currentTarget.opcion){
 
+    var obj_id_11 = getCookie('wpf_obj_id_11');//84639 - Ventana Popup Esperando (loader2)
+
     // WPML
-    var idioma_wpml = getCookie('wp-wpml_current_language');
-    if (idioma_wpml === 'es'){
-      elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-    }
-    if (idioma_wpml === 'ca'){
-      elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-    }
+    elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
     // WPML
 
     params.set('cf['+evt.currentTarget.resp+']', evt.currentTarget.opcion );

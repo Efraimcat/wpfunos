@@ -426,6 +426,44 @@ class Wpfunos_PreciosPoblacion {
   * add_shortcode( 'wpfunos-prefun-zona-funeraria-entierro', array( $this, 'wpfunosPrefunZonaFunerariaEntierroShortcode' ));
   */
   public function wpfunosPrefunZonaFunerariaEntierroShortcode( $atts, $content = "" ) {
+    // WPML
+    $expiry = strtotime('+1 day');
+    setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
+    setcookie('wpf_obj_id_02', apply_filters( 'wpml_object_id', 56672, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles
+    setcookie('wpf_obj_id_03', apply_filters( 'wpml_object_id', 56676, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Presupuesto
+    setcookie('wpf_obj_id_04', apply_filters( 'wpml_object_id', 56680, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamar
+    setcookie('wpf_obj_id_05', apply_filters( 'wpml_object_id', 56684, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamame
+
+    setcookie('wpf_obj_id_06', apply_filters( 'wpml_object_id', 89340, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (1)
+    setcookie('wpf_obj_id_07', apply_filters( 'wpml_object_id', 89344, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (2)
+    setcookie('wpf_obj_id_08', apply_filters( 'wpml_object_id', 89348, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (3)
+    setcookie('wpf_obj_id_09', apply_filters( 'wpml_object_id', 89351, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (4)
+    setcookie('wpf_obj_id_10', apply_filters( 'wpml_object_id', 89354, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (5)
+
+    setcookie('wpf_obj_id_11', apply_filters( 'wpml_object_id', 84639, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (loader2)
+    setcookie('wpf_obj_id_12', apply_filters( 'wpml_object_id', 77005, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (entrada datos GTM)
+    setcookie('wpf_obj_id_13', apply_filters( 'wpml_object_id', 111301, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación
+    setcookie('wpf_obj_id_14', apply_filters( 'wpml_object_id', 111305, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación Genérico
+    setcookie('wpf_obj_id_15', apply_filters( 'wpml_object_id', 89948, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios cambiar distancia V3
+
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_01'] ); //Servicios Enviar Email
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_02'] ); //Servicio Detalles
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_03'] ); //Servicio Presupuesto
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_04'] ); //Servicios Llamar
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_05'] ); //Servicios Llamame
+
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_06'] ); //Servicios Multistep (1)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_07'] ); //Servicios Multistep (2)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_08'] ); //Servicios Multistep (3)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_09'] ); //Servicios Multistep (4)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_10'] ); //Servicios Multistep (5)
+
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_11'] ); //Ventana Popup Esperando (loader2)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_12'] ); //Ventana Popup Esperando (entrada datos GTM)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_13'] ); //Servicios Financiación
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_14'] ); //Servicios Financiación Genérico
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_15'] ); //Servicios cambiar distancia V3
+    // WPML
     $codigo_provincia = get_post_meta( get_the_ID() , 'wpfunos_precioFunerariaCodigoPoblacion', true );
     if( strlen($codigo_provincia) > 1 ){
       $args = array(

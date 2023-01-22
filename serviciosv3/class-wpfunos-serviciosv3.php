@@ -12,26 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/serviciosv3
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-/*
-( '89340' );( '136565' ) //Servicios Multistep (1)
-( '89344' );( '136567' ) //Servicios Multistep (2)
-( '89348' );( '136569' ) //Servicios Multistep (3)
-( '89351' );( '136571' ) //Servicios Multistep (4)
-( '89354' );( '136573' ) //Servicios Multistep (5)
-
-
-( '84639' );( '136584' ) //Ventana Popup Esperando (loader2)
-( '77005' );( '136587' ) //Ventana Popup Esperando (entrada datos GTM)
-
-( '56684' );( '136592' ) //Servicios Te llamamos
-( '56680' );( '136595' ) //Servicios Llamar
-( '56676' );( '136598' ) //Servicio Presupuesto
-( '56672' );( '136601' ) //Servicio Detalles
-( '47448' );( '136603' ) //Servicios Enviar Email
-( '111301' );( '136605' ) //Servicios Financiación
-( '111305' );( '136607' ) //Página Financiación
-( '89948' );( '136609' ) //Servicios cambiar distancia V3
-*/
 
 class Wpfunos_ServiciosV3 {
   private $plugin_name;
@@ -96,6 +76,44 @@ class Wpfunos_ServiciosV3 {
   * add_shortcode( 'wpfunos-v3-ubicacion', array( $this, 'wpfunosV3UbicacionShortcode' ));
   */
   public function wpfunosV3UbicacionShortcode($atts, $content = ""){
+    // WPML
+    $expiry = strtotime('+1 day');
+    setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
+    setcookie('wpf_obj_id_02', apply_filters( 'wpml_object_id', 56672, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles
+    setcookie('wpf_obj_id_03', apply_filters( 'wpml_object_id', 56676, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Presupuesto
+    setcookie('wpf_obj_id_04', apply_filters( 'wpml_object_id', 56680, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamar
+    setcookie('wpf_obj_id_05', apply_filters( 'wpml_object_id', 56684, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamame
+
+    setcookie('wpf_obj_id_06', apply_filters( 'wpml_object_id', 89340, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (1)
+    setcookie('wpf_obj_id_07', apply_filters( 'wpml_object_id', 89344, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (2)
+    setcookie('wpf_obj_id_08', apply_filters( 'wpml_object_id', 89348, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (3)
+    setcookie('wpf_obj_id_09', apply_filters( 'wpml_object_id', 89351, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (4)
+    setcookie('wpf_obj_id_10', apply_filters( 'wpml_object_id', 89354, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (5)
+
+    setcookie('wpf_obj_id_11', apply_filters( 'wpml_object_id', 84639, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (loader2)
+    setcookie('wpf_obj_id_12', apply_filters( 'wpml_object_id', 77005, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (entrada datos GTM)
+    setcookie('wpf_obj_id_13', apply_filters( 'wpml_object_id', 111301, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación
+    setcookie('wpf_obj_id_14', apply_filters( 'wpml_object_id', 111305, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación Genérico
+    setcookie('wpf_obj_id_15', apply_filters( 'wpml_object_id', 89948, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios cambiar distancia V3
+
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_01'] ); //Servicios Enviar Email
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_02'] ); //Servicio Detalles
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_03'] ); //Servicio Presupuesto
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_04'] ); //Servicios Llamar
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_05'] ); //Servicios Llamame
+
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_06'] ); //Servicios Multistep (1)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_07'] ); //Servicios Multistep (2)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_08'] ); //Servicios Multistep (3)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_09'] ); //Servicios Multistep (4)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_10'] ); //Servicios Multistep (5)
+
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_11'] ); //Ventana Popup Esperando (loader2)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_12'] ); //Ventana Popup Esperando (entrada datos GTM)
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_13'] ); //Servicios Financiación
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_14'] ); //Servicios Financiación Genérico
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_15'] ); //Servicios cambiar distancia V3
+    // WPML
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '84626' ); //Ventana Popup Esperando (loader1)
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '136469' ); //Ventana Popup Esperando (loader1)(CA)
 
@@ -162,31 +180,44 @@ class Wpfunos_ServiciosV3 {
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&wpfwpf=a3Q0Uld1M0RxY1RSTjcrMStLT3VadzZsSm45RGpnRHhXSHM2elhTZlJrbz0=
       ?><script>console.log('Cargando popups Elementor.' );</script><?php
 
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '47448' ); //Servicios Enviar Email
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '56672' ); //Servicio Detalles
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '56676' ); //Servicio Presupuesto
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '56680' ); //Servicios Llamar
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '56684' ); //Servicios Llamame
-      if( $_COOKIE['wp-wpml_current_language'] == 'es'){
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89340' ); //Servicios Multistep (1)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89344' ); //Servicios Multistep (2)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89348' ); //Servicios Multistep (3)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89351' ); //Servicios Multistep (4)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '89354' ); //Servicios Multistep (5)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '84639' ); //Ventana Popup Esperando (loader2)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '77005' ); //Ventana Popup Esperando (entrada datos GTM)
-      }
-      if( $_COOKIE['wp-wpml_current_language'] == 'ca'){
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136565' ); //Servicios Multistep (1)(CA)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136567' ); //Servicios Multistep (2)(CA)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136569' ); //Servicios Multistep (3)(CA)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136571' ); //Servicios Multistep (4)(CA)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136573' ); //Servicios Multistep (5)(CA)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136584' ); //Ventana Popup Esperando (loader2)(CA)
-        ElementorPro\Modules\Popup\Module::add_popup_to_location( '136587' ); //Ventana Popup Esperando (entrada datos GTM)(CA)
-      }
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '111301' ); //Servicios Financiación
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( '111305' ); //Servicios Financiación Genérico
+      // WPML
+      $expiry = strtotime('+1 day');
+      setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
+      setcookie('wpf_obj_id_02', apply_filters( 'wpml_object_id', 56672, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles
+      setcookie('wpf_obj_id_03', apply_filters( 'wpml_object_id', 56676, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Presupuesto
+      setcookie('wpf_obj_id_04', apply_filters( 'wpml_object_id', 56680, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamar
+      setcookie('wpf_obj_id_05', apply_filters( 'wpml_object_id', 56684, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamame
+
+      setcookie('wpf_obj_id_06', apply_filters( 'wpml_object_id', 89340, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (1)
+      setcookie('wpf_obj_id_07', apply_filters( 'wpml_object_id', 89344, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (2)
+      setcookie('wpf_obj_id_08', apply_filters( 'wpml_object_id', 89348, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (3)
+      setcookie('wpf_obj_id_09', apply_filters( 'wpml_object_id', 89351, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (4)
+      setcookie('wpf_obj_id_10', apply_filters( 'wpml_object_id', 89354, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (5)
+
+      setcookie('wpf_obj_id_11', apply_filters( 'wpml_object_id', 84639, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (loader2)
+      setcookie('wpf_obj_id_12', apply_filters( 'wpml_object_id', 77005, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (entrada datos GTM)
+      setcookie('wpf_obj_id_13', apply_filters( 'wpml_object_id', 111301, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación
+      setcookie('wpf_obj_id_14', apply_filters( 'wpml_object_id', 111305, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación Genérico
+      setcookie('wpf_obj_id_15', apply_filters( 'wpml_object_id', 89948, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios cambiar distancia V3
+
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_01'] ); //Servicios Enviar Email
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_02'] ); //Servicio Detalles
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_03'] ); //Servicio Presupuesto
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_04'] ); //Servicios Llamar
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_05'] ); //Servicios Llamame
+
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_06'] ); //Servicios Multistep (1)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_07'] ); //Servicios Multistep (2)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_08'] ); //Servicios Multistep (3)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_09'] ); //Servicios Multistep (4)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_10'] ); //Servicios Multistep (5)
+
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_11'] ); //Ventana Popup Esperando (loader2)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_12'] ); //Ventana Popup Esperando (entrada datos GTM)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_13'] ); //Servicios Financiación
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_14'] ); //Servicios Financiación Genérico
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_15'] ); //Servicios cambiar distancia V3
+      // WPML
 
       ?><script>console.log('Cargando popups Elementor END.' );</script><?php
 
@@ -2171,71 +2202,75 @@ class Wpfunos_ServiciosV3 {
 
     $comentarios = '<h3><strong>' .esc_html__('Qúe está incluido en el precio', 'wpfunos_es'). '</strong></h3><p></p>';
 
+    // WPML
+    $servicioTrad = apply_filters( 'wpml_object_id', $servicio, 'post', TRUE );
+    // WPML
+
     $comentarios .= '<h4><strong>' .esc_html__('Detalles de servicio base', 'wpfunos_es'). '</strong></h3>';
-    $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioPrecioBaseComentario', true ) );
+    $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioPrecioBaseComentario', true ) );
     $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
     $comentarios .= $customfield_content ;
 
     if( 'E' == $destino ){
       $comentarios .= '<h4><strong>' .esc_html__('Detalles de entierro', 'wpfunos_es'). '</strong></h4>';
-      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDestino_1Comentario', true ) );
+      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioDestino_1Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'I'  == $destino ) {
       $comentarios .= '<h4><strong>' .esc_html__('Detalles de  incineración', 'wpfunos_es'). '</strong></h4>';
-      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDestino_2Comentario', true ) );
+      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioDestino_2Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
 
     if( 'E' == $ataud  ) {
       $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ataúd gama económica', 'wpfunos_es'). '</strong></h4>';
-      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioAtaudEcologico_1Comentario', true ) );
+      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioAtaudEcologico_1Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'M' == $ataud ) {
       $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ataúd gama media', 'wpfunos_es'). '</strong></h4>';
-      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioAtaudEcologico_2Comentario', true ) );
+      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioAtaudEcologico_2Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'P' == $ataud ) {
       $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ataúd gama premium', 'wpfunos_es'). '</strong></h4>';
-      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioAtaudEcologico_3Comentario', true ) );
+      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioAtaudEcologico_3Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
 
     if( 'V' == $velatorio ) {
       $comentarios .= '<h4><strong>' .esc_html__('Detalles de  velatorio', 'wpfunos_es'). '</strong></h4>';
-      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioVelatorioComentario', true ) );
+      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioVelatorioComentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
 
     if( 'O' == $despedida ) {
       $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ceremonia', 'wpfunos_es'). '</strong></h4>';
-      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDespedida_1Comentario', true ) );
+      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioDespedida_1Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'C' == $despedida ) {
       $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ceremonia', 'wpfunos_es'). '</strong></h4>';
-      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDespedida_2Comentario', true ) );
+      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioDespedida_2Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
     if( 'R' == $despedida ) {
       $comentarios .= '<h4><strong>' .esc_html__('Detalles de ceremonia', 'wpfunos_es'). '</strong></h4>';
-      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDespedida_3Comentario', true ) );
+      $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioDespedida_3Comentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
     }
 
     $comentarios .= '<h4><strong>' .esc_html__('Posibles Extras', 'wpfunos_es'). '</strong></h4>';
-    $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioPosiblesExtras', true ) );
+    $customfield_content = apply_filters( 'the_content', get_post_meta( $servicioTrad, 'wpfunos_servicioPosiblesExtras', true ) );
     $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
     $comentarios .= $customfield_content ;
 
@@ -2332,72 +2367,72 @@ class Wpfunos_ServiciosV3 {
       // El cálculo del comentario se hace en la función "wpfunosMaintenanceComentariosFunerarias" en class-wpfunos-admin.php ( sobre la linea 1400 el 14-12-22)
       //
       //
-      $comentarios = '<h3><strong>Qúe está incluido en el precio</strong></h3><p></p>';
-      $comentarios .= '<h4><strong>Detalles de servicio base</strong></h3>';
+      $comentarios = '<h3><strong>' .esc_html__('Qúe está incluido en el precio', 'wpfunos_es'). '</strong></h3><p></p>';
+      $comentarios .= '<h4><strong>' .esc_html__('Detalles de servicio base', 'wpfunos_es'). '</strong></h3>';
 
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioPrecioBaseComentario', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;
 
       if( 'E' == $destino ){
-        $comentarios .= '<h4><strong>Detalles de entierro</strong></h4>';
+        $comentarios .= '<h4><strong>' .esc_html__('Detalles de entierro', 'wpfunos_es'). '</strong></h4>';
         $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDestino_1Comentario', true ) );
         $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
         $comentarios .= $customfield_content ;
       }
       if( 'I'  == $destino ) {
-        $comentarios .= '<h4><strong>Detalles de  incineración</strong></h4>';
+        $comentarios .= '<h4><strong>' .esc_html__('Detalles de  incineración', 'wpfunos_es'). '</strong></h4>';
         $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDestino_2Comentario', true ) );
         $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
         $comentarios .= $customfield_content ;
       }
 
       if( 'E' == $ataud  ) {
-        $comentarios .= '<h4><strong>Detalles de  ataúd gama económica</strong></h4>';
+        $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ataúd gama económica', 'wpfunos_es'). '</strong></h4>';
         $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioAtaudEcologico_1Comentario', true ) );
         $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
         $comentarios .= $customfield_content ;
       }
       if( 'M' == $ataud ) {
-        $comentarios .= '<h4><strong>Detalles de  ataúd gama media</strong></h4>';
+        $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ataúd gama media', 'wpfunos_es'). '</strong></h4>';
         $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioAtaudEcologico_2Comentario', true ) );
         $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
         $comentarios .= $customfield_content ;
       }
       if( 'P' == $ataud ) {
-        $comentarios .= '<h4><strong>Detalles de  ataúd gama premium</strong></h4>';
+        $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ataúd gama premium', 'wpfunos_es'). '</strong></h4>';
         $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioAtaudEcologico_3Comentario', true ) );
         $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
         $comentarios .= $customfield_content ;
       }
 
       if( 'V' == $velatorio ) {
-        $comentarios .= '<h4><strong>Detalles de  velatorio</strong></h4>';
+        $comentarios .= '<h4><strong>' .esc_html__('Detalles de  velatorio', 'wpfunos_es'). '</strong></h4>';
         $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioVelatorioComentario', true ) );
         $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
         $comentarios .= $customfield_content ;
       }
 
       if( 'O' == $despedida ) {
-        $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
+        $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ceremonia', 'wpfunos_es'). '</strong></h4>';
         $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDespedida_1Comentario', true ) );
         $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
         $comentarios .= $customfield_content ;
       }
       if( 'C' == $despedida ) {
-        $comentarios .= '<h4><strong>Detalles de  ceremonia</strong></h4>';
+        $comentarios .= '<h4><strong>' .esc_html__('Detalles de  ceremonia', 'wpfunos_es'). '</strong></h4>';
         $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDespedida_2Comentario', true ) );
         $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
         $comentarios .= $customfield_content ;
       }
       if( 'R' == $despedida ) {
-        $comentarios .= '<h4><strong>Detalles de ceremonia</strong></h4>';
+        $comentarios .= '<h4><strong>' .esc_html__('Detalles de ceremonia', 'wpfunos_es'). '</strong></h4>';
         $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioDespedida_3Comentario', true ) );
         $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
         $comentarios .= $customfield_content ;
       }
 
-      $comentarios .= '<h4><strong>Posibles Extras</strong></h4>';
+      $comentarios .= '<h4><strong>' .esc_html__('Posibles Extras', 'wpfunos_es'). '</strong></h4>';
       $customfield_content = apply_filters( 'the_content', get_post_meta( $servicio, 'wpfunos_servicioPosiblesExtras', true ) );
       $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content  );
       $comentarios .= $customfield_content ;

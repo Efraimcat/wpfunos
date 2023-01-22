@@ -19,7 +19,9 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 @media (max-width: 767px) {
 
   #elementor-popup-modal-84639 .dialog-message,
-  #elementor-popup-modal-89354 .dialog-message {
+  #elementor-popup-modal-89354 .dialog-message,
+  #elementor-popup-modal-136584 .dialog-message,
+  #elementor-popup-modal-136573 .dialog-message{
     padding: 75px 0 75px 0 !important;
   }
 

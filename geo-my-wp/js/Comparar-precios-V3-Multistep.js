@@ -15,15 +15,21 @@ $(document).ready(function(){
           var velatorio = 'dummy';
           var ceremonia = 'dummy';
           var idioma_wpml =  getCookie('wp-wpml_current_language');
+          var obj_id_06 = getCookie('wpf_obj_id_06');//89340 - Servicios Multistep (1)
+          var obj_id_07 = getCookie('wpf_obj_id_07');//89344 - Servicios Multistep (2)
+          var obj_id_08 = getCookie('wpf_obj_id_08');//89348 - Servicios Multistep (3)
+          var obj_id_09 = getCookie('wpf_obj_id_09');//89351 - Servicios Multistep (4)
+          var obj_id_10 = getCookie('wpf_obj_id_10');//89354 - Servicios Multistep (5)
+          var obj_id_11 = getCookie('wpf_obj_id_11');//84639 - Ventana Popup Esperando (loader2)
+          var obj_id_12 = getCookie('wpf_obj_id_12');//77005 - Ventana Popup Esperando (entrada datos GTM)
+
+          console.log('Multistep Form IN ' + obj_id_06);
 
           //  WPML
-          if (idioma_wpml === 'es'){
-            elementorFrontend.documentsManager.documents['89340'].showModal(); //show the popup Cuando
-          }
-          if (idioma_wpml === 'ca'){
-            elementorFrontend.documentsManager.documents['136565'].showModal(); //show the popup Cuando
-          }
+          elementorFrontend.documentsManager.documents[obj_id_06].showModal(); //Servicios Multistep (1)
           //  WPML
+
+          console.log('Multistep Form OK ' + obj_id_06);
 
           [ document.getElementById('wpfunos-multistep-ahora'), document.getElementById('wpfunos-multistep-ahora-icon')].forEach(function(element) {
             element.addEventListener('click', function() {
@@ -33,28 +39,16 @@ $(document).ready(function(){
               if( document.getElementById('wpf-resultados-referencia').getAttribute('wpfland') === '1'){
 
                 //  WPML
-                if (idioma_wpml === 'es'){
-                  document.getElementById('elementor-popup-modal-89340').style.display = 'none';
-                  elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup datos usuario
-                }
-                if (idioma_wpml === 'ca'){
-                  document.getElementById('elementor-popup-modal-136565').style.display = 'none';
-                  elementorFrontend.documentsManager.documents['136573'].showModal(); //show the popup datos usuario
-                }
+                document.getElementById('elementor-popup-modal-'+ obj_id_06 ).style.display = 'none'; //Servicios Multistep (1)
+                elementorFrontend.documentsManager.documents[obj_id_10].showModal(); //Servicios Multistep (5)
                 //  WPML
 
                 document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
               }else{
 
                 //  WPML
-                if (idioma_wpml === 'es'){
-                  document.getElementById('elementor-popup-modal-89340').style.display = 'none';
-                  elementorFrontend.documentsManager.documents['89344'].showModal(); //show the popup Destino
-                }
-                if (idioma_wpml === 'ca'){
-                  document.getElementById('elementor-popup-modal-136565').style.display = 'none';
-                  elementorFrontend.documentsManager.documents['136567'].showModal(); //show the popup Destino
-                }
+                document.getElementById('elementor-popup-modal-'+ obj_id_06 ).style.display = 'none'; //Servicios Multistep (1)
+                elementorFrontend.documentsManager.documents[obj_id_07].showModal(); //Servicios Multistep (2)
                 //  WPML
 
                 [ document.getElementById('wpfunos-multistep-entierro'),document.getElementById('wpfunos-multistep-entierro-icon')  ].forEach(function(element) {
@@ -75,28 +69,16 @@ $(document).ready(function(){
               if( document.getElementById('wpf-resultados-referencia').getAttribute('wpfland') === '1'){
 
                 //  WPML
-                if (idioma_wpml === 'es'){
-                  document.getElementById('elementor-popup-modal-89340').style.display = 'none';
-                  elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup datos usuario
-                }
-                if (idioma_wpml === 'ca'){
-                  document.getElementById('elementor-popup-modal-136565').style.display = 'none';
-                  elementorFrontend.documentsManager.documents['136573'].showModal(); //show the popup datos usuario
-                }
+                document.getElementById('elementor-popup-modal-'+ obj_id_06 ).style.display = 'none'; //Servicios Multistep (1)
+                elementorFrontend.documentsManager.documents[obj_id_10].showModal(); //Servicios Multistep (5)
                 //  WPML
 
                 document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
               }else{
 
                 //  WPML
-                if (idioma_wpml === 'es'){
-                  document.getElementById('elementor-popup-modal-89340').style.display = 'none';
-                  elementorFrontend.documentsManager.documents['89344'].showModal(); //show the popup Destino
-                }
-                if (idioma_wpml === 'ca'){
-                  document.getElementById('elementor-popup-modal-136565').style.display = 'none';
-                  elementorFrontend.documentsManager.documents['136567'].showModal(); //show the popup Destino
-                }
+                document.getElementById('elementor-popup-modal-'+ obj_id_06 ).style.display = 'none'; //Servicios Multistep (1)
+                elementorFrontend.documentsManager.documents[obj_id_07].showModal(); //Servicios Multistep (2)
                 //  WPML
 
                 [ document.getElementById('wpfunos-multistep-entierro'),document.getElementById('wpfunos-multistep-entierro-icon')  ].forEach(function(element) {
@@ -119,12 +101,7 @@ $(document).ready(function(){
             element.addEventListener('click', function() {
 
               //  WPML
-              if (idioma_wpml === 'es'){
-                elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-              }
-              if (idioma_wpml === 'ca'){
-                elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-              }
+              elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
               //  WPML
 
               window.location.href = idioma+'/compara-precios-aseguradoras';
@@ -138,14 +115,8 @@ $(document).ready(function(){
             console.log('destino: entierro');
 
             //  WPML
-            if (idioma_wpml === 'es'){
-              document.getElementById('elementor-popup-modal-89344').style.display = 'none';
-              elementorFrontend.documentsManager.documents['89348'].showModal(); //show the popup Velatorio
-            }
-            if (idioma_wpml === 'ca'){
-              document.getElementById('elementor-popup-modal-136567').style.display = 'none';
-              elementorFrontend.documentsManager.documents['136569'].showModal(); //show the popup Velatorio
-            }
+            document.getElementById('elementor-popup-modal-'+obj_id_07).style.display = 'none'; //Servicios Multistep (2)
+            elementorFrontend.documentsManager.documents[obj_id_08].showModal(); //Servicios Multistep (3)
             //  WPML
 
             [ document.getElementById('wpfunos-multistep-velatorio'),document.getElementById('wpfunos-multistep-velatorio-icon')  ].forEach(function(element) {
@@ -161,14 +132,8 @@ $(document).ready(function(){
             console.log('destino: incineracion');
 
             //  WPML
-            if (idioma_wpml === 'es'){
-              document.getElementById('elementor-popup-modal-89344').style.display = 'none';
-              elementorFrontend.documentsManager.documents['89348'].showModal(); //show the popup Velatorio
-            }
-            if (idioma_wpml === 'ca'){
-              document.getElementById('elementor-popup-modal-136567').style.display = 'none';
-              elementorFrontend.documentsManager.documents['136569'].showModal(); //show the popup Velatorio
-            }
+            document.getElementById('elementor-popup-modal-'+obj_id_07).style.display = 'none'; //Servicios Multistep (2)
+            elementorFrontend.documentsManager.documents[obj_id_08].showModal(); //Servicios Multistep (3)
             //  WPML
 
             [ document.getElementById('wpfunos-multistep-velatorio'),document.getElementById('wpfunos-multistep-velatorio-icon')  ].forEach(function(element) {
@@ -185,14 +150,8 @@ $(document).ready(function(){
             console.log('velatorio: si');
 
             //  WPML
-            if (idioma_wpml === 'es'){
-              document.getElementById('elementor-popup-modal-89348').style.display = 'none';
-              elementorFrontend.documentsManager.documents['89351'].showModal(); //show the popup Ceremonia
-            }
-            if (idioma_wpml === 'ca'){
-              document.getElementById('elementor-popup-modal-136569').style.display = 'none';
-              elementorFrontend.documentsManager.documents['136571'].showModal(); //show the popup Ceremonia
-            }
+            document.getElementById('elementor-popup-modal-'+obj_id_08).style.display = 'none'; //Servicios Multistep (3)
+            elementorFrontend.documentsManager.documents[obj_id_09].showModal(); //Servicios Multistep (4)
             //  WPML
 
             [ document.getElementById('wpfunos-multistep-sinceremonia'),document.getElementById('wpfunos-multistep-sinceremonia-icon')  ].forEach(function(element) {
@@ -215,14 +174,8 @@ $(document).ready(function(){
             console.log('velatorio: no');
 
             //  WPML
-            if (idioma_wpml === 'es'){
-              document.getElementById('elementor-popup-modal-89348').style.display = 'none';
-              elementorFrontend.documentsManager.documents['89351'].showModal(); //show the popup Ceremonia
-            }
-            if (idioma_wpml === 'ca'){
-              document.getElementById('elementor-popup-modal-136569').style.display = 'none';
-              elementorFrontend.documentsManager.documents['136571'].showModal(); //show the popup Ceremonia
-            }
+            document.getElementById('elementor-popup-modal-'+obj_id_08).style.display = 'none'; //Servicios Multistep (3)
+            elementorFrontend.documentsManager.documents[obj_id_09].showModal(); //Servicios Multistep (4)
             //  WPML
 
             [ document.getElementById('wpfunos-multistep-sinceremonia'),document.getElementById('wpfunos-multistep-sinceremonia-icon')  ].forEach(function(element) {
@@ -245,14 +198,8 @@ $(document).ready(function(){
             console.log('ceremonia: no');
 
             //  WPML
-            if (idioma_wpml === 'es'){
-              document.getElementById('elementor-popup-modal-89351').style.display = 'none';
-              elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
-            }
-            if (idioma_wpml === 'ca'){
-              document.getElementById('elementor-popup-modal-136571').style.display = 'none';
-              elementorFrontend.documentsManager.documents['136573'].showModal(); //show the popup Ceremonia
-            }
+            document.getElementById('elementor-popup-modal-'+obj_id_09).style.display = 'none'; //Servicios Multistep (4)
+            elementorFrontend.documentsManager.documents[obj_id_10].showModal(); //Servicios Multistep (5)
             //  WPML
 
             document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
@@ -264,14 +211,8 @@ $(document).ready(function(){
             console.log('ceremonia: sala');
 
             //  WPML
-            if (idioma_wpml === 'es'){
-              document.getElementById('elementor-popup-modal-89351').style.display = 'none';
-              elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
-            }
-            if (idioma_wpml === 'ca'){
-              document.getElementById('elementor-popup-modal-136571').style.display = 'none';
-              elementorFrontend.documentsManager.documents['136573'].showModal(); //show the popup Ceremonia
-            }
+            document.getElementById('elementor-popup-modal-'+obj_id_09).style.display = 'none'; //Servicios Multistep (4)
+            elementorFrontend.documentsManager.documents[obj_id_10].showModal(); //Servicios Multistep (5)
             //  WPML
 
             document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
@@ -282,14 +223,8 @@ $(document).ready(function(){
             console.log('ceremonia: civil');
 
             //  WPML
-            if (idioma_wpml === 'es'){
-              document.getElementById('elementor-popup-modal-89351').style.display = 'none';
-              elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
-            }
-            if (idioma_wpml === 'ca'){
-              document.getElementById('elementor-popup-modal-136571').style.display = 'none';
-              elementorFrontend.documentsManager.documents['136573'].showModal(); //show the popup Ceremonia
-            }
+            document.getElementById('elementor-popup-modal-'+obj_id_09).style.display = 'none'; //Servicios Multistep (4)
+            elementorFrontend.documentsManager.documents[obj_id_10].showModal(); //Servicios Multistep (5)
             //  WPML
 
             document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
@@ -300,14 +235,8 @@ $(document).ready(function(){
             console.log('ceremonia: religiosa');
 
             //  WPML
-            if (idioma_wpml === 'es'){
-              document.getElementById('elementor-popup-modal-89351').style.display = 'none';
-              elementorFrontend.documentsManager.documents['89354'].showModal(); //show the popup Ceremonia
-            }
-            if (idioma_wpml === 'ca'){
-              document.getElementById('elementor-popup-modal-136571').style.display = 'none';
-              elementorFrontend.documentsManager.documents['136573'].showModal(); //show the popup Ceremonia
-            }
+            document.getElementById('elementor-popup-modal-'+obj_id_09).style.display = 'none'; //Servicios Multistep (4)
+            elementorFrontend.documentsManager.documents[obj_id_10].showModal(); //Servicios Multistep (5)
             //  WPML
 
             document.getElementById('wpfunos-v3-enviar-datos').addEventListener('click', wpfdatosusuario, false);
@@ -367,16 +296,9 @@ $(document).ready(function(){
               var url = params.toString();
 
               //  WPML
-              if (idioma_wpml === 'es'){
-                elementorFrontend.documentsManager.documents['84639'].showModal(); //Ventana Popup Esperando (loader2)
-                $('#elementor-popup-modal-89354').hide();
-                elementorFrontend.documentsManager.documents['77005'].showModal(); //Ventana Popup Esperando (entrada datos GTM)
-              }
-              if (idioma_wpml === 'ca'){
-                elementorFrontend.documentsManager.documents['136584'].showModal(); //Ventana Popup Esperando (loader2)
-                $('#elementor-popup-modal-136573').hide();
-                elementorFrontend.documentsManager.documents['136587'].showModal(); //Ventana Popup Esperando (entrada datos GTM)
-              }
+              elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
+              $('#elementor-popup-modal-'+obj_id_10).hide(); //Servicios Multistep (5)
+              elementorFrontend.documentsManager.documents[obj_id_12].showModal(); //Ventana Popup Esperando (entrada datos GTM)
               //  WPML
 
               jQuery.ajax({
