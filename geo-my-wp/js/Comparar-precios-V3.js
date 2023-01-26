@@ -53,12 +53,13 @@ $(document).ready(function(){
     document.getElementById('gmw-cf-resp4-8').value = '2' ;
 
 
-
+    // WPML
     var wpflabel = document.getElementsByClassName('gmw-field-label');
     if (idioma_wpml === 'ca'){
       wpflabel[0].innerHTML = 'On necessites el servei?';
       $('#gmw-address-field-8').attr('placeholder','Introdueix la població');
     }
+    // WPML
 
   });
   //getCookie('wp-wpml_current_language')

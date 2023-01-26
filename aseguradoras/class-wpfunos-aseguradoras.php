@@ -129,9 +129,9 @@ class Wpfunos_Aseguradoras {
           // Marcar lead como enviado.
           update_post_meta( $IDusuario, 'wpfunos_userLead', true );
         }
-        echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosAseguradorasCabecera') );
-        echo do_shortcode( get_option('wpfunos_formGeoMyWpAseguradoras') );
-        echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosAseguradorasPie') );
+        echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosAseguradorasCabecera') );//[elementor-template id="33609"]
+        echo do_shortcode( get_option('wpfunos_formGeoMyWpAseguradoras') ); //gmw search_form="3"
+        echo do_shortcode( get_option('wpfunos_seccionComparaPreciosResultadosAseguradorasPie') );//[elementor-template id="33606"]
 
       }
     }
@@ -148,7 +148,7 @@ class Wpfunos_Aseguradoras {
   * Shortcode [wpfunos-pagina-resultados-aseguradoras]
   */
   public function wpfunosPaginaResultadosAseguradorasShortcode( $atts, $content = "" ) {
-    echo get_option('wpfunos_paginaURLResultadosAseguradoras');
+    echo home_url().get_option('wpfunos_paginaURLResultadosAseguradoras');
   }
 
   /**
@@ -173,6 +173,9 @@ class Wpfunos_Aseguradoras {
   */
   public function wpfunosAseguradorasResultados( ){
     $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+
+    ?><script>console.log('wpfunosAseguradorasResultados. $_GET[referencia]: <?php echo $_GET['referencia']; ?> ');</script><?php
+
     $telefonoUsuario = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
     $_GET['telefonoUsuario'] = $telefonoUsuario;
     $seleccion = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
@@ -187,8 +190,8 @@ class Wpfunos_Aseguradoras {
     $_GET['seguro'] = get_post_meta( $IDusuario, 'wpfunos_userSeguro', true );
     $nonce = wp_create_nonce("wpfunos_aseguradoras_nonce".apply_filters('wpfunos_userIP','dummy'));
 
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '55817' ); //Boton Te llamamos
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( '56054' ); //Boton Presupuesto
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( apply_filters( 'wpml_object_id', 55817, 'post', TRUE ) ); //Boton Te llamamos
+    ElementorPro\Modules\Popup\Module::add_popup_to_location( apply_filters( 'wpml_object_id', 56054, 'post', TRUE ) ); //Boton Presupuesto
 
     $args = array(
       'post_status' => 'publish',
@@ -618,7 +621,10 @@ class Wpfunos_Aseguradoras {
 
     if ($IDusuario != 0){
 
-      $this->wpfunosAPIAseguradora( $IDusuario, 39084, 'Cold Lead');
+      // Desactivar para pruebas
+      if( site_url() === 'https://funos.es'){
+        $this->wpfunosAPIAseguradora( $IDusuario, 39084, 'Cold Lead');
+      }
 
     }
     return;

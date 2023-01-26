@@ -12,14 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @subpackage Wpfunos/admin/partials/DB
  * @author     Efraim Bayarri <efraim@efraim.cat>
  */
-$tipoSeguroNombre = sanitize_text_field( $_POST[$this->plugin_name . '_tipoSeguroNombre'] );
-$tipoSeguroDisplay = sanitize_text_field( $_POST[$this->plugin_name . '_tipoSeguroDisplay'] );
-$tipoSeguroOrden = sanitize_text_field( $_POST[$this->plugin_name . '_tipoSeguroOrden'] );
-$tipoSeguroActivo = sanitize_text_field( $_POST[$this->plugin_name . '_tipoSeguroActivo'] );
-$tipoSeguroComentario = wp_kses_post( $_POST[$this->plugin_name . '_tipoSeguroComentario'] );
+$tipoSeguroNombre = sanitize_text_field( $_POST['wpfunos_tipoSeguroNombre'] );
+$tipoSeguroDisplay = sanitize_text_field( $_POST['wpfunos_tipoSeguroDisplay'] );
+$tipoSeguroOrden = sanitize_text_field( $_POST['wpfunos_tipoSeguroOrden'] );
+$tipoSeguroActivo = sanitize_text_field( $_POST['wpfunos_tipoSeguroActivo'] );
+$tipoSeguroComentario = wp_kses_post( $_POST['wpfunos_tipoSeguroComentario'] );
 
-update_post_meta($post_id, $this->plugin_name . '_tipoSeguroNombre', $tipoSeguroNombre);
-update_post_meta($post_id, $this->plugin_name . '_tipoSeguroDisplay', $tipoSeguroDisplay);
-update_post_meta($post_id, $this->plugin_name . '_tipoSeguroOrden', $tipoSeguroOrden);
-update_post_meta($post_id, $this->plugin_name . '_tipoSeguroActivo', $tipoSeguroActivo);
-update_post_meta($post_id, $this->plugin_name . '_tipoSeguroComentario', $tipoSeguroComentario);
+update_post_meta($post_id, 'wpfunos_tipoSeguroNombre', $tipoSeguroNombre);
+update_post_meta($post_id, 'wpfunos_tipoSeguroDisplay', $tipoSeguroDisplay);
+update_post_meta($post_id, 'wpfunos_tipoSeguroOrden', $tipoSeguroOrden);
+update_post_meta($post_id, 'wpfunos_tipoSeguroActivo', $tipoSeguroActivo);
+update_post_meta($post_id, 'wpfunos_tipoSeguroComentario', $tipoSeguroComentario);
