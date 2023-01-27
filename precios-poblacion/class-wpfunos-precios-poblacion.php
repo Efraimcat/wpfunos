@@ -427,7 +427,7 @@ class Wpfunos_PreciosPoblacion {
   */
   public function wpfunosPrefunZonaFunerariaEntierroShortcode( $atts, $content = "" ) {
     // WPML
-    $expiry = strtotime('+1 day');
+    $expiry = strtotime('+1 month');
     if (isset($_COOKIE['wp-wpml_current_language'])){
       setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
       setcookie('wpf_obj_id_02', apply_filters( 'wpml_object_id', 56672, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles

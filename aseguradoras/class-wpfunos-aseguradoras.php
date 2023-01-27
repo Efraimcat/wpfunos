@@ -209,8 +209,14 @@ class Wpfunos_Aseguradoras {
         $my_query->the_post();
         $temp_query = $my_query;  // store it
         $IDtipo = get_the_ID();
-        if( get_post_meta( $IDtipo, 'wpfunos_tipoSeguroActivo' , true ) ){
-          ?><div class="wpfunos-titulo-aseguradoras" id="<?php echo str_replace(" ","-", get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ) ); ?>"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
+
+        // WPML
+        $IDtipoTrad = apply_filters( 'wpml_object_id', $IDtipo, 'post', TRUE );
+        $IDtipoOrig = apply_filters( 'wpml_object_id', $IDtipo, 'post', FALSE, 'es' );
+        // WPML
+
+        if( get_post_meta( $IDtipoTrad, 'wpfunos_tipoSeguroActivo' , true ) ){
+          ?><div class="wpfunos-titulo-aseguradoras" id="<?php echo str_replace(" ","-", get_post_meta( $IDtipoOrig, 'wpfunos_tipoSeguroDisplay', true ) ); ?>"><p></p><center><h2><?php echo get_post_meta( $IDtipo, 'wpfunos_tipoSeguroDisplay', true ); ?></h2></center></div><?php
           ?> <div class="clear"></div><?php
           ?><div class="wpfunos-busqueda-contenedor wpfunos-busqueda-contenedor-argumentario"><?php
           echo do_shortcode( get_post_meta( $IDtipo, 'wpfunos_tipoSeguroComentario', true ) );
@@ -222,7 +228,7 @@ class Wpfunos_Aseguradoras {
             'meta_query' => array(
               array(
                 'key'     => 'wpfunos_aseguradorasTipoSeguro',
-                'value'   => $IDtipo,
+                'value'   => $IDtipoOrig,
                 'compare' => 'IN',
               ),
             ),
@@ -234,14 +240,20 @@ class Wpfunos_Aseguradoras {
           while ($wp_query->have_posts()) :
             $wp_query->the_post();
             $IDaseguradora = get_the_ID();
-            if( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasActivo', true ) ){
+
+            // WPML
+            $IDaseguradoraTrad = apply_filters( 'wpml_object_id', $IDaseguradora, 'post', TRUE );
+            $IDaseguradoraOrig = apply_filters( 'wpml_object_id', $IDaseguradora, 'post', FALSE, 'es' );
+            // WPML
+
+            if( get_post_meta( $IDaseguradoraTrad, 'wpfunos_aseguradorasActivo', true ) ){
               ?><div class="wpfunos-busqueda-contenedor"><?php
-              $titulo = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNombre', true );
+              $titulo = get_post_meta( $IDaseguradoraTrad, 'wpfunos_aseguradorasNombre', true );
               $_GET['nombre'] = $titulo;
-              $_GET['telefonoEmpresa'] = get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasTelefono', true );
-              $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasLogo', true ) ,'full' );
-              $_GET['AttsLlamen'] = $IDaseguradora.'
-              wpfid|' . $IDaseguradora .'
+              $_GET['telefonoEmpresa'] = get_post_meta( $IDaseguradoraTrad, 'wpfunos_aseguradorasTelefono', true );
+              $_GET['logo'] = wp_get_attachment_image ( get_post_meta( $IDaseguradoraTrad, 'wpfunos_aseguradorasLogo', true ) ,'full' );
+              $_GET['AttsLlamen'] = $IDaseguradoraTrad.'
+              wpfid|' . $IDaseguradoraTrad .'
               data-wpnonce|' . $nonce .'
               wpusuario|' . $IDusuario.'
               wptitulo|' .$titulo.'
@@ -249,7 +261,7 @@ class Wpfunos_Aseguradoras {
 
               echo do_shortcode( get_option('wpfunos_seccionAseguradorasPrecio') );	// cabecera con logo
               ?><div class="wpfunos-busqueda-aseguradoras-inferior" id="wpfunosID-<?php echo $IDaseguradora; ?>"><?php
-              echo do_shortcode( get_post_meta( $IDaseguradora, 'wpfunos_aseguradorasNotas', true ) );
+              echo do_shortcode( get_post_meta( $IDaseguradoraTrad, 'wpfunos_aseguradorasNotas', true ) );
               ?></div></div><?php
               //css #wpfunos-boton-llamen
               //atts AttsLlamen

@@ -91,12 +91,6 @@ $(document).ready(function(){
             }, false);
           });
 
-          if (idioma_wpml === 'es'){
-            var idioma = '';
-          }else{
-            var idioma = '/' + idioma_wpml;
-          }
-
           [ document.getElementById('wpfunos-multistep-futuro'), document.getElementById('wpfunos-multistep-futuro-icon')].forEach(function(element) {
             element.addEventListener('click', function() {
 
@@ -104,7 +98,10 @@ $(document).ready(function(){
               elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
               //  WPML
 
-              window.location.href = idioma+'/compara-precios-aseguradoras';
+              //  WPML
+              window.location.href = document.getElementById('wpf-resultados-referencia').getAttribute('wpfhomeURL') + '/compara-precios-aseguradoras';
+              //  WPML
+
             }, false);
           });
 

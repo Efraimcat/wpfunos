@@ -48,8 +48,6 @@ class Wpfunos_ServiciosV3 {
     add_action('wp_ajax_wpfunos_ajax_v3_detalles', function () {$this->wpfunosV3Detalles();});
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_email', function () { $this->wpfunosV3Email();});
     add_action('wp_ajax_wpfunos_ajax_v3_email', function () {$this->wpfunosV3Email();});
-    add_action('wp_ajax_nopriv_wpfunos_ajax_v3_whatsapp', function () { $this->wpfunosV3WhatsApp();});
-    add_action('wp_ajax_wpfunos_ajax_v3_whatsapp', function () {$this->wpfunosV3WhatsApp();});
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_dist_local', function () { $this->wpfunosV3DistLocal();});
     add_action('wp_ajax_wpfunos_ajax_v3_dist_local', function () {$this->wpfunosV3DistLocal();});
 
@@ -77,7 +75,7 @@ class Wpfunos_ServiciosV3 {
   */
   public function wpfunosV3UbicacionShortcode($atts, $content = ""){
     // WPML
-    $expiry = strtotime('+1 day');
+    $expiry = strtotime('+1 month');
     if (isset($_COOKIE['wp-wpml_current_language'])){
       setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
       setcookie('wpf_obj_id_02', apply_filters( 'wpml_object_id', 56672, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles
@@ -200,7 +198,7 @@ class Wpfunos_ServiciosV3 {
       ?><script>console.log('Cargando popups Elementor.' );</script><?php
 
       // WPML
-      $expiry = strtotime('+1 day');
+      $expiry = strtotime('+1 month');
       if (isset($_COOKIE['wp-wpml_current_language'])){
         setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
         setcookie('wpf_obj_id_02', apply_filters( 'wpml_object_id', 56672, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles
@@ -449,6 +447,7 @@ class Wpfunos_ServiciosV3 {
       wpfcuando|' .$_GET['cuando']. '
       wpfland|' .$_GET['land']. '
       wpfIDusuario|' .$IDusuario. '
+      wpfhomeURL|' .home_url(). '
       wpfresp1|' .$_GET['cf']['resp1']. '
       wpfresp2|' .$_GET['cf']['resp2']. '
       wpfresp3|' .$_GET['cf']['resp3']. '
@@ -505,12 +504,6 @@ class Wpfunos_ServiciosV3 {
           }
         }, 100); // check every 100ms
         </script><?php
-
-        //if( !isset($_GET['land'])){
-        //  require 'js/wpfunos-v3-multistep.js';
-        //}else{
-        //  require 'js/wpfunos-v3-multistep-land.js'; //viene de una landing. Solo preguntar cuando y datos personales.
-        //}
 
       }
       // END No tiene entrada usuario
@@ -2533,94 +2526,6 @@ class Wpfunos_ServiciosV3 {
     }
     $result['type'] = "success";
     $result['email'] = $email;
-    $result = json_encode($result);
-    echo $result;
-    // don't forget to end your scripts with a die() function - very important
-    die();
-  }
-
-  /*********************************/
-  /*****  AJAX                ******/
-  /*********************************/
-  /**
-  * Ver detalles
-  *
-  * add_action('wp_ajax_nopriv_wpfunos_ajax_v3_whatsapp', function () { $this->wpfunosV3WhatsApp();});
-  * add_action('wp_ajax_wpfunos_ajax_v3_whatsapp', function () {$this->wpfunosV3WhatsApp();});
-  */
-  public function wpfunosV3WhatsApp(){
-    $servicio = $_POST['servicio'];
-    $wpnonce = $_POST['wpnonce'];
-    $titulo = $_POST['titulo'];
-    $precio = $_POST['precio'];
-    $telefono = $_POST['telefono'];
-
-    $IP = apply_filters('wpfunos_userIP','dummy');
-
-    if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$IP ) ) {
-      $result['type'] = "Bad nonce";
-      $result = json_encode($result);
-      echo $result;
-      // don't forget to end your scripts with a die() function - very important
-      die();
-    }
-
-    //
-    $tel = str_replace(" ","", $telefono );
-    $tel = str_replace("-","",$tel);
-    $tel = str_replace("+","",$tel);
-
-    if( strlen($tel) == 9 ) $tel = '34'.$tel;
-
-    if( strlen($tel) != 11 ) $tel = '0';
-
-    if( substr($tel,0,2) != '34' ) $tel = '0';
-
-    if ( $tel == '0' ) {
-      $result['type'] = "Bad phone number";
-      $result = json_encode($result);
-      echo $result;
-      // don't forget to end your scripts with a die() function - very important
-      die();
-    }
-    //
-    $URL = 'https://graph.facebook.com/v14.0/106068092247041/messages';
-
-    $body =  array(
-      'messaging_product' => 'whatsapp',
-      'to' => $tel,
-      'recipient_type' => 'individual',
-      'type' => 'text',
-      'text' => array(
-        'preview_url' => true,
-        'body' => 'Mensaje de prueba desde el pop detalles de ' .$titulo. ' en https://funos.es
-        Saludos.',
-      ),
-    );
-
-    $body_media =  array(
-      'messaging_product' => 'whatsapp',
-      'to' => $tel,
-      'recipient_type' => 'individual',
-      'type' => 'document',
-      'document' => array(
-        'link' => 'https://funos.es/wp-content/uploads/2022/09/prueba.pdf',
-        'caption' => 'Documento enviado desde funos.es',
-      ),
-    );
-
-    $args = array(
-      'headers'     => array(
-        'Authorization'  => 'Bearer EAAHZBvLqqgtgBADCWyYOQ85b8pg1X24K58TIAHMnPzbPN40N951v23pgzEtLfUZBOt29ZCkRoYmdFLuVMmHqBTDbi21RF6BmZAW5rH04eYEKKwiwHXrGhSx36P1L8iAZBhDKgFI6obsOfWp50uKoqdTdou3UeCDQRbuFMHXfLMZBJ71AC5UD3K4Lg6AgvOWDHp6s3Evzjhb8iBuEOX4QJ3KobjoGZBDZCtIZD',
-        'Content-Type'  => 'application/json',
-      ),
-      'body'  => json_encode($body_media),
-    );
-
-    $request = wp_remote_post( $URL, $args );
-
-    $result['type'] = "success";
-    $result['request'] = $request;
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important

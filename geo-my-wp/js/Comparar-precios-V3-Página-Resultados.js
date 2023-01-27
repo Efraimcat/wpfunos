@@ -555,15 +555,21 @@ var wpfFunctionPresupuesto = function() {
   console.log('Botón Presupuesto: Servicio: '+servicio+' Título: '+titulo );
 
   // WPML
-  elementorFrontend.documentsManager.documents[obj_id_03].showModal(); //Servicio Presupuesto
+  elementorFrontend.documentsManager.documents[obj_id_03].showModal(); //56676 - Servicio Presupuesto
   // WPML
 
-  document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
-  document.getElementById('botonEnviarPresupuesto').setAttribute('wpfn', wpnonce );
-  document.getElementById('botonEnviarPresupuesto').setAttribute('wpfid', servicio );
-  document.getElementById('botonEnviarPresupuesto').setAttribute('wpfp', precio );
-  document.getElementById('botonEnviarPresupuesto').setAttribute('wpftitulo', titulo );
-  document.getElementById('botonEnviarPresupuesto').addEventListener('click', wpfFunctionEnviaPresupuesto, false);
+  var checkExist = setInterval(function() {
+    if( document.getElementById('wpfunos-modal-presupuesto-nombre') != null ){
+      clearInterval(checkExist);
+      document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
+      document.getElementById('botonEnviarPresupuesto').setAttribute('wpfn', wpnonce );
+      document.getElementById('botonEnviarPresupuesto').setAttribute('wpfid', servicio );
+      document.getElementById('botonEnviarPresupuesto').setAttribute('wpfp', precio );
+      document.getElementById('botonEnviarPresupuesto').setAttribute('wpftitulo', titulo );
+      document.getElementById('botonEnviarPresupuesto').addEventListener('click', wpfFunctionEnviaPresupuesto, false);
+    }
+  }, 100); // check every 100ms
+
 };
 
 var wpfFunctionEnviaPresupuesto = function() {
@@ -752,21 +758,6 @@ var wpfFunctionDetalles = function() {
         document.getElementById('wpfunos-detalles-financiacion').setAttribute('wpftitulo', titulo);
         document.getElementById('wpfunos-detalles-financiacion').setAttribute('wpfdistancia', distancia);
         document.getElementById('wpfunos-detalles-financiacion').setAttribute('wpftelefono', telefono);
-        document.getElementById('wpf-icono-whatsapp').addEventListener('click', wpfFunctionWhatsApp, false);
-        document.getElementById('wpf-icono-whatsapp').setAttribute('wpfid', servicio);
-        document.getElementById('wpf-icono-whatsapp').setAttribute('wpfn', wpnonce);
-        document.getElementById('wpf-icono-whatsapp').setAttribute('wpfp', precio);
-        document.getElementById('wpf-icono-whatsapp').setAttribute('wpftitulo', titulo);
-        document.getElementById('wpf-icono-whatsapp').setAttribute('wpfdistancia', distancia);
-        document.getElementById('wpf-icono-whatsapp').setAttribute('wpftelefono', telefono);
-        document.getElementById('wpfunos-detalles-producto-1').addEventListener('click', wpfDetallesProducto1, false);
-        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpfid', servicio);
-        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpfn', wpnonce);
-        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpfp', precio);
-        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpftitulo', titulo);
-        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpfdistancia', distancia);
-        document.getElementById('wpfunos-detalles-producto-1').setAttribute('wpftelefono', telefono);
-
         if ( financiacion == 1 ) {document.getElementById('wpf-detalles-boton-financiacion').style.display = 'block';}
 
       } else {
@@ -954,30 +945,6 @@ var wpfDetallesEmail = function() {
   });
 };
 
-var wpfDetallesProducto1 = function() {
-  var wpnonce = this.getAttribute('wpfn');
-  var servicio = this.getAttribute('wpfid');
-  var precio = this.getAttribute('wpfp');
-  var titulo = this.getAttribute('wpftitulo');
-
-  var obj_id_11 = getCookie('wpf_obj_id_11');//84639 - Ventana Popup Esperando (loader2)
-
-  // WPML
-  elementorFrontend.documentsManager.documents[obj_id_11].showModal(); //Ventana Popup Esperando (loader2)
-  // WPML
-
-  // WMPL
-  var idioma_wpml =  getCookie('wp-wpml_current_language');
-  if (idioma_wpml === 'es'){
-    idioma_URL = '';
-  }else{
-    idioma_URL = '/' + idioma_wpml;
-  }
-  // WMPL
-
-  window.location.href = 'https://funos.es'+idioma_URL+'/producto/servicio-de-gestion-personalizada';
-};
-
 var wpfDetallesPresupuesto = function() {
   var wpnonce = this.getAttribute('wpfn');
   var servicio = this.getAttribute('wpfid');
@@ -994,12 +961,18 @@ var wpfDetallesPresupuesto = function() {
   elementorFrontend.documentsManager.documents[obj_id_03].showModal(); //Servicio Presupuesto
   // WPML
 
-  document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
-  document.getElementById('botonEnviarPresupuesto').setAttribute('wpfn', wpnonce );
-  document.getElementById('botonEnviarPresupuesto').setAttribute('wpfid', servicio );
-  document.getElementById('botonEnviarPresupuesto').setAttribute('wpfp', precio );
-  document.getElementById('botonEnviarPresupuesto').setAttribute('wpftitulo', titulo );
-  document.getElementById('botonEnviarPresupuesto').addEventListener('click', wpfFunctionEnviaPresupuesto, false);
+  var checkExist = setInterval(function() {
+    if( document.getElementById('wpfunos-modal-presupuesto-nombre') != null ){
+      clearInterval(checkExist);
+      document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
+      document.getElementById('botonEnviarPresupuesto').setAttribute('wpfn', wpnonce );
+      document.getElementById('botonEnviarPresupuesto').setAttribute('wpfid', servicio );
+      document.getElementById('botonEnviarPresupuesto').setAttribute('wpfp', precio );
+      document.getElementById('botonEnviarPresupuesto').setAttribute('wpftitulo', titulo );
+      document.getElementById('botonEnviarPresupuesto').addEventListener('click', wpfFunctionEnviaPresupuesto, false);
+    }
+  }, 100); // check every 100ms
+
 };
 
 var wpfFunctionFinanciacion = function() {
@@ -1015,21 +988,28 @@ var wpfFunctionFinanciacion = function() {
   elementorFrontend.documentsManager.documents[obj_id_13].showModal(); //show the popup
   // WPML
 
-  document.getElementById('wpf-financiacion-funeraria').innerHTML = titulo;
-  document.getElementById('wpf-financiacion-tipo').innerHTML = document.getElementsByClassName('elementor-element-6472ad92')[0].innerText;
+  var checkExist = setInterval(function() {
+    if( document.getElementById('wpf-financiacion-funeraria') != null ){
+      clearInterval(checkExist);
 
-  document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='none';
-  document.getElementsByClassName('elementor-field-group-plazos_superior')[0].style.display='none';
-  document.getElementById('form-field-importe').disabled = true;
-  document.getElementById('form-field-financiar').disabled = true;
+      document.getElementById('wpf-financiacion-funeraria').innerHTML = titulo;
+      document.getElementById('wpf-financiacion-tipo').innerHTML = document.getElementsByClassName('elementor-element-6472ad92')[0].innerText;
 
-  document.getElementById('form-field-importe').value = precio;
-  document.getElementById('form-field-wpfn').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
-  document.getElementById('form-field-wpfe').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
-  document.getElementById('form-field-wpft').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
-  document.getElementById('form-field-wpfp').value = precio;
-  document.getElementById('form-field-wpftitulo').value = titulo;
-  document.getElementById('form-field-wpftipo').value = document.getElementsByClassName('elementor-element-6472ad92')[0].innerText;
+      document.getElementsByClassName('elementor-field-group-plazos_inferior')[0].style.display='none';
+      document.getElementsByClassName('elementor-field-group-plazos_superior')[0].style.display='none';
+      document.getElementById('form-field-importe').disabled = true;
+      document.getElementById('form-field-financiar').disabled = true;
+
+      document.getElementById('form-field-importe').value = precio;
+      document.getElementById('form-field-wpfn').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
+      document.getElementById('form-field-wpfe').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
+      document.getElementById('form-field-wpft').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
+      document.getElementById('form-field-wpfp').value = precio;
+      document.getElementById('form-field-wpftitulo').value = titulo;
+      document.getElementById('form-field-wpftipo').value = document.getElementsByClassName('elementor-element-6472ad92')[0].innerText;
+
+    }
+  }, 100); // check every 100ms
 
   setInterval(function() {
     if ( !document.getElementById('form-field-importe') ) {return;}
@@ -1090,42 +1070,6 @@ var wpfFunctionBotonFinanciacion = function() {
       document.getElementById('wpfFinanciacionEnviar').disabled = false;
     }
   }, 100); // check every 100ms
-};
-
-var wpfFunctionWhatsApp = function() {
-  var wpnonce = this.getAttribute('wpfn');
-  var servicio = this.getAttribute('wpfid');
-  var precio = this.getAttribute('wpfp');
-  var titulo = this.getAttribute('wpftitulo');
-  var telefono = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
-  document.getElementById('wpf-icono-whatsapp').removeEventListener('click', wpfFunctionWhatsApp );
-  document.getElementById('wpf-icono-whatsapp').style.cursor = 'auto';
-
-
-  console.log('Botón WhatsApp: '+servicio+' Título: '+titulo+' Teléfono: ' + telefono );
-
-  jQuery.ajax({
-    type : 'post',
-    dataType : 'json',
-    url : WpfAjax.ajaxurl,
-    data: {
-      'action': 'wpfunos_ajax_v3_whatsapp',
-      'servicio': servicio,
-      'wpnonce': wpnonce,
-      'precio' : precio,
-      'titulo' : titulo,
-      'telefono' : telefono,
-    },
-    success: function(response) {
-      console.log('wpfunos_ajax_v3_whatsapp response:');
-      console.log(response)	;
-      if(response.type === 'success') {
-        console.log('OK');
-      } else {
-        console.log('fail');
-      }
-    }
-  });
 };
 
 var wpfdistancia = function() {
