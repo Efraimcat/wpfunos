@@ -141,8 +141,8 @@ class Wpfunos_Public {
     if ( get_option('wpfunos_activarCorreoUsuarioContacto') ){
       $mensaje = get_option('wpfunos_mensajeCorreoUsuarioContacto');
       $nombreUsuario = do_shortcode ('[field id="nombreasesor"]');
-      $telefonoUsuario = do_shortcode ('[field id="telefonoasesor"]');
-      $Email = do_shortcode ('[field id="emailasesor"]');
+      $telefonoUsuario = do_shortcode ('[field id="telefono"]');
+      $Email = do_shortcode ('[field id="email"]');
       $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );
       $mensaje = str_replace( '[telefonoUsuario]' , $telefonoUsuario , $mensaje );
       $mensaje = str_replace( '[Email]' , $Email , $mensaje );
@@ -169,9 +169,9 @@ class Wpfunos_Public {
       //[field id="Telefono"]
       $ubicacion = do_shortcode ('[field id="address"]');
       $CPUsuario = do_shortcode ('[field id="CP"]');
-      $telefonoUsuario = do_shortcode ('[field id="Telefono"]');
+      $telefonoUsuario = do_shortcode ('[field id="telefono"]');
       $nombreUsuario = do_shortcode ('[field id="Nombre"]');
-      $Email = do_shortcode ('[field id="Email"]');
+      $Email = do_shortcode ('[field id="email"]');
       $destino = do_shortcode ('[field id="Destino"]');
       $ataud = do_shortcode ('[field id="Ataud"]');
       $velatorio = do_shortcode ('[field id="Velatorio"]');
@@ -248,6 +248,10 @@ class Wpfunos_Public {
   public function wpfunosFormValidation($record, $ajax_handler){
     $form_name = $record->get_form_settings( 'form_name' );
 
+    $userIP = apply_filters('wpfunos_userIP','dummy');
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - '.'Validación formulario: '. $form_name );
+
     if( "FormularioDatosAseguradora" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
         if( (int)$field['value'] < date("Y") - 100 || (int)$field['value'] > date("Y") - 18 ){
@@ -256,45 +260,75 @@ class Wpfunos_Public {
       }
     }
 
-    if( "FormularioDatosAseguradora" === $form_name ||
-    "FormularioDatos" === $form_name ||
-    "wpfunosDatosServiciosV3" === $form_name ||
-    "FormularioDatosAseguradoras" === $form_name ||
-    "PaginaFinanciacion" === $form_name ||
-    "AsesoramientoGratuito" === $form_name ||
-    "TeLlamamosGratisv2" === $form_name  ){
+    //Email aseguradoras
+    //email landings
+    //Email multistep
+    //emailasesor AsesoramientoGratuito
+    //email te llamamos gratis
+    if( $field = $this->wpfunos_elementor_get_field( 'email', $record ) ){
+      do_action('wpfunos_log', $userIP.' - '.'Validación email ' .$field['value'] );
 
-      if( $field = $this->wpfunos_elementor_get_field( 'Telefono', $record ) ){
-        $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
-        if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        }
-        if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        }
+      $email  = explode('@', $field['value']);
+      $user   = $email[0];
+      $domain = $email[1];
+
+      if (!filter_var( $field['value'], FILTER_VALIDATE_EMAIL )) {
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (nombre)' );
       }
 
-      if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
-        $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
-        if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        }
-        if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        }
+      if( count($email) !== 2 || empty($user) || empty($domain) || !checkdnsrr($domain, 'MX') ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (dns)' );
       }
 
-      if( $field = $this->wpfunos_elementor_get_field( 'telefonoasesor', $record ) ){
-        $tel = ( strlen ( $field['value'] ) > 9 ) ? $tel = substr($field['value'],3,9) : $field['value'] ;
-        if( '666666666' == $tel || '600000000' == $tel || '999999999' == $tel ){
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        }
-        if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $tel ) ) {
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        }
+      if ( 'clientes@funos.es' == $field['value']) {
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (clientes)' );
+      }
+
+      $request_context = stream_context_create( array( 'http' => array( 'header'  => "Authorization: Bearer " . 'c6a7df9e-a854-48a6-a555-79c6fdcdf47d' ) ));
+      $result_json = file_get_contents("https://isitarealemail.com/api/email/validate?email=" . $field['value'], false, $request_context);
+
+      if (json_decode($result_json, true)['status'] == "invalid") {
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (Real Email)' );
+      }
+
+
+    }
+
+
+    if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
+      do_action('wpfunos_log', $userIP.' - '.'Validación teléfono ' .$field['value'] );
+
+      $telefono = str_replace(" ","", $field['value'] );
+      $telefono = str_replace("-","",$telefono);
+      $telefono = str_replace("+34","",$telefono);
+
+      if( '666666666' == $telefono || '600000000' == $telefono || '999999999' == $telefono ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO' );
+      }
+
+      if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $telefono ) ) {
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO' );
+      }
+
+      if ( "652552825" == $telefono || "630069601"  == $telefono || "654783912"  == $telefono || "657707520"  == $telefono || "659877776"  == $telefono || "679164346"  == $telefono ){
+        //Número bloqueado. Por motivos de seguridad y auditoría, se creará un registro de todas sus acciones. El registro de actividad también incluye la dirección IP desde la que accedió a este sitio.
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: BLOQUEADO' );
+      }
+      if ( "768546345"  == $telefono ||"650205008"  == $telefono ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: BLOQUEADO' );
       }
 
     }
+
+    do_action('wpfunos_log', $userIP.' - '.'Validación formulario: FINAL' );
   }
 
   public function wpfunos_elementor_get_field( $id, $record ){
@@ -327,12 +361,12 @@ class Wpfunos_Public {
       mt_srand(time());
       $fields['referencia'] = 'funos-'.(string)mt_rand();
     }
-    $tel = str_replace(" ","", $fields['Telefono'] );
+    $tel = str_replace(" ","", $fields['telefono'] );
     $tel = str_replace("-","",$tel);
     if(substr($tel,0,1) == '+'){
-      $fields['Telefono'] =  substr($tel,0,3).' '. substr($tel,3,3).' '. substr($tel,6,2).' '. substr($tel,8,2) .' '. substr($tel,10,2);;
+      $fields['telefono'] =  substr($tel,0,3).' '. substr($tel,3,3).' '. substr($tel,6,2).' '. substr($tel,8,2) .' '. substr($tel,10,2);;
     }else{
-      $fields['Telefono'] =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
+      $fields['telefono'] =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
     }
     $userIP = apply_filters('wpfunos_userIP','dummy');
     //https://funos.es/comparar-precios?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"]&orden=precios
@@ -405,11 +439,11 @@ class Wpfunos_Public {
         'post_status'  => 'publish',
         'meta_input'   => array(
           'wpfunos_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-          'wpfunos_userMail' => sanitize_text_field( $fields['Email'] ),
+          'wpfunos_userMail' => sanitize_text_field( $fields['email'] ),
           'wpfunos_userReferencia' => sanitize_text_field( $fields['referencia'] ),
           'wpfunos_userName' => sanitize_text_field( $fields['Nombre'] ),
           'wpfunos_userSurname' => sanitize_text_field( $fields['Apellidos'] ),
-          'wpfunos_userPhone' => sanitize_text_field( $fields['Telefono'] ),
+          'wpfunos_userPhone' => sanitize_text_field( $fields['telefono'] ),
           'wpfunos_userSeguro' => sanitize_text_field( $fields['Seguro'] ),
           'wpfunos_userCP' => sanitize_text_field( $fields['CP'] ),
           'wpfunos_userAccion' => '0',
@@ -472,12 +506,12 @@ class Wpfunos_Public {
         'post_status'  => 'publish',
         'meta_input'   => array(
           'wpfunos_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-          'wpfunos_userMail' => sanitize_text_field( $fields['Email'] ),
+          'wpfunos_userMail' => sanitize_text_field( $fields['email'] ),
           'wpfunos_userReferencia' => sanitize_text_field( $fields['referencia'] ),
           'wpfunos_userNombreSeleccionUbicacion' => sanitize_text_field( $fields['address'] ),
           'wpfunos_userName' => sanitize_text_field( $fields['Nombre'] ),
           'wpfunos_userSurname' => sanitize_text_field( $fields['Apellidos'] ),
-          'wpfunos_userPhone' => sanitize_text_field( $fields['Telefono'] ),
+          'wpfunos_userPhone' => sanitize_text_field( $fields['telefono'] ),
           'wpfunos_userSeguro' => sanitize_text_field( $fields['Seguro'] ),
           'wpfunos_userCP' => sanitize_text_field( $fields['CP'] ),
           'wpfunos_userAccion' => '3',
@@ -500,7 +534,7 @@ class Wpfunos_Public {
     }
     $log = (is_user_logged_in()) ? 'logged' : 'not logged';
     $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
-    if( strlen( $fields['Telefono']) > 3 ){
+    if( strlen( $fields['telefono']) > 3 ){
       $post_id = wp_insert_post($my_post);
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Recogida datos usuario' );
@@ -513,7 +547,7 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $fields['Nombre']  );
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $fields['referencia'] );
-      do_action('wpfunos_log', $userIP.' - '.'Telefono: ' . $fields['Telefono'] );
+      do_action('wpfunos_log', $userIP.' - '.'Telefono: ' . $fields['telefono'] );
     }else{
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Error Nuevo Usuario:' );

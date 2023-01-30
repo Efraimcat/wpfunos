@@ -1158,7 +1158,7 @@ class Wpfunos_ServiciosV3 {
   * Filtro indeseados
   */
   public function wpfunosServiciosv2Indeseados( $email, $tel ){
-    if (  "652552825" == $tel || "luisa_stfost87@hotmail.com" == $email || "630 06 96 01"  == $tel || "630069601"  == $tel || "+34630069601"  == $tel || "654 78 39 12"  == $tel || "654783912"  == $tel || "+34654783912"  == $tel || "657 70 75 20"  == $tel || "657707520"  == $tel || "+34657707520"  == $tel || "uy@gmail.com" == $email || "659 87 77 76"  == $tel || "659877776"  == $tel || "+34659877776"  == $tel || "679 16 43 46"  == $tel || "679164346"  == $tel || "+34679164346"  == $tel         || "768 54 63 45"  == $tel || "768546345"  == $tel || "+34768546345"  == $tel ){
+    if (  "652552825" == $tel || "luisa_stfost87@hotmail.com" == $email || "630 06 96 01"  == $tel || "630069601"  == $tel || "+34630069601"  == $tel || "654 78 39 12"  == $tel || "654783912"  == $tel || "+34654783912"  == $tel || "657 70 75 20"  == $tel || "657707520"  == $tel || "+34657707520"  == $tel || "uy@gmail.com" == $email || "659 87 77 76"  == $tel || "659877776"  == $tel || "+34659877776"  == $tel || "679 16 43 46"  == $tel || "679164346"  == $tel || "+34679164346"  == $tel         || "768 54 63 45"  == $tel || "768546345"  == $tel || "+34768546345"  == $tel || "650 20 50 08"  == $tel || "650205008"  == $tel || "+34650205008"  == $tel){
 
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
@@ -1191,20 +1191,6 @@ class Wpfunos_ServiciosV3 {
   * add_action('wp_ajax_nopriv_wpfunos_ajax_v3_multiform', function () { $this->wpfunosV3Multiform();});
   * add_action('wp_ajax_wpfunos_ajax_v3_multiform', function () {$this->wpfunosV3Multiform();});
   *
-  *data: {
-  *  "action": "wpfunos_ajax_v3_multiform",
-  *  "wpfnombre": nombre,
-  *  "wpfemail": email,
-  *  "wpftelefono": telefono,
-  *  "wpfurl" : url,
-  *  "wpnonce" : wpnonce,
-  *  "wpfip" : ip,
-  *  "wpfnewref" : wpfnewref,
-  *  "wpfcuando" : cuando,
-  *  "wpfdestino" : destino,
-  *  "wpfvelatorio" : velatorio,
-  *  "wpfceremonia" : ceremonia,
-  *},
   */
   public function wpfunosV3Multiform(){
     $wpfnombre = $_POST["wpfnombre"];
@@ -1265,7 +1251,7 @@ class Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfresp3 ' .$wpfresp3. ' - ' .$wpfvelatorio );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfresp4 ' .$wpfresp4. ' - ' .$wpfceremonia );
 
-    $this->wpfunosServiciosv2Indeseados( $wpfemail, $wpftelefono );
+    //$this->wpfunosServiciosv2Indeseados( $wpfemail, $wpftelefono );
 
     $wpfwpf = apply_filters( 'wpfunos_crypt', $wpfnewref , 'e' );
 
@@ -1441,6 +1427,7 @@ class Wpfunos_ServiciosV3 {
         }else{
           if(!empty( get_option('wpfunos_mailCorreoCcov2usuario' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcov2usuario' ) ;
           if(!empty( get_option('wpfunos_mailCorreoBccv2usuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccv2usuario' ) ;
+          $headers[]   = 'Reply-To: Clientes Funos <clientes@funos.es>';
           wp_mail ( $wpfemail , get_option('wpfunos_asuntoCorreov2usuario') , $mensaje, $headers );
           do_action('wpfunos_log', $userIP.' - '.'Enviado correo al usuario ' .$wpfemail. ' con su búsqueda');
         }
@@ -1700,6 +1687,7 @@ class Wpfunos_ServiciosV3 {
           if(!empty( get_option('wpfunos_mailCorreoCcoBoton1v2usuario' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1v2usuario' ) ;
           if(!empty( get_option('wpfunos_mailCorreoBccBoton1v2usuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1v2usuario' ) ;
           wp_mail ( $transient_ref['wpfe'] , get_option('wpfunos_asuntoCorreoBoton1v2usuario') , $mensaje, $headers );
+          $headers[]   = 'Reply-To: Clientes Funos <clientes@funos.es>';
           do_action('wpfunos_log', $userIP.' - '.'Enviado correo usuario ' . $transient_ref['wpfe'] );
         }
         do_action('wpfunos_log', $userIP.' - '.'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoBoton1v2usuario' ) ) );
@@ -1921,6 +1909,7 @@ class Wpfunos_ServiciosV3 {
         }else{
           if(!empty( get_option('wpfunos_mailCorreoCcoBoton2v2usuario' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2v2usuario' ) ;
           if(!empty( get_option('wpfunos_mailCorreoBccBoton2v2usuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2v2usuario' ) ;
+          $headers[]   = 'Reply-To: Clientes Funos <clientes@funos.es>';
           wp_mail (  $transient_ref['wpfe'] , get_option('wpfunos_asuntoCorreoBoton2v2usuario') , $mensaje, $headers );
           do_action('wpfunos_log', $userIP.' - '.'Enviado correo usuario ' .  $transient_ref['wpfe'] );
         }
@@ -2147,6 +2136,7 @@ class Wpfunos_ServiciosV3 {
         }else{
           if(!empty( get_option('wpfunos_mailCorreoCcoPresupuestousuario' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPresupuestousuario' ) ;
           if(!empty( get_option('wpfunos_mailCorreoBccPresupuestousuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPresupuestousuario' ) ;
+          $headers[]   = 'Reply-To: Clientes Funos <clientes@funos.es>';
           wp_mail ( $transient_ref['wpfe'] , get_option('wpfunos_asuntoCorreoPresupuestousuario') , $mensaje, $headers );
           do_action('wpfunos_log', $userIP.' - '.'Enviado correo pedir presupuesto usuario ' . $transient_ref['wpfe'] );
         }
@@ -2513,6 +2503,7 @@ class Wpfunos_ServiciosV3 {
       }else{
         if(!empty( get_option('wpfunos_mailCorreoCcoUsuarioDetalles' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoUsuarioDetalles' ) ;
         if(!empty( get_option('wpfunos_mailCorreoBccUsuarioDetalles' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccUsuarioDetalles' ) ;
+        $headers[]   = 'Reply-To: Clientes Funos <clientes@funos.es>';
         wp_mail ( $email, get_option('wpfunos_asuntoCorreoUsuarioDetalles') , $mensaje, $headers );
       }
 
