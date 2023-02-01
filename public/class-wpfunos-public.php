@@ -210,47 +210,16 @@ class Wpfunos_Public {
   *
   * https://dev.to/renzoster/validate-form-fields-in-elementor-54cl
   *
-  *
-  * // Validate the Ticket ID field is in XXX-XXXX format.
-  * add_action( 'elementor_pro/forms/validation', function ( $record, $ajax_handler ) {
-  *     $fields = $record->get_field( [
-  *         'id' => 'ticket_id',
-  *     ] );
-  *
-  *     if ( empty( $fields ) ) {
-  *         return;
-  *     }
-  *
-  *     $field = current( $fields );
-  *
-  *     if ( 1 !== preg_match( '/^\w{3}-\w{4}$/', $field['value'] ) ) {
-  *         $ajax_handler->add_error( $field['id'], 'Invalid Ticket ID, it must be in the format XXX-XXXX' );
-  *     }
-  * }, 10, 2 );
-  *
   *  https://developers.elementor.com/forms-api/
   *
-  *  public function wpfunos_elementor_get_field( $id, $record ){
-  *    $fields = $record->get_field( [ 'id' => $id, ] );
-  *    if ( empty( $fields ) ) {
-  *      return false;
-  *    }
-  *    return current( $fields );
-  *  }
-  *
-  * Formularios:
-  * wpfunosDatosServiciosV3 -> Telefono
-  * FormularioDatosAseguradoras -> Telefono
-  * PaginaFinanciacion -> telefono
-  * AsesoramientoGratuito -> telefonoasesor
-  * TeLlamamosGratisv2 -> telefono
   */
   public function wpfunosFormValidation($record, $ajax_handler){
     $form_name = $record->get_form_settings( 'form_name' );
-
     $userIP = apply_filters('wpfunos_userIP','dummy');
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - '.'Validación formulario: '. $form_name );
+
+    // Aseguradoras
 
     if( "FormularioDatosAseguradora" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
@@ -265,6 +234,9 @@ class Wpfunos_Public {
     //Email multistep
     //emailasesor AsesoramientoGratuito
     //email te llamamos gratis
+    //
+    //https://isitarealemail.com/getting-started/api
+    //
     if( $field = $this->wpfunos_elementor_get_field( 'email', $record ) ){
       do_action('wpfunos_log', $userIP.' - '.'Validación email ' .$field['value'] );
 
@@ -283,8 +255,8 @@ class Wpfunos_Public {
       }
 
       if ( 'clientes@funos.es' == $field['value']) {
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (clientes)' );
+      //  $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+      //  do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (clientes)' );
       }
 
       $request_context = stream_context_create( array( 'http' => array( 'header'  => "Authorization: Bearer " . 'c6a7df9e-a854-48a6-a555-79c6fdcdf47d' ) ));
@@ -295,10 +267,10 @@ class Wpfunos_Public {
         do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (Real Email)' );
       }
 
-
     }
 
-
+    // TELEFONO
+    //
     if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
       do_action('wpfunos_log', $userIP.' - '.'Validación teléfono ' .$field['value'] );
 
@@ -327,6 +299,8 @@ class Wpfunos_Public {
       }
 
     }
+
+    //
 
     do_action('wpfunos_log', $userIP.' - '.'Validación formulario: FINAL' );
   }

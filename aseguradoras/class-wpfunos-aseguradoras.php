@@ -686,7 +686,6 @@ class Wpfunos_Aseguradoras {
       $mensaje = str_replace( '[aseguradoraNombre]' , $aseguradoraNombre , $mensaje );
       $mensaje = str_replace( '[aseguradoraTipoSeguro]' , $aseguradoraTipoSeguro , $mensaje );
 
-
       if( site_url() === 'https://dev.funos.es'){
         wp_mail ( 'efraim@efraim.cat', get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora') , $mensaje, $headers );
       }else{

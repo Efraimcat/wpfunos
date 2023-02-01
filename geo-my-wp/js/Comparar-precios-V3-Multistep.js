@@ -243,13 +243,14 @@ $(document).ready(function(){
           //
           var wpfdatosusuario = function() {
             console.log('click botón enviar datos');
+
+            document.getElementById('wpfunos-v3-enviar-datos').setAttribute('disabled', 'disabled');
+
             var nombre = document.getElementById('form-field-Nombre').value;
             var email = document.getElementById('form-field-email').value;
             var telefono = document.getElementById('form-field-telefono').value;
             var acepta = document.getElementById('form-field-aceptacion').validity.valueMissing;  //(true = no ha validado  false = ha validado)
             $( document ).on('submit_success', function(){
-              //if( nombre !== '' && email !== '' && telefono !== '' && !acepta ){
-
               console.log('datos correctos. creando entrada.');
 
               var date = new Date();
@@ -342,7 +343,7 @@ $(document).ready(function(){
               });
 
             }); //wpfdatosusuario ends
-            //} //wpfdatosusuario ends
+
           };
 
         }, 1000); //timeout 1 sec.

@@ -1373,58 +1373,69 @@ class Wpfunos_Admin {
     $this->custom_logs('Wpfunos services: ' .count($post_list)  );
     if( $post_list ){
       foreach ( $post_list as $post ) {
-        $precio[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase', true );
-        $precio[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio', true );
-        $precio[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio', true );
-        $precio[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio', true );
-        $precio[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio', true );
-        $precio[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio', true );
-        $precio[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio', true );
-        $precio[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio', true );
-        $precio[8] = '0';
-        $precio[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio', true );
-        $precio[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio', true );
-        $precio[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio', true );
 
-        $precio_anterior[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase_anterior', true );
-        $precio_anterior[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio_anterior', true );
-        $precio_anterior[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio_anterior', true );
-        $precio_anterior[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio_anterior', true );
-        $precio_anterior[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio_anterior', true );
-        $precio_anterior[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio_anterior', true );
-        $precio_anterior[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio_anterior', true );
-        $precio_anterior[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio_anterior', true );
-        $precio_anterior[8] = '0';
-        $precio_anterior[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio_anterior', true );
-        $precio_anterior[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio_anterior', true );
-        $precio_anterior[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio_anterior', true );
+        // WPML
+        $post_details = apply_filters( 'wpml_post_language_details', NULL, $post->ID ) ;
+        if( $post_details['language_code'] == 'es' ){
+          // WPML
 
-        foreach ( $tipos as $key=>$value ){
-          $valor[1] = substr( $value, 0, 1);
-          $valor[2] = substr( $value, 1, 1);
-          $valor[3] = substr( $value, 2, 1);
-          if( substr( $value, 3, 1) == '8' ) $valor[4] = '8';
-          if( substr( $value, 3, 1) == '9' ) $valor[4] = '9';
-          if( substr( $value, 3, 1) == 'A' ) $valor[4] = '10';
-          if( substr( $value, 3, 1) == 'B' ) $valor[4] = '11';
-          //
-          //echo 'Servicio: ' .$post->ID. ' Tipo: ' .$key. ' Valores: ' .$valor[1]. '|' .$valor[2]. '|' .$valor[3]. '|' .$valor[4]. ' => '
-          // .$precio[0]. '-'.$precio[ (int)$valor[1] ]. '-' .$precio[ (int)$valor[2] ]. '-' .$precio[ (int)$valor[3] ]. '-' .$precio[ (int)$valor[4] ]. '<br/>';
+          $precio[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase', true );
+          $precio[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio', true );
+          $precio[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio', true );
+          $precio[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio', true );
+          $precio[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio', true );
+          $precio[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio', true );
+          $precio[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio', true );
+          $precio[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio', true );
+          $precio[8] = '0';
+          $precio[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio', true );
+          $precio[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio', true );
+          $precio[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio', true );
 
-          if( $precio[0] != '' && $precio[ (int)$valor[1] ] != '' && $precio[ (int)$valor[2] ] != '' && $precio[ (int)$valor[3] ] != '' && $precio[ (int)$valor[4] ] != '' ){
-            $total = (int)$precio[0] + (int)$precio[ (int)$valor[1] ] + (int)$precio[ (int)$valor[2] ] + (int)$precio[ (int)$valor[3] ] + (int)$precio[ (int)$valor[4] ];
-            update_post_meta( $post->ID, 'wpfunos_servicio'.$key, $total );
-          }else{
-            update_post_meta( $post->ID, 'wpfunos_servicio'.$key, '' );
+          $precio_anterior[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase_anterior', true );
+          $precio_anterior[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio_anterior', true );
+          $precio_anterior[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio_anterior', true );
+          $precio_anterior[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio_anterior', true );
+          $precio_anterior[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio_anterior', true );
+          $precio_anterior[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio_anterior', true );
+          $precio_anterior[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio_anterior', true );
+          $precio_anterior[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio_anterior', true );
+          $precio_anterior[8] = '0';
+          $precio_anterior[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio_anterior', true );
+          $precio_anterior[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio_anterior', true );
+          $precio_anterior[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio_anterior', true );
+
+          foreach ( $tipos as $key=>$value ){
+            $valor[1] = substr( $value, 0, 1);
+            $valor[2] = substr( $value, 1, 1);
+            $valor[3] = substr( $value, 2, 1);
+            if( substr( $value, 3, 1) == '8' ) $valor[4] = '8';
+            if( substr( $value, 3, 1) == '9' ) $valor[4] = '9';
+            if( substr( $value, 3, 1) == 'A' ) $valor[4] = '10';
+            if( substr( $value, 3, 1) == 'B' ) $valor[4] = '11';
+            //
+            //echo 'Servicio: ' .$post->ID. ' Tipo: ' .$key. ' Valores: ' .$valor[1]. '|' .$valor[2]. '|' .$valor[3]. '|' .$valor[4]. ' => '
+            // .$precio[0]. '-'.$precio[ (int)$valor[1] ]. '-' .$precio[ (int)$valor[2] ]. '-' .$precio[ (int)$valor[3] ]. '-' .$precio[ (int)$valor[4] ]. '<br/>';
+
+            if( $precio[0] != '' && $precio[ (int)$valor[1] ] != '' && $precio[ (int)$valor[2] ] != '' && $precio[ (int)$valor[3] ] != '' && $precio[ (int)$valor[4] ] != '' ){
+              $total = (int)$precio[0] + (int)$precio[ (int)$valor[1] ] + (int)$precio[ (int)$valor[2] ] + (int)$precio[ (int)$valor[3] ] + (int)$precio[ (int)$valor[4] ];
+              update_post_meta( $post->ID, 'wpfunos_servicio'.$key, $total );
+            }else{
+              update_post_meta( $post->ID, 'wpfunos_servicio'.$key, '' );
+            }
+            if( $precio_anterior[0] != '' && $precio_anterior[ (int)$valor[1] ] != '' && $precio_anterior[ (int)$valor[2] ] != '' && $precio_anterior[ (int)$valor[3] ] != '' && $precio_anterior[ (int)$valor[4] ] != '' ){
+              $total_anterior = (int)$precio_anterior[0] + (int)$precio_anterior[ (int)$valor[1] ] + (int)$precio_anterior[ (int)$valor[2] ] + (int)$precio_anterior[ (int)$valor[3] ] + (int)$precio_anterior[ (int)$valor[4] ];
+              update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', $total_anterior );
+            }else{
+              update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', '' );
+            }
+
           }
-          if( $precio_anterior[0] != '' && $precio_anterior[ (int)$valor[1] ] != '' && $precio_anterior[ (int)$valor[2] ] != '' && $precio_anterior[ (int)$valor[3] ] != '' && $precio_anterior[ (int)$valor[4] ] != '' ){
-            $total_anterior = (int)$precio_anterior[0] + (int)$precio_anterior[ (int)$valor[1] ] + (int)$precio_anterior[ (int)$valor[2] ] + (int)$precio_anterior[ (int)$valor[3] ] + (int)$precio_anterior[ (int)$valor[4] ];
-            update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', $total_anterior );
-          }else{
-            update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', '' );
-          }
 
+          // WPML
         }
+        // WPML
+
       }
       wp_reset_postdata();
     }
