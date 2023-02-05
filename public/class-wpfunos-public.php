@@ -255,8 +255,8 @@ class Wpfunos_Public {
       }
 
       if ( 'clientes@funos.es' == $field['value']) {
-      //  $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
-      //  do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (clientes)' );
+        //  $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        //  do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (clientes)' );
       }
 
       $request_context = stream_context_create( array( 'http' => array( 'header'  => "Authorization: Bearer " . 'c6a7df9e-a854-48a6-a555-79c6fdcdf47d' ) ));
@@ -278,22 +278,23 @@ class Wpfunos_Public {
       $telefono = str_replace("-","",$telefono);
       $telefono = str_replace("+34","",$telefono);
 
+      $res = preg_replace("/[^0-9]/", "", $telefono );
+      if( strlen($res) < 6 ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO (no numérico)' );
+      }
+
       if( '666666666' == $telefono || '600000000' == $telefono || '999999999' == $telefono ){
         $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO' );
       }
 
-      if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $telefono ) ) {
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO' );
-      }
+      //if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $telefono ) ) {
+      //  $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
+      //  do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO' );
+      //}
 
-      if ( "652552825" == $telefono || "630069601"  == $telefono || "654783912"  == $telefono || "657707520"  == $telefono || "659877776"  == $telefono || "679164346"  == $telefono ){
-        //Número bloqueado. Por motivos de seguridad y auditoría, se creará un registro de todas sus acciones. El registro de actividad también incluye la dirección IP desde la que accedió a este sitio.
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: BLOQUEADO' );
-      }
-      if ( "768546345"  == $telefono ||"650205008"  == $telefono ){
+      if( apply_filters('wpfunos_bloqueo_numeros',$telefono) ){
         $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: BLOQUEADO' );
       }
@@ -345,9 +346,10 @@ class Wpfunos_Public {
     $userIP = apply_filters('wpfunos_userIP','dummy');
     //https://funos.es/comparar-precios?address%5B%5D=[field id="address"]&post%5B%5D=[field id="post"]&distance=[field id="distance"]&units=[field id="units"]&page1=&per_page=50&lat=[field id="lat"]&lng=[field id="lng"]&form=4&action=fs&wpf=[field id="wpf"]&orden=precios
 
-    $wpml_path = ( $_COOKIE['wp-wpml_current_language'] == 'es') ? '' : '/'. $_COOKIE['wp-wpml_current_language'] ;
-
-    $URL= get_site_url() .$wpml_path. '/comparar-precios?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=4&action=fs&wpf=' .$fields['wpf']. '&orden=dist';
+    //$wpml_path = ( $_COOKIE['wp-wpml_current_language'] == 'es') ? '' : '/'. $_COOKIE['wp-wpml_current_language'] ;
+    //
+    //$URL = home_url().$wpml_path.'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
+    $URL = home_url().'/comparar-precios?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=4&action=fs&wpf=' .$fields['wpf']. '&orden=dist';
 
     //$userURL = apply_filters('wpfunos_shortener', $URL );
     $userURL = $URL;
@@ -446,9 +448,7 @@ class Wpfunos_Public {
     }elseif( $form_name == 'FormularioDatosAseguradoras' ){
       //https://funos.es/compara-precios-aseguradoras?address%5B%5D=Barcelona&post%5B%5D=aseguradoras_wpfunos&distance=&units=&page1=&per_page=50&lat=41.387397&lng=2.168568&form=3&action=fs&wpf=WFYrckFUZE1rSUdEYUQ4WlE4NkZydEc0b0IxNU8ya2t2S1FCRk4zdHRGTT0%3D
 
-      $wpml_path = ( $_COOKIE['wp-wpml_current_language'] == 'es') ? '' : '/'. $_COOKIE['wp-wpml_current_language'] ;
-
-      $URL= get_site_url() .$wpml_path. '/compara-precios-aseguradoras?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=3&action=fs&wpf=' .$fields['wpf'];
+      $URL = home_url().'/compara-precios-aseguradoras?address%5B%5D=' .str_replace(" ","+", $fields['address'] ). '&post%5B%5D=' .$fields['post']. '&distance=' .$fields['distance']. '&units=' .$fields['units']. '&page1=&per_page=50&lat=' .$fields['lat']. '&lng=' .$fields['lng']. '&form=3&action=fs&wpf=' .$fields['wpf'];
 
       //$userURL = apply_filters('wpfunos_shortener', $URL );
       $userURL = $URL;

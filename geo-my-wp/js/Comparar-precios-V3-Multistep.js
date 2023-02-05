@@ -250,7 +250,9 @@ $(document).ready(function(){
             var email = document.getElementById('form-field-email').value;
             var telefono = document.getElementById('form-field-telefono').value;
             var acepta = document.getElementById('form-field-aceptacion').validity.valueMissing;  //(true = no ha validado  false = ha validado)
-            $( document ).on('submit_success', function(){
+
+            if( nombre !== '' && email !== '' && telefono !== '' && !acepta ){
+              //$( document ).on('submit_success', function(e, data){
               console.log('datos correctos. creando entrada.');
 
               var date = new Date();
@@ -342,7 +344,8 @@ $(document).ready(function(){
                 }
               });
 
-            }); //wpfdatosusuario ends
+              //}); //on('submit_success', function()
+            }; //wpfdatosusuario ends
 
           };
 

@@ -37,6 +37,8 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_shortener', array( $this, 'wpfunosShortener' ), 10, 1 );
     add_filter( 'wpfunos_message_format', array( $this, 'wpfunosMessageFormat' ), 10, 2 );
     add_filter( 'wpfunos_is_mobile', array( $this, 'wpfunosIsMobile' ), 10, 1 );
+    add_filter( 'wpfunos_bloqueo_numeros', array( $this, 'wpfbloqueoNumeros' ), 10, 1 );
+
 
     add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
     add_action( 'wp_ajax_nopriv_wpfunos-SIWG-google-login', array( $this, 'wpfunos_SIWG_google_login' ), 10, 1 );
@@ -570,6 +572,31 @@ class Wpfunos_Utils {
     return $is_mobile;
   }
 
+  /**
+  * add_filter( 'wpfunos_bloqueo_numeros', array( $this, 'wpfbloqueoNumeros' ), 10, 1 );
+  * if( apply_filters('wpfunos_bloqueo_numeros','630069601') )
+  */
+  public function wpfbloqueoNumeros( $numero ){
+    $bloqueos = array(
+      "602008096",
+      "630069601",
+      "641518907",
+      "650205008",
+      "652552825",
+      "654783912",
+      "657707520",
+      "659877776",
+      "679164346",
+      "696459706",
+      "768546345",
+    );
 
+    foreach( $bloqueos AS $bloqueo ) {
+      if( $bloqueo == $numero ) return true;
+    }
+
+    return false;
+
+  }
 
 }
