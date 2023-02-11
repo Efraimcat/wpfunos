@@ -1853,7 +1853,7 @@ class Wpfunos_ServiciosV3 {
       $post_id = wp_insert_post($my_post);
 
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'2. - Botón llamar servicio' );
+      do_action('wpfunos_log', $userIP.' - '.'Botón llamar servicio' );
       do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $transient_ref['wpfn'] );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );

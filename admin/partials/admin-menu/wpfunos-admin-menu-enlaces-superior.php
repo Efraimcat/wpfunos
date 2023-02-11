@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p><strong>Landings población</strong></p>
 <ul>
   <li><strong><a href="/wp-admin/edit.php?post_type=precio_funer_wpfunos">Precios población funeraria</a></strong>: Entradas de poblaciones con landings genéricas.</li>
-  <li><strong><a href="/wp-admin/edit-tags.php?taxonomy=precio_funeraria&post_type=precio_funer_wpfunos">Categorias funeraria</a></strong>: Categorias de landings de funerarias.</li>
+  <li><strong><a href="/wp-admin/edit-tags.php?taxonomy=landing_funeraria&post_type=precio_funer_wpfunos">Categorias landings</a></strong>: Categorias de landings de funerarias.</li>
   <li><strong><a href="/wp-admin/admin.php?page=wpfunos-settingspreciospoblacion">Configuración precios población</a></strong>: Parámetros de landings de funerarias.</li>
 </ul>
 <hr />

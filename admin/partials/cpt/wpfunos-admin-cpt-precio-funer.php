@@ -45,15 +45,15 @@ $customPostTypeArgs = array(
 // Post type, $args - the Post Type string can be MAX 20 characters
 register_post_type( 'precio_funer_wpfunos', $customPostTypeArgs );
 
-register_taxonomy( 'precio_funeraria',
+register_taxonomy( 'landing_funeraria',
 array('precio_funer_wpfunos'),
 array(
   'hierarchical' => true,
   'label' => 'Precio funeraria',
   'labels'=>
   array(
-    'name'              => _x( 'Precio funeraria', 'taxonomy general name' ),
-    'singular_name'     => _x( 'Precio funeraria', 'taxonomy singular name' ),
+    'name'              => _x( 'Landing funeraria', 'taxonomy general name' ),
+    'singular_name'     => _x( 'Landing funeraria', 'taxonomy singular name' ),
     'search_items'      => __( 'Search Categories' ),
     'all_items'         => __( 'All Categories' ),
     'parent_item'       => __( 'Parent Category' ),
@@ -62,9 +62,9 @@ array(
     'update_item'       => __( 'Update Category' ),
     'add_new_item'      => __( 'Add New Category' ),
     'new_item_name'     => __( 'New Category Name' ),
-    'menu_name'         => __( 'Precio funeraria' ),
+    'menu_name'         => __( 'Landing funeraria' ),
   ),
-  'singular_label' => 'Precio funeraria',
+  'singular_label' => 'Landing funeraria',
   'rewrite' => array(),
   'public'                     => true,
   'show_ui'                    => true,
@@ -73,4 +73,4 @@ array(
   'show_tagcloud'              => true,
 )
 );
-//register_taxonomy_for_object_type( 'precio_funeraria', 'precio_funer_wpfunos' );
+//register_taxonomy_for_object_type( 'landing_funeraria', 'precio_funer_wpfunos' );

@@ -579,6 +579,7 @@ class Wpfunos_Utils {
   public function wpfbloqueoNumeros( $numero ){
     $bloqueos = array(
       "602008096",
+      "607045749",
       "630069601",
       "641518907",
       "650205008",
