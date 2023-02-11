@@ -2564,7 +2564,8 @@ class Wpfunos_ServiciosV3 {
   * add_action('wp_ajax_wpfunos_ajax_v3_dist_local', function () {$this->wpfunosV3DistLocal();});
   */
   public function wpfunosV3DistLocal(){
-    $wpflocalidad = $_POST['wpflocalidad'];
+    //$wpflocalidad = $_POST['wpflocalidad'];
+    $wpflocalidad  = apply_filters('wpfunos_acentos_minusculas',$_POST['wpflocalidad']);
 
     $args = array(
       'post_type' => 'dist_local_wpfunos',

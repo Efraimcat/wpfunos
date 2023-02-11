@@ -23,6 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   <li><strong><a href="/wp-admin/edit.php?post_type=provincias_wpfunos">Provincias</a></strong>: Definción de las diferentes provincias de España.</li>
   <li><strong><a href="/wp-admin/edit.php?post_type=prov_zona_wpfunos">Precio medio OCU</a></strong>: Precio medio OCU por provincia.</li>
   <li><strong><a href="/wp-admin/edit.php?post_type=excep_prov_wpfunos">Excepción provincias</a></strong>: Excepciones de localización y distancia de CP.</li>
+  <li><strong><a href="/wp-admin/edit.php?post_type=dist_local_wpfunos">Distancia localidades</a></strong>: Distancia no estandard para localidades.</li>
 </ul>
 <hr />
 <p><strong>Landings población</strong></p>
@@ -30,15 +31,6 @@ if ( ! defined( 'ABSPATH' ) ) {
   <li><strong><a href="/wp-admin/edit.php?post_type=precio_funer_wpfunos">Precios población funeraria</a></strong>: Entradas de poblaciones con landings genéricas.</li>
   <li><strong><a href="/wp-admin/edit-tags.php?taxonomy=landing_funeraria&post_type=precio_funer_wpfunos">Categorias landings</a></strong>: Categorias de landings de funerarias.</li>
   <li><strong><a href="/wp-admin/admin.php?page=wpfunos-settingspreciospoblacion">Configuración precios población</a></strong>: Parámetros de landings de funerarias.</li>
-</ul>
-<hr />
-<p><strong>Directorio</strong></p>
-<ul>
-  <li><strong><a href="/wp-admin/edit.php?post_type=tanatorio_d_wpfunos">Tanatorios Directorio</a></strong>: Definición de los Tanatorios/Funerarias/Marcas del directorio.</li>
-  <li><strong><a href="/wp-admin/edit-tags.php?taxonomy=poblacion_tanatorio&post_type=tanatorio_d_wpfunos">Categorias Tanatorio</a></strong>: Definición de las categorias de Tanatorios.</li>
-  <li><strong><a href="/wp-admin/edit-tags.php?taxonomy=poblacion_funeraria&post_type=tanatorios_d_wpfunos">Categorias Funeraria</a></strong>: Definición de las categorias de Funerarias.</li>
-  <li><strong><a href="/wp-admin/edit-tags.php?taxonomy=marca_funeraria&post_type=tanatorios_d_wpfunos">Categorias Marca Funeraria</a></strong>: Definición de las categorias de Marcas de Funerarias.</li>
-  <li><strong><a href="/wp-admin/admin.php?page=wpfunos-settingsdirectorio">Configuración del directorio</a></strong>: Definición de los parámetrso del directorio.</li>
 </ul>
 <hr/>
 <p><strong>Configuración</strong></p>
