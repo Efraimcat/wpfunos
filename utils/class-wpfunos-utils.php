@@ -21,7 +21,6 @@ class Wpfunos_Utils {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
     add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 );
-    add_action( 'wpfunos_import', array( $this, 'wpfunosImport' ), 10, 1 );
     add_action( 'wpfunos-entrada-servicios', array( $this, 'wpfunosEntradaServicios') );
     add_action( 'wpfunos-entrada-aseguradoras', array( $this, 'wpfunosEntradaAseguradoras') );
     add_action( 'wpfunos_update phone', array( $this, 'wpfunosUpdatePhone' ), 10, 1 );
@@ -69,13 +68,6 @@ class Wpfunos_Utils {
   public function wpfunosLog( $message ){
     if(get_option($this->plugin_name . '_Debug')) $this->custom_logs( $this->dumpPOST($message));
     return true;
-  }
-  /**
-  * Utility: Import HOOK: add_action( 'wpfunos_import', array( $this, 'wpfunosImport' ), 10, 1 )
-  * do_action('wpfunos_import');
-  */
-  public function wpfunosImport(){
-    include 'wpfunos-imports.php';
   }
 
   /*********************************/
