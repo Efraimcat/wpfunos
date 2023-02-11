@@ -82,7 +82,6 @@ class Wpfunos {
 		$this->define_aseguradoras_hooks();
 		$this->define_directorio_hooks();
 		$this->define_serviciosv3_hooks();
-		$this->define_estadisticas_hooks();
 		$this->define_colaboradores_hooks();
 		$this->define_precios_poblacion_hooks();
 
@@ -148,11 +147,6 @@ class Wpfunos {
 		* Servicios V3
 		*/
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'serviciosv3/class-wpfunos-serviciosv3.php';
-
-		/**
-		* Estadisticas
-		*/
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'estadisticas/class-wpfunos-estadisticas.php';
 
 		/**
 		* Colaboradores
@@ -261,19 +255,6 @@ class Wpfunos {
 	private function define_directorio_hooks() {
 
 		$plugin_directorio = new Wpfunos_Directorio( $this->get_plugin_name(), $this->get_version() );
-
-	}
-
-	/**
-	* Register all of the hooks servicios
-	* of the plugin.
-	*
-	* @since    1.0.0
-	* @access   private
-	*/
-	private function define_estadisticas_hooks() {
-
-		$plugin_estadisticas = new Wpfunos_Estadisticas( $this->get_plugin_name(), $this->get_version() );
 
 	}
 
