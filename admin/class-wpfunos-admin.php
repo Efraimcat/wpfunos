@@ -24,7 +24,6 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'prov_zona_custom_post_type' ));
     add_action('init', array( $this, 'config_imagenes_custom_post_type' ));
     add_action('init', array( $this, 'servicios_custom_post_type' ));
-    add_action('init', array( $this, 'directorio_tanatorio_custom_post_type' ));
     add_action('init', array( $this, 'tipos_seguro_custom_post_type' ));
     add_action('init', array( $this, 'usuarios_registrados_custom_post_type' ));
     add_action('init', array( $this, 'precios_poblacion_funeraria_custom_post_type' ));
@@ -47,7 +46,6 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildAPIDKV' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDireccionesIP' ));
-    add_action('admin_init', array( $this, 'registerAndBuildFieldsDirectorio' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsPreciosPoblacion' ));
     //
     add_action('admin_init', array( $this, 'registerAndBuildMailInicial' ));		//Configuración General
@@ -86,7 +84,6 @@ class Wpfunos_Admin {
     add_action('add_meta_boxes_prov_zona_wpfunos', array( $this, 'setupprov_zona_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_aseguradoras_wpfunos', array( $this, 'setupaseguradoras_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_tipos_seguro_wpfunos', array( $this, 'setuptiposseguro_wpfunosMetaboxes' ));
-    add_action('add_meta_boxes_tanatorio_d_wpfunos', array( $this, 'setuptanatoriodirectorio_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_conf_img_wpfunos', array( $this, 'setupconfimgwpfunos_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_precio_funer_wpfunos', array( $this, 'setupprecio_funer_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_excep_prov_wpfunos', array( $this, 'setupexcep_prov_wpfunosMetaboxes' ));
@@ -100,7 +97,6 @@ class Wpfunos_Admin {
     add_action('save_post_prov_zona_wpfunos', array( $this, 'saveprov_zona_wpfunosMetaBoxData' ));
     add_action('save_post_aseguradoras_wpfunos', array( $this, 'saveaseguradoras_wpfunosMetaBoxData' ));
     add_action('save_post_tipos_seguro_wpfunos', array( $this, 'savetiposeguro_wpfunosMetaBoxData' ));
-    add_action('save_post_tanatorio_d_wpfunos', array( $this, 'savetanatoriodirectorio_wpfunosMetaBoxData' ));
     add_action('save_post_conf_img_wpfunos', array( $this, 'saveconfimgwpfunos_wpfunosMetaBoxData' ));
     add_action('save_post_precio_funer_wpfunos', array( $this, 'saveprecio_funer_wpfunosMetaBoxData' ));
     add_action('save_post_excep_prov_wpfunos', array( $this, 'saveexcep_prov_wpfunosMetaBoxData' ));
@@ -183,41 +179,36 @@ class Wpfunos_Admin {
   public function addPluginAdminMenu() {
     //add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
     add_menu_page( 'Comparador', 'Índice comparador', 'administrator', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'Configuración', 'Índice configuración', 'administrator', $this->plugin_name.'config', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'Directorio', 'Índice directorio', 'administrator', $this->plugin_name.'directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'Landings Población', 'Índice landings población', 'editorlandings', $this->plugin_name.'precios_poblacion', array( $this, 'display_plugin_admin_precios_poblacion_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'Import', 'Import', 'administrator', $this->plugin_name.'import', array( $this, 'display_plugin_admin_import_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Configuración', 'Índice configuración', 'administrator', 'wpfunosconfig', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Landings Población', 'Índice landings población', 'editorlandings', 'wpfunosprecios_poblacion', array( $this, 'display_plugin_admin_precios_poblacion_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Import', 'Import', 'administrator', 'wpfunosimport', array( $this, 'display_plugin_admin_import_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     // add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
-    add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', $this->plugin_name . '-settings', array( $this, 'displayPluginAdminSettings' ));
-    add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', $this->plugin_name . '-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
-    add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración correo WpFunos', 'wpfunos'), esc_html__('Configuración correo', 'wpfunos'), 'administrator', $this->plugin_name . '-mail', array( $this, 'displayPluginAdminMail' ));
-    add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración API Preventiva WpFunos', 'wpfunos'), esc_html__('Configuración API Preventiva', 'wpfunos'), 'administrator', $this->plugin_name . '-APIPreventiva', array( $this, 'displayPluginAdminAPIPreventiva' ));
-    add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración API DKV WpFunos', 'wpfunos'), esc_html__('Configuración API DKV', 'wpfunos'), 'administrator', $this->plugin_name . '-APIDKV', array( $this, 'displayPluginAdminAPIDKV' ));
-    add_submenu_page( $this->plugin_name.'config', esc_html__('Configuración Direcciones IP WpFunos', 'wpfunos'), esc_html__('Configuración Direcciones IP', 'wpfunos'), 'administrator', $this->plugin_name . '-direccionesIP', array( $this, 'displayPluginAdminDireccionesIP' ));
-    if(get_option($this->plugin_name . '_Debug')){
-      add_submenu_page( $this->plugin_name.'config' , esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', $this->plugin_name . '-logs', array( $this, 'displayPluginAdminLogs' ));
+    add_submenu_page( 'wpfunosconfig', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', 'wpfunos-settings', array( $this, 'displayPluginAdminSettings' ));
+    add_submenu_page( 'wpfunosconfig', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', 'wpfunos-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
+    add_submenu_page( 'wpfunosconfig', esc_html__('Configuración correo WpFunos', 'wpfunos'), esc_html__('Configuración correo', 'wpfunos'), 'administrator', 'wpfunos-mail', array( $this, 'displayPluginAdminMail' ));
+    add_submenu_page( 'wpfunosconfig', esc_html__('Configuración API Preventiva WpFunos', 'wpfunos'), esc_html__('Configuración API Preventiva', 'wpfunos'), 'administrator', 'wpfunos-APIPreventiva', array( $this, 'displayPluginAdminAPIPreventiva' ));
+    add_submenu_page( 'wpfunosconfig', esc_html__('Configuración API DKV WpFunos', 'wpfunos'), esc_html__('Configuración API DKV', 'wpfunos'), 'administrator', 'wpfunos-APIDKV', array( $this, 'displayPluginAdminAPIDKV' ));
+    add_submenu_page( 'wpfunosconfig', esc_html__('Configuración Direcciones IP WpFunos', 'wpfunos'), esc_html__('Configuración Direcciones IP', 'wpfunos'), 'administrator', 'wpfunos-direccionesIP', array( $this, 'displayPluginAdminDireccionesIP' ));
+    if(get_option('wpfunos_Debug')){
+      add_submenu_page( 'wpfunosconfig' , esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', 'wpfunos-logs', array( $this, 'displayPluginAdminLogs' ));
     }
-    add_submenu_page( $this->plugin_name.'directorio', esc_html__('Configuración directorio WpFunos', 'wpfunos'), esc_html__('Configuración del directorio', 'wpfunos'), 'administrator', $this->plugin_name . '-settingsdirectorio', array( $this, 'displayDirectorionSettings' ));
-    add_submenu_page( $this->plugin_name.'precios_poblacion', esc_html__('Configuración precios población WpFunos', 'wpfunos'), esc_html__('Configuración precios población', 'wpfunos'), 'administrator', $this->plugin_name . '-settingspreciospoblacion', array( $this, 'displayPreciosPoblacionSettings' ));
+    add_submenu_page( 'wpfunosprecios_poblacion', esc_html__('Configuración precios población WpFunos', 'wpfunos'), esc_html__('Configuración precios población', 'wpfunos'), 'administrator', 'wpfunos-settingspreciospoblacion', array( $this, 'displayPreciosPoblacionSettings' ));
   }
 
   /**
   * Admin menu display.
   */
   public function display_plugin_admin_dashboard(){
-    require_once 'partials/' . $this->plugin_name . '-admin-display.php';
+    require_once 'partials/wpfunos-admin-display.php';
   }
   public function display_plugin_admin_config_dashboard(){
-    require_once 'partials/' . $this->plugin_name . '-admin-config-display.php';
-  }
-  public function display_plugin_admin_directorio_dashboard(){
-    require_once 'partials/' . $this->plugin_name . '-admin-directorio-display.php';
+    require_once 'partials/wpfunos-admin-config-display.php';
   }
   public function display_plugin_admin_precios_poblacion_dashboard(){
-    require_once 'partials/' . $this->plugin_name . '-admin-precios-poblacion-display.php';
+    require_once 'partials/wpfunos-admin-precios-poblacion-display.php';
   }
   public function display_plugin_admin_import_dashboard(){
-    require_once 'partials/' . $this->plugin_name . '-admin-import-display.php';
+    require_once 'partials/wpfunos-admin-import-display.php';
   }
 
   /**
@@ -228,7 +219,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/' . $this->plugin_name . '-admin-settings-display.php';
+    require_once 'partials/wpfunos-admin-settings-display.php';
   }
   /**
   * Aseguradoras menu display.
@@ -238,7 +229,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/' . $this->plugin_name . '-admin-aseguradoras-display.php';
+    require_once 'partials/wpfunos-admin-aseguradoras-display.php';
   }
 
   /**
@@ -249,7 +240,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/' . $this->plugin_name . '-admin-mail-display.php';
+    require_once 'partials/wpfunos-admin-mail-display.php';
   }
   /**
   * Api Preventiva menu display.
@@ -259,7 +250,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/' . $this->plugin_name . '-admin-APIPreventiva-display.php';
+    require_once 'partials/wpfunos-admin-APIPreventiva-display.php';
   }
   /**
   * Api DKV menu display.
@@ -269,7 +260,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/' . $this->plugin_name . '-admin-APIDKV-display.php';
+    require_once 'partials/wpfunos-admin-APIDKV-display.php';
   }
   /**
   * Direcciones IP reservadas.
@@ -279,7 +270,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/' . $this->plugin_name . '-admin-direccionesIP-display.php';
+    require_once 'partials/wpfunos-admin-direccionesIP-display.php';
   }
 
   /**
@@ -290,18 +281,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array( $this, 'wpfunosSettingsMessages' ));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/' . $this->plugin_name . '-admin-logs-display.php';
-  }
-
-  /**
-  * Directorio menu display.
-  */
-  public function displayDirectorionSettings() {
-    if (isset($_GET['error_message'])) {
-      add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
-      do_action('admin_notices', sanitize_text_field($_GET['error_message']));
-    }
-    require_once 'partials/' . $this->plugin_name . '-admin-directorio-settings-display.php';
+    require_once 'partials/wpfunos-admin-logs-display.php';
   }
 
   /**
@@ -312,7 +292,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/' . $this->plugin_name . '-admin-precios-poblacion-settings-display.php';
+    require_once 'partials/wpfunos-admin-precios-poblacion-settings-display.php';
   }
 
   /*********************************/
@@ -323,16 +303,16 @@ class Wpfunos_Admin {
   * Registro de campos registros de wordpress
   */
   public function registerAndBuildFields() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFields.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFields.php';
   }
   public function registerAndBuildFieldsConfImagenes() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsConfImagenes.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsConfImagenes.php';
   }
   public function registerAndBuildFieldsAseguradoras() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAseguradoras.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildAseguradoras.php';
   }
   public function registerAndBuildFieldsPagina() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildPagina.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildPagina.php';
   }
   //
   public function registerAndBuildMailInicial() {
@@ -391,80 +371,77 @@ class Wpfunos_Admin {
 
 
   public function registerAndBuildMailDatosUsuario() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailDatosUsuario.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMailDatosUsuario.php';
   }
   public function registerAndBuildMailPopupUsuario() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMailPopupUsuario.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMailPopupUsuario.php';
   }
   public function registerAndBuildMail() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail.php';
   }
   public function registerAndBuildMail2() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail2.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail2.php';
   }
   public function registerAndBuildMail3() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail3.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail3.php';
   }
   public function registerAndBuildMail4() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail4.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail4.php';
   }
   public function registerAndBuildMail5() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail5.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail5.php';
   }
   public function registerAndBuildMail6() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail6.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail6.php';
   }
   public function registerAndBuildMail7() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail7.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail7.php';
   }
   public function registerAndBuildMail8() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail8.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail8.php';
   }
   //public function registerAndBuildMail9() {
-  //  require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail9.php';
+  //  require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail9.php';
   //}
   //  public function registerAndBuildMail10() {
   //    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail10.php';
   //  }
   //public function registerAndBuildMail11() {
-  //  require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail11.php';
+  //  require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail11.php';
   //}
   //public function registerAndBuildMail13() {
-  //  require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildMail13.php';
+  //  require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail13.php';
   //}
   public function registerAndBuildAPIPreventiva() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIPreventiva.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildAPIPreventiva.php';
   }
   public function registerAndBuildAPIDKV() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildAPIDKV.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildAPIDKV.php';
   }
 
   public function registerAndBuildFieldsDireccionesIP() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDireccionesIP.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsDireccionesIP.php';
   }
   public function registerAndBuildFieldsDatos() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDatos.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsDatos.php';
   }
   public function registerAndBuildFieldsResultados() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsResultados.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsResultados.php';
   }
   public function registerAndBuildFieldsConfirmado() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsConfirmado.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsConfirmado.php';
   }
   public function registerAndBuildFieldsConfirmadoDescuento() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsConfirmadoDescuento.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsConfirmadoDescuento.php';
   }
   public function registerAndBuildFieldsSinConfirmar() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsSinConfirmar.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsSinConfirmar.php';
   }
   public function registerAndBuildFieldsSinPrecio() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsSinPrecio.php';
-  }
-  public function registerAndBuildFieldsDirectorio() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsDirectorio.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsSinPrecio.php';
   }
   public function registerAndBuildFieldsPreciosPoblacion() {
-    require_once 'partials/registerAndBuild/' . $this->plugin_name . '-admin-registerAndBuildFieldsPreciosPoblacion.php';
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsPreciosPoblacion.php';
   }
   public function registerAndBuildFieldsServiciosV2(){
     require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildServiciosV2.php';
@@ -736,9 +713,6 @@ class Wpfunos_Admin {
     add_meta_box('tipos_seguro_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'tipos_seguro_wpfunos_data_meta_box'), 'tipos_seguro_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'tipos_seguro_wpfunos', 'normal');
   }
-  public function setuptanatoriodirectorio_wpfunosMetaboxes(){
-    add_meta_box('tanatorio_d_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'tanatorio_directorio_wpfunos_data_meta_box'), 'tanatorio_d_wpfunos', 'normal', 'high' );
-  }
   public function setupconfimgwpfunos_wpfunosMetaboxes(){
     add_meta_box('conf_img_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'conf_img_wpfunos_data_meta_box'), 'conf_img_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'conf_img_wpfunos', 'normal');
@@ -767,98 +741,91 @@ class Wpfunos_Admin {
   */
   public function saveusuarios_wpfunosMetaBoxData( $post_id ){
     // Check if our nonce is set.
-    if (! isset($_POST[$this->plugin_name . '_usuarios_wpfunos_meta_box_nonce'])) return;
+    if (! isset($_POST['wpfunos_usuarios_wpfunos_meta_box_nonce'])) return;
     // Verify that the nonce is valid.
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_usuarios_wpfunos_meta_box_nonce'], $this->plugin_name . '_usuarios_wpfunos_meta_box')) return;
+    if (! wp_verify_nonce($_POST['wpfunos_usuarios_wpfunos_meta_box_nonce'], 'wpfunos_usuarios_wpfunos_meta_box')) return;
     // If this is an autosave, our form has not been submitted, so we don't want to do anything.
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     // Check the user's permissions.
     if (! current_user_can('manage_options')) return;
     // Make sure that it is set.
-    if (! isset($_POST[$this->plugin_name . '_TimeStamp']) ) return;
+    if (! isset($_POST['wpfunos_TimeStamp']) ) return;
 
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-usuarios-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-usuarios-fields.php';
   }
   public function saveservicios_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_servicios_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_servicios_wpfunos_meta_box_nonce'], $this->plugin_name . '_servicios_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_servicios_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_servicios_wpfunos_meta_box_nonce'], 'wpfunos_servicios_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-servicios-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-servicios-fields.php';
   }
   public function savecpostales_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_cpostales_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_cpostales_wpfunos_meta_box_nonce'], $this->plugin_name . '_cpostales_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_cpostales_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_cpostales_wpfunos_meta_box_nonce'], 'wpfunos_cpostales_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-cpostales-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-cpostales-fields.php';
   }
   public function saveprovincias_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_provincias_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_provincias_wpfunos_meta_box_nonce'], $this->plugin_name . '_provincias_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_provincias_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_provincias_wpfunos_meta_box_nonce'], 'wpfunos_provincias_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-provincias-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-provincias-fields.php';
   }
   public function saveprov_zona_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_prov_zona_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_prov_zona_wpfunos_meta_box_nonce'], $this->plugin_name . '_prov_zona_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_prov_zona_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_prov_zona_wpfunos_meta_box_nonce'], 'wpfunos_prov_zona_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-prov-zona-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-prov-zona-fields.php';
   }
   public function saveaseguradoras_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_aseguradoras_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_aseguradoras_wpfunos_meta_box_nonce'], $this->plugin_name . '_aseguradoras_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_aseguradoras_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_aseguradoras_wpfunos_meta_box_nonce'], 'wpfunos_aseguradoras_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-aseguradoras-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-aseguradoras-fields.php';
   }
   public function savetiposeguro_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_tipos_seguro_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_tipos_seguro_wpfunos_meta_box_nonce'], $this->plugin_name . '_tipos_seguro_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_tipos_seguro_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_tipos_seguro_wpfunos_meta_box_nonce'], 'wpfunos_tipos_seguro_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tipos-seguro-fields.php';
-  }
-  public function savetanatoriodirectorio_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_tanatorio_directorio_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_tanatorio_directorio_wpfunos_meta_box_nonce'], $this->plugin_name . '_tanatorio_directorio_wpfunos_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tanatorio-directorio-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-tipos-seguro-fields.php';
   }
   public function saveconfimgwpfunos_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_conf_img_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_conf_img_wpfunos_meta_box_nonce'], $this->plugin_name . '_conf_img_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_conf_img_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_conf_img_wpfunos_meta_box_nonce'], 'wpfunos_conf_img_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-conf-img-fields.php';
   }
   public function saveprecio_funer_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_precio_funer_wpfunos_meta_box_nonce'], $this->plugin_name . '_precio_funer_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_precio_funer_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_precio_funer_wpfunos_meta_box_nonce'], 'wpfunos_precio_funer_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     //if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-funer-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-precio-funer-fields.php';
   }
   public function saveexcep_prov_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_excep_prov_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_excep_prov_wpfunos_meta_box_nonce'], $this->plugin_name . '_excep_prov_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_excep_prov_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_excep_prov_wpfunos_meta_box_nonce'], 'wpfunos_excep_prov_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-excep-prov-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-excep-prov-fields.php';
   }
   public function saveprecio_serv_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_precio_serv_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_precio_serv_wpfunos_meta_box_nonce'], $this->plugin_name . '_precio_serv_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_precio_serv_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_precio_serv_wpfunos_meta_box_nonce'], 'wpfunos_precio_serv_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-fields.php';
+    require_once 'partials/DB/wpfunos-admin-DB-precio-servicios-fields.php';
   }
   public function savedist_local_wpfunosMetaBoxData( $post_id ){
-    if (! isset($_POST[$this->plugin_name . '_dist_local_wpfunos_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST[$this->plugin_name . '_dist_local_wpfunos_meta_box_nonce'], $this->plugin_name . '_dist_local_wpfunos_meta_box')) return;
+    if (! isset($_POST['wpfunos_dist_local_wpfunos_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_dist_local_wpfunos_meta_box_nonce'], 'wpfunos_dist_local_wpfunos_meta_box')) return;
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/wpfunos-admin-DB-dist-local-fields.php';
@@ -871,73 +838,67 @@ class Wpfunos_Admin {
   * usuarios_wpfunos
   */
   public function usuarios_registrados_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-usuarios.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-usuarios.php';
   }
   /**
   * servicios_wpfunos
   */
   public function servicios_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-servicios.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-servicios.php';
   }
   /**
   * cpostales_wpfunos
   */
   public function codigospostales_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-cpostales.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-cpostales.php';
   }
   /**
   * provincias_wpfunos
   */
   public function provincias_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-provincias.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-provincias.php';
   }
   /**
   * prov_zona_wpfunos
   */
   public function prov_zona_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-prov-zona.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-prov-zona.php';
   }
   /**
   * aseguradoras_wpfunos
   */
   public function aseguradoras_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-aseguradoras.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-aseguradoras.php';
   }
   /**
   * tipos_seguro_wpfunos
   */
   public function tipos_seguro_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-tipos-seguro.php';
-  }
-  /**
-  * tanatorio_d_wpfunos
-  */
-  public function directorio_tanatorio_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-tanatorio-d.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-tipos-seguro.php';
   }
   /**
   * conf_img_wpfunos
   */
   public function config_imagenes_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-conf-img.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-conf-img.php';
   }
   /**
   * Entrada Precios Poblacion  precio_funer_wpfunos
   */
   public function precios_poblacion_funeraria_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-precio-funer.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-precio-funer.php';
   }
   /**
   * Entrada busquedas en provincias e islas excep_prov_wpfunos
   */
   public function excepciones_provincias_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-excep-prov.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-excep-prov.php';
   }
   /**
   * precio_serv_wpfunos
   */
   public function precios_servicios_custom_post_type(){
-    require_once 'partials/cpt/' . $this->plugin_name . '-admin-cpt-precio-serv.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-precio-serv.php';
   }
   /**
   * distancia búsqueda localidades: dist_local_wpfunos
@@ -955,55 +916,51 @@ class Wpfunos_Admin {
   * Add fields to Metabox
   */
   public function servicios_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_servicios_wpfunos_meta_box', $this->plugin_name.'_servicios_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-servicios-display.php';
+    wp_nonce_field( 'wpfunos_servicios_wpfunos_meta_box', 'wpfunos_servicios_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-servicios-display.php';
   }
   public function usuarios_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_usuarios_wpfunos_meta_box', $this->plugin_name.'_usuarios_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-usuarios-display.php';
+    wp_nonce_field( 'wpfunos_usuarios_wpfunos_meta_box', 'wpfunos_usuarios_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-usuarios-display.php';
   }
   public function cpostales_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_cpostales_wpfunos_meta_box', $this->plugin_name.'_cpostales_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-cpostales-display.php';
+    wp_nonce_field( 'wpfunos_cpostales_wpfunos_meta_box', 'wpfunos_cpostales_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-cpostales-display.php';
   }
   public function provincias_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_provincias_wpfunos_meta_box', $this->plugin_name.'_provincias_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-provincias-display.php';
+    wp_nonce_field( 'wpfunos_provincias_wpfunos_meta_box', 'wpfunos_provincias_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-provincias-display.php';
   }
   public function prov_zona_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_prov_zona_wpfunos_meta_box', $this->plugin_name.'_prov_zona_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-prov-zona-display.php';
+    wp_nonce_field( 'wpfunos_prov_zona_wpfunos_meta_box', 'wpfunos_prov_zona_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-prov-zona-display.php';
   }
   public function aseguradoras_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_aseguradoras_wpfunos_meta_box', $this->plugin_name.'_aseguradoras_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-aseguradoras-display.php';
+    wp_nonce_field( 'wpfunos_aseguradoras_wpfunos_meta_box', 'wpfunos_aseguradoras_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-aseguradoras-display.php';
   }
   public function tipos_seguro_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_tipos_seguro_wpfunos_meta_box', $this->plugin_name.'_tipos_seguro_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tipos-seguro-display.php';
-  }
-  public function tanatorio_directorio_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_tanatorio_directorio_wpfunos_meta_box', $this->plugin_name.'_tanatorio_directorio_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-tanatorio-directorio-display.php';
+    wp_nonce_field( 'wpfunos_tipos_seguro_wpfunos_meta_box', 'wpfunos_tipos_seguro_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-tipos-seguro-display.php';
   }
   public function conf_img_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_conf_img_wpfunos_meta_box', $this->plugin_name.'_conf_img_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-conf-img-display.php';
+    wp_nonce_field( 'wpfunos_conf_img_wpfunos_meta_box', 'wpfunos_conf_img_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-conf-img-display.php';
   }
   public function precio_funer_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_precio_funer_wpfunos_meta_box', $this->plugin_name.'_precio_funer_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-funer-display.php';
+    wp_nonce_field( 'wpfunos_precio_funer_wpfunos_meta_box', 'wpfunos_precio_funer_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-precio-funer-display.php';
   }
   public function excep_prov_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_excep_prov_wpfunos_meta_box', $this->plugin_name.'_excep_prov_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-excep-prov-display.php';
+    wp_nonce_field( 'wpfunos_excep_prov_wpfunos_meta_box', 'wpfunos_excep_prov_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-excep-prov-display.php';
   }
   public function precio_serv_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_precio_serv_wpfunos_meta_box', $this->plugin_name.'_precio_serv_wpfunos_meta_box_nonce' );
-    require_once 'partials/DB/' . $this->plugin_name . '-admin-DB-precio-servicios-display.php';
+    wp_nonce_field( 'wpfunos_precio_serv_wpfunos_meta_box', 'wpfunos_precio_serv_wpfunos_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-precio-servicios-display.php';
   }
   public function dist_local_wpfunos_data_meta_box($post){
-    wp_nonce_field( $this->plugin_name.'_dist_local_wpfunos_meta_box', $this->plugin_name.'_dist_local_wpfunos_meta_box_nonce' );
+    wp_nonce_field( 'wpfunos_dist_local_wpfunos_meta_box', 'wpfunos_dist_local_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/wpfunos-admin-DB-dist-local-display.php';
   }
 
@@ -1028,7 +985,7 @@ class Wpfunos_Admin {
       if ($args['subtype'] != 'checkbox') {
         $prependStart = (isset($args['prepend_value'])) ? '<div class="input-prepend"> <span class="add-on">' . $args['prepend_value'] . '</span>' : '';
         $prependEnd = (isset($args['prepend_value'])) ? '</div>' : '';
-        if ($args['id'] == $this->plugin_name . '_DisplayListPageId') $prependEnd = ' ' . get_the_title($value) . '</div>';
+        if ($args['id'] == 'wpfunos_DisplayListPageId') $prependEnd = ' ' . get_the_title($value) . '</div>';
         $step = (isset($args['step'])) ? 'step="' . $args['step'] . '"' : '';
         $min = (isset($args['min'])) ? 'min="' . $args['min'] . '"' : '';
         $max = (isset($args['max'])) ? 'max="' . $args['max'] . '"' : '';
@@ -1039,7 +996,7 @@ class Wpfunos_Admin {
         } else {
           echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" ' . $size . ' value="' . esc_attr($value) . '" />' . $prependEnd;
         }
-        /* <input required="required" '.$disabled.' type="number" step="any" id="'.$this->plugin_name.'_cost2" name="'.$this->plugin_name.'_cost2" value="' . esc_attr( $cost ) . '" size="25" /><input type="hidden" id="'.$this->plugin_name.'_cost" step="any" name="'.$this->plugin_name.'_cost" value="' . esc_attr( $cost ) . '" /> */
+        /* <input required="required" '.$disabled.' type="number" step="any" id="'.'wpfunos_cost2" name="'.'wpfunos_cost2" value="' . esc_attr( $cost ) . '" size="25" /><input type="hidden" id="'.'wpfunos_cost" step="any" name="'.'wpfunos_cost" value="' . esc_attr( $cost ) . '" /> */
       } else {
         $checked = ($value) ? 'checked' : '';
         ?>
@@ -1137,14 +1094,14 @@ class Wpfunos_Admin {
   */
   protected function wpfunosMaintenanceLogRotate(){
     $upload_dir = wp_upload_dir();
-    $files = scandir( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs' );
+    $files = scandir( $upload_dir['basedir'] . '/' . 'wpfunos-logs' );
     foreach ($files as $file) {
       if (substr($file, - 4) == '.log') {
-        $this->custom_logs('Logfile: ' . $file . ' -> ' . date("d-m-Y H:i:s", filemtime( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file)));
-        if (time() > strtotime('+1 week', filemtime( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file))) {
-          $oldfile = $this->gzCompressFile($upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file);
+        $this->custom_logs('Logfile: ' . $file . ' -> ' . date("d-m-Y H:i:s", filemtime( $upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file)));
+        if (time() > strtotime('+1 week', filemtime( $upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file))) {
+          $oldfile = $this->gzCompressFile($upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file);
           $this->custom_logs('Old logfile: ' . $oldfile );
-          unlink( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file);
+          unlink( $upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file);
         }
       }
     }
@@ -1785,14 +1742,14 @@ class Wpfunos_Admin {
   private function logFiles()
   {
     $upload_dir = wp_upload_dir();
-    $files = scandir( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs');
+    $files = scandir( $upload_dir['basedir'] . '/' . 'wpfunos-logs');
     ?>
     <form action="" method="post">
       <ul>
         <?php foreach ( $files as $file ) { ?>
           <?php if( substr( $file , -4) == '.log'){?>
             <li><input type="radio" id="age[]" name="logfile" value="<?php esc_html_e( $file ); ?>">
-              <?php esc_html_e( $file . ' -> ' . date("d-m-Y H:i:s", filemtime( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $file  ) ) ); ?>
+              <?php esc_html_e( $file . ' -> ' . date("d-m-Y H:i:s", filemtime( $upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file  ) ) ); ?>
             </li>
           <?php }?>
         <?php }?>
@@ -1814,7 +1771,7 @@ class Wpfunos_Admin {
       <hr />
       <h3><?php esc_html_e( $_POST['logfile'] ); ?> </h3>
       <textarea id="wpfunoslogfile" name="wpfunoslogfile" rows="30" cols="180" readonly>
-        <?php esc_html_e( ( file_get_contents( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $_POST['logfile'] ) ) ); ?>
+        <?php esc_html_e( ( file_get_contents( $upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $_POST['logfile'] ) ) ); ?>
       </textarea>
       <?php
     }
@@ -1827,12 +1784,12 @@ class Wpfunos_Admin {
     if (is_array($message)) {
       $message = json_encode($message);
     }
-    if (!file_exists( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs') ) {
-      mkdir( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs' );
+    if (!file_exists( $upload_dir['basedir'] . '/' . 'wpfunos-logs') ) {
+      mkdir( $upload_dir['basedir'] . '/' . 'wpfunos-logs' );
     }
     $time = current_time("d-M-Y H:i:s");
     $ban = "#$time: $message\r\n";
-    $file = $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $this->plugin_name .'-adminlog-' . current_time("Y-m-d") . '.log';
+    $file = $upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $this->plugin_name .'-adminlog-' . current_time("Y-m-d") . '.log';
     $open = fopen($file, "a");
     fputs($open, $ban);
     fclose( $open );

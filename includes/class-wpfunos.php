@@ -80,7 +80,7 @@ class Wpfunos {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_aseguradoras_hooks();
-		$this->define_directorio_hooks();
+		//$this->define_directorio_hooks();
 		$this->define_serviciosv3_hooks();
 		$this->define_colaboradores_hooks();
 		$this->define_precios_poblacion_hooks();
@@ -141,7 +141,7 @@ class Wpfunos {
 		/**
 		* Directorio
 		*/
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'directorio/class-wpfunos-directorio.php';
+		//require_once plugin_dir_path( dirname( __FILE__ ) ) . 'directorio/class-wpfunos-directorio.php';
 
 		/**
 		* Servicios V3
@@ -252,11 +252,11 @@ class Wpfunos {
 	* @since    1.0.0
 	* @access   private
 	*/
-	private function define_directorio_hooks() {
+	//private function define_directorio_hooks() {
 
-		$plugin_directorio = new Wpfunos_Directorio( $this->get_plugin_name(), $this->get_version() );
+	//	$plugin_directorio = new Wpfunos_Directorio( $this->get_plugin_name(), $this->get_version() );
 
-	}
+	//}
 
 	/**
 	* Register all of the hooks Colaboradores
