@@ -599,12 +599,6 @@ class Wpfunos_Utils {
       $cadena
     );
 
-    $cadena = str_replace(
-      array('Ñ', 'Ç',),
-      array('ñ', 'ç',),
-      $cadena
-    );
-
     $cadena = strtolower( $cadena );
 
     return $cadena;

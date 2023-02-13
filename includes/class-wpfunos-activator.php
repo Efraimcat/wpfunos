@@ -44,8 +44,6 @@ class Wpfunos_Activator {
 			$table_name = $wpdb->prefix . 'wpf_visitas';
 			$charset_collate = $wpdb->get_charset_collate();
 
-
-
 			$sql = "CREATE TABLE $table_name (
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
@@ -71,8 +69,6 @@ class Wpfunos_Activator {
 
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sql );
-
-
 
 			update_option( "wpf_db_version", $DBversion );
 		}
