@@ -57,7 +57,7 @@ $servicios_list = get_posts( $args );
 }
 </style>
 <div class="wrap">
-  <h2><?php esc_html_e( get_admin_page_title() .' '.$this->version); ?></h2>
+  <h2><?php esc_html_e( get_admin_page_title() .' '.$this->version. ' ('  .get_option( "wpf_db_version" ). ' [' .WPFUNOS_DB_VERSION. '])' ); ?></h2>
   <?php settings_errors(); ?>
   <h3><?php esc_html_e( 'Configuración WpFunos', 'wpfunos' )?></h3>
   <table style="width:100%">

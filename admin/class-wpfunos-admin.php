@@ -1598,7 +1598,7 @@ class Wpfunos_Admin {
     for ( $x = 1; $x <= count($servicios_list); $x+=35 ) {
       $this->custom_logs('==> ' .sprintf( '%03s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
       wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule_procesar_servicios', array( $x, 35 ) );
-      $tiempo += 120;
+      $tiempo += 300;
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos Creación nuevos indices funerarias ends');
     $this->custom_logs('---');
@@ -1606,7 +1606,7 @@ class Wpfunos_Admin {
     for ( $x = 1; $x <= count($indices_list); $x+=2000 ) {
       $this->custom_logs('==> ' .sprintf( '%05s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
       wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule eliminar_indices', array( $x, 2000 ) );
-      $tiempo += 10;
+      $tiempo += 20;
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices ends');
   }

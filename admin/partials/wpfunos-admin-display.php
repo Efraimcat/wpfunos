@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 ?>
 <div class="wrap">
-  <h2><?php esc_html_e( get_admin_page_title() .' '.$this->version); ?></h2>
+  <h2><?php esc_html_e( get_admin_page_title() .' '.$this->version. ' ('  .get_option( "wpf_db_version" ). ' [' .WPFUNOS_DB_VERSION. '])' ); ?></h2>
   <?php settings_errors(); ?>
   <h3><?php esc_html_e( 'WpFunos', 'wpfunos' )?></h3>
   <div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
   <table style="width:100%">
-	  <tr>
+    <tr>
       <td>
         <div id="directorio" style="top: -300px;position: relative;" >
           <?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-enlaces-superior.php';	?>
