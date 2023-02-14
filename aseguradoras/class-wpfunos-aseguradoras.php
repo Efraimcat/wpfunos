@@ -81,6 +81,7 @@ class Wpfunos_Aseguradoras {
   */
   public function wpfunosAseguradorasPageSwitchShortcode(){
     if( !isset( $_GET['form'] ) ){
+      //do_action('wpfunos-visitas-entrada',array( 'tipo' => '1', ) );
       echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWpAseguradoras') );
     }elseif( !isset( $_GET['wpf'] ) ){
       if (is_user_logged_in()){

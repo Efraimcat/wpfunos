@@ -135,6 +135,8 @@ class Wpfunos_ServiciosV3 {
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '136469' ); //Ventana Popup Esperando (loader1)(CA)
 
     //$this->wpfunosEntradaUbicacion();
+    //do_action('wpfunos-visitas-entrada',array( 'tipo' => '3', ) );
+
     echo do_shortcode( '[gmw_ajax_form search_form="8"]' );
 
   }
@@ -337,6 +339,26 @@ class Wpfunos_ServiciosV3 {
       }
       ?><script>console.log('Comprobando Cookies END.' );</script><?php
       // End Comprobar cookies
+
+      // wpfunos-visitas-entrada
+      if( isset($_GET['land']) && !isset($_GET['wpfwpf']) ){
+        ?><script>console.log('Entrada directa landing.' );</script><?php
+        $cp = $_GET['CP'];
+        $CP = $this->wpfunosCodigoPostal( $cp, $address );
+        $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
+        /*
+        *do_action('wpfunos-visitas-entrada',array(
+        *  'tipo' => '4',
+        *  'wpfresp1' => $_GET['cf']['resp1'],
+        *  'wpfresp2' => $_GET['cf']['resp2'],
+        *  'wpfresp3' => $_GET['cf']['resp3'],
+        *  'wpfresp4' => $_GET['cf']['resp4'],
+        *  'poblacion' => $address,
+        *  'cp' => $CP,
+        *) );
+        */
+      }
+      //
 
       // comprobar veracidad de wpfwpf
       $Tienewpfwpf = 0;
@@ -1355,8 +1377,26 @@ class Wpfunos_ServiciosV3 {
             'wpfunos_Dummy' => true,
           ),
         );
-
         $post_id = wp_insert_post($my_post);
+
+        // wpfunos-visitas-entrada
+        /*
+        *do_action('wpfunos-visitas-entrada',array(
+        *  'tipo' => '5',
+        *  'nombre' => sanitize_text_field( $wpfnombre ),
+        *  'email' => sanitize_text_field( $wpfemail ),
+        *  'telefono' => sanitize_text_field( $Telefono ),
+        *  'wpfresp1' => $wpfresp1,
+        *  'wpfresp2' => $wpfresp2,
+        *  'wpfresp3' => $wpfresp3,
+        *  'wpfresp4' => $wpfresp4,
+        *  'postID' => $post_id,
+        *  'poblacion' => sanitize_text_field( $wpfubic ),
+        *  'cuando' => sanitize_text_field( $wpfcuando ),
+        *  'cp' => sanitize_text_field( $wpfcp ),
+        *) );
+        */
+        //
 
         $userIP = apply_filters('wpfunos_userIP','dummy');
         do_action('wpfunos_log', '==============' );

@@ -1,40 +1,40 @@
 <?php
 
 /**
- * Fired during plugin activation
- *
- * @link       https://github.com/Efraimcat/wpfunos/
- * @since      1.0.0
- *
- * @package    Wpfunos
- * @subpackage Wpfunos/includes
- */
+* Fired during plugin activation
+*
+* @link       https://github.com/Efraimcat/wpfunos/
+* @since      1.0.0
+*
+* @package    Wpfunos
+* @subpackage Wpfunos/includes
+*/
 
 /**
- * Fired during plugin activation.
- *
- * This class defines all code necessary to run during the plugin's activation.
- *
- * @since      1.0.0
- * @package    Wpfunos
- * @subpackage Wpfunos/includes
- * @author     Efraim Bayarri <efraim@efraim.cat>
- */
+* Fired during plugin activation.
+*
+* This class defines all code necessary to run during the plugin's activation.
+*
+* @since      1.0.0
+* @package    Wpfunos
+* @subpackage Wpfunos/includes
+* @author     Efraim Bayarri <efraim@efraim.cat>
+*/
 class Wpfunos_Activator {
 
 	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
+	* Short Description. (use period)
+	*
+	* Long Description.
+	*
+	* @since    1.0.0
+	*/
 	public static function activate() {
 		if (! wp_next_scheduled('wpfunosCronJob')) {
-				wp_schedule_event(time(), 'daily', 'wpfunosCronJob');
+			wp_schedule_event(time(), 'daily', 'wpfunosCronJob');
 		}
 		if (! wp_next_scheduled('wpfunosHourlyCronJob')) {
-				wp_schedule_event(time(), 'hourly', 'wpfunosHourlyCronJob');
+			wp_schedule_event(time(), 'hourly', 'wpfunosHourlyCronJob');
 		}
 
 		$DBversion = WPFUNOS_DB_VERSION;
@@ -47,6 +47,7 @@ class Wpfunos_Activator {
 			$sql = "CREATE TABLE $table_name (
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				version tinytext DEFAULT '' NOT NULL,
 				tipo tinytext DEFAULT '' NOT NULL,
 				wpfn tinytext DEFAULT '' NOT NULL,
 				wpfe tinytext DEFAULT '' NOT NULL,
@@ -55,7 +56,7 @@ class Wpfunos_Activator {
 				email tinytext DEFAULT '' NOT NULL,
 				telefono tinytext DEFAULT '' NOT NULL,
 				ip tinytext DEFAULT '' NOT NULL,
-				referer varchar(100) DEFAULT '' NOT NULL,
+				referer varchar(250) DEFAULT '' NOT NULL,
 				mobile tinytext DEFAULT '' NOT NULL,
 				logged tinytext DEFAULT '' NOT NULL,
 				wpfresp1 tinytext DEFAULT '' NOT NULL,
@@ -64,6 +65,11 @@ class Wpfunos_Activator {
 				wpfresp4 tinytext DEFAULT '' NOT NULL,
 				postID tinytext DEFAULT '' NOT NULL,
 				servicio tinytext DEFAULT '' NOT NULL,
+				poblacion varchar(50) DEFAULT '' NOT NULL,
+				nacimiento tinytext DEFAULT '' NOT NULL,
+				cuando tinytext DEFAULT '' NOT NULL,
+				cp tinytext DEFAULT '' NOT NULL,
+				contador int(10),
 				PRIMARY KEY  (id)
 			);";
 

@@ -1599,11 +1599,12 @@ class Wpfunos_Admin {
     for ( $x = 1; $x <= count($servicios_list); $x+=35 ) {
       $this->custom_logs('==> ' .sprintf( '%03s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
       wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule_procesar_servicios', array( $x, 35 ) );
-      $tiempo += 300;
+      $tiempo += 480;
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos Creación nuevos indices funerarias ends');
     $this->custom_logs('---');
     $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices starts');
+    $tiempo += 600;
     for ( $x = 1; $x <= count($indices_list); $x+=2000 ) {
       $this->custom_logs('==> ' .sprintf( '%05s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
       wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule eliminar_indices', array( $x, 2000 ) );
@@ -1650,6 +1651,7 @@ class Wpfunos_Admin {
     $this->custom_logs('HourlyDatabase: ' .$DBversion. ' actual: ' .$installed_ver );
 
     if ( $installed_ver != $DBversion ) {
+      $this->custom_logs('HourlyDatabase: Updating DB ' .$installed_ver. ' a ' .$DBversion );
       global $wpdb;
       $table_name = $wpdb->prefix . 'wpf_visitas';
       $charset_collate = $wpdb->get_charset_collate();
@@ -1657,6 +1659,7 @@ class Wpfunos_Admin {
       $sql = "CREATE TABLE $table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
         time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        version tinytext DEFAULT '' NOT NULL,
         tipo tinytext DEFAULT '' NOT NULL,
         wpfn tinytext DEFAULT '' NOT NULL,
         wpfe tinytext DEFAULT '' NOT NULL,
@@ -1665,7 +1668,7 @@ class Wpfunos_Admin {
         email tinytext DEFAULT '' NOT NULL,
         telefono tinytext DEFAULT '' NOT NULL,
         ip tinytext DEFAULT '' NOT NULL,
-        referer varchar(100) DEFAULT '' NOT NULL,
+        referer varchar(250) DEFAULT '' NOT NULL,
         mobile tinytext DEFAULT '' NOT NULL,
         logged tinytext DEFAULT '' NOT NULL,
         wpfresp1 tinytext DEFAULT '' NOT NULL,
@@ -1674,6 +1677,11 @@ class Wpfunos_Admin {
         wpfresp4 tinytext DEFAULT '' NOT NULL,
         postID tinytext DEFAULT '' NOT NULL,
         servicio tinytext DEFAULT '' NOT NULL,
+        poblacion varchar(50) DEFAULT '' NOT NULL,
+        nacimiento tinytext DEFAULT '' NOT NULL,
+        cuando tinytext DEFAULT '' NOT NULL,
+        cp tinytext DEFAULT '' NOT NULL,
+        contador int(10),
         PRIMARY KEY  (id)
       );";
 

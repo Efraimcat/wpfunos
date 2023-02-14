@@ -40,6 +40,8 @@ class Wpfunos_Public {
     add_shortcode( 'wpfunos-mensaje-usuario-datos-servicio', array( $this, 'wpfunosCorreoUsuarioDatosServicoShortcode' ));
     add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
     add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
+
+    add_action( 'wpfunos-visitas-entrada', array( $this, 'wpfunosVisitasEntrada' ), 10, 1 );
   }
 
   /**
@@ -510,6 +512,22 @@ class Wpfunos_Public {
     $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
     if( strlen( $fields['telefono']) > 3 ){
       $post_id = wp_insert_post($my_post);
+
+      // wpfunos-visitas-entrada
+      /*
+      *do_action('wpfunos-visitas-entrada',array(
+      *  'tipo' => '2',
+      *  'nombre' => sanitize_text_field( $fields['Nombre'] ),
+      *  'email' => sanitize_text_field( $fields['email'] ),
+      *  'telefono' => sanitize_text_field( $fields['telefono'] ),
+      *  'postID' => $post_id,
+      *  'poblacion' => sanitize_text_field( $fields['address'] ),
+      *  'nacimiento' => sanitize_text_field( $fields['nacimiento'] ),
+      *  'cp' => sanitize_text_field( $fields['CP'] ),
+      *) );
+      */
+      //
+
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Recogida datos usuario' );
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
@@ -538,4 +556,138 @@ class Wpfunos_Public {
     //  exit;
     //}
   }
+
+  /**
+  * Hook Entrada db wpf_visitas
+  *
+  * add_action( 'wpfunos-visitas-entrada', array( $this, 'wpfunosVisitasEntrada' ), 10, 1 );
+
+  *do_action('wpfunos-visitas-entrada',array(
+  *  'tipo' => '',
+  *  'nombre' => '',
+  *  'email' => '',
+  *  'telefono' => '',
+  *  'wpfresp1' => '',
+  *  'wpfresp2' => '',
+  *  'wpfresp3' => '',
+  *  'wpfresp4' => '',
+  *  'postID' => '',
+  *  'servicio' => '',
+  *  'poblacion' => '',
+  *  'nacimiento' => '',
+  *  'cuando' => '',
+  *  'cp' => '',
+  *) );
+
+  * tipo:
+  * 1 Entrada página ubicación aseguradoras
+  * 2 Entrada datos usuario aseguradoras
+  * 3 Entrada página ubicación servicios
+  * 4 Entrada directa página servicios
+  * 5 Entrada datos usuario servicios
+
+  *id mediumint(9) NOT NULL AUTO_INCREMENT,
+  *time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  *version tinytext DEFAULT '' NOT NULL,
+  *tipo tinytext DEFAULT '' NOT NULL,
+  *wpfn tinytext DEFAULT '' NOT NULL,
+  *wpfe tinytext DEFAULT '' NOT NULL,
+  *wpft tinytext DEFAULT '' NOT NULL,
+  *nombre tinytext DEFAULT '' NOT NULL,
+  *email tinytext DEFAULT '' NOT NULL,
+  *telefono tinytext DEFAULT '' NOT NULL,
+  *ip tinytext DEFAULT '' NOT NULL,
+  *referer varchar(250) DEFAULT '' NOT NULL,
+  *mobile tinytext DEFAULT '' NOT NULL,
+  *logged tinytext DEFAULT '' NOT NULL,
+  *wpfresp1 tinytext DEFAULT '' NOT NULL,
+  *wpfresp2 tinytext DEFAULT '' NOT NULL,
+  *wpfresp3 tinytext DEFAULT '' NOT NULL,
+  *wpfresp4 tinytext DEFAULT '' NOT NULL,
+  *postID tinytext DEFAULT '' NOT NULL,
+  *servicio tinytext DEFAULT '' NOT NULL,
+  *poblacion varchar(50) DEFAULT '' NOT NULL,
+  *nacimiento tinytext DEFAULT '' NOT NULL,
+  *cuando tinytext DEFAULT '' NOT NULL,
+  *cp tinytext DEFAULT '' NOT NULL,
+  *contador int(10),
+  *
+  *
+  *$wpdb->insert(
+  *	$table_name,
+  *	array(
+  *		'time' => current_time( 'mysql' ),
+  *		'name' => $welcome_name,
+  *		'text' => $welcome_text,
+  *	)
+  *);
+  *
+  */
+  public function wpfunosVisitasEntrada($record){
+    if( !isset ( $record['tipo'] ) ) return;
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'wpf_visitas';
+
+    $version = get_option( "wpf_db_version" );
+    $ip = apply_filters('wpfunos_userIP','dummy');
+    $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+    $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
+    $logged = (is_user_logged_in()) ? 'logged' : 'not logged';
+
+    $wpfn = (isset($_COOKIE['wpfn'])) ? $_COOKIE['wpfn'] : '';
+    $wpfe = (isset($_COOKIE['wpfe'])) ? $_COOKIE['wpfe'] : '';
+    $wpft = (isset($_COOKIE['wpft'])) ? $_COOKIE['wpft'] : '';
+
+    $nombre = (isset($record['nombre'])) ? $record['nombre'] : '';
+    $email = (isset($record['email'])) ? $record['email'] : '';
+    $telefono = (isset($record['telefono'])) ? $record['telefono'] : '';
+    $wpfresp1 = (isset($record['wpfresp1'])) ? $record['wpfresp1'] : '';
+    $wpfresp2 = (isset($record['wpfresp2'])) ? $record['wpfresp2'] : '';
+    $wpfresp3 = (isset($record['wpfresp3'])) ? $record['wpfresp3'] : '';
+    $wpfresp4 = (isset($record['wpfresp4'])) ? $record['wpfresp4'] : '';
+    $postID = (isset($record['postID'])) ? $record['postID'] : '';
+    $servicio = (isset($record['servicio'])) ? $record['servicio'] : '';
+    $poblacion = (isset($record['poblacion'])) ? $record['poblacion'] : '';
+    $nacimiento = (isset($record['nacimiento'])) ? $record['nacimiento'] : '';
+    $cuando = (isset($record['cuando'])) ? $record['cuando'] : '';
+    $cp = (isset($record['cp'])) ? $record['cp'] : '';
+
+    // [REQUIRED] define $items array
+    // notice that last argument is ARRAY_A, so we will retrieve array
+    $results = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE tipo = %s AND ip = %s", $record['tipo'], $ip ), ARRAY_A);
+    $contador = 1;
+    if( $results ) $contador=count($results)+1;
+
+    $wpdb->insert(
+      $table_name,
+      array(
+        'time' => current_time( 'mysql' ),
+        'version' => $version,
+        'tipo' => $record['tipo'],
+        'wpfn' => $wpfn,
+        'wpfe' => $wpfe,
+        'wpft' => $wpft,
+        'nombre' => $nombre,
+        'email' => $email,
+        'telefono' => $telefono,
+        'ip' => $ip,
+        'referer' => $referer,
+        'mobile' => $mobile,
+        'logged' => $logged,
+        'wpfresp1' => $wpfresp1,
+        'wpfresp2' => $wpfresp2,
+        'wpfresp3' => $wpfresp3,
+        'wpfresp4' => $wpfresp4,
+        'postID' => $postID,
+        'servicio' => $servicio,
+        'poblacion' => $poblacion,
+        'nacimiento' => $nacimiento,
+        'cuando' => $cuando,
+        'cp' => $cp,
+        'contador' => $contador,
+      )
+    );
+  }
+
 }
