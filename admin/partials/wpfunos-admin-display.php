@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <tr>
       <td>
         <div id="directorio" style="top: -300px;position: relative;" >
-          <?php include 'admin-menu/' . $this->plugin_name . '-admin-menu-enlaces-superior.php';	?>
+          <?php include 'admin-menu/wpfunos-admin-menu-enlaces-superior.php';	?>
         </div>
       </td>
       <td style="width:350px" >

@@ -135,7 +135,7 @@ class Wpfunos_ServiciosV3 {
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '136469' ); //Ventana Popup Esperando (loader1)(CA)
 
     //$this->wpfunosEntradaUbicacion();
-    //do_action('wpfunos-visitas-entrada',array( 'tipo' => '3', ) );
+    do_action('wpfunos-visitas-entrada',array( 'tipo' => '3', ) );
 
     echo do_shortcode( '[gmw_ajax_form search_form="8"]' );
 
@@ -346,17 +346,15 @@ class Wpfunos_ServiciosV3 {
         $cp = $_GET['CP'];
         $CP = $this->wpfunosCodigoPostal( $cp, $address );
         $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
-        /*
-        *do_action('wpfunos-visitas-entrada',array(
-        *  'tipo' => '4',
-        *  'wpfresp1' => $_GET['cf']['resp1'],
-        *  'wpfresp2' => $_GET['cf']['resp2'],
-        *  'wpfresp3' => $_GET['cf']['resp3'],
-        *  'wpfresp4' => $_GET['cf']['resp4'],
-        *  'poblacion' => $address,
-        *  'cp' => $CP,
-        *) );
-        */
+        do_action('wpfunos-visitas-entrada',array(
+          'tipo' => '4',
+          'wpfresp1' => $_GET['cf']['resp1'],
+          'wpfresp2' => $_GET['cf']['resp2'],
+          'wpfresp3' => $_GET['cf']['resp3'],
+          'wpfresp4' => $_GET['cf']['resp4'],
+          'poblacion' => $address,
+          'cp' => $CP,
+        ) );
       }
       //
 
@@ -1263,6 +1261,9 @@ class Wpfunos_ServiciosV3 {
         case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos_es') ; break;
       }
 
+      $log = (is_user_logged_in()) ? 'logged' : 'not logged';
+      $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
+
       $userIP = apply_filters('wpfunos_userIP','dummy');
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Llegada ajax Servicio Botón Enviar Datos Usuario' );
@@ -1277,8 +1278,6 @@ class Wpfunos_ServiciosV3 {
 
       //$this->wpfunosServiciosv2Indeseados( $wpfemail, $wpftelefono );
       if( apply_filters('wpfunos_bloqueo_numeros',$wpftelefono) ){
-        $log = (is_user_logged_in()) ? 'logged' : 'not logged';
-        $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - '.'Entrada no deseada' );
         do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
@@ -1375,27 +1374,27 @@ class Wpfunos_ServiciosV3 {
             'resp3' => $wpfresp3,
             'resp4' => $wpfresp4,
             'wpfunos_Dummy' => true,
+            'wpfunos_userLog' => $log,
+            'wpfunos_userMobile' => $mobile,
           ),
         );
         $post_id = wp_insert_post($my_post);
 
         // wpfunos-visitas-entrada
-        /*
-        *do_action('wpfunos-visitas-entrada',array(
-        *  'tipo' => '5',
-        *  'nombre' => sanitize_text_field( $wpfnombre ),
-        *  'email' => sanitize_text_field( $wpfemail ),
-        *  'telefono' => sanitize_text_field( $Telefono ),
-        *  'wpfresp1' => $wpfresp1,
-        *  'wpfresp2' => $wpfresp2,
-        *  'wpfresp3' => $wpfresp3,
-        *  'wpfresp4' => $wpfresp4,
-        *  'postID' => $post_id,
-        *  'poblacion' => sanitize_text_field( $wpfubic ),
-        *  'cuando' => sanitize_text_field( $wpfcuando ),
-        *  'cp' => sanitize_text_field( $wpfcp ),
-        *) );
-        */
+        do_action('wpfunos-visitas-entrada',array(
+          'tipo' => '5',
+          'nombre' => sanitize_text_field( $wpfnombre ),
+          'email' => sanitize_text_field( $wpfemail ),
+          'telefono' => sanitize_text_field( $Telefono ),
+          'wpfresp1' => $wpfresp1,
+          'wpfresp2' => $wpfresp2,
+          'wpfresp3' => $wpfresp3,
+          'wpfresp4' => $wpfresp4,
+          'postID' => $post_id,
+          'poblacion' => sanitize_text_field( $wpfubic ),
+          'cuando' => sanitize_text_field( $wpfcuando ),
+          'cp' => sanitize_text_field( $wpfcp ),
+        ) );
         //
 
         $userIP = apply_filters('wpfunos_userIP','dummy');
@@ -1629,6 +1628,9 @@ class Wpfunos_ServiciosV3 {
       $contador = $this->wpfunosV3ContadorEntradas( $IP, '1' );
       //'wpfunos_userVisitas' => $contador,
 
+      $log = (is_user_logged_in()) ? 'logged' : 'not logged';
+      $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
+
       $my_post = array(
         'post_title' => $newref,
         'post_type' => 'usuarios_wpfunos',
@@ -1663,6 +1665,8 @@ class Wpfunos_ServiciosV3 {
           'wpfunos_userPluginVersion' => sanitize_text_field( $this->version ),
           'wpfunos_userVisitas' => $contador,
           'wpfunos_Dummy' => true,
+          'wpfunos_userLog' => $log,
+          'wpfunos_userMobile' => $mobile,
         ),
       );
 
@@ -1852,6 +1856,8 @@ class Wpfunos_ServiciosV3 {
 
       $contador = $this->wpfunosV3ContadorEntradas( $IP, '2' );
       //'wpfunos_userVisitas' => $contador,
+      $log = (is_user_logged_in()) ? 'logged' : 'not logged';
+      $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
 
       $my_post = array(
         'post_title' => $newref,
@@ -1887,6 +1893,8 @@ class Wpfunos_ServiciosV3 {
           'wpfunos_userPluginVersion' => sanitize_text_field( $this->version ),
           'wpfunos_userVisitas' => $contador,
           'wpfunos_Dummy' => true,
+          'wpfunos_userLog' => $log,
+          'wpfunos_userMobile' => $mobile,
         ),
       );
 
@@ -2079,6 +2087,8 @@ class Wpfunos_ServiciosV3 {
 
       $contador = $this->wpfunosV3ContadorEntradas( $IP, '5' );
       //'wpfunos_userVisitas' => $contador,
+      $log = (is_user_logged_in()) ? 'logged' : 'not logged';
+      $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
 
       $my_post = array(
         'post_title' => $newref,
@@ -2114,6 +2124,8 @@ class Wpfunos_ServiciosV3 {
           'wpfunos_userPluginVersion' => sanitize_text_field( $this->version ),
           'wpfunos_userVisitas' => $contador,
           'wpfunos_Dummy' => true,
+          'wpfunos_userLog' => $log,
+          'wpfunos_userMobile' => $mobile,
         ),
       );
 

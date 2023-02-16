@@ -81,7 +81,7 @@ class Wpfunos_Aseguradoras {
   */
   public function wpfunosAseguradorasPageSwitchShortcode(){
     if( !isset( $_GET['form'] ) ){
-      //do_action('wpfunos-visitas-entrada',array( 'tipo' => '1', ) );
+      do_action('wpfunos-visitas-entrada',array( 'tipo' => '1', ) );
       echo do_shortcode( get_option('wpfunos_paginaComparadorGeoMyWpAseguradoras') );
     }elseif( !isset( $_GET['wpf'] ) ){
       if (is_user_logged_in()){
@@ -443,6 +443,8 @@ class Wpfunos_Aseguradoras {
       $wpfunos_userAPIMessagecode = '';
       $wpfunos_userAPIMessagemessage = '';
     }
+    $log = (is_user_logged_in()) ? 'logged' : 'not logged';
+    $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
     $my_post = array(
       'post_title' => $referencia,
       'post_type' => 'usuarios_wpfunos',
@@ -473,6 +475,8 @@ class Wpfunos_Aseguradoras {
         'wpfunos_Dummy' => true,
         'wpfunos_userServicioEnviado' => true,
         'IDstamp' => $_COOKIE['wpfid'],
+        'wpfunos_userLog' => $log,
+        'wpfunos_userMobile' => $mobile,
       ),
     );
 

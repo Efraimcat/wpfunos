@@ -21,8 +21,6 @@ class Wpfunos_Utils {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
     add_action( 'wpfunos_log', array( $this, 'wpfunosLog' ), 10, 1 );
-    add_action( 'wpfunos-entrada-servicios', array( $this, 'wpfunosEntradaServicios') );
-    add_action( 'wpfunos-entrada-aseguradoras', array( $this, 'wpfunosEntradaAseguradoras') );
     add_action( 'wpfunos_update phone', array( $this, 'wpfunosUpdatePhone' ), 10, 1 );
     add_filter( 'wpfunos_reserved_email', array( $this, 'wpfunosReservedEmailAction' ), 10, 1 );
     add_filter( 'wpfunos_email_colaborador', array( $this, 'wpfunosColabEmailAction' ), 10, 1 );
@@ -185,92 +183,6 @@ class Wpfunos_Utils {
     $customfield_content = apply_filters( 'the_content', $customfield_content );
     $customfield_content = str_replace( ']]>', ']]&gt;', $customfield_content );
     return $customfield_content;
-  }
-
-  /**
-  *
-  */
-  public function wpfunosEntradaServicios(){
-    $userIP = $this->wpfunosgetUserIP();
-    $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
-    $this->custom_logs( $this->dumpPOST('==============') );
-    $this->custom_logs( $this->dumpPOST('1. - Entrada Comparador Servicios') );
-    $this->custom_logs( $this->dumpPOST('userIP: ' . $userIP) );
-    $this->custom_logs( $this->dumpPOST('referer: ' . substr($referer,0,150) ) );
-    $args = array(
-      'post_status' => 'publish',
-      'post_type' => 'pag_serv_wpfunos',
-      'posts_per_page' => -1,
-      'meta_key' =>  'wpfunos_entradaServiciosIP',
-      'meta_value' => $userIP,
-    );
-    $post_list = get_posts( $args );
-    $contador = 1;
-    if( $post_list ){
-      foreach ( $post_list as $post ) :
-        $contador++;
-      endforeach;
-      wp_reset_postdata();
-    }
-    $my_post = array(
-      'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-      'post_type' => 'pag_serv_wpfunos',
-      'post_status'  => 'publish',
-      'meta_input'   => array(
-        $this->plugin_name . '_entradaServiciosIP' => $userIP ,
-        $this->plugin_name . '_entradaServiciosReferer' => $referer,
-        $this->plugin_name . '_entradaServiciosVisitas' => $contador,
-        $this->plugin_name . '_entradaServiciosVersion' => 'v1',
-        $this->plugin_name . '_Dummy' => true,
-      ),
-    );
-    //$post_id = 'loggedin';
-    $reserved = apply_filters('wpfunos_reserved_email','dummy');
-    //if( ! $reserved ) $post_id = wp_insert_post($my_post);
-    $this->custom_logs( $this->dumpPOST('Post ID: ' . $post_id ) );
-    $this->custom_logs( $this->dumpPOST('Visitas: ' . $contador ) );
-    return;
-  }
-
-  /**
-  *
-  */
-  public function wpfunosEntradaAseguradoras(){
-    $userIP = $this->wpfunosgetUserIP();
-    $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
-    $this->custom_logs( $this->dumpPOST('==============') );
-    $this->custom_logs( $this->dumpPOST('1. - Entrada Comparador Aseguradoras') );
-    $this->custom_logs( $this->dumpPOST('userIP: ' . $userIP) );
-    $this->custom_logs( $this->dumpPOST('referer: ' . substr($referer,0,150) ) );
-    $args = array(
-      'post_status' => 'publish',
-      'post_type' => 'pag_aseg_wpfunos',
-      'posts_per_page' => -1,
-      'meta_key' =>  'wpfunos_entradaAseguradorasIP',
-      'meta_value' => $userIP,
-    );
-    $post_list = get_posts( $args );
-    $contador = 1;
-    if( $post_list ){
-      foreach ( $post_list as $post ) :
-        $contador++;
-      endforeach;
-      wp_reset_postdata();
-    }
-    $my_post = array(
-      'post_title' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
-      'post_type' => 'pag_aseg_wpfunos',
-      'post_status'  => 'publish',
-      'meta_input'   => array(
-        $this->plugin_name . '_entradaAseguradorasIP' => $userIP ,
-        $this->plugin_name . '_entradaAseguradorasReferer' => $referer,
-        $this->plugin_name . '_entradaAseguradorasVisitas' => $contador,
-        $this->plugin_name . '_Dummy' => true,
-      ),
-    );
-    $reserved = apply_filters('wpfunos_reserved_email','dummy');
-    //if( ! $reserved ) $post_id = wp_insert_post($my_post);
-    return;
   }
 
   /**

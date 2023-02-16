@@ -476,6 +476,8 @@ class Wpfunos_Public {
         wp_reset_postdata();
       }
       $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+      $log = (is_user_logged_in()) ? 'logged' : 'not logged';
+      $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
       $my_post = array(
         'post_title' => $fields['referencia'],
         'post_type' => 'usuarios_wpfunos',
@@ -505,27 +507,25 @@ class Wpfunos_Public {
           'wpfunos_userVisitas' => $contador,
           'wpfunos_Dummy' => true,
           'IDstamp' => $_COOKIE[ 'wpfid' ],
+          'wpfunos_userLog' => $log,
+          'wpfunos_userMobile' => $mobile,
         ),
       );
     }
-    $log = (is_user_logged_in()) ? 'logged' : 'not logged';
-    $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
     if( strlen( $fields['telefono']) > 3 ){
       $post_id = wp_insert_post($my_post);
 
       // wpfunos-visitas-entrada
-      /*
-      *do_action('wpfunos-visitas-entrada',array(
-      *  'tipo' => '2',
-      *  'nombre' => sanitize_text_field( $fields['Nombre'] ),
-      *  'email' => sanitize_text_field( $fields['email'] ),
-      *  'telefono' => sanitize_text_field( $fields['telefono'] ),
-      *  'postID' => $post_id,
-      *  'poblacion' => sanitize_text_field( $fields['address'] ),
-      *  'nacimiento' => sanitize_text_field( $fields['nacimiento'] ),
-      *  'cp' => sanitize_text_field( $fields['CP'] ),
-      *) );
-      */
+      do_action('wpfunos-visitas-entrada',array(
+        'tipo' => '2',
+        'nombre' => sanitize_text_field( $fields['Nombre'] ),
+        'email' => sanitize_text_field( $fields['email'] ),
+        'telefono' => sanitize_text_field( $fields['telefono'] ),
+        'postID' => $post_id,
+        'poblacion' => sanitize_text_field( $fields['address'] ),
+        'nacimiento' => sanitize_text_field( $fields['nacimiento'] ),
+        'cp' => sanitize_text_field( $fields['CP'] ),
+      ) );
       //
 
       do_action('wpfunos_log', '==============' );
