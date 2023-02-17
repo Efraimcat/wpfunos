@@ -82,6 +82,7 @@ class Wpfunos {
 		$this->define_aseguradoras_hooks();
 		$this->define_serviciosv3_hooks();
 		$this->define_precios_poblacion_hooks();
+		$this->define_visitas_hooks();
 
 	}
 
@@ -145,6 +146,15 @@ class Wpfunos {
 		* Precios Poblacion
 		*/
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'precios-poblacion/class-wpfunos-precios-poblacion.php';
+		
+		/**
+		* Visitas
+		*/
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'visitas/class-wpfunos-visitas.php';
+
+		/**
+		*
+		*/
 
 		$this->loader = new Wpfunos_Loader();
 
@@ -265,6 +275,21 @@ class Wpfunos {
 
 	}
 
+	/**
+	* Register all of the hooks servicios
+	* of the plugin.
+	*
+	* @since    2.0.0
+	* @access   private
+	*/
+	private function define_visitas_hooks() {
+
+		$plugin_visitas = new Wpfunos_Visitas( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_visitas, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_visitas, 'enqueue_scripts' );
+
+	}
 
 	/**
 	* Run the loader to execute all of the hooks with WordPress.
