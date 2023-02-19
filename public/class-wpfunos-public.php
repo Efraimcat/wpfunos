@@ -269,6 +269,11 @@ class Wpfunos_Public {
         do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (Real Email)' );
       }
 
+      if ( 'arjona400@gmail.com' == $field['value']) {
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (clientes)' );
+      }
+
     }
 
     // TELEFONO

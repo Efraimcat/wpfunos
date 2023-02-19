@@ -73,7 +73,6 @@ class Wpfunos_Visitas {
             $this->visitas_list_table->search_box( __( 'Buscar', 'wpfunos' ), 'visitas-find');
             $this->visitas_list_table->display();
             ?>
-            <?php //$this->visitas_list_table->display(); ?>
           </form>
         </div>
       </div>
