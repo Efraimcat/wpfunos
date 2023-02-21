@@ -58,6 +58,8 @@ class Wpfunos_Visitas {
     }
 
     $this->visitas_list_table->prepare_items();
+    global $wpdb;
+    $todos = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix."wpf_visitas" ));
 
     ?>
     <div class="wrap">
@@ -65,6 +67,9 @@ class Wpfunos_Visitas {
       <?php settings_errors(); ?>
       <h3><?php esc_html_e( 'WpFunos', 'wpfunos' )?></h3>
       <div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
+      <div>
+        <strong>Total: </strong><?php echo count( $todos ); ?>
+      </div>
       <div id="visitas_list_table">
         <div id="visitas_list_tablet-body">
           <form id="visitas_list_table-form" method="get">

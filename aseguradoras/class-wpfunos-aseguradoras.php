@@ -291,6 +291,14 @@ class Wpfunos_Aseguradoras {
   *
   * Preventiva: $URL, $tipo, $campain,
   *
+  *OLD
+  * https://fidelity.preventiva.com/ContactsImporter/api/Contact
+  * https://fidelity.preventiva.com/ContactsImporterElectium/api/Contact
+  *
+  *NEW
+  * https://preventivaleads.fidelitycloud.es/ContactsImporter/api/Contact
+  * https://preventivaleads.fidelitycloud.es/ContactsImporterElectium/api/Contact
+  *
   **/
   public function wpfunosAPIAseguradora( $usuario, $servicio, $mensaje ){
 
