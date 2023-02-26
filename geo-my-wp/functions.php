@@ -97,6 +97,15 @@ function wpf_admin_notice_warn() {
 }
 add_action( 'admin_notices', 'wpf_admin_notice_warn' );
 
+function disabling_emails( $args ){
+  if( site_url() === 'https://dev.funos.es'){
+    unset ( $args['to'] );
+    unset ( $args['headers'] );
+  }
+  return $args;
+}
+add_filter('wp_mail','disabling_emails', 10,1);
+
 /*
 * WOOCOMMERCE
 */

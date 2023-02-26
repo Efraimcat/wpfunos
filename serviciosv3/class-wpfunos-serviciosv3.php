@@ -529,6 +529,24 @@ class Wpfunos_ServiciosV3 {
       // END No tiene entrada usuario
 
     }else{
+      /**
+      *?>
+      *<script type="text/javascript" id="wpfunos-serviciosv3-autoload">
+      *$ = jQuery.noConflict();
+      *$(document).ready(function(){
+      *$(function(){
+      *    var idioma_wpml = getCookie('wp-wpml_current_language');
+      *    if (idioma_wpml === 'es'){
+      *      var URL = '/comparar-precios-nueva';
+      *    }else{
+      *      var URL = '/' + idioma_wpml + '/comparar-precios-nueva';
+      *    }
+      *    window.open(URL,"_self");
+      *  });
+      *});
+      *</script>
+      *<?php
+      **/
       ?>
       <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
       $ = jQuery.noConflict();
@@ -545,7 +563,6 @@ class Wpfunos_ServiciosV3 {
       });
       </script>
       <?php
-
     } //END count($_GET) > 0
 
   }
@@ -1202,6 +1219,10 @@ class Wpfunos_ServiciosV3 {
   //  }
   //}
 
+
+  //include 'class-wpfunos-serviciosv3-AJAX.php';
+
+
   /*********************************/
   /*****  AJAX                ******/
   /*********************************/
@@ -1407,6 +1428,7 @@ class Wpfunos_ServiciosV3 {
         do_action('wpfunos_log', $userIP.' - '.'Telefono: ' . $Telefono );
 
         if( get_option('wpfunos_activarCorreov2Admin') ){
+          unset($headers);
           $headers[] = 'Content-Type: text/html; charset=UTF-8';
           $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') );
           $mensaje = str_replace( '[email]' , $wpfemail , $mensaje );
@@ -1467,6 +1489,7 @@ class Wpfunos_ServiciosV3 {
 
         }
         if( get_option('wpfunos_activarCorreov2usuario') ){
+          unset($headers);
           $headers[] = 'Content-Type: text/html; charset=UTF-8';
           $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreov2usuario'), get_option('wpfunos_asuntoCorreov2usuario') );
           $mensaje = str_replace( '[email]' , $wpfemail , $mensaje );
@@ -1494,8 +1517,7 @@ class Wpfunos_ServiciosV3 {
             wp_mail ( $wpfemail , get_option('wpfunos_asuntoCorreov2usuario') , $mensaje, $headers );
             do_action('wpfunos_log', $userIP.' - '.'Enviado correo al usuario ' .$wpfemail. ' con su búsqueda');
           }
-          do_action('wpfunos_log', $userIP.' - '.'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcov2usuario' ) ) );
-          do_action('wpfunos_log', $userIP.' - '.'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccv2usuario' ) ) );
+          do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
           do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $userIP );
           do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $wpfnombre );
           do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $wpfnewref );
@@ -1681,6 +1703,7 @@ class Wpfunos_ServiciosV3 {
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
 
       if( get_option('wpfunos_activarCorreoBoton1v2Admin') ){
+        unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1v2Admin'), get_option('wpfunos_asuntoCorreoBoton1v2Admin') );
 
@@ -1720,13 +1743,13 @@ class Wpfunos_ServiciosV3 {
         }
         update_post_meta( $post_id, 'wpfunos_userLead', true );
 
-        do_action('wpfunos_log', $userIP.' - '.'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoBoton1v2Admin' ) ) );
-        do_action('wpfunos_log', $userIP.' - '.'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccBoton1v2Admin' ) ) );
+        do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
         do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       }
       if( get_option('wpfunos_activarCorreoBoton1v2usuario') ){
+        unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1v2usuario'), get_option('wpfunos_asuntoCorreoBoton1v2usuario') );
 
@@ -1765,8 +1788,7 @@ class Wpfunos_ServiciosV3 {
           $headers[]   = 'Reply-To: Clientes Funos <clientes@funos.es>';
           do_action('wpfunos_log', $userIP.' - '.'Enviado correo usuario ' . $transient_ref['wpfe'] );
         }
-        do_action('wpfunos_log', $userIP.' - '.'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoBoton1v2usuario' ) ) );
-        do_action('wpfunos_log', $userIP.' - '.'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccBoton1v2usuario' ) ) );
+        do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
         do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
@@ -1908,6 +1930,7 @@ class Wpfunos_ServiciosV3 {
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
 
       if( get_option('wpfunos_activarCorreoBoton2v2Admin') ){
+        unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2v2Admin'), get_option('wpfunos_asuntoCorreoBoton2v2Admin') );
 
@@ -1947,14 +1970,14 @@ class Wpfunos_ServiciosV3 {
         //
         update_post_meta( $post_id, 'wpfunos_userLead', true );
 
-        do_action('wpfunos_log', $userIP.' - '.'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoBoton2v2Admin' ) ) );
-        do_action('wpfunos_log', $userIP.' - '.'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccBoton2v2Admin' ) ) );
+        do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
         do_action('wpfunos_log', $userIP.' - '.'userIP: ' . "IP" );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
 
       }
       if( get_option('wpfunos_activarCorreoBoton2v2usuario') ){
+        unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2v2usuario'), get_option('wpfunos_asuntoCorreoBoton2v2usuario') );
 
@@ -1993,8 +2016,7 @@ class Wpfunos_ServiciosV3 {
           do_action('wpfunos_log', $userIP.' - '.'Enviado correo usuario ' .  $transient_ref['wpfe'] );
         }
         //
-        do_action('wpfunos_log', $userIP.' - '.'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoBoton2v2usuario' ) ) );
-        do_action('wpfunos_log', $userIP.' - '.'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccBoton2v2usuario' ) ) );
+        do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
         do_action('wpfunos_log', $userIP.' - '.'userIP: ' . "IP" );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
@@ -2027,7 +2049,7 @@ class Wpfunos_ServiciosV3 {
     $precio = $_POST['precio'];
     $mensajeusuario = $_POST['mensaje'];
     //  EBG 03-11-22
-    $nombre = $_POST['nombre'];
+0    $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     //
@@ -2133,13 +2155,14 @@ class Wpfunos_ServiciosV3 {
 
       $userIP = apply_filters('wpfunos_userIP','dummy');
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Botón Prdir presupuesto' );
+      do_action('wpfunos_log', $userIP.' - '.'Botón Pedir presupuesto' );
       do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $transient_ref['wpfn'] );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
 
       if( get_option('wpfunos_activarCorreoPresupuestoLead') ){
+        unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestoLead'), get_option('wpfunos_asuntoCorreoPresupuestoLead') );
 
@@ -2178,14 +2201,14 @@ class Wpfunos_ServiciosV3 {
         }
         update_post_meta( $post_id, 'wpfunos_userLead', true );
 
-        do_action('wpfunos_log', $userIP.' - '.'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoPresupuestoLead' ) ) );
-        do_action('wpfunos_log', $userIP.' - '.'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ) );
+        do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
         do_action('wpfunos_log', $userIP.' - '.'userIP: ' . "IP" );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $transient_ref['wpfref'] );
 
       }
       if( get_option('wpfunos_activarCorreoPresupuestousuario') ){
+        unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestousuario'), get_option('wpfunos_asuntoCorreoPresupuestousuario') );
 
@@ -2224,8 +2247,7 @@ class Wpfunos_ServiciosV3 {
           do_action('wpfunos_log', $userIP.' - '.'Enviado correo pedir presupuesto usuario ' . $transient_ref['wpfe'] );
         }
 
-        do_action('wpfunos_log', $userIP.' - '.'Enviado CCO ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoCcoPresupuestousuario' ) ) );
-        do_action('wpfunos_log', $userIP.' - '.'Enviado BCC ' . apply_filters('wpfunos_dumplog', get_option('wpfunos_mailCorreoBccPresupuestousuario' ) ) );
+        do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
         do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $userIP );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $transient_ref['wpfref'] );
@@ -2409,6 +2431,14 @@ class Wpfunos_ServiciosV3 {
     $result['valor_distancia'] = $distancia ;
     $result['valor_logo_confirmado'] = wp_get_attachment_image ( 83459 , array(66,66));
     $result['comentarios'] = $comentarios;
+
+    $result['wpfid'] = $servicio;
+    $result['wpfn'] = $wpnonce;
+    $result['wpfp'] = $precio;
+    $result['wpftitulo'] = $titulo;
+    $result['wpfdistancia'] = $distancia;
+    $result['wpftelefono'] = $telefonoservicio;
+
     $result = json_encode($result);
     echo $result;
     // don't forget to end your scripts with a die() function - very important
@@ -2557,6 +2587,7 @@ class Wpfunos_ServiciosV3 {
       //
       // FIN aviso WPML
 
+      unset($headers);
       $headers[] = 'Content-Type: text/html; charset=UTF-8';
       $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoUsuarioDetalles'), get_option('wpfunos_asuntoCorreoUsuarioDetalles') );
 

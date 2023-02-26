@@ -68,7 +68,7 @@ class Wpfunos_Visitas {
       <h3><?php esc_html_e( 'WpFunos', 'wpfunos' )?></h3>
       <div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
       <div>
-        <strong>Total: </strong><?php echo count( $todos ); ?>
+        <strong>Total: </strong><?php echo number_format_i18n ( count( $todos ) ); ?>
       </div>
       <div id="visitas_list_table">
         <div id="visitas_list_tablet-body">

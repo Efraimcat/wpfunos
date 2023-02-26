@@ -167,7 +167,7 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
   */
   public function column_default( $item, $column_name ) {
     switch ( $column_name ) {
-      case 'referer': return substr( $item[$column_name],0,12 );
+      case 'referer': return substr( $item[$column_name],0,50 );
       //		case 'user_registered':
       //		case 'ID':
       //			return $item[$column_name];
