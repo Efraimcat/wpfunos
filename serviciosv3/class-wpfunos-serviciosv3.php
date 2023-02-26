@@ -1191,38 +1191,6 @@ class Wpfunos_ServiciosV3 {
     return $contador;
   }
 
-  /**
-  * Filtro indeseados
-  */
-  //public function wpfunosServiciosv2Indeseados( $email, $tel ){
-  //  if (  "652552825" == $tel || "luisa_stfost87@hotmail.com" == $email || "630 06 96 01"  == $tel || "630069601"  == $tel || "+34630069601"  == $tel || "654 78 39 12"  == $tel || "654783912"  == $tel || "+34654783912"  == $tel || "657 70 75 20"  == $tel || "657707520"  == $tel || "+34657707520"  == $tel || "uy@gmail.com" == $email || "659 87 77 76"  == $tel || "659877776"  == $tel || "+34659877776"  == $tel || "679 16 43 46"  == $tel || "679164346"  == $tel || "+34679164346"  == $tel         || "768 54 63 45"  == $tel || "768546345"  == $tel || "+34768546345"  == $tel || "650 20 50 08"  == $tel || "650205008"  == $tel || "+34650205008"  == $tel){
-
-  //    $log = (is_user_logged_in()) ? 'logged' : 'not logged';
-  //    $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
-  //    do_action('wpfunos_log', '==============' );
-  //    do_action('wpfunos_log', $userIP.' - '.'Entrada no deseada' );
-  //    do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-  //    do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-  //    do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-  //    do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
-  //    do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
-  //    do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-  //    do_action('wpfunos_log', $userIP.' - '.'Teléfono: ' . $tel);
-  //    do_action('wpfunos_log', $userIP.' - '.'E-mail: ' . $mail);
-
-
-  //    $result['type'] = "unwanted";
-  //    $result = json_encode($result);
-  //    echo $result;
-  //    // don't forget to end your scripts with a die() function - very important
-  //    die();
-  //  }
-  //}
-
-
-  //include 'class-wpfunos-serviciosv3-AJAX.php';
-
-
   /*********************************/
   /*****  AJAX                ******/
   /*********************************/
@@ -2049,7 +2017,7 @@ class Wpfunos_ServiciosV3 {
     $precio = $_POST['precio'];
     $mensajeusuario = $_POST['mensaje'];
     //  EBG 03-11-22
-0    $nombre = $_POST['nombre'];
+    $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     //
