@@ -25,6 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 * 8 - Usuario pide presupuesto aseguradoras
 * 9 - Usuario pide correo detalles
 */
+
+//require_once 'class-wpfunos-public-form-validation.php';
+
 class Wpfunos_Public {
 
   private $plugin_name;
@@ -42,6 +45,8 @@ class Wpfunos_Public {
     add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
 
     add_action( 'wpfunos-visitas-entrada', array( $this, 'wpfunosVisitasEntrada' ), 10, 1 );
+
+    //$this->wpfunos_public_form_validation = new class Wpfunos_Public_Form_Validation();
   }
 
   /**
@@ -197,6 +202,11 @@ class Wpfunos_Public {
   /*****  HOOKS               ******/
   /*********************************/
 
+
+
+
+
+
   /**
   * Hook Elementor Form Validate entry
   *
@@ -320,6 +330,10 @@ class Wpfunos_Public {
     }
     return current( $fields );
   }
+
+
+
+
 
   /**
   * Hook Elementor Form New Record

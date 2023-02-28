@@ -331,7 +331,7 @@ $(document).ready(function(){
       elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_01') ].showModal(); //Servicios Enviar Email
       $('#wpfunos-modal-email-email').html( $('#wpf-resultados-referencia').attr('wpfemail') );
 
-      jQuery.ajax({
+      $.ajax({
         type : 'post',
         dataType : 'json',
         url : WpfAjax.ajaxurl,

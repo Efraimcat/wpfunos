@@ -2,93 +2,70 @@ $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
 
-    if( document.getElementById('wpf-v3-colab-nom')){
+    if( $('#wpf-v3-colab-nom').length != 0  ){
       console.log('Plantilla Colaborador');
 
-      document.getElementById('wpf-v3-colab-nom').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfcolabnombre');
-      document.getElementById('wpf-v3-colab-mail').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfcolabemail');
-      document.getElementById('wpf-v3-colab-tel').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfcolabtelefono');
+      $('#wpf-v3-colab-nom').html($('#wpf-resultados-referencia').attr('wpfcolabnombre'));
+      $('#wpf-v3-colab-mail').html($('#wpf-resultados-referencia').attr('wpfcolabemail'));
+      $('#wpf-v3-colab-tel').html($('#wpf-resultados-referencia').attr('wpfcolabtelefono'));
 
-      document.getElementById('wpf-v3-usuario-nom').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfusuarionombre');
-      document.getElementById('wpf-v3-usuario-mail').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfusuarioemail');
-      document.getElementById('wpf-v3-usuario-tel').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfusuariotelefono');
+      $('#wpf-v3-usuario-nom').html($('#wpf-resultados-referencia').attr('wpfusuarionombre'));
+      $('#wpf-v3-usuario-mail').html($('#wpf-resultados-referencia').attr('wpfusuarioemail'));
+      $('#wpf-v3-usuario-tel').html($('#wpf-resultados-referencia').attr('wpfusuariotelefono'));
 
-      document.getElementById('wpf-v3-actual-nom').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
-      document.getElementById('wpf-v3-actual-mail').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
-      document.getElementById('wpf-v3-actual-tel').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
+      $('#wpf-v3-actual-nom').html($('#wpf-resultados-referencia').attr('wpfnombre'));
+      $('#wpf-v3-actual-mail').html($('#wpf-resultados-referencia').attr('wpfemail'));
+      $('#wpf-v3-actual-tel').html($('#wpf-resultados-referencia').attr('wpftelefono'));
 
-      document.getElementById('wpf-v3-colab-boton').addEventListener('click', function(){
-        document.getElementById('wpf-v3-actual-nom').innerHTML = document.getElementById('wpf-v3-colab-nom').innerHTML;
-        document.getElementById('wpf-v3-actual-mail').innerHTML = document.getElementById('wpf-v3-colab-mail').innerHTML;
-        document.getElementById('wpf-v3-actual-tel').innerHTML = document.getElementById('wpf-v3-colab-tel').innerHTML;
-        document.getElementById('wpf-resultados-referencia').setAttribute('wpfnombre', document.getElementById('wpf-v3-actual-nom').innerHTML);
-        document.getElementById('wpf-resultados-referencia').setAttribute('wpfemail', document.getElementById('wpf-v3-actual-mail').innerHTML);
-        document.getElementById('wpf-resultados-referencia').setAttribute('wpftelefono', document.getElementById('wpf-v3-actual-tel').innerHTML);
-      } , false);
 
-      document.getElementById('wpf-v3-usuario-boton').addEventListener('click', function(){
-        document.getElementById('wpf-v3-actual-nom').innerHTML = document.getElementById('wpf-v3-usuario-nom').innerHTML;
-        document.getElementById('wpf-v3-actual-mail').innerHTML = document.getElementById('wpf-v3-usuario-mail').innerHTML;
-        document.getElementById('wpf-v3-actual-tel').innerHTML = document.getElementById('wpf-v3-usuario-tel').innerHTML;
-        document.getElementById('wpf-resultados-referencia').setAttribute('wpfnombre', document.getElementById('wpf-v3-actual-nom').innerHTML);
-        document.getElementById('wpf-resultados-referencia').setAttribute('wpfemail', document.getElementById('wpf-v3-actual-mail').innerHTML);
-        document.getElementById('wpf-resultados-referencia').setAttribute('wpftelefono', document.getElementById('wpf-v3-actual-tel').innerHTML);
-      } , false);
+      $('#wpf-v3-colab-boton').click( function(){
+        $('#wpf-v3-actual-nom').html($('#wpf-v3-colab-nom').html());
+        $('#wpf-v3-actual-mail').html($('#wpf-v3-colab-mail').html());
+        $('#wpf-v3-actual-tel').html($('#wpf-v3-colab-tel').html());
+        $('#wpf-resultados-referencia').attr( { wpfnombre: $('#wpf-v3-actual-nom').html(), wpfemail: $('#wpf-v3-actual-mail').html(), wpftelefono: $('#wpf-v3-actual-tel').html() } );
+      });
 
-      document.getElementById('wpf-v3-usuario-edit-boton').addEventListener('click', function(){
+      $('#wpf-v3-usuario-boton').click( function(){
+        $('#wpf-v3-actual-nom').html($('#wpf-v3-usuario-nom').html());
+        $('#wpf-v3-actual-mail').html($('#wpf-v3-usuario-mail').html());
+        $('#wpf-v3-actual-tel').html($('#wpf-v3-usuario-tel').html());
+        $('#wpf-resultados-referencia').attr( { wpfnombre: $('#wpf-v3-actual-nom').html(), wpfemail: $('#wpf-v3-actual-mail').html(), wpftelefono: $('#wpf-v3-actual-tel').html() } );
+      });
+
+      $('#wpf-v3-usuario-edit-boton').click( function(){
         setTimeout(function(){
           console.log('Botón editar usuario');
-          document.getElementById('form-field-Nombre').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpfusuarionombre');
-          document.getElementById('form-field-Email').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpfusuarioemail');
-          document.getElementById('form-field-Telefono').value = document.getElementById('wpf-resultados-referencia').getAttribute('wpfusuariotelefono');
-
-          document.getElementById('wpfunos-v3-boton-colaborador-datos').addEventListener('click', function(){
+          $('#form-field-Nombre').val($('#wpf-resultados-referencia').attr('wpfusuarionombre'));
+          $('#form-field-Email').val($('#wpf-resultados-referencia').attr('wpfusuarioemail'));
+          $('#form-field-Telefono').val($('#wpf-resultados-referencia').attr('wpfusuariotelefono'));
+          $('#wpfunos-v3-boton-colaborador-datos').click( function(){
             console.log('Botón cambiar editar usuario');
-
-            document.getElementById('wpf-resultados-referencia').setAttribute('wpfusuarionombre', document.getElementById('form-field-Nombre').value);
-            document.getElementById('wpf-v3-usuario-nom').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfusuarionombre');
-
-            document.getElementById('wpf-resultados-referencia').setAttribute('wpfusuarioemail', document.getElementById('form-field-Email').value);
-            document.getElementById('wpf-v3-usuario-mail').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfusuarioemail');
-
-            document.getElementById('wpf-resultados-referencia').setAttribute('wpfusuariotelefono', document.getElementById('form-field-Telefono').value);
-            document.getElementById('wpf-v3-usuario-tel').innerHTML = document.getElementById('wpf-resultados-referencia').getAttribute('wpfusuariotelefono');
-          } , false);
-
+            $('#wpf-resultados-referencia').attr( { wpfusuarionombre: $('#form-field-Nombre').val(), wpfusuarioemail: $('#form-field-Email').val(), wpfusuariotelefono: $('#form-field-Telefono').val() } );
+            $('#wpf-v3-usuario-nom').html( $('#wpf-resultados-referencia').attr('wpfusuarionombre'));
+            $('#wpf-v3-usuario-mail').html( $('#wpf-resultados-referencia').attr('wpfusuarioemail'));
+            $('#wpf-v3-usuario-tel').html( $('#wpf-resultados-referencia').attr('wpfusuariotelefono'));
+          });
         }, 200); //timeout 200ms
 
-      } , false);
-
-      document.getElementById('wpf-v3-usuario-salvar-boton').addEventListener('click', function(){
+      });
+      $('#wpf-v3-usuario-salvar-boton').click( function(){
         setTimeout(function(){
           console.log('Botón nuevos datos de usuario');
-          document.getElementById('wpfunos-v3-boton-colaborador-guardar-datos').addEventListener('click', function(){
-            var acepta = document.getElementById('form-field-aceptacion').validity.valueMissing;  //(true = no ha validado  false = ha validado)
-            if( !acepta ){
-
+          $('#wpfunos-v3-boton-colaborador-guardar-datos').click( function(){
+            if(  $('#form-field-aceptacion').prop('checked') ){
               console.log('Botón cambiar datos de usuario');
-
-              var nombre = document.getElementById('wpf-resultados-referencia').getAttribute('wpfnombre');
-              var email = document.getElementById('wpf-resultados-referencia').getAttribute('wpfemail');
-              var phone = document.getElementById('wpf-resultados-referencia').getAttribute('wpftelefono');
-              var idusuario = document.getElementById('wpf-resultados-referencia').getAttribute('wpfidusuario');
-              var wpnonce = document.getElementById('wpf-resultados-referencia').getAttribute('wpfn');
-              var firma = document.getElementById('wpf-resultados-referencia').getAttribute('wpfcolabemail');
-
-              console.log( 'nombre: ' +nombre+ ' email: ' +email+ ' phone: ' +phone+ ' idusuario: ' +idusuario );
-
-              jQuery.ajax({
+              $.ajax({
                 type : 'post',
                 dataType : 'json',
                 url : WpfAjax.ajaxurl,
                 data: {
                   'action': 'wpfunos_ajax_v3_cambiar_datos_usuario',
-                  'wpnonce': wpnonce,
-                  'nombre' : nombre,
-                  'email' : email,
-                  'phone' : phone,
-                  'idusuario': idusuario,
-                  'firma': firma,
+                  'wpnonce': $('#wpf-resultados-referencia').attr('wpfn'),
+                  'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
+                  'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
+                  'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
+                  'idusuario': $('#wpf-resultados-referencia').attr('wpfidusuario'),
+                  'firma': $('#wpf-resultados-referencia').attr('wpfcolabemail'),
                 },
                 success: function(response) {
                   console.log('wpfunos_ajax_v3_cambiar_datos_usuario response:');
@@ -99,16 +76,11 @@ $(document).ready(function(){
                     console.log('fail');
                   }
                 }
-              });
-
+              }); // END AJAX
             }
-
-          } , false);
-
+          }); // END CLICK
         }, 200); //timeout 200ms
-      } , false);
-
-    }
-
+      }); // END CLICK
+    }// END if( $('#wpf-v3-colab-nom').length != 0  )
   });
 });
