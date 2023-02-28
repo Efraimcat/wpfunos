@@ -20,7 +20,6 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
   public function __construct( ) {
     add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
 
-
   }
 
   /**
@@ -131,11 +130,7 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
         $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: BLOQUEADO' );
       }
-
     }
-
-    //
-
     do_action('wpfunos_log', $userIP.' - '.'Validación formulario: FINAL' );
   }
 

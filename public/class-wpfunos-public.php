@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * 9 - Usuario pide correo detalles
 */
 
-//require_once 'class-wpfunos-public-form-validation.php';
+require_once 'class-wpfunos-public-form-validation.php';
 
 class Wpfunos_Public {
 
@@ -42,11 +42,10 @@ class Wpfunos_Public {
     add_shortcode( 'wpfunos-mensaje-usuario-correo-popup', array( $this, 'wpfunosCorreoUsuarioPopupShortcode' ));
     add_shortcode( 'wpfunos-mensaje-usuario-datos-servicio', array( $this, 'wpfunosCorreoUsuarioDatosServicoShortcode' ));
     add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
-    add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
 
     add_action( 'wpfunos-visitas-entrada', array( $this, 'wpfunosVisitasEntrada' ), 10, 1 );
 
-    //$this->wpfunos_public_form_validation = new class Wpfunos_Public_Form_Validation();
+    $this->form_validation = new Wpfunos_Public_Form_Validation();
   }
 
   /**
@@ -201,139 +200,6 @@ class Wpfunos_Public {
   /*********************************/
   /*****  HOOKS               ******/
   /*********************************/
-
-
-
-
-
-
-  /**
-  * Hook Elementor Form Validate entry
-  *
-  * add_action( 'elementor_pro/forms/validation', array( $this, 'wpfunosFormValidation' ), 10, 2 );
-  *
-  * #13-Feb-2022 13:26:43: $field:
-  * [id] = String: 'nacimiento'
-  * [type] = String: 'text'
-  * [title] = String: 'Año de nacimiento'
-  * [value] = Number: 1957
-  * [raw_value] = Number: 1957
-  * [required] = TRUE
-  *
-  * https://dev.to/renzoster/validate-form-fields-in-elementor-54cl
-  *
-  *  https://developers.elementor.com/forms-api/
-  *
-  */
-  public function wpfunosFormValidation($record, $ajax_handler){
-    $form_name = $record->get_form_settings( 'form_name' );
-    $userIP = apply_filters('wpfunos_userIP','dummy');
-    do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', $userIP.' - '.'Validación formulario: '. $form_name );
-
-    // Aseguradoras
-
-    if( "FormularioDatosAseguradora" === $form_name ){
-      if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
-        if( (int)$field['value'] < date("Y") - 100 || (int)$field['value'] > date("Y") - 18 ){
-          $ajax_handler->add_error( $field['id'], esc_html__('Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990', 'wpfunos_es') );
-        }
-      }
-    }
-
-    //Email aseguradoras
-    //email landings
-    //Email multistep
-    //emailasesor AsesoramientoGratuito
-    //email te llamamos gratis
-    //
-    //https://isitarealemail.com/getting-started/api
-    //
-    if( $field = $this->wpfunos_elementor_get_field( 'email', $record ) ){
-      do_action('wpfunos_log', $userIP.' - '.'Validación email ' .$field['value'] );
-
-      $email  = explode('@', $field['value']);
-      $user   = $email[0];
-      $domain = $email[1];
-
-      if (!filter_var( $field['value'], FILTER_VALIDATE_EMAIL )) {
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (nombre)' );
-      }
-
-      if( count($email) !== 2 || empty($user) || empty($domain) || !checkdnsrr($domain, 'MX') ){
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (dns)' );
-      }
-
-      if ( 'clientes@funos.es' == $field['value']) {
-        //  $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
-        //  do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (clientes)' );
-      }
-
-      $request_context = stream_context_create( array( 'http' => array( 'header'  => "Authorization: Bearer " . 'c6a7df9e-a854-48a6-a555-79c6fdcdf47d' ) ));
-      $result_json = file_get_contents("https://isitarealemail.com/api/email/validate?email=" . $field['value'], false, $request_context);
-
-      if (json_decode($result_json, true)['status'] == "invalid") {
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (Real Email)' );
-      }
-
-      if ( 'arjona400@gmail.com' == $field['value']) {
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (clientes)' );
-      }
-
-    }
-
-    // TELEFONO
-    //
-    if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
-      do_action('wpfunos_log', $userIP.' - '.'Validación teléfono ' .$field['value'] );
-
-      $telefono = str_replace(" ","", $field['value'] );
-      $telefono = str_replace("-","",$telefono);
-      $telefono = str_replace("+34","",$telefono);
-
-      $res = preg_replace("/[^0-9]/", "", $telefono );
-      if( strlen($res) < 6 ){
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO (no numérico)' );
-      }
-
-      if( '666666666' == $telefono || '600000000' == $telefono || '999999999' == $telefono ){
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO' );
-      }
-
-      //if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $telefono ) ) {
-      //  $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-      //  do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO' );
-      //}
-
-      if( apply_filters('wpfunos_bloqueo_numeros',$telefono) ){
-        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-        do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: BLOQUEADO' );
-      }
-
-    }
-
-    //
-
-    do_action('wpfunos_log', $userIP.' - '.'Validación formulario: FINAL' );
-  }
-
-  public function wpfunos_elementor_get_field( $id, $record ){
-    $fields = $record->get_field( [ 'id' => $id, ] );
-    if ( empty( $fields ) ) {
-      return false;
-    }
-    return current( $fields );
-  }
-
-
-
-
 
   /**
   * Hook Elementor Form New Record
@@ -576,72 +442,6 @@ class Wpfunos_Public {
     //}
   }
 
-  /**
-  * Hook Entrada db wpf_visitas
-  *
-  * add_action( 'wpfunos-visitas-entrada', array( $this, 'wpfunosVisitasEntrada' ), 10, 1 );
-
-  *do_action('wpfunos-visitas-entrada',array(
-  *  'tipo' => '',
-  *  'nombre' => '',
-  *  'email' => '',
-  *  'telefono' => '',
-  *  'wpfresp1' => '',
-  *  'wpfresp2' => '',
-  *  'wpfresp3' => '',
-  *  'wpfresp4' => '',
-  *  'postID' => '',
-  *  'servicio' => '',
-  *  'poblacion' => '',
-  *  'nacimiento' => '',
-  *  'cuando' => '',
-  *  'cp' => '',
-  *) );
-
-  * tipo:
-  * 1 Entrada página ubicación aseguradoras
-  * 2 Entrada datos usuario aseguradoras
-  * 3 Entrada página ubicación servicios
-  * 4 Entrada directa página servicios
-  * 5 Entrada datos usuario servicios
-
-  *id mediumint(9) NOT NULL AUTO_INCREMENT,
-  *time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-  *version tinytext DEFAULT '' NOT NULL,
-  *tipo tinytext DEFAULT '' NOT NULL,
-  *wpfn tinytext DEFAULT '' NOT NULL,
-  *wpfe tinytext DEFAULT '' NOT NULL,
-  *wpft tinytext DEFAULT '' NOT NULL,
-  *nombre tinytext DEFAULT '' NOT NULL,
-  *email tinytext DEFAULT '' NOT NULL,
-  *telefono tinytext DEFAULT '' NOT NULL,
-  *ip tinytext DEFAULT '' NOT NULL,
-  *referer varchar(250) DEFAULT '' NOT NULL,
-  *mobile tinytext DEFAULT '' NOT NULL,
-  *logged tinytext DEFAULT '' NOT NULL,
-  *wpfresp1 tinytext DEFAULT '' NOT NULL,
-  *wpfresp2 tinytext DEFAULT '' NOT NULL,
-  *wpfresp3 tinytext DEFAULT '' NOT NULL,
-  *wpfresp4 tinytext DEFAULT '' NOT NULL,
-  *postID tinytext DEFAULT '' NOT NULL,
-  *servicio tinytext DEFAULT '' NOT NULL,
-  *poblacion varchar(50) DEFAULT '' NOT NULL,
-  *nacimiento tinytext DEFAULT '' NOT NULL,
-  *cuando tinytext DEFAULT '' NOT NULL,
-  *cp tinytext DEFAULT '' NOT NULL,
-  *contador int(10),
-  *
-  *
-  *$wpdb->insert(
-  *	$table_name,
-  *	array(
-  *		'time' => current_time( 'mysql' ),
-  *		'name' => $welcome_name,
-  *		'text' => $welcome_text,
-  *	)
-  *);
-  *
-  */
   public function wpfunosVisitasEntrada($record){
     if( !isset ( $record['tipo'] ) ) return;
 
