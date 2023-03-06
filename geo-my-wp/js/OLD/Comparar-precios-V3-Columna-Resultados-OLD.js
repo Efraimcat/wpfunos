@@ -89,19 +89,44 @@ $(document).ready(function(){
     //
     //
     var wpfFunctionPresupuesto = function() {
-      console.log('Botón Presupuesto: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
+      //console.log('Botón Presupuesto: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
 
-      elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_03') ].showModal(); //56676 - Servicio Presupuesto
+      //elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_03') ].showModal(); //56676 - Servicio Presupuesto
+
+      //var checkExist = setInterval(function() {
+      //  if( $('#wpfunos-modal-presupuesto-nombre').length != 0 ){
+      //    clearInterval(checkExist);
+      //    $('#wpfunos-modal-presupuesto-nombre').html( $(this).attr('wpftitulo') );
+      //    $('#botonEnviarPresupuesto').attr('wpfn', $(this).attr('wpfn') );
+      //    $('#botonEnviarPresupuesto').attr('wpfid', $(this).attr('wpfid') );
+      //    $('#botonEnviarPresupuesto').attr('wpfp', $(this).attr('wpfp') );
+      //    $('#botonEnviarPresupuesto').attr('wpftitulo', $(this).attr('wpftitulo') );
+      //    $('#botonEnviarPresupuesto').click( wpfFunctionEnviaPresupuesto );
+      //  }
+      //}, 100); // check every 100ms
+
+      var wpnonce = this.getAttribute('wpfn');
+      var servicio = this.getAttribute('wpfid');
+      var precio = this.getAttribute('wpfp');
+      var titulo = this.getAttribute('wpftitulo');
+
+      var obj_id_03 = getCookie('wpf_obj_id_03');//56676 -Servicios Llamar
+
+      console.log('Botón Presupuesto: Servicio: '+servicio+' Título: '+titulo );
+
+      // WPML
+      elementorFrontend.documentsManager.documents[obj_id_03].showModal(); //56676 - Servicio Presupuesto
+      // WPML
 
       var checkExist = setInterval(function() {
-        if( $('#wpfunos-modal-presupuesto-nombre').length != 0 ){
+        if( document.getElementById('wpfunos-modal-presupuesto-nombre') != null ){
           clearInterval(checkExist);
-          $('#wpfunos-modal-presupuesto-nombre').html( $(this).attr('wpftitulo') );
-          $('#botonEnviarPresupuesto').attr('wpfn', $(this).attr('wpfn') );
-          $('#botonEnviarPresupuesto').attr('wpfid', $(this).attr('wpfid') );
-          $('#botonEnviarPresupuesto').attr('wpfp', $(this).attr('wpfp') );
-          $('#botonEnviarPresupuesto').attr('wpftitulo', $(this).attr('wpftitulo') );
-          $('#botonEnviarPresupuesto').click( wpfFunctionEnviaPresupuesto );
+          document.getElementById('wpfunos-modal-presupuesto-nombre').innerHTML = titulo;
+          document.getElementById('botonEnviarPresupuesto').setAttribute('wpfn', wpnonce );
+          document.getElementById('botonEnviarPresupuesto').setAttribute('wpfid', servicio );
+          document.getElementById('botonEnviarPresupuesto').setAttribute('wpfp', precio );
+          document.getElementById('botonEnviarPresupuesto').setAttribute('wpftitulo', titulo );
+          document.getElementById('botonEnviarPresupuesto').addEventListener('click', wpfFunctionEnviaPresupuesto, false);
         }
       }, 100); // check every 100ms
     };
@@ -331,7 +356,7 @@ $(document).ready(function(){
       elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_01') ].showModal(); //Servicios Enviar Email
       $('#wpfunos-modal-email-email').html( $('#wpf-resultados-referencia').attr('wpfemail') );
 
-      $.ajax({
+      jQuery.ajax({
         type : 'post',
         dataType : 'json',
         url : WpfAjax.ajaxurl,

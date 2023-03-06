@@ -219,7 +219,7 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
       $tipos = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT tipo FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY tipo ASC" ));
       $mobiles = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT mobile FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY mobile ASC" ));
       $loggeds = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT logged FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY logged ASC" ));
-      $ips = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT ip FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY ip ASC" ));
+      $ips = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT ip FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY INET_ATON(ip)" ));
 
       $m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
       $d = isset( $_GET['d'] ) ? (int) $_GET['d'] : 0;

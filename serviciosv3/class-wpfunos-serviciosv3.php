@@ -360,7 +360,10 @@ class Wpfunos_ServiciosV3 {
         $IDusuario = apply_filters('wpfunos_userID', $wpfwpf );
 
         ?><script>console.log('Verificaciones entrada: SI tiene código wpf: <?php  echo $wpfwpf; ?> => <?php  echo $IDusuario; ?>' );</script><?php
+        // Comprobar cambios en URL
 
+
+        // END Comprobar cambios en URL
         if( apply_filters('wpfunos_email_colaborador','Verificaciones entrada: SI tiene código wpf') ){  // usuario colaborador. Tomamos los datos de usuario de la entrada wpf
 
           ?><script>console.log('Verificaciones entrada: Colaborador');</script><?php
