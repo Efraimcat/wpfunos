@@ -175,12 +175,9 @@ class Wpfunos_ServiciosV3 {
   */
   public function wpfunosV3ResultadosShortcode($atts, $content = ""){
     if( count($_GET) > 0 ){
-
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&land=1
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&wpfwpf=a3Q0Uld1M0RxY1RSTjcrMStLT3VadzZsSm45RGpnRHhXSHM2elhTZlJrbz0=
-      ?><script>console.log('Cargando popups Elementor.' );</script><?php
-
-      // WPML
+      /**?><script>console.log('Cargando popups Elementor.' );</script><?php **/
       $expiry = strtotime('+1 month');
       if (isset($_COOKIE['wp-wpml_current_language'])){
         setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
@@ -238,9 +235,9 @@ class Wpfunos_ServiciosV3 {
       ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_15'] ); //Servicios cambiar distancia V3
       // WPML
 
-      ?><script>console.log('Cargando popups Elementor END.' );</script><?php
+      /**?><script>console.log('Cargando popups Elementor END.' );</script><?php**/
 
-      ?><script>console.log('Comprobando direcciones especiales.' );</script><?php
+      /**?><script>console.log('Comprobando direcciones especiales.' );</script><?php**/
 
       // Excepción provincia
       $provincia_excepcion = 0;
@@ -285,16 +282,10 @@ class Wpfunos_ServiciosV3 {
         <?php
         return;
       }
-      ?><script>console.log('Comprobando direcciones especiales END.' );</script><?php
+      /**?><script>console.log('Comprobando direcciones especiales END.' );</script><?php **/
       // END Excepción provincia
-      // Servicios directos - sin velatorio - sin sala -
-      ?><script>console.log('Comprobando Servicios directos.' );</script><?php
-
-      ?><script>console.log('Comprobando Servicios directos END.' );</script><?php
-      // END Servicios directos - sin velatorio - sin sala -
-      // Comprobar cookies
       // cookielawinfo-checkbox-functional = yes
-      ?><script>console.log('Comprobando Cookies.' );</script><?php
+      /**?><script>console.log('Comprobando Cookies.' );</script><?php**/
       $expiry = strtotime('+1 month');
       if (is_user_logged_in()){
         $current_user = wp_get_current_user();
@@ -318,12 +309,12 @@ class Wpfunos_ServiciosV3 {
           $_GET['nombreUsuario'] = '';
         }
       }
-      ?><script>console.log('Comprobando Cookies END.' );</script><?php
+      /**?><script>console.log('Comprobando Cookies END.' );</script><?php**/
       // End Comprobar cookies
 
       // wpfunos-visitas-entrada
       if( isset($_GET['land']) && !isset($_GET['wpfwpf']) ){
-        ?><script>console.log('Entrada directa landing.' );</script><?php
+        /** ?><script>console.log('Entrada directa landing.' );</script><?php **/
         $cp = $_GET['CP'];
         $CP = $this->wpfunosCodigoPostal( $cp, $address );
         $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
@@ -349,24 +340,24 @@ class Wpfunos_ServiciosV3 {
       if( !isset($_GET['land']) ){ $_GET['land']=''; }
 
       // No tiene wpfwpf
-      ?><script>console.log('Comprobando tiene wpfwpf.' );</script><?php
+      /**?><script>console.log('Comprobando tiene wpfwpf.' );</script><?php**/
       if( !isset( $_GET['wpfwpf'] ) ) {
 
-        ?><script>console.log('Verificaciones entrada: NO tiene código wpf' );</script><?php
+        /** ?><script>console.log('Verificaciones entrada: NO tiene código wpf' );</script><?php **/
 
       }else{
 
         $wpfwpf = apply_filters( 'wpfunos_crypt', $_GET['wpfwpf'], 'd' );
         $IDusuario = apply_filters('wpfunos_userID', $wpfwpf );
 
-        ?><script>console.log('Verificaciones entrada: SI tiene código wpf: <?php  echo $wpfwpf; ?> => <?php  echo $IDusuario; ?>' );</script><?php
+        /** ?><script>console.log('Verificaciones entrada: SI tiene código wpf: <?php  echo $wpfwpf; ?> => <?php  echo $IDusuario; ?>' );</script><?php **/
         // Comprobar cambios en URL
 
 
         // END Comprobar cambios en URL
         if( apply_filters('wpfunos_email_colaborador','Verificaciones entrada: SI tiene código wpf') ){  // usuario colaborador. Tomamos los datos de usuario de la entrada wpf
 
-          ?><script>console.log('Verificaciones entrada: Colaborador');</script><?php
+          /** ?><script>console.log('Verificaciones entrada: Colaborador');</script><?php **/
           $Tienewpfwpf = 1;
 
           if( $IDusuario == 0 ) {
@@ -381,11 +372,11 @@ class Wpfunos_ServiciosV3 {
 
         }elseif( $IDusuario == 0 ) {  // tiene código pero no existe.
 
-          ?><script>console.log('Verificaciones entrada: Codigo wpf INCORRECTO');</script><?php
+          /** ?><script>console.log('Verificaciones entrada: Codigo wpf INCORRECTO');</script><?php **/
 
         }else{  // es un usuario normal
 
-          ?><script>console.log('Verificaciones entrada: Usuario');</script><?php
+          /** ?><script>console.log('Verificaciones entrada: Usuario');</script><?php **/
 
           if( $_COOKIE['wpfn'] != '' ) { // tenemos sus datos
             /** ?><script>console.log('Verificaciones entrada: Usuario con cookies');</script><?php **/
@@ -400,10 +391,10 @@ class Wpfunos_ServiciosV3 {
         }
 
       }
-      ?><script>console.log('Comprobando tiene wpfwpf END.' );</script><?php
+      /**?><script>console.log('Comprobando tiene wpfwpf END.' );</script><?php**/
       // END comprobar veracidad de wpfwpf
 
-      ?><script>console.log('Verificaciones entrada: $Tienewpfwpf: <?php  echo $Tienewpfwpf; ?> ' );</script><?php
+      /**?><script>console.log('Verificaciones entrada: $Tienewpfwpf: <?php  echo $Tienewpfwpf; ?> ' );</script><?php **/
 
       //$_GET['poblacion'] = $_GET['address'][0];
       $IP = apply_filters('wpfunos_userIP','dummy');
@@ -426,7 +417,7 @@ class Wpfunos_ServiciosV3 {
       }
 
       // id = wpf-resultados-referencia
-      ?><script>console.log('wpf-resultados-referencia.' );</script><?php
+      /** ?><script>console.log('wpf-resultados-referencia.' );</script><?php**/
       $current_user = wp_get_current_user();
       $wpfcolabnombre = sanitize_text_field( $current_user->display_name );
       $wpfcolabemail = sanitize_text_field( $current_user->user_email );
@@ -460,7 +451,7 @@ class Wpfunos_ServiciosV3 {
       // Actualizar transient
       if( $Tienewpfwpf == 1 ){
         $transient_ref = get_transient('wpfunos-wpfref-' .$IP );
-        ?><script>console.log('Transient búsqueda actualizar.' );</script><?php
+        /** ?><script>console.log('Transient búsqueda actualizar.' );</script><?php **/
 
         $colaborador = ( apply_filters('wpfunos_email_colaborador','Transient búsqueda actualizar') ) ? 'si' : 'no' ;
 

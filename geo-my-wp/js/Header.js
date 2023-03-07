@@ -63,14 +63,11 @@ console.log( "document loaded" );
 
 
 var data = {
-    action: 'is_user_logged_in'
+	action: 'is_user_logged_in'
 };
 
 jQuery.post('/wp-admin/admin-ajax.php', data, function(response) {
-    if(response == 'yes') {
-    	console.log( "logged-in");
+	if(response == 'yes') {
 		document.cookie = "wpfunosloggedin=yes;expires=session; path=/;SameSite=Lax;secure";
-    } else {
-        console.log( "not logged-in");
-    }
+	}
 });
