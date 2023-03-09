@@ -37,3 +37,7 @@ function getCookie(c_name) {
   }
   return c_value;
 }
+//
+function getFuncName() {
+  return getFuncName.caller.name
+}

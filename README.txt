@@ -4,13 +4,15 @@ Donate link: https://efraim.cat
 Tags: comments, spam
 Requires at least: 6.1.1
 Tested up to: 6.1.1
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
 
 == Description ==
+
+Efraim Bayarri efraim@efraim.cat +34690074497
 
 This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
 

@@ -14,7 +14,8 @@ $(document).ready(function(){
 //  wpfV3Llamamos()
 //
 function wpfV3Llamamos() {
-  console.log(getFuncName()+': Botón Llamamos: Servicio: ' + $(this).attr('wpfid') +' Título: ' + $(this).attr('wpftitulo') );
+  var FuncName = getFuncName();
+  console.log(FuncName+': Botón Llamamos: Servicio: ' + $(this).attr('wpfid') +' Título: ' + $(this).attr('wpftitulo') );
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_05') ].showModal(); //Servicios Te llamamos
   $('#wpf-llamamos-respuesta-si').hide();
   $('#wpf-llamamos-respuesta-no').hide();
@@ -36,13 +37,13 @@ function wpfV3Llamamos() {
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
     },
     success: function(response) {
-      console.log('wpfunos_ajax_v3_llamamos response:');
+      console.log(FuncName+': wpfunos_ajax_v3_llamamos response:');
       console.log(response)	;
       if(response.type === 'success') {
-        console.log('success');
+        console.log(FuncName+': success');
         $('#wpf-llamamos-respuesta-si').show();
       } else {
-        console.log('fail');
+        console.log(FuncName+': fail');
         $('#wpf-llamamos-respuesta-no').show();
       }
       $('#wpf-llamamos-espacio').hide();
@@ -55,15 +56,16 @@ function wpfV3Llamamos() {
 //  wpfV3Llamar()
 //
 function wpfV3Llamar() {
-  console.log(getFuncName()+': Botón Llamar: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
+  var FuncName = getFuncName();
+  console.log(FuncName+': Botón Llamar: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_04') ].showModal(); //Servicios Llamar
   $('#wpfunos-modal-llamar-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamar-telefono').html( $(this).attr('wpftelefono') );
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
-  console.log('isMobile: '+isMobile);
+  console.log(FuncName+': isMobile: '+isMobile);
   if ( isMobile ) {
     var tel = 'tel:' + $(this).attr('wpftelefono');
-    console.log('tel: '+tel);
+    console.log(FuncName+': tel: '+tel);
     window.location = tel;
   }
   $.ajax({
@@ -81,12 +83,12 @@ function wpfV3Llamar() {
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
     },
     success: function(response) {
-      console.log('wpfunos_ajax_v3_llamar response:');
+      console.log(FuncName+': wpfunos_ajax_v3_llamar response:');
       console.log(response)	;
       if(response.type === 'success') {
-        console.log('success');
+        console.log(FuncName+': success');
       } else {
-        console.log('fail');
+        console.log(FuncName+': fail');
       }
     }
   });// END AJAX
@@ -100,8 +102,9 @@ function wpfV3Presupuesto() {
   var wpfn = $(this).attr('wpfn');
   var wpfid = $(this).attr('wpfid');
   var wpfp = $(this).attr('wpfp');
+  var FuncName = getFuncName();
 
-  console.log(getFuncName()+': Botón Presupuesto: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
+  console.log(FuncName+': Botón Presupuesto: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_03') ].showModal(); //56676 - Servicio Presupuesto
   var checkExist = setInterval(function() {
     if( $('#wpfunos-modal-presupuesto-nombre').length != 0 ){
@@ -119,8 +122,9 @@ function wpfV3Presupuesto() {
 //    wpfV3EnviaPresupuesto()
 //
 function wpfV3EnviaPresupuesto() {
-  console.log(getFuncName()+': Botón Enviar presupuesto: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
-  console.log(getFuncName()+': mensaje: ' + $('#form-field-mensajePresupuesto').val() );
+  var FuncName = getFuncName();
+  console.log(FuncName+': Botón Enviar presupuesto: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
+  console.log(FuncName+': Mensaje: ' + $('#form-field-mensajePresupuesto').val() );
 
   $.ajax({
     type : 'post',
@@ -138,12 +142,12 @@ function wpfV3EnviaPresupuesto() {
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
     },
     success: function(response) {
-      console.log('wpfunos_ajax_v3_presupuesto response:');
+      console.log(FuncName+': wpfunos_ajax_v3_presupuesto response:');
       console.log(response)	;
       if(response.type === 'success') {
-        console.log('success');
+        console.log(FuncName+': success');
       } else {
-        console.log('fail');
+        console.log(FuncName+': fail');
       }
     }
   });// END AJAX
@@ -152,7 +156,8 @@ function wpfV3EnviaPresupuesto() {
 //  wpfV3Detalles()
 //
 function wpfV3Detalles() {
-  console.log(getFuncName()+': Botón Detalles: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') + ' Financiación: ' + $(this).attr('wpffinanciacion') );
+  var FuncName = getFuncName();
+  console.log(FuncName+': Botón Detalles: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') + ' Financiación: ' + $(this).attr('wpffinanciacion') );
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_11') ].showModal(); //Ventana Popup Esperando (loader2)
 
   wpfid = $(this).attr('wpfid');
@@ -185,7 +190,7 @@ function wpfV3Detalles() {
     success: function(response) {
       console.log(response)	;
       if(response.type === 'success') {
-        console.log('success');
+        console.log(FuncName+': success');
         elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_02') ].showModal(); //Servicio Detalles
         $('#elementor-popup-modal-' + getCookie('wpf_obj_id_11') ).hide(); //Ventana Popup Esperando (loader2)
         let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
@@ -242,7 +247,8 @@ function wpfV3Detalles() {
 //  wpfV3DetallesLlamamos()
 //
 function wpfV3DetallesLlamamos() {
-  console.log(getFuncName()+': Botón Detalles Llamamos: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
+  var FuncName = getFuncName();
+  console.log(FuncName+': Botón Detalles Llamamos: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   $('#elementor-popup-modal-' + getCookie('wpf_obj_id_02') ).hide(); //Servicio Detalles
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_05') ].showModal(); //Servicios Te llamamos
   $('#wpf-llamamos-respuesta-si').hide();
@@ -265,12 +271,12 @@ function wpfV3DetallesLlamamos() {
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
     },
     success: function(response) {
-      console.log('wpfunos_ajax_v3_llamamos response:');
+      console.log(FuncName+': wpfunos_ajax_v3_llamamos response:');
       console.log(response)	;
       if(response.type === 'success') {
         $('#wpf-llamamos-respuesta-si').show();
       } else {
-        console.log('fail');
+        console.log(FuncName+': fail');
         $('#wpf-llamamos-respuesta-no').show();
       }
       $('#wpf-llamamos-espacio').hide();
@@ -283,16 +289,17 @@ function wpfV3DetallesLlamamos() {
 //  wpfV3DetallesLlamar()
 //
 function wpfV3DetallesLlamar() {
-  console.log(getFuncName()+': Botón Llamar: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
+  var FuncName = getFuncName();
+  console.log(FuncName+': Botón Llamar: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   $('#elementor-popup-modal-' + getCookie('wpf_obj_id_02') ).hide(); //Servicio Detalles
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_04') ].showModal(); //Servicios Llamar
   $('#wpfunos-modal-llamar-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamar-telefono').html( $(this).attr('wpftelefono') );
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
-  console.log('isMobile: '+isMobile);
+  console.log(FuncName+': isMobile: '+isMobile);
   if ( isMobile ) {
     var tel = 'tel:' + $(this).attr('wpftelefono');
-    console.log('tel: '+tel);
+    console.log(FuncName+': tel: '+tel);
     window.location = tel;
   }
   $.ajax({
@@ -310,12 +317,12 @@ function wpfV3DetallesLlamar() {
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
     },
     success: function(response) {
-      console.log('wpfunos_ajax_v3_llamar response:');
+      console.log(FuncName+': wpfunos_ajax_v3_llamar response:');
       console.log(response)	;
       if(response.type === 'success') {
-        console.log('success');
+        console.log(FuncName+': success');
       } else {
-        console.log('fail');
+        console.log(FuncName+': fail');
       }
     }
   });// END AJAX
@@ -325,7 +332,8 @@ function wpfV3DetallesLlamar() {
 //  wpfV3DetallesEmail()
 //
 function wpfV3DetallesEmail() {
-  console.log(getFuncName()+': boton Detalles email servicio: ' + $(this).attr('wpfid') + ' Precio: ' + $(this).attr('wpfp') + ' Título ' + $(this).attr('wpftitulo') );
+  var FuncName = getFuncName();
+  console.log(FuncName+': Botón Detalles email servicio: ' + $(this).attr('wpfid') + ' Precio: ' + $(this).attr('wpfp') + ' Título ' + $(this).attr('wpftitulo') );
   $('#elementor-popup-modal-' + getCookie('wpf_obj_id_02') ).hide(); //Servicio Detalles
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_01') ].showModal(); //Servicios Enviar Email
   $('#wpfunos-modal-email-email').html( $('#wpf-resultados-referencia').attr('wpfemail') );
@@ -344,12 +352,12 @@ function wpfV3DetallesEmail() {
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
     },
     success: function(response) {
-      console.log('wpfunos_ajax_v3_email response:');
+      console.log(FuncName+': wpfunos_ajax_v3_email response:');
       console.log(response)	;
       if(response.type === 'success') {
-        console.log('correo enviado');
+        console.log(FuncName+': Correo enviado');
       } else {
-        console.log('fail');
+        console.log(FuncName+': fail');
       }
     }
   });
@@ -363,8 +371,9 @@ function wpfV3DetallesPresupuesto() {
   var wpfn = $(this).attr('wpfn');
   var wpfid = $(this).attr('wpfid');
   var wpfp = $(this).attr('wpfp');
+  var FuncName = getFuncName();
 
-  console.log(getFuncName()+': Botón Presupuesto: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
+  console.log(FuncName+': Botón Presupuesto: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
   $('#elementor-popup-modal-' + getCookie('wpf_obj_id_02') ).hide(); //Servicio Detalles
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_03') ].showModal(); //56676 - Servicio Presupuesto
   var checkExist = setInterval(function() {
@@ -387,8 +396,9 @@ function wpfV3DetallesFinanciacion() {
   var wpfn = $(this).attr('wpfn');
   var wpfid = $(this).attr('wpfid');
   var wpfp = $(this).attr('wpfp');
+  var FuncName = getFuncName();
 
-  console.log(getFuncName()+': Botón Financiación: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
+  console.log(FuncName+': Botón Financiación: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
   $('#elementor-popup-modal-' + getCookie('wpf_obj_id_02') ).hide(); //Servicio Detalles
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_13') ].showModal(); //56676 - Servicio Presupuesto
 
@@ -438,8 +448,9 @@ function wpfV3Financiacion() {
   var wpfn = $(this).attr('wpfn');
   var wpfid = $(this).attr('wpfid');
   var wpfp = $(this).attr('wpfp');
+  var FuncName = getFuncName();
 
-  console.log(getFuncName()+': Botón Financiación: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
+  console.log(FuncName+': Botón Financiación: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_14') ].showModal(); //Servicios Financiación Genérico
   $('.elementor-field-group-plazos_inferior:eq(0)').hide();
   $('.elementor-field-group-plazos_superior:eq(0)').hide()
@@ -466,10 +477,4 @@ function wpfV3Financiacion() {
       $("#wpfFinanciacionEnviar").prop('disabled', false);
     }
   }, 100); // check every 100ms
-}
-//
-//
-//
-function getFuncName() {
-  return getFuncName.caller.name
 }

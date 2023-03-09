@@ -1,11 +1,12 @@
 $ = jQuery.noConflict();
 $(document).ready(function(){
-  $(function(){
+  $(function wpfColumnaFiltros(){
     const elementosDonde = [ '#wpfunos-v3-donde-boton', '#wpfunos-v3-donde-texto', '#wpfunos-v3-donde-boton-movil', '#wpfunos-v3-donde-texto-movil' ];
     const elementosDistancia = [ '#wpfunos-v3-distancia-boton', '#wpfunos-v3-distancia-texto', '#wpfunos-v3-distancia-boton-movil', '#wpfunos-v3-distancia-texto-movil' ];
     const elementosCuando = [ '#wpfunos-v3-cuando-boton', '#wpfunos-v3-cuando-texto', '#wpfunos-v3-cuando-boton-movil', '#wpfunos-v3-cuando-texto-movil' ];
     const elementosOrden = [ '#wpfunos-boton-precio', '#wpfunos-boton-precio-movil' ];
 
+    var FuncName = 'wpfColumnaFiltros';
     var params = new URLSearchParams(location.search);
     var orden = params.get('orden');
     var idioma_wpml = getCookie('wp-wpml_current_language');
@@ -35,6 +36,7 @@ $(document).ready(function(){
     }
     $.each( elementosCuando, function( i, elem ) {
       $(elem).click( function(){
+        console.log(FuncName+': Click cambiar cuando');
         if( params.get('cuando') === 'Ahora'){
           params.set('cuando', 'Proximamente');
         }else{
@@ -75,7 +77,7 @@ $(document).ready(function(){
     // ORDEN
     $.each( elementosOrden, function( i, elem ) {
       $(elem).click( function(){
-        console.log('click cambiar orden');
+        console.log(FuncName+': Click cambiar orden');
         if( orden === 'dist' ){
           params.set('orden', 'precios' );
         }else{
@@ -151,10 +153,11 @@ $(document).ready(function(){
 
 
 function wpfdistancia() {
+  var FuncName = getFuncName();
   // 1 second delay
   setTimeout(function(){
     $('#wpfunos-v3-boton-formulario-distancia').click(function(){
-      console.log(wpfdistancia.name+': click botón cambiar distancia');
+      console.log(FuncName+': click botón cambiar distancia');
 
       var newdistance =  $('#form-field-nuevadistancia').val() ;
       if( newdistance !== ''){
@@ -189,13 +192,13 @@ function wpfdistancia() {
             'wpfresp4' : $('#wpf-resultados-referencia').attr('wpfresp4'),
           },
           success: function(response) {
-            console.log(wpfdistancia.name+': wpfunos_ajax_v3_filtros response:');
+            console.log(FuncName+': wpfunos_ajax_v3_filtros response:');
             console.log(response)	;
             if(response.type === 'success') {
-              console.log(wpfdistancia.name+': success');
+              console.log(FuncName+': success');
               window.location.href = response.wpfurl;
             } else {
-              console.log(wpfdistancia.name+': fail');
+              console.log(FuncName+': fail');
             }
           }
         });// END AJAX
@@ -205,8 +208,9 @@ function wpfdistancia() {
 }
 
 function wpfFunctionResp(event){
-  console.log(wpfFunctionResp.name+': click botón '+event.data.resp+' '+event.data.opcion);
+  var FuncName = getFuncName();
   var params = new URLSearchParams(location.search);
+  console.log(FuncName+': click botón '+event.data.resp+' '+event.data.opcion);
 
   if( params.get('cf['+event.data.resp+']') !== event.data.opcion){
     elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_11') ].showModal(); //Ventana Popup Esperando (loader2)
@@ -233,13 +237,13 @@ function wpfFunctionResp(event){
         'wpfresp4' : $('#wpf-resultados-referencia').attr('wpfresp4'),
       },
       success: function(response) {
-        console.log(wpfFunctionResp.name+': wpfunos_ajax_v3_filtros response:');
+        console.log(FuncName+': wpfunos_ajax_v3_filtros response:');
         console.log(response)	;
         if(response.type === 'success') {
-          console.log(wpfFunctionResp.name+': success');
+          console.log(FuncName+': success');
           window.location.href = response.wpfurl;
         } else {
-          console.log(wpfFunctionResp.name+': fail');
+          console.log(FuncName+': fail');
         }
       }
     });// END AJAX

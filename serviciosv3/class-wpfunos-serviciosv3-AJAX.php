@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin
 * @author     Efraim Bayarri <efraim@efraim.cat>
 *
-*wpfunos-visitas-list-table.php
 */
 
 class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
