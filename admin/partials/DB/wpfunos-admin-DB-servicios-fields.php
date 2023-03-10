@@ -21,6 +21,7 @@ $servicioPrecioConfirmado = sanitize_text_field( $_POST['wpfunos_servicioPrecioC
 $servicioLogo = sanitize_text_field( $_POST['wpfunos_servicioLogo'] );
 $servicioEmail = sanitize_text_field( $_POST['wpfunos_servicioEmail'] );
 $servicioTelefono = sanitize_text_field( $_POST['wpfunos_servicioTelefono'] );
+$servicioTelefonoSMS = sanitize_text_field( $_POST['wpfunos_servicioTelefonoSMS'] );
 $servicioMapa = sanitize_text_field( $_POST['wpfunos_servicioMapa'] );
 $servicioLead = sanitize_text_field( $_POST['wpfunos_servicioLead'] );
 $servicioLead2 = sanitize_text_field( $_POST['wpfunos_servicioLead2'] );
@@ -350,6 +351,7 @@ update_post_meta($post_id, 'wpfunos_servicioPrecioConfirmado', $servicioPrecioCo
 update_post_meta($post_id, 'wpfunos_servicioLogo', $servicioLogo);
 update_post_meta($post_id, 'wpfunos_servicioEmail', $servicioEmail);
 update_post_meta($post_id, 'wpfunos_servicioTelefono', $servicioTelefono);
+update_post_meta($post_id, 'wpfunos_servicioTelefonoSMS', $servicioTelefonoSMS);
 update_post_meta($post_id, 'wpfunos_servicioMapa', $servicioMapa);
 update_post_meta($post_id, 'wpfunos_servicioLead', $servicioLead);
 update_post_meta($post_id, 'wpfunos_servicioLead2', $servicioLead2);

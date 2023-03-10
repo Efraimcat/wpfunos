@@ -66,12 +66,16 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Teléfono', 'wpfunos');?></td>
           <td style="width:5px;"></td>
+          <td><?php esc_html_e('Teléfono SMS', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
           <td><?php esc_html_e('Valoración', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioEmail','name' => 'wpfunos_servicioEmail','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioTelefono','name' => 'wpfunos_servicioTelefono','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  )); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioTelefonoSMS','name' => 'wpfunos_servicioTelefonoSMS','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  )); ?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioValoracion','name' => 'wpfunos_servicioValoracion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
         </tr>

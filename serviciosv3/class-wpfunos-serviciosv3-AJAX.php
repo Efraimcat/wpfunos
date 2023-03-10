@@ -151,8 +151,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       }
 
       if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') ){
-        //$userURL = apply_filters('wpfunos_shortener', $URL );
-        $userURL = $URL;
+        $userURL = apply_filters('wpfunos_shortener', $URL );
 
         $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '0' );
         //'wpfunos_userVisitas' => $contador,
@@ -338,8 +337,64 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $wpfnombre );
           do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $wpfnewref );
         }
-      }
 
+        // SMS
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - '.'Enviar SMS' );
+        do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
+        do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . $Telefono );
+
+        $request = '{
+          "api_key":"4b66b40a110c408e8651eb971591f03e",
+          "report_url":"https://funos.es/",
+          "concat":1,
+          "messages":[
+            {
+              "from":"34606902525",
+              "to":"[numero_SMS]",
+              "text":"Gracias por realizar una consulta en el comparador de precios de funerarias funos.es.\\nPuedes recuperar los resultados de tu consulta accediendo aquí:\\n[enlace_SMS]\\nMuchas gracias.",
+              "send_at": "2020-01-23 12:00:00"
+            }
+          ]
+        }';
+
+        $telSMS = str_replace(" ","", $Telefono );
+        $telSMS = str_replace("-","",$telSMS );
+        if(substr($telSMS,0,1) == '+'){
+          $telSMS = str_replace("+","",$telSMS );
+        }else{
+          $telSMS = '34'.$telSMS ;
+        }
+        if( site_url() === 'https://dev.funos.es'){
+          $telSMS = '34690074497';
+        }
+        $request = str_replace ( '[enlace_SMS]' , $userURL , $request );
+        $request = str_replace ( '[numero_SMS]' , $telSMS , $request );
+
+        do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+
+        //$SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+        //  'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+        //  'body'        => $request,
+        //  'method'      => 'POST',
+        //));
+
+        $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
+        do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
+        /**
+        * [headers] = Object (Requests_Utility_CaseInsensitiveDictionary)</br> |   date -> String: 'Fri, 10 Mar 2023 00:44:27 GMT'</br> |   server -> String: 'Apache'</br> |
+        * expires -> String: 'Thu, 19 Nov 1981 08:52:00 GMT'</br> |   cache-control -> String: 'no-store, no-cache, must-revalidate'</br> |   pragma -> String: 'no-cache'</br> |
+        * set-cookie -> String: 'PHPSESSID=0e3eer31ou0r23m6f93ncmlg24; path=/;HttpOnly;Secure;SameSite=Lax'</br> |   x-xss-protection -> String: '1;
+        * report=https://api.gateway360.com/xss-log'</br> |   x-content-type-options -> String: 'nosniff'</br> |   content-length -> Number: 98</br> |
+        * content-type -> String: 'application/json' [body] = String: '{"status":"ok","result":[{"status":"ok","sms_id":"e3bfb8594fff41fca310083f77c73e05","custom":""}]}'
+        * [response] = </br> |   [code] = Number: 200</br> |   [message] = String: 'OK'
+        * [cookies] = </br> |   [0] = Object (WP_Http_Cookie)</br> |   |   name -> String: 'PHPSESSID'</br> |   |   value -> String: '0e3eer31ou0r23m6f93ncmlg24'</br> |   |
+        * expires -> NULL</br> |   |   path -> String: '/'</br> |   |   domain -> String: 'api.gateway360.com'</br> |   |   port -> NULL</br> |   |   host_only -> TRUE
+        * [filename] = NULL
+        * [http_response] = Object (WP_HTTP_Requests_Response)</br> |   data -> NULL</br> |   headers -> NULL</br> |   status -> NULL'
+        */
+        // SMS
+      }
 
       //Última Búsqueda
       if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){
@@ -378,7 +433,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       $result['type'] = "success";
       $result['wpfurl'] = $URL;
-      $result['wpftrans'] = $transient_ref;
       $result = json_encode($result);
       echo $result;
 
@@ -617,7 +671,54 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       }
+      // SMS
+      if( strlen( get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - '.'Enviar SMS llamamos Servicio' );
+        do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
+        do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
 
+        $request = '{
+          "api_key":"4b66b40a110c408e8651eb971591f03e",
+          "report_url":"https://funos.es/",
+          "concat":1,
+          "messages":[
+            {
+              "from":"34606902525",
+              "to":"[numero_SMS]",
+              "text":"Hola. Un cliente ha comparado precios en funos.es, se ha interesado por vuestro servicio y ha solicitado que le contactéis ahora.\\n¿Podéis LLAMAR al cliente URGENTE, por favor?\\nNombre: [nombre_SMS]\\nTeléfono de contacto: [telefono_SMS]\\nMuchas gracias.",
+              "send_at": "2020-01-23 12:00:00"
+            }
+          ]
+        }';
+
+        $telSMS = str_replace(" ","", get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
+        $telSMS = str_replace("-","",$telSMS );
+        if(substr($telSMS,0,1) == '+'){
+          $telSMS = str_replace("+","",$telSMS );
+        }else{
+          $telSMS = '34'.$telSMS ;
+        }
+        if( site_url() === 'https://dev.funos.es'){
+          $telSMS = '34690074497';
+        }
+        $request = str_replace ( '[numero_SMS]' , $telSMS , $request );
+        $request = str_replace ( '[nombre_SMS]' , $transient_ref['wpfn'] , $request );
+        $request = str_replace ( '[telefono_SMS]' , $Telefono , $request );
+
+        do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+
+        //$SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+        //  'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+        //  'body'        => $request,
+        //  'method'      => 'POST',
+        //));
+
+        $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
+        do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
+
+      }
+      // SMS
     }
 
     $result['type'] = "success";
@@ -853,7 +954,54 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       }
+      // SMS
+      if( strlen( get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - '.'Enviar SMS Llamar Servicio' );
+        do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
+        do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
 
+        $request = '{
+          "api_key":"4b66b40a110c408e8651eb971591f03e",
+          "report_url":"https://funos.es/",
+          "concat":1,
+          "messages":[
+            {
+              "from":"34606902525",
+              "to":"[numero_SMS]",
+              "text":"Hola. Un cliente ha comparado precios en funos.es, se ha interesado por vuestro servicio y ha solicitado llamaros.\\nEl cliente ha solicitado llamaros, os recomendamos que le llaméis\\nNombre: [nombre_SMS]\\nTeléfono de contacto: [telefono_SMS]\\nMuchas gracias.",
+              "send_at": "2020-01-23 12:00:00"
+            }
+          ]
+        }';
+
+        $telSMS = str_replace(" ","", get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
+        $telSMS = str_replace("-","",$telSMS );
+        if(substr($telSMS,0,1) == '+'){
+          $telSMS = str_replace("+","",$telSMS );
+        }else{
+          $telSMS = '34'.$telSMS ;
+        }
+        if( site_url() === 'https://dev.funos.es'){
+          $telSMS = '34690074497';
+        }
+        $request = str_replace ( '[numero_SMS]' , $telSMS , $request );
+        $request = str_replace ( '[nombre_SMS]' , $transient_ref['wpfn'] , $request );
+        $request = str_replace ( '[telefono_SMS]' , $Telefono , $request );
+
+        do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+
+        //$SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+        //  'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+        //  'body'        => $request,
+        //  'method'      => 'POST',
+        //));
+
+        $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
+        do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
+
+      }
+      // SMS
     }
 
     $result['type'] = "success";
@@ -1093,6 +1241,54 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $transient_ref['wpfref'] );
 
       }
+      // SMS
+      if( strlen( get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - '.'Enviar SMS Presupuesto Servicio' );
+        do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
+        do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
+
+        $request = '{
+          "api_key":"4b66b40a110c408e8651eb971591f03e",
+          "report_url":"https://funos.es/",
+          "concat":1,
+          "messages":[
+            {
+              "from":"34606902525",
+              "to":"[numero_SMS]",
+              "text":"Hola. Un cliente ha comparado precios en funos.es, se ha interesado por vuestro servicio y ha solicitado que le contactéis ahora para enviarle un presupuesto.\\n¿Podéis LLAMAR al cliente URGENTE, por favor?\\nNombre: [nombre_SMS]\\nTeléfono de contacto: [telefono_SMS]\\nMuchas gracias.",
+              "send_at": "2020-01-23 12:00:00"
+            }
+          ]
+        }';
+
+        $telSMS = str_replace(" ","", get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
+        $telSMS = str_replace("-","",$telSMS );
+        if(substr($telSMS,0,1) == '+'){
+          $telSMS = str_replace("+","",$telSMS );
+        }else{
+          $telSMS = '34'.$telSMS ;
+        }
+        if( site_url() === 'https://dev.funos.es'){
+          $telSMS = '34690074497';
+        }
+        $request = str_replace ( '[numero_SMS]' , $telSMS , $request );
+        $request = str_replace ( '[nombre_SMS]' , $transient_ref['wpfn'] , $request );
+        $request = str_replace ( '[telefono_SMS]' , $Telefono , $request );
+
+        do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+
+        //$SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+        //  'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+        //  'body'        => $request,
+        //  'method'      => 'POST',
+        //));
+
+        $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
+        do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
+
+      }
+      // SMS
     }
 
     $result['type'] = "success";
@@ -1765,5 +1961,4 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     // don't forget to end your scripts with a die() function - very important
     die();
   }
-
 }
