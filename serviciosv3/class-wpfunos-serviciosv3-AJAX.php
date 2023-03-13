@@ -352,7 +352,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
             {
               "from":"34606902525",
               "to":"[numero_SMS]",
-              "text":"Gracias por realizar una consulta en el comparador de precios de funerarias funos.es.\\nPuedes recuperar los resultados de tu consulta accediendo aquí:\\n[enlace_SMS]\\nMuchas gracias.",
+              "text":"Gracias por tu consulta en FUNOS.\\nRecupera los resultados de tu comparativa aquí: [enlace_SMS]\\nNos puedes llamar a este teléfono\\no contactar por WhatsApp aquí: https://wa.me/message/TTW45ZJEQWZGK1\\nTe asesoramos sin compromiso",
               "send_at": "2020-01-23 12:00:00"
             }
           ]
@@ -373,11 +373,11 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
         do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
-        //$SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
-        //  'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
-        //  'body'        => $request,
-        //  'method'      => 'POST',
-        //));
+        $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+          'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+          'body'        => $request,
+          'method'      => 'POST',
+        ));
 
         $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
         do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
@@ -686,7 +686,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
             {
               "from":"34606902525",
               "to":"[numero_SMS]",
-              "text":"Hola. Un cliente ha comparado precios en funos.es, se ha interesado por vuestro servicio y ha solicitado que le contactéis ahora.\\n¿Podéis LLAMAR al cliente URGENTE, por favor?\\nNombre: [nombre_SMS]\\nTeléfono de contacto: [telefono_SMS]\\nMuchas gracias.",
+              "text":"Hola. Has recibido una solicitud de FUNOS\\nNombre: [nombre_SMS]\\nTel: [telefono_SMS]\\nMás info por email",
               "send_at": "2020-01-23 12:00:00"
             }
           ]
@@ -708,11 +708,11 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
         do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
-        //$SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
-        //  'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
-        //  'body'        => $request,
-        //  'method'      => 'POST',
-        //));
+        $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+          'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+          'body'        => $request,
+          'method'      => 'POST',
+        ));
 
         $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
         do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
@@ -969,7 +969,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
             {
               "from":"34606902525",
               "to":"[numero_SMS]",
-              "text":"Hola. Un cliente ha comparado precios en funos.es, se ha interesado por vuestro servicio y ha solicitado llamaros.\\nEl cliente ha solicitado llamaros, os recomendamos que le llaméis\\nNombre: [nombre_SMS]\\nTeléfono de contacto: [telefono_SMS]\\nMuchas gracias.",
+              "text":"Hola. Has recibido una solicitud de FUNOS\\nNombre: [nombre_SMS]\\nTel: [telefono_SMS]\\nMás info por email",
               "send_at": "2020-01-23 12:00:00"
             }
           ]
@@ -991,11 +991,11 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
         do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
-        //$SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
-        //  'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
-        //  'body'        => $request,
-        //  'method'      => 'POST',
-        //));
+        $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+          'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+          'body'        => $request,
+          'method'      => 'POST',
+        ));
 
         $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
         do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
@@ -1256,7 +1256,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
             {
               "from":"34606902525",
               "to":"[numero_SMS]",
-              "text":"Hola. Un cliente ha comparado precios en funos.es, se ha interesado por vuestro servicio y ha solicitado que le contactéis ahora para enviarle un presupuesto.\\n¿Podéis LLAMAR al cliente URGENTE, por favor?\\nNombre: [nombre_SMS]\\nTeléfono de contacto: [telefono_SMS]\\nMuchas gracias.",
+              "text":"Hola. Has recibido una solicitud de FUNOS\\nNombre: [nombre_SMS]\\nTel: [telefono_SMS]\\nMás info por email",
               "send_at": "2020-01-23 12:00:00"
             }
           ]
@@ -1278,11 +1278,11 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
         do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
-        //$SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
-        //  'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
-        //  'body'        => $request,
-        //  'method'      => 'POST',
-        //));
+        $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+          'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+          'body'        => $request,
+          'method'      => 'POST',
+        ));
 
         $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
         do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
@@ -1795,6 +1795,14 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       die();
     }
 
+    if(strlen( $wpfidusuario ) < 1 ){
+      $result['type'] = "No userid";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+
     if( $param == 'Distancia' ){
       $distancia = $valor;
       $cambios = 'distancia';
@@ -1827,8 +1835,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $URL = home_url().'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
 
     if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Filtros') ){
-      //$userURL = apply_filters('wpfunos_shortener', $URL );
-      $userURL = $URL;
+      $userURL = apply_filters('wpfunos_shortener', $URL );
       $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '0' );
       switch((int)$wpfresp1){
         case 1: $wpfdestino = esc_html__('Entierro', 'wpfunos_es'); break;

@@ -48,7 +48,7 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
 
     // Aseguradoras
 
-    if( "FormularioDatosAseguradora" === $form_name ){
+    if( "FormularioDatosAseguradoras" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
         if( (int)$field['value'] < date("Y") - 100 || (int)$field['value'] > date("Y") - 18 ){
           $ajax_handler->add_error( $field['id'], esc_html__('Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990', 'wpfunos_es') );
