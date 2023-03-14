@@ -35,6 +35,7 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_message_format', array( $this, 'wpfunosMessageFormat' ), 10, 2 );
     add_filter( 'wpfunos_is_mobile', array( $this, 'wpfunosIsMobile' ), 10, 1 );
     add_filter( 'wpfunos_bloqueo_numeros', array( $this, 'wpfbloqueoNumeros' ), 10, 1 );
+    add_filter( 'wpfunos_bloqueo_tels', array( $this, 'wpfbloqueoTels' ), 10, 1 );
     add_filter( 'wpfunos_acentos_minusculas', array( $this, 'wpfAcentosMinusculas' ), 10, 1 );
 
     add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
@@ -542,9 +543,26 @@ class Wpfunos_Utils {
     foreach( $bloqueos AS $bloqueo ) {
       if( $bloqueo == $numero ) return true;
     }
-
     return false;
-
   }
+
+  /**
+  * add_filter( 'wpfunos_bloqueo_tels', array( $this, 'wpfbloqueoTels' ), 10, 1 );
+  * if( apply_filters('wpfunos_bloqueo_tels','630069601') )
+  */
+  public function wpfbloqueoTels( $numero ){
+    $bloqueos = array(
+      "600000000",
+      "666666666",
+      "999999999",
+      "601001001",
+    );
+
+    foreach( $bloqueos AS $bloqueo ) {
+      if( $bloqueo == $numero ) return true;
+    }
+    return false;
+  }
+
 
 }

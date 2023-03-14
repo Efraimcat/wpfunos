@@ -50,8 +50,10 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
 
     if( "FormularioDatosAseguradoras" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
+        do_action('wpfunos_log', $userIP.' - '.'Validación nacimiento ' .$field['value'] );
         if( (int)$field['value'] < date("Y") - 100 || (int)$field['value'] > date("Y") - 18 ){
           $ajax_handler->add_error( $field['id'], esc_html__('Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990', 'wpfunos_es') );
+          do_action('wpfunos_log', $userIP.' - '.'Validación nacimiento: INCORRECTO' );
         }
       }
     }
@@ -111,12 +113,12 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
       $telefono = str_replace("+34","",$telefono);
 
       $res = preg_replace("/[^0-9]/", "", $telefono );
-      if( strlen($res) < 6 ){
+      if( strlen($res) < 8 ){
         $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO (no numérico)' );
       }
 
-      if( '666666666' == $telefono || '600000000' == $telefono || '999999999' == $telefono ){
+      if( apply_filters('wpfunos_bloqueo_tels',$telefono) ){
         $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
         do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO' );
       }
