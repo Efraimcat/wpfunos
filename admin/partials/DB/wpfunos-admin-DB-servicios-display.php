@@ -409,13 +409,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     $cuentatitulos = 0;
     ?>
     <table style="width:100%">
-      <tr><td></td><td></td><td>Sin ceremonia</td><td>Anterior</td><td></td><td>Solo sala</td><td>Anterior</td><td></td><td>Civil</td><td>Anterior</td><td></td><td>Religiosa</td><td>Oferta</td></tr>
+      <tr><td></td><td></td><td>Bloqueo</td><td>Sin ceremonia</td><td>Anterior</td><td></td><td>Bloqueo</td><td>Solo sala</td><td>Anterior</td><td></td><td>Bloqueo</td><td>Civil</td><td>Anterior</td><td></td><td>Bloqueo</td><td>Religiosa</td><td>Anterior</td></tr>
       <tr><td style="width: 400px;"><?php echo $titulo[$cuentatitulos]; ?></td>
         <?php
         foreach ( $tipos as $tipo ) {
           ?>
           <td><?php echo $tipo; ?></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicio'.$tipo,'name' => 'wpfunos_servicio'.$tipo,'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 7));?>€</td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicio'.$tipo.'_bloqueo','name' => 'wpfunos_servicio'.$tipo.'_bloqueo','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicio'.$tipo,'name' => 'wpfunos_servicio'.$tipo,'required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7));?>€</td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicio'.$tipo.'_anterior','name' => 'wpfunos_servicio'.$tipo.'_anterior','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 7));?>€</td>
           <?php
           $cuatro ++;
