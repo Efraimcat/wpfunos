@@ -1266,12 +1266,7 @@ class Wpfunos_Admin {
       $nombre_servicio = get_the_title( $post_id );
       $nombre_titulo = get_post_meta( $post_id, 'wpfunos_servicioNombre', true );
       $direccion = get_post_meta( $post_id, 'wpfunos_servicioDireccion', true );
-
       foreach ( $tipos as $tipo ) {
-
-
-
-
         $resp1 = (substr ($tipo,0,1) == 'E') ? '1' : '2';
         $resp3 = (substr ($tipo,2,1) == 'V') ? '1' : '2';
         switch( substr ($tipo,1,1) ){ case 'M':$resp2 = '1';break; case 'E':$resp2 = '2';break; case 'P':$resp2 = '3';break; }
