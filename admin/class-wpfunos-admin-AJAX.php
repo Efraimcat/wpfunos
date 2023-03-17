@@ -31,15 +31,6 @@ class Wpfunos_Admin_AJAX extends Wpfunos_Admin {
   * add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_precios', function () { $this->wpfunosProcesarPrecios();});
   * add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
   *
-  * 'numberposts' => 5, 'offset' => 0,
-  * 'numberposts' - Default is 5. Total number of posts to retrieve.
-  * 'offset' - Default is 0. The number of posts you want to skip.
-  * $args = array(
-  *   'post_type' => 'precio_serv_wpfunos',
-  *   'post_status' => 'publish',
-  *   'numberposts' => 1,
-  *   'offset' => x,
-  * )
   *
   **/
   public function wpfunosProcesarPrecios(){
@@ -86,15 +77,6 @@ class Wpfunos_Admin_AJAX extends Wpfunos_Admin {
   * add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_servicios', function () { $this->wpfunosProcesarServicios();});
   * add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_servicios', function () {$this->wpfunosProcesarServicios();});
   *
-  * 'numberposts' => 5, 'offset' => 0,
-  * 'numberposts' - Default is 5. Total number of posts to retrieve.
-  * 'offset' - Default is 0. The number of posts you want to skip.
-  * $args = array(
-  *   'post_type' => 'precio_serv_wpfunos',
-  *   'post_status' => 'publish',
-  *   'numberposts' => 1,
-  *   'offset' => x,
-  * )
   *
   **/
   public function wpfunosProcesarServicios(){
@@ -136,39 +118,39 @@ class Wpfunos_Admin_AJAX extends Wpfunos_Admin {
         //$this->custom_logs('wpfunosProcesarServicios: ' .$post->ID );
 
         foreach ( $tipos as $tipo ) {
+          $resp1 = (substr ($tipo,0,1) == 'E') ? '1' : '2';
+          $resp3 = (substr ($tipo,2,1) == 'V') ? '1' : '2';
+          switch( substr ($tipo,1,1) ){ case 'M':$resp2 = '1';break; case 'E':$resp2 = '2';break; case 'P':$resp2 = '3';break; }
+          switch( substr ($tipo,3,1) ){ case 'S':$resp4 = '1';break; case 'O':$resp4 = '2';break; case 'C':$resp4 = '3';break; case 'R':$resp4 = '4';break; }
+          $newargs = array(
+            'post_type' => 'precio_serv_wpfunos',
+            'post_status'  => 'publish',
+            'posts_per_page' => -1,
+            'meta_query' => array(
+              'relation' => 'AND',
+              array( 'key' => 'wpfunos_servicioPrecioID', 'value' => $post->ID, 'compare' => '=', ),
+              array( 'key' => 'resp1', 'value' => $resp1, 'compare' => '=', ),
+              array( 'key' => 'resp2', 'value' => $resp2, 'compare' => '=', ),
+              array( 'key' => 'resp3', 'value' => $resp3, 'compare' => '=', ),
+              array( 'key' => 'resp4', 'value' => $resp4, 'compare' => '=', ),
+            ),
+          );
+          $newpost_list = get_posts( $newargs );
           // comprobar que tiene precios del nuevo buscador
           $precio = get_post_meta( $post->ID, 'wpfunos_servicio'.$tipo, true );
           if( strlen ($precio) > 0 ){
-            $resp1 = (substr ($tipo,0,1) == 'E') ? '1' : '2';
-            $resp3 = (substr ($tipo,2,1) == 'V') ? '1' : '2';
-            switch( substr ($tipo,1,1) ){ case 'M':$resp2 = '1';break; case 'E':$resp2 = '2';break; case 'P':$resp2 = '3';break; }
-            switch( substr ($tipo,3,1) ){ case 'S':$resp4 = '1';break; case 'O':$resp4 = '2';break; case 'C':$resp4 = '3';break; case 'R':$resp4 = '4';break; }
-            $newargs = array(
-              'post_type' => 'precio_serv_wpfunos',
-              'post_status'  => 'publish',
-              'posts_per_page' => -1,
-              'meta_query' => array(
-                'relation' => 'AND',
-                array( 'key' => 'wpfunos_servicioPrecioID', 'value' => $post->ID, 'compare' => '=', ),
-                array( 'key' => 'resp1', 'value' => $resp1, 'compare' => '=', ),
-                array( 'key' => 'resp2', 'value' => $resp2, 'compare' => '=', ),
-                array( 'key' => 'resp3', 'value' => $resp3, 'compare' => '=', ),
-                array( 'key' => 'resp4', 'value' => $resp4, 'compare' => '=', ),
-              ),
-            );
-            $newpost_list = get_posts( $newargs );
-
             if( $newpost_list ){
               // Update
-
-              //foreach ( $newpost_list as $newpost ) {
-              //  $post_update = array(
-              //    'ID'         => $newpost->ID,
-              //    'post_title' => $nombre_titulo,
-              //  );
-              //  wp_update_post( $post_update );
-              //  update_post_meta($newpost->ID, 'wpfunos_servicioPrecio',  $precio );
-              //}
+              foreach ( $newpost_list as $newpost ) {
+                $post_update = array(
+                  'ID'         => $newpost->ID,
+                  'post_title' => $nombre_titulo,
+                  'meta_input'   => array(
+                    'wpfunos_servicioPrecio' => $precio,
+                  ),
+                );
+                wp_update_post( $post_update );
+              }
             }else{
               // Create
               $this->custom_logs('wpfunosProcesarServicios: Create ' .$nombre_titulo );
@@ -189,6 +171,16 @@ class Wpfunos_Admin_AJAX extends Wpfunos_Admin {
               $insertpost_id = wp_insert_post($my_post);
               gmw_update_post_location( $insertpost_id, $direccion, 7, $direccion, true );
             }
+          }else{
+            //tiene precio 0. Si existe el índice borrarlo
+            // Borrar
+            if( $newpost_list ){
+              foreach ( $newpost_list as $newpost ) {
+                $this->custom_logs('wpfunosEliminarIndices ' .$post->ID. ' ==> Elimnar ' .$newpost->ID. ' <==' );
+                wp_delete_post( $newpost->ID, true);
+              }
+            }
+            //FIN tiene precio 0. Si existe el índice borrarlo
           }
         }
       }

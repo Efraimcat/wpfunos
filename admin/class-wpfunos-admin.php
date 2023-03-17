@@ -129,6 +129,7 @@ class Wpfunos_Admin {
   */
   public function wpfunosCron() {
     $this->custom_logs('==> Wpfunos Daily Maintenance begins <==');
+    $this->custom_logs('---');
     $this->wpfunos_admin_cronjobs->wpfunosMaintenance();
     $this->custom_logs('==> Wpfunos Daily Maintenance ends <==');
     $this->custom_logs('---');
@@ -138,6 +139,7 @@ class Wpfunos_Admin {
   */
   public function wpfunosNextCron() {
     $this->custom_logs('==> Wpfunos Next Maintenance begins <==');
+    $this->custom_logs('---');
     $this->wpfunos_admin_cronjobs->wpfunosNextMaintenance();
     $this->custom_logs('==> Wpfunos Next Maintenance ends <==');
     $this->custom_logs('---');
@@ -149,6 +151,7 @@ class Wpfunos_Admin {
   */
   public function wpfunosHourlyCron() {
     $this->custom_logs('==> Wpfunos Hourly Maintenance begins <==');
+    $this->custom_logs('---');
     $this->wpfunos_admin_cronjobs->wpfunosHourlyMaintenance();
     $this->custom_logs('==> Wpfunos Hourly Maintenance ends <==');
     $this->custom_logs('---');

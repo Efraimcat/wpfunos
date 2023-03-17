@@ -101,7 +101,7 @@ $servicios_list = get_posts( $args );
     <div id="serviciosBar"><span id="serviciosporcentaje"></span></div>
   </div>
   <br>
-  <button onclick="procesar_servicios(0, 3);return false;">Actualizar</button>
+  <button onclick="procesar_servicios(0, 15);return false;">Actualizar</button>
 </div>
 
 <script>

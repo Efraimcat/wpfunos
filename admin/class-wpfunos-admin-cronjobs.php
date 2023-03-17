@@ -201,19 +201,21 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
     $tiempo = 15;
 
     $this->custom_logs('Wpfunos precio_serv_wpfunos Creación nuevos indices funerarias starts');
-    for ( $x = 1; $x <= count($servicios_list); $x+=35 ) {
+    $this->custom_logs('Servicios: '.count($servicios_list));
+    for ( $x = 0; $x <= count($servicios_list); $x+=50 ) {
       $this->custom_logs('==> ' .sprintf( '%03s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
-      wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule_procesar_servicios', array( $x, 35 ) );
-      $tiempo += 480;
+      wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule_procesar_servicios', array( $x, 50 ) );
+      //$tiempo += 480;
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos Creación nuevos indices funerarias ends');
     $this->custom_logs('---');
     $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices starts');
-    $tiempo += 600;
-    for ( $x = 1; $x <= count($indices_list); $x+=2000 ) {
+    $this->custom_logs('Indices: '.count($indices_list));
+    $tiempo += 60;
+    for ( $x = 0; $x <= count($indices_list); $x+=2000 ) {
       $this->custom_logs('==> ' .sprintf( '%05s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
       wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule eliminar_indices', array( $x, 2000 ) );
-      $tiempo += 20;
+      //$tiempo += 20;
     }
     $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices ends');
     $this->custom_logs('---');
