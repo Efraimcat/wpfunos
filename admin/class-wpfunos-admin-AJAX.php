@@ -20,6 +20,9 @@ class Wpfunos_Admin_AJAX extends Wpfunos_Admin {
     add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_servicios', function () { $this->wpfunosProcesarServicios();});
     add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_servicios', function () {$this->wpfunosProcesarServicios();});
+    add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () { $this->wpfunosProcesarPreciosV3();});
+    add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () {$this->wpfunosProcesarPreciosV3();});
+
   }
 
   /*********************************/
@@ -186,6 +189,110 @@ class Wpfunos_Admin_AJAX extends Wpfunos_Admin {
       }
     }
 
+    $result['type'] = "success";
+    $result['newoffset'] = (int)$offset + (int)$batch ;
+    $result = json_encode($result);
+    echo $result;
+    // don't forget to end your scripts with a die() function - very important
+    die();
+  }
+
+  /*********************************/
+  /*****  AJAX                ******/
+  /*********************************/
+  /**
+  * Procesar Servicios
+  *
+  * add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () { $this->wpfunosProcesarPreciosV3();});
+  * add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () {$this->wpfunosProcesarPreciosV3();});
+  *
+  *
+  **/
+  public function wpfunosProcesarPreciosV3(){
+    $offset = $_POST['offset'];
+    $batch = $_POST['batch'];
+    $tipos = array(
+      "EESS" => '1478', "EESO" => '1479', "EESC" => '147A', "EESR" => '147B',
+      "EEVS" => '1468', "EEVO" => '1469', "EEVC" => '146A', "EEVR" => '146B',
+      "EMSS" => '1378', "EMSO" => '1379', "EMSC" => '137A', "EMSR" => '137B',
+      "EMVS" => '1368', "EMVO" => '1369', "EMVC" => '136A', "EMVR" => '136B',
+      "EPSS" => '1578', "EPSO" => '1579', "EPSC" => '157A', "EPSR" => '157B',
+      "EPVS" => '1568', "EPVO" => '1569', "EPVC" => '156A', "EPVR" => '156B',
+      "IESS" => '2478', "IESO" => '2479', "IESC" => '247A', "IESR" => '247B',
+      "IEVS" => '2468', "IEVO" => '2469', "IEVC" => '246A', "IEVR" => '246B',
+      "IMSS" => '2378', "IMSO" => '2379', "IMSC" => '237A', "IMSR" => '237B',
+      "IMVS" => '2368', "IMVO" => '2369', "IMVC" => '236A', "IMVR" => '236B',
+      "IPSS" => '2578', "IPSO" => '2579', "IPSC" => '257A', "IPSR" => '257B',
+      "IPVS" => '2568', "IPVO" => '2569', "IPVC" => '256A', "IPVR" => '256B',
+    );
+    $args = array(
+      'post_type' => 'servicios_wpfunos',
+      'post_status' => 'publish',
+      'numberposts' => $batch,
+      'offset' =>$offset,
+    );
+
+    $post_list = get_posts( $args );
+    if( $post_list ){
+      foreach ( $post_list as $post ) {
+
+        // WPML
+        $post_details = apply_filters( 'wpml_post_language_details', NULL, $post->ID ) ;
+        if( $post_details['language_code'] == 'es' ){
+          $precio[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase', true );
+          $precio[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio', true );
+          $precio[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio', true );
+          $precio[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio', true );
+          $precio[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio', true );
+          $precio[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio', true );
+          $precio[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio', true );
+          $precio[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio', true );
+          $precio[8] = '0';
+          $precio[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio', true );
+          $precio[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio', true );
+          $precio[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio', true );
+
+          $precio_anterior[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase_anterior', true );
+          $precio_anterior[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio_anterior', true );
+          $precio_anterior[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio_anterior', true );
+          $precio_anterior[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio_anterior', true );
+          $precio_anterior[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio_anterior', true );
+          $precio_anterior[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio_anterior', true );
+          $precio_anterior[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio_anterior', true );
+          $precio_anterior[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio_anterior', true );
+          $precio_anterior[8] = '0';
+          $precio_anterior[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio_anterior', true );
+          $precio_anterior[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio_anterior', true );
+          $precio_anterior[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio_anterior', true );
+
+          foreach ( $tipos as $key=>$value ){
+            $valor[1] = substr( $value, 0, 1);
+            $valor[2] = substr( $value, 1, 1);
+            $valor[3] = substr( $value, 2, 1);
+            if( substr( $value, 3, 1) == '8' ) $valor[4] = '8';
+            if( substr( $value, 3, 1) == '9' ) $valor[4] = '9';
+            if( substr( $value, 3, 1) == 'A' ) $valor[4] = '10';
+            if( substr( $value, 3, 1) == 'B' ) $valor[4] = '11';
+
+            if( $precio[0] != '' && $precio[ (int)$valor[1] ] != '' && $precio[ (int)$valor[2] ] != '' && $precio[ (int)$valor[3] ] != '' && $precio[ (int)$valor[4] ] != '' ){
+              if( get_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_bloqueo', true) != '1'){
+                $total = (int)$precio[0] + (int)$precio[ (int)$valor[1] ] + (int)$precio[ (int)$valor[2] ] + (int)$precio[ (int)$valor[3] ] + (int)$precio[ (int)$valor[4] ];
+                update_post_meta( $post->ID, 'wpfunos_servicio'.$key, $total );
+              }
+            }else{
+              update_post_meta( $post->ID, 'wpfunos_servicio'.$key, '' );
+            }
+            if( $precio_anterior[0] != '' && $precio_anterior[ (int)$valor[1] ] != '' && $precio_anterior[ (int)$valor[2] ] != '' && $precio_anterior[ (int)$valor[3] ] != '' && $precio_anterior[ (int)$valor[4] ] != '' ){
+              $total_anterior = (int)$precio_anterior[0] + (int)$precio_anterior[ (int)$valor[1] ] + (int)$precio_anterior[ (int)$valor[2] ] + (int)$precio_anterior[ (int)$valor[3] ] + (int)$precio_anterior[ (int)$valor[4] ];
+              update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', $total_anterior );
+            }else{
+              update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', '' );
+            }
+
+          }// END foreach
+        }// END ['language_code'] == 'es'
+      }// END foreach ( $post_list as $post )
+    }// END if( $post_list )
     $result['type'] = "success";
     $result['newoffset'] = (int)$offset + (int)$batch ;
     $result = json_encode($result);
