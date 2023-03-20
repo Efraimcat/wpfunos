@@ -552,10 +552,13 @@ class Wpfunos_Utils {
   */
   public function wpfbloqueoTels( $numero ){
     $bloqueos = array(
+      "000000000",
       "600000000",
-      "666666666",
-      "999999999",
       "601001001",
+      "611111111",
+      "666666666",
+      "900000000",
+      "999999999",
     );
 
     foreach( $bloqueos AS $bloqueo ) {
