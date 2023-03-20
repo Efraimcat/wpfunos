@@ -285,7 +285,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     * #18-Mar-2023 17:59:26: $meta_key: wpfunos_servicioEESO
     * #18-Mar-2023 17:59:26: $_meta_value: 1155
     */
-    if( $_SERVER['HTTP_REFERER'] == site_url().'/wp-admin/edit.php?post_type=servicios_wpfunos' && $_SERVER['REQUEST_URI'] == '/wp-admin/admin-ajax.php' && get_post_type( $object_id ) == 'servicios_wpfunos' ){
+    if( strpos( $_SERVER['HTTP_REFERER'], '/wp-admin/edit.php?post_type=servicios_wpfunos' ) && $_SERVER['REQUEST_URI'] == '/wp-admin/admin-ajax.php' && get_post_type( $object_id ) == 'servicios_wpfunos' ){
       $this->custom_logs('wpfunosActualizarMetaServicios' );
       $this->custom_logs('$meta_id: ' .$meta_id );
       $this->custom_logs('$object_id: ' .$object_id );
@@ -312,6 +312,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
       foreach ( $tipos as $tipo ) {
         if( $meta_key == 'wpfunos_servicio'.$tipo || $meta_key == 'wpfunos_servicio'.$tipo.'_bloqueo' ){
           if( get_post_meta( $object_id, 'wpfunos_servicio'.$tipo.'_bloqueo', true) == '1'  && get_post_meta( $object_id, 'wpfunos_servicioActivo', true ) == 1 ){
+
             $nombre_servicio = get_the_title( $object_id );
             $nombre_titulo = get_post_meta( $object_id, 'wpfunos_servicioNombre', true );
             $direccion = get_post_meta( $object_id, 'wpfunos_servicioDireccion', true );
@@ -320,6 +321,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
             $resp3 = (substr ($tipo,2,1) == 'V') ? '1' : '2';
             switch( substr ($tipo,1,1) ){ case 'M':$resp2 = '1';break; case 'E':$resp2 = '2';break; case 'P':$resp2 = '3';break; }
             switch( substr ($tipo,3,1) ){ case 'S':$resp4 = '1';break; case 'O':$resp4 = '2';break; case 'C':$resp4 = '3';break; case 'R':$resp4 = '4';break; }
+
             $args = array(
               'post_type' => 'precio_serv_wpfunos',
               'post_status'  => 'publish',
@@ -379,7 +381,11 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
               }
               // END tiene precio NULL. Si existe el índice borrarlo
             }// END if( strlen ($precio) > 0 )
-          }// END if( get_post_meta( bloqueo'
+          }elseif( $meta_key == 'wpfunos_servicio'.$tipo.'_bloqueo' && $_meta_value == '0' ){
+            $this->custom_logs('Desbloquear ' .$meta_key );
+
+          }// END if( get_post_meta( $object_id, 'wpfunos_servicio'.$tipo.'_bloqueo', true) == '1'  && get_post_meta( $object_id, 'wpfunos_servicioActivo', true ) == 1 )
+
         }// END if( $meta_key == 'wpfunos_servicio'.$tipo )
       }// END foreach
       $this->custom_logs('wpfunosActualizarMetaServicios ENDS' );
