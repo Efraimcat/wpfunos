@@ -66,6 +66,27 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
     //
     //https://isitarealemail.com/getting-started/api
     //
+    //Nombre
+    if( $field = $this->wpfunos_elementor_get_field( 'Nombre', $record ) ){
+      do_action('wpfunos_log', $userIP.' - '.'Validación Nombre ' .$field['value'] );
+      if( preg_match_all('/[aeiou]/i',$field['value'],$matches) == 0 ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un nombre válido', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación Nombre: INCORRECTO (vocales)' );
+      }
+
+      if( strlen( $field['value']) < 4 ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un nombre válido', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación Nombre: INCORRECTO (corto)' );
+      }
+
+      if( apply_filters('wpfunos_bloqueo_nombre',$field['value']) ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce un nombre válido', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación Nombre: INCORRECTO (inválido)' );
+      }
+
+    }
+
+    // EMAIL
     if( $field = $this->wpfunos_elementor_get_field( 'email', $record ) ){
       do_action('wpfunos_log', $userIP.' - '.'Validación email ' .$field['value'] );
 
@@ -99,6 +120,11 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
       if ( 'arjona400@gmail.com' == $field['value']) {
         $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
         do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (clientes)' );
+      }
+
+      if ( preg_match_all('/[aeiou]/i',$user,$matches) == 0 ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (vocales)' );
       }
 
     }

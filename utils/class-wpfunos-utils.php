@@ -36,6 +36,7 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_is_mobile', array( $this, 'wpfunosIsMobile' ), 10, 1 );
     add_filter( 'wpfunos_bloqueo_numeros', array( $this, 'wpfbloqueoNumeros' ), 10, 1 );
     add_filter( 'wpfunos_bloqueo_tels', array( $this, 'wpfbloqueoTels' ), 10, 1 );
+    add_filter( 'wpfunos_bloqueo_nombre', array( $this, 'wpfbloqueoNombre' ), 10, 1 );
     add_filter( 'wpfunos_acentos_minusculas', array( $this, 'wpfAcentosMinusculas' ), 10, 1 );
 
     add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
@@ -553,10 +554,18 @@ class Wpfunos_Utils {
   public function wpfbloqueoTels( $numero ){
     $bloqueos = array(
       "000000000",
+      "111111111",
+      "222222222",
+      "333333333",
+      "444444444",
+      "555555555",
       "600000000",
       "601001001",
       "611111111",
+      "666555444",
       "666666666",
+      "777777777",
+      "888888888",
       "900000000",
       "999999999",
     );
@@ -567,5 +576,21 @@ class Wpfunos_Utils {
     return false;
   }
 
+  /**
+  * add_filter( 'wpfunos_bloqueo_nombre', array( $this, 'wpfbloqueoNombre' ), 10, 1 );
+  * if( apply_filters('wpfunos_bloqueo_nombre','Hola') )
+  */
+  public function wpfbloqueoNombre( $nom ){
+    $nombre  = apply_filters('wpfunos_acentos_minusculas',$nom);
+
+    $bloqueos = array(
+      "hola",
+    );
+
+    foreach( $bloqueos AS $bloqueo ) {
+      if( $bloqueo == $nombre ) return true;
+    }
+    return false;
+  }
 
 }

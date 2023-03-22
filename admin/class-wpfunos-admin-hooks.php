@@ -20,6 +20,9 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     add_action('after_delete_post', array( $this, 'wpfunosBorrarServicio' ), 10, 2 );
     add_action('trashed_post', array( $this, 'wpfunosPapeleraServicio' ), 10, 1 );
     add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaServicios' ), 10, 4);
+
+    add_action('save_post_precio_funer_wpfunos', array( $this, 'wpfunosGuardarLanding' ), 10, 1 );
+    add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaLandings' ), 10, 4);
   }
 
   public function wpfunosGuardarServicio( $post_id ){
@@ -113,10 +116,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
         "IPVS", "IPVO", "IPVC", "IPVR",
       );
 
-
-
       if( get_post_meta( $post_id, 'wpfunos_servicioActivo', true ) == 1 ){
-
 
         $nombre_servicio = get_the_title( $post_id );
         $nombre_titulo = get_post_meta( $post_id, 'wpfunos_servicioNombre', true );
@@ -273,6 +273,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     $this->custom_logs('wpfunosPapeleraServicio ENDS' );
     $this->custom_logs('---');
   }
+
   /**
   *
   * add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaServicios' ), 10, 4);
@@ -393,6 +394,128 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     }
   }
 
+  /**
+  *
+  * add_action('save_post_precio_funer_wpfunos', array( $this, 'wpfunosGuardarLanding' ), 10, 1 );
+  *
+  */
+  public function wpfunosGuardarLanding( $post_id ){
+    $this->custom_logs('wpfunosGuardarLanding' );
+    $this->custom_logs('$post_id: ' .$post_id );
+    $languages = apply_filters( 'wpml_active_languages', NULL, array( 'skip_missing' => 1,) );
+    if( !empty( $languages ) ) {
+      foreach( $languages as $language ){
+        $wpml_id = apply_filters( 'wpml_object_id', $post_id, 'post', FALSE, $language[language_code] );
+        if( $wpml_id ){
+
+          $wpml_id_orig = apply_filters( 'wpml_object_id', $post_id, 'post', FALSE, 'es' );
+          if( $wpml_id != $wpml_id_orig ){
+            update_post_meta( $wpml_id, 'wpfunos_precioFunerariaEntierroDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioFunerariaEntierroDesde', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_precioFunerariaIncineracionDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioFunerariaIncineracionDesde', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_precioFunerariaEntierroVelatorioDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioFunerariaEntierroVelatorioDesde', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_precioFunerariaIncineracionVelatorioDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioFunerariaIncineracionVelatorioDesde', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesde', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_precioFunerariaEntierroPremiumDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioFunerariaEntierroPremiumDesde', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_precioFunerariaIncineracionPremiumDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioFunerariaIncineracionPremiumDesde', true )  );
+            //
+            update_post_meta( $wpml_id, 'wpfunos_precioIncineracionBasicoDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioIncineracionBasicoDesde', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_precioIncineracionCeremoniaDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioIncineracionCeremoniaDesde', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_precioIncineracionVelatorioDesde', get_post_meta( $wpml_id_orig, 'wpfunos_precioIncineracionVelatorioDesde', true )  );
+            //
+            update_post_meta( $wpml_id, 'wpfunos_EnlaceDistancia', get_post_meta( $wpml_id_orig, 'wpfunos_EnlaceDistancia', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_EnlaceLatitud', get_post_meta( $wpml_id_orig, 'wpfunos_EnlaceLatitud', true )  );
+            update_post_meta( $wpml_id, 'wpfunos_EnlaceLonguitud', get_post_meta( $wpml_id_orig, 'wpfunos_EnlaceLonguitud', true )  );
+          }
+
+          $entierro = (int)str_replace(".","",get_post_meta( $wpml_id, 'wpfunos_precioFunerariaEntierroDesde', true ));
+          $incineracion = (int)str_replace(".","",get_post_meta( $wpml_id, 'wpfunos_precioFunerariaIncineracionDesde', true ));
+          $this->custom_logs('$entierro desde: ' .$entierro );
+          $this->custom_logs('$incineracion desde: ' .$incineracion );
+          //landings incineración
+          update_post_meta($wpml_id, 'SeoEntierro',  number_format($entierro, 0, ',', '.') . '€');
+          update_post_meta($wpml_id, 'SeoIncineracion', number_format($incineracion, 0, ',', '.') . '€');
+          if($entierro < $incineracion ){
+            update_post_meta($wpml_id, 'SeoDesde',  number_format($entierro, 0, ',', '.') . '€');
+          }else{
+            update_post_meta($wpml_id, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
+          }
+          if( get_post_meta( $wpml_id, 'SeoDesde', true ) == '0€') update_post_meta($wpml_id, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
+          // Páginas relacionadas
+          $paginas = (explode(',',get_post_meta( $wpml_id , 'wpfunos_precioFunerariaPaginasRelacionadas', true )));
+          $textopaginas = '';
+          foreach( $paginas as $pagina ){
+            if( get_post_type( $pagina ) == 'precio_funer_wpfunos'){
+              $entrada = get_post( $pagina );
+              $slug = $entrada->post_name;
+              $textopaginas .= $slug . ', ';
+            }
+          }
+          update_post_meta($wpml_id, 'wpfunos_precioFunerariaPaginasRelacionadasTexto', $textopaginas );
+          //
+          $this->custom_logs('wpfunosGuardarLanding ' .$wpml_id. ' (' .$language[language_code]. ') updated');
+          //
+        }
+      }
+    }
+    $this->custom_logs('wpfunosGuardarLanding ENDS' );
+    $this->custom_logs('---');
+  }
+
+  /**
+  *
+  * add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaLandings' ), 10, 4);
+  *
+  */
+  public function wpfunosActualizarMetaLandings( $meta_id, $object_id, $meta_key, $_meta_value ){
+    /**
+    * #22-Mar-2023 12:22:29: $meta_id: 1744364
+    * #22-Mar-2023 12:22:29: $object_id: 139415
+    * #22-Mar-2023 12:22:29: $meta_key: wpfunos_EnlaceDistancia
+    * #22-Mar-2023 12:22:29: $_meta_value: 40
+    * #22-Mar-2023 12:22:29: CPT: precio_funer_wpfunos
+    * #22-Mar-2023 12:22:29: $_SERVER[REQUEST_URI]: /wp-admin/admin-ajax.php
+    * #22-Mar-2023 12:22:29: $_SERVER[HTTP_REFERER]: https://dev.funos.es/wp-admin/edit.php?post_type=precio_funer_wpfunos
+    */
+    if( strpos( $_SERVER['HTTP_REFERER'], '/wp-admin/edit.php?post_type=precio_funer_wpfunos' ) && $_SERVER['REQUEST_URI'] == '/wp-admin/admin-ajax.php' && get_post_type( $object_id ) == 'precio_funer_wpfunos') {
+
+      remove_action( 'updated_post_meta', array( $this, 'wpfunosActualizarMetaLandings' ) );
+
+      $this->custom_logs('wpfunosActualizarMetaLandings' );
+      $this->custom_logs('$meta_id: ' .$meta_id );
+      $this->custom_logs('$object_id: ' .$object_id );
+      $this->custom_logs('$meta_key: ' .$meta_key );
+      $this->custom_logs('$_meta_value: ' .$_meta_value );
+      $this->custom_logs('CPT: ' .get_post_type( $object_id ) );
+      //$this->custom_logs('$_SERVER[REQUEST_URI]: ' .$_SERVER['REQUEST_URI'] );
+      //$this->custom_logs('$_SERVER[HTTP_REFERER]: ' .$_SERVER['HTTP_REFERER'] );
+      $this->custom_logs('---');
+
+      $this->wpfunosGuardarLanding( $object_id );
+
+      $distancia = get_post_meta( $object_id, 'wpfunos_EnlaceDistancia', true );
+      $latitud = get_post_meta( $object_id, 'wpfunos_EnlaceLatitud', true );
+      $longitud = get_post_meta( $object_id, 'wpfunos_EnlaceLonguitud', true );
+      $poblacion = get_post_meta( $object_id, 'wpfunos_precioFunerariaPoblacion', true );
+      $provincia = get_post_meta( $object_id, 'wpfunos_precioFunerariaProvincia', true );
+
+      $languages = apply_filters( 'wpml_active_languages', NULL, array( 'skip_missing' => 1,) );
+      if( !empty( $languages ) ) {
+        foreach( $languages as $language ){
+          $wpml_id = apply_filters( 'wpml_object_id', $object_id, 'post', FALSE, $language[language_code] );
+          if( $wpml_id ){
+            $prefijo = ( $language[language_code] == 'es' ) ? '' :  $language[language_code].'/' ;
+            do_action('wpfunos_enlaces_landings', array( $prefijo, $provincia, $distancia, $latitud, $longitud, $poblacion, $wpml_id ) );
+            $this->custom_logs('wpfunos_enlaces_landings ' .$wpml_id. ' (' .$language[language_code]. ') updated');
+          }
+        }
+      }
+      add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaLandings' ), 10, 4);
+      $this->custom_logs('wpfunosActualizarMetaLandings ENDS' );
+      $this->custom_logs('---');
+    }
+  }
+
   /** **/
   /** **/
   /** **/
@@ -421,5 +544,6 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     fputs($open, $ban);
     fclose( $open );
   }
+
 
 }

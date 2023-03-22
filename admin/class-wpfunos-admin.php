@@ -109,10 +109,13 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
 
     add_action('wpfunos_hojas_calculo', array( $this, 'wpfunosHojasCalculo' ), 10, 1 );
+    add_action('wpfunos_enlaces_landings', array( $this, 'wpfunosEnlacesLandings' ), 10, 1);
+
     add_action('save_post_servicios_wpfunos', array( $this, 'wpfunosGuardarServicio' ), 10, 1 );
     add_action('after_delete_post', array( $this, 'wpfunosBorrarServicio' ), 10, 2 );
     add_action('trashed_post', array( $this, 'wpfunosPapeleraServicio' ), 10, 1 );
     add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaServicios' ), 10, 4);
+
 
     $this->wpfunos_admin_AJAX = new Wpfunos_Admin_AJAX();
     $this->wpfunos_admin_cronjobs = new Wpfunos_Admin_Cronjobs();
@@ -1175,5 +1178,80 @@ class Wpfunos_Admin {
     //run the udpate location function
     gmw_update_post_location( $post_id, $address );
   }
+
+  /*
+  * add_action('wpfunos_enalces_landings', array( $this, 'wpfunosEnlacesLandings' ), 10, 1);
+  * do_action('wpfunos_enlaces_landings', array( $prefijo, $provincia, $distancia, $latitud, $longitud, $poblacion, $wpml_id ) );
+  */
+  public function wpfunosEnlacesLandings( $vars ){
+    $prefijo = $vars[0];
+    $provincia = $vars[1];
+    $distancia = $vars[2];
+    $latitud = $vars[3];
+    $longitud = $vars[4];
+    $poblacion = $vars[5];
+    $wpml_id = $vars[6];
+    // recalcular enlaces
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaEnlaceAhora', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaEnlaceProximamente', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Proximamente&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaEnlaceVerPrecios', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&poblacion='.$poblacion);
+
+    update_post_meta($wpml_id, 'wpfunos_precioIncineracionEnlaceAhora', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioIncineracionEnlaceProximamente', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Proximamente&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioIncineracionEnlaceVerPrecios', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&poblacion='.$poblacion);
+
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaEntierroDesdeEnlace', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaEntierroVelatorioDesdeEnlace', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesdeEnlace', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaEntierroPremiumDesdeEnlace', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=3&cf[resp3]=1&cf[resp4]=3&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaIncineracionDesdeEnlace', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=1&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaIncineracionVelatorioDesdeEnlace', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=1&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesdeEnlace', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+    update_post_meta($wpml_id, 'wpfunos_precioFunerariaIncineracionPremiumDesdeEnlace', home_url().'/'.$prefijo.'comparar-precios-resultados?address[]='.$provincia
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=3&cf[resp3]=1&cf[resp4]=3&distance='.$distancia
+    .'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=precios&cuando=Ahora&land=1&poblacion='.$poblacion);
+  }
+
 
 }
