@@ -401,7 +401,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
   */
   public function wpfunosGuardarLanding( $post_id ){
     $this->custom_logs('wpfunosGuardarLanding' );
-    $this->custom_logs('$post_id: ' .$post_id );
+    $this->custom_logs('$post_id: ' .$post_id. ' (' .get_the_title( $post_id). ')' );
     $languages = apply_filters( 'wpml_active_languages', NULL, array( 'skip_missing' => 1,) );
     if( !empty( $languages ) ) {
       foreach( $languages as $language ){
@@ -537,7 +537,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     if (!file_exists( $upload_dir['basedir'] . '/wpfunos-logs') ) {
       mkdir( $upload_dir['basedir'] . '/wpfunos-logs' );
     }
-    $time = current_time("d-M-Y H:i:s");
+    $time = current_time("d-M-Y H:i:s:v");
     $ban = "#$time: $message\r\n";
     $file = $upload_dir['basedir'] . '/wpfunos-logs/wpfunos-adminlog-' . current_time("Y-m-d") . '.log';
     $open = fopen($file, "a");

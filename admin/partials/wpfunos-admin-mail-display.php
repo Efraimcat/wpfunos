@@ -22,8 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 </style>
 <div class="wrap">
   <div id="icon-themes" class="icon32"></div>
-  <h2 id="wpfunos-inicio"><?php esc_html_e( get_admin_page_title() .' '.$this->version); ?></h2>
+  <h2 id="wpfunos-inicio"><?php esc_html_e( get_admin_page_title() .' '.$this->version. ' ('  .get_option( "wpf_db_version" ). ')' ); ?></h2>
   <h2><?php esc_html_e( 'Correo WpFunos', 'wpfunos' ); ?></h2>
+  <div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
 
   <div class="w3-bar w3-black">
     <button class="w3-bar-item w3-button" onclick="openTab('V3')">Comparador nuevo</button>

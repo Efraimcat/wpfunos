@@ -1084,7 +1084,7 @@ class Wpfunos_Admin {
     if (!file_exists( $upload_dir['basedir'] . '/wpfunos-logs') ) {
       mkdir( $upload_dir['basedir'] . '/wpfunos-logs' );
     }
-    $time = current_time("d-M-Y H:i:s");
+    $time = current_time("d-M-Y H:i:s:v");
     $ban = "#$time: $message\r\n";
     $file = $upload_dir['basedir'] . '/wpfunos-logs/wpfunos-adminlog-' . current_time("Y-m-d") . '.log';
     $open = fopen($file, "a");

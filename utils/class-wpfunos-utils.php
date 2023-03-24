@@ -315,7 +315,7 @@ class Wpfunos_Utils {
     if (!file_exists( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs') ) {
       mkdir( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs' );
     }
-    $time = current_time("d-M-Y H:i:s");
+    $time = current_time("d-M-Y H:i:s:v");
     $ban = "#$time: $message\r\n";
     $file = $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $this->plugin_name .'-publiclog-' . current_time("Y-m-d") . '.log';
     $open = fopen($file, "a");
@@ -482,43 +482,34 @@ class Wpfunos_Utils {
   *
   */
   public function wpfAcentosMinusculas( $cadena ){
-
     $cadena = str_replace(
       array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
       array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
       $cadena
     );
-
     $cadena = str_replace(
       array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
       array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
       $cadena
     );
-
     $cadena = str_replace(
       array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
       array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
       $cadena
     );
-
     $cadena = str_replace(
       array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
       array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
       $cadena
     );
-
     $cadena = str_replace(
       array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
       array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
       $cadena
     );
-
     $cadena = strtolower( $cadena );
-
     return $cadena;
-
   }
-
 
   /**
   * add_filter( 'wpfunos_bloqueo_numeros', array( $this, 'wpfbloqueoNumeros' ), 10, 1 );
