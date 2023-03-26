@@ -478,7 +478,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     * #22-Mar-2023 12:22:29: $_SERVER[REQUEST_URI]: /wp-admin/admin-ajax.php
     * #22-Mar-2023 12:22:29: $_SERVER[HTTP_REFERER]: https://dev.funos.es/wp-admin/edit.php?post_type=precio_funer_wpfunos
     */
-    if( strpos( $_SERVER['HTTP_REFERER'], '/wp-admin/edit.php?post_type=precio_funer_wpfunos' ) && $_SERVER['REQUEST_URI'] == '/wp-admin/admin-ajax.php' && get_post_type( $object_id ) == 'precio_funer_wpfunos') {
+    if( strpos( $_SERVER['HTTP_REFERER'], '/wp-admin/edit.php' ) && strpos( $_SERVER['HTTP_REFERER'], 'post_type=precio_funer_wpfunos' ) && $_SERVER['REQUEST_URI'] == '/wp-admin/admin-ajax.php' && get_post_type( $object_id ) == 'precio_funer_wpfunos') {
 
       remove_action( 'updated_post_meta', array( $this, 'wpfunosActualizarMetaLandings' ) );
 
