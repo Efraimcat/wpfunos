@@ -23,6 +23,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
 
     add_action('save_post_precio_funer_wpfunos', array( $this, 'wpfunosGuardarLanding' ), 10, 1 );
     add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaLandings' ), 10, 4);
+    add_action('post_updated', array( $this, 'wpfunosCheckLandingsValues' ), 10, 3 );
   }
 
   public function wpfunosGuardarServicio( $post_id ){
@@ -493,6 +494,24 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
 
       $this->wpfunosGuardarLanding( $object_id );
 
+      if( 'wpfunos_precioFunerariaPoblacionesCercanas' == $meta_key ){
+        $allowed_html = [
+          'a' => [
+            'id' => true,
+            'href'  => true,
+            'title' => true,
+          ],
+          'strong' => [],
+          'h3' => [],
+          'ul' => [],
+          'li' => [],
+          'b' => [],
+          'br' => [],
+        ];
+        //update_post_meta($object_id, $meta_key, wp_kses( $_meta_value, $allowed_html ) );
+        update_post_meta($object_id, $meta_key, preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_meta_value, $allowed_html )));
+      }
+
       $distancia = get_post_meta( $object_id, 'wpfunos_EnlaceDistancia', true );
       $latitud = get_post_meta( $object_id, 'wpfunos_EnlaceLatitud', true );
       $longitud = get_post_meta( $object_id, 'wpfunos_EnlaceLonguitud', true );
@@ -512,6 +531,33 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
       }
       add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaLandings' ), 10, 4);
       $this->custom_logs('wpfunosActualizarMetaLandings ENDS' );
+      $this->custom_logs('---');
+    }
+  }
+
+  /**
+  *
+  * add_action( 'post_updated', array( $this, 'wpfunosCheckLandingsValues' ), 10, 3 );
+  *
+  */
+  public function wpfunosCheckLandingsValues($post_ID, $post_after, $post_before){
+    if( 'precio_funer_wpfunos' == $post_after->post_type){
+      remove_action( 'post_updated', array( $this, 'wpfunosCheckLandingsValues' ) );
+      $this->custom_logs('wpfunosCheckLandingsValues' );
+      $this->custom_logs('$post_ID: ' .$post_ID. ' (' .get_the_title( $post_ID ). ')' );
+      $this->custom_logs('$post_after->post_type: ' .$post_after->post_type );
+      $this->custom_logs('$post_after->post_content: ' .$post_after->post_content );
+      $this->custom_logs('---');
+
+      $allowed_html = [
+        'ul' => [],
+      ];
+      $post = get_post( $post_ID );
+      $post->post_content =  wp_kses( $post_after->post_content, $allowed_html );
+      wp_update_post( $post );
+
+      add_action( 'post_updated', array( $this, 'wpfunosCheckLandingsValues' ), 10, 3 );
+      $this->custom_logs('wpfunosCheckLandingsValues ENDS' );
       $this->custom_logs('---');
     }
   }

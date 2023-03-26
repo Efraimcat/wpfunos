@@ -12,6 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
+$allowed_html = [
+  'a' => [
+    'id' => true,
+    'href'  => true,
+    'title' => true,
+  ],
+  'strong' => [],
+  'h3' => [],
+  'ul' => [],
+  'li' => [],
+  'b' => [],
+  'br' => [],
+];
+
+
+
 $precioFunerariaPoblacion = sanitize_text_field( $_POST['wpfunos_precioFunerariaPoblacion'] );
 $precioFunerariaProvincia = sanitize_text_field( $_POST['wpfunos_precioFunerariaProvincia'] );
 $precioFunerariaTitulo = sanitize_text_field( $_POST['wpfunos_precioFunerariaTitulo'] );
@@ -60,7 +76,7 @@ $precioIncineracionVelatorioDesdeEnlace = sanitize_text_field( $_POST['wpfunos_p
 //
 $precioFunerariaPaginasRelacionadas = sanitize_text_field( $_POST['wpfunos_precioFunerariaPaginasRelacionadas'] );
 $precioFunerariaPaginasRelacionadasTexto = sanitize_text_field( $_POST['wpfunos_precioFunerariaPaginasRelacionadasTexto'] );
-$precioFunerariaPoblacionesCercanas = wp_kses_post( $_POST['wpfunos_precioFunerariaPoblacionesCercanas'] );
+$precioFunerariaPoblacionesCercanas =   preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_precioFunerariaPoblacionesCercanas'], $allowed_html ));
 $precioFunerariaTextoLibre = wp_kses_post( $_POST['wpfunos_precioFunerariaTextoLibre'] );
 $SeoEntierro = sanitize_text_field( $_POST['SeoEntierro'] );
 $SeoIncineracion = sanitize_text_field( $_POST['SeoIncineracion'] );
