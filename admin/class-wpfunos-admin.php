@@ -35,6 +35,10 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'excepciones_provincias_custom_post_type' ));
     add_action('init', array( $this, 'precios_servicios_custom_post_type' ));
     add_action('init', array( $this, 'dist_local_custom_post_type' ));
+    add_action('init', array( $this, 'directorio_tanatorio_custom_post_type' ));
+    add_action('init', array( $this, 'directorio_funeraria_custom_post_type' ));
+    add_action('init', array( $this, 'directorio_marca_custom_post_type' ));
+    add_action('init', array( $this, 'directorio_servicios_custom_post_type' ));
 
     add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
     add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
@@ -80,6 +84,7 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail5' ));		//Correo lead botón "Llamar"
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail6' ));		//Correo al administrador pedir presupuesto
     add_action('admin_init', array( $this, 'registerAndBuildV2Mail7' ));		//Correo lead pedir presupuesto
+    add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
     //
     add_action('add_meta_boxes_usuarios_wpfunos', array( $this, 'setupusuarios_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_servicios_wpfunos', array( $this, 'setupservicios_wpfunosMetaboxes' ));
@@ -106,7 +111,6 @@ class Wpfunos_Admin {
     add_action('save_post_excep_prov_wpfunos', array( $this, 'saveexcep_prov_wpfunosMetaBoxData' ));
     add_action('save_post_precio_serv_wpfunos', array( $this, 'saveprecio_serv_wpfunosMetaBoxData' ));
     add_action('save_post_dist_local_wpfunos', array( $this, 'savedist_local_wpfunosMetaBoxData' ));
-    add_action('admin_init', array( $this, 'registerAndBuildMail8' ));		//Correo pedir presupuesto servicios
 
     add_action('wpfunos_hojas_calculo', array( $this, 'wpfunosHojasCalculo' ), 10, 1 );
     add_action('wpfunos_enlaces_landings', array( $this, 'wpfunosEnlacesLandings' ), 10, 1);
@@ -178,7 +182,7 @@ class Wpfunos_Admin {
     add_menu_page( 'Comparador', 'Índice comparador', 'administrator', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     add_menu_page( 'Configuración', 'Índice configuración', 'administrator', 'wpfunosconfig', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     add_menu_page( 'Landings Población', 'Índice landings población', 'editorlandings', 'wpfunosprecios_poblacion', array( $this, 'display_plugin_admin_precios_poblacion_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'Directorio', 'Directorio', 'administrator','wpfunos_directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Directorio', 'Índice Directorio', 'administrator','wpfunos_directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     // add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', 'wpfunos-settings', array( $this, 'displayPluginAdminSettings' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', 'wpfunos-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
@@ -202,7 +206,7 @@ class Wpfunos_Admin {
     require_once 'partials/wpfunos-admin-config-display.php';
   }
   public function display_plugin_admin_precios_poblacion_dashboard(){
-    require_once 'partials/wpfunos-admin-precios-poblacion-display.php';
+    require_once 'partials/wpfunos-admin-display.php';
   }
   public function display_plugin_admin_directorio_dashboard(){
     require_once 'partials/wpfunos-admin-display.php';
@@ -728,7 +732,7 @@ class Wpfunos_Admin {
   public function setupdist_local_wpfunosMetaboxes(){
     add_meta_box('dist_local_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'dist_local_wpfunos_data_meta_box'), 'dist_local_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'dist_local_wpfunos', 'normal');
-  }
+  }s
   /*********************************/
   /*****  SALVAR DATOS META CPT ****/
   /*********************************/
@@ -904,6 +908,30 @@ class Wpfunos_Admin {
     require_once 'partials/cpt/wpfunos-admin-cpt-dist-local.php';
   }
 
+  /**
+  * Directorio tanatorio:
+  */
+  public function directorio_tanatorio_custom_post_type(){
+    require_once 'partials/cpt/wpfunos-admin-cpt-directorio-tanatorio.php';
+  }
+  /**
+  * Directorio funeraria:
+  */
+  public function directorio_funeraria_custom_post_type(){
+    require_once 'partials/cpt/wpfunos-admin-cpt-directorio-funeraria.php';
+  }
+  /**
+  * Directorio marca:
+  */
+  public function directorio_marca_custom_post_type(){
+    require_once 'partials/cpt/wpfunos-admin-cpt-directorio-marca.php';
+  }
+  /**
+  * Directorio servicios:
+  */
+  public function directorio_servicios_custom_post_type(){
+    require_once 'partials/cpt/wpfunos-admin-cpt-directorio-servicios.php';
+  }
 
   /*********************************/
   /*****  MOSTRAR METABOXES   ******/
