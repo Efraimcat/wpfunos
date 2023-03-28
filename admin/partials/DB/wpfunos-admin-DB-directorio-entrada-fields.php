@@ -1,0 +1,113 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+  exit; // Exit if accessed directly.
+}
+/**
+* The admin-specific functionality of the plugin.
+*
+* @link       https://github.com/Efraimcat/wpfunos/
+* @since      1.0.0
+*
+* @package    Wpfunos
+* @subpackage Wpfunos/admin/partials/DB
+* @author     Efraim Bayarri <efraim@efraim.cat>
+*/
+$allowed_html = [
+  'a' => [
+    'id' => true,
+    'href'  => true,
+    'title' => true,
+  ],
+  'strong' => [],
+  'h3' => [],
+  'ul' => [],
+  'li' => [],
+  'b' => [],
+];
+$DirectorioLandings = '';
+foreach( $_POST as $key => $val ) {
+  if( strpos( $key, 'landingDirectorio-' ) !== false ){
+    $land = substr($key,20);
+    //$this->custom_logs('$_POST key: ' .$key );
+    //$this->custom_logs('$_POST val: ' .$val );
+    //$this->custom_logs('$_POST land: ' .$land );
+    $DirectorioLandings .= $land .',';
+  }
+}
+$DirectorioServicios = '';
+foreach( $_POST as $key => $val ) {
+  if( strpos( $key, 'servicioDirectorio-' ) !== false ){
+    $serv = substr($key,19);
+    //$this->custom_logs('$_POST key: ' .$key );
+    //$this->custom_logs('$_POST val: ' .$val );
+    //$this->custom_logs('$_POST serv: ' .$serv );
+    $DirectorioServicios .= $serv .',';
+  }
+}
+
+
+$entradaDirectorioNombre = sanitize_text_field( $_POST['wpfunos_entradaDirectorioNombre'] );
+$entradaDirectorioDireccion = sanitize_text_field( $_POST['wpfunos_entradaDirectorioDireccion'] );
+$entradaDirectorioCorreo = sanitize_text_field( $_POST['wpfunos_entradaDirectorioCorreo'] );
+$entradaDirectorioTelefono = sanitize_text_field( $_POST['wpfunos_entradaDirectorioTelefono'] );
+$entradaDirectorioPoblacion = sanitize_text_field( $_POST['wpfunos_entradaDirectorioPoblacion'] );
+$entradaDirectorioCodigoProvincia = sanitize_text_field( $_POST['wpfunos_entradaDirectorioCodigoProvincia'] );
+$entradaDirectorioFuneraria = sanitize_text_field( $_POST['wpfunos_entradaDirectorioFuneraria'] );
+$entradaDirectorioMarca = sanitize_text_field( $_POST['wpfunos_entradaDirectorioMarca'] );
+
+$entradaDirectorioDescripcion = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioDescripcion'], $allowed_html ));
+$entradaDirectorioHorario = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioHorario'], $allowed_html ));
+$entradaDirectorioComoLlegar = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioComoLlegar'], $allowed_html ));
+$entradaDirectorioLatitud = sanitize_text_field( $_POST['wpfunos_entradaDirectorioLatitud'] );
+$entradaDirectorioLongitud = sanitize_text_field( $_POST['wpfunos_entradaDirectorioLongitud'] );
+
+$entradaDirectorioEntierroDesde = sanitize_text_field( $_POST['wpfunos_entradaDirectorioEntierroDesde'] ); //(calculado desde landings)
+$entradaDirectorioIncineracionDesde = sanitize_text_field( $_POST['wpfunos_entradaDirectorioIncineracionDesde'] ); //(calculado desde landings)
+
+$entradaDirectorioImagen1 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen1'] );
+$entradaDirectorioImagen2 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen2'] );
+$entradaDirectorioImagen3 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen3'] );
+$entradaDirectorioImagen4 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen4'] );
+$entradaDirectorioImagen5 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen5'] );
+
+$entradaDirectorioLandings = sanitize_text_field( $_POST['wpfunos_entradaDirectorioLandings'] );
+
+$entradaDirectorioServicios = sanitize_text_field( $_POST['wpfunos_entradaDirectorioServicios'] ); //(desde CPT directorio_servicio)
+$entradaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioDescripcionServicios'], $allowed_html ));
+
+$entradaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_entradaDirectorioUltimasDefunciones'] );
+
+/**
+* Street view
+*/
+
+update_post_meta($post_id, 'wpfunos_entradaDirectorioNombre', $entradaDirectorioNombre);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioDireccion', $entradaDirectorioDireccion);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioCorreo', $entradaDirectorioCorreo);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioTelefono', $entradaDirectorioTelefono);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioPoblacion', $entradaDirectorioPoblacion);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioCodigoProvincia', $entradaDirectorioCodigoProvincia);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioFuneraria', $entradaDirectorioFuneraria);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioMarca', $entradaDirectorioMarca);
+
+update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcion', $entradaDirectorioDescripcion);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioHorario' , $entradaDirectorioHorario );
+update_post_meta($post_id, 'wpfunos_entradaDirectorioComoLlegar', $entradaDirectorioComoLlegar);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioLatitud', $entradaDirectorioLatitud);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioLongitud', $entradaDirectorioLongitud);
+
+update_post_meta($post_id, 'wpfunos_entradaDirectorioIncineracionDesde', $entradaDirectorioIncineracionDesde);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioEntierroDesde', $entradaDirectorioEntierroDesde);
+
+update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen1', $entradaDirectorioImagen1);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen2', $entradaDirectorioImagen2);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen3', $entradaDirectorioImagen3);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen4', $entradaDirectorioImagen4);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen5', $entradaDirectorioImagen5);
+
+update_post_meta($post_id, 'wpfunos_entradaDirectorioLandings', $DirectorioLandings);
+
+update_post_meta($post_id, 'wpfunos_entradaDirectorioServicios', $DirectorioServicios);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcionServicios', $entradaDirectorioDescripcionServicios);
+
+update_post_meta($post_id, 'wpfunos_entradaDirectorioUltimasDefunciones', $entradaDirectorioUltimasDefunciones);

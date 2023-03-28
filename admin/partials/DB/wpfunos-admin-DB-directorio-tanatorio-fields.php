@@ -80,6 +80,7 @@ $tanatorioDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_ta
 /**
 * Street view
 */
+
 update_post_meta($post_id, 'wpfunos_tanatorioDirectorioNombre', $tanatorioDirectorioNombre);
 update_post_meta($post_id, 'wpfunos_tanatorioDirectorioDireccion', $tanatorioDirectorioDireccion);
 update_post_meta($post_id, 'wpfunos_tanatorioDirectorioCorreo', $tanatorioDirectorioCorreo);
