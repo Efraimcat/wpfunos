@@ -98,6 +98,10 @@ class Wpfunos_Admin {
     add_action('add_meta_boxes_excep_prov_wpfunos', array( $this, 'setupexcep_prov_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_precio_serv_wpfunos', array( $this, 'setupprecio_serv_wpfunosMetaboxes' ));
     add_action('add_meta_boxes_dist_local_wpfunos', array( $this, 'setupdist_local_wpfunosMetaboxes' ));
+    add_action('add_meta_boxes_directorio_funeraria', array( $this, 'setupdirectorio_funerariaMetaboxes' ));
+    add_action('add_meta_boxes_directorio_marca', array( $this, 'setupdirectorio_marcaMetaboxes' ));
+    add_action('add_meta_boxes_directorio_servicio', array( $this, 'setupdirectorio_servicioMetaboxes' ));
+    add_action('add_meta_boxes_directorio_tanatorio', array( $this, 'setupdirectorio_tanatorioMetaboxes' ));
 
     add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
     add_action('save_post_servicios_wpfunos', array( $this, 'saveservicios_wpfunosMetaBoxData' ));
@@ -111,6 +115,10 @@ class Wpfunos_Admin {
     add_action('save_post_excep_prov_wpfunos', array( $this, 'saveexcep_prov_wpfunosMetaBoxData' ));
     add_action('save_post_precio_serv_wpfunos', array( $this, 'saveprecio_serv_wpfunosMetaBoxData' ));
     add_action('save_post_dist_local_wpfunos', array( $this, 'savedist_local_wpfunosMetaBoxData' ));
+    add_action('save_post_directorio_funeraria', array( $this, 'savedirectorio_funerariaMetaBoxData' ));
+    add_action('save_post_directorio_marca', array( $this, 'savedirectorio_marcaMetaBoxData' ));
+    add_action('save_post_directorio_servicio', array( $this, 'savedirectorio_servicioMetaBoxData' ));
+    add_action('save_post_directorio_tanatorio', array( $this, 'savedirectorio_tanatorioMetaBoxData' ));
 
     add_action('wpfunos_hojas_calculo', array( $this, 'wpfunosHojasCalculo' ), 10, 1 );
     add_action('wpfunos_enlaces_landings', array( $this, 'wpfunosEnlacesLandings' ), 10, 1);
@@ -119,7 +127,6 @@ class Wpfunos_Admin {
     add_action('after_delete_post', array( $this, 'wpfunosBorrarServicio' ), 10, 2 );
     add_action('trashed_post', array( $this, 'wpfunosPapeleraServicio' ), 10, 1 );
     add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaServicios' ), 10, 4);
-
 
     $this->wpfunos_admin_AJAX = new Wpfunos_Admin_AJAX();
     $this->wpfunos_admin_cronjobs = new Wpfunos_Admin_Cronjobs();
@@ -156,7 +163,6 @@ class Wpfunos_Admin {
     $this->wpfunos_admin_cronjobs->wpfunosNextMaintenance();
     $this->custom_logs('==> Wpfunos Next Maintenance ends <==');
     $this->custom_logs('---');
-
   }
   /**
   * Register the Cron Job.
@@ -686,7 +692,7 @@ class Wpfunos_Admin {
   * Custom Post Type Metaboxes
   */
   public function setupusuarios_wpfunosMetaboxes(){
-    /* add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
+    /** add_meta_box( string $id, string $title, callable $callback, string|array|WP_Screen $screen = null, string $context = 'advanced', string $priority = 'default', array $callback_args = null ) */
     add_meta_box('usuarios_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'usuarios_wpfunos_data_meta_box'), 'usuarios_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'usuarios_wpfunos', 'normal');
   }
@@ -732,7 +738,22 @@ class Wpfunos_Admin {
   public function setupdist_local_wpfunosMetaboxes(){
     add_meta_box('dist_local_wpfunos_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'dist_local_wpfunos_data_meta_box'), 'dist_local_wpfunos', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'dist_local_wpfunos', 'normal');
-  }s
+  }
+
+  public function setupdirectorio_funerariaMetaboxes(){
+    add_meta_box('directorio_funeraria_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'directorio_funeraria_data_meta_box'), 'directorio_funeraria', 'normal', 'high' );
+  }
+  public function setupdirectorio_marcaMetaboxes(){
+    add_meta_box('directorio_marca_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'directorio_marca_data_meta_box'), 'directorio_marca', 'normal', 'high' );
+  }
+  public function setupdirectorio_servicioMetaboxes(){
+    add_meta_box('directorio_servicio_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'directorio_servicio_data_meta_box'), 'directorio_servicio', 'normal', 'high' );
+    remove_meta_box('wpseo_meta', 'directorio_servicio', 'normal');
+  }
+  public function setupdirectorio_tanatorioMetaboxes(){
+    add_meta_box('directorio_tanatorio_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'directorio_tanatorio_data_meta_box'), 'directorio_tanatorio', 'normal', 'high' );
+  }
+
   /*********************************/
   /*****  SALVAR DATOS META CPT ****/
   /*********************************/
@@ -832,6 +853,34 @@ class Wpfunos_Admin {
     require_once 'partials/DB/wpfunos-admin-DB-dist-local-fields.php';
   }
 
+  public function savedirectorio_funerariaMetaBoxData( $post_id ){
+    if (! isset($_POST['wpfunos_directorio_funeraria_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_directorio_funeraria_meta_box_nonce'], 'wpfunos_directorio_funeraria_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (! current_user_can('manage_options')) return;
+    require_once 'partials/DB/wpfunos-admin-DB-directorio-funeraria-fields.php';
+  }
+  public function savedirectorio_marcaMetaBoxData( $post_id ){
+    if (! isset($_POST['wpfunos_directorio_marca_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_directorio_marca_meta_box_nonce'], 'wpfunos_directorio_marca_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (! current_user_can('manage_options')) return;
+    require_once 'partials/DB/wpfunos-admin-DB-directorio-marca-fields.php';
+  }
+  public function savedirectorio_servicioMetaBoxData( $post_id ){
+    if (! isset($_POST['wpfunos_directorio_servicio_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_directorio_servicio_meta_box_nonce'], 'wpfunos_directorio_servicio_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (! current_user_can('manage_options')) return;
+    require_once 'partials/DB/wpfunos-admin-DB-directorio-servicio-fields.php';
+  }
+  public function savedirectorio_tanatorioMetaBoxData( $post_id ){
+    if (! isset($_POST['wpfunos_directorio_tanatorio_meta_box_nonce'])) return;
+    if (! wp_verify_nonce($_POST['wpfunos_directorio_tanatorio_meta_box_nonce'], 'wpfunos_directorio_tanatorio_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (! current_user_can('manage_options')) return;
+    require_once 'partials/DB/wpfunos-admin-DB-directorio-tanatorio-fields.php';
+  }
   /*********************************/
   /*****  CPT                 ******/
   /*********************************/
@@ -988,6 +1037,24 @@ class Wpfunos_Admin {
     wp_nonce_field( 'wpfunos_dist_local_wpfunos_meta_box', 'wpfunos_dist_local_wpfunos_meta_box_nonce' );
     require_once 'partials/DB/wpfunos-admin-DB-dist-local-display.php';
   }
+
+  public function directorio_funeraria_data_meta_box($post){
+    wp_nonce_field( 'wpfunos_directorio_funeraria_meta_box', 'wpfunos_directorio_funeraria_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-directorio-funeraria-display.php';
+  }
+  public function directorio_marca_data_meta_box($post){
+    wp_nonce_field( 'wpfunos_directorio_marca_meta_box', 'wpfunos_directorio_marca_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-directorio-marca-display.php';
+  }
+  public function directorio_servicio_data_meta_box($post){
+    wp_nonce_field( 'wpfunos_directorio_servicio_meta_box', 'wpfunos_directorio_servicio_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-directorio-servicio-display.php';
+  }
+  public function directorio_tanatorio_data_meta_box($post){
+    wp_nonce_field( 'wpfunos_directorio_tanatorio_meta_box', 'wpfunos_directorio_tanatorio_meta_box_nonce' );
+    require_once 'partials/DB/wpfunos-admin-DB-directorio-tanatorio-display.php';
+  }
+
 
   /*********************************/
   /*****  RENDERS             ******/

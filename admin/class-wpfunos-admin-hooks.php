@@ -24,6 +24,9 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     add_action('save_post_precio_funer_wpfunos', array( $this, 'wpfunosGuardarLanding' ), 10, 1 );
     add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaLandings' ), 10, 4);
     add_action('post_updated', array( $this, 'wpfunosCheckLandingsValues' ), 10, 3 );
+
+    add_action('save_post_directorio_tanatorio', array( $this, 'wpfunosGuardarTanatorioDirectorio' ), 10, 1 );
+    add_action('post_updated', array( $this, 'wpfunosCheckTanatorioDirectorioValues' ), 10, 3 );
   }
 
   public function wpfunosGuardarServicio( $post_id ){
@@ -558,6 +561,76 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
 
       add_action( 'post_updated', array( $this, 'wpfunosCheckLandingsValues' ), 10, 3 );
       $this->custom_logs('wpfunosCheckLandingsValues ENDS' );
+      $this->custom_logs('---');
+    }
+  }
+
+  /** **/
+  /** **/
+  /** **/
+
+  /**
+  *
+  * add_action('save_post_directorio_tanatorio', array( $this, 'wpfunosGuardarTanatorioDirectorio' ), 10, 1 );
+  *
+  */
+  public function wpfunosGuardarTanatorioDirectorio( $post_id ){
+    $this->custom_logs('wpfunosGuardarTanatorioDirectorio' );
+    $this->custom_logs('$post_id: ' .$post_id. ' (' .get_the_title( $post_id). ')' );
+
+    if( substr( get_post_meta(  $post_id , 'wpfunos_tanatorioDirectorioLandings', true ), -1) == ',' ) {
+      update_post_meta( $post_id, 'wpfunos_tanatorioDirectorioLandings',  substr( get_post_meta(  $post_id , 'wpfunos_tanatorioDirectorioLandings', true ),0,-1 ) );
+    }
+    if( substr( get_post_meta(  $post_id , 'wpfunos_tanatorioDirectorioServicios', true ), -1) == ',' ) {
+      update_post_meta( $post_id, 'wpfunos_tanatorioDirectorioServicios',  substr( get_post_meta(  $post_id , 'wpfunos_tanatorioDirectorioServicios', true ),0,-1 ) );
+    }
+
+    $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_tanatorioDirectorioLandings', true ) ) );
+    //$this->custom_logs('wpfunosGuardarTanatorioDirectorio: ('.count($paginas).')' .get_post_meta(  $post_id , 'wpfunos_tanatorioDirectorioLandings', true ) );
+    $entierroDesde = 0;
+    $incineracionDesde = 0;
+    foreach( $paginas as $pagina ){
+      $entierro = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaEntierroDesde', true ));
+      $incineracion = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaIncineracionDesde', true ));
+      //$this->custom_logs('wpfunosGuardarTanatorioDirectorio: (' .$pagina. ') entierro: ' .$entierro );
+      //$this->custom_logs('wpfunosGuardarTanatorioDirectorio: (' .$pagina. ') incineracion: ' .$incineracion );
+      if( $entierroDesde == 0 ) $entierroDesde = $entierro;
+      if( $incineracionDesde == 0 ) $incineracionDesde = $incineracion;
+      if( $entierroDesde > $entierro ) $entierroDesde = $entierro;
+      if( $incineracionDesde > $incineracion ) $incineracionDesde = $incineracion;
+    }
+    $precioEntierro = ( $entierroDesde == 0 ) ? '' : number_format($entierroDesde, 0, ',', '.') . '€' ;
+    $precioIncineracion = ( $incineracionDesde == 0 ) ? '' : number_format($incineracionDesde, 0, ',', '.') . '€' ;
+    update_post_meta( $post_id, 'wpfunos_tanatorioDirectorioEntierroDesde',  $precioEntierro );
+    update_post_meta( $post_id, 'wpfunos_tanatorioDirectorioIncineracionDesde',  $precioIncineracion );
+
+    $this->custom_logs('wpfunosGuardarTanatorioDirectorio ENDS' );
+    $this->custom_logs('---');
+  }
+
+  /**
+  *
+  * add_action('post_updated', array( $this, 'wpfunosCheckTanatorioDirectorioValues' ), 10, 3 );
+  *
+  */
+  public function wpfunosCheckTanatorioDirectorioValues($post_ID, $post_after, $post_before){
+    if( 'directorio_tanatorio' == $post_after->post_type){
+      remove_action( 'post_updated', array( $this, 'wpfunosCheckTanatorioDirectorioValues' ) );
+      $this->custom_logs('wpfunosCheckTanatorioDirectorioValues' );
+      $this->custom_logs('$post_ID: ' .$post_ID. ' (' .get_the_title( $post_ID ). ')' );
+      $this->custom_logs('$post_after->post_type: ' .$post_after->post_type );
+      $this->custom_logs('$post_after->post_content: ' .$post_after->post_content );
+      $this->custom_logs('---');
+
+      $allowed_html = [
+        'ul' => [],
+      ];
+      $post = get_post( $post_ID );
+      $post->post_content =  wp_kses( $post_after->post_content, $allowed_html );
+      wp_update_post( $post );
+
+      add_action( 'post_updated', array( $this, 'wpfunosCheckTanatorioDirectorioValues' ), 10, 3 );
+      $this->custom_logs('wpfunosCheckTanatorioDirectorioValues ENDS' );
       $this->custom_logs('---');
     }
   }

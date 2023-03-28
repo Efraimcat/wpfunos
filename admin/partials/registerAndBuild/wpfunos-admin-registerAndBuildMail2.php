@@ -20,52 +20,52 @@ add_settings_section(
 );
 // Activar Mail Correo Boton 2 Admin
 add_settings_field(
-  $this->plugin_name . '_activarCorreoBoton2Admin',
+  'wpfunos_activarCorreoBoton2Admin',
   'Activar Correo Boton 2 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoBoton2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail2_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_activarCorreoBoton2Admin','name' => $this->plugin_name . '_activarCorreoBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_activarCorreoBoton2Admin','name' => 'wpfunos_activarCorreoBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Boton 2 Admin
 add_settings_field(
-  $this->plugin_name . '_mailCorreoBoton2Admin',
+  'wpfunos_mailCorreoBoton2Admin',
   'Mail Correo Boton 2 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBoton2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail2_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoBoton2Admin','name' => $this->plugin_name . '_mailCorreoBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoBoton2Admin','name' => 'wpfunos_mailCorreoBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Cco Boton 2 Admin
 add_settings_field(
-  $this->plugin_name . '_mailCorreoCcoBoton2Admin',
+  'wpfunos_mailCorreoCcoBoton2Admin',
   'Mail Correo Cco Boton 2 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoBoton2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail2_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoCcoBoton2Admin','name' => $this->plugin_name . '_mailCorreoCcoBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoCcoBoton2Admin','name' => 'wpfunos_mailCorreoCcoBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Bcc Boton 2 Admin
 add_settings_field(
-  $this->plugin_name . '_mailCorreoBccBoton2Admin',
+  'wpfunos_mailCorreoBccBoton2Admin',
   'Mail Correo Bcc Boton 2 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccBoton2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail2_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoBccBoton2Admin','name' => $this->plugin_name . '_mailCorreoBccBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoBccBoton2Admin','name' => 'wpfunos_mailCorreoBccBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Asunto Mail Correo Boton 2 Admin
 add_settings_field(
-  $this->plugin_name . '_asuntoCorreoBoton2Admin',
+  'wpfunos_asuntoCorreoBoton2Admin',
   'Asunto Correo Boton 2 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreoBoton2Admin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail2_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_asuntoCorreoBoton2Admin','name' => $this->plugin_name . '_asuntoCorreoBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_asuntoCorreoBoton2Admin','name' => 'wpfunos_asuntoCorreoBoton2Admin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Mensaje Mail Correo Boton 2 Admin
 add_settings_field(
-  $this->plugin_name . '_mensajeCorreoBoton2Admin',
+  'wpfunos_mensajeCorreoBoton2Admin',
   'Mensaje Correo Boton 2 Admin <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoBoton2Admin)</h6>',
   array( $this, 'wpfunos_intro_render' ),
   'wpfunos_mail_settings',
@@ -73,9 +73,9 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoBoton2Admin')
 );
 
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_activarCorreoBoton2Admin');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoBoton2Admin');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoCcoBoton2Admin');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoBccBoton2Admin');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_asuntoCorreoBoton2Admin');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mensajeCorreoBoton2Admin');
+register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoBoton2Admin');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBoton2Admin');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoBoton2Admin');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccBoton2Admin');
+register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoBoton2Admin');
+register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoBoton2Admin');
