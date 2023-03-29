@@ -27,7 +27,7 @@ $allowed_html = [
 $DirectorioLandings = '';
 foreach( $_POST as $key => $val ) {
   if( strpos( $key, 'landingDirectorio-' ) !== false ){
-    $land = substr($key,20);
+    $land = substr($key,18);
     //$this->custom_logs('$_POST key: ' .$key );
     //$this->custom_logs('$_POST val: ' .$val );
     //$this->custom_logs('$_POST land: ' .$land );
@@ -45,6 +45,8 @@ foreach( $_POST as $key => $val ) {
   }
 }
 
+$entradaDirectorioTipo = sanitize_text_field( $_POST['wpfunos_entradaDirectorioTipo'] );
+$entradaDirectorioShortcode = sanitize_text_field( $_POST['wpfunos_entradaDirectorioShortcode'] );
 
 $entradaDirectorioNombre = sanitize_text_field( $_POST['wpfunos_entradaDirectorioNombre'] );
 $entradaDirectorioDireccion = sanitize_text_field( $_POST['wpfunos_entradaDirectorioDireccion'] );
@@ -80,6 +82,9 @@ $entradaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_entr
 /**
 * Street view
 */
+
+update_post_meta($post_id, 'wpfunos_entradaDirectorioTipo', $entradaDirectorioTipo);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode', $entradaDirectorioShortcode);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioNombre', $entradaDirectorioNombre);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioDireccion', $entradaDirectorioDireccion);

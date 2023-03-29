@@ -18,6 +18,21 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
+          <td><?php esc_html_e('Tipo de entrada', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="radio" name="wpfunos_entradaDirectorioTipo" <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioTipo', true ) == '1') echo "checked";?> value="1">Tanatorio
+            <input type="radio" name="wpfunos_entradaDirectorioTipo" <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioTipo', true ) == '2') echo "checked";?> value="2">Funeraria
+            <input type="radio" name="wpfunos_entradaDirectorioTipo" <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioTipo', true ) == '3') echo "checked";?> value="3">Marca
+          </td>
+        </tr>
+      </table>
+    </li>
+    <hr/>
+    <li class="directorio_entrada_wpfunos_list">
+      <table>
+        <tr>
           <td><?php esc_html_e('Nombre', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Direccion', 'wpfunos');?></td>
@@ -27,13 +42,13 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Teléfono', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioNombre','name' => 'wpfunos_entradaDirectorioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioNombre','name' => 'wpfunos_entradaDirectorioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioDireccion','name' => 'wpfunos_entradaDirectorioDireccion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioDireccion','name' => 'wpfunos_entradaDirectorioDireccion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioCorreo','name' => 'wpfunos_entradaDirectorioCorreo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioCorreo','name' => 'wpfunos_entradaDirectorioCorreo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioTelefono','name' => 'wpfunos_entradaDirectorioTelefono','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioTelefono','name' => 'wpfunos_entradaDirectorioTelefono','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID , 'size' => 30 ));?></td>
         </tr>
       </table>
     </li>
@@ -50,13 +65,13 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Marca', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioPoblacion','name' => 'wpfunos_entradaDirectorioPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioPoblacion','name' => 'wpfunos_entradaDirectorioPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioCodigoProvincia','name' => 'wpfunos_entradaDirectorioCodigoProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioCodigoProvincia','name' => 'wpfunos_entradaDirectorioCodigoProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioFuneraria','name' => 'wpfunos_entradaDirectorioFuneraria','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioFuneraria','name' => 'wpfunos_entradaDirectorioFuneraria','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioMarca','name' => 'wpfunos_entradaDirectorioMarca','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioMarca','name' => 'wpfunos_entradaDirectorioMarca','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
         </tr>
       </table>
     </li>
@@ -64,14 +79,24 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
+          <td><?php esc_html_e('Longitud', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
           <td><?php esc_html_e('Latitud', 'wpfunos');?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Longitud', 'wpfunos');?></td>
+          <td><?php esc_html_e('Shortcode', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLatitud','name' => 'wpfunos_entradaDirectorioLatitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLongitud','name' => 'wpfunos_entradaDirectorioLongitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLongitud','name' => 'wpfunos_entradaDirectorioLongitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLatitud','name' => 'wpfunos_entradaDirectorioLatitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
+          <td style="width:5px;"></td>
+          <td>
+            <select name="wpfunos_entradaDirectorioShortcode" id="wpfunos_entradaDirectorioShortcode">
+              <option value="shortcodeTanatorio" <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioShortcode', true ) == 'shortcodeTanatorio') echo 'selected="selected"'; ?> >Tanatorio</option>
+              <option value="shortcodeFuneraria" <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioShortcode', true ) == 'shortcodeFuneraria') echo 'selected="selected"'; ?> >Funeraria</option>
+              <option value="shortcodeMarca" <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioShortcode', true ) == 'shortcodeMarca') echo 'selected="selected"'; ?> >Marca</option>
+            </select>
+          </td>
         </tr>
       </table>
     </li>
@@ -231,13 +256,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     <hr/>
     <?php // provide textarea name for $_POST variable
     $notes_entradaDirectorioDescripcion = get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcion', true );
-    $args_entradaDirectorioDescripcion = array( 'textarea_name' => 'wpfunos_entradaDirectorioDescripcion', );
+    $args_entradaDirectorioDescripcion = array( 'textarea_name' => 'wpfunos_entradaDirectorioDescripcion', 'textarea_rows' => 8);
     $notes_entradaDirectorioHorario = get_post_meta( $post->ID, 'wpfunos_entradaDirectorioHorario', true );
-    $args_entradaDirectorioHorario = array( 'textarea_name' => 'wpfunos_entradaDirectorioHorario', );
+    $args_entradaDirectorioHorario = array( 'textarea_name' => 'wpfunos_entradaDirectorioHorario', 'textarea_rows' => 8);
     $notes_entradaDirectorioComoLlegar = get_post_meta( $post->ID, 'wpfunos_entradaDirectorioComoLlegar', true );
-    $args_entradaDirectorioComoLlegar = array( 'textarea_name' => 'wpfunos_entradaDirectorioComoLlegar', );
+    $args_entradaDirectorioComoLlegar = array( 'textarea_name' => 'wpfunos_entradaDirectorioComoLlegar', 'textarea_rows' => 8);
     $notes_entradaDirectorioDescripcionServicios = get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcionServicios', true );
-    $args_entradaDirectorioDescripcionServicios = array( 'textarea_name' => 'wpfunos_entradaDirectorioDescripcionServicios', );
+    $args_entradaDirectorioDescripcionServicios = array( 'textarea_name' => 'wpfunos_entradaDirectorioDescripcionServicios', 'textarea_rows' => 8);
     ?>
     <li><label for="wpfunos_entradaDirectorioDescripcion" style="font-size: 32px;">Descripción</label>
       <?php	wp_editor( $notes_entradaDirectorioDescripcion, 'wpfunos_entradaDirectorioDescripcion',$args_entradaDirectorioDescripcion); ?>
@@ -253,3 +278,110 @@ if ( ! defined( 'ABSPATH' ) ) {
     </li>
   </ul>
 </div>
+
+<script>
+// https://gist.github.com/RadGH/9144771 - WordPress media "browse" button
+$ = jQuery.noConflict();
+$( document ).ready(function() {
+  $(function(){
+    console.log( "document loaded" );
+
+    var media_properties = ['id', 'title', 'filename', 'url', 'link', 'alt', 'author', 'description', 'caption', 'name', 'status', 'uploadedTo', 'date', 'modified', 'menuOrder', 'mime', 'type', 'subtype', 'icon', 'dateFormatted', 'nonces', 'editLink', 'sizes', 'height', 'width', 'orientation', 'compat'];
+
+
+    $('.media-remove').on('click', function(e) {
+      e.preventDefault();
+
+      if ($(this).attr('data-browse-button')) var $browse = $($(this).attr('data-browse-button'));
+      else var $browse = $(this).siblings('.media-browse');
+
+      if (!$browse.length) {
+        alert('No sibling browse button found, or the data-browse-button attribute had no matching elements');
+        return false;
+      }
+
+      $browse.data('attachment', false).trigger('attachment-removed');
+
+      // Trigger the update for the browse button's fields
+      for (i = 0; i < media_properties.length; i++) {
+        var media_key = media_properties[i];
+        var selector = $browse.attr('data-media-' + media_key); // data-media-url, data-media-link, data-media-height
+
+        if (selector) {
+          var $target = jQuery(selector);
+
+          if ($target.length) {
+            $target.val('').trigger('media-updated').trigger('change');
+          }
+        }
+      }
+
+      return false;
+    });
+
+    var file_frame;
+    $('.media-browse').on('click', function(e) {
+      e.preventDefault();
+
+      var $this = $(this);
+
+      if (!wp || !wp.media) {
+        alert('The media gallery is not available. You must admin_enqueue this function: wp_enqueue_media()');
+        return;
+      }
+
+      // If the media frame already exists, reopen it.
+      if (file_frame) {
+        file_frame.open();
+        return;
+      }
+
+      // Create the media frame.
+      file_frame = wp.media.frames.file_frame = wp.media({
+        title: $this.attr('data-media-title') || 'Browsing Media',
+        button: {
+          text: $this.attr('data-media-text') || 'Select',
+        },
+        multiple: false // Set to true to allow multiple files to be selected
+      });
+
+      // When an image is selected, run a callback.
+      file_frame.on('select', function() {
+        // We set multiple to false so only get one image from the uploader
+        attachment = file_frame.state().get('selection').first().toJSON();
+
+        // Extend this plugin yourself by binding the "attachment-selected" event to the button.
+        $this.data('attachment', attachment).trigger('attachment-selected');
+
+        // Allow each file property to be assigned to a field. Fields are referenced by the button's data attrbiutes
+        // All methods support a data attribute.
+        // data-media-{index}
+        // Example:
+        // attachment.url is assigned to the element matching the value of the "data-media-url" attribute (if available)
+        for (i = 0; i < media_properties.length; i++) {
+          var media_key = media_properties[i];
+          var selector = $this.attr('data-media-' + media_key); // data-media-url, data-media-link, data-media-height
+
+          if (selector) {
+            var $target = $(selector);
+
+            if (!$target.length) {
+              if (console && console.log) {
+                console.log('Selector contains zero matched elements:', selector, 'Value expected:', attachment[media_key]);
+                continue;
+              }
+            }
+
+            // Assign the target field the given value, and trigger two events for developers to check for
+            $target.val(attachment[media_key]).trigger('media-updated').trigger('change');
+          }
+        }
+      });
+
+      // Finally, open the modal
+      file_frame.open();
+
+    });
+  });
+});
+</script>
