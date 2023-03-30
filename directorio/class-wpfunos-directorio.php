@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/aseguradoras
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
+require_once 'class-wpfunos-directorio-shortcodes.php';
 
 class Wpfunos_Directorio {
 
