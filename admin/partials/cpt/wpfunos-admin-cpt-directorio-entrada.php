@@ -38,9 +38,39 @@ $customPostTypeArgs = array(
   'supports'=>array('title', 'custom_fields', 'author', 'thumbnail', 'excerpt'),
   'capability_type' => 'post',
   'capabilities' => array('create_posts' => true),
-  'rewrite' => array( 'with_front'=> false ), 'capability_type' => 'post',
+  'rewrite' => array( 'with_front'=> false ),
+  'capability_type' => 'post',
   'hierarchical' => true,
   'map_meta_cap' => true,
 );
 // Post type, $args - the Post Type string can be MAX 20 characters
 register_post_type( 'directorio_entrada', $customPostTypeArgs );
+
+register_taxonomy(
+  'directorio_poblacion', array('directorio_entrada'),array(
+    'hierarchical' => true,
+    'label' => 'Categorias directorio',
+    'labels'=>
+    array(
+      'name'              => _x( 'Categoria directorio', 'taxonomy general name' ),
+      'singular_name'     => _x( 'Categoria directorio', 'taxonomy singular name' ),
+      'search_items'      => __( 'Search Categories' ),
+      'all_items'         => __( 'All Categories' ),
+      'parent_item'       => __( 'Parent Category' ),
+      'parent_item_colon' => __( 'Parent Category:' ),
+      'edit_item'         => __( 'Edit Category' ),
+      'update_item'       => __( 'Update Category' ),
+      'add_new_item'      => __( 'Add New Category' ),
+      'new_item_name'     => __( 'New Category Name' ),
+      'menu_name'         => __( 'Categoria directorio' ),
+    ),
+    'singular_label' => 'Categoria directorio',
+    'rewrite' => array(),
+    'public'                     => true,
+    'show_ui'                    => true,
+    'show_admin_column'          => true,
+    'show_in_nav_menus'          => true,
+    'show_tagcloud'              => true,
+  )
+);
+register_taxonomy_for_object_type( 'directorio_poblacion', 'directorio_entrada' );

@@ -69,9 +69,65 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioCodigoProvincia','name' => 'wpfunos_entradaDirectorioCodigoProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioFuneraria','name' => 'wpfunos_entradaDirectorioFuneraria','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
+          <td>
+            <?php //$this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioFuneraria','name' => 'wpfunos_entradaDirectorioFuneraria','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?>
+            <select name="wpfunos_entradaDirectorioFuneraria" id="wpfunos_entradaDirectorioFuneraria" style="width: 272px" >
+              <option value="">------------</option>
+              <?php
+              $args = array(
+                'post_type' => 'directorio_entrada',
+                'posts_per_page' => -1,
+                'post_status' => 'any', // para incluir borradores
+                'meta_key' => 'wpfunos_entradaDirectorioNombre',
+                'orderby' => 'meta_value',
+                'order' => 'ASC',
+                'meta_query' => array(
+                  'relation' => 'AND',
+                  array( 'key' => 'wpfunos_entradaDirectorioTipo', 'value' => '2', 'compare' => '=', ),
+                ),
+              );
+              $funerarias = get_posts( $args );
+              foreach( $funerarias as $funeraria ) {
+                ?>
+                <option value="<?php echo $funeraria->ID; ?>"
+                  <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioFuneraria', true ) == $funeraria->ID ) echo 'selected="selected"'; ?> ><?php echo get_the_title( $funeraria->ID) ?>
+                  <?php if( get_post_status( $funeraria->ID) != 'publish') echo ' (Borrador)'?>
+                </option>
+                <?php
+              }
+              ?>
+            </select>
+          </td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioMarca','name' => 'wpfunos_entradaDirectorioMarca','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
+          <td>
+            <?php //$this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioMarca','name' => 'wpfunos_entradaDirectorioMarca','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?>
+            <select name="wpfunos_entradaDirectorioMarca" id="wpfunos_entradaDirectorioMarca" style="width: 272px" >
+              <option value="">------------</option>
+              <?php
+              $args = array(
+                'post_type' => 'directorio_entrada',
+                'posts_per_page' => -1,
+                'post_status' => 'any', // para incluir borradores
+                'meta_key' => 'wpfunos_entradaDirectorioNombre',
+                'orderby' => 'meta_value',
+                'order' => 'ASC',
+                'meta_query' => array(
+                  'relation' => 'AND',
+                  array( 'key' => 'wpfunos_entradaDirectorioTipo', 'value' => '3', 'compare' => '=', ),
+                ),
+              );
+              $marcas = get_posts( $args );
+              foreach( $marcas as $marca ) {
+                ?>
+                <option value="<?php echo $marca->ID; ?>"
+                  <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioMarca', true ) == $marca->ID ) echo 'selected="selected"'; ?> ><?php echo get_the_title( $marca->ID) ?>
+                  <?php if( get_post_status( $marca->ID) != 'publish') echo ' (Borrador)'?>
+                </option>
+                <?php
+              }
+              ?>
+            </select>
+          </td>
         </tr>
       </table>
     </li>
@@ -104,31 +160,82 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td colspan="2"><?php esc_html_e('Imagen 1', 'wpfunos');?></td>
+          <td><?php esc_html_e('Imagen 1', 'wpfunos');?></td>
           <td style="width:15px;"></td>
-          <td colspan="2"><?php esc_html_e('Imagen 2', 'wpfunos');?></td>
+          <td><?php esc_html_e('Imagen 2', 'wpfunos');?></td>
           <td style="width:15px;"></td>
-          <td colspan="2"><?php esc_html_e('Imagen 3', 'wpfunos');?></td>
+          <td><?php esc_html_e('Imagen 3', 'wpfunos');?></td>
           <td style="width:15px;"></td>
-          <td colspan="2"><?php esc_html_e('Imagen 4', 'wpfunos');?></td>
+          <td><?php esc_html_e('Imagen 4', 'wpfunos');?></td>
           <td style="width:15px;"></td>
-          <td colspan="2"><?php esc_html_e('Imagen 5', 'wpfunos');?></td>
+          <td><?php esc_html_e('Imagen 5', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioImagen1','name' => 'wpfunos_entradaDirectorioImagen1','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen1', true ), array('150', '150') ); ?></td>
+          <td style="vertical-align: middle;">
+            <?php
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen1', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen1', true ), array('150', '150'), "", array( "class" => "media-browse") );
+            }
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen1"', $output );
+            ?>
+          </td>
           <td style="width:15px;"></td>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioImagen2','name' => 'wpfunos_entradaDirectorioImagen2','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen2', true ), array('150', '150') ); ?></td>
+          <td style="vertical-align: middle;">
+            <?php
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen2', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen2', true ), array('150', '150'), "", array( "class" => "media-browse") );
+            }
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen2"', $output );
+            ?>
+          </td>
           <td style="width:15px;"></td>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioImagen3','name' => 'wpfunos_entradaDirectorioImagen3','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen3', true ), array('150', '150') ); ?></td>
+          <td style="vertical-align: middle;">
+            <?php
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen3', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen3', true ), array('150', '150'), "", array( "class" => "media-browse" ) );
+            }
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen3"', $output );
+            ?>
+          </td>
           <td style="width:15px;"></td>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioImagen4','name' => 'wpfunos_entradaDirectorioImagen4','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen4', true ), array('150', '150') ); ?></td>
+          <td style="vertical-align: middle;">
+            <?php
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen4', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen4', true ), array('150', '150'), "", array( "class" => "media-browse" ) );
+            }
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen4"', $output );
+            ?>
+          </td>
           <td style="width:15px;"></td>
-          <td style="vertical-align: middle;"><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioImagen5','name' => 'wpfunos_entradaDirectorioImagen5','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
-          <td style="vertical-align: middle;"><?php echo wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen5', true ), array('150', '150') ); ?></td>
+          <td style="vertical-align: middle;">
+            <?php
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen5', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen5', true ), array('150', '150'), "", array( "class" => "media-browse" ) );
+            }
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen5"', $output );
+            ?>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'Imagen1','name' => 'wpfunos_entradaDirectorioImagen1','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'Imagen2','name' => 'wpfunos_entradaDirectorioImagen2','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'Imagen3','name' => 'wpfunos_entradaDirectorioImagen3','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'Imagen4','name' => 'wpfunos_entradaDirectorioImagen4','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'Imagen5','name' => 'wpfunos_entradaDirectorioImagen5','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
         </tr>
       </table>
     </li>
