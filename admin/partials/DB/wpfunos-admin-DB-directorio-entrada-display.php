@@ -147,10 +147,24 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLatitud','name' => 'wpfunos_entradaDirectorioLatitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
           <td style="width:5px;"></td>
           <td>
-            <select name="wpfunos_entradaDirectorioShortcode" id="wpfunos_entradaDirectorioShortcode">
-              <option value="shortcodeTanatorio" <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioShortcode', true ) == 'shortcodeTanatorio') echo 'selected="selected"'; ?> >Tanatorio</option>
-              <option value="shortcodeFuneraria" <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioShortcode', true ) == 'shortcodeFuneraria') echo 'selected="selected"'; ?> >Funeraria</option>
-              <option value="shortcodeMarca" <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioShortcode', true ) == 'shortcodeMarca') echo 'selected="selected"'; ?> >Marca</option>
+            <select name="wpfunos_entradaDirectorioShortcode" id="wpfunos_entradaDirectorioShortcode" style="width: 272px" >
+              <?php
+              $args = array(
+                'post_type' => 'directorio_shortcode',
+                'posts_per_page' => -1,
+                'post_status' => 'any', // para incluir borradores
+                'orderby' => 'title',
+                'order' => 'ASC',
+              );
+              $shortcodes = get_posts( $args );
+              foreach( $shortcodes as $shortcode ) {
+                ?>
+                <option value="<?php echo $shortcode->ID; ?>"
+                  <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioShortcode', true ) == $shortcode->ID ) echo 'selected="selected"'; ?> ><?php echo get_the_title( $shortcode->ID) ?>
+                </option>
+                <?php
+              }
+              ?>
             </select>
           </td>
         </tr>

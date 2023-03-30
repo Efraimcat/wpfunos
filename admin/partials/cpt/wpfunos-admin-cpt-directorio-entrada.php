@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/cpt
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
+//'supports'=>array('title', 'custom_fields', 'editor', 'author', 'thumbnail', 'excerpt'),
 $customPostTypeArgs = array(
   'label' => esc_html__('Entrada Directorio', 'wpfunos'),
   'labels'=>

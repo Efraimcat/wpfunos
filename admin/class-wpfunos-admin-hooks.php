@@ -606,9 +606,8 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
 
     $post = get_post( $post_id );
     //$this->custom_logs('wpfunosCheckEntradaDirectorioValues: ' .get_post_meta(  $post_id , 'wpfunos_entradaDirectorioShortcode', true ) );
-    if( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioShortcode', true ) == 'shortcodeTanatorio' ) $post->post_content = '[wpfunos_shortcode_tanatorio]' ;
-    if( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioShortcode', true ) == 'shortcodeFuneraria' ) $post->post_content = '[wpfunos_shortcode_funeraria]' ;
-    if( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioShortcode', true ) == 'shortcodeMarca' ) $post->post_content = '[wpfunos_shortcode_marca]' ;
+    $shortcode_id = get_post_meta( $post_id, 'wpfunos_entradaDirectorioShortcode', true );
+    $post->post_content = get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true );
     wp_update_post( $post );
 
     add_action('save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
