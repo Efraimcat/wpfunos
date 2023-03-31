@@ -66,11 +66,7 @@ $entradaDirectorioLongitud = sanitize_text_field( $_POST['wpfunos_entradaDirecto
 $entradaDirectorioEntierroDesde = sanitize_text_field( $_POST['wpfunos_entradaDirectorioEntierroDesde'] ); //(calculado desde landings)
 $entradaDirectorioIncineracionDesde = sanitize_text_field( $_POST['wpfunos_entradaDirectorioIncineracionDesde'] ); //(calculado desde landings)
 
-$entradaDirectorioImagen1 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen1'] );
-$entradaDirectorioImagen2 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen2'] );
-$entradaDirectorioImagen3 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen3'] );
-$entradaDirectorioImagen4 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen4'] );
-$entradaDirectorioImagen5 = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagen5'] );
+$entradaDirectorioImagenes = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagenes'] );
 
 $entradaDirectorioLandings = sanitize_text_field( $_POST['wpfunos_entradaDirectorioLandings'] );
 
@@ -104,11 +100,7 @@ update_post_meta($post_id, 'wpfunos_entradaDirectorioLongitud', $entradaDirector
 update_post_meta($post_id, 'wpfunos_entradaDirectorioIncineracionDesde', $entradaDirectorioIncineracionDesde);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioEntierroDesde', $entradaDirectorioEntierroDesde);
 
-update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen1', $entradaDirectorioImagen1);
-update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen2', $entradaDirectorioImagen2);
-update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen3', $entradaDirectorioImagen3);
-update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen4', $entradaDirectorioImagen4);
-update_post_meta($post_id, 'wpfunos_entradaDirectorioImagen5', $entradaDirectorioImagen5);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioImagenes', $entradaDirectorioImagenes);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioLandings', $DirectorioLandings);
 

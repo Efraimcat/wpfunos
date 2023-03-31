@@ -179,27 +179,82 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Imagenes', 'wpfunos');?></td>
+          <td><?php esc_html_e('Imagen 1', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td><?php esc_html_e('Imagen 2', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td><?php esc_html_e('Imagen 3', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td><?php esc_html_e('Imagen 4', 'wpfunos');?></td>
+          <td style="width:15px;"></td>
+          <td><?php esc_html_e('Imagen 5', 'wpfunos');?></td>
         </tr>
         <tr>
           <td style="vertical-align: middle;">
             <?php
-            $imagenes = (explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioImagenes', true )));
-            if( get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioImagenes', true ) == ''){
-              $output = wp_get_attachment_image( "39978", array('150', '150'), "", array( "class" => "media-browse" ) );
-              echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagenes"', $output );
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen1', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen1', true ), array('150', '150'), "", array( "class" => "media-browse") );
             }
-            foreach( $imagenes as $imagen ){
-              $output = wp_get_attachment_image( $imagen, array('150', '150'), "", array( "class" => "media-browse" ) );
-              echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagenes"', $output );
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen1"', $output );
+            ?>
+          </td>
+          <td style="width:15px;"></td>
+          <td id="browse-Imagen2" style="vertical-align: middle;">
+            <?php
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen2', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen2', true ), array('150', '150'), "", array( "class" => "media-browse") );
             }
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen2"', $output );
+            ?>
+          </td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;">
+            <?php
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen3', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen3', true ), array('150', '150'), "", array( "class" => "media-browse" ) );
+            }
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen3"', $output );
+            ?>
+          </td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;">
+            <?php
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen4', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen4', true ), array('150', '150'), "", array( "class" => "media-browse" ) );
+            }
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen4"', $output );
+            ?>
+          </td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;">
+            <?php
+            if( strlen( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen5', true ) ) < 2 ){
+              $output = wp_get_attachment_image( "1249", array('150', '150'), "", array( "class" => "media-browse" ) );
+            }else{
+              $output = wp_get_attachment_image( get_post_meta( $_GET['post'], 'wpfunos_entradaDirectorioImagen5', true ), array('150', '150'), "", array( "class" => "media-browse" ) );
+            }
+            echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagen5"', $output );
             ?>
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: middle;" >
-            <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'Imagenes','name' => 'wpfunos_entradaDirectorioImagenes','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID ));?>
-          </td>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text', 'class' => 'browse-imagen','id' => 'Imagen1','name' => 'wpfunos_entradaDirectorioImagen1','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text', 'class' => 'browse-imagen','id' => 'Imagen2','name' => 'wpfunos_entradaDirectorioImagen2','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text', 'class' => 'browse-imagen','id' => 'Imagen3','name' => 'wpfunos_entradaDirectorioImagen3','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text', 'class' => 'browse-imagen','id' => 'Imagen4','name' => 'wpfunos_entradaDirectorioImagen4','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
+          <td style="width:15px;"></td>
+          <td style="vertical-align: middle;" ><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text', 'class' => 'browse-imagen','id' => 'Imagen5','name' => 'wpfunos_entradaDirectorioImagen5','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
         </tr>
       </table>
     </li>
@@ -350,8 +405,6 @@ if ( ! defined( 'ABSPATH' ) ) {
   </ul>
 </div>
 
-
-
 <script>
 // https://gist.github.com/RadGH/9144771 - WordPress media "browse" button
 $ = jQuery.noConflict();
@@ -415,7 +468,7 @@ $( document ).ready(function() {
         button: {
           text: $this.attr('data-media-text') || 'Select',
         },
-        multiple: true // Set to true to allow multiple files to be selected
+        multiple: false // Set to true to allow multiple files to be selected
       });
 
       // When an image is selected, run a callback.
@@ -454,6 +507,53 @@ $( document ).ready(function() {
       // Finally, open the modal
       file_frame.open();
 
+    });
+
+    $(".browse-imagen").change(function(){
+      console.log('cambio imagen: ' + $(this).attr("id") );
+      var estaimagen = $(this).attr("id");
+      if( $(this).val() == ''){
+        console.log('cambio imagen vacio: ' + $(this).val() );
+        imagenvacia = '<img src="https://dev.funos.es/wp-content/uploads/2020/11/Funios-Favicon-comparador-precios-funerarias-entierro-150x150.png" class="media-browse" alt="Funos.es Favicon comparador precios funerarias entierro" decoding="async" sizes="(max-width: 150px) 100vw, 150px" width="150" height="150">';
+        if( $(this).attr("id") == 'Imagen2'){
+          console.log('cambio imagen2: ');
+          imagenvacia = imagenvacia.replace('class="media-browse"', 'class="media-browse"  data-media-id="#Imagen2"');
+          $("#browse-Imagen2").first().html(imagenvacia);
+        }
+        if( $(this).attr("id") == 'Imagen3'){
+          console.log('cambio imagen3: ');
+          imagenvacia = imagenvacia.replace('class="media-browse"', 'class="media-browse"  data-media-id="#Imagen3"');
+          $("#browse-Imagen3").first().html(imagenvacia);
+        }
+      }else{
+        console.log('cambio imagen: ' + $(this).val() );
+        $.ajax({
+          type : 'post',
+          dataType : 'json',
+          url : WpfAjax.ajaxurl,
+          data: {
+            'action': 'wpfunos_ajax_directorio_imagen',
+            'wpfimagen':  $(this).val(),
+          },
+          success: function(response) {
+            console.log(response)	;
+            if(response.type === 'success') {
+              console.log('success');
+              if( estaimagen == 'Imagen2'){
+                imagenurl = response.wpfimagen;
+                imagenurl = imagenurl.replace('class="media-browse"', 'class="media-browse"  data-media-id="#Imagen2"');
+                console.log('cambio imagen2: ' + imagenurl  );
+                $("#browse-Imagen2").first().html( imagenurl );
+              }
+            } else {
+              console.log('fail');
+            }
+          }
+        }); // END AJAX
+      }
+      //console.log('cambio imagen: ' + $(" +objeto+ ").first().html() );
+      //#browse-Imagen2
+      //$("#browse-Imagen2").first().html()
     });
   });
 });

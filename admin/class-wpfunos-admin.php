@@ -200,6 +200,7 @@ class Wpfunos_Admin {
       add_submenu_page( 'wpfunosconfig' , esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', 'wpfunos-logs', array( $this, 'displayPluginAdminLogs' ));
     }
     add_submenu_page( 'wpfunosprecios_poblacion', esc_html__('Configuración precios población WpFunos', 'wpfunos'), esc_html__('Configuración precios población', 'wpfunos'), 'administrator', 'wpfunos-settingspreciospoblacion', array( $this, 'displayPreciosPoblacionSettings' ));
+    add_submenu_page( 'wpfunos_directorio', esc_html__('Import-Export Directorio', 'wpfunos'), esc_html__('Import-Export', 'wpfunos'), 'administrator', 'wpfunos-import-export-directorio', array( $this, 'displayImportExportDirectorio' ));
   }
 
   /**
@@ -300,6 +301,17 @@ class Wpfunos_Admin {
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
     require_once 'partials/wpfunos-admin-precios-poblacion-settings-display.php';
+  }
+
+  /**
+  * Precios población menu display.
+  */
+  public function displayImportExportDirectorio() {
+    if (isset($_GET['error_message'])) {
+      add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
+      do_action('admin_notices', sanitize_text_field($_GET['error_message']));
+    }
+    require_once 'partials/wpfunos-admin-import-export-directorio-display.php';
   }
 
   /*********************************/
@@ -1082,11 +1094,15 @@ class Wpfunos_Admin {
         $min = (isset($args['min'])) ? 'min="' . $args['min'] . '"' : '';
         $max = (isset($args['max'])) ? 'max="' . $args['max'] . '"' : '';
         $size = (isset($args['size'])) ? 'size="' . $args['size'] . '"' : 'size="40"';
+
+        $class = (isset($args['class'])) ? 'class="' . $args['class'] . '"' : '';
+        $imagenid = (isset($args['imagenid'])) ? 'data-imagen-id="' . $args['imagenid'] . '"' : '';
+
         if (isset($args['disabled'])) {
           // hide the actual input bc if it was just a disabled input the informaiton saved in the database would be wrong - bc it would pass empty values and wipe the actual information
-          echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '_disabled" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '_disabled" ' . $size . ' disabled value="' . esc_attr($value) . '" /><input type="hidden" id="' . $args['id'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd;
+          echo $prependStart . '<input type="' . $args['subtype'] . '" '.$class. ' '.$imagenid. ' id="' . $args['id'] . '_disabled" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '_disabled" ' . $size . ' disabled value="' . esc_attr($value) . '" /><input type="hidden" id="' . $args['id'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" size="40" value="' . esc_attr($value) . '" />' . $prependEnd;
         } else {
-          echo $prependStart . '<input type="' . $args['subtype'] . '" id="' . $args['id'] . '" "' . $args['required'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" ' . $size . ' value="' . esc_attr($value) . '" />' . $prependEnd;
+          echo $prependStart . '<input type="' . $args['subtype'] . '" '.$class. ' '.$imagenid. ' id="' . $args['id'] . '" "' . $args['required'] . '" ' . $step . ' ' . $max . ' ' . $min . ' name="' . $args['name'] . '" ' . $size . ' value="' . esc_attr($value) . '" />' . $prependEnd;
         }
         /* <input required="required" '.$disabled.' type="number" step="any" id="'.'wpfunos_cost2" name="'.'wpfunos_cost2" value="' . esc_attr( $cost ) . '" size="25" /><input type="hidden" id="'.'wpfunos_cost" step="any" name="'.'wpfunos_cost" value="' . esc_attr( $cost ) . '" /> */
       } else {
