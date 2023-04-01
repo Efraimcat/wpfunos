@@ -27,7 +27,7 @@ if( !isset ($_POST['submit']) ){
   ?>
   <div class="wpfunos-imports">
     <h3>
-      IMPORTACION FICHERO DIRECTORIO
+      IMPORTACION FICHERO TANATORIOS DIRECTORIO
     </h3>
     <p>
       Escoger el fichero .csv de la importación
@@ -39,12 +39,12 @@ if( !isset ($_POST['submit']) ){
       <p>
         <input type="hidden" name="importdirectorio" id="importdirectorio" value="1"/>
         <?php wp_nonce_field( 'wpfunos_import_directorio_nonce', 'wpfunos_import_directorio_nonce' ); ?>
-        <?php submit_button( __( 'Importar fichero directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
+        <?php submit_button( __( 'Importar fichero tanatorios directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
       </p>
     </form>
     <hr/>
     <h3>
-      EXPORTACION FICHERO DIRECTORIO
+      EXPORTACION FICHERO TANATORIOS DIRECTORIO
     </h3>
     <p>
       Crear fichero .csv del directorio
@@ -53,7 +53,7 @@ if( !isset ($_POST['submit']) ){
       <p>
         <input type="hidden" name="exportdirectorio" id="exportdirectorio" value="1"/>
         <?php wp_nonce_field( 'wpfunos_import_directorio_nonce', 'wpfunos_import_directorio_nonce' ); ?>
-        <?php submit_button( __( 'Exportar fichero directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
+        <?php submit_button( __( 'Exportar fichero tanatorios directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
       </p>
     </form>
   </div>
@@ -122,7 +122,7 @@ if($_POST['exportdirectorio'] == '1' ){
     //$term_obj_list = get_the_terms( $post->ID, 'directorio_poblacion' );
     //cabecera
     //
-    // TODO: Categorias, Extracto
+    // TODO: Categorias, Extracto, slug, Imagen destacada
     //
     //$csv_output = 'Fecha de la acción realizada, ID, Referencia, Nombre y apellidos, Teléfono, Email, Ubicación del usuario, CP, Provincia, Empresa, Servicio demandado, API, Precio, Nombre servicio, Nombre ataúd, Nombre velatorio, Nombre despedida, Visitas, URL, Nombre acción, IP';
     $csv_output = 'ID,Status,Nombre,Direccion,Correo,Telefono,Poblacion,CodigosProvincia,Funeraria,IDFuneraria,Latitud,Longitud,IDImagenes,Landings,IDLandings,Servicios,IDServicios,Shortcode, IDShortcode,Descripcion,DescripcionServicios,Horarios,ComoLlegar';

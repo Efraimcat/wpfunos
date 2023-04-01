@@ -26,6 +26,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     add_action('post_updated', array( $this, 'wpfunosCheckLandingsValues' ), 10, 3 );
 
     add_action('save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
+    add_action('save_post_directorio_funeraria', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
   }
 
   public function wpfunosGuardarServicio( $post_id ){
@@ -612,6 +613,53 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
 
     add_action('save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
     $this->custom_logs('wpfunosGuardarEntradaDirectorio ENDS' );
+    $this->custom_logs('---');
+  }
+
+  /**
+  *
+  *add_action('save_post_directorio_funeraria', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
+  *
+  */
+  public function wpfunosGuardarFunerariaDirectorio( $post_id ){
+    $this->custom_logs('wpfunosGuardarFunerariaDirectorio' );
+    $this->custom_logs('$post_id: ' .$post_id. ' (' .get_the_title( $post_id). ')' );
+    remove_action( 'save_post_directorio_funeraria', array( $this, 'wpfunosGuardarFunerariaDirectorio' ) );
+
+    if( substr( get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ), -1) == ',' ) {
+      update_post_meta( $post_id, 'wpfunos_funerariaDirectorioLandings',  substr( get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ),0,-1 ) );
+    }
+    if( substr( get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioServicios', true ), -1) == ',' ) {
+      update_post_meta( $post_id, 'wpfunos_funerariaDirectorioServicios',  substr( get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioServicios', true ),0,-1 ) );
+    }
+
+    $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ) ) );
+    //$this->custom_logs('wpfunosGuardarFunerariaDirectorio: ('.count($paginas).')' .get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ) );
+    $entierroDesde = 0;
+    $incineracionDesde = 0;
+    foreach( $paginas as $pagina ){
+      $entierro = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaEntierroDesde', true ));
+      $incineracion = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaIncineracionDesde', true ));
+      //$this->custom_logs('wpfunosGuardarFunerariaDirectorio: (' .$pagina. ') entierro: ' .$entierro );
+      //$this->custom_logs('wpfunosGuardarFunerariaDirectorio: (' .$pagina. ') incineracion: ' .$incineracion );
+      if( $entierroDesde == 0 ) $entierroDesde = $entierro;
+      if( $incineracionDesde == 0 ) $incineracionDesde = $incineracion;
+      if( $entierroDesde > $entierro ) $entierroDesde = $entierro;
+      if( $incineracionDesde > $incineracion ) $incineracionDesde = $incineracion;
+    }
+    $precioEntierro = ( $entierroDesde == 0 ) ? '' : number_format($entierroDesde, 0, ',', '.') . '€' ;
+    $precioIncineracion = ( $incineracionDesde == 0 ) ? '' : number_format($incineracionDesde, 0, ',', '.') . '€' ;
+    update_post_meta( $post_id, 'wpfunos_funerariaDirectorioEntierroDesde',  $precioEntierro );
+    update_post_meta( $post_id, 'wpfunos_funerariaDirectorioIncineracionDesde',  $precioIncineracion );
+
+    $post = get_post( $post_id );
+    //$this->custom_logs('wpfunosCheckFunerariaDirectorioValues: ' .get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioShortcode', true ) );
+    $shortcode_id = get_post_meta( $post_id, 'wpfunos_funerariaDirectorioShortcode', true );
+    $post->post_content = get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true );
+    wp_update_post( $post );
+
+    add_action('save_post_directorio_funeraria', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
+    $this->custom_logs('wpfunosGuardarFunerariaDirectorio ENDS' );
     $this->custom_logs('---');
   }
 

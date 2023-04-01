@@ -33,6 +33,18 @@ if ( ! defined( 'ABSPATH' ) ) {
   <li><strong><a href="/wp-admin/admin.php?page=wpfunos-settingspreciospoblacion">Configuración precios población</a></strong>: Parámetros de landings de funerarias.</li>
 </ul>
 <hr/>
+<p><strong>Directorio</strong></p>
+<ul>
+  <li><strong><a href="/wp-admin/edit.php?post_type=directorio_entrada">Tanatorios</a></strong>: Entradas de tanatorios del directorio.</li>
+  <li><strong><a href="/wp-admin/edit.php?post_type=directorio_funeraria">Funerarias</a></strong>: Entradas de funerarias del directorio.</li>
+  <li><strong><a href="/wp-admin/edit.php?post_type=directorio_servicio">Servicios</a></strong>: Definición de los diferentes servicios de las entradas del directorio.</li>
+  <li><strong><a href="/wp-admin/edit.php?post_type=directorio_defuncion">Defunciones</a></strong>: Listado de las defunciones recogidas de otras webs.</li>
+  <li><strong><a href="/wp-admin/edit.php?post_type=directorio_shortcode">Shortcodes</a></strong>: Definición de los diferentes shortcodes de plantillas de las entradas del directorio</li>
+  <li><strong><a href="/wp-admin/edit-tags.php?taxonomy=directorio_poblacion&post_type=directorio_entrada">Categorias tanatorios</a></strong>: Categorias de las entradas de tanatorios.</li>
+  <li><strong><a href="/wp-admin/edit-tags.php?taxonomy=funeraria_poblacion&post_type=directorio_funeraria">Categorias funerarias</a></strong>: Categorias de las entradas de funerarias.</li>
+  <li><strong><a href="/wp-admin/admin.php?page=wpfunos-import-export-directorio">Import-Export</a></strong>: Funciones de import-export del directorio.</li>
+</ul>
+<hr/>
 <p><strong>Configuración</strong></p>
 <ul>
   <li><strong><a href="/wp-admin/admin.php?page=wpfunos-settings">Configuración servicios</a></strong>: Parámetros de la página de búsqueda de servicios.</li>
