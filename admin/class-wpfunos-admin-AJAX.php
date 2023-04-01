@@ -22,8 +22,6 @@ class Wpfunos_Admin_AJAX extends Wpfunos_Admin {
     add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_servicios', function () {$this->wpfunosProcesarServicios();});
     add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () { $this->wpfunosProcesarPreciosV3();});
     add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () {$this->wpfunosProcesarPreciosV3();});
-    add_action('wp_ajax_nopriv_wpfunos_ajax_directorio_imagen', function () { $this->wpfunosDirectorioImagen();});
-    add_action('wp_ajax_wpfunos_ajax_directorio_imagen', function () {$this->wpfunosDirectorioImagen();});
   }
 
   /*********************************/
@@ -301,30 +299,4 @@ class Wpfunos_Admin_AJAX extends Wpfunos_Admin {
     // don't forget to end your scripts with a die() function - very important
     die();
   }
-
-  /*********************************/
-  /*****  AJAX                ******/
-  /*********************************/
-  /**
-  * Devuleve url imagen
-  *
-  * add_action('wp_ajax_nopriv_wpfunos_ajax_directorio_imagen', function () { $this->wpfunosDirectorioImagen();});
-  * add_action('wp_ajax_wpfunos_ajax_directorio_imagen', function () {$this->wpfunosDirectorioImagen();});
-  *
-  *
-  **/
-  public function $this->wpfunosDirectorioImagen(){
-    $imagen = $_POST['wpfimagen'];
-
-    $imagenurl = wp_get_attachment_image( get_post_meta( $imagen, array('150', '150'), "", array( "class" => "media-browse" ) );
-
-    $result['type'] = "success";
-    $result['wpfimagen'] = $imagenurl ;
-    $result = json_encode($result);
-    echo $result;
-    // don't forget to end your scripts with a die() function - very important
-    die();
-  }
-
-
 }

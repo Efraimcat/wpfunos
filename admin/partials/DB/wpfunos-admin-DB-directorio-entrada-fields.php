@@ -45,7 +45,6 @@ foreach( $_POST as $key => $val ) {
   }
 }
 
-$entradaDirectorioTipo = sanitize_text_field( $_POST['wpfunos_entradaDirectorioTipo'] );
 $entradaDirectorioShortcode = sanitize_text_field( $_POST['wpfunos_entradaDirectorioShortcode'] );
 
 $entradaDirectorioNombre = sanitize_text_field( $_POST['wpfunos_entradaDirectorioNombre'] );
@@ -55,7 +54,6 @@ $entradaDirectorioTelefono = sanitize_text_field( $_POST['wpfunos_entradaDirecto
 $entradaDirectorioPoblacion = sanitize_text_field( $_POST['wpfunos_entradaDirectorioPoblacion'] );
 $entradaDirectorioCodigoProvincia = sanitize_text_field( $_POST['wpfunos_entradaDirectorioCodigoProvincia'] );
 $entradaDirectorioFuneraria = sanitize_text_field( $_POST['wpfunos_entradaDirectorioFuneraria'] );
-$entradaDirectorioMarca = sanitize_text_field( $_POST['wpfunos_entradaDirectorioMarca'] );
 
 $entradaDirectorioDescripcion = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioDescripcion'], $allowed_html ));
 $entradaDirectorioHorario = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioHorario'], $allowed_html ));
@@ -79,7 +77,6 @@ $entradaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_entr
 * Street view
 */
 
-update_post_meta($post_id, 'wpfunos_entradaDirectorioTipo', $entradaDirectorioTipo);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode', $entradaDirectorioShortcode);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioNombre', $entradaDirectorioNombre);
@@ -89,7 +86,6 @@ update_post_meta($post_id, 'wpfunos_entradaDirectorioTelefono', $entradaDirector
 update_post_meta($post_id, 'wpfunos_entradaDirectorioPoblacion', $entradaDirectorioPoblacion);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioCodigoProvincia', $entradaDirectorioCodigoProvincia);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioFuneraria', $entradaDirectorioFuneraria);
-update_post_meta($post_id, 'wpfunos_entradaDirectorioMarca', $entradaDirectorioMarca);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcion', $entradaDirectorioDescripcion);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioHorario' , $entradaDirectorioHorario );
