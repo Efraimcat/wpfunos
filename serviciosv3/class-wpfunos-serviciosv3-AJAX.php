@@ -353,7 +353,13 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
               "from":"34606902525",
               "to":"[numero_SMS]",
               "text":"Gracias por tu consulta en FUNOS.\\nRecupera los resultados de tu comparativa aquí: [enlace_SMS]\\nNos puedes llamar a este teléfono\\no contactar por WhatsApp aquí: https://wa.me/message/TTW45ZJEQWZGK1\\nTe asesoramos sin compromiso",
-              "send_at": "2020-01-23 12:00:00"
+              "send_at": "[fecha1]"
+            },
+            {
+              "from":"34606902525",
+              "to":"[numero_SMS]",
+              "text":"Descuento 50% en las principales funerarias. Asesoramiento profesional. Te ayudamos en todo.\\nGestoría gratis.\\nValoración 5* en Google.\\nLee las reseñas: https://funoslink.net/decM",
+              "send_at": "[fecha2]"
             }
           ]
         }';
@@ -370,7 +376,14 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         }
         $request = str_replace ( '[enlace_SMS]' , $userURL , $request );
         $request = str_replace ( '[numero_SMS]' , $telSMS , $request );
-
+        //
+        $date1 = new DateTime("now", new DateTimeZone('Europe/Madrid'));
+        $date2 = new DateTime("now", new DateTimeZone('Europe/Madrid'));
+        $date2->add(new DateInterval('PT5S'));
+        //
+        $request = str_replace ( '[fecha1]' , $date1->format("Y-m-d H:i:s") , $request );
+        $request = str_replace ( '[fecha2]' , $date2->format("Y-m-d H:i:s") , $request );
+        //
         do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
         $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(

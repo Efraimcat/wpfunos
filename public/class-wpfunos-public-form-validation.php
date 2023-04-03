@@ -94,6 +94,11 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
       $user   = $email[0];
       $domain = $email[1];
 
+      if ( strlen( $user ) < 4 ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (nombre)' );
+      }
+
       if (!filter_var( $field['value'], FILTER_VALIDATE_EMAIL )) {
         $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
         do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (nombre)' );

@@ -118,14 +118,73 @@ class Wpfunos_Public {
   public function wpfunosFormNewrecord($record, $handler){
     global $wp;
     $form_name = $record->get_form_settings( 'form_name' );
-    if ( 'FormularioDatosAseguradoras' !== $form_name ) {
-      return;
-    }
+
     $raw_fields = $record->get( 'fields' );
     $fields = [];
     foreach ( $raw_fields as $id => $field ) {
       $fields[ $id ] = $field['value'];
     }
+
+    if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name ){
+      //https://funoslink.net/decM
+      $userIP = apply_filters('wpfunos_userIP','dummy');
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - '.'Enviar SMS' );
+      do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
+      do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . $fields['telefono'] );
+
+      $request = '{
+        "api_key":"4b66b40a110c408e8651eb971591f03e",
+        "report_url":"https://funos.es/",
+        "concat":1,
+        "messages":[
+          {
+            "from":"34606902525",
+            "to":"[numero_SMS]",
+            "text":"FUNOS, el comparador de precios de funerarias.\\nEn breve te contactamos.\\nNos puedes llamar a este teléfono\\nO contactar por WhatsApp: https://wa.me/message/TTW45ZJEQWZGK1",
+            "send_at": "[fecha1]"
+          },
+          {
+            "from":"34606902525",
+            "to":"[numero_SMS]",
+            "text":"Descuento 50% en las principales funerarias. Asesoramiento profesional. Te ayudamos en todo.\\nGestoría gratis.\\nValoración 5* en Google.\\nLee las reseñas: [enlace_SMS]",
+            "send_at": "[fecha2]"
+          }
+        ]
+      }';
+
+      $telSMS = str_replace(" ","", $fields['telefono'] );
+      $telSMS = str_replace("-","",$telSMS );
+      if(substr($telSMS,0,1) == '+'){
+        $telSMS = str_replace("+","",$telSMS );
+      }else{
+        $telSMS = '34'.$telSMS ;
+      }
+      if( site_url() === 'https://dev.funos.es'){
+        $telSMS = '34690074497';
+      }
+      //
+      $request = str_replace ( '[numero_SMS]' , $telSMS , $request );
+      $request = str_replace ( '[enlace_SMS]' , "https://funoslink.net/decM", $request );
+      //
+      $date1 = new DateTime("now", new DateTimeZone('Europe/Madrid'));
+      $date2 = new DateTime("now", new DateTimeZone('Europe/Madrid'));
+      $date2->add(new DateInterval('PT5S'));
+      //
+      $request = str_replace ( '[fecha1]' , $date1->format("Y-m-d H:i:s") , $request );
+      $request = str_replace ( '[fecha2]' , $date2->format("Y-m-d H:i:s") , $request );
+      //
+      do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+
+      $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+        'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+        'body'        => $request,
+        'method'      => 'POST',
+      ));
+
+      $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
+      do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
+    }// if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name )
 
     if( $form_name == 'FormularioDatosAseguradoras' ){
       // do_action('wpfunos_log', 'Fields: ' . $fields );
@@ -207,36 +266,34 @@ class Wpfunos_Public {
           'wpfunos_userMobile' => $mobile,
         ),
       );
-    }
+      $post_id = wp_insert_post($my_post);
 
-    $post_id = wp_insert_post($my_post);
-
-    // wpfunos-visitas-entrada
-    do_action('wpfunos-visitas-entrada',array(
-      'tipo' => '2',
-      'nombre' => sanitize_text_field( $fields['Nombre'] ),
-      'email' => sanitize_text_field( $fields['email'] ),
-      'telefono' => sanitize_text_field( $fields['telefono'] ),
-      'postID' => $post_id,
-      'poblacion' => sanitize_text_field( $fields['address'] ),
-      'nacimiento' => sanitize_text_field( $fields['nacimiento'] ),
-      'cp' => sanitize_text_field( $fields['CP'] ),
-    ) );
-    //
-
-    do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', $userIP.' - '.'Recogida datos usuario' );
-    do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-    do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-    do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-    do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
-    do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
-    do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
-    do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $fields['Nombre']  );
-    do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
-    do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $fields['referencia'] );
-    do_action('wpfunos_log', $userIP.' - '.'Telefono: ' . $fields['telefono'] );
-  }
+      // wpfunos-visitas-entrada
+      do_action('wpfunos-visitas-entrada',array(
+        'tipo' => '2',
+        'nombre' => sanitize_text_field( $fields['Nombre'] ),
+        'email' => sanitize_text_field( $fields['email'] ),
+        'telefono' => sanitize_text_field( $fields['telefono'] ),
+        'postID' => $post_id,
+        'poblacion' => sanitize_text_field( $fields['address'] ),
+        'nacimiento' => sanitize_text_field( $fields['nacimiento'] ),
+        'cp' => sanitize_text_field( $fields['CP'] ),
+      ) );
+      //
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - '.'Recogida datos usuario' );
+      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
+      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
+      do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
+      do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
+      do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $fields['Nombre']  );
+      do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
+      do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $fields['referencia'] );
+      do_action('wpfunos_log', $userIP.' - '.'Telefono: ' . $fields['telefono'] );
+    }// if( $form_name == 'FormularioDatosAseguradoras' )
+  } // public function wpfunosFormNewrecord($record, $handler)
 
   public function wpfunosVisitasEntrada($record){
     if( !isset ( $record['tipo'] ) ) return;

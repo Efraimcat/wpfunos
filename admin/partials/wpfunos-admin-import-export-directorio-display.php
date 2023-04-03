@@ -30,7 +30,7 @@ if( !isset ($_POST['submit']) ){
       IMPORTACION FICHERO TANATORIOS DIRECTORIO
     </h3>
     <p>
-      Escoger el fichero .csv de la importación
+      Escoger el fichero .csv de la importación de tanatorios
     </p>
     <form method="post" enctype="multipart/form-data" action="">
       <p>
@@ -44,16 +44,47 @@ if( !isset ($_POST['submit']) ){
     </form>
     <hr/>
     <h3>
+      IMPORTACION FICHERO FUNERARIAS DIRECTORIO
+    </h3>
+    <p>
+      Escoger el fichero .csv de la importación de funerarias
+    </p>
+    <form method="post" enctype="multipart/form-data" action="">
+      <p>
+        <input accept=".csv" type="file" name="import_file" />
+      </p>
+      <p>
+        <input type="hidden" name="importfuneraria" id="importfuneraria" value="1"/>
+        <?php wp_nonce_field( 'wpfunos_import_funeraria_nonce', 'wpfunos_import_funeraria_nonce' ); ?>
+        <?php submit_button( __( 'Importar fichero funerarias directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
+      </p>
+    </form>
+    <hr/>
+    <h3>
       EXPORTACION FICHERO TANATORIOS DIRECTORIO
     </h3>
     <p>
-      Crear fichero .csv del directorio
+      Crear fichero .csv de tanatorios del directorio
     </p>
     <form method="post" enctype="multipart/form-data" action="">
       <p>
         <input type="hidden" name="exportdirectorio" id="exportdirectorio" value="1"/>
         <?php wp_nonce_field( 'wpfunos_import_directorio_nonce', 'wpfunos_import_directorio_nonce' ); ?>
         <?php submit_button( __( 'Exportar fichero tanatorios directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
+      </p>
+    </form>
+    <hr/>
+    <h3>
+      EXPORTACION FICHERO FUNERARIAS DIRECTORIO
+    </h3>
+    <p>
+      Crear fichero .csv de funeraarias del directorio
+    </p>
+    <form method="post" enctype="multipart/form-data" action="">
+      <p>
+        <input type="hidden" name="exportfunerarias" id="exportfunerarias" value="1"/>
+        <?php wp_nonce_field( 'wpfunos_import_funerarias_nonce', 'wpfunos_import_funerarias_nonce' ); ?>
+        <?php submit_button( __( 'Exportar fichero funerarias directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
       </p>
     </form>
   </div>
@@ -125,65 +156,11 @@ if($_POST['exportdirectorio'] == '1' ){
     // TODO: Categorias, Extracto, slug, Imagen destacada
     //
     //$csv_output = 'Fecha de la acción realizada, ID, Referencia, Nombre y apellidos, Teléfono, Email, Ubicación del usuario, CP, Provincia, Empresa, Servicio demandado, API, Precio, Nombre servicio, Nombre ataúd, Nombre velatorio, Nombre despedida, Visitas, URL, Nombre acción, IP';
-    $csv_output = 'ID,Status,Nombre,Direccion,Correo,Telefono,Poblacion,CodigosProvincia,Funeraria,IDFuneraria,Latitud,Longitud,IDImagenes,Landings,IDLandings,Servicios,IDServicios,Shortcode, IDShortcode,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
+    $csv_output = 'ID,Status,Nombre,Direccion,Correo,Telefono,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Funeraria,IDFuneraria,Latitud,Longitud,IDImagenes,Landings,IDLandings,Servicios,IDServicios,Shortcode, IDShortcode,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
     $csv_output .= "\n";
     foreach ( $post_list as $post ){
-      $term_obj_list = get_the_terms( $post->ID, 'directorio_poblacion' );
-      if ( count($term_obj_list) != 4 )echo 'ERROR en categorias del post ' .$post->ID. ' ' .get_the_title( $post->ID ). '<br/>';
-      //var_dump( $term_obj_list );
-      /**
-      *array(4) {
-      *  [0]=> object(WP_Term)#62786 (10) {
-      *    ["term_id"]=> int(641)
-      *    ["name"]=> string(9) "Barcelona"
-      *    ["slug"]=> string(9) "barcelona"
-      *    ["term_group"]=> int(0)
-      *    ["term_taxonomy_id"]=> int(641)
-      *    ["taxonomy"]=> string(20) "directorio_poblacion"
-      *    ["description"]=> string(0) ""
-      *    ["parent"]=> int(644)
-      *    ["count"]=> int(1)
-      *    ["filter"]=> string(3) "raw"
-      *  }
-      *  [1]=> object(WP_Term)#62788 (10) {
-      *    ["term_id"]=> int(642)
-      *    ["name"]=> string(16) "Barcelona ciudad"
-      *    ["slug"]=> string(16) "barcelona-ciudad"
-      *    ["term_group"]=> int(0)
-      *    ["term_taxonomy_id"]=> int(642)
-      *    ["taxonomy"]=> string(20) "directorio_poblacion"
-      *    ["parent"]=> int(641)
-      *    ["description"]=> string(0) ""
-      *    ["count"]=> int(1)
-      *    ["filter"]=> string(3) "raw"
-      *  }
-      *  [2]=> object(WP_Term)#62790 (10) {
-      *    ["term_id"]=> int(638)
-      *    ["name"]=> string(10) "Directorio"
-      *    ["slug"]=> string(10) "directorio"
-      *    ["term_group"]=> int(0)
-      *    ["term_taxonomy_id"]=> int(638)
-      *    ["taxonomy"]=> string(20) "directorio_poblacion"
-      *    ["description"]=> string(0) ""
-      *    ["parent"]=> int(0)
-      *    ["count"]=> int(3)
-      *    ["filter"]=> string(3) "raw"
-      *  }
-      *  [3]=> object(WP_Term)#62785 (10) {
-      *    ["term_id"]=> int(644)
-      *    ["name"]=> string(9) "Funeraria"
-      *    ["slug"]=> string(9) "funeraria"
-      *    ["term_group"]=> int(0)
-      *    ["term_taxonomy_id"]=> int(644)
-      *    ["taxonomy"]=> string(20) "directorio_poblacion"
-      *    ["description"]=> string(0) ""
-      *    ["parent"]=> int(638)
-      *    ["count"]=> int(1)
-      *    ["filter"]=> string(3) "raw"
-      *  }
-      *}
-      *
-      */
+      $poblacion = ( explode( '/',  str_replace( home_url().'/directorio/tanatorio/','',get_permalink($post->ID)) ) );
+      //echo $poblacion[0]. '->' . $poblacion[1]. ' <br/>';
 
       $funeraria = get_post_meta( get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true ), 'wpfunos_entradaDirectorioNombre', true );
       $shortcode = get_post_meta( get_post_meta( $post->ID, 'wpfunos_entradaDirectorioShortcode', true ), 'wpfunos_shortcodeDirectorioNombre', true );
@@ -208,6 +185,8 @@ if($_POST['exportdirectorio'] == '1' ){
       $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDireccion', true )).",";
       $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCorreo', true )).",";
       $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioTelefono', true )).",";
+      $csv_output .= $poblacion[0].",";
+      $csv_output .= $poblacion[1].",";
       $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioPoblacion', true )).",";
       $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCodigoProvincia', true )).",";
       $csv_output .= str_replace(",",";",$funeraria).",";
@@ -233,10 +212,15 @@ if($_POST['exportdirectorio'] == '1' ){
     if (!file_exists( $upload_dir['basedir'] . '/wpfunos-exports') ) {
       mkdir( $upload_dir['basedir'] . '/wpfunos-exports' );
     }
-    $file = $upload_dir['basedir'] . '/wpfunos-exports/export-directorio-'. $now->format("d-m-Y-H-i") . '.csv';
+    $file = $upload_dir['basedir'] . '/wpfunos-exports/export-funerarias-directorio-'. $now->format("d-m-Y-H-i") . '.csv';
+    $filedownload = home_url(). '/wp-content/uploads/wpfunos-exports/export-funerarias-directorio-'. $now->format("d-m-Y-H-i") . '.csv';
     $open = fopen( $file, "w" );
     fputs( $open, $csv_output );
     fclose( $open );
+
     ?><h2>EXPORTACION FINALIZADA</h2><?php
+    //https://dev.funos.es/var/www/vhosts/dev.funos.es/httpdocs/wp-content/uploads/wpfunos-exports/export-funerarias-directorio-03-04-2023-13-15.csv
+    //https://dev.funos.es/wp-content/uploads/wpfunos-exports/export-funerarias-directorio-03-04-2023-13-15.csv
+    ?><hr/><h2><a href="<?php echo $filedownload; ?>">DESCARGAR FICHERO</a></h2><?php
   }
 }

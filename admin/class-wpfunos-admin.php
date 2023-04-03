@@ -203,7 +203,7 @@ class Wpfunos_Admin {
       add_submenu_page( 'wpfunosconfig' , esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', 'wpfunos-logs', array( $this, 'displayPluginAdminLogs' ));
     }
     add_submenu_page( 'wpfunosprecios_poblacion', esc_html__('Configuración precios población WpFunos', 'wpfunos'), esc_html__('Configuración precios población', 'wpfunos'), 'administrator', 'wpfunos-settingspreciospoblacion', array( $this, 'displayPreciosPoblacionSettings' ));
-    //add_submenu_page( 'wpfunos_directorio', esc_html__('Import-Export Directorio', 'wpfunos'), esc_html__('Import-Export', 'wpfunos'), 'administrator', 'wpfunos-import-export-directorio', array( $this, 'displayImportExportDirectorio' ));
+    add_submenu_page( 'wpfunos_directorio', esc_html__('Import-Export Directorio', 'wpfunos'), esc_html__('Import-Export', 'wpfunos'), 'administrator', 'wpfunos-import-export-directorio', array( $this, 'displayImportExportDirectorio' ));
   }
 
   /**
