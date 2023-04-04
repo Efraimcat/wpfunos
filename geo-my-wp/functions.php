@@ -106,14 +106,6 @@ function disabling_emails( $args ){
 }
 add_filter('wp_mail','disabling_emails', 10,1);
 
-/*
-* WOOCOMMERCE
-*/
-include("wpfunoscommerce.php");
-/*
-*
-*/
-
 // Habilitar la subida de imágenes en formato SVG en WordPress
 add_filter( 'upload_mimes', 'jc_custom_upload_mimes' );
 function jc_custom_upload_mimes( $existing_mimes = array() ) {
@@ -145,3 +137,18 @@ function wpfunos_login_redirect( $url, $request, $user ) {
   return $url;
 }
 add_filter( 'login_redirect', 'wpfunos_login_redirect', 10, 3 );
+
+/*
+* WOOCOMMERCE
+*/
+include("wpfunoscommerce.php");
+/*
+*
+*/
+/*
+* WIDGET DIRECTORIO
+*/
+include("wpfunoswidgetdirectorio.php");
+/*
+*
+*/

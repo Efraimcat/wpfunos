@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
 require_once 'class-wpfunos-directorio-shortcodes.php';
+require_once 'class-wpfunos-directorio-widgets.php';
 
 class Wpfunos_Directorio {
 

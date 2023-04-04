@@ -73,7 +73,7 @@ class Wpfunos_Public {
   public function wpfunosCorreoUsuarioPopupShortcode( $atts, $content = "" ) {
     if ( get_option('wpfunos_activarCorreoUsuarioContacto') ){
       $mensaje = get_option('wpfunos_mensajeCorreoUsuarioContacto');
-      $nombreUsuario = do_shortcode ('[field id="nombreasesor"]');
+      $nombreUsuario = do_shortcode ('[field id="nombre"]');
       $telefonoUsuario = do_shortcode ('[field id="telefono"]');
       $Email = do_shortcode ('[field id="email"]');
       $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );
@@ -184,6 +184,15 @@ class Wpfunos_Public {
 
       $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
       do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
+      //
+      $expiry = strtotime('+1 month');
+      if( ! isset( $_COOKIE['wpfn'] ) ) setcookie('wpfn', sanitize_text_field($fields['nombre']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+      if( ! isset( $_COOKIE['wpfe'] ) ) setcookie('wpfe', sanitize_text_field($fields['email']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+      if( ! isset( $_COOKIE['wpft'] ) ) setcookie('wpft', sanitize_text_field($fields['telefono']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+      //
+      do_action('wpfunos-visitas-entrada',array( 'tipo' => '6', ) );
+
+
     }// if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name )
 
     if( $form_name == 'FormularioDatosAseguradoras' ){
@@ -295,6 +304,11 @@ class Wpfunos_Public {
     }// if( $form_name == 'FormularioDatosAseguradoras' )
   } // public function wpfunosFormNewrecord($record, $handler)
 
+  /**
+  *
+  * add_action( 'wpfunos-visitas-entrada', array( $this, 'wpfunosVisitasEntrada' ), 10, 1 );
+  *
+  */
   public function wpfunosVisitasEntrada($record){
     if( !isset ( $record['tipo'] ) ) return;
 
