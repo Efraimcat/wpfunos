@@ -27,8 +27,8 @@ class wpfunoswidgetdirectorio extends WP_Widget {
     echo $args['before_title'] . $title . $args['after_title'];
     //output
 
-
-    echo __( 'Resultado widget directorio', 'wpfunos' );
+    do_action('wpfunos-directorio-widget', $dummy  );
+    //echo __( 'Resultado widget directorio', 'wpfunos' );
 
 
 

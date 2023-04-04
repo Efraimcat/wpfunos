@@ -24,14 +24,15 @@ class Wpfunos_Directorio {
     $this->plugin_name = $plugin_name;
     $this->version = $version;
 
+    $this->widgets = new Wpfunos_Directorio_Widgets();
   }
 
   public function enqueue_styles() {
-    wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-aseguradoras.css', array(), $this->version, 'all' );
+    wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-directorio.css', array(), $this->version, 'all' );
   }
 
   public function enqueue_scripts() {
-    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-aseguradoras.js', array( 'jquery' ), $this->version, false );
+    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-directorio.js', array( 'jquery' ), $this->version, false );
   }
 
 }

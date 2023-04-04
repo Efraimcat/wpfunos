@@ -29,6 +29,8 @@ $args = array(
 );
 $post_list = get_posts( $args );
 if( $post_list ){
+  //
+  // https://developer.wordpress.org/reference/functions/get_the_terms/
   //$term_obj_list = get_the_terms( $post->ID, 'directorio_poblacion' );
   //cabecera
   //
