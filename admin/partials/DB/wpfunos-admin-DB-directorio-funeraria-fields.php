@@ -14,15 +14,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 $allowed_html = [
   'a' => [
+    'style' => true,
     'id' => true,
     'href'  => true,
     'title' => true,
+  ],
+  'p' => [
+    'style' => true,
   ],
   'strong' => [],
   'h3' => [],
   'ul' => [],
   'li' => [],
   'b' => [],
+  'del' => [],
+  'em' => [],
+  'i' => [],
 ];
 $DirectorioLandings = '';
 foreach( $_POST as $key => $val ) {

@@ -14,19 +14,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 $allowed_html = [
   'a' => [
+    'style' => true,
     'id' => true,
     'href'  => true,
     'title' => true,
+  ],
+  'p' => [
+    'style' => true,
   ],
   'strong' => [],
   'h3' => [],
   'ul' => [],
   'li' => [],
   'b' => [],
-  'br' => [],
+  'del' => [],
+  'em' => [],
+  'i' => [],
 ];
-
-
 
 $precioFunerariaPoblacion = sanitize_text_field( $_POST['wpfunos_precioFunerariaPoblacion'] );
 $precioFunerariaProvincia = sanitize_text_field( $_POST['wpfunos_precioFunerariaProvincia'] );

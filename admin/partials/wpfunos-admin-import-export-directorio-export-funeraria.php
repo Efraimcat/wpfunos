@@ -103,8 +103,12 @@ if( $post_list ){
   if (!file_exists( $upload_dir['basedir'] . '/wpfunos-exports') ) {
     mkdir( $upload_dir['basedir'] . '/wpfunos-exports' );
   }
-  $file = $upload_dir['basedir'] . '/wpfunos-exports/export-funerarias-directorio-'. $now->format("d-m-Y-H-i") . '.csv';
-  $filedownload = home_url(). '/wp-content/uploads/wpfunos-exports/export-funerarias-directorio-'. $now->format("d-m-Y-H-i") . '.csv';
+
+  $URL = explode('/',home_url());
+  $url= str_replace('.','-',$URL[2]);
+
+  $file = $upload_dir['basedir'] . '/wpfunos-exports/export-funerarias-'.$url.'-directorio-'. $now->format("d-m-Y-H-i") . '.csv';
+  $filedownload = home_url(). '/wp-content/uploads/wpfunos-exports/export-funerarias-'.$url.'-directorio-'. $now->format("d-m-Y-H-i") . '.csv';
   $open = fopen( $file, "w" );
   fputs( $open, $csv_output );
   fclose( $open );

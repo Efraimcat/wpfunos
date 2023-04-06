@@ -500,16 +500,22 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
       if( 'wpfunos_precioFunerariaPoblacionesCercanas' == $meta_key ){
         $allowed_html = [
           'a' => [
+            'style' => true,
             'id' => true,
             'href'  => true,
             'title' => true,
+          ],
+          'p' => [
+            'style' => true,
           ],
           'strong' => [],
           'h3' => [],
           'ul' => [],
           'li' => [],
           'b' => [],
-          'br' => [],
+          'del' => [],
+          'em' => [],
+          'i' => [],
         ];
         //update_post_meta($object_id, $meta_key, wp_kses( $_meta_value, $allowed_html ) );
         update_post_meta($object_id, $meta_key, preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_meta_value, $allowed_html )));

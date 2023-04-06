@@ -41,15 +41,22 @@ $cantidadviejos = 0;
 $cantidadnuevos = 0;
 $allowed_html = [
   'a' => [
+    'style' => true,
     'id' => true,
     'href'  => true,
     'title' => true,
+  ],
+  'p' => [
+    'style' => true,
   ],
   'strong' => [],
   'h3' => [],
   'ul' => [],
   'li' => [],
   'b' => [],
+  'del' => [],
+  'em' => [],
+  'i' => [],
 ];
 foreach ( $array as $keylinea=>$linea ) {
   if ($keylinea == 0){

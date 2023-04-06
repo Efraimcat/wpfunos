@@ -25,6 +25,7 @@ class Wpfunos_Directorio {
     $this->version = $version;
 
     $this->widgets = new Wpfunos_Directorio_Widgets();
+    $this->shortcodes = new Wpfunos_Directorio_Shortcodes();
   }
 
   public function enqueue_styles() {
