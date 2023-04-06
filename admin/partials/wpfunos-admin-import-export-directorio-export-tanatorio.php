@@ -37,10 +37,16 @@ if( $post_list ){
   // TODO:
   //
   //$csv_output = 'Fecha de la acción realizada, ID, Referencia, Nombre y apellidos, Teléfono, Email, Ubicación del usuario, CP, Provincia, Empresa, Servicio demandado, API, Precio, Nombre servicio, Nombre ataúd, Nombre velatorio, Nombre despedida, Visitas, URL, Nombre acción, IP';
-  $csv_output = 'ID,Status,Nombre,Direccion,Correo,Telefono,Tipo,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Slug,Funerarias,IDFunerarias,Latitud,Longitud,IDImagenes,ImagenDestacada,Landings,IDLandings,Servicios,IDServicios,Shortcode, IDShortcode,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
+  $csv_output = 'ID,Status,Titulo,Nombre,Direccion,Correo,Telefono,Tipo,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Funerarias,IDFunerarias,Latitud,Longitud,IDImagenes,ImagenDestacada,Landings,IDLandings,Servicios,IDServicios,Shortcode,IDShortcode,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
   $csv_output .= "\n";
   foreach ( $post_list as $post ){
-    $poblacion = ( explode( '/',  str_replace( home_url().'/directorio/tanatorio/','',get_permalink($post->ID)) ) );
+    // TODO: Categorias cuando es draft
+    if( get_post_status ( $post->ID ) == 'publish'){
+      $poblacion = ( explode( '/',  str_replace( home_url().'/directorio/tanatorio/','',get_permalink($post->ID)) ) );
+    }else{
+      $poblacion[0] = '';
+      $poblacion[1] = str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioPoblacion', true ));
+    }
     //echo $poblacion[0]. '->' . $poblacion[1]. ' <br/>';
 
     $funeraria = get_post_meta( get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true ), 'wpfunos_funerariaDirectorioNombre', true );
@@ -69,6 +75,7 @@ if( $post_list ){
 
     $csv_output .= $post->ID.","; // ID
     $csv_output .= get_post_status ( $post->ID ).",";
+    $csv_output .= str_replace(",",";",get_the_title( $post->ID )).",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioNombre', true )).",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDireccion', true )).",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCorreo', true )).",";
@@ -78,7 +85,6 @@ if( $post_list ){
     $csv_output .= $poblacion[1].",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioPoblacion', true )).",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCodigoProvincia', true )).",";
-    $csv_output .= $post->post_name.",";
     $csv_output .= str_replace(",",";",$funeraria).",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true )).",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLatitud', true )).",";

@@ -480,6 +480,8 @@ class Wpfunos_Utils {
 
   /**
   *
+  * add_filter( 'wpfunos_acentos_minusculas', array( $this, 'wpfAcentosMinusculas' ), 10, 1 );
+  *
   */
   public function wpfAcentosMinusculas( $cadena ){
     $cadena = str_replace(

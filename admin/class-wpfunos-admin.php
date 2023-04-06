@@ -1229,7 +1229,24 @@ class Wpfunos_Admin {
     fputs($open, $ban);
     fclose( $open );
   }
-
+  /**
+  * Utility: create entry in the log file.
+  */
+  private function import_logs($message){
+    $upload_dir = wp_upload_dir();
+    if (is_array($message)) {
+      $message = json_encode($message);
+    }
+    if (!file_exists( $upload_dir['basedir'] . '/wpfunos-logs') ) {
+      mkdir( $upload_dir['basedir'] . '/wpfunos-logs' );
+    }
+    $time = current_time("d-M-Y H:i:s:v");
+    $ban = "#$time: $message\r\n";
+    $file = $upload_dir['basedir'] . '/wpfunos-logs/wpfunos-importlog-' . current_time("Y-m-d") . '.log';
+    $open = fopen($file, "a");
+    fputs($open, $ban);
+    fclose( $open );
+  }
   /**
   * GZIPs a file on disk (appending .gz to the name)
   *
