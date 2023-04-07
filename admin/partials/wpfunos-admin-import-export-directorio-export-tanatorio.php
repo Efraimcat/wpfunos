@@ -40,14 +40,6 @@ if( $post_list ){
   $csv_output = 'ID,Status,Titulo,Nombre,Direccion,Correo,Telefono,Tipo,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Funerarias,IDFunerarias,Latitud,Longitud,IDImagenes,ImagenDestacada,Landings,IDLandings,Servicios,IDServicios,Shortcode,IDShortcode,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
   $csv_output .= "\n";
   foreach ( $post_list as $post ){
-    // TODO: Categorias cuando es draft
-    if( get_post_status ( $post->ID ) == 'publish'){
-      $poblacion = ( explode( '/',  str_replace( home_url().'/directorio/tanatorio/','',get_permalink($post->ID)) ) );
-    }else{
-      $poblacion[0] = '';
-      $poblacion[1] = str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioPoblacion', true ));
-    }
-    //echo $poblacion[0]. '->' . $poblacion[1]. ' <br/>';
 
     $funeraria = get_post_meta( get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true ), 'wpfunos_funerariaDirectorioNombre', true );
     $shortcode = get_post_meta( get_post_meta( $post->ID, 'wpfunos_entradaDirectorioShortcode', true ), 'wpfunos_shortcodeDirectorioNombre', true );
@@ -71,6 +63,8 @@ if( $post_list ){
       $excerpt = wp_strip_all_tags(get_the_excerpt( $post->ID ));
     }
 
+    $term_list = wp_get_post_terms( $post->ID, 'directorio_poblacion', array( 'fields' => 'all' ) );
+
     //https://dev.funos.es/wp-admin/post.php?post=141187&action=edit
 
     $csv_output .= $post->ID.","; // ID
@@ -81,8 +75,8 @@ if( $post_list ){
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCorreo', true )).",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioTelefono', true )).",";
     $csv_output .= "tanatorio,";
-    $csv_output .= $poblacion[0].",";
-    $csv_output .= $poblacion[1].",";
+    $csv_output .= strtolower( get_the_category_by_ID( $term_list[0]->parent )).",";
+    $csv_output .= strtolower( get_the_category_by_ID( $term_list[0]->term_taxonomy_id )).",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioPoblacion', true )).",";
     $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCodigoProvincia', true )).",";
     $csv_output .= str_replace(",",";",$funeraria).",";

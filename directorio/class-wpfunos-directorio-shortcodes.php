@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
 
   public function __construct( ) {
+    add_shortcode( 'wpfunos-directorio-tanatorio-nombre', array( $this, 'wpfunosDirectorioTanatorioNombreShortcode' ));
     add_shortcode( 'wpfunos-directorio-tanatorio-descripcion', array( $this, 'wpfunosDirectorioTanatorioDescripcionShortcode' ));
     add_shortcode( 'wpfunos-directorio-tanatorio-horario', array( $this, 'wpfunosDirectorioTanatorioHorarioShortcode' ));
     add_shortcode( 'wpfunos-directorio-tanatorio-servicios', array( $this, 'wpfunosDirectorioTanatorioServiciosShortcode' ));
@@ -23,6 +24,14 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
 
   }
 
+
+  /**
+  * add_shortcode( 'wpfunos-directorio-tanatorio-nombre', array( $this, 'wpfunosDirectorioTanatorioNombreShortcode' ));
+  */
+  public function wpfunosDirectorioTanatorioNombreShortcode(){
+    $post_id = get_the_ID();
+    echo get_post_meta( $post_id, 'wpfunos_entradaDirectorioNombre', true );
+  }
   /**
   * add_shortcode( 'wpfunos-directorio-tanatorio-descripcion', array( $this, 'wpfunosDirectorioTanatorioDescripcionShortcode' ));
   */

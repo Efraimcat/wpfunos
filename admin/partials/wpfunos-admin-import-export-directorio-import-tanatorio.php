@@ -37,27 +37,6 @@ if (($open = fopen($_FILES['import_file']['tmp_name'] , "r")) !== FALSE){
   fclose($open);
 }
 
-$cantidadviejos = 0;
-$cantidadnuevos = 0;
-$allowed_html = [
-  'a' => [
-    'style' => true,
-    'id' => true,
-    'href'  => true,
-    'title' => true,
-  ],
-  'p' => [
-    'style' => true,
-  ],
-  'strong' => [],
-  'h3' => [],
-  'ul' => [],
-  'li' => [],
-  'b' => [],
-  'del' => [],
-  'em' => [],
-  'i' => [],
-];
 foreach ( $array as $keylinea=>$linea ) {
   if ($keylinea == 0){
     $cabecera = array();
@@ -92,7 +71,9 @@ foreach ( $array as $keylinea=>$linea ) {
   // TODO: comprobar que el post es del post_type adecuado. get_post_type().
 
   $post_id = $linea[$lineaID];
+  $nuevo = 'no';
   if ( $post_id == '' ){
+    $nuevo = 'si';
     echo '<br/>Linea ' .$keylinea. ' es un un nuevo tanatorio';
     $this->import_logs('Linea ' .$keylinea. ' es un un nuevo tanatorio');
     $post_id = wp_insert_post(array (
@@ -162,10 +143,16 @@ foreach ( $array as $keylinea=>$linea ) {
 
     // TITULO
     if ($cabecera[$key] == 'Titulo' ) wp_update_post( array( 'ID' => $post_id, 'post_title' => $columna ) );
-    if ($cabecera[$key] == 'Status' ) wp_update_post( array( 'ID' => $post_id, 'post_status' => $columna ) );
+    if ($cabecera[$key] == 'Status' ){
+      if( $nuevo == 'si'){
+        wp_update_post( array( 'ID' => $post_id, 'post_status' => 'draft' ) );
+      }else{
+        wp_update_post( array( 'ID' => $post_id, 'post_status' => $columna ) );
+      }
+    }
     //if ($cabecera[$key] == 'Slug' ) wp_insert_post(array( 'ID'=>$post_id, 'post_name' => $columna ));
     if ($cabecera[$key] == 'Extracto' ) {
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( str_replace("+",",", $columna), $allowed_html ));
+      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( str_replace("+",",", $columna) ));
       wp_update_post(array( 'ID'=>$post_id, 'post_excerpt' => $texto ));
     }
     if ($cabecera[$key] == 'ImagenDestacada' ) set_post_thumbnail( $post_id, $columna );
@@ -193,22 +180,22 @@ foreach ( $array as $keylinea=>$linea ) {
     if ($cabecera[$key] == 'IDShortcode' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode',  str_replace(";",",", $columna) );
     //
     if ($cabecera[$key] == 'Descripcion' ){
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( str_replace("+",",", $columna), $allowed_html ));
+      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( str_replace("+",",", $columna)));
       update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcion',  $texto );
     }
     //
     if ($cabecera[$key] == 'DescripcionServicios' ){
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( str_replace("+",",", $columna), $allowed_html ));
+      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( str_replace("+",",", $columna)));
       update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcionServicios',  $texto );
     }
     //
     if ($cabecera[$key] == 'Horarios' ){
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( str_replace("+",",", $columna), $allowed_html ));
+      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( str_replace("+",",", $columna)));
       update_post_meta($post_id, 'wpfunos_entradaDirectorioHorario',  $texto );
     }
     //
     if ($cabecera[$key] == 'ComoLlegar' ){
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( str_replace("+",",", $columna), $allowed_html ));
+      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( str_replace("+",",", $columna)));
       update_post_meta($post_id, 'wpfunos_entradaDirectorioComoLlegar',  $texto );
     }
 

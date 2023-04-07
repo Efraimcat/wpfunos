@@ -12,25 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$allowed_html = [
-  'a' => [
-    'style' => true,
-    'id' => true,
-    'href'  => true,
-    'title' => true,
-  ],
-  'p' => [
-    'style' => true,
-  ],
-  'strong' => [],
-  'h3' => [],
-  'ul' => [],
-  'li' => [],
-  'b' => [],
-  'del' => [],
-  'em' => [],
-  'i' => [],
-];
 $DirectorioLandings = '';
 foreach( $_POST as $key => $val ) {
   if( strpos( $key, 'landingDirectorio-' ) !== false ){
@@ -62,9 +43,9 @@ $entradaDirectorioPoblacion = sanitize_text_field( $_POST['wpfunos_entradaDirect
 $entradaDirectorioCodigoProvincia = sanitize_text_field( $_POST['wpfunos_entradaDirectorioCodigoProvincia'] );
 $entradaDirectorioFuneraria = sanitize_text_field( $_POST['wpfunos_entradaDirectorioFuneraria'] );
 
-$entradaDirectorioDescripcion = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioDescripcion'], $allowed_html ));
-$entradaDirectorioHorario = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioHorario'], $allowed_html ));
-$entradaDirectorioComoLlegar = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioComoLlegar'], $allowed_html ));
+$entradaDirectorioDescripcion = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioDescripcion']));
+$entradaDirectorioHorario = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioHorario']));
+$entradaDirectorioComoLlegar = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioComoLlegar']));
 $entradaDirectorioLatitud = sanitize_text_field( $_POST['wpfunos_entradaDirectorioLatitud'] );
 $entradaDirectorioLongitud = sanitize_text_field( $_POST['wpfunos_entradaDirectorioLongitud'] );
 
@@ -76,7 +57,7 @@ $entradaDirectorioImagenes = sanitize_text_field( $_POST['wpfunos_entradaDirecto
 $entradaDirectorioLandings = sanitize_text_field( $_POST['wpfunos_entradaDirectorioLandings'] );
 
 $entradaDirectorioServicios = sanitize_text_field( $_POST['wpfunos_entradaDirectorioServicios'] ); //(desde CPT directorio_servicio)
-$entradaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_entradaDirectorioDescripcionServicios'], $allowed_html ));
+$entradaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioDescripcionServicios']));
 
 $entradaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_entradaDirectorioUltimasDefunciones'] );
 

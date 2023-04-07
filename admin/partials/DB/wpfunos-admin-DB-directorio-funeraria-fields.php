@@ -12,25 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$allowed_html = [
-  'a' => [
-    'style' => true,
-    'id' => true,
-    'href'  => true,
-    'title' => true,
-  ],
-  'p' => [
-    'style' => true,
-  ],
-  'strong' => [],
-  'h3' => [],
-  'ul' => [],
-  'li' => [],
-  'b' => [],
-  'del' => [],
-  'em' => [],
-  'i' => [],
-];
 $DirectorioLandings = '';
 foreach( $_POST as $key => $val ) {
   if( strpos( $key, 'landingDirectorio-' ) !== false ){
@@ -61,9 +42,9 @@ $funerariaDirectorioTelefono = sanitize_text_field( $_POST['wpfunos_funerariaDir
 $funerariaDirectorioPoblacion = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioPoblacion'] );
 $funerariaDirectorioCodigoProvincia = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioCodigoProvincia'] );
 
-$funerariaDirectorioDescripcion = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_funerariaDirectorioDescripcion'], $allowed_html ));
-$funerariaDirectorioHorario = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_funerariaDirectorioHorario'], $allowed_html ));
-$funerariaDirectorioComoLlegar = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_funerariaDirectorioComoLlegar'], $allowed_html ));
+$funerariaDirectorioDescripcion = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_funerariaDirectorioDescripcion']));
+$funerariaDirectorioHorario = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_funerariaDirectorioHorario']));
+$funerariaDirectorioComoLlegar = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_funerariaDirectorioComoLlegar']));
 $funerariaDirectorioLatitud = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioLatitud'] );
 $funerariaDirectorioLongitud = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioLongitud'] );
 
@@ -75,7 +56,7 @@ $funerariaDirectorioImagenes = sanitize_text_field( $_POST['wpfunos_funerariaDir
 $funerariaDirectorioLandings = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioLandings'] );
 
 $funerariaDirectorioServicios = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioServicios'] ); //(desde CPT directorio_servicio)
-$funerariaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses( $_POST['wpfunos_funerariaDirectorioDescripcionServicios'], $allowed_html ));
+$funerariaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_funerariaDirectorioDescripcionServicios']));
 
 $funerariaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioUltimasDefunciones'] );
 
