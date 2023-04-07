@@ -43,6 +43,7 @@ $entradaDirectorioPoblacion = sanitize_text_field( $_POST['wpfunos_entradaDirect
 $entradaDirectorioCodigoProvincia = sanitize_text_field( $_POST['wpfunos_entradaDirectorioCodigoProvincia'] );
 $entradaDirectorioFuneraria = sanitize_text_field( $_POST['wpfunos_entradaDirectorioFuneraria'] );
 
+esc_url(
 $entradaDirectorioDescripcion = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioDescripcion']));
 $entradaDirectorioHorario = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioHorario']));
 $entradaDirectorioComoLlegar = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioComoLlegar']));
@@ -55,6 +56,7 @@ $entradaDirectorioIncineracionDesde = sanitize_text_field( $_POST['wpfunos_entra
 $entradaDirectorioImagenes = sanitize_text_field( $_POST['wpfunos_entradaDirectorioImagenes'] );
 
 $entradaDirectorioLandings = sanitize_text_field( $_POST['wpfunos_entradaDirectorioLandings'] );
+$entradaDirectorioURLLandingss = esc_url( $_POST['wpfunos_entradaDirectorioURLLandings'] );
 
 $entradaDirectorioServicios = sanitize_text_field( $_POST['wpfunos_entradaDirectorioServicios'] ); //(desde CPT directorio_servicio)
 $entradaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioDescripcionServicios']));
@@ -87,6 +89,7 @@ update_post_meta($post_id, 'wpfunos_entradaDirectorioEntierroDesde', $entradaDir
 update_post_meta($post_id, 'wpfunos_entradaDirectorioImagenes', $entradaDirectorioImagenes);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioLandings', $DirectorioLandings);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioURLLandings', $entradaDirectorioURLLandings);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioServicios', $DirectorioServicios);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcionServicios', $entradaDirectorioDescripcionServicios);

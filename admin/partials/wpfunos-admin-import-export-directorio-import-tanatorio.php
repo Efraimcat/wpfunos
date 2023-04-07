@@ -179,6 +179,8 @@ foreach ( $array as $keylinea=>$linea ) {
     // "Shortcode"
     if ($cabecera[$key] == 'IDShortcode' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode',  str_replace(";",",", $columna) );
     //
+    if ($cabecera[$key] == 'URLLandings' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioURLLandings',  str_replace(";",",", $columna) );
+    //
     if ($cabecera[$key] == 'Descripcion' ){
       $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( str_replace("+",",", $columna)));
       update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcion',  $texto );

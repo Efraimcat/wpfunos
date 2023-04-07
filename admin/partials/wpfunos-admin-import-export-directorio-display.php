@@ -42,7 +42,7 @@ if( !isset ($_POST['submit']) ){
         <?php submit_button( __( 'Importar fichero tanatorios directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
       </p>
     </form>
-    <hr/>
+    <hr style="height: 50px;">
     <h3>
       IMPORTACION FICHERO FUNERARIAS DIRECTORIO
     </h3>
@@ -59,7 +59,7 @@ if( !isset ($_POST['submit']) ){
         <?php submit_button( __( 'Importar fichero funerarias directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
       </p>
     </form>
-    <hr/>
+    <hr style="height: 50px;">
     <h3>
       EXPORTACION FICHERO TANATORIOS DIRECTORIO
     </h3>
@@ -73,7 +73,7 @@ if( !isset ($_POST['submit']) ){
         <?php submit_button( __( 'Exportar fichero tanatorios directorio', 'wpfunos' ), 'secondary', 'submit', false );?>
       </p>
     </form>
-    <hr/>
+    <hr style="height: 50px;">
     <h3>
       EXPORTACION FICHERO FUNERARIAS DIRECTORIO
     </h3>

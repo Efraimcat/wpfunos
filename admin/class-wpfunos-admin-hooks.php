@@ -409,7 +409,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     $languages = apply_filters( 'wpml_active_languages', NULL, array( 'skip_missing' => 1,) );
     if( !empty( $languages ) ) {
       foreach( $languages as $language ){
-        $wpml_id = apply_filters( 'wpml_object_id', $post_id, 'post', FALSE, $language[language_code] );
+        $wpml_id = apply_filters( 'wpml_object_id', $post_id, 'post', FALSE, $language['language_code'] );
         if( $wpml_id ){
 
           $wpml_id_orig = apply_filters( 'wpml_object_id', $post_id, 'post', FALSE, 'es' );
@@ -457,7 +457,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
           }
           update_post_meta($wpml_id, 'wpfunos_precioFunerariaPaginasRelacionadasTexto', $textopaginas );
           //
-          $this->custom_logs('wpfunosGuardarLanding ' .$wpml_id. ' (' .$language[language_code]. ') updated');
+          $this->custom_logs('wpfunosGuardarLanding ' .$wpml_id. ' (' .$language['language_code']. ') updated');
           //
         }
       }
@@ -530,11 +530,11 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
       $languages = apply_filters( 'wpml_active_languages', NULL, array( 'skip_missing' => 1,) );
       if( !empty( $languages ) ) {
         foreach( $languages as $language ){
-          $wpml_id = apply_filters( 'wpml_object_id', $object_id, 'post', FALSE, $language[language_code] );
+          $wpml_id = apply_filters( 'wpml_object_id', $object_id, 'post', FALSE, $language['language_code'] );
           if( $wpml_id ){
-            $prefijo = ( $language[language_code] == 'es' ) ? '' :  $language[language_code].'/' ;
+            $prefijo = ( $language['language_code'] == 'es' ) ? '' :  $language['language_code'].'/' ;
             do_action('wpfunos_enlaces_landings', array( $prefijo, $provincia, $distancia, $latitud, $longitud, $poblacion, $wpml_id ) );
-            $this->custom_logs('wpfunos_enlaces_landings ' .$wpml_id. ' (' .$language[language_code]. ') updated');
+            $this->custom_logs('wpfunos_enlaces_landings ' .$wpml_id. ' (' .$language['language_code']. ') updated');
           }
         }
       }
