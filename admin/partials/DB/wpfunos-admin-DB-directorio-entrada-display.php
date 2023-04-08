@@ -99,8 +99,8 @@ if ( ! defined( 'ABSPATH' ) ) {
               ?>
             </select>
           </td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLLandings','name' => 'wpfunos_entradaDirectorioURLLandings','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
           <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLLandings','name' => 'wpfunos_entradaDirectorioURLLandings','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 40  ));?></td>
         </tr>
       </table>
     </li>
