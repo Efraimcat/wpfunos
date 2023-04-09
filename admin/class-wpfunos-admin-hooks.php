@@ -599,8 +599,8 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     foreach( $paginas as $pagina ){
       $entierro = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaEntierroDesde', true ));
       $incineracion = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaIncineracionDesde', true ));
-      //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') entierro: ' .$entierro );
-      //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') incineracion: ' .$incineracion );
+      $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') entierro: ' .$entierro );
+      $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') incineracion: ' .$incineracion );
       if( $entierroDesde == 0 ) $entierroDesde = $entierro;
       if( $incineracionDesde == 0 ) $incineracionDesde = $incineracion;
       if( $entierroDesde > $entierro ) $entierroDesde = $entierro;
@@ -646,8 +646,8 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     foreach( $paginas as $pagina ){
       $entierro = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaEntierroDesde', true ));
       $incineracion = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaIncineracionDesde', true ));
-      //$this->custom_logs('wpfunosGuardarFunerariaDirectorio: (' .$pagina. ') entierro: ' .$entierro );
-      //$this->custom_logs('wpfunosGuardarFunerariaDirectorio: (' .$pagina. ') incineracion: ' .$incineracion );
+      $this->custom_logs('wpfunosGuardarFunerariaDirectorio: (' .$pagina. ') entierro: ' .$entierro );
+      $this->custom_logs('wpfunosGuardarFunerariaDirectorio: (' .$pagina. ') incineracion: ' .$incineracion );
       if( $entierroDesde == 0 ) $entierroDesde = $entierro;
       if( $incineracionDesde == 0 ) $incineracionDesde = $incineracion;
       if( $entierroDesde > $entierro ) $entierroDesde = $entierro;

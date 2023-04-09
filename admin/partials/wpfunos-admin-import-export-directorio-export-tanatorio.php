@@ -37,7 +37,7 @@ if( $post_list ){
   // TODO:
   //
   //$csv_output = 'Fecha de la acción realizada, ID, Referencia, Nombre y apellidos, Teléfono, Email, Ubicación del usuario, CP, Provincia, Empresa, Servicio demandado, API, Precio, Nombre servicio, Nombre ataúd, Nombre velatorio, Nombre despedida, Visitas, URL, Nombre acción, IP';
-  $csv_output = 'ID,Status,Titulo,Nombre,Direccion,Correo,Telefono,Tipo,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Funerarias,IDFunerarias,Latitud,Longitud,IDImagenes,ImagenDestacada,Landings,IDLandings,Servicios,IDServicios,Shortcode,IDShortcode,URLLandings,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
+  $csv_output = 'ID,Tipo,Status,Titulo,Nombre,Direccion,Correo,Telefono,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Funerarias,IDFunerarias,StreetView,Latitud,Longitud,IDImagenes,ImagenDestacada,Landings,IDLandings,Servicios,IDServicios,Shortcode,IDShortcode,URLLandings,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
   $csv_output .= "\n";
   foreach ( $post_list as $post ){
 
@@ -47,16 +47,16 @@ if( $post_list ){
     $landings = explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioLandings', true ));
     $outputlandings = '';
     foreach( $landings as $landing ){
-      $outputlandings .= get_the_title( $landing ).';';
+      $outputlandings .= get_the_title( $landing ).',';
     }
-    $outputlandings = rtrim($outputlandings, ";");
+    $outputlandings = rtrim($outputlandings, ",");
 
     $servicios = explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioServicios', true ));
     $outputservicios = '';
     foreach( $servicios as $servicio ){
-      $outputservicios .= get_the_title( $servicio ).';';
+      $outputservicios .= get_the_title( $servicio ).',';
     }
-    $outputservicios = rtrim($outputservicios, ";");
+    $outputservicios = rtrim($outputservicios, ",");
 
     $excerpt = '';
     if (has_excerpt($post->ID )) {
@@ -68,37 +68,38 @@ if( $post_list ){
     //https://dev.funos.es/wp-admin/post.php?post=141187&action=edit
 
     $csv_output .= $post->ID.","; // ID
-    $csv_output .= get_post_status ( $post->ID ).",";
-    $csv_output .= str_replace(",",";",get_the_title( $post->ID )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioNombre', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDireccion', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCorreo', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioTelefono', true )).",";
     $csv_output .= "tanatorio,";
+    $csv_output .= get_post_status ( $post->ID ).",";
+    $csv_output .= '"'.get_the_title( $post->ID ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioNombre', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDireccion', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCorreo', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioTelefono', true ).'",';
     $csv_output .= strtolower( get_the_category_by_ID( $term_list[0]->parent )).",";
     $csv_output .= strtolower( get_the_category_by_ID( $term_list[0]->term_taxonomy_id )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioPoblacion', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCodigoProvincia', true )).",";
-    $csv_output .= str_replace(",",";",$funeraria).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLatitud', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLongitud', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioImagenes', true )).",";
-    $csv_output .= str_replace(",",";",get_post_thumbnail_id( $post->ID )).",";
-    $csv_output .= str_replace(",",";",$outputlandings).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLandings', true )).",";
-    $csv_output .= str_replace(",",";",$outputservicios).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioServicios', true )).",";
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioPoblacion', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCodigoProvincia', true ).'",';
+    $csv_output .= '"'.$funeraria.'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true ).'",';
+    $csv_output .= get_post_meta( $post->ID, 'wpfunos_entradaDirectorioStreetView', true ).',';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLatitud', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLongitud', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioImagenes', true ).'",';
+    $csv_output .= '"'.get_post_thumbnail_id( $post->ID ).'",';
+    $csv_output .= '"'.$outputlandings.'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLandings', true ).'",';
+    $csv_output .= '"'.$outputservicios.'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioServicios', true ).'",';
     $csv_output .= $shortcode.",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioShortcode', true )).",";
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioShortcode', true ).'",';
 
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioURLLandings', true )).",";
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioURLLandings', true ).'",';
 
-    $csv_output .= str_replace(",","+",$excerpt).",";
-    $csv_output .= str_replace(",","+",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcion', true )).",";
-    $csv_output .= str_replace(",","+",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcionServicios', true )).",";
-    $csv_output .= str_replace(",","+",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioHorario', true )).",";
-    $csv_output .= str_replace(",","+",get_post_meta( $post->ID, 'wpfunos_entradaDirectorioComoLlegar', true )).",";
+    $csv_output .= '"'.$excerpt.'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcion', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcionServicios', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioHorario', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioComoLlegar', true ).'",';
     //
     $csv_output .= "\n";
   }
@@ -116,8 +117,19 @@ if( $post_list ){
   $open = fopen( $file, "w" );
   fputs( $open, $csv_output );
   fclose( $open );
+
+  $Excelfile = $upload_dir['basedir'] . '/wpfunos-exports/export-tanatorios-'.$url.'-directorio-'. $now->format("d-m-Y-H-i") . '.xlsx';
+  $Exceldownload = home_url(). '/wp-content/uploads/wpfunos-exports/export-tanatorios-'.$url.'-directorio-'. $now->format("d-m-Y-H-i") . '.xlsx';
+  require WFUNOS_BASE_DIR.'/admin/partials/vendor/autoload.php';
+
+  $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+  $spreadsheet = $reader->load($file);
+  $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+  $writer->save($Excelfile);
+
   ?><h2>EXPORTACION FINALIZADA</h2><?php
   //https://dev.funos.es/var/www/vhosts/dev.funos.es/httpdocs/wp-content/uploads/wpfunos-exports/export-funerarias-directorio-03-04-2023-13-15.csv
   //https://dev.funos.es/wp-content/uploads/wpfunos-exports/export-funerarias-directorio-03-04-2023-13-15.csv
-  ?><hr/><h2><a href="<?php echo $filedownload; ?>">DESCARGAR FICHERO TANATORIOS</a></h2><?php
+  ?><hr/><h2><a href="<?php echo $filedownload; ?>">DESCARGAR FICHERO CSV TANATORIOS</a></h2><?php
+  ?><hr/><h2><a href="<?php echo $Exceldownload; ?>">DESCARGAR FICHERO EXCEL TANATORIOS</a></h2><?php
 }
