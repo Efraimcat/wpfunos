@@ -95,6 +95,10 @@ if( $post_list ){
 
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioURLLandings', true ).'",';
 
+    // chr(145) // left single quote
+    // chr(146) // right single quote
+    // chr(147) // left double quote
+    // chr(148) // right double quote
     $csv_output .= '"'.$excerpt.'",';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcion', true ).'",';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcionServicios', true ).'",';

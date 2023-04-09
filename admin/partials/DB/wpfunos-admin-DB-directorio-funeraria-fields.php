@@ -34,6 +34,7 @@ foreach( $_POST as $key => $val ) {
 }
 
 $funerariaDirectorioShortcode = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioShortcode'] );
+$funerariaDirectorioStreetView = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioStreetView'] );
 
 $funerariaDirectorioNombre = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioNombre'] );
 $funerariaDirectorioDireccion = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioDireccion'] );
@@ -54,17 +55,17 @@ $funerariaDirectorioIncineracionDesde = sanitize_text_field( $_POST['wpfunos_fun
 $funerariaDirectorioImagenes = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioImagenes'] );
 
 $funerariaDirectorioLandings = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioLandings'] );
+$funerariaDirectorioURLLandings = esc_url( $_POST['wpfunos_funerariaDirectorioURLLandings'] );
 
 $funerariaDirectorioServicios = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioServicios'] ); //(desde CPT directorio_servicio)
 $funerariaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_funerariaDirectorioDescripcionServicios']));
 
 $funerariaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioUltimasDefunciones'] );
 
-/**
-* Street view
-*/
+
 
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioShortcode', $funerariaDirectorioShortcode);
+update_post_meta($post_id, 'wpfunos_funerariaDirectorioStreetView', $funerariaDirectorioStreetView);
 
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioNombre', $funerariaDirectorioNombre);
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioDireccion', $funerariaDirectorioDireccion);
@@ -85,6 +86,7 @@ update_post_meta($post_id, 'wpfunos_funerariaDirectorioEntierroDesde', $funerari
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioImagenes', $funerariaDirectorioImagenes);
 
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioLandings', $DirectorioLandings);
+update_post_meta($post_id, 'wpfunos_funerariaDirectorioURLLandings', $funerariaDirectorioURLLandings);
 
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioServicios', $DirectorioServicios);
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioDescripcionServicios', $funerariaDirectorioDescripcionServicios);

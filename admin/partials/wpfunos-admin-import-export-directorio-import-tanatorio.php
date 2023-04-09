@@ -62,7 +62,7 @@ foreach ( $array as $keylinea=>$linea ) {
     if( $valor == 'CategoriaPoblacion') $lineaCategoriaPoblacion = $key;
   }
   $this->import_logs('---------------------------');
-  if( $tieneID == 'no';){
+  if( $tieneID == 'no' ){
     $this->import_logs('Falta la columna ID');
     ?><h2>ERROR AL IMPORTAR FICHERO DIRECTORIO</h2><?php
     ?><h2>FORMATO INCORRECTO!!</h2><?php
@@ -160,11 +160,6 @@ foreach ( $array as $keylinea=>$linea ) {
         wp_update_post( array( 'ID' => $post_id, 'post_status' => $columna ) );
       }
     }
-    //if ($cabecera[$key] == 'Slug' ) wp_insert_post(array( 'ID'=>$post_id, 'post_name' => $columna ));
-    if ($cabecera[$key] == 'Extracto' ) {
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post($columna));
-      wp_update_post(array( 'ID'=>$post_id, 'post_excerpt' => $texto ));
-    }
     if ($cabecera[$key] == 'ImagenDestacada' ) set_post_thumbnail( $post_id, sanitize_text_field( $columna ));
     //
     if ($cabecera[$key] == 'Nombre' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioNombre', sanitize_text_field( $columna ));
@@ -191,26 +186,13 @@ foreach ( $array as $keylinea=>$linea ) {
     if ($cabecera[$key] == 'IDShortcode' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode', sanitize_text_field( $columna ));
     //
     if ($cabecera[$key] == 'URLLandings' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioURLLandings', sanitize_text_field( $columna ));
+    //if ($cabecera[$key] == 'Slug' ) wp_insert_post(array( 'ID'=>$post_id, 'post_name' => $columna ));
+    if ($cabecera[$key] == 'Extracto' ) wp_update_post(array( 'ID'=>$post_id, 'post_excerpt' => wp_kses_post( substr( $columna, 3, -3)  ) ));
     //
-    if ($cabecera[$key] == 'Descripcion' ){
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $columna));
-      update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcion',  $texto );
-    }
-    //
-    if ($cabecera[$key] == 'DescripcionServicios' ){
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $columna));
-      update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcionServicios',  $texto );
-    }
-    //
-    if ($cabecera[$key] == 'Horarios' ){
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $columna));
-      update_post_meta($post_id, 'wpfunos_entradaDirectorioHorario',  $texto );
-    }
-    //
-    if ($cabecera[$key] == 'ComoLlegar' ){
-      $texto = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $columna));
-      update_post_meta($post_id, 'wpfunos_entradaDirectorioComoLlegar',  $texto );
-    }
+    if ($cabecera[$key] == 'Descripcion' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcion',  wp_kses_post( substr( $columna, 3, -3) ) );
+    if ($cabecera[$key] == 'DescripcionServicios' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcionServicios', wp_kses_post( substr( $columna, 3, -3) ) );
+    if ($cabecera[$key] == 'Horarios' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioHorario',  wp_kses_post( substr( $columna, 3, -3) ) );
+    if ($cabecera[$key] == 'ComoLlegar' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioComoLlegar',  wp_kses_post( substr( $columna, 3, -3) ) );
 
   }// END foreach ( $linea as $key => $columna)
 

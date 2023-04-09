@@ -35,7 +35,7 @@ if( $post_list ){
   // TODO:
   //
   //$csv_output = 'Fecha de la acción realizada, ID, Referencia, Nombre y apellidos, Teléfono, Email, Ubicación del usuario, CP, Provincia, Empresa, Servicio demandado, API, Precio, Nombre servicio, Nombre ataúd, Nombre velatorio, Nombre despedida, Visitas, URL, Nombre acción, IP';
-  $csv_output = 'ID,Status,Titulo,Nombre,Direccion,Correo,Telefono,Tipo,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Latitud,Longitud,IDImagenes,ImagenDestacada,Landings,IDLandings,Servicios,IDServicios,Shortcode,IDShortcode,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
+  $csv_output = 'ID,Tipo,Status,Titulo,Nombre,Direccion,Correo,Telefono,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,StreetView,Latitud,Longitud,IDImagenes,ImagenDestacada,Landings,IDLandings,Servicios,IDServicios,Shortcode,IDShortcode,URLLandings,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
   $csv_output .= "\n";
   foreach ( $post_list as $post ){
 
@@ -63,32 +63,40 @@ if( $post_list ){
     $term_list = wp_get_post_terms( $post->ID, 'funeraria_poblacion', array( 'fields' => 'all' ) );
 
     $csv_output .= $post->ID.","; // ID
-    $csv_output .= get_post_status ( $post->ID ).",";
-    $csv_output .= str_replace(",",";",get_the_title( $post->ID )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioNombre', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioDireccion', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioCorreo', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioTelefono', true )).",";
     $csv_output .= "funeraria,";
+    $csv_output .= get_post_status ( $post->ID ).",";
+    $csv_output .= '"'.get_the_title( $post->ID ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioNombre', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioDireccion', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioCorreo', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioTelefono', true ).'",';
     $csv_output .= strtolower( get_the_category_by_ID( $term_list[0]->parent )).",";
     $csv_output .= strtolower( get_the_category_by_ID( $term_list[0]->term_taxonomy_id )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioPoblacion', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioCodigoProvincia', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioLatitud', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioLongitud', true )).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioImagenes', true )).",";
-    $csv_output .= str_replace(",",";",get_post_thumbnail_id( $post->ID )).",";
-    $csv_output .= str_replace(",",";",$outputlandings).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioLandings', true )).",";
-    $csv_output .= str_replace(",",";",$outputservicios).",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioServicios', true )).",";
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioPoblacion', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioCodigoProvincia', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioLatitud', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioLongitud', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioImagenes', true ).'",';
+    $csv_output .= '"'.get_post_thumbnail_id( $post->ID ).'",';
+    $csv_output .= '"'.$outputlandings).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioLandings', true ).'",';
+    $csv_output .= '"'.$outputservicios).",";
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioServicios', true ).'",';
     $csv_output .= $shortcode.",";
-    $csv_output .= str_replace(",",";",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioShortcode', true )).",";
-    $csv_output .= str_replace(",","+",$excerpt).",";
-    $csv_output .= str_replace(",","+",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioDescripcion', true )).",";
-    $csv_output .= str_replace(",","+",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioDescripcionServicios', true )).",";
-    $csv_output .= str_replace(",","+",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioHorario', true )).",";
-    $csv_output .= str_replace(",","+",get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioComoLlegar', true )).",";
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioShortcode', true ).'",';
+
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioURLLandings', true ).'",';
+
+    // chr(145) // left single quote
+    // chr(146) // right single quote
+    // chr(147) // left double quote
+    // chr(148) // right double quote
+
+    $csv_output .= '"'.$excerpt.'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioDescripcion', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioDescripcionServicios', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioHorario', true ).'",';
+    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioComoLlegar', true ).'",';
     //
     $csv_output .= "\n";
   }
@@ -106,8 +114,19 @@ if( $post_list ){
   $open = fopen( $file, "w" );
   fputs( $open, $csv_output );
   fclose( $open );
+
+  $Excelfile = $upload_dir['basedir'] . '/wpfunos-exports/export-funerarias-'.$url.'-directorio-'. $now->format("d-m-Y-H-i") . '.xlsx';
+  $Exceldownload = home_url(). '/wp-content/uploads/wpfunos-exports/export-funerarias-'.$url.'-directorio-'. $now->format("d-m-Y-H-i") . '.xlsx';
+  require WFUNOS_BASE_DIR.'/admin/partials/vendor/autoload.php';
+
+  $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+  $spreadsheet = $reader->load($file);
+  $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+  $writer->save($Excelfile);
+
   ?><h2>EXPORTACION FINALIZADA</h2><?php
   //https://dev.funos.es/var/www/vhosts/dev.funos.es/httpdocs/wp-content/uploads/wpfunos-exports/export-funerarias-directorio-03-04-2023-13-15.csv
   //https://dev.funos.es/wp-content/uploads/wpfunos-exports/export-funerarias-directorio-03-04-2023-13-15.csv
-  ?><hr/><h2><a href="<?php echo $filedownload; ?>">DESCARGAR FICHERO FUNERARIAS</a></h2><?php
+  ?><hr/><h2><a href="<?php echo $filedownload; ?>">DESCARGAR FICHERO CSV FUNERARIAS</a></h2><?php
+  ?><hr/><h2><a href="<?php echo $Exceldownload; ?>">DESCARGAR FICHERO EXCEL FUNERARIAS</a></h2><?php
 }

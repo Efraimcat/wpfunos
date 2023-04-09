@@ -63,9 +63,7 @@ $entradaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', w
 
 $entradaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_entradaDirectorioUltimasDefunciones'] );
 
-/**
-* Street view
-*/
+
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode', $entradaDirectorioShortcode);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioStreetView', $entradaDirectorioStreetView);
