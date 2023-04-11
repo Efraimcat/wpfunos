@@ -93,8 +93,8 @@ foreach ( $array as $keylinea=>$linea ) {
     ));
   }
 
-  echo '<br/>Linea ' .$keylinea. ' entrada (' .$post_id. ')';
-  $this->import_logs('Linea ' .$keylinea. ' entrada (' .$post_id. ')');
+  echo '<br/>Linea ' .$keylinea. ' entrada (' .$post_id. ') '. get_the_title($post_id);
+  $this->import_logs('Linea ' .$keylinea. ' entrada (' .$post_id. ') '. get_the_title($post_id));
 
   foreach ( $linea as $key => $columna){
     //$columna = sanitize_text_field( $columna );
@@ -160,7 +160,26 @@ foreach ( $array as $keylinea=>$linea ) {
         wp_update_post( array( 'ID' => $post_id, 'post_status' => $columna ) );
       }
     }
-    if ($cabecera[$key] == 'ImagenDestacada' ) set_post_thumbnail( $post_id, sanitize_text_field( $columna ));
+    //  ImagenDestacada
+    if ($cabecera[$key] == 'ImagenDestacada' ){
+      $columna = apply_filters('wpfunos_acentos_minusculas', $columna );
+      $args = array(
+        'posts_per_page' => 1,
+        'post_type'      => 'attachment',
+        'name'           => trim( $columna ),
+      );
+      $wp_query = new WP_Query( $args );
+      if ( $wp_query->have_posts() ){
+        $wp_query->the_post();
+        //echo '<br/>Imagen destacada ' .$columna. ' ID: ' .$wp_query->post->ID. ' => creada. post: ' .$post_id ;
+        //$this->import_logs('Imagen destacada ' .$columna. ' ID: ' .$wp_query->post->ID. ' => creada. post: ' .$post_id );
+        set_post_thumbnail( $post_id,  $wp_query->post->ID );
+      }else{
+        echo '<br/>Imagen destacada ' .$columna. ' NO CREADA. post: ' .$post_id ;
+        $this->import_logs('Imagen destacada ' .$columna. ' NO CREADA. post: ' .$post_id);
+      }
+      wp_reset_postdata();
+    }
     //
     if ($cabecera[$key] == 'Nombre' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioNombre', sanitize_text_field( $columna ));
     if ($cabecera[$key] == 'Direccion' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioDireccion', sanitize_text_field( $columna ));
@@ -172,21 +191,140 @@ foreach ( $array as $keylinea=>$linea ) {
       update_post_meta($post_id, 'wpfunos_entradaDirectorioCodigoProvincia', sanitize_text_field( $columna ));
     }
     // "Funerarias"
-    if ($cabecera[$key] == 'IDFunerarias' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioFuneraria', sanitize_text_field( $columna ));
+    if ($cabecera[$key] == 'Funerarias' ){
+      $columna = apply_filters('wpfunos_acentos_minusculas', $columna );
+      $columnafunerarias = explode(',',$columna);
+      $outputfunerarias = '';
+      foreach( $columnafunerarias as $columnafuneraria ){
+        $args = array(
+          'post_type'        => 'directorio_funeraria',
+          'title'            => $columnafuneraria,
+          'post_status'      => 'publish',
+        );
+        $wp_query = new WP_Query( $args );
+        if ( $wp_query->have_posts() ){
+          $wp_query->the_post();
+          $outputfunerarias .=  $wp_query->post->ID . ',' ;
+          //echo '<br/>Funeraria ' .$columnafuneraria. ' ID: ' .$wp_query->post->ID;
+          //$this->import_logs('Funeraria ' .$columnafuneraria. ' ID: ' .$wp_query->post->ID);
+        }else{
+          echo '<br/>Funeraria ' .$columnafuneraria. ' NO CREADA.';
+          $this->import_logs('Funeraria ' .$columnafuneraria. ' NO CREADA.');
+        }
+        wp_reset_postdata();
+      }
+      $outputfunerarias = rtrim($outputfunerarias, ",");
+      update_post_meta($post_id, 'wpfunos_entradaDirectorioFuneraria', sanitize_text_field( $outputfunerarias ));
+    }
     //
     if ($cabecera[$key] == 'StreetView' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioStreetView', sanitize_text_field( $columna ));
     if ($cabecera[$key] == 'Latitud' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioLatitud', sanitize_text_field( $columna ));
     if ($cabecera[$key] == 'Longitud' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioLongitud', sanitize_text_field( $columna ));
-    if ($cabecera[$key] == 'IDImagenes' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioImagenes', sanitize_text_field( $columna ));
-    //if ($cabecera[$key] == 'Landings'
-    if ($cabecera[$key] == 'IDLandings' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioLandings', sanitize_text_field( $columna ));
+    // Imagenes
+    if ($cabecera[$key] == 'Imagenes' ){
+      $columna = apply_filters('wpfunos_acentos_minusculas', $columna );
+      $columnaimagenes = explode(',',$columna);
+      $outputimagenes = '';
+      foreach( $columnaimagenes as $columnaimagen ){
+        $args = array(
+          'posts_per_page' => 1,
+          'post_type'      => 'attachment',
+          'name'           => trim( $columnaimagen ),
+        );
+        $wp_query = new WP_Query( $args );
+        if ( $wp_query->have_posts() ){
+          $wp_query->the_post();
+          $outputimagenes .=  $wp_query->post->ID . ',' ;
+          //echo '<br/>Imagen ' .$columnaimagen. ' ID: ' .$wp_query->post->ID;
+          //$this->import_logs('Imagen ' .$columnaimagen. ' ID: ' .$wp_query->post->ID);
+        }else{
+          echo '<br/>Imagen ' .$columnaimagen. ' NO CREADA.';
+          $this->import_logs('Imagen ' .$columnaimagen. ' NO CREADA.');
+        }
+        wp_reset_postdata();
+      }
+      $outputimagenes = rtrim($outputimagenes, ",");
+      //echo '<br/>Imagenes: ' .$outputimagenes;
+      update_post_meta($post_id, 'wpfunos_entradaDirectorioImagenes', sanitize_text_field( $outputimagenes ));
+    }
+    // Landings
+    if ($cabecera[$key] == 'Landings' ){
+      $columna = apply_filters('wpfunos_acentos_minusculas', $columna );
+      $columnalandings = explode(',',$columna);
+      $outputlandings = '';
+      foreach( $columnalandings as $columnalanding ){
+        $args = array(
+          'post_type'        => 'precio_funer_wpfunos',
+          'title'            => $columnalanding,
+          'post_status'      => 'publish',
+        );
+        $wp_query = new WP_Query( $args );
+        if ( $wp_query->have_posts() ){
+          $wp_query->the_post();
+          $outputlandings .=  $wp_query->post->ID . ',' ;
+          //echo '<br/>Landing ' .$columnalanding. ' ID: ' .$wp_query->post->ID;
+          //$this->import_logs('Landing ' .$columnalanding. ' ID: ' .$wp_query->post->ID);
+        }else{
+          echo '<br/>Landing ' .$columnalanding. ' NO CREADA.';
+          $this->import_logs('Landing ' .$columnalanding. ' NO CREADA.');
+        }
+        wp_reset_postdata();
+      }
+      $outputlandings = rtrim($outputlandings, ",");
+      //echo '<br/>Landings: ' .$outputlandings;
+      update_post_meta($post_id, 'wpfunos_entradaDirectorioLandings', sanitize_text_field( $outputlandings ));
+    }
     // "Servicios"
-    if ($cabecera[$key] == 'IDServicios' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioServicios', sanitize_text_field( $columna ));
+    if ($cabecera[$key] == 'Servicios' ){
+      $columna = apply_filters('wpfunos_acentos_minusculas', $columna );
+      $columnaservicios = explode(',',$columna);
+      $outputservicios = '';
+      foreach( $columnaservicios as $columnaservicio ){
+        $args = array(
+          'post_type'        => 'directorio_servicio',
+          'title'            => $columnaservicio,
+          'post_status'      => 'publish',
+        );
+        $wp_query = new WP_Query( $args );
+        if ( $wp_query->have_posts() ){
+          $wp_query->the_post();
+          $outputservicios .=  $wp_query->post->ID . ',' ;
+          //echo '<br/>Servicio ' .$columnaservicio. ' ID: ' .$wp_query->post->ID;
+          //$this->import_logs('Servicio ' .$columnaservicio. ' ID: ' .$wp_query->post->ID);
+        }else{
+          echo '<br/>Servicio ' .$columnaservicio. ' NO CREADA.';
+          $this->import_logs('Servicio ' .$columnaservicio. ' NO CREADA.');
+        }
+        wp_reset_postdata();
+      }
+      $outputservicios = rtrim($outputservicios, ",");
+      //echo '<br/>Servicios: ' .$outputservicios;
+      update_post_meta($post_id, 'wpfunos_entradaDirectorioServicios', sanitize_text_field( $outputservicios ));
+    }
     // "Shortcode"
-    if ($cabecera[$key] == 'IDShortcode' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode', sanitize_text_field( $columna ));
+    if ($cabecera[$key] == 'Shortcode' ){
+      $columna = apply_filters('wpfunos_acentos_minusculas', $columna );
+      $args = array(
+        'post_type' => 'directorio_shortcode',
+        'post_status' => 'publish',
+        'meta_query' => array(
+          array( 'key' => 'wpfunos_shortcodeDirectorioNombre', 'value' => $columna, 'compare' => '=', ),
+        ),
+      );
+      $wp_query = new WP_Query( $args );
+      if ( $wp_query->have_posts() ){
+        $wp_query->the_post();
+        //echo '<br/>Shortcode ' .$columna. ' ID: ' .$wp_query->post->ID;
+        //$this->import_logs('Shortcode ' .$columna. ' ID: ' .$wp_query->post->ID );
+        update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode', sanitize_text_field( $wp_query->post->ID ));
+      }else{
+        echo '<br/>Shortcode ' .$columna. ' NO CREADA.';
+        $this->import_logs('Shortcode ' .$columna. ' NO CREADA.');
+      }
+      wp_reset_postdata();
+    }
     //
     if ($cabecera[$key] == 'URLLandings' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioURLLandings', sanitize_text_field( $columna ));
-    //if ($cabecera[$key] == 'Slug' ) wp_insert_post(array( 'ID'=>$post_id, 'post_name' => $columna ));
     if ($cabecera[$key] == 'Extracto' ) wp_update_post(array( 'ID'=>$post_id, 'post_excerpt' => wp_kses_post( substr( $columna, 3, -3)  ) ));
     //
     if ($cabecera[$key] == 'Descripcion' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcion',  wp_kses_post( substr( $columna, 3, -3) ) );

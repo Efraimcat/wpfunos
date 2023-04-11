@@ -37,12 +37,19 @@ if( $post_list ){
   // TODO:
   //
   //$csv_output = 'Fecha de la acción realizada, ID, Referencia, Nombre y apellidos, Teléfono, Email, Ubicación del usuario, CP, Provincia, Empresa, Servicio demandado, API, Precio, Nombre servicio, Nombre ataúd, Nombre velatorio, Nombre despedida, Visitas, URL, Nombre acción, IP';
-  $csv_output = 'ID,Tipo,Status,Titulo,Nombre,Direccion,Correo,Telefono,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Funerarias,IDFunerarias,StreetView,Latitud,Longitud,IDImagenes,ImagenDestacada,Landings,IDLandings,Servicios,IDServicios,Shortcode,IDShortcode,URLLandings,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
+  $csv_output = 'ID,Tipo,Status,Titulo,Nombre,Direccion,Correo,Telefono,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Funerarias,StreetView,Latitud,Longitud,Imagenes,ImagenDestacada,Landings,Servicios,Shortcode,URLLandings,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
   $csv_output .= "\n";
   foreach ( $post_list as $post ){
 
-    $funeraria = get_post_meta( get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true ), 'wpfunos_funerariaDirectorioNombre', true );
     $shortcode = get_post_meta( get_post_meta( $post->ID, 'wpfunos_entradaDirectorioShortcode', true ), 'wpfunos_shortcodeDirectorioNombre', true );
+
+    //$funeraria = get_post_meta( get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true ), 'wpfunos_funerariaDirectorioNombre', true );
+    $funerarias = explode(',',get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true ));
+    $outputfunerarias = '';
+    foreach( $funerarias as $funeraria ){
+      $outputfunerarias .= get_the_title( $funeraria ).',';
+    }
+    $outputfunerarias = rtrim($outputfunerarias, ",");
 
     $landings = explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioLandings', true ));
     $outputlandings = '';
@@ -57,6 +64,14 @@ if( $post_list ){
       $outputservicios .= get_the_title( $servicio ).',';
     }
     $outputservicios = rtrim($outputservicios, ",");
+
+    $imagenes = explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioImagenes', true ));
+    $outputimagenes = '';
+    foreach( $imagenes as $imagen ){
+      $outputimagenes .= get_the_title( $imagen ).',';
+    }
+    $outputimagenes = rtrim($outputimagenes, ",");
+
 
     $excerpt = '';
     if (has_excerpt($post->ID )) {
@@ -79,19 +94,20 @@ if( $post_list ){
     $csv_output .= strtolower( get_the_category_by_ID( $term_list[0]->term_taxonomy_id )).",";
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioPoblacion', true ).'",';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioCodigoProvincia', true ).'",';
-    $csv_output .= '"'.$funeraria.'",';
-    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioFuneraria', true ).'",';
+    $csv_output .= '"'.$outputfunerarias.'",';
+
     $csv_output .= get_post_meta( $post->ID, 'wpfunos_entradaDirectorioStreetView', true ).',';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLatitud', true ).'",';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLongitud', true ).'",';
-    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioImagenes', true ).'",';
-    $csv_output .= '"'.get_post_thumbnail_id( $post->ID ).'",';
+
+    $csv_output .= '"'.$outputimagenes.'",';
+    $csv_output .= '"'.get_the_title( get_post_thumbnail_id( $post->ID )).'",';
     $csv_output .= '"'.$outputlandings.'",';
-    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioLandings', true ).'",';
+
     $csv_output .= '"'.$outputservicios.'",';
-    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioServicios', true ).'",';
+
     $csv_output .= $shortcode.",";
-    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioShortcode', true ).'",';
+
 
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioURLLandings', true ).'",';
 

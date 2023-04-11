@@ -154,29 +154,23 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     */
 
     //$funerarias = explode(',',get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioServicios', true ));
-    //SELECT * FROM Accounts WHERE Username LIKE '%query%'
-
-    $value = '%' .$post_id. '%';
-
-    echo $value;
 
     $args = array(
       'post_type' => 'directorio_entrada',
       'post_status' => 'publish',
       'posts_per_page' => -1,
       'meta_query' => array(
-        array( 'key' => 'wpfunos_entradaDirectorioFuneraria', 'value' => $value, 'compare' => 'LIKE', ),
+        array( 'key' => 'wpfunos_entradaDirectorioFuneraria', 'value' => $post_id, 'compare' => 'LIKE', ),
       ),
     );
     $post_list = get_posts( $args );
     if( $post_list ){
-      echo '<style> ul { columns: 3;-webkit-columns: 3;-moz-columns: 3; }</style>';
-      echo '<ul>';
+      echo '<ul id="ul-list">';
       foreach ($post_list as $post ) {
-        echo '<li><a href="' .the_permalink($post).'">' .get_the_title($post). '></a></li>';
+        //$link = the_permalink($post);
+        echo '<li><a href="' .get_permalink($post->ID). '">' .get_the_title($post->ID). '</a></li>';
       }
       echo '</ul>';
-      echo '<style> ul { columns: 1;-webkit-columns: 1;-moz-columns: 1; }</style>';
     }
   }
 
