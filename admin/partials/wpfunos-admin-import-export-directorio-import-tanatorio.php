@@ -12,8 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-//Array ( [import_file] => Array ( [name] => prova.csv [type] => text/csv [tmp_name] => /tmp/php6NbbLV [error] => 0 [size] => 14098 ) )
-//print_r ( $_FILES );
 // look for nonce
 if ( empty( $_POST['wpfunos_import_directorio_nonce'] ) ) {
   ?><h2>ERROR AL IMPORTAR FICHERO DIRECTORIO</h2><?php
@@ -43,12 +41,6 @@ foreach ( $array as $keylinea=>$linea ) {
     foreach ( $linea as $keycolumna => $columna){
       $cabecera[] = sanitize_text_field( $columna );
     }
-    //var_dump( $cabecera );
-    //array(27) { [0]=> string(2) "ID" [1]=> string(6) "Status" [2]=> string(6) "Nombre" [3]=> string(9) "Direccion" [4]=> string(6) "Correo" [5]=> string(8) "Telefono"
-    //  [6]=> string(4) "Tipo" [7]=> string(18) "CategoriaProvincia" [8]=> string(18) "CategoriaPoblacion" [9]=> string(9) "Poblacion" [10]=> string(16) "CodigosProvincia"
-    //  [11]=> string(4) "Slug" [12]=> string(7) "Latitud" [13]=> string(8) "Longitud" [14]=> string(10) "IDImagenes" [15]=> string(15) "ImagenDestacada" [16]=> string(8) "Landings"
-    //  [17]=> string(10) "IDLandings" [18]=> string(9) "Servicios" [19]=> string(11) "IDServicios" [20]=> string(9) "Shortcode" [21]=> string(12) " IDShortcode"
-    //  [22]=> string(8) "Extracto" [23]=> string(11) "Descripcion" [24]=> string(20) "DescripcionServicios" [25]=> string(8) "Horarios" [26]=> string(10) "ComoLlegar" }
     continue;
   }
   $tieneID = 'no';
@@ -77,8 +69,6 @@ foreach ( $array as $keylinea=>$linea ) {
 
   $CategoriaPoblacion = sanitize_text_field( apply_filters('wpfunos_acentos_minusculas', $linea[$lineaCategoriaPoblacion]) );
   $CategoriaProvincia = sanitize_text_field( apply_filters('wpfunos_acentos_minusculas', $linea[$lineaCategoriaProvincia]) );
-
-  // TODO: comprobar que el post es del post_type adecuado. get_post_type().
 
   $post_id = $linea[$lineaID];
   $nuevo = 'no';
