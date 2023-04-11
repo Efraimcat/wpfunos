@@ -44,16 +44,16 @@ if( $post_list ){
     $landings = explode(',',get_post_meta(  $post->ID , 'wpfunos_funerariaDirectorioLandings', true ));
     $outputlandings = '';
     foreach( $landings as $landing ){
-      $outputlandings .= get_the_title( $landing ).';';
+      $outputlandings .= get_the_title( $landing ).',';
     }
-    $outputlandings = rtrim($outputlandings, ";");
+    $outputlandings = rtrim($outputlandings, ",");
 
     $servicios = explode(',',get_post_meta(  $post->ID , 'wpfunos_funerariaDirectorioServicios', true ));
     $outputservicios = '';
     foreach( $servicios as $servicio ){
-      $outputservicios .= get_the_title( $servicio ).';';
+      $outputservicios .= get_the_title( $servicio ).',';
     }
-    $outputservicios = rtrim($outputservicios, ";");
+    $outputservicios = rtrim($outputservicios, ",");
 
     $excerpt = '';
     if (has_excerpt($post->ID )) {
@@ -74,15 +74,16 @@ if( $post_list ){
     $csv_output .= strtolower( get_the_category_by_ID( $term_list[0]->term_taxonomy_id )).",";
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioPoblacion', true ).'",';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioCodigoProvincia', true ).'",';
+    $csv_output .= get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioStreetView', true ).',';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioLatitud', true ).'",';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioLongitud', true ).'",';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioImagenes', true ).'",';
     $csv_output .= '"'.get_post_thumbnail_id( $post->ID ).'",';
-    $csv_output .= '"'.$outputlandings).'",';
+    $csv_output .= '"'.$outputlandings.'",';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioLandings', true ).'",';
-    $csv_output .= '"'.$outputservicios).",";
+    $csv_output .= '"'.$outputservicios.'",';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioServicios', true ).'",';
-    $csv_output .= $shortcode.",";
+    $csv_output .= $shortcode.',';
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioShortcode', true ).'",';
 
     $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_funerariaDirectorioURLLandings', true ).'",';
