@@ -38,7 +38,7 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'directorio_entrada_custom_post_type' ));
     add_action('init', array( $this, 'directorio_funeraria_custom_post_type' ));
     add_action('init', array( $this, 'directorio_servicios_custom_post_type' ));
-    add_action('init', array( $this, 'directorio_defuncion_custom_post_type' ));
+    //add_action('init', array( $this, 'directorio_defuncion_custom_post_type' ));
     add_action('init', array( $this, 'directorio_shortcode_custom_post_type' ));
 
     add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);
@@ -102,7 +102,7 @@ class Wpfunos_Admin {
     add_action('add_meta_boxes_directorio_servicio', array( $this, 'setupdirectorio_servicioMetaboxes' ));
     add_action('add_meta_boxes_directorio_entrada', array( $this, 'setupdirectorio_entradaMetaboxes' ));
     add_action('add_meta_boxes_directorio_funeraria', array( $this, 'setupdirectorio_funerariaMetaboxes' ));
-    add_action('add_meta_boxes_directorio_defuncion', array( $this, 'setupdirectorio_defuncionMetaboxes' ));
+    //add_action('add_meta_boxes_directorio_defuncion', array( $this, 'setupdirectorio_defuncionMetaboxes' ));
     add_action('add_meta_boxes_directorio_shortcode', array( $this, 'setupdirectorio_shortcodeMetaboxes' ));
 
     add_action('save_post_usuarios_wpfunos', array( $this, 'saveusuarios_wpfunosMetaBoxData' ));
@@ -120,7 +120,7 @@ class Wpfunos_Admin {
     add_action('save_post_directorio_servicio', array( $this, 'savedirectorio_servicioMetaBoxData' ));
     add_action('save_post_directorio_entrada', array( $this, 'savedirectorio_entradaMetaBoxData' ));
     add_action('save_post_directorio_funeraria', array( $this, 'savedirectorio_funerariaMetaBoxData' ));
-    add_action('save_post_directorio_defuncion', array( $this, 'savedirectorio_defuncionMetaBoxData' ));
+    //add_action('save_post_directorio_defuncion', array( $this, 'savedirectorio_defuncionMetaBoxData' ));
     add_action('save_post_directorio_shortcode', array( $this, 'savedirectorio_shortcodeMetaBoxData' ));
 
     add_action('wpfunos_hojas_calculo', array( $this, 'wpfunosHojasCalculo' ), 10, 1 );
@@ -765,10 +765,10 @@ class Wpfunos_Admin {
   public function setupdirectorio_funerariaMetaboxes(){
     add_meta_box('directorio_funeraria_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'directorio_funeraria_data_meta_box'), 'directorio_funeraria', 'normal', 'high' );
   }
-  public function setupdirectorio_defuncionMetaboxes(){
-    add_meta_box('directorio_defuncion_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'directorio_defuncion_data_meta_box'), 'directorio_defuncion', 'normal', 'high' );
-    remove_meta_box('wpseo_meta', 'directorio_defuncion', 'normal');
-  }
+  //public function setupdirectorio_defuncionMetaboxes(){
+  //  add_meta_box('directorio_defuncion_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'directorio_defuncion_data_meta_box'), 'directorio_defuncion', 'normal', 'high' );
+  //  remove_meta_box('wpseo_meta', 'directorio_defuncion', 'normal');
+  //}
   public function setupdirectorio_shortcodeMetaboxes(){
     add_meta_box('directorio_shortcode_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'directorio_shortcode_data_meta_box'), 'directorio_shortcode', 'normal', 'high' );
     remove_meta_box('wpseo_meta', 'directorio_shortcode', 'normal');
@@ -894,13 +894,13 @@ class Wpfunos_Admin {
     if (! current_user_can('manage_options')) return;
     require_once 'partials/DB/wpfunos-admin-DB-directorio-funeraria-fields.php';
   }
-  public function savedirectorio_defuncionMetaBoxData( $post_id ){
-    if (! isset($_POST['wpfunos_directorio_defuncion_meta_box_nonce'])) return;
-    if (! wp_verify_nonce($_POST['wpfunos_directorio_defuncion_meta_box_nonce'], 'wpfunos_directorio_defuncion_meta_box')) return;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (! current_user_can('manage_options')) return;
-    require_once 'partials/DB/wpfunos-admin-DB-directorio-defuncion-fields.php';
-  }
+  //public function savedirectorio_defuncionMetaBoxData( $post_id ){
+  //  if (! isset($_POST['wpfunos_directorio_defuncion_meta_box_nonce'])) return;
+  //  if (! wp_verify_nonce($_POST['wpfunos_directorio_defuncion_meta_box_nonce'], 'wpfunos_directorio_defuncion_meta_box')) return;
+  //  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+  //  if (! current_user_can('manage_options')) return;
+  //  require_once 'partials/DB/wpfunos-admin-DB-directorio-defuncion-fields.php';
+  //}
   public function savedirectorio_shortcodeMetaBoxData( $post_id ){
     if (! isset($_POST['wpfunos_directorio_shortcode_meta_box_nonce'])) return;
     if (! wp_verify_nonce($_POST['wpfunos_directorio_shortcode_meta_box_nonce'], 'wpfunos_directorio_shortcode_meta_box')) return;
@@ -1005,9 +1005,9 @@ class Wpfunos_Admin {
   /**
   * Directorio defunciones:
   */
-  public function directorio_defuncion_custom_post_type(){
-    require_once 'partials/cpt/wpfunos-admin-cpt-directorio-defunciones.php';
-  }
+  //public function directorio_defuncion_custom_post_type(){
+  //  require_once 'partials/cpt/wpfunos-admin-cpt-directorio-defunciones.php';
+  //}
   /**
   * Directorio shortcode:
   */
@@ -1082,10 +1082,10 @@ class Wpfunos_Admin {
     wp_nonce_field( 'wpfunos_directorio_funeraria_meta_box', 'wpfunos_directorio_funeraria_meta_box_nonce' );
     require_once 'partials/DB/wpfunos-admin-DB-directorio-funeraria-display.php';
   }
-  public function directorio_defuncion_data_meta_box($post){
-    wp_nonce_field( 'wpfunos_directorio_defuncion_meta_box', 'wpfunos_directorio_defuncion_meta_box_nonce' );
-    require_once 'partials/DB/wpfunos-admin-DB-directorio-defuncion-display.php';
-  }
+  //public function directorio_defuncion_data_meta_box($post){
+  //  wp_nonce_field( 'wpfunos_directorio_defuncion_meta_box', 'wpfunos_directorio_defuncion_meta_box_nonce' );
+  //  require_once 'partials/DB/wpfunos-admin-DB-directorio-defuncion-display.php';
+  //}
   public function directorio_shortcode_data_meta_box($post){
     wp_nonce_field( 'wpfunos_directorio_shortcode_meta_box', 'wpfunos_directorio_shortcode_meta_box_nonce' );
     require_once 'partials/DB/wpfunos-admin-DB-directorio-shortcode-display.php';

@@ -51,6 +51,8 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Códigos provincia', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Street view', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Carrusel', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_funerariaDirectorioPoblacion','name' => 'wpfunos_funerariaDirectorioPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
@@ -58,6 +60,8 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_funerariaDirectorioCodigoProvincia','name' => 'wpfunos_funerariaDirectorioCodigoProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_funerariaDirectorioStreetView','name' => 'wpfunos_funerariaDirectorioStreetView','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_funerariaDirectorioCarrusel','name' => 'wpfunos_funerariaDirectorioCarrusel','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
         </tr>
       </table>
     </li>
