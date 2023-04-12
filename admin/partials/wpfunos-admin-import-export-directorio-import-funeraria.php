@@ -105,7 +105,7 @@ foreach ( $array as $keylinea=>$linea ) {
             array(
               'description' => $CategoriaProvincia,
               'slug'        => $CategoriaProvincia,
-              'parent'      => 650,
+              'parent'      => 0,
             )
           );
           $ID_provincia = $new_provincia['term_id'];
@@ -172,6 +172,7 @@ foreach ( $array as $keylinea=>$linea ) {
       update_post_meta($post_id, 'wpfunos_funerariaDirectorioCodigoProvincia',  sanitize_text_field( $columna) );
     }
     if ($cabecera[$key] == 'StreetView' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioStreetView', sanitize_text_field( $columna ));
+    if ($cabecera[$key] == 'Carrusel' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioCarrusel', sanitize_text_field( $columna ));
     if ($cabecera[$key] == 'Latitud' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioLatitud', sanitize_text_field( $columna) );
     if ($cabecera[$key] == 'Longitud' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioLongitud', sanitize_text_field( $columna) );
     // Imagenes

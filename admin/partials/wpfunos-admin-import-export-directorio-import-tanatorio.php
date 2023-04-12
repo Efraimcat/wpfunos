@@ -115,7 +115,7 @@ foreach ( $array as $keylinea=>$linea ) {
             array(
               'description' => $CategoriaProvincia,
               'slug'        => $CategoriaProvincia,
-              'parent'      => 645,
+              'parent'      => 0,
             )
           );
           $ID_provincia = $new_provincia['term_id'];
@@ -208,6 +208,7 @@ foreach ( $array as $keylinea=>$linea ) {
     }
     //
     if ($cabecera[$key] == 'StreetView' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioStreetView', sanitize_text_field( $columna ));
+    if ($cabecera[$key] == 'Carrusel' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioCarrusel', sanitize_text_field( $columna ));
     if ($cabecera[$key] == 'Latitud' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioLatitud', sanitize_text_field( $columna ));
     if ($cabecera[$key] == 'Longitud' ) update_post_meta($post_id, 'wpfunos_entradaDirectorioLongitud', sanitize_text_field( $columna ));
     // Imagenes
