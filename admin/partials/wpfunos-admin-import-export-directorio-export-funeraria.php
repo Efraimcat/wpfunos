@@ -24,7 +24,7 @@ if ( ! wp_verify_nonce( $_POST['wpfunos_import_funerarias_nonce'], 'wpfunos_impo
 ?><h2>EXPORTANDO FICHERO FUNERARIAS DIRECTORIO</h2><?php
 $args = array(
   'post_status' => 'any',
-  'post_type' => 'funerarias',
+  'post_type' => 'directorio_funeraria',
   'posts_per_page' => -1,
 );
 $post_list = get_posts( $args );

@@ -35,7 +35,6 @@ foreach( $_POST as $key => $val ) {
 
 $entradaDirectorioShortcode = sanitize_text_field( $_POST['wpfunos_entradaDirectorioShortcode'] );
 $entradaDirectorioStreetView = sanitize_text_field( $_POST['wpfunos_entradaDirectorioStreetView'] );
-$entradaDirectorioCarrusel = sanitize_text_field( $_POST['wpfunos_entradaDirectorioCarrusel'] );
 
 $entradaDirectorioNombre = sanitize_text_field( $_POST['wpfunos_entradaDirectorioNombre'] );
 $entradaDirectorioDireccion = sanitize_text_field( $_POST['wpfunos_entradaDirectorioDireccion'] );
@@ -68,7 +67,6 @@ $entradaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_entr
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode', $entradaDirectorioShortcode);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioStreetView', $entradaDirectorioStreetView);
-update_post_meta($post_id, 'wpfunos_entradaDirectorioCarrusel', $entradaDirectorioCarrusel);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioNombre', $entradaDirectorioNombre);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioDireccion', $entradaDirectorioDireccion);

@@ -17,7 +17,7 @@ $customPostTypeArgs = array(
   'label' => esc_html__('Funeraria Directorio', 'wpfunos'),
   'labels'=>
   array(
-    'name' => esc_html__('Funerarias', 'wpfunos'),
+    'name' => esc_html__('Directorio', 'wpfunos'),
     'singular_name' => esc_html__('Funeraria', 'wpfunos'),
     'add_new' => esc_html__('Añadir funeraria al directorio', 'wpfunos'),
     'add_new_item' => esc_html__('Añadir nueva funeraria al directorio', 'wpfunos'),
@@ -45,10 +45,10 @@ $customPostTypeArgs = array(
   'map_meta_cap' => true,
 );
 // Post type, $args - the Post Type string can be MAX 20 characters
-register_post_type( 'funerarias', $customPostTypeArgs );
+register_post_type( 'directorio_funeraria', $customPostTypeArgs );
 
 register_taxonomy(
-  'funeraria_poblacion', array('Funerarias'),array(
+  'funeraria_poblacion', array('directorio_funeraria'),array(
     'hierarchical' => true,
     'label' => 'Funerarias directorio',
     'labels'=>
@@ -74,4 +74,4 @@ register_taxonomy(
     'show_tagcloud'              => true,
   )
 );
-register_taxonomy_for_object_type( 'funerarias', 'funerarias' );
+register_taxonomy_for_object_type( 'funeraria_poblacion', 'directorio_funeraria' );

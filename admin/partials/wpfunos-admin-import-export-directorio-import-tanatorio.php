@@ -77,7 +77,7 @@ foreach ( $array as $keylinea=>$linea ) {
     echo '<br/>Linea ' .$keylinea. ' es un un nuevo tanatorio';
     $this->import_logs('Linea ' .$keylinea. ' es un un nuevo tanatorio');
     $post_id = wp_insert_post(array (
-      'post_type' => 'tanatorios',
+      'post_type' => 'directorio_entrada',
       'post_status' => 'draft',
       'meta_input'  => [ 'ast-featured-img' => 'disabled', 'site-post-title' => 'disabled', 'ast-breadcrumbs-content' => 'disabled', 'ast-main-header-display' => 'disabled', 'site-content-layout' => 'page-builder' ]
     ));
@@ -187,7 +187,7 @@ foreach ( $array as $keylinea=>$linea ) {
       $outputfunerarias = '';
       foreach( $columnafunerarias as $columnafuneraria ){
         $args = array(
-          'post_type'        => 'funerarias',
+          'post_type'        => 'directorio_funeraria',
           'title'            => $columnafuneraria,
           'post_status'      => 'publish',
         );

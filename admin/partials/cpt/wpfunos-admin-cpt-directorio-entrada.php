@@ -17,7 +17,7 @@ $customPostTypeArgs = array(
   'label' => esc_html__('Tanatorio Directorio', 'wpfunos'),
   'labels'=>
   array(
-    'name' => esc_html__('Tanatorios', 'wpfunos'),
+    'name' => esc_html__('Directorio', 'wpfunos'),
     'singular_name' => esc_html__('Tanatorio', 'wpfunos'),
     'add_new' => esc_html__('Añadir tanatorio al directorio', 'wpfunos'),
     'add_new_item' => esc_html__('Añadir nuevo tanatorio al directorio', 'wpfunos'),
@@ -45,10 +45,10 @@ $customPostTypeArgs = array(
   'map_meta_cap' => true,
 );
 // Post type, $args - the Post Type string can be MAX 20 characters
-register_post_type( 'tanatorios', $customPostTypeArgs );
+register_post_type( 'directorio_entrada', $customPostTypeArgs );
 
 register_taxonomy(
-  'directorio_poblacion', array('tanatorios'),array(
+  'directorio_poblacion', array('directorio_entrada'),array(
     'hierarchical' => true,
     'label' => 'Tanatorios directorio',
     'labels'=>
@@ -74,4 +74,4 @@ register_taxonomy(
     'show_tagcloud'              => true,
   )
 );
-register_taxonomy_for_object_type( 'tanatorios', 'tanatorios' );
+register_taxonomy_for_object_type( 'directorio_poblacion', 'directorio_entrada' );

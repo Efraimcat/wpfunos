@@ -35,7 +35,6 @@ foreach( $_POST as $key => $val ) {
 
 $funerariaDirectorioShortcode = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioShortcode'] );
 $funerariaDirectorioStreetView = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioStreetView'] );
-$funerariaDirectorioCarrusel = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioCarrusel'] );
 
 $funerariaDirectorioNombre = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioNombre'] );
 $funerariaDirectorioDireccion = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioDireccion'] );
@@ -67,7 +66,6 @@ $funerariaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_fu
 
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioShortcode', $funerariaDirectorioShortcode);
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioStreetView', $funerariaDirectorioStreetView);
-update_post_meta($post_id, 'wpfunos_funerariaDirectorioCarrusel', $funerariaDirectorioCarrusel);
 
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioNombre', $funerariaDirectorioNombre);
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioDireccion', $funerariaDirectorioDireccion);

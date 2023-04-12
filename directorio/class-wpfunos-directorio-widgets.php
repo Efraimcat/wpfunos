@@ -64,7 +64,7 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio {
         echo '</ul>';
       }
     }else{
-      if( $categorias[1] == 'funerarias' || $categorias[1] == 'tanatorios' || ( $categorias[1] == 'directorio' && count( $categorias ) < 3 )){
+      if( $categorias[1] == 'directorio_funeraria' || $categorias[1] == 'directorio_entrada' || ( $categorias[1] == 'directorio' && count( $categorias ) < 3 )){
         echo '<ul>';
         echo '<li><a href="'.home_url().'/directorio/tanatorio">Tanatorios</a></li>';
         echo '<li><a href="'.home_url().'/directorio/funeraria">Funerarias</a></li>';
