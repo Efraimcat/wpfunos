@@ -18,9 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
   cursor: pointer;
 }
 </style>
-<div class="directorio_entrada_wpfunos_containers">
-  <ul class="directorio_entrada_wpfunos_data_metabox">
-    <li class="directorio_entrada_wpfunos_list">
+<div class="tanatorios_wpfunos_containers">
+  <ul class="tanatorios_wpfunos_data_metabox">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Tipo de entrada', 'wpfunos');?></td>
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Nombre', 'wpfunos');?></td>
@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Población', 'wpfunos');?></td>
@@ -80,7 +80,7 @@ if ( ! defined( 'ABSPATH' ) ) {
               <option value="">------------</option>
               <?php
               $args = array(
-                'post_type' => 'directorio_entrada',
+                'post_type' => 'tanatorios',
                 'posts_per_page' => -1,
                 'post_status' => 'any', // para incluir borradores
                 'meta_key' => 'wpfunos_entradaDirectorioNombre',
@@ -110,7 +110,7 @@ if ( ! defined( 'ABSPATH' ) ) {
               <option value="">------------</option>
               <?php
               $args = array(
-                'post_type' => 'directorio_entrada',
+                'post_type' => 'tanatorios',
                 'posts_per_page' => -1,
                 'post_status' => 'any', // para incluir borradores
                 'meta_key' => 'wpfunos_entradaDirectorioNombre',
@@ -137,7 +137,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Longitud', 'wpfunos');?></td>
@@ -176,7 +176,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Imagen 1', 'wpfunos');?></td>
@@ -259,7 +259,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Entierro desde', 'wpfunos');?></td>
@@ -274,7 +274,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Landings', 'wpfunos');?></td>
@@ -284,7 +284,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
       </table>
     </li>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <?php
@@ -328,7 +328,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Servicios', 'wpfunos');?></td>
@@ -338,7 +338,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
       </table>
     </li>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <?php
@@ -369,7 +369,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_entrada_wpfunos_list">
+    <li class="tanatorios_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Últimas defunciones', 'wpfunos');?></td>

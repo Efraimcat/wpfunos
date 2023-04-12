@@ -18,9 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
   cursor: pointer;
 }
 </style>
-<div class="directorio_funeraria_wpfunos_containers">
-  <ul class="directorio_funeraria_wpfunos_data_metabox">
-    <li class="directorio_funeraria_wpfunos_list">
+<div class="funerarias_wpfunos_containers">
+  <ul class="funerarias_wpfunos_data_metabox">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Nombre', 'wpfunos');?></td>
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_funeraria_wpfunos_list">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Población', 'wpfunos');?></td>
@@ -66,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_funeraria_wpfunos_list">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Longitud', 'wpfunos');?></td>
@@ -109,7 +109,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_funeraria_wpfunos_list">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Imagenes', 'wpfunos');?></td>
@@ -137,7 +137,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_funeraria_wpfunos_list">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Entierro desde', 'wpfunos');?></td>
@@ -152,7 +152,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_funeraria_wpfunos_list">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Landings', 'wpfunos');?></td>
@@ -162,7 +162,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
       </table>
     </li>
-    <li class="directorio_funeraria_wpfunos_list">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <?php
@@ -206,7 +206,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_funeraria_wpfunos_list">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Servicios', 'wpfunos');?></td>
@@ -216,7 +216,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
       </table>
     </li>
-    <li class="directorio_funeraria_wpfunos_list">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <?php
@@ -247,7 +247,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <li class="directorio_funeraria_wpfunos_list">
+    <li class="funerarias_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('Últimas defunciones', 'wpfunos');?></td>

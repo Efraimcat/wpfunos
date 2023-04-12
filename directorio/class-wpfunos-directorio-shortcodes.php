@@ -156,7 +156,7 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     //$funerarias = explode(',',get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioServicios', true ));
 
     $args = array(
-      'post_type' => 'directorio_entrada',
+      'post_type' => 'tanatorios',
       'post_status' => 'publish',
       'posts_per_page' => -1,
       'meta_query' => array(

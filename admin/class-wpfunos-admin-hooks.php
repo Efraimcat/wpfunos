@@ -25,8 +25,8 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaLandings' ), 10, 4);
     add_action('post_updated', array( $this, 'wpfunosCheckLandingsValues' ), 10, 3 );
 
-    add_action('save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
-    add_action('save_post_directorio_funeraria', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
+    add_action('save_post_tanatorios', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
+    add_action('save_post_funerarias', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
   }
 
   public function wpfunosGuardarServicio( $post_id ){
@@ -577,13 +577,13 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
 
   /**
   *
-  *add_action('save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
+  *add_action('save_post_tanatorios', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
   *
   */
   public function wpfunosGuardarEntradaDirectorio( $post_id ){
     $this->custom_logs('wpfunosGuardarEntradaDirectorio' );
     $this->custom_logs('$post_id: ' .$post_id. ' (' .get_the_title( $post_id). ')' );
-    remove_action( 'save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ) );
+    remove_action( 'save_post_tanatorios', array( $this, 'wpfunosGuardarEntradaDirectorio' ) );
 
     if( substr( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ), -1) == ',' ) {
       update_post_meta( $post_id, 'wpfunos_entradaDirectorioLandings',  substr( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ),0,-1 ) );
@@ -617,20 +617,20 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     $post->post_content = get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true );
     wp_update_post( $post );
 
-    add_action('save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
+    add_action('save_post_tanatorios', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
     $this->custom_logs('wpfunosGuardarEntradaDirectorio ENDS' );
     $this->custom_logs('---');
   }
 
   /**
   *
-  *add_action('save_post_directorio_funeraria', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
+  *add_action('save_post_funerarias', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
   *
   */
   public function wpfunosGuardarFunerariaDirectorio( $post_id ){
     $this->custom_logs('wpfunosGuardarFunerariaDirectorio' );
     $this->custom_logs('$post_id: ' .$post_id. ' (' .get_the_title( $post_id). ')' );
-    remove_action( 'save_post_directorio_funeraria', array( $this, 'wpfunosGuardarFunerariaDirectorio' ) );
+    remove_action( 'save_post_funerarias', array( $this, 'wpfunosGuardarFunerariaDirectorio' ) );
 
     if( substr( get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ), -1) == ',' ) {
       update_post_meta( $post_id, 'wpfunos_funerariaDirectorioLandings',  substr( get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ),0,-1 ) );
@@ -664,7 +664,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     $post->post_content = get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true );
     wp_update_post( $post );
 
-    add_action('save_post_directorio_funeraria', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
+    add_action('save_post_funerarias', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
     $this->custom_logs('wpfunosGuardarFunerariaDirectorio ENDS' );
     $this->custom_logs('---');
   }
