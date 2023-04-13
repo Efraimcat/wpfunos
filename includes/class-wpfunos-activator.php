@@ -44,7 +44,7 @@ class Wpfunos_Activator {
 			$table_name = $wpdb->prefix . 'wpf_visitas';
 			$charset_collate = $wpdb->get_charset_collate();
 
-			$sql = "CREATE TABLE $table_name (
+			$sqlvisitas = "CREATE TABLE $table_name (
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				version tinytext DEFAULT '' NOT NULL,
@@ -73,8 +73,19 @@ class Wpfunos_Activator {
 				PRIMARY KEY  (id)
 			);";
 
+			$table_name = $wpdb->prefix . 'wpf_defunciones';
+			$sqldefunciones = "CREATE TABLE $table_name (
+				id mediumint(9) NOT NULL AUTO_INCREMENT,
+				time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				nombre varchar(250) DEFAULT '' NOT NULL,
+				tanatorio varchar(250) DEFAULT '' NOT NULL,
+				fecha datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				PRIMARY KEY  (id)
+			);";
+
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-			dbDelta( $sql );
+			dbDelta( $sqlvisitas );
+      dbDelta( $sqldefunciones );
 
 			update_option( "wpf_db_version", $DBversion );
 		}

@@ -281,11 +281,11 @@ foreach ( $array as $keylinea=>$linea ) {
     //
     if ($cabecera[$key] == 'URLLandings' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioURLLandings', sanitize_text_field( $columna ));
     //if ($cabecera[$key] == 'Slug' ) wp_insert_post(array( 'ID'=>$post_id, 'post_name' => $columna ));
-    if ($cabecera[$key] == 'Extracto' ) wp_update_post(array( 'ID'=>$post_id, 'post_excerpt' => wp_kses_post( substr( $columna, 3, -3)  ) ));
-    if ($cabecera[$key] == 'Descripcion' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioDescripcion',  wp_kses_post( substr( $columna, 3, -3) ) );
-    if ($cabecera[$key] == 'DescripcionServicios' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioDescripcionServicios', wp_kses_post( substr( $columna, 3, -3) ) );
-    if ($cabecera[$key] == 'Horarios' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioHorario',  wp_kses_post( substr( $columna, 3, -3) ) );
-    if ($cabecera[$key] == 'ComoLlegar' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioComoLlegar',  wp_kses_post( substr( $columna, 3, -3) ) );
+    //if ($cabecera[$key] == 'Extracto' ) wp_update_post(array( 'ID'=>$post_id, 'post_excerpt' => wp_kses_post( substr( $columna, 3, -3)  ) ));
+    //if ($cabecera[$key] == 'Descripcion' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioDescripcion',  wp_kses_post( substr( $columna, 3, -3) ) );
+    //if ($cabecera[$key] == 'DescripcionServicios' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioDescripcionServicios', wp_kses_post( substr( $columna, 3, -3) ) );
+    //if ($cabecera[$key] == 'Horarios' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioHorario',  wp_kses_post( substr( $columna, 3, -3) ) );
+    //if ($cabecera[$key] == 'ComoLlegar' ) update_post_meta($post_id, 'wpfunos_funerariaDirectorioComoLlegar',  wp_kses_post( substr( $columna, 3, -3) ) );
 
   }// END foreach ( $linea as $key => $columna)
 

@@ -21,10 +21,13 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio {
 
   public function wpfunosDirectorioWidget(){
     $categorias = explode('/', str_replace( home_url( '/' ),'', $_SERVER['REQUEST_URI'] ));
+    //print_r($categorias);
     //array(5) { [0]=> string(0) "" [1]=> string(10) "directorio" [2]=> string(9) "tanatorio" [3]=> string(8) "zaragoza" [4]=> string(15) "zaragoza-ciudad" }
-    if( $categorias[1] == 'directorio' && count( $categorias ) > 2 ){
+    if( $categorias[1] == 'funerarias' || $categorias[1] == 'tanatorios' ){
       $slug_categoria = $categorias[count($categorias)-1];
-      $custom_taxonomy = ( $categorias[2] == 'tanatorio') ? 'directorio_poblacion' : 'funeraria_poblacion';
+      //echo '<br/>$slug_categoria: ' .$slug_categoria;
+      $custom_taxonomy = ( $categorias[1] == 'tanatorios') ? 'directorio_poblacion' : 'funeraria_poblacion';
+      //echo '<br/>$custom_taxonomy: ' .$custom_taxonomy;
       $term = get_term_by('slug', $slug_categoria , $custom_taxonomy);
 
       //object(WP_Term)#49675 (10) {
@@ -44,7 +47,7 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio {
       //["parent"]=> int(651) ["count"]=> int(1) ["filter"]=> string(3) "raw" }
 
       echo '<br/>Categoria: ' .$term->name;
-      if ( count($categorias) < 4 ){
+      if ( count($categorias) < 3 ){
         $parent_terms = get_terms( $custom_taxonomy, array( 'parent' => 0, 'orderby' => 'slug', 'hide_empty' => false ) );
         echo '<ul>';
         foreach ( $parent_terms as $pterm ) {
@@ -65,9 +68,10 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio {
       }
     }else{
       if( $categorias[1] == 'directorio_funeraria' || $categorias[1] == 'directorio_entrada' || ( $categorias[1] == 'directorio' && count( $categorias ) < 3 )){
+        echo '<br/>Categorias';
         echo '<ul>';
-        echo '<li><a href="'.home_url().'/directorio/tanatorio">Tanatorios</a></li>';
-        echo '<li><a href="'.home_url().'/directorio/funeraria">Funerarias</a></li>';
+        echo '<li><a href="'.home_url().'/tanatorios">Tanatorios</a></li>';
+        echo '<li><a href="'.home_url().'/funerarias">Funerarias</a></li>';
         echo '</ul>';
       }
     }
