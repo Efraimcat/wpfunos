@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 *
 */
 define( 'WPFUNOS_VERSION', '3.7.2' );
-define( 'WPFUNOS_DB_VERSION', '1.0' );
+define( 'WPFUNOS_DB_VERSION', '1.0.2' );
 /**
 *|--------------------------------------------------------------------------
 *| CONSTANTS

@@ -90,9 +90,9 @@ class Wpfunos_Directorio {
   */
   public function displayPluginAdminDefunciones_screen_options(){
     $arguments = array(
-      'label'		=>	__( 'Defunciones por página', 'wpfunos' ),
-      'default'	=>	25,
-      'option'	=>	'visits_per_page'
+      'label'   => __( 'Defunciones por página', 'wpfunos' ),
+      'default'	=> 25,
+      'option'  => 'defunciones_per_page'
     );
     add_screen_option( 'per_page', $arguments );
 
