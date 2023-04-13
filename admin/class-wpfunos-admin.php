@@ -38,7 +38,7 @@ class Wpfunos_Admin {
     add_action('init', array( $this, 'directorio_entrada_custom_post_type' ));
     add_action('init', array( $this, 'directorio_funeraria_custom_post_type' ));
     add_action('init', array( $this, 'directorio_servicios_custom_post_type' ));
-    add_action('init', array( $this, 'directorio_defuncion_custom_post_type' ));
+    //add_action('init', array( $this, 'directorio_defuncion_custom_post_type' ));
     add_action('init', array( $this, 'directorio_shortcode_custom_post_type' ));
 
     add_action('admin_menu', array( $this, 'addPluginAdminMenu' ), 9);

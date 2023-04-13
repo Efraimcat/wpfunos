@@ -115,7 +115,7 @@ foreach ( $array as $keylinea=>$linea ) {
             array(
               'description' => $CategoriaProvincia,
               'slug'        => $CategoriaProvincia,
-              'parent'      => 0,
+              'parent'      => 645,
             )
           );
           $ID_provincia = $new_provincia['term_id'];
