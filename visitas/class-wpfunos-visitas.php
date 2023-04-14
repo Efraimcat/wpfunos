@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-require_once 'wpfunos-visitas-list-table.php';
+require_once 'class-wpfunos-visitas-list-table.php';
 
 class Wpfunos_Visitas {
 

@@ -65,7 +65,7 @@ class Wpfunos_Defunciones_List_Table extends WP_List_Table {
     global $wpdb;
     $wpdb_table = $wpdb->prefix . 'wpf_defunciones';
 
-    $orderby = ( isset( $_GET['orderby'] ) ) ? esc_sql( $_GET['orderby'] ) : 'id';
+    $orderby = ( isset( $_GET['orderby'] ) ) ? esc_sql( $_GET['orderby'] ) : 'defuncion';
     $order = ( isset( $_GET['order'] ) ) ? esc_sql( $_GET['order'] ) : 'DESC';
 
     //$user_query = "SELECT * FROM $wpdb_table ORDER BY id DESC";

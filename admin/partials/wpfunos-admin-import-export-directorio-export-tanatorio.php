@@ -37,7 +37,7 @@ if( $post_list ){
   // TODO:
   //
   //$csv_output = 'Fecha de la acción realizada, ID, Referencia, Nombre y apellidos, Teléfono, Email, Ubicación del usuario, CP, Provincia, Empresa, Servicio demandado, API, Precio, Nombre servicio, Nombre ataúd, Nombre velatorio, Nombre despedida, Visitas, URL, Nombre acción, IP';
-  $csv_output = 'ID,Tipo,Status,Titulo,Nombre,Direccion,Correo,Telefono,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Funerarias,StreetView,Carrusel,Latitud,Longitud,Imagenes,ImagenDestacada,Landings,Servicios,Shortcode,URLLandings,Extracto,Descripcion,DescripcionServicios,Horarios,ComoLlegar';
+  $csv_output = 'ID,Tipo,Status,Titulo,Nombre,Direccion,Correo,Telefono,CategoriaProvincia,CategoriaPoblacion,Poblacion,CodigosProvincia,Funerarias,StreetView,Carrusel,Latitud,Longitud,Imagenes,ImagenDestacada,Landings,Servicios,Shortcode,URLLandings,Extracto';
   $csv_output .= "\n";
   foreach ( $post_list as $post ){
 
@@ -117,10 +117,10 @@ if( $post_list ){
     // chr(147) // left double quote
     // chr(148) // right double quote
     $csv_output .= '"'.$excerpt.'",';
-    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcion', true ).'",';
-    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcionServicios', true ).'",';
-    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioHorario', true ).'",';
-    $csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioComoLlegar', true ).'",';
+    //$csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcion', true ).'",';
+    //$csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcionServicios', true ).'",';
+    //$csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioHorario', true ).'",';
+    //$csv_output .= '"'.get_post_meta( $post->ID, 'wpfunos_entradaDirectorioComoLlegar', true ).'",';
     //
     $csv_output .= "\n";
   }
