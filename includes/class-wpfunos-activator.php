@@ -78,14 +78,18 @@ class Wpfunos_Activator {
 				id mediumint(9) NOT NULL AUTO_INCREMENT,
 				time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				nombre varchar(250) DEFAULT '' NOT NULL,
-				tanatorio varchar(250) DEFAULT '' NOT NULL,
-				fecha datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				defuncion datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				velatorio varchar(250) DEFAULT '' NOT NULL,
+				velatorio_inicio datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				velatorio_final datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				ceremonia varchar(250) DEFAULT '' NOT NULL,
+				ceremonia_fecha datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 				PRIMARY KEY  (id)
 			);";
 
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sqlvisitas );
-      dbDelta( $sqldefunciones );
+			dbDelta( $sqldefunciones );
 
 			update_option( "wpf_db_version", $DBversion );
 		}

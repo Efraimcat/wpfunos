@@ -22,11 +22,15 @@ class Wpfunos_Defunciones_List_Table extends WP_List_Table {
   */
   public function get_columns() {
     $table_columns = array(
-      'cb'		=> '<input type="checkbox" />', // to display the checkbox.
-      'nombre' => __( 'Nombre', 'wpfunos' ),
-      'tanatorio' => __( 'Tanatorio', 'wpfunos' ),
-      'fecha'	=> __( 'Fecha', 'wpfunos' ),
-      'time'	=> __( 'Fecha entrada', 'wpfunos' ),
+      'cb' => '<input type="checkbox" />', // to display the checkbox.
+      'nombre'            => __( 'Nombre', 'wpfunos' ),
+      'defuncion'	        => __( 'Fecha defunción', 'wpfunos' ),
+      'velatorio'         => __( 'Velatorio', 'wpfunos' ),
+      'velatorio_inicio'  => __( 'Inicio', 'wpfunos' ),
+      'velatorio_final'   => __( 'Final', 'wpfunos' ),
+      'ceremonia'         => __( 'Ceremonia', 'wpfunos' ),
+      'ceremonia_fecha'   => __( 'Fecha', 'wpfunos' ),
+      'time'	=> __( 'Fecha creacion entrada', 'wpfunos' ),
     );
     return $table_columns;
   }
@@ -44,8 +48,12 @@ class Wpfunos_Defunciones_List_Table extends WP_List_Table {
   public function get_sortable_columns() {
     return $sortable = array(
       'nombre' => 'nombre',
-      'tanatorio' => 'tanatorio',
-      'fecha'	=> 'fecha',
+      'defuncion' => 'defuncion',
+      'velatorio'	=> 'velatorio',
+      'velatorio_inicio'	=> 'velatorio_inicio',
+      'velatorio_final'	=> 'velatorio_final',
+      'ceremonia'	=> 'ceremonia',
+      'ceremonia_fecha'	=> 'ceremonia_fecha',
       'time'	=> 'time',
     );
   }
@@ -118,8 +126,6 @@ class Wpfunos_Defunciones_List_Table extends WP_List_Table {
       $table_data = $this->filter_table_data( $table_data, $defunciones_search_key );
       $this->items = $table_data;
     }
-
-
   }
 
   /*
@@ -128,9 +134,11 @@ class Wpfunos_Defunciones_List_Table extends WP_List_Table {
   public function column_default( $item, $column_name ) {
     switch ( $column_name ) {
       case 'referer': return substr( $item[$column_name],0,50 );
-      case 'fecha': return date("d-m-Y", strtotime($item[$column_name]));
-      default:
-      return $item[$column_name];
+      case 'defuncion': return date("d-m-Y", strtotime($item[$column_name]));
+      case 'velatorio_inicio': return date("d-m-Y H:i", strtotime($item[$column_name]));
+      case 'velatorio_final': return date("d-m-Y H:i", strtotime($item[$column_name]));
+      case 'ceremonia_fecha': return date("d-m-Y H:i", strtotime($item[$column_name]));
+      default: return $item[$column_name];
     }
   }
 
@@ -158,7 +166,176 @@ class Wpfunos_Defunciones_List_Table extends WP_List_Table {
     return $filtered_table_data;
   }
 
+  /*
+  *
+  * https://wordpress.stackexchange.com/questions/223552/how-to-create-custom-filter-options-in-wp-list-table
+  *
+  */
+  public function extra_tablenav( $which ) {
+    switch ( $which ) {
+      case 'top':
+      global $wpdb, $wp_locale;
 
+      $months = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( defuncion  ) AS year, MONTH( defuncion ) AS month FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
+      $days = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( defuncion  ) AS year, MONTH( defuncion ) AS month, DAY( defuncion ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
+      $velatorios = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT velatorio FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY velatorio ASC" ));
+      $inicios = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( velatorio_inicio  ) AS year, MONTH( velatorio_inicio ) AS month, DAY( velatorio_inicio ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
+      $finales = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( velatorio_final  ) AS year, MONTH( velatorio_final ) AS month, DAY( velatorio_final ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
+      $ceremonias = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT ceremonia FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY ceremonia ASC" ));
+      $fechaceremonias = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( ceremonia_fecha  ) AS year, MONTH( ceremonia_fecha ) AS month, DAY( ceremonia_fecha ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
+      /*
+      *
+      * nombre            Nombre
+      * defuncion         Fecha defunción                 m-d
+      * velatorio         Velatorio (tanatorio)           v
+      * velatorio_inicio  Velatorio fecha y hora Inicio   a
+      * velatorio_final   Velatorio fecha y hora final    b
+      * ceremonia         Ceremonia (tanatorio)           c
+      * ceremonia_fecha   Ceremonia fecha y hora inicio   e
+      *
+      */
+
+      $m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
+      $d = isset( $_GET['d'] ) ? (int) $_GET['d'] : 0;
+      $v = isset( $_GET['v'] ) ? $_GET['v'] : 0;
+      $a = isset( $_GET['a'] ) ? (int) $_GET['a'] : 0;
+      $b = isset( $_GET['b'] ) ? (int) $_GET['b'] : 0;
+      $c = isset( $_GET['c'] ) ? $_GET['c'] : 0;
+      $e = isset( $_GET['e'] ) ? (int) $_GET['e'] : 0;
+
+      ?>
+      <div class="alignleft actions">
+        <select name="m" id="filter-by-date">
+          <option<?php selected( $m, 0 ); ?> value="0" data-rc="/wp-admin/admin.php?page=wpfunos-defunciones">Todos los meses</option>
+          <?php
+          foreach ( $months as $arc_row ) {
+            $month = zeroise( $arc_row->month, 2 );
+            $year  = $arc_row->year;
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $m, $year . $month, false ),
+              esc_attr( $year . $month ),
+              esc_attr( '/wp-admin/admin.php?page=wpfunos-defunciones&m=' . $year . $month ),
+              sprintf( __( '%1$s %2$d' ), $wp_locale->get_month( $month ), $year )
+            );
+          }
+          ?>
+        </select>
+        <select name="d" id="filter-by-day">
+          <option<?php selected( $d, 0 ); ?> value="0" data-rc="">Todos los dias</option>
+          <?php
+          foreach ( $days as $arc_row ) {
+            $day = zeroise( $arc_row->day, 2 );
+            $month = zeroise( $arc_row->month, 2 );
+            $year  = $arc_row->year;
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $d, $year . $month . $day, false ),
+              esc_attr( $year . $month . $day ),
+              esc_attr( '&d='.$year . $month . $day ),
+              sprintf( __( '%1$s %2$s %3$d' ), $day, $wp_locale->get_month( $month ), $year )
+            );
+          }
+          ?>
+        </select>
+        <select name="v" id="filter-by-velatorio">
+          <option<?php selected( $v, 0 ); ?> value="0" data-rc="">Todos los velatorios</option>
+          <?php
+          foreach ( $velatorios as $arc_row ) {
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $t, $arc_row->velatorio, false ),
+              esc_attr( $arc_row->velatorio ),
+              esc_attr( '&t='.$arc_row->velatorio),
+              sprintf( __( '%1$s' ), $arc_row->velatorio )
+            );
+          }
+          ?>
+        </select>
+        <select name="a" id="filter-by-velatorio-inicio">
+          <option<?php selected( $a, 0 ); ?> value="0" data-rc="">Todos los dias inicio</option>
+          <?php
+          foreach ( $inicios as $arc_row ) {
+            $day = zeroise( $arc_row->day, 2 );
+            $month = zeroise( $arc_row->month, 2 );
+            $year  = $arc_row->year;
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $a, $year . $month . $day, false ),
+              esc_attr( $year . $month . $day ),
+              esc_attr( '&a='.$year . $month . $day ),
+              sprintf( __( '%1$s %2$s %3$d' ), $day, $wp_locale->get_month( $month ), $year )
+            );
+          }
+          ?>
+        </select>
+        <select name="b" id="filter-by-velatorio-final">
+          <option<?php selected( $b, 0 ); ?> value="0" data-rc="">Todos los dias final</option>
+          <?php
+          foreach ( $finales as $arc_row ) {
+            $day = zeroise( $arc_row->day, 2 );
+            $month = zeroise( $arc_row->month, 2 );
+            $year  = $arc_row->year;
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $b, $year . $month . $day, false ),
+              esc_attr( $year . $month . $day ),
+              esc_attr( '&b='.$year . $month . $day ),
+              sprintf( __( '%1$s %2$s %3$d' ), $day, $wp_locale->get_month( $month ), $year )
+            );
+          }
+          ?>
+        </select>
+        <select name="c" id="filter-by-ceremonia">
+          <option<?php selected( $c, 0 ); ?> value="0" data-rc="">Todas las ceremonias</option>
+          <?php
+          foreach ( $ceremonias as $arc_row ) {
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $t, $arc_row->ceremonia, false ),
+              esc_attr( $arc_row->ceremonia ),
+              esc_attr( '&t='.$arc_row->ceremonia),
+              sprintf( __( '%1$s' ), $arc_row->ceremonia )
+            );
+          }
+          ?>
+        </select>
+        <select name="e" id="filter-by-ceremonia-fecha">
+          <option<?php selected( $e, 0 ); ?> value="0" data-rc="">Todas las fechas ceremonia</option>
+          <?php
+          foreach ( $fechaceremonias as $arc_row ) {
+            $day = zeroise( $arc_row->day, 2 );
+            $month = zeroise( $arc_row->month, 2 );
+            $year  = $arc_row->year;
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $e, $year . $month . $day, false ),
+              esc_attr( $year . $month . $day ),
+              esc_attr( '&e='.$year . $month . $day ),
+              sprintf( __( '%1$s %2$s %3$d' ), $day, $wp_locale->get_month( $month ), $year )
+            );
+          }
+          ?>
+        </select>
+
+        <a href="javascript:void(0)" class="button" onclick="window.location.href =
+        jQuery('#filter-by-date option:selected').data('rc') +
+        jQuery('#filter-by-day option:selected').data('rc') +
+        jQuery('#filter-by-velatorio option:selected').data('rc') +
+        jQuery('#filter-by-velatorio-inicio option:selected').data('rc') +
+        jQuery('#filter-by-velatorio-final option:selected').data('rc') +
+        jQuery('#filter-by-ceremonia option:selected').data('rc') +
+        jQuery('#filter-by-ceremonia-fecha option:selected').data('rc') ;
+        ">Filtrar</a>
+      </div>
+      <?php
+      break;
+
+      case 'bottom':
+      // Your html code to output
+      break;
+    }
+  }
 
   /*
   *
@@ -171,29 +348,99 @@ class Wpfunos_Defunciones_List_Table extends WP_List_Table {
       $day = substr($search,6,2);
 
       if(!empty($year)){
-        $user_query .= ' And YEAR(time)="' . $year . '"';
+        $user_query .= ' And YEAR(defuncion)="' . $year . '"';
       }
       if(!empty($month)){
-        $user_query .= ' And MONTH(time)="' . $month . '"';
+        $user_query .= ' And MONTH(defuncion)="' . $month . '"';
       }
       if(!empty($day)){
-        $user_query .= ' And DAY(time)="' . $day . '"';
+        $user_query .= ' And DAY(defuncion)="' . $day . '"';
       }
-
     }
+
     if (!empty($_REQUEST['m']) && empty($_REQUEST['d']) ) {
       $search = $_REQUEST['m'];
       $year = substr($search,0,4);
       $month = substr($search,4,2);
 
       if(!empty($year)){
-        $user_query .= ' And YEAR(time)="' . $year . '"';
+        $user_query .= ' And YEAR(defuncion)="' . $year . '"';
       }
       if(!empty($month)){
-        $user_query .= ' And MONTH(time)="' . $month . '"';
+        $user_query .= ' And MONTH(defuncion)="' . $month . '"';
       }
     }
+
+    if (!empty($_REQUEST['v'])) {
+      $user_query .= ' AND velatorio = "' . $_REQUEST['v'] . '"';
+    }
+
+    if (!empty($_REQUEST['a'])) {
+      $search = $_REQUEST['a'];
+      $year = substr($search,0,4);
+      $month = substr($search,4,2);
+      $day = substr($search,6,2);
+
+      if(!empty($year)){
+        $user_query .= ' And YEAR(velatorio_inicio)="' . $year . '"';
+      }
+      if(!empty($month)){
+        $user_query .= ' And MONTH(velatorio_inicio)="' . $month . '"';
+      }
+      if(!empty($day)){
+        $user_query .= ' And DAY(velatorio_inicio)="' . $day . '"';
+      }
+    }
+
+    if (!empty($_REQUEST['b'])) {
+      $search = $_REQUEST['b'];
+      $year = substr($search,0,4);
+      $month = substr($search,4,2);
+      $day = substr($search,6,2);
+
+      if(!empty($year)){
+        $user_query .= ' And YEAR(velatorio_final)="' . $year . '"';
+      }
+      if(!empty($month)){
+        $user_query .= ' And MONTH(velatorio_final)="' . $month . '"';
+      }
+      if(!empty($day)){
+        $user_query .= ' And DAY(velatorio_final)="' . $day . '"';
+      }
+    }
+
+    if (!empty($_REQUEST['c'])) {
+      $user_query .= ' AND ceremonia = "' . $_REQUEST['c'] . '"';
+    }
+
+    if (!empty($_REQUEST['e'])) {
+      $search = $_REQUEST['e'];
+      $year = substr($search,0,4);
+      $month = substr($search,4,2);
+      $day = substr($search,6,2);
+
+      if(!empty($year)){
+        $user_query .= ' And YEAR(ceremonia_fecha)="' . $year . '"';
+      }
+      if(!empty($month)){
+        $user_query .= ' And MONTH(ceremonia_fecha)="' . $month . '"';
+      }
+      if(!empty($day)){
+        $user_query .= ' And DAY(ceremonia_fecha)="' . $day . '"';
+      }
+    }
+
     return $user_query;
   }
-
+  /*
+  *
+  * nombre            Nombre
+  * defuncion         Fecha defunción                 m-d
+  * velatorio         Velatorio (tanatorio)           v
+  * velatorio_inicio  Velatorio fecha y hora Inicio   a
+  * velatorio_final   Velatorio fecha y hora final    b
+  * ceremonia         Ceremonia (tanatorio)           c
+  * ceremonia_fecha   Ceremonia fecha y hora inicio   e
+  *
+  */
 }
