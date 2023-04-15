@@ -54,11 +54,11 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     $post_id = get_the_ID();
     $desde = get_post_meta( $post_id, 'wpfunos_entradaDirectorioIncineracionDesde', true );
     $URLlink = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLLandings', true );
+    $URLbuscador = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscador', true );
     if( strlen($URLlink ) > 9){
       $link = '<a href="' .esc_url( $URLlink ). '">aquí</a>';
     }else{
-      $landings = explode(',',get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ));
-      $link = '<a href="' .esc_url( get_permalink( $landings[0]) ). '">aquí</a>';
+      $link = '<a href="' .esc_url( $URLbuscador ). '">aquí</a>';
     }
     echo 'Consiga el precio de <strong>incineración desde</strong> <span style="color: #ff0000;"><strong>'.$desde.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
   }
@@ -85,11 +85,11 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     $post_id = get_the_ID();
     $desde = get_post_meta( $post_id, 'wpfunos_entradaDirectorioEntierroDesde', true );
     $URLlink = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLLandings', true );
+    $URLbuscador = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscador', true );
     if( strlen($URLlink ) > 9){
       $link = '<a href="' .esc_url( $URLlink ). '">aquí</a>';
     }else{
-      $landings = explode(',',get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ));
-      $link = '<a href="' .esc_url( get_permalink( $landings[0]) ). '">aquí</a>';
+      $link = '<a href="' .esc_url( $URLbuscador ). '">aquí</a>';
     }
     echo 'Consiga el precio de <strong>entierro desde</strong> <span style="color: #ff0000;"><strong>'.$desde.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
   }

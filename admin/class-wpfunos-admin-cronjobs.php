@@ -319,12 +319,12 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         id mediumint(9) NOT NULL AUTO_INCREMENT,
         time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
         nombre varchar(250) DEFAULT '' NOT NULL,
-        defuncion datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-        velatorio varchar(250) DEFAULT '' NOT NULL,
-        velatorio_inicio datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-        velatorio_final datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-        ceremonia varchar(250) DEFAULT '' NOT NULL,
-        ceremonia_fecha datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        defuncion datetime DEFAULT '2022-01-01 00:00:00' NOT NULL,
+        velatorio varchar(250) DEFAULT 'Desconocido' NOT NULL,
+        velatorio_inicio datetime DEFAULT '2022-01-01 00:00:00' NOT NULL,
+        velatorio_final datetime DEFAULT '2022-01-01 00:00:00' NOT NULL,
+        ceremonia varchar(250) DEFAULT 'Desconocido' NOT NULL,
+        ceremonia_fecha datetime DEFAULT '2022-01-01 00:00:00' NOT NULL,
         PRIMARY KEY  (id)
       );";
 

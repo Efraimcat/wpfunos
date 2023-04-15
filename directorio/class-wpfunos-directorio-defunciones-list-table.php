@@ -65,7 +65,7 @@ class Wpfunos_Defunciones_List_Table extends WP_List_Table {
     global $wpdb;
     $wpdb_table = $wpdb->prefix . 'wpf_defunciones';
 
-    $orderby = ( isset( $_GET['orderby'] ) ) ? esc_sql( $_GET['orderby'] ) : 'defuncion';
+    $orderby = ( isset( $_GET['orderby'] ) ) ? esc_sql( $_GET['orderby'] ) : 'ceremonia_fecha';
     $order = ( isset( $_GET['order'] ) ) ? esc_sql( $_GET['order'] ) : 'DESC';
 
     //$user_query = "SELECT * FROM $wpdb_table ORDER BY id DESC";
@@ -176,13 +176,13 @@ class Wpfunos_Defunciones_List_Table extends WP_List_Table {
       case 'top':
       global $wpdb, $wp_locale;
 
-      $months = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( defuncion  ) AS year, MONTH( defuncion ) AS month FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
-      $days = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( defuncion  ) AS year, MONTH( defuncion ) AS month, DAY( defuncion ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
+      $months = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( defuncion  ) AS year, MONTH( defuncion ) AS month FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY defuncion DESC" ));
+      $days = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( defuncion  ) AS year, MONTH( defuncion ) AS month, DAY( defuncion ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY defuncion  DESC" ));
       $velatorios = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT velatorio FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY velatorio ASC" ));
-      $inicios = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( velatorio_inicio  ) AS year, MONTH( velatorio_inicio ) AS month, DAY( velatorio_inicio ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
-      $finales = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( velatorio_final  ) AS year, MONTH( velatorio_final ) AS month, DAY( velatorio_final ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
+      $inicios = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( velatorio_inicio  ) AS year, MONTH( velatorio_inicio ) AS month, DAY( velatorio_inicio ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY velatorio_inicio DESC" ));
+      $finales = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( velatorio_final  ) AS year, MONTH( velatorio_final ) AS month, DAY( velatorio_final ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY velatorio_final DESC" ));
       $ceremonias = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT ceremonia FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY ceremonia ASC" ));
-      $fechaceremonias = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( ceremonia_fecha  ) AS year, MONTH( ceremonia_fecha ) AS month, DAY( ceremonia_fecha ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY id DESC" ));
+      $fechaceremonias = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT YEAR( ceremonia_fecha  ) AS year, MONTH( ceremonia_fecha ) AS month, DAY( ceremonia_fecha ) AS day FROM ".$wpdb->prefix."wpf_defunciones WHERE 1 = 1 ORDER BY ceremonia_fecha DESC" ));
       /*
       *
       * nombre            Nombre

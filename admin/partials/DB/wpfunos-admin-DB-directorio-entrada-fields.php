@@ -32,10 +32,22 @@ foreach( $_POST as $key => $val ) {
     $DirectorioServicios .= $serv .',';
   }
 }
+$DirectorioTanatorios = '';
+foreach( $_POST as $key => $val ) {
+  if( strpos( $key, 'tanatoriosDirectorio-' ) !== false ){
+    $land = substr($key,21);
+    //$this->custom_logs('$_POST key: ' .$key );
+    //$this->custom_logs('$_POST val: ' .$val );
+    //$this->custom_logs('$_POST land: ' .$land );
+    $DirectorioTanatorios .= $land .',';
+  }
+}
+
 
 $entradaDirectorioShortcode = sanitize_text_field( $_POST['wpfunos_entradaDirectorioShortcode'] );
 $entradaDirectorioStreetView = sanitize_text_field( $_POST['wpfunos_entradaDirectorioStreetView'] );
 $entradaDirectorioCarrusel = sanitize_text_field( $_POST['wpfunos_entradaDirectorioCarrusel'] );
+$entradaDirectorioTanatoriosCercanos = sanitize_text_field( $_POST['wpfunos_entradaDirectorioTanatoriosCercanos'] );
 
 $entradaDirectorioNombre = sanitize_text_field( $_POST['wpfunos_entradaDirectorioNombre'] );
 $entradaDirectorioDireccion = sanitize_text_field( $_POST['wpfunos_entradaDirectorioDireccion'] );
@@ -58,6 +70,8 @@ $entradaDirectorioImagenes = sanitize_text_field( $_POST['wpfunos_entradaDirecto
 
 $entradaDirectorioLandings = sanitize_text_field( $_POST['wpfunos_entradaDirectorioLandings'] );
 $entradaDirectorioURLLandings = esc_url( $_POST['wpfunos_entradaDirectorioURLLandings'] );
+$entradaDirectorioURLBuscador = esc_url( $_POST['wpfunos_entradaDirectorioURLBuscador'] );
+$entradaDirectorioURLBuscadorDistancia = sanitize_text_field( $_POST['wpfunos_entradaDirectorioURLBuscadorDistancia'] );
 
 $entradaDirectorioServicios = sanitize_text_field( $_POST['wpfunos_entradaDirectorioServicios'] ); //(desde CPT directorio_servicio)
 $entradaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioDescripcionServicios']));
@@ -69,6 +83,7 @@ $entradaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_entr
 update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode', $entradaDirectorioShortcode);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioStreetView', $entradaDirectorioStreetView);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioCarrusel', $entradaDirectorioCarrusel);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioTanatoriosCercanos', $DirectorioTanatorios);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioNombre', $entradaDirectorioNombre);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioDireccion', $entradaDirectorioDireccion);
@@ -91,6 +106,8 @@ update_post_meta($post_id, 'wpfunos_entradaDirectorioImagenes', $entradaDirector
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioLandings', $DirectorioLandings);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioURLLandings', $entradaDirectorioURLLandings);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioURLBuscador', $entradaDirectorioURLBuscador);
+update_post_meta($post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', $entradaDirectorioURLBuscadorDistancia);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioServicios', $DirectorioServicios);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcionServicios', $entradaDirectorioDescripcionServicios);

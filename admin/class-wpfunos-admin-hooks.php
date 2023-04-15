@@ -610,7 +610,13 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     $precioIncineracion = ( $incineracionDesde == 0 ) ? '' : number_format($incineracionDesde, 0, ',', '.') . '€' ;
     update_post_meta( $post_id, 'wpfunos_entradaDirectorioEntierroDesde',  $precioEntierro );
     update_post_meta( $post_id, 'wpfunos_entradaDirectorioIncineracionDesde',  $precioIncineracion );
-
+    // wpfunos_entradaDirectorioURLBuscador,
+    if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true ) == '' ) update_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia',  '20' );
+    update_post_meta($post_id, 'wpfunos_entradaDirectorioURLBuscador', home_url().'/comparar-precios-resultados?address[]='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true )
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true )
+    .'&units=metric&paged=1&per_page=50&lat='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true ).'&lng='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true )
+    .'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
+    //
     $post = get_post( $post_id );
     //$this->custom_logs('wpfunosCheckEntradaDirectorioValues: ' .get_post_meta(  $post_id , 'wpfunos_entradaDirectorioShortcode', true ) );
     $shortcode_id = get_post_meta( $post_id, 'wpfunos_entradaDirectorioShortcode', true );

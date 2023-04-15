@@ -26,6 +26,8 @@ $args = array(
   'post_status' => 'any',
   'post_type' => 'directorio_funeraria',
   'posts_per_page' => -1,
+  'orderby' => 'ID',
+  'order' => 'ASC',
 );
 $post_list = get_posts( $args );
 if( $post_list ){
