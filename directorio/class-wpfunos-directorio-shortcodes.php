@@ -22,9 +22,11 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     add_shortcode( 'wpfunos-directorio-funeraria-incineracion-desde', array( $this, 'wpfunosDirectorioFunerariaIncineracionDesdeShortcode' ));
     add_shortcode( 'wpfunos-directorio-tanatorio-entierro-desde', array( $this, 'wpfunosDirectorioTanatorioEntierroDesdeShortcode' ));
     add_shortcode( 'wpfunos-directorio-funeraria-entierro-desde', array( $this, 'wpfunosDirectorioFunerariaEntierroDesdeShortcode' ));
+    add_shortcode( 'wpfunos-directorio-tanatorio-categoria', array( $this, 'wpfunosDirectorioTanatorioCategoriaShortcode' ));
     add_shortcode( 'wpfunos-directorio-tanatorio-servicios', array( $this, 'wpfunosDirectorioTanatorioServiciosShortcode' ));
     add_shortcode( 'wpfunos-directorio-funeraria-servicios', array( $this, 'wpfunosDirectorioFunerariaServiciosShortcode' ));
     add_shortcode( 'wpfunos-directorio-funeraria-lista', array( $this, 'wpfunosDirectorioFunerariaListaShortcode' ));
+    add_shortcode( 'wpfunos-directorio-tanatorio-cercanos', array( $this, 'wpfunosDirectorioFunerariaCercanosShortcode' ));
 
   }
 
@@ -110,6 +112,21 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
   }
 
   /**
+  * add_shortcode( 'wpfunos-directorio-tanatorio-categoria', array( $this, 'wpfunosDirectorioTanatorioCategoriaShortcode' ));
+  */
+  public function wpfunosDirectorioTanatorioCategoriaShortcode(){
+    $post_id = get_the_ID();
+    $term_list = wp_get_post_terms( $post_id, 'directorio_poblacion', array( 'fields' => 'all' ) );
+    $provincia = strtolower( get_the_category_by_ID( $term_list[0]->parent ));
+    $poblacion = strtolower( get_the_category_by_ID( $term_list[0]->term_taxonomy_id ));
+
+    $link_poblacion = '<a href="'.home_url().'/tanatorios/'.$provincia.'/' .$poblacion. '">'.ucfirst( $poblacion ).'</a>';
+    $link_provincia = '<a href="'.home_url().'/tanatorios/'.$provincia. '">'.ucfirst( $provincia ).'</a>';
+
+    echo 'Ver todos los tanatorios de la población de '.$link_poblacion.' o de la provincia de '.$link_provincia.'.';
+  }
+
+  /**
   * add_shortcode( 'wpfunos-directorio-tanatorio-servicios', array( $this, 'wpfunosDirectorioTanatorioServiciosShortcode' ));
   */
   public function wpfunosDirectorioTanatorioServiciosShortcode(){
@@ -123,6 +140,7 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
       echo '</ul>';
     }
   }
+
   /**
   * add_shortcode( 'wpfunos-directorio-funeraria-servicios', array( $this, 'wpfunosDirectorioFunerariaServiciosShortcode' ));
   */
@@ -173,5 +191,29 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
       echo '</ul>';
     }
   }
+
+  /**
+  * add_shortcode( 'wpfunos-directorio-tanatorio-cercanos', array( $this, 'wpfunosDirectorioFunerariaCercanosShortcode' ));
+  */
+  public function wpfunosDirectorioFunerariaCercanosShortcode(){
+    /**
+    *#ul-list {
+    * columns: 3;
+    * -webkit-columns: 3;
+    * -moz-columns: 3;
+    *}
+    */
+    $post_id = get_the_ID();
+    $servicios = explode(',',get_post_meta(  $post_id , 'wpfunos_entradaDirectorioTanatoriosCercanos', true ));
+    if ( $servicios[0] ){
+      echo '<ul id="ul-list">';
+      foreach( $servicios as $servicio ){
+        //echo '<li id='.$servicio.'>'.get_post_meta( $servicio , 'wpfunos_servicioDirectorioNombre', true ).'</li>';
+        echo '<li><a href="' .get_permalink($servicio). '">' .get_the_title($servicio). '</a></li>';
+      }
+      echo '</ul>';
+    }
+  }
+
 
 }

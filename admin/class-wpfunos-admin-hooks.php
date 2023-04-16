@@ -591,6 +591,9 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     if( substr( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioServicios', true ), -1) == ',' ) {
       update_post_meta( $post_id, 'wpfunos_entradaDirectorioServicios',  substr( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioServicios', true ),0,-1 ) );
     }
+    if( substr( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioTanatoriosCercanos', true ), -1) == ',' ) {
+      update_post_meta( $post_id, 'wpfunos_entradaDirectorioTanatoriosCercanos',  substr( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioTanatoriosCercanos', true ),0,-1 ) );
+    }
 
     $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ) ) );
     //$this->custom_logs('wpfunosGuardarEntradaDirectorio: ('.count($paginas).')' .get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ) );
