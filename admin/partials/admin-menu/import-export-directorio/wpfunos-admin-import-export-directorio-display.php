@@ -103,17 +103,17 @@ if( !isset ($_POST['submit']) ){
 *
 */
 if($_POST['importdirectorio'] == '1' ){
-  require_once 'wpfunos-admin-import-export-directorio-import-tanatorio.php';
+  require_once 'admin-menu/import-export-directorio/wpfunos-admin-import-export-directorio-import-tanatorio.php';
 }
 
 if($_POST['importfuneraria'] == '1' ){
-  require_once 'wpfunos-admin-import-export-directorio-import-funeraria.php';
+  require_once 'admin-menu/import-export-directorio/wpfunos-admin-import-export-directorio-import-funeraria.php';
 }
 
 if($_POST['exportdirectorio'] == '1' ){
-  require_once 'wpfunos-admin-import-export-directorio-export-tanatorio.php';
+  require_once 'admin-menu/import-export-directorio/wpfunos-admin-import-export-directorio-export-tanatorio.php';
 }
 
 if($_POST['exportfunerarias'] == '1' ){
-  require_once 'wpfunos-admin-import-export-directorio-export-funeraria.php';
+  require_once 'admin-menu/import-export-directorio/wpfunos-admin-import-export-directorio-export-funeraria.php';
 }

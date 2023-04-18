@@ -214,16 +214,16 @@ class Wpfunos_Admin {
   * Admin menu display.
   */
   public function display_plugin_admin_dashboard(){
-    require_once 'partials/wpfunos-admin-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-display.php';
   }
   public function display_plugin_admin_config_dashboard(){
-    require_once 'partials/wpfunos-admin-config-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-config-display.php';
   }
   public function display_plugin_admin_precios_poblacion_dashboard(){
-    require_once 'partials/wpfunos-admin-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-display.php';
   }
   public function display_plugin_admin_directorio_dashboard(){
-    require_once 'partials/wpfunos-admin-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-display.php';
   }
 
   /**
@@ -234,7 +234,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/wpfunos-admin-settings-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-settings-display.php';
   }
   /**
   * Aseguradoras menu display.
@@ -244,7 +244,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/wpfunos-admin-aseguradoras-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-aseguradoras-display.php';
   }
 
   /**
@@ -255,7 +255,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/wpfunos-admin-mail-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-mail-display.php';
   }
   /**
   * Api Preventiva menu display.
@@ -265,7 +265,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/wpfunos-admin-APIPreventiva-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-APIPreventiva-display.php';
   }
   /**
   * Api DKV menu display.
@@ -275,7 +275,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/wpfunos-admin-APIDKV-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-APIDKV-display.php';
   }
   /**
   * Direcciones IP reservadas.
@@ -285,7 +285,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/wpfunos-admin-direccionesIP-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-direccionesIP-display.php';
   }
 
   /**
@@ -296,7 +296,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array( $this, 'wpfunosSettingsMessages' ));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/wpfunos-admin-logs-display.php';
+    require_once 'partials/admin-menu/wpfunos-admin-logs-display.php';
   }
 
   /**
@@ -307,7 +307,7 @@ class Wpfunos_Admin {
   //    add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
   //    do_action('admin_notices', sanitize_text_field($_GET['error_message']));
   //  }
-  //  require_once 'partials/wpfunos-admin-precios-poblacion-settings-display.php';
+  //  require_once 'partials/admin-menu/wpfunos-admin-precios-poblacion-settings-display.php';
   //}
 
   /**
@@ -318,7 +318,7 @@ class Wpfunos_Admin {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
       do_action('admin_notices', sanitize_text_field($_GET['error_message']));
     }
-    require_once 'partials/wpfunos-admin-import-export-directorio-display.php';
+    require_once 'partials/admin-menu/import-export-directorio/wpfunos-admin-import-export-directorio-display.php';
   }
 
   /*********************************/
@@ -1186,7 +1186,7 @@ class Wpfunos_Admin {
   */
 
   public function wpfunosHojasCalculo(){
-    include 'partials/wpfunos-admin-hojas-calculo.php';
+    include 'partials/admin-menu/wpfunos-admin-hojas-calculo.php';
   }
 
   /** **/

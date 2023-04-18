@@ -78,10 +78,11 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio {
           //echo '<br/> =>$term_child: <br/>';
           //print_r($term_child);
 
-          echo '<br/> =>term_id: ' .$term->term_id;
-          echo '<br/> =>parent: ' .$term_child->parent ;
-
-          echo '<li><a href="' . get_term_link( $child, $custom_taxonomy ) . '">' . $term_child->name . '</a></li>';
+          //echo '<br/> =>term_id: ' .$term->term_id;
+          //echo '<br/> =>parent: ' .$term_child->parent ;
+          if ( $term->term_id == $term_child->parent ){
+            echo '<li><a href="' . get_term_link( $child, $custom_taxonomy ) . '">' . $term_child->name . '</a></li>';
+          }
         }
         echo '</ul>';
       }// FIN if ( count($categorias) < 3 )
