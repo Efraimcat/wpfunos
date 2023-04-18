@@ -77,8 +77,7 @@ $entradaDirectorioServicios = sanitize_text_field( $_POST['wpfunos_entradaDirect
 $entradaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_entradaDirectorioDescripcionServicios']));
 
 $entradaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_entradaDirectorioUltimasDefunciones'] );
-
-
+$DirectorioPoblacion = sanitize_text_field( $_POST['wpfunos_entradaDirectorioPoblacion'] );
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioShortcode', $entradaDirectorioShortcode);
 update_post_meta($post_id, 'wpfunos_entradaDirectorioStreetView', $entradaDirectorioStreetView);
@@ -113,3 +112,4 @@ update_post_meta($post_id, 'wpfunos_entradaDirectorioServicios', $DirectorioServ
 update_post_meta($post_id, 'wpfunos_entradaDirectorioDescripcionServicios', $entradaDirectorioDescripcionServicios);
 
 update_post_meta($post_id, 'wpfunos_entradaDirectorioUltimasDefunciones', $entradaDirectorioUltimasDefunciones);
+update_post_meta($post_id, 'wpfunos_DirectorioPoblacion', $entradaDirectorioPoblacion);

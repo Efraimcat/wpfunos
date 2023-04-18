@@ -17,7 +17,7 @@ $customPostTypeArgs = array(
   'label' => esc_html__('Tanatorio Directorio', 'wpfunos'),
   'labels'=>
   array(
-    'name' => esc_html__('Directorio', 'wpfunos'),
+    'name' => esc_html__('Tanatorio Directorio', 'wpfunos'),
     'singular_name' => esc_html__('Tanatorio', 'wpfunos'),
     'add_new' => esc_html__('Añadir tanatorio al directorio', 'wpfunos'),
     'add_new_item' => esc_html__('Añadir nuevo tanatorio al directorio', 'wpfunos'),
@@ -32,7 +32,7 @@ $customPostTypeArgs = array(
   ),
   'public'=>true,
   'has_archive' => true,
-  'description' => esc_html__('Tanatorios del directorio', 'wpfunos'),
+  'description' => esc_html__('Tanatorio Directorio', 'wpfunos'),
   'exclude_from_search' => false,
   'show_ui' => true,
   'show_in_menu' => 'wpfunos_directorio',
@@ -75,3 +75,33 @@ register_taxonomy(
   )
 );
 register_taxonomy_for_object_type( 'directorio_poblacion', 'directorio_entrada' );
+
+register_taxonomy(
+  'directorio_marca', array('directorio_entrada','directorio_funeraria'),array(
+    'hierarchical' => true,
+    'label' => 'Marcas directorio',
+    'labels'=>
+    array(
+      'name'              => _x( 'Marca directorio', 'taxonomy general name' ),
+      'singular_name'     => _x( 'Marca directorio', 'taxonomy singular name' ),
+      'search_items'      => __( 'Search Categories' ),
+      'all_items'         => __( 'All Categories' ),
+      'parent_item'       => __( 'Parent Category' ),
+      'parent_item_colon' => __( 'Parent Category:' ),
+      'edit_item'         => __( 'Edit Category' ),
+      'update_item'       => __( 'Update Category' ),
+      'add_new_item'      => __( 'Add New Category' ),
+      'new_item_name'     => __( 'New Category Name' ),
+      'menu_name'         => __( 'Marca directorio' ),
+    ),
+    'singular_label' => 'Marca directorio',
+    'rewrite' => array(),
+    'public'                     => true,
+    'show_ui'                    => true,
+    'show_admin_column'          => true,
+    'show_in_nav_menus'          => true,
+    'show_tagcloud'              => true,
+  )
+);
+register_taxonomy_for_object_type( 'directorio_marca', 'directorio_entrada' );
+register_taxonomy_for_object_type( 'directorio_marca', 'directorio_funeraria' );

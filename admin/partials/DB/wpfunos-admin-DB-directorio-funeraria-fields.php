@@ -62,7 +62,7 @@ $funerariaDirectorioServicios = sanitize_text_field( $_POST['wpfunos_funerariaDi
 $funerariaDirectorioDescripcionServicios = preg_replace('/^[ \t]*[\r\n]+/m', '', wp_kses_post( $_POST['wpfunos_funerariaDirectorioDescripcionServicios']));
 
 $funerariaDirectorioUltimasDefunciones = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioUltimasDefunciones'] );
-
+$DirectorioPoblacion = sanitize_text_field( $_POST['wpfunos_funerariaDirectorioPoblacion'] );
 
 
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioShortcode', $funerariaDirectorioShortcode);
@@ -94,3 +94,4 @@ update_post_meta($post_id, 'wpfunos_funerariaDirectorioServicios', $DirectorioSe
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioDescripcionServicios', $funerariaDirectorioDescripcionServicios);
 
 update_post_meta($post_id, 'wpfunos_funerariaDirectorioUltimasDefunciones', $funerariaDirectorioUltimasDefunciones);
+update_post_meta($post_id, 'wpfunos_DirectorioPoblacion', $funerariaDirectorioPoblacion);

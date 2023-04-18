@@ -17,7 +17,7 @@ $customPostTypeArgs = array(
   'label' => esc_html__('Funeraria Directorio', 'wpfunos'),
   'labels'=>
   array(
-    'name' => esc_html__('Directorio', 'wpfunos'),
+    'name' => esc_html__('Funeraria Directorio', 'wpfunos'),
     'singular_name' => esc_html__('Funeraria', 'wpfunos'),
     'add_new' => esc_html__('Añadir funeraria al directorio', 'wpfunos'),
     'add_new_item' => esc_html__('Añadir nueva funeraria al directorio', 'wpfunos'),
@@ -32,7 +32,7 @@ $customPostTypeArgs = array(
   ),
   'public'=>true,
   'has_archive' => true,
-  'description' => esc_html__('Funerarias del directorio', 'wpfunos'),
+  'description' => esc_html__('Funeraria Directorio', 'wpfunos'),
   'exclude_from_search' => false,
   'show_ui' => true,
   'show_in_menu' => 'wpfunos_directorio',

@@ -8,25 +8,25 @@
 * Plugin Name:       wpfunos
 * Plugin URI:        https://github.com/Efraimcat/wpfunos/
 * Description:       Funcionalidades para funos.es
-* Version:           3.7.4
+* Version:           3.7.5
 * Author:            Efraim Bayarri efraim@efraim.cat
 * Author URI:        https://efraim.cat
 * License:           GPL-2.0+
 * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
-* Text Domain:       wpfunos
+* Text Domain:       wpfunos, wpfunos_es
 * Domain Path:       /languages
 * Requires PHP: 	   7.4
 * Requires at least: 5.9
-* Tested up to: 	   6.1.1
+* Tested up to: 	   6.2
 * GitHub Plugin URI: https://github.com/Efraimcat/wpfunos
 */
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 /**
-*
+*|--------------------------------------------------------------------------
 */
-define( 'WPFUNOS_VERSION', '3.7.4' );
+define( 'WPFUNOS_VERSION', '3.7.5' );
 define( 'WPFUNOS_DB_VERSION', '1.0.3' );
 /**
 *|--------------------------------------------------------------------------
