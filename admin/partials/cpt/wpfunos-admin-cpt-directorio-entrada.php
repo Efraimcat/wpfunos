@@ -77,7 +77,7 @@ register_taxonomy(
 register_taxonomy_for_object_type( 'directorio_poblacion', 'directorio_entrada' );
 
 register_taxonomy(
-  'directorio_marca', array('directorio_entrada','directorio_funeraria'),array(
+  'directorio_marca', array('directorio_entrada','directorio_funeraria','directorio_marcas'),array(
     'hierarchical' => true,
     'label' => 'Marcas directorio',
     'labels'=>
@@ -105,3 +105,4 @@ register_taxonomy(
 );
 register_taxonomy_for_object_type( 'directorio_marca', 'directorio_entrada' );
 register_taxonomy_for_object_type( 'directorio_marca', 'directorio_funeraria' );
+register_taxonomy_for_object_type( 'directorio_marca', 'directorio_marcas' );
