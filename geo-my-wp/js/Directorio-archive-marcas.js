@@ -2,6 +2,7 @@ $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
     console.log('Archive Marcas');
+    $('#wpfunos-marcas-mensaje').css('display', 'block');
     Array.from(document.getElementsByClassName('elementor-141304')).forEach(
       function(element, index, array) {
         var texto = element.attributes.class.textContent
@@ -15,6 +16,7 @@ $(document).ready(function(){
 
 
 
+//wpfunos-marcas-mensaje
 
 //var texto = element.attributes.class.textContent;
 //console.log('string ' + texto.includes('directorio_entrada'));
