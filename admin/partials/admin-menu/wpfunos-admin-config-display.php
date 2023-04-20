@@ -64,8 +64,8 @@ $servicios_list = get_posts( $args );
   <table style="width:100%">
     <tr>
       <td>
-        <div id="config" style="top: -300px;position: relative;" >
-          <?php include 'admin-menu/wpfunos-admin-menu-enlaces-superior.php';	?>
+        <div id="config">
+          <?php include 'wpfunos-admin-menu-enlaces-superior.php';	?>
           <hr />
           <div id="spreadsheet">
             <h2>Hojas de cálculo</h2>
@@ -80,9 +80,6 @@ $servicios_list = get_posts( $args );
             <?php do_action('wpfunos_hojas_calculo'); ?>
           </div>
         </div>
-      </td>
-      <td style="width:350px" >
-        <img src="<?php esc_html_e( plugin_dir_url( __DIR__ ) . 'img/' ); ?>funos-logo-450x450.png" alt="nic-app" width="350" height="350">
       </td>
     </tr>
   </table>
