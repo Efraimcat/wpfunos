@@ -73,23 +73,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Latitud', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Longitud', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Distancia', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
           <td><?php esc_html_e('Shortcode', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('URL Landings población', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLongitud','name' => 'wpfunos_entradaDirectorioLongitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLatitud','name' => 'wpfunos_entradaDirectorioLatitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLBuscadorDistancia','name' => 'wpfunos_entradaDirectorioURLBuscadorDistancia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15, 'placeholder' => 'placeholder' ));?></td>
-          <td style="width:5px;"></td>
           <td>
             <select name="wpfunos_entradaDirectorioShortcode" id="wpfunos_entradaDirectorioShortcode" style="width: 272px" >
               <?php
@@ -111,8 +97,29 @@ if ( ! defined( 'ABSPATH' ) ) {
               ?>
             </select>
           </td>
+        </tr>
+      </table>
+    </li>
+    <hr/>
+    <li class="directorio_entrada_wpfunos_list">
+      <table>
+        <tr>
+          <td><?php esc_html_e('Latitud', 'wpfunos');?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLLandings','name' => 'wpfunos_entradaDirectorioURLLandings','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 40, 'placeholder' => 'placeholder'  ));?></td>
+          <td><?php esc_html_e('Longitud', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Distancia', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('URL Landings población', 'wpfunos');?></td>
+        </tr>
+        <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLongitud','name' => 'wpfunos_entradaDirectorioLongitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30 , 'placeholder' => 'solo utilizar en caso de excepción' ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLatitud','name' => 'wpfunos_entradaDirectorioLatitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30 , 'placeholder' => 'solo utilizar en caso de excepción' ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLBuscadorDistancia','name' => 'wpfunos_entradaDirectorioURLBuscadorDistancia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30, 'placeholder' => 'solo utilizar en caso de excepción' ));?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLLandings','name' => 'wpfunos_entradaDirectorioURLLandings','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 40, 'placeholder' => 'solo utilizar en caso de excepción'  ));?></td>
         </tr>
       </table>
     </li>

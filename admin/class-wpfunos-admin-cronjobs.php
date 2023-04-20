@@ -49,6 +49,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
     $this->wpfunosMaintenancePreciosv1Preciosv2();
     $this->wpfunosMaintenancePreciosSeoFunerarias();
     $this->wpfunosMaintenanceEnlacesLandingsDinamicas();
+    $this->wpfunosMaintenanceLlenarMasterDatos();
     return;
   }
 
@@ -328,9 +329,43 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         PRIMARY KEY  (id)
       );";
 
+      $table_name = $wpdb->prefix . 'wpf_masterdatos';
+      $sqlmasterdatos = "CREATE TABLE $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        idrefencia tinytext DEFAULT '' NOT NULL,
+        nombre varchar(250) DEFAULT '' NOT NULL,
+        tipo tinytext DEFAULT '' NOT NULL,
+        latitud tinytext DEFAULT '' NOT NULL,
+        longitud tinytext DEFAULT '' NOT NULL,
+        distancia tinytext DEFAULT '' NOT NULL,
+        preciobase tinytext DEFAULT '' NOT NULL,
+        precioincineracion tinytext DEFAULT '' NOT NULL,
+        precioentierro tinytext DEFAULT '' NOT NULL,
+        precioataudeco tinytext DEFAULT '' NOT NULL,
+        precioataudmed tinytext DEFAULT '' NOT NULL,
+        precioataudpre tinytext DEFAULT '' NOT NULL,
+        preciovelsi tinytext DEFAULT '' NOT NULL,
+        preciovelno tinytext DEFAULT '' NOT NULL,
+        preciocersin tinytext DEFAULT '' NOT NULL,
+        preciocersol tinytext DEFAULT '' NOT NULL,
+        preciocerciv tinytext DEFAULT '' NOT NULL,
+        preciocerrel tinytext DEFAULT '' NOT NULL,
+        incinc  tinytext DEFAULT '' NOT NULL,
+        incvel tinytext DEFAULT '' NOT NULL,
+        incvelcer tinytext DEFAULT '' NOT NULL,
+        incpremium tinytext DEFAULT '' NOT NULL,
+        entent  tinytext DEFAULT '' NOT NULL,
+        entvel tinytext DEFAULT '' NOT NULL,
+        entvelcer tinytext DEFAULT '' NOT NULL,
+        entpremium tinytext DEFAULT '' NOT NULL,
+        PRIMARY KEY  (id)
+      );";
+
       require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
       dbDelta( $sqlvisitas );
       dbDelta( $sqldefunciones );
+      dbDelta( $sqlmasterdatos );
 
       update_option( "wpf_db_version", $DBversion );
     }
@@ -567,6 +602,125 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
     }
     $this->custom_logs('Posts: ' .count($post_list) );
     $this->custom_logs('Wpfunos Precio Población Dinámica ends');
+    $this->custom_logs('---');
+  }
+
+  /**
+  * Cron job Precios funerarias
+  */
+  public function wpfunosMaintenanceLlenarMasterDatos(){
+    $this->custom_logs('Wpfunos Llenar Master Datos starts');
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'wpf_masterdatos';
+    $creados = 0;
+    $actualizados = 0;
+
+    $args = array(
+      'post_type' => 'servicios_wpfunos',
+      'post_status' => 'publish',
+      'posts_per_page' => -1,
+    );
+    $post_list = get_posts( $args );
+
+    if( $post_list ){
+      foreach ( $post_list as $post ){
+        //$masterdatos = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE idrefencia = %s", $post->ID ), ARRAY_A);
+        //if( !$masterdatos ){
+        $nombre = get_post_meta( $post->ID, 'wpfunos_servicioNombre', true );
+        $preciobase = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase', true );
+        $precioincineracion = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio', true );
+        $precioentierro = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio', true );
+        $precioataudeco = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio', true );
+        $precioataudmed = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio', true );
+        $precioataudpre = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio', true );
+        $preciovelsi = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio', true );
+        $preciovelno = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio', true );
+        $preciocersol = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio', true );
+        $preciocerciv = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio', true );
+        $preciocerrel = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio', true );
+
+        $data = array(
+          'time' => current_time( 'mysql' ),
+          'idrefencia' => $post->ID,
+          'nombre' => $nombre,
+          'tipo' => 'servicio',
+          'preciobase' => $preciobase,
+          'precioincineracion' => $precioincineracion,
+          'precioentierro' => $precioentierro,
+          'precioataudeco' => $precioataudeco,
+          'precioataudmed' => $precioataudmed,
+          'precioataudpre' => $precioataudpre,
+          'preciovelsi' => $preciovelsi,
+          'preciovelno' => $preciovelno,
+          'preciocersol' => $preciocersol,
+          'preciocerciv' => $preciocerciv,
+          'preciocerrel' => $preciocerrel,
+        );
+
+        $masterdatos = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE idrefencia = %s", $post->ID ), ARRAY_A);
+        if( !$masterdatos ){
+          $creados+=1;
+          $wpdb->insert( $table_name, $data );
+        }else{
+          $actualizados+=1;
+          //$updated = $wpdb->update( $table, $data, $where );
+          $wpdb->update( $table_name, $data, $masterdatos[0]->ID );
+        }
+      }
+    }
+    $args = array(
+      'post_type' => 'precio_funer_wpfunos',
+      'post_status' => 'publish',
+      'posts_per_page' => -1,
+    );
+    $post_list = get_posts( $args );
+    if( $post_list ){
+      foreach ( $post_list as $post ){
+        $nombre =     get_the_title( $post->ID );
+        $incinc =     get_post_meta( $post->ID, 'wpfunos_precioFunerariaIncineracionDesde', true );
+        $incvel =     get_post_meta( $post->ID, 'wpfunos_precioFunerariaIncineracionVelatorioDesde', true );
+        $incvelcer =  get_post_meta( $post->ID, 'wpfunos_precioFunerariaIncineracionVelatorioCeremoniaDesde', true );
+        $incpremium = get_post_meta( $post->ID, 'wpfunos_precioFunerariaIncineracionPremiumDesde', true );
+        $entent =     get_post_meta( $post->ID, 'wpfunos_precioFunerariaEntierroDesde', true );
+        $entvel =     get_post_meta( $post->ID, 'wpfunos_precioFunerariaEntierroVelatorioDesde', true );
+        $entvelcer =  get_post_meta( $post->ID, 'wpfunos_precioFunerariaEntierroVelatorioCeremoniaDesde', true );
+        $entpremium = get_post_meta( $post->ID, 'wpfunos_precioFunerariaEntierroPremiumDesde', true );
+        $latitud =    get_post_meta( $post->ID, 'wpfunos_EnlaceLatitud', true );
+        $longitud =   get_post_meta( $post->ID, 'wpfunos_EnlaceLonguitud', true );
+        $distancia =  get_post_meta( $post->ID, 'wpfunos_EnlaceDistancia', true );
+
+        $data = array(
+          'time' => current_time( 'mysql' ),
+          'idrefencia' => $post->ID,
+          'nombre' => $nombre,
+          'tipo' => 'landingpoblacion',
+          'incinc' => $incinc,
+          'incvel' => $incvel,
+          'incvelcer' => $incvelcer,
+          'incpremium' => $incpremium,
+          'entent' => $entent,
+          'entvel' => $entvel,
+          'entvelcer' => $entvelcer,
+          'entpremium' => $entpremium,
+          'latitud' => $latitud,
+          'longitud' => $longitud,
+          'distancia' => $distancia,
+        );
+
+        $masterdatos = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE idrefencia = %s", $post->ID ), ARRAY_A);
+        if( !$masterdatos ){
+          $creados+=1;
+          $wpdb->insert( $table_name, $data );
+        }else{
+          $actualizados+=1;
+          $wpdb->update( $table_name, $data, $masterdatos[0]->ID );
+        }
+      }
+
+    }
+    $this->custom_logs('Wpfunos Llenar Master Datos Creados: '.$creados );
+    $this->custom_logs('Wpfunos Llenar Master Datos Actualizados: '.$actualizados );
+    $this->custom_logs('Wpfunos Llenar Master Datos ends');
     $this->custom_logs('---');
   }
 

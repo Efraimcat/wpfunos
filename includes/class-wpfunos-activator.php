@@ -87,9 +87,35 @@ class Wpfunos_Activator {
 				PRIMARY KEY  (id)
 			);";
 
+			$table_name = $wpdb->prefix . 'wpf_masterdatos';
+			$sqlmasterdatos = "CREATE TABLE $table_name (
+				id mediumint(9) NOT NULL AUTO_INCREMENT,
+				time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+				idrefencia tinytext DEFAULT '' NOT NULL,
+				nombre varchar(250) DEFAULT '' NOT NULL,
+				tipo tinytext DEFAULT '' NOT NULL,
+				latitud tinytext DEFAULT '' NOT NULL,
+				longitud tinytext DEFAULT '' NOT NULL,
+				distancia tinytext DEFAULT '' NOT NULL,
+				preciobase tinytext DEFAULT '' NOT NULL,
+				precioincineracion tinytext DEFAULT '' NOT NULL,
+				precioentierro tinytext DEFAULT '' NOT NULL,
+				precioataudeco tinytext DEFAULT '' NOT NULL,
+				precioataudmed tinytext DEFAULT '' NOT NULL,
+				precioataudpre tinytext DEFAULT '' NOT NULL,
+				preciovelsi tinytext DEFAULT '' NOT NULL,
+				preciovelno tinytext DEFAULT '' NOT NULL,
+				preciocersin tinytext DEFAULT '' NOT NULL,
+				preciocersol tinytext DEFAULT '' NOT NULL,
+				preciocerciv tinytext DEFAULT '' NOT NULL,
+				preciocerrel tinytext DEFAULT '' NOT NULL,
+				PRIMARY KEY  (id)
+			);";
+
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sqlvisitas );
 			dbDelta( $sqldefunciones );
+			dbDelta( $sqlmasterdatos );
 
 			update_option( "wpf_db_version", $DBversion );
 		}

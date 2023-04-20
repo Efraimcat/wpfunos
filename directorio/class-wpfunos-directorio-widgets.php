@@ -45,6 +45,8 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio {
   // https://dev.funos.es/directorio_funeraria  id="wpfarchive-0" class="wpfarchive-count-2"
   // https://dev.funos.es/marcas                id="wpfarchive-1" class="wpfarchive-count-2"
   // https://dev.funos.es/marcas/memora         id="wpfarchive-2" class="wpfarchive-count-3"
+  //
+  // =>$termchildren: Array ( [0] => 657 [1] => 658 [2] => 671 )
   public function wpfunosDirectorioWidget(){
     $categorias = explode('/', str_replace( home_url( '/' ),'', $_SERVER['REQUEST_URI'] ));
     //print_r($categorias);
