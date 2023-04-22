@@ -199,6 +199,7 @@ class Wpfunos {
 		$this->loader->add_action( 'wpfunosCronJob', $plugin_admin, 'wpfunosCron');
 		$this->loader->add_action( 'wpfunosNextCronJob', $plugin_admin, 'wpfunosNextCron');
 		$this->loader->add_action( 'wpfunosHourlyCronJob', $plugin_admin, 'wpfunosHourlyCron');
+		$this->loader->add_action( 'wpfunos10mCronJob', $plugin_admin, 'wpfunos10mCron');
 
 	}
 

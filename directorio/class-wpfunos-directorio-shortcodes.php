@@ -27,6 +27,8 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     add_shortcode( 'wpfunos-directorio-funeraria-servicios', array( $this, 'wpfunosDirectorioFunerariaServiciosShortcode' ));
     add_shortcode( 'wpfunos-directorio-funeraria-lista', array( $this, 'wpfunosDirectorioFunerariaListaShortcode' ));
     add_shortcode( 'wpfunos-directorio-tanatorio-cercanos', array( $this, 'wpfunosDirectorioFunerariaCercanosShortcode' ));
+    add_shortcode( 'wpfunos-directorio-tanatorio-titulo', array( $this, 'wpfunosDirectorioTanatorioTituloShortcode' ));
+    add_shortcode( 'wpfunos-directorio-tanatorio-link-buscador', array( $this, 'wpfunosDirectorioTanatorioLinkBuscadorShortcode' ));
 
   }
 
@@ -215,5 +217,22 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     }
   }
 
+  /**
+  * add_shortcode( 'wpfunos-directorio-tanatorio-titulo', array( $this, 'wpfunosDirectorioTanatorioTituloShortcode' ));
+  */
+  public function wpfunosDirectorioTanatorioTituloShortcode(){
+    $post_id = get_the_ID();
+    //$nombre = get_post_meta( $post_id, 'wpfunos_entradaDirectorioNombre', true );
+    echo get_the_title();
+  }
+
+  /**
+  * add_shortcode( 'wpfunos-directorio-tanatorio-link-buscador', array( $this, 'wpfunosDirectorioTanatorioLinkBuscadorShortcode' ));
+  */
+  public function wpfunosDirectorioTanatorioLinkBuscadorShortcode(){
+    $post_id = get_the_ID();
+    $link = esc_url( get_post_meta( $post_id, 'wpfunos_funerariaDirectorioURLLandings', true ) );
+    echo $link;
+  }
 
 }

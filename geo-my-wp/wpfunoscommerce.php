@@ -42,6 +42,25 @@ function woo_custom_field_checkout($checkout) {
     'placeholder'   => __('Ej: 12345678X'), // Texto de apoyo que se muestra dentro del campo
   ), $checkout->get_value( 'nif' ));    // Identificador del campo
   echo '</div>';
+
+  echo '<div id="additional_difunto_checkout_field">';
+  woocommerce_form_field( 'nif', array( // Identificador del campo
+    'type'          => 'text',
+    'class'         => array('my-field-class form-row-wide'),
+    'required'      => false,            // ¿El campo es obligatorio 'true' o 'false'?
+    'label'       => __('Nombre del difunto/a'),   // Nombre del campo
+  ), $checkout->get_value( 'difunto' ));    // Identificador del campo
+  echo '</div>';
+
+  echo '<div id="additional_dnidifunto_checkout_field">';
+  woocommerce_form_field( 'nif', array( // Identificador del campo
+    'type'          => 'text',
+    'class'         => array('my-field-class form-row-wide'),
+    'required'      => false,            // ¿El campo es obligatorio 'true' o 'false'?
+    'label'       => __('DNI/NIE del difunto/a'),   // Nombre del campo
+  ), $checkout->get_value( 'dnidifunto' ));    // Identificador del campo
+  echo '</div>';
+
 }
 add_action( 'woocommerce_after_checkout_billing_form', 'woo_custom_field_checkout' );
 
@@ -52,6 +71,15 @@ function woo_custom_field_checkout_update_order($order_id) {
   if ( ! empty( $_POST['nif'] ) ) {
     update_post_meta( $order_id, 'NIF', sanitize_text_field( $_POST['nif'] ) );
   }
+
+  if ( ! empty( $_POST['difunto'] ) ) {
+    update_post_meta( $order_id, 'difunto', sanitize_text_field( $_POST['difunto'] ) );
+  }
+
+  if ( ! empty( $_POST['dnidifunto'] ) ) {
+    update_post_meta( $order_id, 'dnidifunto', sanitize_text_field( $_POST['dnidifunto'] ) );
+  }
+
 }
 add_action( 'woocommerce_checkout_update_order_meta', 'woo_custom_field_checkout_update_order' );
 
@@ -60,6 +88,8 @@ add_action( 'woocommerce_checkout_update_order_meta', 'woo_custom_field_checkout
 */
 function woo_custom_field_checkout_edit_order($order){
   echo '<p><strong>'.__('NIF').':</strong> ' . get_post_meta( $order->id, 'NIF', true ) . '</p>';
+  echo '<p><strong>'.__('Nombre del difunto/a').':</strong> ' . get_post_meta( $order->id, 'difunto', true ) . '</p>';
+  echo '<p><strong>'.__('DNI/NIE del difunto/a').':</strong> ' . get_post_meta( $order->id, 'dnidifunto', true ) . '</p>';
 }
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'woo_custom_field_checkout_edit_order', 10, 1 );
 
@@ -68,6 +98,8 @@ add_action( 'woocommerce_admin_order_data_after_billing_address', 'woo_custom_fi
 */
 function woo_custom_field_checkout_email($keys) {
   $keys[] = 'NIF';
+  $keys[] = 'difunto';
+  $keys[] = 'dnidifunto';
   return $keys;
 }
 add_filter('woocommerce_email_order_meta_keys', 'woo_custom_field_checkout_email');

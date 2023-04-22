@@ -49,6 +49,13 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
     $this->wpfunosMaintenancePreciosv1Preciosv2();
     $this->wpfunosMaintenancePreciosSeoFunerarias();
     $this->wpfunosMaintenanceEnlacesLandingsDinamicas();
+    return;
+  }
+
+  /**
+  * Cron job 10 min maintenance tasks.
+  */
+  public function wpfunos10mMaintenance(){
     $this->wpfunosMaintenanceLlenarMasterDatos();
     return;
   }

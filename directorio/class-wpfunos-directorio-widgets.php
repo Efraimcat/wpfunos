@@ -47,6 +47,10 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio {
   // https://dev.funos.es/marcas/memora         id="wpfarchive-2" class="wpfarchive-count-3"
   //
   // =>$termchildren: Array ( [0] => 657 [1] => 658 [2] => 671 )
+  //echo '<br/>$namearray ';
+  //print_r($namearray);
+  //$namearray Array ( [Badalona] => https://dev.funos.es/tanatorios/barcelona/badalona [Barcelona-ciudad] => https://dev.funos.es/tanatorios/barcelona/barcelona-ciudad [Sabadell] => https://dev.funos.es/tanatorios/barcelona/sabadell )
+
   public function wpfunosDirectorioWidget(){
     $categorias = explode('/', str_replace( home_url( '/' ),'', $_SERVER['REQUEST_URI'] ));
     //print_r($categorias);
@@ -61,40 +65,70 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio {
       //echo '<br/>Categoria: ' .$term->name;
       if ( count($categorias) < 3 ) {
         $parent_terms = get_terms( $custom_taxonomy, array( 'parent' => 0, 'orderby' => 'slug', 'hide_empty' => false ) );
-        echo '<ul id="wpfarchive-1" class="wpfarchive-count-' .count($categorias). '">';
+        echo '<ul id="wpfarchive-1-2" class="wpfarchive-count-' .count($categorias). '">';
         foreach ( $parent_terms as $pterm ) {
           $terms_cat = get_terms( $custom_taxonomy, array( 'parent' => $pterm->term_id, 'orderby' => 'slug', 'hide_empty' => false ) );
           foreach ( $terms_cat as $term_cat ) {
-            echo '<li><a href="' . get_term_link( $term_cat ) . '">' . $term_cat->name . '</a></li>';
+            echo '<li id="wpflist-1"><a href="' .get_term_link( $term_cat ). '">' .$term_cat->name. '</a></li>';
           }
         }
         echo '</ul>';
       }else{
         $termchildren = get_term_children( $term->term_id, $custom_taxonomy );
-        echo '<ul id="wpfarchive-2" class="wpfarchive-count-' .count($categorias). '">';
-        foreach ( $termchildren as $child ) {
+        foreach ($termchildren as $child) {
           $term_child = get_term_by( 'id', $child, $custom_taxonomy );
+          $namearray[$term_child->name]= get_term_link( $term_child->slug, $custom_taxonomy );
+        }
+        ksort($namearray);
 
-          //echo '<br/> =>$term: <br/>';
-          //print_r($term);
-          //echo '<br/> =>$term_child: <br/>';
-          //print_r($term_child);
+        //echo '<br/> =>$term_child->slug: <br/>';
+        //print_r($term_child->slug);
+        //echo '<br/> =>$namearray: <br/>';
+        //print_r($namearray);
 
-          //echo '<br/> =>term_id: ' .$term->term_id;
-          //echo '<br/> =>parent: ' .$term_child->parent ;
+        echo '<ul id="wpfarchive-2-2" class="wpfarchive-count-' .count($categorias). '">';
+        foreach ($namearray as $key => $value) {
           if ( $term->term_id == $term_child->parent ){
-            echo '<li><a href="' . get_term_link( $child, $custom_taxonomy ) . '">' . $term_child->name . '</a></li>';
+            echo '<li id="wpflist-2"><a href="' .$value. '">' .$key. '</a></li>';
           }
         }
         echo '</ul>';
+
+        /**
+        * $termchildren = get_term_children( $term->term_id, $custom_taxonomy );
+        * echo '<ul id="wpfarchive-3" class="wpfarchive-count-' .count($categorias). '">';
+        * foreach ( $termchildren as $child ) {
+        *   $term_child = get_term_by( 'id', $child, $custom_taxonomy );
+        *
+        *   //echo '<br/> =>$term: <br/>';
+        *   //print_r($term);
+        *   //echo '<br/> =>$term_child: <br/>';
+        *   //print_r($term_child);
+        *
+        *   //echo '<br/> =>term_id: ' .$term->term_id;
+        *   //echo '<br/> =>parent: ' .$term_child->parent ;
+        *   if ( $term->term_id == $term_child->parent ){
+        *     echo '<li><a href="' . get_term_link( $child, $custom_taxonomy ) . '">' . $term_child->name . '</a></li>';
+        *
+        *   }
+        * }
+        * echo '</ul>';
+        *
+        **/
+
+        //=>$namearray:  Array (
+        //[Badalona] => WP_Error Object ( [errors] => Array ( [invalid_term] => Array ( [0] => Término vacío. ) ) [error_data] => Array ( ) [additional_data:protected] => Array ( ) )
+        //[Barcelona Ciudad] => WP_Error Object ( [errors] => Array ( [invalid_term] => Array ( [0] => Término vacío. ) ) [error_data] => Array ( ) [additional_data:protected] => Array ( ) ) )
+
+
       }// FIN if ( count($categorias) < 3 )
     }else{
       if( $categorias[1] == 'directorio_funeraria' || $categorias[1] == 'directorio_entrada' || ( $categorias[1] == 'directorio' && count( $categorias ) < 3 )){
         //echo '<br/>Categorias';
         echo '<ul id="wpfarchive-0" class="wpfarchive-count-' .count($categorias). '">';
-        echo '<li><a href="'.home_url().'/tanatorios">Tanatorios</a></li>';
         echo '<li><a href="'.home_url().'/funerarias">Funerarias</a></li>';
         echo '<li><a href="'.home_url().'/marcas">Marcas</a></li>';
+        echo '<li><a href="'.home_url().'/tanatorios">Tanatorios</a></li>';
         echo '</ul>';
       }
     }// FIN if( $categorias[1] == 'funerarias' || $categorias[1] == 'tanatorios' || $categorias[1] == 'marcas' )

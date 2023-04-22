@@ -182,7 +182,17 @@ class Wpfunos_Admin {
     $this->custom_logs('==> Wpfunos Hourly Maintenance ends <==');
     $this->custom_logs('---');
   }
-
+  /**
+  * Register the Cron Job.
+  * Wpfunos_Admin::wpfunos10mCron()
+  */
+  public function wpfunos10mCron() {
+    $this->custom_logs('==> Wpfunos 10 min Maintenance begins <==');
+    $this->custom_logs('---');
+    $this->wpfunos_admin_cronjobs->wpfunos10mMaintenance();
+    $this->custom_logs('==> Wpfunos 10 min Maintenance ends <==');
+    $this->custom_logs('---');
+  }
   /*********************************/
   /*****  MENUS               ******/
   /*********************************/
