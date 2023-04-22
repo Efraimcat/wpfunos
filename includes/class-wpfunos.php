@@ -84,7 +84,7 @@ class Wpfunos {
 		$this->define_precios_poblacion_hooks();
 		$this->define_visitas_hooks();
 		$this->define_directorio_hooks();
-
+		$this->define_masterdatos_hooks();
 	}
 
 	/**
@@ -157,6 +157,11 @@ class Wpfunos {
 		* Directorio
 		*/
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'directorio/class-wpfunos-directorio.php';
+
+		/**
+		* Masterdatos
+		*/
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'masterdatos/class-wpfunos-masterdatos.php';
 
 		/**
 		*
@@ -311,6 +316,22 @@ class Wpfunos {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_directorio, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_directorio, 'enqueue_scripts' );
+
+	}
+
+	/**
+	* Register all of the hooks directorio
+	* of the plugin.
+	*
+	* @since    2.0.0
+	* @access   private
+	*/
+	private function define_masterdatos_hooks() {
+
+		$plugin_masterdatos = new Wpfunos_Masterdatos( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_masterdatos, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_masterdatos, 'enqueue_scripts' );
 
 	}
 

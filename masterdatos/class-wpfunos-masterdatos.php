@@ -40,17 +40,6 @@ class Wpfunos_Masterdatos {
     add_action( 'load-'.$page_hook, array( $this, 'displayPluginAdminMasterdatos_screen_options' ) );
   }
 
-  public function displayPluginAdminMasterdatos_screen_options(){
-    $arguments = array(
-      'label'		=>	__( 'Masterdatos', 'wpfunos' ),
-      'default'	=>	25,
-      'option'	=>	'visits_per_page'
-    );
-    add_screen_option( 'per_page', $arguments );
-
-    $this->masterdatos_list_table = new Wpfunos_Masterdatos_List_Table();
-  }
-
   public function displayPluginAdminMasterdatos() {
     if (isset($_GET['error_message'])) {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
@@ -71,11 +60,11 @@ class Wpfunos_Masterdatos {
         <strong>Total: </strong><?php echo number_format_i18n ( count( $todos ) ); ?>
       </div>
       <div id="masterdatos_list_table">
-        <div id="masterdatos_list_tablet-body">
+        <div id="masterdatos_list_table-body">
           <form id="masterdatos_list_table-form" method="get">
             <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
             <?php
-            $this->masterdatos_list_table->search_box( __( 'Buscar', 'wpfunos' ), 'visitas-find');
+            $this->masterdatos_list_table->search_box( __( 'Buscar', 'wpfunos' ), 'masterdatos-find');
             $this->masterdatos_list_table->display();
             ?>
           </form>
@@ -84,5 +73,18 @@ class Wpfunos_Masterdatos {
     </div>
     <?php
   }
+  /**
+  *
+  */
 
+  public function displayPluginAdminMasterdatos_screen_options(){
+    $arguments = array(
+      'label' => __( 'Entradas por página', 'wpfunos' ),
+      'default'	=> 25,
+      'option' => 'masterdatos_per_page'
+    );
+    add_screen_option( 'per_page', $arguments );
+
+    $this->masterdatos_list_table = new Wpfunos_Masterdatos_List_Table();
+  }
 }
