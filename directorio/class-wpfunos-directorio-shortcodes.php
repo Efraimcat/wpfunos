@@ -29,6 +29,8 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     add_shortcode( 'wpfunos-directorio-tanatorio-cercanos', array( $this, 'wpfunosDirectorioFunerariaCercanosShortcode' ));
     add_shortcode( 'wpfunos-directorio-tanatorio-titulo', array( $this, 'wpfunosDirectorioTanatorioTituloShortcode' ));
     add_shortcode( 'wpfunos-directorio-tanatorio-link-buscador', array( $this, 'wpfunosDirectorioTanatorioLinkBuscadorShortcode' ));
+    add_shortcode( 'wpfunos-directorio-tanatorio-precio-zona', array( $this, 'wpfunosDirectorioTanatorioPrecioZonaShortcode' ));
+
 
   }
 
@@ -56,8 +58,6 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
   */
   public function wpfunosDirectorioTanatorioIncineracionDesdeShortcode(){
     $post_id = get_the_ID();
-
-
     $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ) ) );
     $incineracionDesde = 0;
     foreach( $paginas as $pagina ){
@@ -66,10 +66,33 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
       if( $incineracionDesde > $incineracion ) $incineracionDesde = $incineracion;
     }
     $precioIncineracion = ( $incineracionDesde == 0 ) ? '' : number_format($incineracionDesde, 0, ',', '.') . '€' ;
-
-
     $URLlink = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLLandings', true );
-    $URLbuscador = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscador', true );
+    $distancia = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true );
+    $latitud = get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true );
+    $longuitud = get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true );
+    $poblacion = get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true );
+    $args = array(
+      'post_type' => 'precio_funer_wpfunos',
+      'post_status'  => 'publish',
+      'posts_per_page' => -1,
+      'orderby' => 'title',
+      'order' => 'ASC',
+      'meta_query' => array(
+        'relation' => 'AND',
+        array( 'key' => 'wpfunos_precioFunerariaPoblacion', 'value' => $poblacion, 'compare' => '=', ),
+      ),
+    );
+    $landings = get_posts( $args );
+    if( $landings ){
+      foreach( $landings as $landing ){
+        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true ) == '' ) $distancia = get_post_meta( $landing->ID, 'wpfunos_EnlaceDistancia', true );
+        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true ) == '' ) $latitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLatitud', true );
+        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true ) == '' ) $longuitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLonguitud', true );
+      }
+    }
+    $URLbuscador = home_url().'/comparar-precios-resultados?address[]='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true )
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia.'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longuitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&destino=incineracion';
     if( strlen($URLlink ) > 9){
       $link = '<a href="' .esc_url( $URLlink ). '">aquí</a>';
     }else{
@@ -82,8 +105,6 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
   */
   public function wpfunosDirectorioFunerariaIncineracionDesdeShortcode(){
     $post_id = get_the_ID();
-
-
     $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ) ) );
     $incineracionDesde = 0;
     foreach( $paginas as $pagina ){
@@ -92,8 +113,6 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
       if( $incineracionDesde > $incineracion ) $incineracionDesde = $incineracion;
     }
     $precioIncineracion = ( $incineracionDesde == 0 ) ? '' : number_format($incineracionDesde, 0, ',', '.') . '€' ;
-
-
     $URLlink = get_post_meta( $post_id, 'wpfunos_funerariaDirectorioURLLandings', true );
     if( strlen($URLlink ) > 9){
       $link = '<a href="' .esc_url( $URLlink ). '">aquí</a>';
@@ -109,7 +128,6 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
   */
   public function wpfunosDirectorioTanatorioEntierroDesdeShortcode(){
     $post_id = get_the_ID();
-
     $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ) ) );
     $entierroDesde = 0;
     foreach( $paginas as $pagina ){
@@ -118,10 +136,33 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
       if( $entierroDesde > $entierro ) $entierroDesde = $entierro;
     }
     $precioEntierro = ( $entierroDesde == 0 ) ? '' : number_format($entierroDesde, 0, ',', '.') . '€' ;
-
-
     $URLlink = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLLandings', true );
-    $URLbuscador = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscador', true );
+    $distancia = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true );
+    $latitud = get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true );
+    $longuitud = get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true );
+    $poblacion = get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true );
+    $args = array(
+      'post_type' => 'precio_funer_wpfunos',
+      'post_status'  => 'publish',
+      'posts_per_page' => -1,
+      'orderby' => 'title',
+      'order' => 'ASC',
+      'meta_query' => array(
+        'relation' => 'AND',
+        array( 'key' => 'wpfunos_precioFunerariaPoblacion', 'value' => $poblacion, 'compare' => '=', ),
+      ),
+    );
+    $landings = get_posts( $args );
+    if( $landings ){
+      foreach( $landings as $landing ){
+        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true ) == '' ) $distancia = get_post_meta( $landing->ID, 'wpfunos_EnlaceDistancia', true );
+        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true ) == '' ) $latitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLatitud', true );
+        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true ) == '' ) $longuitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLonguitud', true );
+      }
+    }
+    $URLbuscador = home_url().'/comparar-precios-resultados?address[]='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true )
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia.'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longuitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&destino=entierro';
     if( strlen($URLlink ) > 9){
       $link = '<a href="' .esc_url( $URLlink ). '">aquí</a>';
     }else{
@@ -134,8 +175,6 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
   */
   public function wpfunosDirectorioFunerariaEntierroDesdeShortcode(){
     $post_id = get_the_ID();
-
-
     $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ) ) );
     $entierroDesde = 0;
     foreach( $paginas as $pagina ){
@@ -144,8 +183,6 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
       if( $entierroDesde > $entierro ) $entierroDesde = $entierro;
     }
     $precioEntierro = ( $entierroDesde == 0 ) ? '' : number_format($entierroDesde, 0, ',', '.') . '€' ;
-
-
     $URLlink = get_post_meta( $post_id, 'wpfunos_funerariaDirectorioURLLandings', true );
     if( strlen($URLlink ) > 9){
       $link = '<a href="' .esc_url( $URLlink ). '">aquí</a>';
@@ -165,10 +202,10 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     $provincia = strtolower( get_the_category_by_ID( $term_list[0]->parent ));
     $poblacion = strtolower( get_the_category_by_ID( $term_list[0]->term_taxonomy_id ));
 
-    $link_poblacion = '<a href="'.home_url().'/tanatorios/'.$provincia.'/' .$poblacion. '">'.ucfirst( $poblacion ).'</a>';
-    $link_provincia = '<a href="'.home_url().'/tanatorios/'.$provincia. '">'.ucfirst( $provincia ).'</a>';
+    $link_poblacion = '<a href="'.home_url().'/tanatorios/'.$provincia.'/' .$poblacion. '">población de '.ucfirst( $poblacion ).'</a>';
+    $link_provincia = '<a href="'.home_url().'/tanatorios/'.$provincia. '">provincia de '.ucfirst( $provincia ).'</a>';
 
-    echo 'Ver todos los tanatorios de la población de '.$link_poblacion.' o de la provincia de '.$link_provincia.'.';
+    echo 'Ver todos los tanatorios de la '.$link_poblacion.' o de la '.$link_provincia.'.';
   }
 
   /**
@@ -274,8 +311,85 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
   */
   public function wpfunosDirectorioTanatorioLinkBuscadorShortcode(){
     $post_id = get_the_ID();
-    $link = esc_url( get_post_meta( $post_id, 'wpfunos_funerariaDirectorioURLLandings', true ) );
+    $URLlink = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLLandings', true );
+    $distancia = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true );
+    $latitud = get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true );
+    $longuitud = get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true );
+    $poblacion = get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true );
+    $args = array(
+      'post_type' => 'precio_funer_wpfunos',
+      'post_status'  => 'publish',
+      'posts_per_page' => -1,
+      'orderby' => 'title',
+      'order' => 'ASC',
+      'meta_query' => array(
+        'relation' => 'AND',
+        array( 'key' => 'wpfunos_precioFunerariaPoblacion', 'value' => $poblacion, 'compare' => '=', ),
+      ),
+    );
+    $landings = get_posts( $args );
+    if( $landings ){
+      foreach( $landings as $landing ){
+        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true ) == '' ) $distancia = get_post_meta( $landing->ID, 'wpfunos_EnlaceDistancia', true );
+        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true ) == '' ) $latitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLatitud', true );
+        if( wpfunos_entradaDirectorioPoblacionwpfunos_entradaDirectorioPoblacionwpfunos_entradaDirectorioPoblacion == '' ) $longuitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLonguitud', true );
+      }
+    }
+    $URLbuscador = home_url().'/comparar-precios-resultados?address[]='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true )
+    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.$distancia.'&units=metric&paged=1&per_page=50&lat='.$latitud
+    .'&lng='.$longuitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&destino=entierro';
+    if( strlen($URLlink ) > 9){
+      $link = esc_url( $URLlink );
+    }else{
+      $link = esc_url( $URLbuscador );
+    }
     echo $link;
   }
+
+  /**
+  * add_shortcode( 'wpfunos-directorio-tanatorio-precio-zona', array( $this, 'wpfunosDirectorioTanatorioPrecioZonaShortcode' ));
+  * [wpfunos-directorio-tanatorio-precio-zona linea="titulo"]
+  */
+  public function wpfunosDirectorioTanatorioPrecioZonaShortcode( $atts, $content = "" ) {
+    //prov_zona_titulo
+    //prov_zona_precio
+    //prov_zona_comentarios
+    $a = shortcode_atts( array(
+      'linea'=>'',
+    ), $atts );
+
+    $post_id = get_the_ID();
+    $term_list = wp_get_post_terms( $post_id, 'directorio_poblacion', array( 'fields' => 'all' ) );
+    $provincia = get_the_category_by_ID( $term_list[0]->parent );
+    $poblacion = get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true );
+    $titulo = 'No hay datos de precio medio para la zona de ' .$provincia;
+    $precio = '';
+    $comentarios = '';
+
+    $codigos = (explode(',',get_post_meta(  $post_id , 'wpfunos_entradaDirectorioCodigoProvincia', true )));
+    $codigo_provincia = $codigos[0];
+    $args = array(
+      'post_type' => 'prov_zona_wpfunos',
+      'meta_key' =>  'wpfunos_provinciasCodigo',
+      'meta_value' => $codigo_provincia,
+    );
+    $post_list = get_posts( $args );
+    if( $post_list ){
+      foreach ( $post_list as $post ){
+        $check = get_post_meta( $post->ID, 'wpfunos_provinciasEESS_ck', true );
+        if( $check == '1'){
+          $precio = number_format(get_post_meta( $post->ID, 'wpfunos_provinciasEESS', true ), 0, ',', '.') . '€';
+          $titulo = get_post_meta( $post->ID, 'wpfunos_provinciasTitulo', true );
+          $comentarios = get_post_meta( $post->ID, 'wpfunos_provinciasComentarios', true );
+        }
+      }
+    }
+    switch ( $a['linea'] ) {
+      case 'titulo': echo $titulo; break;
+      case 'precio': echo $precio; break;
+      case 'comentarios': echo $comentarios; break;
+    }
+  }
+
 
 }

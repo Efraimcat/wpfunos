@@ -615,43 +615,49 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     update_post_meta( $post_id, 'wpfunos_entradaDirectorioEntierroDesde',  $precioEntierro );
     update_post_meta( $post_id, 'wpfunos_entradaDirectorioIncineracionDesde',  $precioIncineracion );
     // wpfunos_entradaDirectorioURLBuscador,
-    if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true ) == '' ||
-    get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true ) == '' ||
-    get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true ) == '' ){
-      $poblacion = get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true );
-      $args = array(
-        'post_type' => 'precio_funer_wpfunos',
-        'post_status'  => 'publish',
-        'posts_per_page' => -1,
-        'orderby' => 'title',
-        'order' => 'ASC',
-        'meta_query' => array(
-          'relation' => 'AND',
-          array( 'key' => 'wpfunos_precioFunerariaPoblacion', 'value' => $poblacion, 'compare' => '=', ),
-        ),
-      );
-      $landings = get_posts( $args );
-      if( $landings ){
-        foreach( $landings as $landing ){
-          $distancia = get_post_meta( $landing->ID, 'wpfunos_EnlaceDistancia', true );
-          $latitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLatitud', true );
-          $longuitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLonguitud', true );
-        }
-        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true ) == '' ) update_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia',  $distancia );
-        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true ) == '' ) update_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud',  $latitud );
-        if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true ) == '' ) update_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud',  $longuitud );
+
+    //$distancia = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia',  true )
+
+    $poblacion = get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true );
+    $args = array(
+      'post_type' => 'precio_funer_wpfunos',
+      'post_status'  => 'publish',
+      'posts_per_page' => -1,
+      'orderby' => 'title',
+      'order' => 'ASC',
+      'meta_query' => array(
+        'relation' => 'AND',
+        array( 'key' => 'wpfunos_precioFunerariaPoblacion', 'value' => $poblacion, 'compare' => '=', ),
+      ),
+    );
+    $landings = get_posts( $args );
+    if( $landings ){
+      foreach( $landings as $landing ){
+        $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') entierro: ' .$landing->ID );
+        $distancia = get_post_meta( $landing->ID, 'wpfunos_EnlaceDistancia', true );
+        $latitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLatitud', true );
+        $longitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLonguitud', true );
       }
+      if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true ) != '' ) $distancia = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia',  true );
+      if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true ) != '' ) $latitud = get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true );
+      if( get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true ) != '' ) $longuitud = get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true );
     }
-    update_post_meta($post_id, 'wpfunos_entradaDirectorioURLBuscador', home_url().'/comparar-precios-resultados?address[]='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true )
-    .'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia', true )
-    .'&units=metric&paged=1&per_page=50&lat='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioLatitud', true ).'&lng='.get_post_meta( $post_id, 'wpfunos_entradaDirectorioLongitud', true )
-    .'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
+    $URL = esc_url(home_url().'/comparar-precios-resultados?address[]='.$poblacion.'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='
+    .$distancia.'&units=metric&paged=1&per_page=50&lat='.$latitud.'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
+    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') distancia: ' .$distancia );
+    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') latitud: ' .$latitud );
+    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') longitud: ' .$longitud );
+    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') URL: ' .$URL );
+
+    update_post_meta($post_id, 'wpfunos_entradaDirectorioURLBuscador', $URL);
     // FIN wpfunos_entradaDirectorioURLBuscador,
     //
     $post = get_post( $post_id );
     //$this->custom_logs('wpfunosCheckEntradaDirectorioValues: ' .get_post_meta(  $post_id , 'wpfunos_entradaDirectorioShortcode', true ) );
     $shortcode_id = get_post_meta( $post_id, 'wpfunos_entradaDirectorioShortcode', true );
     $post->post_content = get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true );
+    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$post_id. ') shortcode_id: ' .$shortcode_id );
+    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$post_id. ') post_content: ' .get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true ) );
     wp_update_post( $post );
 
     add_action('save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );

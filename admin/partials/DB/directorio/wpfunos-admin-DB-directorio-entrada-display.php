@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Códigos provincia', 'wpfunos');?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Funerarias', 'wpfunos');?></td>
+          <td><?php esc_html_e('Funerarias asociadas al tanatorio', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Street view', 'wpfunos');?></td>
           <td style="width:5px;"></td>
@@ -73,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Shortcode', 'wpfunos');?></td>
+          <td><?php esc_html_e('Shortcode plantilla tanatorio', 'wpfunos');?></td>
         </tr>
         <tr>
           <td>
@@ -101,6 +101,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
+    <h2><?php esc_html_e('Campos calculados de las entradas de landings seleccionadas', 'wpfunos');?></h2>
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
@@ -123,18 +124,16 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
       </table>
     </li>
-    <hr/>
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
           <td><?php esc_html_e('URL Buscador', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLBuscador','name' => 'wpfunos_entradaDirectorioURLBuscador','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID ,'disabled' => '', 'size' => 120 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLBuscador','name' => 'wpfunos_entradaDirectorioURLBuscador','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID ,'disabled' => '', 'size' => 150 ));?></td>
         </tr>
       </table>
     </li>
-    <hr/>
     <li class="directorio_entrada_wpfunos_list" style="display: none;">
       <table>
         <tr>
@@ -162,7 +161,6 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
       </table>
     </li>
-    <hr/>
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
@@ -178,10 +176,11 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
+    <h2><?php esc_html_e('Landings para el cálculo de precios y campos de la URL del buscador', 'wpfunos');?></h2>
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Landings', 'wpfunos');?></td>
+          <td><?php esc_html_e('Landings existentes según el contenido del campo código de provincia', 'wpfunos');?></td>
         </tr>
         <tr style="display: none;">
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLandings','name' => 'wpfunos_entradaDirectorioLandings','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''  ));?></td>
