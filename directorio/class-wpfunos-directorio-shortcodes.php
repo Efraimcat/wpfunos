@@ -56,7 +56,18 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
   */
   public function wpfunosDirectorioTanatorioIncineracionDesdeShortcode(){
     $post_id = get_the_ID();
-    $desde = get_post_meta( $post_id, 'wpfunos_entradaDirectorioIncineracionDesde', true );
+
+
+    $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ) ) );
+    $incineracionDesde = 0;
+    foreach( $paginas as $pagina ){
+      $incineracion = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaIncineracionDesde', true ));
+      if( $incineracionDesde == 0 ) $incineracionDesde = $incineracion;
+      if( $incineracionDesde > $incineracion ) $incineracionDesde = $incineracion;
+    }
+    $precioIncineracion = ( $incineracionDesde == 0 ) ? '' : number_format($incineracionDesde, 0, ',', '.') . '€' ;
+
+
     $URLlink = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLLandings', true );
     $URLbuscador = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscador', true );
     if( strlen($URLlink ) > 9){
@@ -64,14 +75,25 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     }else{
       $link = '<a href="' .esc_url( $URLbuscador ). '">aquí</a>';
     }
-    echo 'Consiga el precio de <strong>incineración desde</strong> <span style="color: #ff0000;"><strong>'.$desde.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
+    echo 'Consiga el precio de <strong>incineración desde</strong> <span style="color: #ff0000;"><strong>'.$precioIncineracion.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
   }
   /**
   * add_shortcode( 'wpfunos-directorio-funeraria-incineracion-desde', array( $this, 'wpfunosDirectorioFunerariaIncineracionDesdeShortcode' ));
   */
   public function wpfunosDirectorioFunerariaIncineracionDesdeShortcode(){
     $post_id = get_the_ID();
-    $desde = get_post_meta( $post_id, 'wpfunos_funerariaDirectorioIncineracionDesde', true );
+
+
+    $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ) ) );
+    $incineracionDesde = 0;
+    foreach( $paginas as $pagina ){
+      $incineracion = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaIncineracionDesde', true ));
+      if( $incineracionDesde == 0 ) $incineracionDesde = $incineracion;
+      if( $incineracionDesde > $incineracion ) $incineracionDesde = $incineracion;
+    }
+    $precioIncineracion = ( $incineracionDesde == 0 ) ? '' : number_format($incineracionDesde, 0, ',', '.') . '€' ;
+
+
     $URLlink = get_post_meta( $post_id, 'wpfunos_funerariaDirectorioURLLandings', true );
     if( strlen($URLlink ) > 9){
       $link = '<a href="' .esc_url( $URLlink ). '">aquí</a>';
@@ -79,7 +101,7 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
       $landings = explode(',',get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ));
       $link = '<a href="' .esc_url( get_permalink( $landings[0]) ). '">aquí</a>';
     }
-    echo 'Consiga el precio de <strong>incineración desde</strong> <span style="color: #ff0000;"><strong>'.$desde.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
+    echo 'Consiga el precio de <strong>incineración desde</strong> <span style="color: #ff0000;"><strong>'.$precioIncineracion.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
   }
 
   /**
@@ -87,7 +109,17 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
   */
   public function wpfunosDirectorioTanatorioEntierroDesdeShortcode(){
     $post_id = get_the_ID();
-    $desde = get_post_meta( $post_id, 'wpfunos_entradaDirectorioEntierroDesde', true );
+
+    $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ) ) );
+    $entierroDesde = 0;
+    foreach( $paginas as $pagina ){
+      $entierro = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaEntierroDesde', true ));
+      if( $entierroDesde == 0 ) $entierroDesde = $entierro;
+      if( $entierroDesde > $entierro ) $entierroDesde = $entierro;
+    }
+    $precioEntierro = ( $entierroDesde == 0 ) ? '' : number_format($entierroDesde, 0, ',', '.') . '€' ;
+
+
     $URLlink = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLLandings', true );
     $URLbuscador = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscador', true );
     if( strlen($URLlink ) > 9){
@@ -95,14 +127,25 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     }else{
       $link = '<a href="' .esc_url( $URLbuscador ). '">aquí</a>';
     }
-    echo 'Consiga el precio de <strong>entierro desde</strong> <span style="color: #ff0000;"><strong>'.$desde.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
+    echo 'Consiga el precio de <strong>entierro desde</strong> <span style="color: #ff0000;"><strong>'.$precioEntierro.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
   }
   /**
   * add_shortcode( 'wpfunos-directorio-funeraria-entierro-desde', array( $this, 'wpfunosDirectorioFunerariaEntierroDesdeShortcode' ));
   */
   public function wpfunosDirectorioFunerariaEntierroDesdeShortcode(){
     $post_id = get_the_ID();
-    $desde = get_post_meta( $post_id, 'wpfunos_funerariaDirectorioEntierroDesde', true );
+
+
+    $paginas = ( explode( ',',  get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ) ) );
+    $entierroDesde = 0;
+    foreach( $paginas as $pagina ){
+      $entierro = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaEntierroDesde', true ));
+      if( $entierroDesde == 0 ) $entierroDesde = $entierro;
+      if( $entierroDesde > $entierro ) $entierroDesde = $entierro;
+    }
+    $precioEntierro = ( $entierroDesde == 0 ) ? '' : number_format($entierroDesde, 0, ',', '.') . '€' ;
+
+
     $URLlink = get_post_meta( $post_id, 'wpfunos_funerariaDirectorioURLLandings', true );
     if( strlen($URLlink ) > 9){
       $link = '<a href="' .esc_url( $URLlink ). '">aquí</a>';
@@ -110,7 +153,7 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
       $landings = explode(',',get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioLandings', true ));
       $link = '<a href="' .esc_url( get_permalink( $landings[0]) ). '">aquí</a>';
     }
-    echo 'Consiga el precio de <strong>entierro desde</strong> <span style="color: #ff0000;"><strong>'.$desde.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
+    echo 'Consiga el precio de <strong>entierro desde</strong> <span style="color: #ff0000;"><strong>'.$precioEntierro.'</strong></span> en este u otros tanatorios y funerarias de la zona <strong>'.$link.'</strong>.';
   }
 
   /**

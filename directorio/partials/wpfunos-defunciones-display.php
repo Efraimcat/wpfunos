@@ -21,15 +21,16 @@ if ( ! defined( 'ABSPATH' ) ) {
   <div>
     <strong>Total: </strong><?php echo number_format_i18n ( count( $todos ) ); ?>
   </div>
-  <div id="masterdatos_list_table">
-    <div id="masterdatos_list_table-body">
-      <form id="masterdatos_list_table-form" method="get">
+  <div id="defunciones_list_table">
+    <div id="defunciones_list_tablet-body">
+      <form id="defunciones_list_table-form" method="get">
         <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
         <?php
-        $this->masterdatos_list_table->search_box( __( 'Buscar', 'wpfunos' ), 'masterdatos-find');
-        $this->masterdatos_list_table->display();
+        $this->defunciones_list_table->search_box( __( 'Buscar', 'wpfunos' ), 'defunciones-find');
+        $this->defunciones_list_table->display();
         ?>
       </form>
     </div>
   </div>
 </div>
+<?php

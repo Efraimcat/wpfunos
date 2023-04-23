@@ -34,12 +34,18 @@ class Wpfunos_Masterdatos {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-masterdatos.js', array( 'jquery' ), $this->version, false );
   }
 
+  /**
+  *
+  */
   public function addPluginAdminMenu() {
     // add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
     $page_hook = add_submenu_page( 'wpfunosconfig', esc_html__('Masterdatos', 'wpfunos'), esc_html__('Masterdatos', 'wpfunos'), 'administrator', 'wpfunos-masterdatos', array( $this, 'displayPluginAdminMasterdatos' ));
     add_action( 'load-'.$page_hook, array( $this, 'displayPluginAdminMasterdatos_screen_options' ) );
   }
 
+  /**
+  *
+  */
   public function displayPluginAdminMasterdatos() {
     if (isset($_GET['error_message'])) {
       add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
@@ -50,33 +56,13 @@ class Wpfunos_Masterdatos {
     global $wpdb;
     $todos = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM ".$wpdb->prefix."wpf_masterdatos" ));
 
-    ?>
-    <div class="wrap">
-      <h2><?php esc_html_e( get_admin_page_title() .' '.$this->version. ' ('  .get_option( "wpf_db_version" ). ')' ); ?></h2>
-      <?php settings_errors(); ?>
-      <h3><?php esc_html_e( 'WpFunos', 'wpfunos' )?></h3>
-      <div style="margin-top: 10px;margin-bottom: 10px;"><?php echo date_i18n( 'd F Y H:i:s', current_time( 'timestamp', 0 ) );?></div>
-      <div>
-        <strong>Total: </strong><?php echo number_format_i18n ( count( $todos ) ); ?>
-      </div>
-      <div id="masterdatos_list_table">
-        <div id="masterdatos_list_table-body">
-          <form id="masterdatos_list_table-form" method="get">
-            <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
-            <?php
-            $this->masterdatos_list_table->search_box( __( 'Buscar', 'wpfunos' ), 'masterdatos-find');
-            $this->masterdatos_list_table->display();
-            ?>
-          </form>
-        </div>
-      </div>
-    </div>
-    <?php
+    require_once 'partials/wpfunos-masterdatos-display.php';
+
   }
+
   /**
   *
   */
-
   public function displayPluginAdminMasterdatos_screen_options(){
     $arguments = array(
       'label' => __( 'Entradas por página', 'wpfunos' ),
