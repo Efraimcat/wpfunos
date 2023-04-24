@@ -582,8 +582,8 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
   *
   */
   public function wpfunosGuardarEntradaDirectorio( $post_id ){
-    $this->custom_logs('wpfunosGuardarEntradaDirectorio' );
-    $this->custom_logs('$post_id: ' .$post_id. ' (' .get_the_title( $post_id). ')' );
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio' );
+    //$this->custom_logs('$post_id: ' .$post_id. ' (' .get_the_title( $post_id). ')' );
     remove_action( 'save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ) );
 
     if( substr( get_post_meta(  $post_id , 'wpfunos_entradaDirectorioLandings', true ), -1) == ',' ) {
@@ -603,17 +603,19 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     foreach( $paginas as $pagina ){
       $entierro = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaEntierroDesde', true ));
       $incineracion = (int)str_replace(".","",get_post_meta( $pagina, 'wpfunos_precioFunerariaIncineracionDesde', true ));
-      $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') entierro: ' .$entierro );
-      $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') incineracion: ' .$incineracion );
+      //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') entierro: ' .$entierro );
+      //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') incineracion: ' .$incineracion );
       if( $entierroDesde == 0 ) $entierroDesde = $entierro;
       if( $incineracionDesde == 0 ) $incineracionDesde = $incineracion;
-      if( $entierroDesde > $entierro ) $entierroDesde = $entierro;
-      if( $incineracionDesde > $incineracion ) $incineracionDesde = $incineracion;
+      if( $entierroDesde > $entierro && $entierro != 0) $entierroDesde = $entierro;
+      if( $incineracionDesde > $incineracion && $incineracion != 0) $incineracionDesde = $incineracion;
     }
     $precioEntierro = ( $entierroDesde == 0 ) ? '' : number_format($entierroDesde, 0, ',', '.') . '€' ;
     $precioIncineracion = ( $incineracionDesde == 0 ) ? '' : number_format($incineracionDesde, 0, ',', '.') . '€' ;
     update_post_meta( $post_id, 'wpfunos_entradaDirectorioEntierroDesde',  $precioEntierro );
     update_post_meta( $post_id, 'wpfunos_entradaDirectorioIncineracionDesde',  $precioIncineracion );
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') precioEntierro : ' .$precioEntierro );
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$pagina. ') precioIncineracion : ' .$precioIncineracion );
     // wpfunos_entradaDirectorioURLBuscador,
 
     //$distancia = get_post_meta( $post_id, 'wpfunos_entradaDirectorioURLBuscadorDistancia',  true )
@@ -633,7 +635,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     $landings = get_posts( $args );
     if( $landings ){
       foreach( $landings as $landing ){
-        $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') entierro: ' .$landing->ID );
+        //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') entierro: ' .$landing->ID );
         $distancia = get_post_meta( $landing->ID, 'wpfunos_EnlaceDistancia', true );
         $latitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLatitud', true );
         $longitud = get_post_meta( $landing->ID, 'wpfunos_EnlaceLonguitud', true );
@@ -644,10 +646,10 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     }
     $URL = esc_url(home_url().'/comparar-precios-resultados?address[]='.$poblacion.'&post[]=precio_serv_wpfunos&cf[resp1]=1&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance='
     .$distancia.'&units=metric&paged=1&per_page=50&lat='.$latitud.'&lng='.$longitud.'&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora');
-    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') distancia: ' .$distancia );
-    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') latitud: ' .$latitud );
-    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') longitud: ' .$longitud );
-    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') URL: ' .$URL );
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') distancia: ' .$distancia );
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') latitud: ' .$latitud );
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') longitud: ' .$longitud );
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$poblacion. ') URL: ' .$URL );
 
     update_post_meta($post_id, 'wpfunos_entradaDirectorioURLBuscador', $URL);
     // FIN wpfunos_entradaDirectorioURLBuscador,
@@ -656,13 +658,13 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
     //$this->custom_logs('wpfunosCheckEntradaDirectorioValues: ' .get_post_meta(  $post_id , 'wpfunos_entradaDirectorioShortcode', true ) );
     $shortcode_id = get_post_meta( $post_id, 'wpfunos_entradaDirectorioShortcode', true );
     $post->post_content = get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true );
-    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$post_id. ') shortcode_id: ' .$shortcode_id );
-    $this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$post_id. ') post_content: ' .get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true ) );
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$post_id. ') shortcode_id: ' .$shortcode_id );
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio: (' .$post_id. ') post_content: ' .get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true ) );
     wp_update_post( $post );
 
     add_action('save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
-    $this->custom_logs('wpfunosGuardarEntradaDirectorio ENDS' );
-    $this->custom_logs('---');
+    //$this->custom_logs('wpfunosGuardarEntradaDirectorio ENDS' );
+    //$this->custom_logs('---');
   }
 
   /**

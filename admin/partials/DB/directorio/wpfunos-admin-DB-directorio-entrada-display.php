@@ -101,7 +101,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <h2><?php esc_html_e('Campos calculados de las entradas de landings seleccionadas', 'wpfunos');?></h2>
+    <h2><?php esc_html_e('Campos calculados de la landing del valor entrado en el campo población', 'wpfunos');?></h2>
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
@@ -176,7 +176,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </table>
     </li>
     <hr/>
-    <h2><?php esc_html_e('Landings para el cálculo de precios y campos de la URL del buscador', 'wpfunos');?></h2>
+    <h2><?php esc_html_e('Landings para el cálculo de precios', 'wpfunos');?></h2>
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>

@@ -16,9 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
 
   public function __construct( ) {
-    add_action( 'wpfunos_schedule_procesar_precios', array( $this, 'wpfunosScheduleProcesarPrecios' ), 10, 2 );
-    add_action( 'wpfunos_schedule_procesar_servicios', array( $this, 'wpfunosScheduleProcesarServicios' ), 10, 2 );
-    add_action( 'wpfunos_schedule eliminar_indices', array( $this, 'wpfunosScheduleEliminarIndices' ), 10, 2 );
+    //add_action( 'wpfunos_schedule_procesar_servicios', array( $this, 'wpfunosScheduleProcesarServicios' ), 10, 2 );
   }
 
   /**
@@ -27,7 +25,6 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   public function wpfunosMaintenance(){
     $this->wpfunosMaintenanceLogRotate();
     $this->wpfunosMaintenanceUsuariosCSV();
-    $this->wpfunosMaintenanceschedulePreciosFunerarias();
     return;
   }
 
@@ -44,11 +41,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   * Cron job hourly maintenance tasks.
   */
   public function wpfunosHourlyMaintenance(){
-    $this->wpfunosMaintenanceHourly2FA();
-    $this->wpfunosMaintenanceHourlyDatabase();
-    $this->wpfunosMaintenancePreciosv1Preciosv2();
-    $this->wpfunosMaintenancePreciosSeoFunerarias();
-    $this->wpfunosMaintenanceEnlacesLandingsDinamicas();
+
     return;
   }
 
@@ -56,7 +49,14 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   * Cron job 10 min maintenance tasks.
   */
   public function wpfunos10mMaintenance(){
+    $this->wpfunosMaintenanceHourly2FA();
+    $this->wpfunosMaintenanceDatabase();
+    $this->wpfunosMaintenancePreciosv1Preciosv2();
+    $this->wpfunosMaintenancePreciosSeoFunerarias();
     $this->wpfunosMaintenanceLlenarMasterDatos();
+    $this->wpfunosMaintenanceEnlacesLandingsDinamicas();
+    $this->wpfunosMaintenanceEliminarIndices();
+    $this->wpfunosMaintenanceAcutalizarIndices();
     return;
   }
 
@@ -93,6 +93,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   */
   public function wpfunosMaintenanceUsuariosCSV(){
     $this->custom_logs('CSV usuarios funos');
+    $timeFirst  = strtotime('now');
 
     $now = current_datetime();
     $yesterday = $now->sub(new DateInterval('P1D'));
@@ -177,56 +178,8 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
 
     }
     $this->custom_logs('Usuarios con fecha '.$yesterday->format("d-m-Y").': '. count( $post_list ));
-    $this->custom_logs('---');
-  }
-
-  /**
-  * Cron job precios funerarias
-  */
-  public function wpfunosMaintenanceschedulePreciosFunerarias(){
-    $args = array(
-      'post_type' => 'precio_serv_wpfunos',
-      'post_status' => 'publish',
-      'posts_per_page' => -1,
-    );
-    $indices_list = get_posts( $args );
-
-    $args = array(
-      'post_type' => 'servicios_wpfunos',
-      'post_status' => 'publish',
-      'posts_per_page' => -1,
-      'meta_query' => array(
-        array( 'key' => 'wpfunos_servicioActivo', 'value' => '1', 'compare' => '=', ),
-      ),
-    );
-    $servicios_list = get_posts( $args );
-
-    //https://developer.wordpress.org/reference/functions/wp_schedule_single_event/
-    //add_action( 'wpfunos_schedule_procesar_precios', array( $this, 'wpfunosScheduleProcesarPrecios' ), 10, 2 );
-    //add_action( 'wpfunos_schedule_procesar_servicios', array( $this, 'wpfunosScheduleProcesarServicios' ), 10, 2 );
-    //add_action( 'wpfunos_schedule eliminar_indices', array( $this, 'wpfunosScheduleEliminarIndices' ), 10, 2 );
-
-    $tiempo = 15;
-
-    $this->custom_logs('Wpfunos precio_serv_wpfunos Creación nuevos indices funerarias starts');
-    $this->custom_logs('Servicios: '.count($servicios_list));
-    for ( $x = 0; $x <= count($servicios_list); $x+=50 ) {
-      $this->custom_logs('==> ' .sprintf( '%03s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
-      wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule_procesar_servicios', array( $x, 50 ) );
-      //$tiempo += 480;
-    }
-    $this->custom_logs('Wpfunos precio_serv_wpfunos Creación nuevos indices funerarias ends');
-    $this->custom_logs('---');
-    $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices starts');
-    $this->custom_logs('Indices: '.count($indices_list));
-    $tiempo += 60;
-    for ( $x = 0; $x <= count($indices_list); $x+=2000 ) {
-      $this->custom_logs('==> ' .sprintf( '%05s', $x ). ' > ' .date("H:i:s",time() +$tiempo). ' UTC' );
-      wp_schedule_single_event( time() + $tiempo, 'wpfunos_schedule eliminar_indices', array( $x, 2000 ) );
-      //$tiempo += 20;
-    }
-    $this->custom_logs('Wpfunos precio_serv_wpfunos eliminar indices ends');
-    $this->custom_logs('---');
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('--- ' .$total.' sec.');
   }
 
   /** **/
@@ -254,6 +207,8 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   */
   public function wpfunosMaintenanceHourly2FA(){
     $this->custom_logs('Wpfunos 2FA');
+    $timeFirst  = strtotime('now');
+
     $args = array(
       'role'    => 'pre2fa',
       'orderby' => 'user_nicename',
@@ -275,20 +230,155 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
       }
     }
     $this->custom_logs('Wpfunos 2FA ends');
-    $this->custom_logs('---');
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('--- ' .$total.' sec.');
   }
 
   /**
   * Cron job maintenance Base de datos
   */
-  public function wpfunosMaintenanceHourlyDatabase(){
-    $this->custom_logs('HourlyDatabase');
+  public function wpfunosMaintenanceEliminarIndices(){
+    $this->custom_logs('Wpfunos Eliminar Indices');
+    $timeFirst  = strtotime('now');
+
+    $args = array(
+      'post_type' => 'precio_serv_wpfunos',
+      'post_status' => 'publish',
+      'posts_per_page' => -1,
+    );
+    $indices_list = get_posts( $args );
+    if( $indices_list ){
+      foreach ( $indices_list as $indice ) {
+        $servicioPrecioID = get_post_meta( $indice->ID, 'wpfunos_servicioPrecioID', true );
+        if( FALSE === get_post_status( $servicioPrecioID ) || get_post_meta( $servicioPrecioID, 'wpfunos_servicioActivo', true ) != '1' ){
+          $this->custom_logs('wpfunosMaintenanceEliminarIndices: ' .get_the_title( $indice->ID ). ' (' .$servicioPrecioID. ') ==> Elimnar ' .$indice->ID. ' <==' );
+          wp_delete_post( $indice->ID, true);
+        }
+      }
+    }
+    $this->custom_logs('Wpfunos Eliminar Indices ends');
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('--- ' .$total.' sec.');
+  }
+
+  /**
+  * Cron job maintenance Base de datos
+  */
+  public function wpfunosMaintenanceAcutalizarIndices(){
+    $this->custom_logs('Wpfunos Acutalizar Indices');
+    $timeFirst  = strtotime('now');
+
+    $tipos = array(
+      "EESS", "EESO", "EESC", "EESR",
+      "EEVS", "EEVO", "EEVC", "EEVR",
+      "EMSS", "EMSO", "EMSC", "EMSR",
+      "EMVS", "EMVO", "EMVC", "EMVR",
+      "EPSS", "EPSO", "EPSC", "EPSR",
+      "EPVS", "EPVO", "EPVC", "EPVR",
+      "IESS", "IESO", "IESC", "IESR",
+      "IEVS", "IEVO", "IEVC", "IEVR",
+      "IMSS", "IMSO", "IMSC", "IMSR",
+      "IMVS", "IMVO", "IMVC", "IMVR",
+      "IPSS", "IPSO", "IPSC", "IPSR",
+      "IPVS", "IPVO", "IPVC", "IPVR",
+    );
+    $args = array(
+      'post_type' => 'servicios_wpfunos',
+      'post_status' => 'publish',
+      'meta_query' => array(
+        array( 'key' => 'wpfunos_servicioActivo', 'value' => '1', 'compare' => '=', ),
+      ),
+    );
+    $servicios_list = get_posts( $args );
+    if( $servicios_list ){
+      foreach ( $servicios_list as $servicio ) {
+        $nombre_servicio = get_the_title( $servicio->ID );
+        $titulo_servicio = get_post_meta( $servicio->ID, 'wpfunos_servicioNombre', true );
+        $direccion_servicio = get_post_meta( $servicio->ID, 'wpfunos_servicioDireccion', true );
+
+        foreach ( $tipos as $tipo ) {
+
+          $resp1 = (substr ($tipo,0,1) == 'E') ? '1' : '2';
+          $resp3 = (substr ($tipo,2,1) == 'V') ? '1' : '2';
+          switch( substr ($tipo,1,1) ){ case 'M':$resp2 = '1';break; case 'E':$resp2 = '2';break; case 'P':$resp2 = '3';break; }
+          switch( substr ($tipo,3,1) ){ case 'S':$resp4 = '1';break; case 'O':$resp4 = '2';break; case 'C':$resp4 = '3';break; case 'R':$resp4 = '4';break; }
+
+          $args = array(
+            'post_type' => 'precio_serv_wpfunos',
+            'post_status'  => 'publish',
+            'posts_per_page' => -1,
+            'meta_query' => array(
+              'relation' => 'AND',
+              array( 'key' => 'wpfunos_servicioPrecioID', 'value' => $servicio->ID, 'compare' => '=', ),
+              array( 'key' => 'resp1', 'value' => $resp1, 'compare' => '=', ),
+              array( 'key' => 'resp2', 'value' => $resp2, 'compare' => '=', ),
+              array( 'key' => 'resp3', 'value' => $resp3, 'compare' => '=', ),
+              array( 'key' => 'resp4', 'value' => $resp4, 'compare' => '=', ),
+            ),
+          );
+          $indices_list = get_posts( $args );
+
+          $precio_tipo = get_post_meta( $servicio->ID, 'wpfunos_servicio'.$tipo, true );
+
+          if( strlen ( $precio_tipo ) > 0 ){
+
+            if( $indices_list ){ // Ya existe el índice: Update
+              foreach ( $indices_list as $indice ) {
+                $post_update = array(
+                  'ID'         => $indice->ID,
+                  'post_title' => $nombre_titulo,
+                  'meta_input'   => array(
+                    'wpfunos_servicioPrecio' => $precio_tipo,
+                  ),
+                );
+                wp_update_post( $post_update );
+              }
+            }else{ // No existe el índice: Create
+              $my_post = array(
+                'post_title' => $nombre_servicio,
+                'post_type' => 'precio_serv_wpfunos',
+                'post_status'  => 'publish',
+                'meta_input'   => array(
+                  'wpfunos_servicioPrecioValor' =>  $tipo,
+                  'wpfunos_servicioPrecioID' => $servicio->ID,
+                  'wpfunos_servicioPrecioNombre' => $nombre_servicio,
+                  'wpfunos_servicioPrecio' => $precio_tipo,
+                  'resp1' => $resp1, 'resp2' => $resp2, 'resp3' => $resp3, 'resp4' => $resp4,
+                ),
+              );
+              $newpost_id = wp_insert_post($my_post);
+              $this->custom_logs('Crear índice: ' .$nombre_titulo. ' (' .$servicio->ID. ') => ' .$newpost_id );
+              gmw_update_post_location( $newpost_id, $direccion_servicion, 7, $direccion_servicio, true );
+            }
+          }else{ //strlen ( $precio_tipo ) == 0 NO tiene precio. Borrar el ínidice si existe
+            if( $indices_list ){
+              foreach ( $indices_list as $indice ) {
+                $this->custom_logs('Eliminar índice ' .$nombre_titulo. ' (' .$servicio->ID. ') => ' .$indice->ID. ' <==' );
+                wp_delete_post( $indice->ID, true);
+              }// END foreach ( $indices_list as $indice )
+            }// END if( $indices_list )
+          }// END if( strlen ( $precio_tipo ) > 0 )
+        }// END foreach ( $tipos as $tipo )
+      }// END foreach ( $servicios_list as $servicio )
+    }// END if( $servicios_list )
+    $this->custom_logs('Wpfunos Acutalizar Indices ends');
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('--- ' .$total.' sec.');
+  }
+
+  /**
+  * Cron job maintenance Base de datos
+  */
+  public function wpfunosMaintenanceDatabase(){
+    $this->custom_logs('Database');
+    $timeFirst  = strtotime('now');
+
     $DBversion = WPFUNOS_DB_VERSION;
     $installed_ver = get_option( "wpf_db_version" );
-    $this->custom_logs('HourlyDatabase: ' .$DBversion. ' actual: ' .$installed_ver );
+    $this->custom_logs('Database: ' .$DBversion. ' actual: ' .$installed_ver );
 
     if ( $installed_ver != $DBversion ) {
-      $this->custom_logs('HourlyDatabase: Updating DB ' .$installed_ver. ' a ' .$DBversion );
+      $this->custom_logs('Database: Updating DB ' .$installed_ver. ' a ' .$DBversion );
       global $wpdb;
       $table_name = $wpdb->prefix . 'wpf_visitas';
       $charset_collate = $wpdb->get_charset_collate();
@@ -354,7 +444,6 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         precioataudpre tinytext DEFAULT '' NOT NULL,
         preciovelsi tinytext DEFAULT '' NOT NULL,
         preciovelno tinytext DEFAULT '' NOT NULL,
-        preciocersin tinytext DEFAULT '' NOT NULL,
         preciocersol tinytext DEFAULT '' NOT NULL,
         preciocerciv tinytext DEFAULT '' NOT NULL,
         preciocerrel tinytext DEFAULT '' NOT NULL,
@@ -366,6 +455,54 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         entvel tinytext DEFAULT '' NOT NULL,
         entvelcer tinytext DEFAULT '' NOT NULL,
         entpremium tinytext DEFAULT '' NOT NULL,
+        EESS tinytext DEFAULT '' NOT NULL,
+        EESO tinytext DEFAULT '' NOT NULL,
+        EESC tinytext DEFAULT '' NOT NULL,
+        EESR tinytext DEFAULT '' NOT NULL,
+        EEVS tinytext DEFAULT '' NOT NULL,
+        EEVO tinytext DEFAULT '' NOT NULL,
+        EEVC tinytext DEFAULT '' NOT NULL,
+        EEVR tinytext DEFAULT '' NOT NULL,
+        EMSS tinytext DEFAULT '' NOT NULL,
+        EMSO tinytext DEFAULT '' NOT NULL,
+        EMSC tinytext DEFAULT '' NOT NULL,
+        EMSR tinytext DEFAULT '' NOT NULL,
+        EMVS tinytext DEFAULT '' NOT NULL,
+        EMVO tinytext DEFAULT '' NOT NULL,
+        EMVC tinytext DEFAULT '' NOT NULL,
+        EMVR tinytext DEFAULT '' NOT NULL,
+        EPSS tinytext DEFAULT '' NOT NULL,
+        EPSO tinytext DEFAULT '' NOT NULL,
+        EPSC tinytext DEFAULT '' NOT NULL,
+        EPSR tinytext DEFAULT '' NOT NULL,
+        EPVS tinytext DEFAULT '' NOT NULL,
+        EPVO tinytext DEFAULT '' NOT NULL,
+        EPVC tinytext DEFAULT '' NOT NULL,
+        EPVR tinytext DEFAULT '' NOT NULL,
+        IESS tinytext DEFAULT '' NOT NULL,
+        IESO tinytext DEFAULT '' NOT NULL,
+        IESC tinytext DEFAULT '' NOT NULL,
+        IESR tinytext DEFAULT '' NOT NULL,
+        IEVS tinytext DEFAULT '' NOT NULL,
+        IEVO tinytext DEFAULT '' NOT NULL,
+        IEVC tinytext DEFAULT '' NOT NULL,
+        IEVR tinytext DEFAULT '' NOT NULL,
+        IMSS tinytext DEFAULT '' NOT NULL,
+        IMSO tinytext DEFAULT '' NOT NULL,
+        IMSC tinytext DEFAULT '' NOT NULL,
+        IMSR tinytext DEFAULT '' NOT NULL,
+        IMVS tinytext DEFAULT '' NOT NULL,
+        IMVO tinytext DEFAULT '' NOT NULL,
+        IMVC tinytext DEFAULT '' NOT NULL,
+        IMVR tinytext DEFAULT '' NOT NULL,
+        IPSS tinytext DEFAULT '' NOT NULL,
+        IPSO tinytext DEFAULT '' NOT NULL,
+        IPSC tinytext DEFAULT '' NOT NULL,
+        IPSR tinytext DEFAULT '' NOT NULL,
+        IPVS tinytext DEFAULT '' NOT NULL,
+        IPVO tinytext DEFAULT '' NOT NULL,
+        IPVC tinytext DEFAULT '' NOT NULL,
+        IPVR tinytext DEFAULT '' NOT NULL,
         PRIMARY KEY  (id)
       );";
 
@@ -376,8 +513,9 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
 
       update_option( "wpf_db_version", $DBversion );
     }
-    $this->custom_logs('HourlyDatabase ENDS' );
-    $this->custom_logs('---');
+    $this->custom_logs('Database ENDS' );
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('--- ' .$total.' sec.');
   }
 
   /**
@@ -385,6 +523,8 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   */
   public function wpfunosMaintenancePreciosv1Preciosv2(){
     $this->custom_logs('Wpfunos Actualizando registros Preciosv1Preciosv2 starts');
+    $timeFirst  = strtotime('now');
+
     $tipos = array(
       "EESS" => '1478', "EESO" => '1479', "EESC" => '147A', "EESR" => '147B',
       "EEVS" => '1468', "EEVO" => '1469', "EEVC" => '146A', "EEVR" => '146B',
@@ -410,84 +550,76 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
     $this->custom_logs('Wpfunos services: ' .count($post_list)  );
     if( $post_list ){
       foreach ( $post_list as $post ) {
+        $precio[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase', true );
+        $precio[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio', true );
+        $precio[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio', true );
+        $precio[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio', true );
+        $precio[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio', true );
+        $precio[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio', true );
+        $precio[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio', true );
+        $precio[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio', true );
+        $precio[8] = '0';
+        $precio[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio', true );
+        $precio[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio', true );
+        $precio[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio', true );
 
-        // WPML
-        $post_details = apply_filters( 'wpml_post_language_details', NULL, $post->ID ) ;
-        if( $post_details['language_code'] == 'es' ){
-          // WPML
+        $precio_anterior[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase_anterior', true );
+        $precio_anterior[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio_anterior', true );
+        $precio_anterior[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio_anterior', true );
+        $precio_anterior[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio_anterior', true );
+        $precio_anterior[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio_anterior', true );
+        $precio_anterior[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio_anterior', true );
+        $precio_anterior[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio_anterior', true );
+        $precio_anterior[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio_anterior', true );
+        $precio_anterior[8] = '0';
+        $precio_anterior[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio_anterior', true );
+        $precio_anterior[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio_anterior', true );
+        $precio_anterior[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio_anterior', true );
 
-          $precio[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase', true );
-          $precio[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio', true );
-          $precio[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio', true );
-          $precio[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio', true );
-          $precio[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio', true );
-          $precio[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio', true );
-          $precio[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio', true );
-          $precio[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio', true );
-          $precio[8] = '0';
-          $precio[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio', true );
-          $precio[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio', true );
-          $precio[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio', true );
+        foreach ( $tipos as $key=>$value ){
+          $valor[1] = substr( $value, 0, 1);
+          $valor[2] = substr( $value, 1, 1);
+          $valor[3] = substr( $value, 2, 1);
+          if( substr( $value, 3, 1) == '8' ) $valor[4] = '8';
+          if( substr( $value, 3, 1) == '9' ) $valor[4] = '9';
+          if( substr( $value, 3, 1) == 'A' ) $valor[4] = '10';
+          if( substr( $value, 3, 1) == 'B' ) $valor[4] = '11';
+          //
+          //echo 'Servicio: ' .$post->ID. ' Tipo: ' .$key. ' Valores: ' .$valor[1]. '|' .$valor[2]. '|' .$valor[3]. '|' .$valor[4]. ' => '
+          // .$precio[0]. '-'.$precio[ (int)$valor[1] ]. '-' .$precio[ (int)$valor[2] ]. '-' .$precio[ (int)$valor[3] ]. '-' .$precio[ (int)$valor[4] ]. '<br/>';
 
-          $precio_anterior[0] = get_post_meta( $post->ID, 'wpfunos_servicioPrecioBase_anterior', true );
-          $precio_anterior[1] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_1Precio_anterior', true );
-          $precio_anterior[2] = get_post_meta( $post->ID, 'wpfunos_servicioDestino_2Precio_anterior', true );
-          $precio_anterior[3] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_2Precio_anterior', true );
-          $precio_anterior[4] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_1Precio_anterior', true );
-          $precio_anterior[5] = get_post_meta( $post->ID, 'wpfunos_servicioAtaudEcologico_3Precio_anterior', true );
-          $precio_anterior[6] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioPrecio_anterior', true );
-          $precio_anterior[7] = get_post_meta( $post->ID, 'wpfunos_servicioVelatorioNoPrecio_anterior', true );
-          $precio_anterior[8] = '0';
-          $precio_anterior[9] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_1Precio_anterior', true );
-          $precio_anterior[10] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio_anterior', true );
-          $precio_anterior[11] = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio_anterior', true );
-
-          foreach ( $tipos as $key=>$value ){
-            $valor[1] = substr( $value, 0, 1);
-            $valor[2] = substr( $value, 1, 1);
-            $valor[3] = substr( $value, 2, 1);
-            if( substr( $value, 3, 1) == '8' ) $valor[4] = '8';
-            if( substr( $value, 3, 1) == '9' ) $valor[4] = '9';
-            if( substr( $value, 3, 1) == 'A' ) $valor[4] = '10';
-            if( substr( $value, 3, 1) == 'B' ) $valor[4] = '11';
-            //
-            //echo 'Servicio: ' .$post->ID. ' Tipo: ' .$key. ' Valores: ' .$valor[1]. '|' .$valor[2]. '|' .$valor[3]. '|' .$valor[4]. ' => '
-            // .$precio[0]. '-'.$precio[ (int)$valor[1] ]. '-' .$precio[ (int)$valor[2] ]. '-' .$precio[ (int)$valor[3] ]. '-' .$precio[ (int)$valor[4] ]. '<br/>';
-
-            if( $precio[0] != '' && $precio[ (int)$valor[1] ] != '' && $precio[ (int)$valor[2] ] != '' && $precio[ (int)$valor[3] ] != '' && $precio[ (int)$valor[4] ] != '' ){
-              if( get_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_bloqueo', true) != '1'){
-                $total = (int)$precio[0] + (int)$precio[ (int)$valor[1] ] + (int)$precio[ (int)$valor[2] ] + (int)$precio[ (int)$valor[3] ] + (int)$precio[ (int)$valor[4] ];
-                update_post_meta( $post->ID, 'wpfunos_servicio'.$key, $total );
-              }
-            }else{
-              update_post_meta( $post->ID, 'wpfunos_servicio'.$key, '' );
+          if( $precio[0] != '' && $precio[ (int)$valor[1] ] != '' && $precio[ (int)$valor[2] ] != '' && $precio[ (int)$valor[3] ] != '' && $precio[ (int)$valor[4] ] != '' ){
+            if( get_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_bloqueo', true) != '1'){
+              $total = (int)$precio[0] + (int)$precio[ (int)$valor[1] ] + (int)$precio[ (int)$valor[2] ] + (int)$precio[ (int)$valor[3] ] + (int)$precio[ (int)$valor[4] ];
+              update_post_meta( $post->ID, 'wpfunos_servicio'.$key, $total );
             }
-            if( $precio_anterior[0] != '' && $precio_anterior[ (int)$valor[1] ] != '' && $precio_anterior[ (int)$valor[2] ] != '' && $precio_anterior[ (int)$valor[3] ] != '' && $precio_anterior[ (int)$valor[4] ] != '' ){
-              $total_anterior = (int)$precio_anterior[0] + (int)$precio_anterior[ (int)$valor[1] ] + (int)$precio_anterior[ (int)$valor[2] ] + (int)$precio_anterior[ (int)$valor[3] ] + (int)$precio_anterior[ (int)$valor[4] ];
-              update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', $total_anterior );
-            }else{
-              update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', '' );
-            }
-
+          }else{
+            update_post_meta( $post->ID, 'wpfunos_servicio'.$key, '' );
+          }
+          if( $precio_anterior[0] != '' && $precio_anterior[ (int)$valor[1] ] != '' && $precio_anterior[ (int)$valor[2] ] != '' && $precio_anterior[ (int)$valor[3] ] != '' && $precio_anterior[ (int)$valor[4] ] != '' ){
+            $total_anterior = (int)$precio_anterior[0] + (int)$precio_anterior[ (int)$valor[1] ] + (int)$precio_anterior[ (int)$valor[2] ] + (int)$precio_anterior[ (int)$valor[3] ] + (int)$precio_anterior[ (int)$valor[4] ];
+            update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', $total_anterior );
+          }else{
+            update_post_meta( $post->ID, 'wpfunos_servicio'.$key.'_anterior', '' );
           }
 
-          // WPML
         }
-        // WPML
 
       }
       wp_reset_postdata();
     }
     $this->custom_logs('Wpfunos Actualizando registros Preciosv1Preciosv2 ends');
-    $this->custom_logs('---');
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('--- ' .$total.' sec.');
   }
 
   /**
   * Cron job precios seo funeraarias
   */
   public function wpfunosMaintenancePreciosSeoFunerarias(){
-    //  Precios Funerarias
     $this->custom_logs('Wpfunos precio_funer_wpfunos SEO starts');
+    $timeFirst  = strtotime('now');
+
     $args = array(
       'post_type' => 'precio_funer_wpfunos',
       'post_status' => 'any', // para incluir borradores
@@ -556,7 +688,8 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
       wp_reset_postdata();
     }
     $this->custom_logs('Wpfunos precio_funer_wpfunos SEO ends');
-    $this->custom_logs('---');
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('--- ' .$total.' sec.');
     //
   }
 
@@ -565,6 +698,8 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   */
   public function wpfunosMaintenanceEnlacesLandingsDinamicas(){
     $this->custom_logs('Wpfunos Precio Población Dinámica starts');
+    $timeFirst  = strtotime('now');
+
     $args = array(
       'post_type' => 'precio_funer_wpfunos',
       'post_status' => 'any', // para incluir borradores
@@ -609,14 +744,21 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
     }
     $this->custom_logs('Posts: ' .count($post_list) );
     $this->custom_logs('Wpfunos Precio Población Dinámica ends');
-    $this->custom_logs('---');
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('--- ' .$total.' sec.');
   }
 
   /**
   * Cron job Precios funerarias
+  *
+  * TIPO:
+  *   1 => servicio
+  *   2 => landingpoblacion
   */
   public function wpfunosMaintenanceLlenarMasterDatos(){
     $this->custom_logs('Wpfunos Llenar Master Datos starts');
+    $timeFirst  = strtotime('now');
+
     global $wpdb;
     $table_name = $wpdb->prefix . 'wpf_masterdatos';
     $creados = 0;
@@ -646,11 +788,31 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         $preciocerciv = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_2Precio', true );
         $preciocerrel = get_post_meta( $post->ID, 'wpfunos_servicioDespedida_3Precio', true );
 
+        $tipos = array(
+          "EESS", "EESO", "EESC", "EESR",
+          "EEVS", "EEVO", "EEVC", "EEVR",
+          "EMSS", "EMSO", "EMSC", "EMSR",
+          "EMVS", "EMVO", "EMVC", "EMVR",
+          "EPSS", "EPSO", "EPSC", "EPSR",
+          "EPVS", "EPVO", "EPVC", "EPVR",
+          "IESS", "IESO", "IESC", "IESR",
+          "IEVS", "IEVO", "IEVC", "IEVR",
+          "IMSS", "IMSO", "IMSC", "IMSR",
+          "IMVS", "IMVO", "IMVC", "IMVR",
+          "IPSS", "IPSO", "IPSC", "IPSR",
+          "IPVS", "IPVO", "IPVC", "IPVR",
+        );
+
+        foreach ( $tipos as $tipo ) {
+          //$EESS = get_post_meta( $post->ID, 'wpfunos_servicioEESS', true );
+          ${"$tipo"} =  get_post_meta( $post->ID, 'wpfunos_servicio'.$tipo, true );
+        }
+
         $data = array(
           'time' => current_time( 'mysql' ),
           'idrefencia' => $post->ID,
           'nombre' => $nombre,
-          'tipo' => 'servicio',
+          'tipo' => '1',
           'preciobase' => $preciobase,
           'precioincineracion' => $precioincineracion,
           'precioentierro' => $precioentierro,
@@ -662,16 +824,68 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
           'preciocersol' => $preciocersol,
           'preciocerciv' => $preciocerciv,
           'preciocerrel' => $preciocerrel,
+          'EESS' => $EESS,
+          'EESO' => $EESO,
+          'EESC' => $EESC,
+          'EESR' => $EESR,
+          'EEVS' => $EEVS,
+          'EEVO' => $EEVO,
+          'EEVC' => $EEVC,
+          'EEVR' => $EEVR,
+          'EMSS' => $EMSS,
+          'EMSO' => $EMSO,
+          'EMSC' => $EMSC,
+          'EMSR' => $EMSR,
+          'EMVS' => $EMVS,
+          'EMVO' => $EMVO,
+          'EMVC' => $EMVC,
+          'EMVR' => $EMVR,
+          'EPSS' => $EPSS,
+          'EPSO' => $EPSO,
+          'EPSC' => $EPSC,
+          'EPSR' => $EPSR,
+          'EPVS' => $EPVS,
+          'EPVO' => $EPVO,
+          'EPVC' => $EPVC,
+          'EPVR' => $EPVR,
+          'IESS' => $IESS,
+          'IESO' => $IESO,
+          'IESC' => $IESC,
+          'IESR' => $IESR,
+          'IEVS' => $IEVS,
+          'IEVO' => $IEVO,
+          'IEVC' => $IEVC,
+          'IEVR' => $IEVR,
+          'IMSS' => $IMSS,
+          'IMSO' => $IMSO,
+          'IMSC' => $IMSC,
+          'IMSR' => $IMSR,
+          'IMVS' => $IMVS,
+          'IMVO' => $IMVO,
+          'IMVC' => $IMVC,
+          'IMVR' => $IMVR,
+          'IPSS' => $IPSS,
+          'IPSO' => $IPSO,
+          'IPSC' => $IPSC,
+          'IPSR' => $IPSR,
+          'IPVS' => $IPVS,
+          'IPVO' => $IPVO,
+          'IPVC' => $IPVC,
+          'IPVR' => $IPVR,
         );
 
         $masterdatos = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE idrefencia = %s", $post->ID ), ARRAY_A);
+        if ( $wpdb->last_error ) {
+          $this->custom_logs('wpdb error: '.$wpdb->last_error );
+        }
         if( !$masterdatos ){
           $creados+=1;
           $wpdb->insert( $table_name, $data );
         }else{
           $actualizados+=1;
-          //$updated = $wpdb->update( $table, $data, $where );
-          $wpdb->update( $table_name, $data, $masterdatos[0]->ID );
+          foreach($masterdatos as $datos ){
+            $wpdb->update( $table_name, $data, array('id'=>$datos['id']) );
+          }
         }
       }
     }
@@ -700,7 +914,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
           'time' => current_time( 'mysql' ),
           'idrefencia' => $post->ID,
           'nombre' => $nombre,
-          'tipo' => 'landingpoblacion',
+          'tipo' => '2',
           'incinc' => $incinc,
           'incvel' => $incvel,
           'incvelcer' => $incvelcer,
@@ -715,12 +929,17 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         );
 
         $masterdatos = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE idrefencia = %s", $post->ID ), ARRAY_A);
+        if ( $wpdb->last_error ) {
+          $this->custom_logs('wpdb error: '.$wpdb->last_error );
+        }
         if( !$masterdatos ){
           $creados+=1;
           $wpdb->insert( $table_name, $data );
         }else{
           $actualizados+=1;
-          $wpdb->update( $table_name, $data, $masterdatos[0]->ID );
+          foreach($masterdatos as $datos ){
+            $wpdb->update( $table_name, $data, array('id'=>$datos['id']) );
+          }
         }
       }
 
@@ -728,188 +947,8 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
     $this->custom_logs('Wpfunos Llenar Master Datos Creados: '.$creados );
     $this->custom_logs('Wpfunos Llenar Master Datos Actualizados: '.$actualizados );
     $this->custom_logs('Wpfunos Llenar Master Datos ends');
-    $this->custom_logs('---');
-  }
-
-  /** **/
-  /** **/
-  /** **/
-
-  /**
-  *
-  * HOOKS
-  *
-  */
-
-  /*
-  *
-  *   add_action( 'wpfunos_schedule_procesar_precios', array( $this, 'wpfunosScheduleProcesarPrecios' ), 10, 2 );
-  *
-  */
-  public function wpfunosScheduleProcesarPrecios( $offset, $batch ){
-    $this->custom_logs('wpfunosScheduleProcesarPrecios ==> ' .$offset. ' ' .$batch. ' <==' );
-
-    $args = array(
-      'post_type' => 'precio_serv_wpfunos',
-      'post_status' => 'publish',
-      'numberposts' => $batch,
-      'offset' =>$offset,
-    );
-    $post_list = get_posts( $args );
-
-    if( $post_list ){
-      foreach ( $post_list as $post ) {
-
-        $servicioPrecioID = get_post_meta( $post->ID, 'wpfunos_servicioPrecioID', true );
-
-        $direccion = get_post_meta( $servicioPrecioID, 'wpfunos_servicioDireccion', true );
-
-        if( strlen( $direccion ) > 1 ){
-          //gmw_update_post_location( $post->ID, $direccion, 7, $direccion, true );
-        }
-
-      }
-    }
-    $this->custom_logs('wpfunosScheduleProcesarPrecios ==> ' .$offset. ' ' .$batch. ' END <==' );
-  }
-
-  /*
-  *
-  *   add_action( 'wpfunos_schedule_procesar_servicios', array( $this, 'wpfunosScheduleProcesarServicios' ), 10, 2 );
-  *
-  */
-  public function wpfunosScheduleProcesarServicios( $offset, $batch ){
-    $this->custom_logs('wpfunosScheduleProcesarServicios ==> ' .$offset. ' ' .$batch. ' <==' );
-
-    $tipos = array(
-      "EESS", "EESO", "EESC", "EESR",
-      "EEVS", "EEVO", "EEVC", "EEVR",
-      "EMSS", "EMSO", "EMSC", "EMSR",
-      "EMVS", "EMVO", "EMVC", "EMVR",
-      "EPSS", "EPSO", "EPSC", "EPSR",
-      "EPVS", "EPVO", "EPVC", "EPVR",
-      "IESS", "IESO", "IESC", "IESR",
-      "IEVS", "IEVO", "IEVC", "IEVR",
-      "IMSS", "IMSO", "IMSC", "IMSR",
-      "IMVS", "IMVO", "IMVC", "IMVR",
-      "IPSS", "IPSO", "IPSC", "IPSR",
-      "IPVS", "IPVO", "IPVC", "IPVR",
-    );
-
-    $args = array(
-      'post_type' => 'servicios_wpfunos',
-      'post_status' => 'publish',
-      'numberposts' => $batch,
-      'offset' =>$offset,
-      'meta_query' => array(
-        array( 'key' => 'wpfunos_servicioActivo', 'value' => '1', 'compare' => '=', ),
-      ),
-    );
-    $post_list = get_posts( $args );
-
-    if( $post_list ){
-      foreach ( $post_list as $post ) {
-        $nombre_servicio = get_the_title( $post->ID );
-        $nombre_titulo = get_post_meta( $post->ID, 'wpfunos_servicioNombre', true );
-        $direccion = get_post_meta( $post->ID, 'wpfunos_servicioDireccion', true );
-
-        foreach ( $tipos as $tipo ) {
-          $resp1 = (substr ($tipo,0,1) == 'E') ? '1' : '2';
-          $resp3 = (substr ($tipo,2,1) == 'V') ? '1' : '2';
-          switch( substr ($tipo,1,1) ){ case 'M':$resp2 = '1';break; case 'E':$resp2 = '2';break; case 'P':$resp2 = '3';break; }
-          switch( substr ($tipo,3,1) ){ case 'S':$resp4 = '1';break; case 'O':$resp4 = '2';break; case 'C':$resp4 = '3';break; case 'R':$resp4 = '4';break; }
-          $newargs = array(
-            'post_type' => 'precio_serv_wpfunos',
-            'post_status'  => 'publish',
-            'posts_per_page' => -1,
-            'meta_query' => array(
-              'relation' => 'AND',
-              array( 'key' => 'wpfunos_servicioPrecioID', 'value' => $post->ID, 'compare' => '=', ),
-              array( 'key' => 'resp1', 'value' => $resp1, 'compare' => '=', ),
-              array( 'key' => 'resp2', 'value' => $resp2, 'compare' => '=', ),
-              array( 'key' => 'resp3', 'value' => $resp3, 'compare' => '=', ),
-              array( 'key' => 'resp4', 'value' => $resp4, 'compare' => '=', ),
-            ),
-          );
-          $newpost_list = get_posts( $newargs );
-          // comprobar que tiene precios del nuevo buscador
-          $precio = get_post_meta( $post->ID, 'wpfunos_servicio'.$tipo, true );
-          if( strlen ($precio) > 0 ){
-            if( $newpost_list ){
-              // Update
-              foreach ( $newpost_list as $newpost ) {
-                $post_update = array(
-                  'ID'         => $newpost->ID,
-                  'post_title' => $nombre_titulo,
-                  'meta_input'   => array(
-                    'wpfunos_servicioPrecio' => $precio,
-                  ),
-                );
-                wp_update_post( $post_update );
-              }
-            }else{
-              // Create
-              $my_post = array(
-                'post_title' => $nombre_titulo,
-                'post_type' => 'precio_serv_wpfunos',
-                'post_status'  => 'publish',
-                'meta_input'   => array(
-                  'wpfunos_servicioPrecioValor' =>  $tipo,
-                  'wpfunos_servicioPrecioID' => $post->ID,
-                  'wpfunos_servicioPrecioNombre' => $nombre_servicio,
-                  'wpfunos_servicioPrecio' => $precio,
-                  'resp1' => $resp1, 'resp2' => $resp2, 'resp3' => $resp3, 'resp4' => $resp4,
-                ),
-              );
-
-              $insertpost_id = wp_insert_post($my_post);
-              $this->custom_logs('wpfunosProcesarServicios: Create ' .$nombre_titulo. ' (' .$post->ID. ') => ' .$insertpost_id );
-
-              gmw_update_post_location( $insertpost_id, $direccion, 7, $direccion, true );
-            }
-          }else{
-            //tiene precio 0. Si existe el índice borrarlo
-            // Borrar
-            if( $newpost_list ){
-              foreach ( $newpost_list as $newpost ) {
-                $this->custom_logs('wpfunosEliminarIndices ' .$post->ID. ' ==> Elimnar ' .$newpost->ID. ' <==' );
-                wp_delete_post( $newpost->ID, true);
-              }
-            }
-            //FIN tiene precio 0. Si existe el índice borrarlo
-          }
-        }
-      }
-    }
-    $this->custom_logs('wpfunosScheduleProcesarServicios ==> ' .$offset. ' ' .$batch. ' <== END' );
-  }
-
-  /*
-  *
-  *   add_action( 'wpfunos_schedule eliminar_indices', array( $this, 'wpfunosScheduleEliminarIndices' ), 10, 2 );
-  *
-  */
-  public function wpfunosScheduleEliminarIndices( $offset, $batch ){
-    $this->custom_logs('wpfunosScheduleEliminarIndices ==> ' .$offset. ' ' .$batch. ' <==' );
-
-    $args = array(
-      'post_type' => 'precio_serv_wpfunos',
-      'post_status' => 'publish',
-      'numberposts' => $batch,
-      'offset' =>$offset,
-    );
-    $post_list = get_posts( $args );
-
-    if( $post_list ){
-      foreach ( $post_list as $post ) {
-        $servicioPrecioID = get_post_meta( $post->ID, 'wpfunos_servicioPrecioID', true );
-        if( FALSE === get_post_status( $servicioPrecioID ) || get_post_meta( $servicioPrecioID, 'wpfunos_servicioActivo', true ) != '1' ){
-          $this->custom_logs('wpfunosScheduleEliminarIndices: ' .get_the_title( $post->ID ). ' (' .$servicioPrecioID. ') ==> Elimnar ' .$post->ID. ' <==' );
-          wp_delete_post( $post->ID, true);
-        }
-      }
-    }
-    $this->custom_logs('wpfunosScheduleEliminarIndices ==> ' .$offset. ' ' .$batch. ' <== END' );
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('--- ' .$total.' sec.');
   }
 
   /** **/
@@ -921,6 +960,34 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   * Utilities
   *
   */
+  /**
+  * Utility: dump array for logfile.
+  */
+  public function dumpPOST($data, $indent=0) {
+    $retval = '';
+    $prefix=\str_repeat(' |  ', $indent);
+    if (\is_numeric($data)) $retval.= "Number: $data";
+    elseif (\is_string($data)) $retval.= "String: '$data'";
+    elseif (\is_null($data)) $retval.= "NULL";
+    elseif ($data===true) $retval.= "TRUE";
+    elseif ($data===false) $retval.= "FALSE";
+    elseif (is_array($data)) {
+      $indent++;
+      foreach($data AS $key => $value) {
+        $retval.= "\r\n$prefix [$key] = ";
+        $retval.= $this->dump($value, $indent);
+      }
+    }
+    elseif (is_object($data)) {
+      $retval.= "Object (".get_class($data).")";
+      $indent++;
+      foreach($data AS $key => $value) {
+        $retval.= "\r\n$prefix $key -> ";
+        $retval.= $this->dump($value, $indent);
+      }
+    }
+    return $retval;
+  }
 
   /**
   * Utility: create entry in the log file.

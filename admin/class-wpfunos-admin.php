@@ -155,42 +155,46 @@ class Wpfunos_Admin {
   * Register the Cron Job.
   */
   public function wpfunosCron() {
+    $timeFirst  = strtotime('now');
     $this->custom_logs('==> Wpfunos Daily Maintenance begins <==');
     $this->custom_logs('---');
     $this->wpfunos_admin_cronjobs->wpfunosMaintenance();
-    $this->custom_logs('==> Wpfunos Daily Maintenance ends <==');
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('==> Wpfunos 10 min Maintenance ends <== ' .$total.' sec.');
     $this->custom_logs('---');
   }
   /**
   * Register the Cron Job.
   */
   public function wpfunosNextCron() {
-    $this->custom_logs('==> Wpfunos Next Maintenance begins <==');
-    $this->custom_logs('---');
-    $this->wpfunos_admin_cronjobs->wpfunosNextMaintenance();
-    $this->custom_logs('==> Wpfunos Next Maintenance ends <==');
-    $this->custom_logs('---');
+    //$this->custom_logs('==> Wpfunos Next Maintenance begins <==');
+    //$this->custom_logs('---');
+    //$this->wpfunos_admin_cronjobs->wpfunosNextMaintenance();
+    //$this->custom_logs('==> Wpfunos Next Maintenance ends <==');
+    //$this->custom_logs('---');
   }
   /**
   * Register the Cron Job.
   * Wpfunos_Admin::wpfunosHourlyCron()
   */
   public function wpfunosHourlyCron() {
-    $this->custom_logs('==> Wpfunos Hourly Maintenance begins <==');
-    $this->custom_logs('---');
-    $this->wpfunos_admin_cronjobs->wpfunosHourlyMaintenance();
-    $this->custom_logs('==> Wpfunos Hourly Maintenance ends <==');
-    $this->custom_logs('---');
+    //$this->custom_logs('==> Wpfunos Hourly Maintenance begins <==');
+    //$this->custom_logs('---');
+    //$this->wpfunos_admin_cronjobs->wpfunosHourlyMaintenance();
+    //$this->custom_logs('==> Wpfunos Hourly Maintenance ends <==');
+    //$this->custom_logs('---');
   }
   /**
   * Register the Cron Job.
   * Wpfunos_Admin::wpfunos10mCron()
   */
   public function wpfunos10mCron() {
+    $timeFirst  = strtotime('now');
     $this->custom_logs('==> Wpfunos 10 min Maintenance begins <==');
     $this->custom_logs('---');
     $this->wpfunos_admin_cronjobs->wpfunos10mMaintenance();
-    $this->custom_logs('==> Wpfunos 10 min Maintenance ends <==');
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('==> Wpfunos 10 min Maintenance ends <== ' .$total.' sec.');
     $this->custom_logs('---');
   }
   /*********************************/

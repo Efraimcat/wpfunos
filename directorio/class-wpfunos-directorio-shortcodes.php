@@ -359,10 +359,12 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
     ), $atts );
 
     $post_id = get_the_ID();
-    $term_list = wp_get_post_terms( $post_id, 'directorio_poblacion', array( 'fields' => 'all' ) );
-    $provincia = get_the_category_by_ID( $term_list[0]->parent );
+
+    //$term_list = wp_get_post_terms( $post_id, 'directorio_poblacion', array( 'fields' => 'all' ) );
+    //$provincia = get_the_category_by_ID( $term_list[0]->parent );
+
     $poblacion = get_post_meta( $post_id, 'wpfunos_entradaDirectorioPoblacion', true );
-    $titulo = 'No hay datos de precio medio para la zona de ' .$provincia;
+    $titulo = 'No hay datos de precio medio para la zona de ' .$poblacion;
     $precio = '';
     $comentarios = '';
 
@@ -384,6 +386,7 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio {
         }
       }
     }
+
     switch ( $a['linea'] ) {
       case 'titulo': echo $titulo; break;
       case 'precio': echo $precio; break;
