@@ -104,7 +104,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     $notes_aseguradorasNotas = get_post_meta( $post->ID, 'wpfunos_aseguradorasNotas', true );
     $args_aseguradorasNotas = array( 'textarea_name' => 'wpfunos_aseguradorasNotas', 'wpautop' => false, );
     ?>
-    <li><label for="'.$this->plugin_name.'_aseguradorasNotas" style="font-size: 32px;">Notas Aseguradora</label>
+    <li><label for="'.'wpfunos_aseguradorasNotas" style="font-size: 32px;">Notas Aseguradora</label>
       <?php wp_editor( $notes_aseguradorasNotas, 'wpfunos_aseguradorasNotas',$args_aseguradorasNotas); ?>
     </li>
 

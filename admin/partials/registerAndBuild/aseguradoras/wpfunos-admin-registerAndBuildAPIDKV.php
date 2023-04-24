@@ -19,75 +19,75 @@ add_settings_section(
   'wpfunos_APIDKV_settings'                 				// Page on which to add this section of options
 );
 add_settings_field(
-  $this->plugin_name . '_APIDKVURLPRE',
+  'wpfunos_APIDKVURLPRE',
   'URL API DKV PRE <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIDKVURLPRE)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIDKV_settings',
   'wpfunos_APIDKV_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_APIDKVURLPRE','name' => $this->plugin_name . '_APIDKVURLPRE','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_APIDKVURLPRE','name' => 'wpfunos_APIDKVURLPRE','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 add_settings_field(
-  $this->plugin_name . '_APIDKVURLPRO',
+  'wpfunos_APIDKVURLPRO',
   'URL API DKV PRO <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIDKVURLPRO)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIDKV_settings',
   'wpfunos_APIDKV_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_APIDKVURLPRO','name' => $this->plugin_name . '_APIDKVURLPRO','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_APIDKVURLPRO','name' => 'wpfunos_APIDKVURLPRO','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 add_settings_field(
-  $this->plugin_name . '_APIDKVProviderName',
+  'wpfunos_APIDKVProviderName',
   'API DKV Provider Name <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIDKVProviderName)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIDKV_settings',
   'wpfunos_APIDKV_section',
-  array('type' => 'input','subtype' => 'password','id' => $this->plugin_name . '_APIDKVProviderName','name' => $this->plugin_name . '_APIDKVProviderName','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'password','id' => 'wpfunos_APIDKVProviderName','name' => 'wpfunos_APIDKVProviderName','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 add_settings_field(
-  $this->plugin_name . '_APIDKVProviderID',
+  'wpfunos_APIDKVProviderID',
   'API DKV Provider ID <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIDKVProviderID)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIDKV_settings',
   'wpfunos_APIDKV_section',
-  array('type' => 'input','subtype' => 'password','id' => $this->plugin_name . '_APIDKVProviderID','name' => $this->plugin_name . '_APIDKVProviderID','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'password','id' => 'wpfunos_APIDKVProviderID','name' => 'wpfunos_APIDKVProviderID','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 add_settings_field(
-  $this->plugin_name . '_APIDKVProviderPasswordPRE',
+  'wpfunos_APIDKVProviderPasswordPRE',
   'API DKV Password PRE <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIDKVProviderPasswordPRE)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIDKV_settings',
   'wpfunos_APIDKV_section',
-  array('type' => 'input','subtype' => 'password','id' => $this->plugin_name . '_APIDKVProviderPasswordPRE','name' => $this->plugin_name . '_APIDKVProviderPasswordPRE','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'password','id' => 'wpfunos_APIDKVProviderPasswordPRE','name' => 'wpfunos_APIDKVProviderPasswordPRE','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 add_settings_field(
-  $this->plugin_name . '_APIDKVProviderPasswordPRO',
+  'wpfunos_APIDKVProviderPasswordPRO',
   'API DKV Password PRO <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIDKVProviderPasswordPRO)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIDKV_settings',
   'wpfunos_APIDKV_section',
-  array('type' => 'input','subtype' => 'password','id' => $this->plugin_name . '_APIDKVProviderPasswordPRO','name' => $this->plugin_name . '_APIDKVProviderPasswordPRO','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'password','id' => 'wpfunos_APIDKVProviderPasswordPRO','name' => 'wpfunos_APIDKVProviderPasswordPRO','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 add_settings_field(
-  $this->plugin_name . '_APIDKVProductionOK',
+  'wpfunos_APIDKVProductionOK',
   'API DKV Producción Activo<h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIDKVProductionOK)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIDKV_settings',
   'wpfunos_APIDKV_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_APIDKVProductionOK','name' => $this->plugin_name . '_APIDKVProductionOK','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_APIDKVProductionOK','name' => 'wpfunos_APIDKVProductionOK','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 add_settings_field(
-  $this->plugin_name . '_APIDKVColdLead',
+  'wpfunos_APIDKVColdLead',
   'Cold Lead API DKV <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIDKVColdLead)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIDKV_settings',
   'wpfunos_APIDKV_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_APIDKVColdLead','name' => $this->plugin_name . '_APIDKVColdLead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_APIDKVColdLead','name' => 'wpfunos_APIDKVColdLead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_APIDKV_settings', $this->plugin_name . '_APIDKVURLPRE');
-register_setting('wpfunos_APIDKV_settings', $this->plugin_name . '_APIDKVURLPRO');
-register_setting('wpfunos_APIDKV_settings', $this->plugin_name . '_APIDKVProviderName');
-register_setting('wpfunos_APIDKV_settings', $this->plugin_name . '_APIDKVProviderID');
-register_setting('wpfunos_APIDKV_settings', $this->plugin_name . '_APIDKVProviderPasswordPRE');
-register_setting('wpfunos_APIDKV_settings', $this->plugin_name . '_APIDKVProviderPasswordPRO');
-register_setting('wpfunos_APIDKV_settings', $this->plugin_name . '_APIDKVProductionOK');
-register_setting('wpfunos_APIDKV_settings', $this->plugin_name . '_APIDKVColdLead');
+register_setting('wpfunos_APIDKV_settings', 'wpfunos_APIDKVURLPRE');
+register_setting('wpfunos_APIDKV_settings', 'wpfunos_APIDKVURLPRO');
+register_setting('wpfunos_APIDKV_settings', 'wpfunos_APIDKVProviderName');
+register_setting('wpfunos_APIDKV_settings', 'wpfunos_APIDKVProviderID');
+register_setting('wpfunos_APIDKV_settings', 'wpfunos_APIDKVProviderPasswordPRE');
+register_setting('wpfunos_APIDKV_settings', 'wpfunos_APIDKVProviderPasswordPRO');
+register_setting('wpfunos_APIDKV_settings', 'wpfunos_APIDKVProductionOK');
+register_setting('wpfunos_APIDKV_settings', 'wpfunos_APIDKVColdLead');

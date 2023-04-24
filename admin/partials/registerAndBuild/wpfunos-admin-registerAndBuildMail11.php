@@ -20,43 +20,43 @@ add_settings_section(
 );
 // Activar Mail Correo Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_activarCorreoBoton2LeadAseguradora',
+  'wpfunos_activarCorreoBoton2LeadAseguradora',
   'Activar Correo Boton 2 Lead Aseguradora <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoBoton2LeadAseguradora)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail11_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_activarCorreoBoton2LeadAseguradora','name' => $this->plugin_name . '_activarCorreoBoton2LeadAseguradora','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_activarCorreoBoton2LeadAseguradora','name' => 'wpfunos_activarCorreoBoton2LeadAseguradora','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Cco Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_mailCorreoCcoBoton2LeadAseguradora',
+  'wpfunos_mailCorreoCcoBoton2LeadAseguradora',
   'Mail Correo Cco Boton 2 Lead Aseguradora <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoBoton2LeadAseguradora)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail11_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoCcoBoton2LeadAseguradora','name' => $this->plugin_name . '_mailCorreoCcoBoton2LeadAseguradora','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoCcoBoton2LeadAseguradora','name' => 'wpfunos_mailCorreoCcoBoton2LeadAseguradora','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Bcc Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_mailCorreoBccBoton2LeadAseguradora',
+  'wpfunos_mailCorreoBccBoton2LeadAseguradora',
   'Mail Correo Bcc Boton 2 Lead Aseguradora <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccBoton2LeadAseguradora)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail11_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoBccBoton2LeadAseguradora','name' => $this->plugin_name . '_mailCorreoBccBoton2LeadAseguradora','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoBccBoton2LeadAseguradora','name' => 'wpfunos_mailCorreoBccBoton2LeadAseguradora','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Asunto Mail Correo Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_asuntoCorreoBoton2LeadAseguradora',
+  'wpfunos_asuntoCorreoBoton2LeadAseguradora',
   'Asunto Correo Boton 2 Lead Aseguradora <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreoBoton2LeadAseguradora)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail11_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_asuntoCorreoBoton2LeadAseguradora','name' => $this->plugin_name . '_asuntoCorreoBoton2LeadAseguradora','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_asuntoCorreoBoton2LeadAseguradora','name' => 'wpfunos_asuntoCorreoBoton2LeadAseguradora','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Mensaje Mail Correo Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_mensajeCorreoBoton2LeadAseguradora',
+  'wpfunos_mensajeCorreoBoton2LeadAseguradora',
   'Mensaje Correo Boton 2 Lead Aseguradora <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoBoton2LeadAseguradora)</h6>',
   array( $this, 'wpfunos_intro_render' ),
   'wpfunos_mail_settings',
@@ -64,8 +64,8 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoBoton2LeadAseguradora')
 );
 
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_activarCorreoBoton2LeadAseguradora');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoCcoBoton2LeadAseguradora');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoBccBoton2LeadAseguradora');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_asuntoCorreoBoton2LeadAseguradora');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mensajeCorreoBoton2LeadAseguradora');
+register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoBoton2LeadAseguradora');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoBoton2LeadAseguradora');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccBoton2LeadAseguradora');
+register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoBoton2LeadAseguradora');
+register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoBoton2LeadAseguradora');

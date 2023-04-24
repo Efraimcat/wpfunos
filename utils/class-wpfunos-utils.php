@@ -66,7 +66,7 @@ class Wpfunos_Utils {
   * do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
   */
   public function wpfunosLog( $message ){
-    if(get_option($this->plugin_name . '_Debug')) $this->custom_logs( $this->dumpPOST($message));
+    if(get_option('wpfunos_Debug')) $this->custom_logs( $this->dumpPOST($message) );
     return true;
   }
 
@@ -179,7 +179,7 @@ class Wpfunos_Utils {
   /**
   * Formatear texto comentarios
   * Utility: Formato Comentario HOOK: add_filter( 'wpfunos_comentario', array( $this, 'wpfunosFormatoComentario' ), 10, 1 );
-  * $comentariosBase = apply_filters('wpfunos_comentario', get_post_meta( $_GET['servicio'], $this->plugin_name . '_servicioPrecioBaseComentario', true ) );
+  * $comentariosBase = apply_filters('wpfunos_comentario', get_post_meta( $_GET['servicio'], 'wpfunos_servicioPrecioBaseComentario', true ) );
   */
   public function wpfunosFormatoComentario( $customfield_content ){
     $customfield_content = apply_filters( 'the_content', $customfield_content );
@@ -312,12 +312,12 @@ class Wpfunos_Utils {
     if (is_array($message)) {
       $message = json_encode($message);
     }
-    if (!file_exists( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs') ) {
-      mkdir( $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs' );
+    if (!file_exists( $upload_dir['basedir'] . '/wpfunos-logs') ) {
+      mkdir( $upload_dir['basedir'] . '/wpfunos-logs' );
     }
     $time = current_time("d-M-Y H:i:s:v");
     $ban = "#$time: $message\r\n";
-    $file = $upload_dir['basedir'] . '/' . $this->plugin_name . '-logs/' . $this->plugin_name .'-publiclog-' . current_time("Y-m-d") . '.log';
+    $file = $upload_dir['basedir'] . '/wpfunos-logs/' . $this->plugin_name .'-publiclog-' . current_time("Y-m-d") . '.log';
     $open = fopen($file, "a");
     fputs($open, $ban);
     fclose( $open );

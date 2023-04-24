@@ -20,43 +20,43 @@ add_settings_section(
 );
 // Activar Mail Correo Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_activarCorreoBoton2Lead',
+  'wpfunos_activarCorreoBoton2Lead',
   'Activar Correo Boton 2 Lead <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoBoton2Lead)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail4_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_activarCorreoBoton2Lead','name' => $this->plugin_name . '_activarCorreoBoton2Lead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_activarCorreoBoton2Lead','name' => 'wpfunos_activarCorreoBoton2Lead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Cco Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_mailCorreoCcoBoton2Lead',
+  'wpfunos_mailCorreoCcoBoton2Lead',
   'Mail Correo Cco Boton 2 Lead <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoBoton2Lead)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail4_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoCcoBoton2Lead','name' => $this->plugin_name . '_mailCorreoCcoBoton2Lead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoCcoBoton2Lead','name' => 'wpfunos_mailCorreoCcoBoton2Lead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Bcc Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_mailCorreoBccBoton2Lead',
+  'wpfunos_mailCorreoBccBoton2Lead',
   'Mail Correo Bcc Boton 2 Lead <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccBoton2Lead)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail4_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoBccBoton2Lead','name' => $this->plugin_name . '_mailCorreoBccBoton2Lead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoBccBoton2Lead','name' => 'wpfunos_mailCorreoBccBoton2Lead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Asunto Mail Correo Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_asuntoCorreoBoton2Lead',
+  'wpfunos_asuntoCorreoBoton2Lead',
   'Asunto Correo Boton 2 Lead <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreoBoton2Lead)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail4_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_asuntoCorreoBoton2Lead','name' => $this->plugin_name . '_asuntoCorreoBoton2Lead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_asuntoCorreoBoton2Lead','name' => 'wpfunos_asuntoCorreoBoton2Lead','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Mensaje Mail Correo Boton 2 Lead
 add_settings_field(
-  $this->plugin_name . '_mensajeCorreoBoton2Lead',
+  'wpfunos_mensajeCorreoBoton2Lead',
   'Mensaje Correo Boton 2 Lead <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoBoton2Lead)</h6>',
   array( $this, 'wpfunos_intro_render' ),
   'wpfunos_mail_settings',
@@ -64,8 +64,8 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoBoton2Lead')
 );
 
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_activarCorreoBoton2Lead');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoCcoBoton2Lead');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoBccBoton2Lead');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_asuntoCorreoBoton2Lead');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mensajeCorreoBoton2Lead');
+register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoBoton2Lead');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoBoton2Lead');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccBoton2Lead');
+register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoBoton2Lead');
+register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoBoton2Lead');

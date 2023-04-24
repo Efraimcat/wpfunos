@@ -20,43 +20,43 @@ add_settings_section(
 );
 // Activar Mail Correo Popup Detalles
 add_settings_field(
-  $this->plugin_name . '_activarCorreoPopupDetalles',
+  'wpfunos_activarCorreoPopupDetalles',
   'Activar Correo Popup Detalles <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoPopupDetalles)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail6_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_activarCorreoPopupDetalles','name' => $this->plugin_name . '_activarCorreoPopupDetalles','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_activarCorreoPopupDetalles','name' => 'wpfunos_activarCorreoPopupDetalles','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Cco Popup Detalles
 add_settings_field(
-  $this->plugin_name . '_mailCorreoCcoPopupDetalles',
+  'wpfunos_mailCorreoCcoPopupDetalles',
   'Mail Correo Cco Popup Detalles <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoPopupDetalles)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail6_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoCcoPopupDetalles','name' => $this->plugin_name . '_mailCorreoCcoPopupDetalles','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoCcoPopupDetalles','name' => 'wpfunos_mailCorreoCcoPopupDetalles','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Bcc Popup Detalles
 add_settings_field(
-  $this->plugin_name . '_mailCorreoBccPopupDetalles',
+  'wpfunos_mailCorreoBccPopupDetalles',
   'Mail Correo Bcc Popup Detalles <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccPopupDetalles)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail6_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoBccPopupDetalles','name' => $this->plugin_name . '_mailCorreoBccPopupDetalles','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoBccPopupDetalles','name' => 'wpfunos_mailCorreoBccPopupDetalles','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Asunto Mail Correo Popup Detalles
 add_settings_field(
-  $this->plugin_name . '_asuntoCorreoPopupDetalles',
+  'wpfunos_asuntoCorreoPopupDetalles',
   'Asunto Correo Popup Detalles <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreoPopupDetalles)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail6_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_asuntoCorreoPopupDetalles','name' => $this->plugin_name . '_asuntoCorreoPopupDetalles','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_asuntoCorreoPopupDetalles','name' => 'wpfunos_asuntoCorreoPopupDetalles','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Mensaje Mail Correo Popup Detalles
 add_settings_field(
-  $this->plugin_name . '_mensajeCorreoPopupDetalles',
+  'wpfunos_mensajeCorreoPopupDetalles',
   'Mensaje Correo Popup Detalles <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoPopupDetalles)</h6>',
   array( $this, 'wpfunos_intro_render' ),
   'wpfunos_mail_settings',
@@ -64,8 +64,8 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoPopupDetalles')
 );
 
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_activarCorreoPopupDetalles');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoCcoPopupDetalles');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoBccPopupDetalles');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_asuntoCorreoPopupDetalles');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mensajeCorreoPopupDetalles');
+register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoPopupDetalles');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoPopupDetalles');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccPopupDetalles');
+register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoPopupDetalles');
+register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoPopupDetalles');

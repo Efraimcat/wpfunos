@@ -415,10 +415,10 @@ if ( ! defined( 'ABSPATH' ) ) {
       <?php esc_html_e('Contratado: ', 'wpfunos');?>
       <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_userContratadoIDstamp','name' => 'wpfunos_userContratado','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?>
     </li>
-    <li><label for="'.$this->plugin_name.'_userComentarios" style="font-size: 32px;">Comentarios</label>
+    <li><label for="'.'wpfunos_userComentarios" style="font-size: 32px;">Comentarios</label>
       <?php	wp_editor( $notes_userComentarios, 'wpfunos_userComentarios',$args_userComentarios); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_userFuneraria" style="font-size: 32px;">Funeraria</label>
+    <li><label for="'.'wpfunos_userFuneraria" style="font-size: 32px;">Funeraria</label>
       <?php	wp_editor( $notes_userFuneraria, 'wpfunos_userFuneraria',$args_userFuneraria); ?>
     </li>
     <hr/>

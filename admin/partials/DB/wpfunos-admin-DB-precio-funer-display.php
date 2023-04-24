@@ -111,7 +111,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     $notes_precioFunerariaPoblacionesCercanas = get_post_meta( $post->ID, 'wpfunos_precioFunerariaPoblacionesCercanas', true );
     $args_precioFunerariaPoblacionesCercanas = array( 'textarea_name' => 'wpfunos_precioFunerariaPoblacionesCercanas', );
     ?>
-    <li><label for="'.$this->plugin_name.'_precioFunerariaPoblacionesCercanas" style="font-size: 32px;">Poblaciones cercanas</label>
+    <li><label for="'.'wpfunos_precioFunerariaPoblacionesCercanas" style="font-size: 32px;">Poblaciones cercanas</label>
       <?php	wp_editor( $notes_precioFunerariaPoblacionesCercanas, 'wpfunos_precioFunerariaPoblacionesCercanas',$args_precioFunerariaPoblacionesCercanas); ?>
     </li>
 

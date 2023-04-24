@@ -21,12 +21,12 @@ add_settings_section(
 
 // configuación imágenes
 add_settings_field(
-  $this->plugin_name . '_postConfImagenes',
+  'wpfunos_postConfImagenes',
   'Post configuración imágenes <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_postConfImagenes)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_confimagenes_section',
-  array('type'=>'input','subtype' => 'text','id' => $this->plugin_name . '_postConfImagenes','name' => $this->plugin_name . '_postConfImagenes','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option'),
+  array('type'=>'input','subtype' => 'text','id' => 'wpfunos_postConfImagenes','name' => 'wpfunos_postConfImagenes','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option'),
 );
 
-register_setting('wpfunos_general_settings', $this->plugin_name . '_postConfImagenes');
+register_setting('wpfunos_general_settings', 'wpfunos_postConfImagenes');

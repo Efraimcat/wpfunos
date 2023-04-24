@@ -35,19 +35,19 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('resp4', 'wpfunos');?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPrecioValor','name' => $this->plugin_name . '_servicioPrecioValor','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioPrecioValor','name' => 'wpfunos_servicioPrecioValor','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPrecioID','name' => $this->plugin_name . '_servicioPrecioID','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7   ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioPrecioID','name' => 'wpfunos_servicioPrecioID','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7   ));?></td>
           <td style="width:5px;"></td>
           <td style="width:250px;">
             <?php
-            $servicioPrecioNombre = get_the_title( get_post_meta( $_GET['post'] , $this->plugin_name . '_servicioPrecioID', true ));
-            update_post_meta( $_GET['post'], $this->plugin_name . '_servicioPrecioNombre', $servicioPrecioNombre);
+            $servicioPrecioNombre = get_the_title( get_post_meta( $_GET['post'] , 'wpfunos_servicioPrecioID', true ));
+            update_post_meta( $_GET['post'], 'wpfunos_servicioPrecioNombre', $servicioPrecioNombre);
             echo $servicioPrecioNombre;
             ?>
           </td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_servicioPrecio','name' => $this->plugin_name . '_servicioPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioPrecio','name' => 'wpfunos_servicioPrecio','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'resp1','name' => 'resp1','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));?></td>
           <td style="width:5px;"></td>

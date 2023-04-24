@@ -20,22 +20,22 @@ add_settings_section(
 );
 // Sección Compara precios resultados sin botones Superior
 add_settings_field(
-  $this->plugin_name . '_seccionComparaPreciosResultadosSin',
+  'wpfunos_seccionComparaPreciosResultadosSin',
   'Sección compara precios Resultados Sin Confirmar Superior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosSin)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_sinconfirmar_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosSin','name' => $this->plugin_name . '_seccionComparaPreciosResultadosSin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_seccionComparaPreciosResultadosSin','name' => 'wpfunos_seccionComparaPreciosResultadosSin','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Sección Compara precios resultados sin botones Inferior
 add_settings_field(
-  $this->plugin_name . '_seccionComparaPreciosResultadosSinInferior',
+  'wpfunos_seccionComparaPreciosResultadosSinInferior',
   'Sección compara precios Resultados Sin Confirmar Inferior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosSinInferior)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_sinconfirmar_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosSinInferior','name' => $this->plugin_name . '_seccionComparaPreciosResultadosSinInferior','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_seccionComparaPreciosResultadosSinInferior','name' => 'wpfunos_seccionComparaPreciosResultadosSinInferior','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosSin');
-register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosSinInferior');
+register_setting('wpfunos_general_settings', 'wpfunos_seccionComparaPreciosResultadosSin');
+register_setting('wpfunos_general_settings', 'wpfunos_seccionComparaPreciosResultadosSinInferior');

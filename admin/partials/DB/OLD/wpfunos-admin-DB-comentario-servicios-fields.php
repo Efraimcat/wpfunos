@@ -12,6 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$servicioComentarioNombre = sanitize_text_field( $_POST[$this->plugin_name . '_servicioComentarioNombre'] );
+$servicioComentarioNombre = sanitize_text_field( $_POST['wpfunos_servicioComentarioNombre'] );
 
-update_post_meta($post_id, $this->plugin_name . '_servicioComentarioNombre', $servicioComentarioNombre);
+update_post_meta($post_id, 'wpfunos_servicioComentarioNombre', $servicioComentarioNombre);

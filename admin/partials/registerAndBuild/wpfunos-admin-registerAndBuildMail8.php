@@ -21,43 +21,43 @@ add_settings_section(
 
 // Activar Mail Correo Pedir Presupuesto
 add_settings_field(
-  $this->plugin_name . '_activarCorreoPedirPresupuesto',
+  'wpfunos_activarCorreoPedirPresupuesto',
   'Activar Pedir Presupuesto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoPedirPresupuesto)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail8_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_activarCorreoPedirPresupuesto','name' => $this->plugin_name . '_activarCorreoPedirPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_activarCorreoPedirPresupuesto','name' => 'wpfunos_activarCorreoPedirPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Cco Pedir Presupuesto
 add_settings_field(
-  $this->plugin_name . '_mailCorreoCcoPedirPresupuesto',
+  'wpfunos_mailCorreoCcoPedirPresupuesto',
   'Mail Correo Cco Pedir Presupuesto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoPedirPresupuesto)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail8_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoCcoPedirPresupuesto','name' => $this->plugin_name . '_mailCorreoCcoPedirPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoCcoPedirPresupuesto','name' => 'wpfunos_mailCorreoCcoPedirPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Bcc Pedir Presupuesto
 add_settings_field(
-  $this->plugin_name . '_mailCorreoBccPedirPresupuesto',
+  'wpfunos_mailCorreoBccPedirPresupuesto',
   'Mail Correo Bcc Pedir Presupuesto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccPedirPresupuesto)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail8_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoBccPedirPresupuesto','name' => $this->plugin_name . '_mailCorreoBccPedirPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoBccPedirPresupuesto','name' => 'wpfunos_mailCorreoBccPedirPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Asunto Mail Correo Pedir Presupuesto
 add_settings_field(
-  $this->plugin_name . '_asuntoCorreoPedirPresupuesto',
+  'wpfunos_asuntoCorreoPedirPresupuesto',
   'Asunto Correo Pedir Presupuesto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreoPedirPresupuesto)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mail8_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_asuntoCorreoPedirPresupuesto','name' => $this->plugin_name . '_asuntoCorreoPedirPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_asuntoCorreoPedirPresupuesto','name' => 'wpfunos_asuntoCorreoPedirPresupuesto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Mensaje Mail Correo Pedir Presupuesto
 add_settings_field(
-  $this->plugin_name . '_mensajeCorreoPedirPresupuesto',
+  'wpfunos_mensajeCorreoPedirPresupuesto',
   'Mensaje Correo Pedir Presupuesto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoPedirPresupuesto)</h6>',
   array( $this, 'wpfunos_intro_render' ),
   'wpfunos_mail_settings',
@@ -65,8 +65,8 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoPedirPresupuesto')
 );
 
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_activarCorreoPedirPresupuesto');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoCcoPedirPresupuesto');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoBccPedirPresupuesto');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_asuntoCorreoPedirPresupuesto');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mensajeCorreoPedirPresupuesto');
+register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoPedirPresupuesto');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoPedirPresupuesto');
+register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccPedirPresupuesto');
+register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoPedirPresupuesto');
+register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoPedirPresupuesto');

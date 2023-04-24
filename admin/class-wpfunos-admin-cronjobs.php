@@ -41,7 +41,8 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   * Cron job hourly maintenance tasks.
   */
   public function wpfunosHourlyMaintenance(){
-
+    $this->wpfunosMaintenancePreciosv1Preciosv2();
+    $this->wpfunosMaintenanceAcutalizarIndices();
     return;
   }
 
@@ -51,24 +52,16 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   public function wpfunos10mMaintenance(){
     $this->wpfunosMaintenanceHourly2FA();
     $this->wpfunosMaintenanceDatabase();
-    $this->wpfunosMaintenancePreciosv1Preciosv2();
-    $this->wpfunosMaintenancePreciosSeoFunerarias();
     $this->wpfunosMaintenanceLlenarMasterDatos();
-    $this->wpfunosMaintenanceEnlacesLandingsDinamicas();
     $this->wpfunosMaintenanceEliminarIndices();
-    $this->wpfunosMaintenanceAcutalizarIndices();
+    $this->wpfunosMaintenancePreciosSeoFunerarias();// WPML
+    $this->wpfunosMaintenanceEnlacesLandingsDinamicas();// WPML
     return;
   }
 
   /** **/
   /** **/
   /** **/
-
-  /**
-  *
-  * wpfunosMaintenance
-  *
-  */
 
   /**
   * Cron job maintenance log rotate
@@ -181,26 +174,6 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
     $total = strtotime('now') - $timeFirst ;
     $this->custom_logs('--- ' .$total.' sec.');
   }
-
-  /** **/
-  /** **/
-  /** **/
-
-  /**
-  *
-  * wpfunosNextMaintenance
-  *
-  */
-
-  /** **/
-  /** **/
-  /** **/
-
-  /**
-  *
-  * wpfunosHourlyMaintenance
-  *
-  */
 
   /**
   * Cron job 2FA Users
@@ -326,7 +299,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
               foreach ( $indices_list as $indice ) {
                 $post_update = array(
                   'ID'         => $indice->ID,
-                  'post_title' => $nombre_titulo,
+                  'post_title' => $nombre_servicio,
                   'meta_input'   => array(
                     'wpfunos_servicioPrecio' => $precio_tipo,
                   ),
@@ -347,13 +320,13 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
                 ),
               );
               $newpost_id = wp_insert_post($my_post);
-              $this->custom_logs('Crear índice: ' .$nombre_titulo. ' (' .$servicio->ID. ') => ' .$newpost_id );
+              $this->custom_logs('Crear índice: ' .$nombre_servicio. ' (' .$servicio->ID. ') => ' .$newpost_id );
               gmw_update_post_location( $newpost_id, $direccion_servicion, 7, $direccion_servicio, true );
             }
           }else{ //strlen ( $precio_tipo ) == 0 NO tiene precio. Borrar el ínidice si existe
             if( $indices_list ){
               foreach ( $indices_list as $indice ) {
-                $this->custom_logs('Eliminar índice ' .$nombre_titulo. ' (' .$servicio->ID. ') => ' .$indice->ID. ' <==' );
+                $this->custom_logs('Eliminar índice ' .$nombre_servicio. ' (' .$servicio->ID. ') => ' .$indice->ID. ' <==' );
                 wp_delete_post( $indice->ID, true);
               }// END foreach ( $indices_list as $indice )
             }// END if( $indices_list )
@@ -370,7 +343,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   * Cron job maintenance Base de datos
   */
   public function wpfunosMaintenanceDatabase(){
-    $this->custom_logs('Database');
+    $this->custom_logs('Wpfunos Database');
     $timeFirst  = strtotime('now');
 
     $DBversion = WPFUNOS_DB_VERSION;
@@ -513,7 +486,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
 
       update_option( "wpf_db_version", $DBversion );
     }
-    $this->custom_logs('Database ENDS' );
+    $this->custom_logs('Wpfunos Database ENDS' );
     $total = strtotime('now') - $timeFirst ;
     $this->custom_logs('--- ' .$total.' sec.');
   }
@@ -960,6 +933,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
   * Utilities
   *
   */
+
   /**
   * Utility: dump array for logfile.
   */
@@ -991,6 +965,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
 
   /**
   * Utility: create entry in the log file.
+  * $this->custom_logs( $this->dumpPOST($message) );
   */
   private function custom_logs($message){
     $upload_dir = wp_upload_dir();

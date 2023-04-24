@@ -88,7 +88,7 @@ add_settings_field(
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . 'paginaComparadorOrden','name' => 'wpfunos_paginaComparadorOrden','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunospaginaComparadorOrden','name' => 'wpfunos_paginaComparadorOrden','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Formulario GEO my wp ubicación
 add_settings_field(
@@ -97,7 +97,7 @@ add_settings_field(
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_pagina_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . 'paginaComparadorGeoMyWp','name' => 'wpfunos_paginaComparadorGeoMyWp','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunospaginaComparadorGeoMyWp','name' => 'wpfunos_paginaComparadorGeoMyWp','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
 

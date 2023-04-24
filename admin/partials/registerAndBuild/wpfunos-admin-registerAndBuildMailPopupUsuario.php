@@ -20,43 +20,43 @@ add_settings_section(
 );
 // Activar Mail Correo datos entrados
 add_settings_field(
-  $this->plugin_name . '_activarCorreoUsuarioContacto',
+  'wpfunos_activarCorreoUsuarioContacto',
   'Activar Correo usuario entrada contacto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoUsuarioContacto)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings',
   'wpfunos_mailcontacto_section',
-  array('type' => 'input','subtype' => 'checkbox','id' => $this->plugin_name . '_activarCorreoUsuarioContacto','name' => $this->plugin_name . '_activarCorreoUsuarioContacto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_activarCorreoUsuarioContacto','name' => 'wpfunos_activarCorreoUsuarioContacto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Destino Mail Correo Cco datos entrados
 //add_settings_field(
-//  $this->plugin_name . '_mailCorreoCcoUsuarioContacto',
+//  'wpfunos_mailCorreoCcoUsuarioContacto',
 //  'Mail Correo Cco usuario entrada contacto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoUsuarioContacto)</h6>',
 //  array( $this, 'wpfunos_render_settings_field' ),
 //  'wpfunos_mail_settings',
 //  'wpfunos_mailcontacto_section',
-//  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoCcoUsuarioContacto','name' => $this->plugin_name . '_mailCorreoCcoUsuarioContacto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+//  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoCcoUsuarioContacto','name' => 'wpfunos_mailCorreoCcoUsuarioContacto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 //);
 // Destino Mail Correo Bcc datos entrados
 //add_settings_field(
-//  $this->plugin_name . '_mailCorreoBccUsuarioContacto',
+//  'wpfunos_mailCorreoBccUsuarioContacto',
 //  'Mail Correo Bcc usuario entrada contacto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccUsuarioContacto)</h6>',
 //  array( $this, 'wpfunos_render_settings_field' ),
 //  'wpfunos_mail_settings',
 //  'wpfunos_mailcontacto_section',
-//  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_mailCorreoBccUsuarioContacto','name' => $this->plugin_name . '_mailCorreoBccUsuarioContacto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+//  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_mailCorreoBccUsuarioContacto','name' => 'wpfunos_mailCorreoBccUsuarioContacto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 //);
 // Asunto Mail Correo datos entrados
 //add_settings_field(
-//  $this->plugin_name . '_asuntoCorreoUsuarioContacto',
+//  'wpfunos_asuntoCorreoUsuarioContacto',
 //  'Asunto Correo usuario entrada contacto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreoUsuarioContacto)</h6>',
 //  array( $this, 'wpfunos_render_settings_field' ),
 //  'wpfunos_mail_settings',
 //  'wpfunos_mailcontacto_section',
-//  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_asuntoCorreoUsuarioContacto','name' => $this->plugin_name . '_asuntoCorreoUsuarioContacto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+//  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_asuntoCorreoUsuarioContacto','name' => 'wpfunos_asuntoCorreoUsuarioContacto','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 //);
 // Mensaje Mail Correo datos entrados
 add_settings_field(
-  $this->plugin_name . '_mensajeCorreoUsuarioContacto',
+  'wpfunos_mensajeCorreoUsuarioContacto',
   'Mensaje Correo usuario entrada contacto <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoUsuarioContacto)</h6>',
   array( $this, 'wpfunos_intro_render' ),
   'wpfunos_mail_settings',
@@ -64,8 +64,8 @@ add_settings_field(
   array('content_id' => 'wpfunos_mensajeCorreoUsuarioContacto')
 );
 
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_activarCorreoUsuarioContacto');
-//register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoCcoUsuarioContacto');
-//register_setting('wpfunos_mail_settings', $this->plugin_name . '_mailCorreoBccUsuarioContacto');
-//register_setting('wpfunos_mail_settings', $this->plugin_name . '_asuntoCorreoUsuarioContacto');
-register_setting('wpfunos_mail_settings', $this->plugin_name . '_mensajeCorreoUsuarioContacto');
+register_setting('wpfunos_mail_settings', 'wpfunos_activarCorreoUsuarioContacto');
+//register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoCcoUsuarioContacto');
+//register_setting('wpfunos_mail_settings', 'wpfunos_mailCorreoBccUsuarioContacto');
+//register_setting('wpfunos_mail_settings', 'wpfunos_asuntoCorreoUsuarioContacto');
+register_setting('wpfunos_mail_settings', 'wpfunos_mensajeCorreoUsuarioContacto');

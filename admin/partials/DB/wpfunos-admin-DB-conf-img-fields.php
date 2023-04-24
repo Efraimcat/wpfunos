@@ -12,12 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$imagenConfirmado = sanitize_text_field( $_POST[$this->plugin_name . '_imagenConfirmado'] );
-$imagenNoConfirmado = sanitize_text_field( $_POST[$this->plugin_name . '_imagenNoConfirmado'] );
-$imagenEcologico = sanitize_text_field( $_POST[$this->plugin_name . '_imagenEcologico'] );
-$imagenPromo = sanitize_text_field( $_POST[$this->plugin_name . '_imagenPromo'] );
+$imagenConfirmado = sanitize_text_field( $_POST['wpfunos_imagenConfirmado'] );
+$imagenNoConfirmado = sanitize_text_field( $_POST['wpfunos_imagenNoConfirmado'] );
+$imagenEcologico = sanitize_text_field( $_POST['wpfunos_imagenEcologico'] );
+$imagenPromo = sanitize_text_field( $_POST['wpfunos_imagenPromo'] );
 
-update_post_meta($post_id, $this->plugin_name . '_imagenConfirmado', $imagenConfirmado);
-update_post_meta($post_id, $this->plugin_name . '_imagenNoConfirmado', $imagenNoConfirmado);
-update_post_meta($post_id, $this->plugin_name . '_imagenEcologico', $imagenEcologico);
-update_post_meta($post_id, $this->plugin_name . '_imagenPromo', $imagenPromo);
+update_post_meta($post_id, 'wpfunos_imagenConfirmado', $imagenConfirmado);
+update_post_meta($post_id, 'wpfunos_imagenNoConfirmado', $imagenNoConfirmado);
+update_post_meta($post_id, 'wpfunos_imagenEcologico', $imagenEcologico);
+update_post_meta($post_id, 'wpfunos_imagenPromo', $imagenPromo);

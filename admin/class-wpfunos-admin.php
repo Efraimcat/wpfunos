@@ -178,11 +178,13 @@ class Wpfunos_Admin {
   * Wpfunos_Admin::wpfunosHourlyCron()
   */
   public function wpfunosHourlyCron() {
-    //$this->custom_logs('==> Wpfunos Hourly Maintenance begins <==');
-    //$this->custom_logs('---');
-    //$this->wpfunos_admin_cronjobs->wpfunosHourlyMaintenance();
-    //$this->custom_logs('==> Wpfunos Hourly Maintenance ends <==');
-    //$this->custom_logs('---');
+    $timeFirst  = strtotime('now');
+    $this->custom_logs('==> Wpfunos Hourly Maintenance begins <==');
+    $this->custom_logs('---');
+    $this->wpfunos_admin_cronjobs->wpfunosHourlyMaintenance();
+    $total = strtotime('now') - $timeFirst ;
+    $this->custom_logs('==> Wpfunos Hourly Maintenance ends <== ' .$total.' sec.');
+    $this->custom_logs('---');
   }
   /**
   * Register the Cron Job.
@@ -1217,14 +1219,14 @@ class Wpfunos_Admin {
   public function logFiles()
   {
     $upload_dir = wp_upload_dir();
-    $files = scandir( $upload_dir['basedir'] . '/' . 'wpfunos-logs');
+    $files = scandir( $upload_dir['basedir'] . '/wpfunos-logs');
     ?>
     <form action="" method="post">
       <ul>
         <?php foreach ( $files as $file ) { ?>
           <?php if( substr( $file , -4) == '.log'){?>
             <li><input type="radio" id="age[]" name="logfile" value="<?php esc_html_e( $file ); ?>">
-              <?php esc_html_e( $file . ' -> ' . date("d-m-Y H:i:s", filemtime( $upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file  ) ) ); ?>
+              <?php esc_html_e( $file . ' -> ' . date("d-m-Y H:i:s", filemtime( $upload_dir['basedir'] . '/wpfunos-logs/' . $file  ) ) ); ?>
             </li>
           <?php }?>
         <?php }?>
@@ -1246,7 +1248,7 @@ class Wpfunos_Admin {
       <hr />
       <h3><?php esc_html_e( $_POST['logfile'] ); ?> </h3>
       <textarea id="wpfunoslogfile" name="wpfunoslogfile" rows="30" cols="180" readonly>
-        <?php esc_html_e( ( file_get_contents( $upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $_POST['logfile'] ) ) ); ?>
+        <?php esc_html_e( ( file_get_contents( $upload_dir['basedir'] . '/wpfunos-logs/' . $_POST['logfile'] ) ) ); ?>
       </textarea>
       <?php
     }

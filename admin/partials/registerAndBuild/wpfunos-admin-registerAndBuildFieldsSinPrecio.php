@@ -20,22 +20,22 @@ add_settings_section(
 );
 // Sección Compara precios resultados sin precio Superior
 add_settings_field(
-  $this->plugin_name . '_seccionComparaPreciosResultadosSinPrecio',
-  'Sección compara precios Resultados Sin Precio Superior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosSinPrecio)</h6>', 
+  'wpfunos_seccionComparaPreciosResultadosSinPrecio',
+  'Sección compara precios Resultados Sin Precio Superior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosSinPrecio)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_sinprecio_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosSinPrecio','name' => $this->plugin_name . '_seccionComparaPreciosResultadosSinPrecio','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_seccionComparaPreciosResultadosSinPrecio','name' => 'wpfunos_seccionComparaPreciosResultadosSinPrecio','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Sección Compara precios resultados sin precio Inferior
 add_settings_field(
-  $this->plugin_name . '_seccionComparaPreciosResultadosSinPrecioInferior',
+  'wpfunos_seccionComparaPreciosResultadosSinPrecioInferior',
   'Sección compara precios Resultados Sin Precio Inferior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosSinPrecioInferior)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_sinprecio_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosSinPrecioInferior','name' => $this->plugin_name . '_seccionComparaPreciosResultadosSinPrecioInferior','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_seccionComparaPreciosResultadosSinPrecioInferior','name' => 'wpfunos_seccionComparaPreciosResultadosSinPrecioInferior','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosSinPrecio');
-register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosSinPrecioInferior');
+register_setting('wpfunos_general_settings', 'wpfunos_seccionComparaPreciosResultadosSinPrecio');
+register_setting('wpfunos_general_settings', 'wpfunos_seccionComparaPreciosResultadosSinPrecioInferior');

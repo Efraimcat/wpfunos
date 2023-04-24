@@ -486,43 +486,43 @@ if ( ! defined( 'ABSPATH' ) ) {
     $notes_servicioPosiblesExtras = get_post_meta( $post->ID, 'wpfunos_servicioPosiblesExtras', true );
     $args_servicioPosiblesExtras = array( 'textarea_name' => 'wpfunos_servicioPosiblesExtras', );
     ?>
-    <li><label for="'.$this->plugin_name.'_servicioPrecioBaseComentario" style="font-size: 32px;">Notas Precio Base</label>
+    <li><label for="'.'wpfunos_servicioPrecioBaseComentario" style="font-size: 32px;">Notas Precio Base</label>
       <?php	wp_editor( $notes_servicioPrecioBaseComentario, 'wpfunos_servicioPrecioBaseComentario',$args_servicioPrecioBaseComentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioDestino_1Comentario" style="font-size: 32px;">Notas Entierro</label>
+    <li><label for="'.'wpfunos_servicioDestino_1Comentario" style="font-size: 32px;">Notas Entierro</label>
       <?php	wp_editor( $notes_servicioDestino_1Comentario, 'wpfunos_servicioDestino_1Comentario',$args_servicioDestino_1Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioDestino_2Comentario" style="font-size: 32px;">Notas Incineración</label>
+    <li><label for="'.'wpfunos_servicioDestino_2Comentario" style="font-size: 32px;">Notas Incineración</label>
       <?php	wp_editor( $notes_servicioDestino_2Comentario, 'wpfunos_servicioDestino_2Comentario',$args_servicioDestino_2Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioDestino_3Comentario" style="font-size: 32px;">Notas Traslado</label>
+    <li><label for="'.'wpfunos_servicioDestino_3Comentario" style="font-size: 32px;">Notas Traslado</label>
       <?php	wp_editor( $notes_servicioDestino_3Comentario, 'wpfunos_servicioDestino_3Comentario',$args_servicioDestino_3Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_1Comentario" style="font-size: 32px;">Notas Ataud Ecológico Económico</label>
+    <li><label for="'.'wpfunos_servicioAtaudEcologico_1Comentario" style="font-size: 32px;">Notas Ataud Ecológico Económico</label>
       <?php	wp_editor( $notes_servicioAtaudEcologico_1Comentario, 'wpfunos_servicioAtaudEcologico_1Comentario',$args_servicioAtaudEcologico_1Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_2Comentario" style="font-size: 32px;">Notas Ataud Ecológico Medio</label>
+    <li><label for="'.'wpfunos_servicioAtaudEcologico_2Comentario" style="font-size: 32px;">Notas Ataud Ecológico Medio</label>
       <?php	wp_editor( $notes_servicioAtaudEcologico_2Comentario, 'wpfunos_servicioAtaudEcologico_2Comentario',$args_servicioAtaudEcologico_2Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioAtaudEcologico_3Comentario" style="font-size: 32px;">Notas Ataud Ecológico Premium</label>
+    <li><label for="'.'wpfunos_servicioAtaudEcologico_3Comentario" style="font-size: 32px;">Notas Ataud Ecológico Premium</label>
       <?php	wp_editor( $notes_servicioAtaudEcologico_3Comentario, 'wpfunos_servicioAtaudEcologico_3Comentario',$args_servicioAtaudEcologico_3Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioVelatorioComentario" style="font-size: 32px;">Notas Velatorio</label>
+    <li><label for="'.'wpfunos_servicioVelatorioComentario" style="font-size: 32px;">Notas Velatorio</label>
       <?php	wp_editor( $notes_servicioVelatorioComentario, 'wpfunos_servicioVelatorioComentario',$args_servicioVelatorioComentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioVelatorioNoComentario" style="font-size: 32px;">Notas Velatorio No</label>
+    <li><label for="'.'wpfunos_servicioVelatorioNoComentario" style="font-size: 32px;">Notas Velatorio No</label>
       <?php	wp_editor( $notes_servicioVelatorioNoComentario, 'wpfunos_servicioVelatorioNoComentario',$args_servicioVelatorioNoComentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioDespedida_1Comentario" style="font-size: 32px;">Notas Despedida Sala</label>
+    <li><label for="'.'wpfunos_servicioDespedida_1Comentario" style="font-size: 32px;">Notas Despedida Sala</label>
       <?php	wp_editor( $notes_servicioDespedida_1Comentario, 'wpfunos_servicioDespedida_1Comentario',$args_servicioDespedida_1Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioDespedida_2Comentario" style="font-size: 32px;">Notas Despedida Civil</label>
+    <li><label for="'.'wpfunos_servicioDespedida_2Comentario" style="font-size: 32px;">Notas Despedida Civil</label>
       <?php	wp_editor( $notes_servicioDespedida_2Comentario, 'wpfunos_servicioDespedida_2Comentario',$args_servicioDespedida_2Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioDespedida_3Comentario" style="font-size: 32px;">Notas Religiosa</label>
+    <li><label for="'.'wpfunos_servicioDespedida_3Comentario" style="font-size: 32px;">Notas Religiosa</label>
       <?php	wp_editor( $notes_servicioDespedida_3Comentario, 'wpfunos_servicioDespedida_3Comentario',$args_servicioDespedida_3Comentario); ?>
     </li>
-    <li><label for="'.$this->plugin_name.'_servicioPosiblesExtras" style="font-size: 32px;">Posibles extras</label>
+    <li><label for="'.'wpfunos_servicioPosiblesExtras" style="font-size: 32px;">Posibles extras</label>
       <?php	wp_editor( $notes_servicioPosiblesExtras, 'wpfunos_servicioPosiblesExtras',$args_servicioPosiblesExtras); ?>
     </li>
   </ul>

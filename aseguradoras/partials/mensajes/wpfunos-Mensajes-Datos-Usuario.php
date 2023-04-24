@@ -23,7 +23,7 @@ $CP = get_post_meta( $IDusuario, 'wpfunos_userCP', true );
 switch($respuesta[2]){ case '1': $sexo = 'Hombre'; break; case '2'; $sexo = 'Mujer'; break; }
 $edad =  date("Y") - (int)$respuesta[3];
 $any = $respuesta[3];
-$seguro = get_post_meta( $IDusuario, $this->plugin_name . '_userSeguro', true );
+$seguro = get_post_meta( $IDusuario, 'wpfunos_userSeguro', true );
 $seguroSiNo = 'Si';
 if( $seguro == '2' ) $seguroSiNo = 'No';
 $URL = get_post_meta( $IDusuario, 'wpfunos_userURL', true );

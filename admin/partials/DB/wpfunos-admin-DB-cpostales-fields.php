@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 * @subpackage Wpfunos/admin/partials/DB
 * @author     Efraim Bayarri <efraim@efraim.cat>
 */
-$cpostalesPoblacion = sanitize_text_field( $_POST[$this->plugin_name . '_cpostalesPoblacion'] );
-$cpostalesCodigo = sanitize_text_field( $_POST[$this->plugin_name . '_cpostalesCodigo'] );
-$Dummy = sanitize_text_field( $_POST[$this->plugin_name . '_Dummy'] );
+$cpostalesPoblacion = sanitize_text_field( $_POST['wpfunos_cpostalesPoblacion'] );
+$cpostalesCodigo = sanitize_text_field( $_POST['wpfunos_cpostalesCodigo'] );
+$Dummy = sanitize_text_field( $_POST['wpfunos_Dummy'] );
 
-update_post_meta($post_id, $this->plugin_name . '_cpostalesPoblacion', $cpostalesPoblacion);
-update_post_meta($post_id, $this->plugin_name . '_cpostalesCodigo', $cpostalesCodigo);
-update_post_meta($post_id, $this->plugin_name . '_Dummy', $Dummy);
+update_post_meta($post_id, 'wpfunos_cpostalesPoblacion', $cpostalesPoblacion);
+update_post_meta($post_id, 'wpfunos_cpostalesCodigo', $cpostalesCodigo);
+update_post_meta($post_id, 'wpfunos_Dummy', $Dummy);

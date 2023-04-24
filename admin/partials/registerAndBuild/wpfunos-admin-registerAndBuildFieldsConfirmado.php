@@ -20,32 +20,32 @@ add_settings_section(
 );
 // Sección Compara precios resultados New Design
 add_settings_field(
-  $this->plugin_name . '_seccionComparaPreciosResultadosNewDesign',
-  'Sección compara precios Resultados Nuevo diseño <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosNewDesign)</h6>', 
+  'wpfunos_seccionComparaPreciosResultadosNewDesign',
+  'Sección compara precios Resultados Nuevo diseño <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosNewDesign)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_confirmado_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosNewDesign','name' => $this->plugin_name . '_seccionComparaPreciosResultadosNewDesign','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_seccionComparaPreciosResultadosNewDesign','name' => 'wpfunos_seccionComparaPreciosResultadosNewDesign','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Sección Compara precios resultados superior
 add_settings_field(
-  $this->plugin_name . '_seccionComparaPreciosResultados',
+  'wpfunos_seccionComparaPreciosResultados',
   'Sección compara precios Resultados Superior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultados)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_confirmado_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultados','name' => $this->plugin_name . '_seccionComparaPreciosResultados','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_seccionComparaPreciosResultados','name' => 'wpfunos_seccionComparaPreciosResultados','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 // Sección Compara precios resultados inferior
 add_settings_field(
-  $this->plugin_name . '_seccionComparaPreciosResultadosInferior',
+  'wpfunos_seccionComparaPreciosResultadosInferior',
   'Sección compara precios Resultados Inferior <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_seccionComparaPreciosResultadosInferior)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_general_settings',
   'wpfunos_general_confirmado_section',
-  array('type' => 'input','subtype' => 'text','id' => $this->plugin_name . '_seccionComparaPreciosResultadosInferior','name' => $this->plugin_name . '_seccionComparaPreciosResultadosInferior','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_seccionComparaPreciosResultadosInferior','name' => 'wpfunos_seccionComparaPreciosResultadosInferior','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosNewDesign');
-register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultados');
-register_setting('wpfunos_general_settings', $this->plugin_name . '_seccionComparaPreciosResultadosInferior');
+register_setting('wpfunos_general_settings', 'wpfunos_seccionComparaPreciosResultadosNewDesign');
+register_setting('wpfunos_general_settings', 'wpfunos_seccionComparaPreciosResultados');
+register_setting('wpfunos_general_settings', 'wpfunos_seccionComparaPreciosResultadosInferior');
