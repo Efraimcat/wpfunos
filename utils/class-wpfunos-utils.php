@@ -66,7 +66,7 @@ class Wpfunos_Utils {
   * do_action('wpfunos_log', 'referencia: ' .  $fields['referencia'] );
   */
   public function wpfunosLog( $message ){
-    if(get_option('wpfunos_Debug')) $this->custom_logs( $this->dumpPOST($message) );
+    $this->custom_logs( $this->dumpPOST($message) );
     return true;
   }
 

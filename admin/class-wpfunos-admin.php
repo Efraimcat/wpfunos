@@ -160,7 +160,7 @@ class Wpfunos_Admin {
     $this->custom_logs('---');
     $this->wpfunos_admin_cronjobs->wpfunosMaintenance();
     $total = strtotime('now') - $timeFirst ;
-    $this->custom_logs('==> Wpfunos 10 min Maintenance ends <== ' .$total.' sec.');
+    $this->custom_logs('==> Wpfunos Daily Maintenance ends <== ' .$total.' sec.');
     $this->custom_logs('---');
   }
   /**
@@ -219,9 +219,7 @@ class Wpfunos_Admin {
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración API Preventiva WpFunos', 'wpfunos'), esc_html__('Configuración API Preventiva', 'wpfunos'), 'administrator', 'wpfunos-APIPreventiva', array( $this, 'displayPluginAdminAPIPreventiva' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración API DKV WpFunos', 'wpfunos'), esc_html__('Configuración API DKV', 'wpfunos'), 'administrator', 'wpfunos-APIDKV', array( $this, 'displayPluginAdminAPIDKV' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración Direcciones IP WpFunos', 'wpfunos'), esc_html__('Configuración Direcciones IP', 'wpfunos'), 'administrator', 'wpfunos-direccionesIP', array( $this, 'displayPluginAdminDireccionesIP' ));
-    if(get_option('wpfunos_Debug')){
-      add_submenu_page( 'wpfunosconfig' , esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', 'wpfunos-logs', array( $this, 'displayPluginAdminLogs' ));
-    }
+    add_submenu_page( 'wpfunosconfig', esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', 'wpfunos-logs', array( $this, 'displayPluginAdminLogs' ));
     add_submenu_page( 'wpfunosprecios_poblacion', esc_html__('Configuración precios población WpFunos', 'wpfunos'), esc_html__('Configuración precios población', 'wpfunos'), 'administrator', 'wpfunos-settingspreciospoblacion', array( $this, 'displayPreciosPoblacionSettings' ));
     add_submenu_page( 'wpfunos_directorio', esc_html__('Import-Export Directorio', 'wpfunos'), esc_html__('Import-Export', 'wpfunos'), 'administrator', 'wpfunos-import-export-directorio', array( $this, 'displayImportExportDirectorio' ));
   }
