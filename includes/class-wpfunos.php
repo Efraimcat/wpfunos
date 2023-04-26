@@ -85,6 +85,7 @@ class Wpfunos {
 		$this->define_visitas_hooks();
 		$this->define_directorio_hooks();
 		$this->define_masterdatos_hooks();
+		//$this->define_wpfAPI_hooks();
 	}
 
 	/**
@@ -162,6 +163,11 @@ class Wpfunos {
 		* Masterdatos
 		*/
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'masterdatos/class-wpfunos-masterdatos.php';
+
+		/**
+		* WpfAPI
+		*/
+		//require_once plugin_dir_path( dirname( __FILE__ ) ) . 'wpfAPI/class-wpfAPI.php';
 
 		/**
 		*
@@ -332,6 +338,19 @@ class Wpfunos {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_masterdatos, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_masterdatos, 'enqueue_scripts' );
+
+	}
+
+	/**
+	* Register all of the hooks directorio
+	* of the plugin.
+	*
+	* @since    2.0.0
+	* @access   private
+	*/
+	private function define_wpfAPI_hooks() {
+
+		//$plugin_wpfAPI = new Wpfunos_WpfAPI( $this->get_plugin_name(), $this->get_version() );
 
 	}
 
