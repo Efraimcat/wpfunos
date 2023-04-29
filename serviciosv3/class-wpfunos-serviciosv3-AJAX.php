@@ -291,7 +291,19 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
               $headers[] = 'Content-Type: text/html; charset=UTF-8';
               wp_mail ( 'efraim@efraim.cat', get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
             }else{
+
+
+
+
+
               wp_mail ( get_option('wpfunos_mailCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
+
+
+
+
+
+
+
             }
 
             do_action('wpfunos_log', '==============' );
@@ -407,7 +419,32 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         * [http_response] = Object (WP_HTTP_Requests_Response)</br> |   data -> NULL</br> |   headers -> NULL</br> |   status -> NULL'
         */
         // SMS
-      }
+
+        // Clientify
+        if( get_option('wpfunos_APIClientifyActivaClientify') ){
+          do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios' );
+          $timeFirst  = strtotime('now');
+
+          $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $wpfemail, "phome" => $Telefono, "nombre" => $wpfnombre )  );
+          do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
+
+          if( $contacts == ''){
+            do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
+            $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $wpfemail, "phome" => $Telefono, "nombre" => $wpfnombre )  );
+          }else{
+            do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
+          }
+
+          do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
+
+
+
+          $total = strtotime('now') - $timeFirst ;
+          do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios END: '.$total.' sec.');
+        }
+        // Clientify
+
+      }// END if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') )
 
       //Última Búsqueda
       if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){

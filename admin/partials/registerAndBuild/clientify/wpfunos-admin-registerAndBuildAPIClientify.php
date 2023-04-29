@@ -20,21 +20,21 @@ add_settings_section(
   'wpfunos_APIClientify_settings'                 				// Page on which to add this section of options
 );
 add_settings_field(
-  'wpfunos_APIClientifyUsuarioClientify',
-  'Usuario API Clientify <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIClientifyUsuarioClientify)</h6>',
+  'wpfunos_APIClientifyActivaClientify',
+  'Clientify activo <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIClientifyActivaClientify)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIClientify_settings',
   'wpfunos_APIClientify_section',
-  array('type' => 'input','subtype' => 'password','id' => 'wpfunos_APIClientifyUsuarioClientify','name' => 'wpfunos_APIClientifyUsuarioClientify','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_APIClientifyActivaClientify','name' => 'wpfunos_APIClientifyActivaClientify','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 add_settings_field(
-  'wpfunos_APIClientifyPasswordClientify',
-  'Password API Clientify <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIClientifyPasswordClientify)</h6>',
+  'wpfunos_APIClientifyKeyClientify',
+  'API Key Clientify <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_APIClientifyKeyClientify)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_APIClientify_settings',
   'wpfunos_APIClientify_section',
-  array('type' => 'input','subtype' => 'password','id' => 'wpfunos_APIClientifyPasswordClientify','name' => 'wpfunos_APIClientifyPasswordClientify','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'password','id' => 'wpfunos_APIClientifyKeyClientify','name' => 'wpfunos_APIClientifyKeyClientify','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
 );
 
-register_setting('wpfunos_APIClientify_settings', 'wpfunos_APIClientifyUsuarioClientify');
-register_setting('wpfunos_APIClientify_settings', 'wpfunos_APIClientifyPasswordClientify');
+register_setting('wpfunos_APIClientify_settings', 'wpfunos_APIClientifyKeyClientify');
+register_setting('wpfunos_APIClientify_settings', 'wpfunos_APIClientifyActivaClientify');

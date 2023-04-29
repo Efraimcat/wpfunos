@@ -182,7 +182,7 @@ class Wpfunos_Public {
         'method'      => 'POST',
       ));
 
-      $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
+      $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS['body'] );
       do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
       //
       $expiry = strtotime('+1 month');
@@ -192,6 +192,27 @@ class Wpfunos_Public {
       //
       do_action('wpfunos-visitas-entrada',array( 'tipo' => '6', ) );
 
+      // Clientify
+      if( get_option('wpfunos_APIClientifyActivaClientify') ){
+        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Quiero que me llamen' );
+        $timeFirst  = strtotime('now');
+
+        $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $fields['email'], "phome" => $fields['telefono'], "nombre" => $fields['nombre'] )  );
+        do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
+
+        if( $contacts == ''){
+          do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
+          $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $fields['email'], "phome" => $fields['telefono'], "nombre" => $fields['nombre'] )  );
+        }else{
+          do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
+        }
+
+        do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
+
+        $total = strtotime('now') - $timeFirst ;
+        do_action('wpfunos_log', $userIP.' - '.'Envio Clientify Quiero que me llamen END: '.$total.' sec.');
+      }
+      // END Clientify
 
     }// if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name )
 
