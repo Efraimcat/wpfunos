@@ -83,7 +83,7 @@ add_action( 'init', 'set_funos_cookie' );
 function set_funos_referer() {
   $userIP = apply_filters('wpfunos_userIP','dummy');
   $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
-  if( $referer != '' && !strpos($referer, '/funos.es/') && !strpos($referer, '/FUNOS.ES/') ){
+  if( $referer != '' && !strpos($referer, '/funos.es') && !strpos($referer, '/FUNOS.ES') ){
     set_transient( 'wpfunos-referer-' .$userIP, $referer, HOUR_IN_SECONDS );
   }
 }
