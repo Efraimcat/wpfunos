@@ -197,17 +197,19 @@ class Wpfunos_Public {
         do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Quiero que me llamen' );
         $timeFirst  = strtotime('now');
 
-        $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $fields['email'], "phome" => $fields['telefono'], "nombre" => $fields['nombre'] )  );
+        $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $fields['email'], "phone" => $fields['telefono'], "nombre" => $fields['nombre'] ) );
         do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
 
         if( $contacts == ''){
           do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
-          $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $fields['email'], "phome" => $fields['telefono'], "nombre" => $fields['nombre'] )  );
+          $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $fields['email'], "phone" => $fields['telefono'], "nombre" => $fields['nombre'] ) );
         }else{
           do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
         }
-
         do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
+
+        $deals = apply_filters('wpfclientify-create-deal-llamen', array( "email" => $fields['email'], "nombre" => $fields['nombre'], "clientID" => $contacts, "form_name" => $form_name) );
+        do_action('wpfunos_log', $userIP.' - '.'ID deal: ' . $deals );
 
         $total = strtotime('now') - $timeFirst ;
         do_action('wpfunos_log', $userIP.' - '.'Envio Clientify Quiero que me llamen END: '.$total.' sec.');

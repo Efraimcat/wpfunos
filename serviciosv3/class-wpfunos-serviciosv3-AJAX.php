@@ -291,19 +291,13 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
               $headers[] = 'Content-Type: text/html; charset=UTF-8';
               wp_mail ( 'efraim@efraim.cat', get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
             }else{
-
-
-
-
-
+              //
+              //
+              //
               wp_mail ( get_option('wpfunos_mailCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
-
-
-
-
-
-
-
+              //
+              //
+              //
             }
 
             do_action('wpfunos_log', '==============' );
@@ -425,12 +419,12 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios' );
           $timeFirst  = strtotime('now');
 
-          $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $wpfemail, "phome" => $Telefono, "nombre" => $wpfnombre )  );
+          $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $wpfemail, "phone" => $Telefono, "nombre" => $wpfnombre )  );
           do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
 
           if( $contacts == ''){
             do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
-            $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $wpfemail, "phome" => $Telefono, "nombre" => $wpfnombre )  );
+            $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $wpfemail, "phone" => $Telefono, "nombre" => $wpfnombre )  );
           }else{
             do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
           }
