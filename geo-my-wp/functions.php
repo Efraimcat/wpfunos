@@ -80,6 +80,15 @@ function set_funos_cookie() {
 }
 add_action( 'init', 'set_funos_cookie' );
 
+function set_funos_referer() {
+  $userIP = apply_filters('wpfunos_userIP','dummy');
+  $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+  if( $referer != '' && !strpos($referer, '/funos.es/') && !strpos($referer, '/FUNOS.ES/') ){
+    set_transient( 'wpfunos-referer-' .$userIP, $referer, HOUR_IN_SECONDS );
+  }
+}
+add_action( 'init', 'set_funos_referer' );
+
 function wpf_admin_notice_warn() {
   global $pagenow;
   $user = wp_get_current_user();

@@ -208,7 +208,14 @@ class Wpfunos_Public {
         }
         do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
 
-        $deals = apply_filters('wpfclientify-create-deal-llamen', array( "email" => $fields['email'], "nombre" => $fields['nombre'], "clientID" => $contacts, "form_name" => $form_name) );
+        $deals = apply_filters('wpfclientify-create-deal',
+        array(
+          "email" => $fields['email'],
+          "nombre" => $fields['nombre'],
+          "clientID" => $contacts,
+          "form_name" => $form_name,
+          "origen" => 'Formulario te llamamos'
+        ));
         do_action('wpfunos_log', $userIP.' - '.'ID deal: ' . $deals );
 
         $total = strtotime('now') - $timeFirst ;

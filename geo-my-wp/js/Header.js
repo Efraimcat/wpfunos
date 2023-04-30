@@ -71,3 +71,8 @@ jQuery.post('/wp-admin/admin-ajax.php', data, function(response) {
 		document.cookie = "wpfunosloggedin=yes;expires=session; path=/;SameSite=Lax;secure";
 	}
 });
+
+var initreferrer = document.referrer;
+if(initreferrer.indexOf('funos.es') === -1 ) { // Check if the referer is your site or not. If not( return -1 ) set the localStorage.
+	sessionStorage.setItem("wpfunos_referrer", initreferrer);
+}

@@ -431,7 +431,20 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
           do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
 
-
+          $deals = apply_filters('wpfclientify-create-deal',
+          array(
+            "email" => $wpfemail,
+            "nombre" => $wpfnombre,
+            "clientID" => $contacts,
+            "ubicacion" => $wpfubic,
+            "referencia" => $wpfnewref,
+            "cuando" => $wpfcuando,
+            "destino" => $wpfdestino,
+            "velatorio" => $wpfvelatorio,
+            "ceremonia" => $wpfceremonia,
+            "origen" => 'Entrada datos usuario'
+          ));
+          do_action('wpfunos_log', $userIP.' - '.'ID deal: ' . $deals );
 
           $total = strtotime('now') - $timeFirst ;
           do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios END: '.$total.' sec.');
@@ -763,6 +776,46 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       }
       // SMS
+      // Clientify
+      if( get_option('wpfunos_APIClientifyActivaClientify') ){
+        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios' );
+        $timeFirst  = strtotime('now');
+
+        $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $wpfemail, "phone" => $Telefono, "nombre" => $wpfnombre )  );
+        do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
+
+        if( $contacts == ''){
+          do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
+          $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $wpfemail, "phone" => $Telefono, "nombre" => $wpfnombre )  );
+        }else{
+          do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
+        }
+
+        do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
+
+        $deals = apply_filters('wpfclientify-create-deal',
+        array(
+          "email" => $wpfemail,
+          "nombre" => $wpfnombre,
+          "clientID" => $contacts,
+          "ubicacion" => $wpfubic,
+          "referencia" => $wpfnewref,
+          "cuando" => $wpfcuando,
+          "destino" => $wpfdestino,
+          "velatorio" => $wpfvelatorio,
+          "ceremonia" => $wpfceremonia,
+          "origen" => 'Servicio botón Llamamos',
+          "precio" => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
+          "nombreServicio" => $titulo,
+          "nombreFuneraria" => get_the_title( $servicio ),
+          "telefonoServicio" => get_post_meta( $servicio, "wpfunos_servicioTelefono", true),
+        ));
+        do_action('wpfunos_log', $userIP.' - '.'ID deal: ' . $deals );
+
+        $total = strtotime('now') - $timeFirst ;
+        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios END: '.$total.' sec.');
+      }
+      // Clientify
     }
 
     $result['type'] = "success";
@@ -1046,6 +1099,46 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       }
       // SMS
+      // Clientify
+      if( get_option('wpfunos_APIClientifyActivaClientify') ){
+        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios' );
+        $timeFirst  = strtotime('now');
+
+        $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $wpfemail, "phone" => $Telefono, "nombre" => $wpfnombre )  );
+        do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
+
+        if( $contacts == ''){
+          do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
+          $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $wpfemail, "phone" => $Telefono, "nombre" => $wpfnombre )  );
+        }else{
+          do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
+        }
+
+        do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
+
+        $deals = apply_filters('wpfclientify-create-deal',
+        array(
+          "email" => $wpfemail,
+          "nombre" => $wpfnombre,
+          "clientID" => $contacts,
+          "ubicacion" => $wpfubic,
+          "referencia" => $wpfnewref,
+          "cuando" => $wpfcuando,
+          "destino" => $wpfdestino,
+          "velatorio" => $wpfvelatorio,
+          "ceremonia" => $wpfceremonia,
+          "origen" => 'Servicio botón Llamar',
+          "precio" => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
+          "nombreServicio" => $titulo,
+          "nombreFuneraria" => get_the_title( $servicio ),
+          "telefonoServicio" => get_post_meta( $servicio, "wpfunos_servicioTelefono", true),
+        ));
+        do_action('wpfunos_log', $userIP.' - '.'ID deal: ' . $deals );
+
+        $total = strtotime('now') - $timeFirst ;
+        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios END: '.$total.' sec.');
+      }
+      // Clientify
     }
 
     $result['type'] = "success";
@@ -1333,6 +1426,46 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       }
       // SMS
+      // Clientify
+      if( get_option('wpfunos_APIClientifyActivaClientify') ){
+        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios' );
+        $timeFirst  = strtotime('now');
+
+        $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $wpfemail, "phone" => $Telefono, "nombre" => $wpfnombre )  );
+        do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
+
+        if( $contacts == ''){
+          do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
+          $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $wpfemail, "phone" => $Telefono, "nombre" => $wpfnombre )  );
+        }else{
+          do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
+        }
+
+        do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
+
+        $deals = apply_filters('wpfclientify-create-deal',
+        array(
+          "email" => $wpfemail,
+          "nombre" => $wpfnombre,
+          "clientID" => $contacts,
+          "ubicacion" => $wpfubic,
+          "referencia" => $wpfnewref,
+          "cuando" => $wpfcuando,
+          "destino" => $wpfdestino,
+          "velatorio" => $wpfvelatorio,
+          "ceremonia" => $wpfceremonia,
+          "origen" => 'Servicio botón Presupuesto',
+          "precio" => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
+          "nombreServicio" => $titulo,
+          "nombreFuneraria" => get_the_title( $servicio ),
+          "telefonoServicio" => get_post_meta( $servicio, "wpfunos_servicioTelefono", true),
+        ));
+        do_action('wpfunos_log', $userIP.' - '.'ID deal: ' . $deals );
+
+        $total = strtotime('now') - $timeFirst ;
+        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos servicios END: '.$total.' sec.');
+      }
+      // Clientify
     }
 
     $result['type'] = "success";
