@@ -380,6 +380,17 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
 
         <tr>
+          <td><?php esc_html_e('ClientifyIDusuario', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_userClientifyIDusuario','name' => 'wpfunos_userClientifyIDusuario','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+        </tr>
+        <tr>
+          <td><?php esc_html_e('ClientifyIDdeal', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_userClientifyIDdeal','name' => 'wpfunos_userClientifyIDdeal','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+        </tr>
+
+        <tr>
           <td><?php esc_html_e('resp', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'resp1','name' => 'resp1','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID));?></td>

@@ -307,6 +307,41 @@ class Wpfunos_Public {
       );
       $post_id = wp_insert_post($my_post);
 
+      // Clientify
+      if( get_option('wpfunos_APIClientifyActivaClientify') ){
+        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos aseguradora' );
+        $timeFirst  = strtotime('now');
+
+        $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $fields['email'], "phone" => $fields['telefono'], "nombre" => $fields['Nombre'] ) );
+        do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
+
+        if( $contacts == ''){
+          do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
+          $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $fields['email'], "phone" => $fields['telefono'], "nombre" => $fields['Nombre'] ) );
+        }else{
+          do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
+        }
+        do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
+        update_post_meta( $post_id, 'wpfunos_userClientifyIDusuario', $contacts );
+
+        $deals = apply_filters('wpfclientify-create-deal',
+        array(
+          "email" => $fields['email'],
+          "nombre" => $fields['Nombre'],
+          "clientID" => $contacts,
+          "form_name" => 'Entrada Aseguradora',
+          "referencia" => $fields['referencia'],
+          "origen" => 'Entrada datos aseguradora'
+        ));
+        do_action('wpfunos_log', $userIP.' - '.'ID deal: ' . $deals );
+        update_post_meta( $post_id, 'wpfunos_userClientifyIDdeal', $deals );
+
+        $total = strtotime('now') - $timeFirst ;
+        do_action('wpfunos_log', $userIP.' - '.'Entrada datos aseguradora END: '.$total.' sec.');
+      }
+      // END Clientify
+
+
       // wpfunos-visitas-entrada
       do_action('wpfunos-visitas-entrada',array(
         'tipo' => '2',

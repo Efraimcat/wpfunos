@@ -81,6 +81,22 @@ function set_funos_cookie() {
 add_action( 'init', 'set_funos_cookie' );
 
 function set_funos_referer() {
+  //utm_campaign
+  //
+  // Recommended
+  // $str = "first=value&arr[]=foo+bar&arr[]=baz";
+  //  parse_str($str, $output);
+  //  echo $output['first'];  // value
+  //  echo $output['arr'][0]; // foo bar
+  //  echo $output['arr'][1]; // baz
+  //
+  $userIP = apply_filters('wpfunos_userIP','dummy');
+  $query = sanitize_text_field( $_SERVER['QUERY_STRING'] );
+  if( strpos( $query, 'utm_campaign' ) ){
+    parse_str($query,$output);
+    set_transient( 'wpfunos-query-' .$userIP, $output, HOUR_IN_SECONDS );
+  }
+
   $userIP = apply_filters('wpfunos_userIP','dummy');
   $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
   if( $referer != '' && !strpos($referer, '/funos.es') && !strpos($referer, '/FUNOS.ES') ){

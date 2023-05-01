@@ -101,6 +101,9 @@ $IDstamp= sanitize_text_field( $_POST['IDstamp'] );
 $userLog = sanitize_text_field( $_POST['wpfunos_userLog'] );
 $userMobile = sanitize_text_field( $_POST['wpfunos_userMobile'] );
 
+$userClientifyIDusuario  = sanitize_text_field( $_POST['wpfunos_userClientifyIDusuario'] );
+$userClientifyIDdeal  = sanitize_text_field( $_POST['wpfunos_userClientifyIDdeal'] );
+
 $resp1 = sanitize_text_field( $_POST['resp1'] );
 $resp2 = sanitize_text_field( $_POST['resp2'] );
 $resp3 = sanitize_text_field( $_POST['resp3'] );
@@ -194,6 +197,9 @@ update_post_meta($post_id, 'wpfunos_Dummy', $Dummy);
 update_post_meta($post_id, 'IDstamp', $IDstamp);
 update_post_meta($post_id, 'wpfunos_userLog', $userLog);
 update_post_meta($post_id, 'wpfunos_userMobile', $userMobile);
+
+update_post_meta($post_id, 'wpfunos_userClientifyIDusuario', $userClientifyIDusuario);
+update_post_meta($post_id, 'wpfunos_userClientifyIDdeal', $userClientifyIDdeal);
 
 update_post_meta($post_id, 'resp1', $resp1);
 update_post_meta($post_id, 'resp2', $resp2);
