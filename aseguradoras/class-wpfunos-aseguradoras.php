@@ -300,7 +300,7 @@ class Wpfunos_Aseguradoras {
   * https://preventivaleads.fidelitycloud.es/ContactsImporterElectium/api/Contact
   *
   **/
-  public function wpfunosAPIAseguradora( $usuario, $servicio, $mensaje ){
+  public function wpfunosAPIAseguradora( $usuario, $servicio, $mensaje, $accion = "" ){
 
     if( site_url() === 'https://dev.funos.es'){
       return;
@@ -534,7 +534,18 @@ class Wpfunos_Aseguradoras {
         do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $request['response']  ) );
         do_action('wpfunos_log', $userIP.' - '.'$email: ' . $email );
       }
-
+      // Clientify
+      $params = array(
+        "clientifyaction" => 'Aseguradora botón '.$accion,
+        "email" => $email,
+        "nombre" => $nombre,
+        "phone" => $telefono,
+        "ubicacion" => $ubicacion,
+        "referencia" => $mensaje_referencia,
+        "origen" => 'Aseguradora botón '.$accion. ' ' .$api
+      );
+      do_action( 'wpfclientify-process-entry', $params );
+      // END Clientify
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
       do_action('wpfunos_log', '==============' );
@@ -648,7 +659,7 @@ class Wpfunos_Aseguradoras {
 
       // Desactivar para pruebas
       if( site_url() === 'https://funos.es'){
-        $this->wpfunosAPIAseguradora( $IDusuario, 39084, 'Cold Lead');
+        $this->wpfunosAPIAseguradora( $IDusuario, 39084, 'Cold Lead', "" );
       }
 
     }
@@ -749,7 +760,7 @@ class Wpfunos_Aseguradoras {
       die();
     }
 
-    $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje );
+    $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje, "Llamamos" );
 
     $result['type'] = "success";
     $result['respuesta'] = $respuesta;
@@ -785,7 +796,7 @@ class Wpfunos_Aseguradoras {
       die();
     }
 
-    $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje );
+    $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje, "Presupuesto" );
 
     $result['type'] = "success";
     $result['respuesta'] = $respuesta;

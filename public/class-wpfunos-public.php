@@ -193,34 +193,16 @@ class Wpfunos_Public {
       do_action('wpfunos-visitas-entrada',array( 'tipo' => '6', ) );
 
       // Clientify
-      if( get_option('wpfunos_APIClientifyActivaClientify') ){
-        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Quiero que me llamen' );
-        $timeFirst  = strtotime('now');
-
-        $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $fields['email'], "phone" => $fields['telefono'], "nombre" => $fields['nombre'] ) );
-        do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
-
-        if( $contacts == ''){
-          do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
-          $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $fields['email'], "phone" => $fields['telefono'], "nombre" => $fields['nombre'] ) );
-        }else{
-          do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
-        }
-        do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
-
-        $deals = apply_filters('wpfclientify-create-deal',
-        array(
-          "email" => $fields['email'],
-          "nombre" => $fields['nombre'],
-          "clientID" => $contacts,
-          "form_name" => $form_name,
-          "origen" => 'Formulario te llamamos'
-        ));
-        do_action('wpfunos_log', $userIP.' - '.'ID deal: ' . $deals );
-
-        $total = strtotime('now') - $timeFirst ;
-        do_action('wpfunos_log', $userIP.' - '.'Envio Clientify Quiero que me llamen END: '.$total.' sec.');
-      }
+      $params = array(
+        "clientifyaction" => 'Formulario te llamamos',
+        "email" => $fields['email'],
+        "nombre" => $fields['nombre'],
+        "phone" => $fields['telefono'],
+        "clientID" => $contacts,
+        "form_name" => $form_name,
+        "origen" => 'Formulario te llamamos'
+      );
+      do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
 
     }// if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name )
@@ -308,40 +290,17 @@ class Wpfunos_Public {
       $post_id = wp_insert_post($my_post);
 
       // Clientify
-      if( get_option('wpfunos_APIClientifyActivaClientify') ){
-        do_action('wpfunos_log', $userIP.' - '.'==> Envio Clientify Entrada datos aseguradora' );
-        $timeFirst  = strtotime('now');
-
-        $contacts = apply_filters('wpfclientify-show-contacts', array( "email" => $fields['email'], "phone" => $fields['telefono'], "nombre" => $fields['Nombre'] ) );
-        do_action('wpfunos_log', $userIP.' - '.'$contacts: ' . $contacts );
-
-        if( $contacts == ''){
-          do_action('wpfunos_log', $userIP.' - '.'Nuevo usuario. ');
-          $contacts = apply_filters('wpfclientify-create-contact', array( "email" => $fields['email'], "phone" => $fields['telefono'], "nombre" => $fields['Nombre'] ) );
-        }else{
-          do_action('wpfunos_log', $userIP.' - '.'Usuario ya existente');
-        }
-        do_action('wpfunos_log', $userIP.' - '.'ID usuario: ' . $contacts );
-        update_post_meta( $post_id, 'wpfunos_userClientifyIDusuario', $contacts );
-
-        $deals = apply_filters('wpfclientify-create-deal',
-        array(
-          "email" => $fields['email'],
-          "nombre" => $fields['Nombre'],
-          "clientID" => $contacts,
-          "form_name" => 'Entrada Aseguradora',
-          "referencia" => $fields['referencia'],
-          "origen" => 'Entrada datos aseguradora'
-        ));
-        do_action('wpfunos_log', $userIP.' - '.'ID deal: ' . $deals );
-        update_post_meta( $post_id, 'wpfunos_userClientifyIDdeal', $deals );
-
-        $total = strtotime('now') - $timeFirst ;
-        do_action('wpfunos_log', $userIP.' - '.'Entrada datos aseguradora END: '.$total.' sec.');
-      }
+      $params = array(
+        "clientifyaction" => 'Aseguradora entrada datos usuario',
+        "email" => $fields['email'],
+        "nombre" => $fields['Nombre'],
+        "phone" => $fields['telefono'],
+        "form_name" => 'Entrada Aseguradora',
+        "referencia" => $fields['referencia'],
+        "origen" => 'Aseguradora entrada datos usuario'
+      );
+      do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
-
-
       // wpfunos-visitas-entrada
       do_action('wpfunos-visitas-entrada',array(
         'tipo' => '2',
