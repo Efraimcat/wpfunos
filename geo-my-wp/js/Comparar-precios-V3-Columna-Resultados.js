@@ -22,6 +22,7 @@ function wpfV3Llamamos() {
   $('#wpf-llamamos-respuesta-cerrar').hide();
   $('#wpfunos-modal-llamen-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamamos-telefono').html( $('#wpf-resultados-referencia').attr('wpftelefono') );
+  var params = new URLSearchParams(location.search);
   $.ajax({
     type : 'post',
     dataType : 'json',
@@ -35,6 +36,7 @@ function wpfV3Llamamos() {
       'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
+      'cuando': params.get('cuando'),
     },
     success: function(response) {
       console.log(FuncName+': wpfunos_ajax_v3_llamamos response:');
@@ -61,6 +63,7 @@ function wpfV3Llamar() {
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_04') ].showModal(); //Servicios Llamar
   $('#wpfunos-modal-llamar-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamar-telefono').html( $(this).attr('wpftelefono') );
+  var params = new URLSearchParams(location.search);
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
   console.log(FuncName+': isMobile: '+isMobile);
   if ( isMobile ) {
@@ -78,6 +81,7 @@ function wpfV3Llamar() {
       'wpnonce': $(this).attr('wpfn'),
       'precio' : $(this).attr('wpfp'),
       'titulo' : $(this).attr('wpftitulo'),
+      'cuando' : params.get('cuando'),
       'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
@@ -123,6 +127,7 @@ function wpfV3Presupuesto() {
 //
 function wpfV3EnviaPresupuesto() {
   var FuncName = getFuncName();
+  var params = new URLSearchParams(location.search);
   console.log(FuncName+': Botón Enviar presupuesto: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   console.log(FuncName+': Mensaje: ' + $('#form-field-mensajePresupuesto').val() );
 
@@ -136,6 +141,7 @@ function wpfV3EnviaPresupuesto() {
       'wpnonce': $(this).attr('wpfn'),
       'precio' : $(this).attr('wpfp'),
       'titulo' : $(this).attr('wpftitulo'),
+      'cuando' : params.get('cuando'),
       'mensaje' : $('#form-field-mensajePresupuesto').val(),
       'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
@@ -256,6 +262,7 @@ function wpfV3DetallesLlamamos() {
   $('#wpf-llamamos-respuesta-cerrar').hide();
   $('#wpfunos-modal-llamen-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamamos-telefono').html( $('#wpf-resultados-referencia').attr('wpftelefono') );
+  var params = new URLSearchParams(location.search);
   $.ajax({
     type : 'post',
     dataType : 'json',
@@ -266,6 +273,7 @@ function wpfV3DetallesLlamamos() {
       'wpnonce': $(this).attr('wpfn'),
       'precio' : $(this).attr('wpfp'),
       'titulo' : $(this).attr('wpftitulo'),
+      'cuando' : params.get('cuando'),
       'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
@@ -295,6 +303,7 @@ function wpfV3DetallesLlamar() {
   elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_04') ].showModal(); //Servicios Llamar
   $('#wpfunos-modal-llamar-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamar-telefono').html( $(this).attr('wpftelefono') );
+  var params = new URLSearchParams(location.search);
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
   console.log(FuncName+': isMobile: '+isMobile);
   if ( isMobile ) {
@@ -312,6 +321,7 @@ function wpfV3DetallesLlamar() {
       'wpnonce': $(this).attr('wpfn'),
       'precio' : $(this).attr('wpfp'),
       'titulo' : $(this).attr('wpftitulo'),
+      'cuando' : params.get('cuando'),
       'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),

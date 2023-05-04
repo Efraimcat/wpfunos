@@ -540,11 +540,12 @@ class Wpfunos_Aseguradoras {
         "email" => $email,
         "nombre" => $nombre,
         "phone" => $telefono,
+        "user_id" => $post_id,
         "ubicacion" => $ubicacion,
         "referencia" => $mensaje_referencia,
         "origen" => 'Aseguradora botón '.$accion. ' ' .$api
       );
-      do_action( 'wpfclientify-process-entry', $params );
+      //do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';

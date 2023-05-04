@@ -416,18 +416,20 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
         // Clientify
         $params = array(
-          "clientifyaction" => 'Servicio entrada datos usuario',
+          "clientifyaction" => 'Comparador funerarias',
+          "pipeline" => "Servicios Funerarios",
+          "stage" => "comparador funerarias",
           "email" => $wpfemail,
           "nombre" => $wpfnombre,
           "phone" => $Telefono,
-          "clientID" => $contacts,
+          "user_id" => $post_id,
           "ubicacion" => $wpfubic,
           "referencia" => $wpfnewref,
           "cuando" => $wpfcuando,
           "destino" => $wpfdestino,
           "velatorio" => $wpfvelatorio,
           "ceremonia" => $wpfceremonia,
-          "origen" => 'Servicio entrada datos usuario'
+          "origen" => 'Comparador funerarias'
         );
         do_action( 'wpfclientify-process-entry', $params );
         // END Clientify
@@ -497,6 +499,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $wpnonce = $_POST['wpnonce'];
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
+    $wpfcuando = $_POST['cuando'];
     //  EBG 03-11-22
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
@@ -758,16 +761,19 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // SMS
       // Clientify
       $params = array(
-        "clientifyaction" => 'Servicio botón Llamamos',
+        "clientifyaction" => 'Servicio botón llamamos',
+        "pipeline" => "Servicios Funerarios",
+        "stage" => "seleciono funeraria",
         "email" => $transient_ref['wpfe'],
         "nombre" => $transient_ref['wpfn'],
         "phone" => $Telefono,
+        "user_id" => $post_id,
         "ubicacion" => $transient_ref['wpfadr'],
         "referencia" => $newref,
         "cuando" => $wpfcuando,
-        "destino" => $wpfdestino,
-        "velatorio" => $wpfvelatorio,
-        "ceremonia" => $wpfceremonia,
+        "destino" => $nombredestino,
+        "velatorio" => $nombrevelatorio,
+        "ceremonia" => $nombredespedida,
         "origen" => 'Servicio botón Llamamos',
         "precio" => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
         "nombreServicio" => $titulo,
@@ -805,6 +811,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
+    $wpfcuando = $_POST['cuando'];
     //
     $IP = apply_filters('wpfunos_userIP','dummy');
 
@@ -1062,9 +1069,12 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // Clientify
       $params = array(
         "clientifyaction" => 'Servicio botón Llamar',
+        "pipeline" => "Servicios Funerarios",
+        "stage" => "seleciono funeraria",
         "email" => $transient_ref['wpfe'],
         "nombre" => $transient_ref['wpfn'],
         "phone" => $Telefono,
+        "user_id" => $post_id,
         "ubicacion" => $transient_ref['wpfadr'],
         "referencia" => $newref,
         "cuando" => $wpfcuando,
@@ -1109,6 +1119,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
+    $wpfcuando = $_POST['cuando'];
     //
     $IP = apply_filters('wpfunos_userIP','dummy');
 
@@ -1369,9 +1380,12 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // Clientify
       $params = array(
         "clientifyaction" => 'Servicio botón Presupuesto',
+        "pipeline" => "Servicios Funerarios",
+        "stage" => "seleciono funeraria",
         "email" => $transient_ref['wpfe'],
         "nombre" => $transient_ref['wpfn'],
         "phone" => $Telefono,
+        "user_id" => $post_id,
         "ubicacion" => $transient_ref['wpfadr'],
         "referencia" => $newref,
         "cuando" => $wpfcuando,
@@ -2059,9 +2073,13 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // Clientify
       $params = array(
         "clientifyaction" => 'Servicio cambio filtro '.$cambios,
+        "pipeline" => "Servicios Funerarios",
+        "stage" => "comparador funerarias",
+        "cambios" => $cambios,
         "email" => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ),
         "nombre" => get_post_meta( $wpfidusuario, 'wpfunos_userName', true ),
         "phone" =>  get_post_meta( $wpfidusuario, 'wpfunos_userPhone', true ),
+        "user_id" => $post_id,
         "ubicacion" => get_post_meta( $wpfidusuario, 'wpfunos_userNombreSeleccionUbicacion', true ),
         "referencia" => $wpfnewref,
         "cuando" => "",

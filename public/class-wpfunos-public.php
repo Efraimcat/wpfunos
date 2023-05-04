@@ -195,10 +195,11 @@ class Wpfunos_Public {
       // Clientify
       $params = array(
         "clientifyaction" => 'Formulario te llamamos',
+        "pipeline" => "Servicios Funerarios",
+        "stage" => "nuevo interesado",
         "email" => $fields['email'],
         "nombre" => $fields['nombre'],
         "phone" => $fields['telefono'],
-        "clientID" => $contacts,
         "form_name" => $form_name,
         "origen" => 'Formulario te llamamos'
       );
@@ -295,11 +296,12 @@ class Wpfunos_Public {
         "email" => $fields['email'],
         "nombre" => $fields['Nombre'],
         "phone" => $fields['telefono'],
+        "user_id" => $post_id,
         "form_name" => 'Entrada Aseguradora',
         "referencia" => $fields['referencia'],
         "origen" => 'Aseguradora entrada datos usuario'
       );
-      do_action( 'wpfclientify-process-entry', $params );
+      //do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
       // wpfunos-visitas-entrada
       do_action('wpfunos-visitas-entrada',array(
