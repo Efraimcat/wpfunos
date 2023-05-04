@@ -293,6 +293,8 @@ class Wpfunos_Public {
       // Clientify
       $params = array(
         "clientifyaction" => 'Aseguradora entrada datos usuario',
+        "pipeline" => "Aseguradoras",
+        "stage" => "Nuevo interesado",
         "email" => $fields['email'],
         "nombre" => $fields['Nombre'],
         "phone" => $fields['telefono'],
@@ -301,7 +303,7 @@ class Wpfunos_Public {
         "referencia" => $fields['referencia'],
         "origen" => 'Aseguradora entrada datos usuario'
       );
-      //do_action( 'wpfclientify-process-entry', $params );
+      do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
       // wpfunos-visitas-entrada
       do_action('wpfunos-visitas-entrada',array(
