@@ -524,6 +524,7 @@ class Wpfunos_Aseguradoras {
         $log = (is_user_logged_in()) ? 'logged' : 'not logged';
         $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
         do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - '.'Enviar correo detalles Preventiva' );
         do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
         do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);

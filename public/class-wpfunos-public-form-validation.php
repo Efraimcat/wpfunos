@@ -44,6 +44,7 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
     $form_name = $record->get_form_settings( 'form_name' );
     $userIP = apply_filters('wpfunos_userIP','dummy');
     do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - '.'Validación formulario: '. $form_name );
 
     // Aseguradoras

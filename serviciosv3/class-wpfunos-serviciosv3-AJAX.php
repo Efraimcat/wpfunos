@@ -107,7 +107,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfnombre ' .$wpfnombre );
       do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfemail ' .$wpfemail );
       do_action('wpfunos_log', $userIP.' - '.'Ajax: wpftelefono ' .$wpftelefono );
-      do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfip ' .$wpfip );
       do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfresp1 ' .$wpfresp1. ' - ' .$wpfdestino );
       do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfresp2 ' .$wpfresp2. ' - ' .$wpfataud );
       do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfresp3 ' .$wpfresp3. ' - ' .$wpfvelatorio );
@@ -236,7 +235,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         $userIP = apply_filters('wpfunos_userIP','dummy');
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - '.'Recogida datos usuario' );
-        do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $wpfip );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $wpfnombre );
         do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $wpfnewref );
@@ -303,7 +301,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
             do_action('wpfunos_log', '==============' );
             do_action('wpfunos_log', $userIP.' - '.'Enviar correo entrada datos al admin' );
             do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $wpfnewref );
-            do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $wpfip );
             do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
             do_action('wpfunos_log', $userIP.' - '.'mailCorreov2Admin: ' . get_option('wpfunos_mailCorreov2Admin') );
           }
@@ -339,7 +336,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
             do_action('wpfunos_log', $userIP.' - '.'Enviado correo al usuario ' .$wpfemail. ' con su búsqueda');
           }
           do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
-          do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $userIP );
           do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $wpfnombre );
           do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $wpfnewref );
         }
@@ -347,7 +343,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         // SMS
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - '.'Enviar SMS' );
-        do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
         do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . $Telefono );
 
         $request = '{
@@ -390,7 +385,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         $request = str_replace ( '[fecha1]' , $date1->format("Y-m-d H:i:s") , $request );
         $request = str_replace ( '[fecha2]' , $date2->format("Y-m-d H:i:s") , $request );
         //
-        do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+        //do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
         $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
           'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
@@ -544,7 +539,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfnombre ' .$transient_ref['wpfn'] );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfemail ' .$transient_ref['wpfe'] );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpftelefono ' .$transient_ref['wpft'] );
-    do_action('wpfunos_log', $userIP.' - '.'Ajax: IP ' .$IP );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: Servicio titulo: ' . $titulo );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: Servicio ' . $servicio );
 
@@ -616,7 +610,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       $userIP = apply_filters('wpfunos_userIP','dummy');
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Botón Te llamamos servicio' );
-      do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $transient_ref['wpfn'] );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
@@ -663,7 +656,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         update_post_meta( $post_id, 'wpfunos_userLead', true );
 
         do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
-        do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       }
@@ -708,7 +700,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           do_action('wpfunos_log', $userIP.' - '.'Enviado correo usuario ' . $transient_ref['wpfe'] );
         }
         do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
-        do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       }
@@ -716,7 +707,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( strlen( get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - '.'Enviar SMS llamamos Servicio' );
-        do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
         do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
 
         $request = '{
@@ -747,7 +737,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         $request = str_replace ( '[nombre_SMS]' , $transient_ref['wpfn'] , $request );
         $request = str_replace ( '[telefono_SMS]' , $Telefono , $request );
 
-        do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+        //do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
         $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
           'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
@@ -853,7 +843,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfnombre ' .$transient_ref['wpfn'] );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfemail ' .$transient_ref['wpfe'] );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpftelefono ' .$transient_ref['wpft'] );
-    do_action('wpfunos_log', $userIP.' - '.'Ajax: IP ' .$IP );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: Servicio titulo: ' . $titulo );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: Servicio ' . $servicio );
 
@@ -923,7 +912,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Botón llamar servicio' );
-      do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $transient_ref['wpfn'] );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
@@ -970,7 +958,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         update_post_meta( $post_id, 'wpfunos_userLead', true );
 
         do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
-        do_action('wpfunos_log', $userIP.' - '.'userIP: ' . "IP" );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
 
@@ -1016,7 +1003,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         }
         //
         do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
-        do_action('wpfunos_log', $userIP.' - '.'userIP: ' . "IP" );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       }
@@ -1024,7 +1010,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( strlen( get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - '.'Enviar SMS Llamar Servicio' );
-        do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
         do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
 
         $request = '{
@@ -1055,7 +1040,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         $request = str_replace ( '[nombre_SMS]' , $transient_ref['wpfn'] , $request );
         $request = str_replace ( '[telefono_SMS]' , $Telefono , $request );
 
-        do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+        //do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
         $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
           'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
@@ -1163,7 +1148,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfnombre ' .$transient_ref['wpfn'] );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpfemail ' .$transient_ref['wpfe'] );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: wpftelefono ' .$transient_ref['wpft'] );
-    do_action('wpfunos_log', $userIP.' - '.'Ajax: IP ' .$IP );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: Servicio titulo: ' . $titulo );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: Servicio ' . $servicio );
     do_action('wpfunos_log', $userIP.' - '.'Ajax: Mensaje: ' . $mensajeusuario );
@@ -1235,7 +1219,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       $userIP = apply_filters('wpfunos_userIP','dummy');
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Botón Pedir presupuesto' );
-      do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $IP );
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $transient_ref['wpfn'] );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $newref );
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
@@ -1281,7 +1264,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         update_post_meta( $post_id, 'wpfunos_userLead', true );
 
         do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
-        do_action('wpfunos_log', $userIP.' - '.'userIP: ' . "IP" );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $transient_ref['wpfref'] );
 
@@ -1327,7 +1309,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         }
 
         do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
-        do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $userIP );
         do_action('wpfunos_log', $userIP.' - '.'Nombre: ' . $transient_ref['wpfn'] );
         do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $transient_ref['wpfref'] );
 
@@ -1336,7 +1317,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( strlen( get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - '.'Enviar SMS Presupuesto Servicio' );
-        do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
         do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
 
         $request = '{
@@ -1367,7 +1347,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         $request = str_replace ( '[nombre_SMS]' , $transient_ref['wpfn'] , $request );
         $request = str_replace ( '[telefono_SMS]' , $Telefono , $request );
 
-        do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+        //do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
         $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
           'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
@@ -1774,8 +1754,8 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       $userIP = apply_filters('wpfunos_userIP','dummy');
       do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Enviar correo detalles' );
-      do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $IP );
       do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
       do_action('wpfunos_log', $userIP.' - '.'$email: ' . $email );
 
@@ -1897,8 +1877,8 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $wpfresp4 = $_POST["wpfresp4"];
 
     do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $wpfip.' - '.'Cambios en filtros' );
-    do_action('wpfunos_log', $wpfip.' - '.'$IP: ' . $wpfip );
     do_action('wpfunos_log', $wpfip.' - '.'Parámetro: ' . $param );
     do_action('wpfunos_log', $wpfip.' - '.'Valor: ' . $valor );
 
@@ -2060,7 +2040,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           do_action('wpfunos_log', '==============' );
           do_action('wpfunos_log', $userIP.' - '.'Enviar correo entrada datos al admin' );
           do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $wpfnewref );
-          do_action('wpfunos_log', $userIP.' - '.'userIP: ' . $wpfip );
           do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
           do_action('wpfunos_log', $userIP.' - '.'mailCorreov2Admin: ' . get_option('wpfunos_mailCorreov2Admin') );
         }

@@ -130,7 +130,6 @@ class Wpfunos_Public {
       $userIP = apply_filters('wpfunos_userIP','dummy');
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Enviar SMS' );
-      do_action('wpfunos_log', $userIP.' - '.'$IP: ' . $userIP );
       do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . $fields['telefono'] );
 
       $request = '{
@@ -174,7 +173,7 @@ class Wpfunos_Public {
       $request = str_replace ( '[fecha1]' , $date1->format("Y-m-d H:i:s") , $request );
       $request = str_replace ( '[fecha2]' , $date2->format("Y-m-d H:i:s") , $request );
       //
-      do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+      //do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
 
       $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
         'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
