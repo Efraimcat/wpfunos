@@ -37,6 +37,7 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_bloqueo_numeros', array( $this, 'wpfbloqueoNumeros' ), 10, 1 );
     add_filter( 'wpfunos_bloqueo_tels', array( $this, 'wpfbloqueoTels' ), 10, 1 );
     add_filter( 'wpfunos_bloqueo_nombre', array( $this, 'wpfbloqueoNombre' ), 10, 1 );
+    add_filter( 'wpfunos_bloqueo_email', array( $this, 'wpfbloqueoEmail' ), 10, 1 );
     add_filter( 'wpfunos_acentos_minusculas', array( $this, 'wpfAcentosMinusculas' ), 10, 1 );
 
     add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
@@ -587,6 +588,7 @@ class Wpfunos_Utils {
 
     $bloqueos = array(
       "hola",
+      "pepito",
     );
 
     foreach( $bloqueos AS $bloqueo ) {
@@ -594,5 +596,24 @@ class Wpfunos_Utils {
     }
     return false;
   }
+
+  /**
+  * add_filter( 'wpfunos_bloqueo_email', array( $this, 'wpfbloqueoEmail' ), 10, 1 );
+  * if( apply_filters('wpfunos_bloqueo_email','aaaa@gmail.com') )
+  */
+  public function wpfbloqueoEmail( $email ){
+    $bloqueos = array(
+      "aaaa@gmail.com",
+      "abcdef@gmail.com",
+      "pepito@gmail.com",
+      "notiene@gmail.com".
+    );
+
+    foreach( $bloqueos AS $bloqueo ) {
+      if( $bloqueo == $email ) return true;
+    }
+    return false;
+  }
+
 
 }

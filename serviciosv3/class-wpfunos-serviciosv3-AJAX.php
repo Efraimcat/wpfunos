@@ -752,7 +752,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // SMS
       // Clientify
       $params = array(
-        "clientifyaction" => 'Servicio botón llamamos',
+        "clientifyaction" => 'Llamamos '.get_the_title( $servicio ),
         "pipeline" => "Servicios Funerarios",
         "stage" => "seleciono funeraria",
         "email" => $transient_ref['wpfe'],
@@ -1055,7 +1055,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // SMS
       // Clientify
       $params = array(
-        "clientifyaction" => 'Servicio botón Llamar',
+        "clientifyaction" => 'Llamar '.get_the_title( $servicio ),
         "pipeline" => "Servicios Funerarios",
         "stage" => "seleciono funeraria",
         "email" => $transient_ref['wpfe'],
@@ -1362,7 +1362,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // SMS
       // Clientify
       $params = array(
-        "clientifyaction" => 'Servicio botón Presupuesto',
+        "clientifyaction" => 'Presupuesto '.get_the_title( $servicio ),
         "pipeline" => "Servicios Funerarios",
         "stage" => "seleciono funeraria",
         "email" => $transient_ref['wpfe'],
@@ -2055,7 +2055,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       //Última Búsqueda END
       // Clientify
       $params = array(
-        "clientifyaction" => 'Servicio cambio filtro '.$cambios,
+        "clientifyaction" => 'cambio filtro '.$cambios,
         "pipeline" => "Servicios Funerarios",
         "stage" => "comparador funerarias",
         "cambios" => $cambios,

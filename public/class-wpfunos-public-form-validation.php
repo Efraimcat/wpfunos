@@ -133,6 +133,11 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
         do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (vocales)' );
       }
 
+      if( apply_filters('wpfunos_bloqueo_email',$field['value']) ){
+        $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        do_action('wpfunos_log', $userIP.' - '.'Validación email: INCORRECTO (BLOQUEADO)' );
+      }
+
     }
 
     // TELEFONO
