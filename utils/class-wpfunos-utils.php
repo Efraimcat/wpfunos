@@ -606,7 +606,7 @@ class Wpfunos_Utils {
       "aaaa@gmail.com",
       "abcdef@gmail.com",
       "pepito@gmail.com",
-      "notiene@gmail.com".
+      "notiene@gmail.com",
     );
 
     foreach( $bloqueos AS $bloqueo ) {
