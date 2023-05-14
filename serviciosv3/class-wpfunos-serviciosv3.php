@@ -408,13 +408,7 @@ class Wpfunos_ServiciosV3 {
 
       $address = ( isset($_GET['poblacion']) ) ? $_GET['poblacion'] : $_GET['address'][0];
 
-      $tel = str_replace(" ","", $phone );
-      $tel = str_replace("-","",$tel);
-      if(substr($tel,0,1) == '+'){
-        $Telefono =  substr($tel,0,3).' '. substr($tel,3,3).' '. substr($tel,6,2).' '. substr($tel,8,2) .' '. substr($tel,10,2);
-      }else{
-        $Telefono =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
-      }
+      $Telefono = apply_filters('wpfunos_telefono_formateado', $phone );
 
       // id = wpf-resultados-referencia
       /** ?><script>console.log('wpf-resultados-referencia.' );</script><?php**/

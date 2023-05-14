@@ -39,6 +39,7 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_bloqueo_nombre', array( $this, 'wpfbloqueoNombre' ), 10, 1 );
     add_filter( 'wpfunos_bloqueo_email', array( $this, 'wpfbloqueoEmail' ), 10, 1 );
     add_filter( 'wpfunos_acentos_minusculas', array( $this, 'wpfAcentosMinusculas' ), 10, 1 );
+    add_filter( 'wpfunos_telefono_formateado', array( $this, 'wpfTelefonoFormateado' ), 10, 1 );
 
     add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
     add_action( 'wp_ajax_nopriv_wpfunos-SIWG-google-login', array( $this, 'wpfunos_SIWG_google_login' ), 10, 1 );
@@ -501,8 +502,8 @@ class Wpfunos_Utils {
       $cadena
     );
     $cadena = str_replace(
-      array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
-      array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+      array('ó', 'ò', 'ö', 'ô', 'º', 'Ó', 'Ò', 'Ö', 'Ô'),
+      array('o', 'o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
       $cadena
     );
     $cadena = str_replace(
@@ -512,6 +513,22 @@ class Wpfunos_Utils {
     );
     $cadena = strtolower( $cadena );
     return $cadena;
+  }
+
+
+  /**
+  * add_filter( 'wpfunos_telefono_formateado', array( $this, 'wpfTelefonoFormateado' ), 10, 1 );
+  * $Telefono = apply_filters('wpfunos_telefono_formateado',$telefono );
+  */
+  public function wpfTelefonoFormateado( $telefono ){
+    $tel = str_replace(" ","", $telefono );
+    $tel = str_replace("-","",$tel);
+    if(substr($tel,0,1) == '+'){
+      $Telefono =  substr($tel,0,3) .' '. substr($tel,3,3) .' '. substr($tel,6,2) .' '. substr($tel,8,2) .' '. substr($tel,10,2)  .' '. substr($tel,12,2)  .' '. substr($tel,14,2)  .' '. substr($tel,16,2);
+    }else{
+      $Telefono =  substr($tel,0,3) .' '. substr($tel,3,2) .' '. substr($tel,5,2) .' '. substr($tel,7,2) .' '. substr($tel,9,2) .' '. substr($tel,11,2) .' '. substr($tel,13,2);
+    }
+    return $Telefono;
   }
 
   /**

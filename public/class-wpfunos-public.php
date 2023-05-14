@@ -214,13 +214,8 @@ class Wpfunos_Public {
         mt_srand(time());
         $fields['referencia'] = 'funos-'.(string)mt_rand();
       }
-      $tel = str_replace(" ","", $fields['telefono'] );
-      $tel = str_replace("-","",$tel);
-      if(substr($tel,0,1) == '+'){
-        $fields['telefono'] =  substr($tel,0,3).' '. substr($tel,3,3).' '. substr($tel,6,2).' '. substr($tel,8,2) .' '. substr($tel,10,2);;
-      }else{
-        $fields['telefono'] =  substr($tel,0,3).' '. substr($tel,3,2).' '. substr($tel,5,2).' '. substr($tel,7,2);
-      }
+
+      $fields['telefono'] = apply_filters('wpfunos_telefono_formateado', $fields['telefono'] );
 
       if( strlen( $fields['telefono']) < 3 ) return;
 

@@ -432,37 +432,38 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
             update_post_meta( $wpml_id, 'wpfunos_EnlaceLatitud', get_post_meta( $wpml_id_orig, 'wpfunos_EnlaceLatitud', true )  );
             update_post_meta( $wpml_id, 'wpfunos_EnlaceLonguitud', get_post_meta( $wpml_id_orig, 'wpfunos_EnlaceLonguitud', true )  );
           }
-
-          $entierro = (int)str_replace(".","",get_post_meta( $wpml_id, 'wpfunos_precioFunerariaEntierroDesde', true ));
-          $incineracion = (int)str_replace(".","",get_post_meta( $wpml_id, 'wpfunos_precioFunerariaIncineracionDesde', true ));
-          $this->custom_logs('$entierro desde: ' .$entierro );
-          $this->custom_logs('$incineracion desde: ' .$incineracion );
-          //landings incineración
-          update_post_meta($wpml_id, 'SeoEntierro',  number_format($entierro, 0, ',', '.') . '€');
-          update_post_meta($wpml_id, 'SeoIncineracion', number_format($incineracion, 0, ',', '.') . '€');
-          if($entierro < $incineracion ){
-            update_post_meta($wpml_id, 'SeoDesde',  number_format($entierro, 0, ',', '.') . '€');
-          }else{
-            update_post_meta($wpml_id, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
-          }
-          if( get_post_meta( $wpml_id, 'SeoDesde', true ) == '0€') update_post_meta($wpml_id, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
-          // Páginas relacionadas
-          $paginas = (explode(',',get_post_meta( $wpml_id , 'wpfunos_precioFunerariaPaginasRelacionadas', true )));
-          $textopaginas = '';
-          foreach( $paginas as $pagina ){
-            if( get_post_type( $pagina ) == 'precio_funer_wpfunos'){
-              $entrada = get_post( $pagina );
-              $slug = $entrada->post_name;
-              $textopaginas .= $slug . ', ';
-            }
-          }
-          update_post_meta($wpml_id, 'wpfunos_precioFunerariaPaginasRelacionadasTexto', $textopaginas );
-          //
-          $this->custom_logs('wpfunosGuardarLanding ' .$wpml_id. ' (' .$language['language_code']. ') updated');
-          //
         }
       }
     }
+
+    $entierro = (int)str_replace(".","",get_post_meta( $post_id, 'wpfunos_precioFunerariaEntierroDesde', true ));
+    $incineracion = (int)str_replace(".","",get_post_meta( $post_id, 'wpfunos_precioFunerariaIncineracionDesde', true ));
+    $this->custom_logs('$entierro desde: ' .$entierro );
+    $this->custom_logs('$incineracion desde: ' .$incineracion );
+    //landings incineración
+    update_post_meta($post_id, 'SeoEntierro',  number_format($entierro, 0, ',', '.') . '€');
+    update_post_meta($post_id, 'SeoIncineracion', number_format($incineracion, 0, ',', '.') . '€');
+    if($entierro < $incineracion ){
+      update_post_meta($post_id, 'SeoDesde',  number_format($entierro, 0, ',', '.') . '€');
+    }else{
+      update_post_meta($post_id, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
+    }
+    if( get_post_meta( $post_id, 'SeoDesde', true ) == '0€') update_post_meta($post_id, 'SeoDesde',  number_format($incineracion, 0, ',', '.') . '€');
+    // Páginas relacionadas
+    $paginas = (explode(',',get_post_meta( $post_id , 'wpfunos_precioFunerariaPaginasRelacionadas', true )));
+    $textopaginas = '';
+    foreach( $paginas as $pagina ){
+      if( get_post_type( $pagina ) == 'precio_funer_wpfunos'){
+        $entrada = get_post( $pagina );
+        $slug = $entrada->post_name;
+        $textopaginas .= $slug . ', ';
+      }
+    }
+    update_post_meta($post_id, 'wpfunos_precioFunerariaPaginasRelacionadasTexto', $textopaginas );
+    //
+    $this->custom_logs('wpfunosGuardarLanding ' .$post_id. ' (' .$language['language_code']. ') updated');
+    //
+
     $this->custom_logs('wpfunosGuardarLanding ENDS' );
     $this->custom_logs('---');
   }

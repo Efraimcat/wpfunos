@@ -19,9 +19,7 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 @media (max-width: 767px) {
 
   #elementor-popup-modal-84639 .dialog-message,
-  #elementor-popup-modal-89354 .dialog-message,
-  #elementor-popup-modal-136584 .dialog-message,
-  #elementor-popup-modal-136573 .dialog-message{
+  #elementor-popup-modal-89354 .dialog-message {
     padding: 75px 0 75px 0 !important;
   }
 
@@ -47,8 +45,9 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
     width: 100%;
     text-align: center;
   }
-  .elementor-90421 .elementor-element.elementor-element-b332e9f , .elementor-90421 .elementor-element.elementor-element-99cb1c3 ,.elementor-90421 .elementor-element.elementor-element-d67d5f2 {
-    width: 100%;
+  .elementor-90421 .elementor-element.elementor-element-b332e9f , .elementor-90421 .elementor-element.elementor-element-99cb1c3 ,.elementor-90421 .elementor-element.elementor-element-d67d5f2,
+	.elementor-89344 .elementor-element.elementor-element-32e6adb, .elementor-89344 .elementor-element.elementor-element-20a19f27, .elementor-89344 .elementor-element.elementor-element-318c396e, .elementor-89344 .elementor-element.elementor-element-1380f279{
+    width: 100% !important;
   }
   .elementor-90421 .elementor-element.elementor-element-0aad611 {
     text-align: center !important;
@@ -287,4 +286,22 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 
 .wpfunos-busqueda-contenedor {
   margin: 20px 0 20px 0;
+}
+
+.elementor-element.elementor-element-3d638325.e-con-boxed.e-con {
+	display: none;
+}
+
+.elementor-field-type-hidden {
+	display: none;
+}
+
+#form-field-IP,
+#form-field-donde{
+	display: none;
+}
+
+label[for="form-field-IP"],
+label[for="form-field-donde"]{
+	display: none;
 }

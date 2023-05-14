@@ -145,8 +145,16 @@ $(document).ready(function(){
           $( '#wpfunos-multistep-religiosa-icon' ).click( wpfreligiosa );
         }
         function wpfprocessCeremonia(){
+          var params = new URLSearchParams(location.search);
           $('#elementor-popup-modal-' + getCookie('wpf_obj_id_09') ).hide(); //Servicios Multistep (4)
           elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_10') ].showModal(); //Servicios Multistep (5)
+          $( '#form-field-cuando' ).val(cuando);
+          $( '#form-field-destino' ).val(destino);
+          $( '#form-field-ataud' ).val(params.get('cf[resp2]'));
+          $( '#form-field-velatorio' ).val(velatorio);
+          $( '#form-field-ceremonia' ).val(ceremonia);
+          $( '#form-field-IP' ).val($('#wpf-resultados-referencia').attr('wpfip'));
+          $( '#form-field-donde' ).val($('#wpf-resultados-referencia').attr('wpfubic'));
         }
       }// hasAttribute('wpfmultistep'
     }, 100); // check every 100ms
