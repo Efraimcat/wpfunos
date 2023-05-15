@@ -137,7 +137,6 @@ class Wpfunos_Admin {
     //add_action('updated_post_meta', array( $this, 'wpfunosActualizarMetaServicios' ), 10, 4);
 
     add_action('wpfunos_render', array( $this, 'wpfunos_render_settings_field' ), 10, 1 );
-    //public function wpfunos_render_settings_field($args)
 
     $this->wpfunos_admin_AJAX = new Wpfunos_Admin_AJAX();
     $this->wpfunos_admin_cronjobs = new Wpfunos_Admin_Cronjobs();

@@ -197,12 +197,12 @@ class Wpfunos_Public {
         "pipeline" => "Servicios Funerarios",
         "stage" => "nuevo interesado",
         "email" => $fields['email'],
-        "nombre" => $fields['nombre'],
+        "nombre" => $fields['Nombre'],
         "phone" => $fields['telefono'],
         "form_name" => $form_name,
         "origen" => 'Formulario te llamamos'
       );
-      do_action( 'wpfclientify-process-entry', $params );
+      //do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
 
     }// if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name )
@@ -297,7 +297,7 @@ class Wpfunos_Public {
         "referencia" => $fields['referencia'],
         "origen" => 'Aseguradora entrada datos usuario'
       );
-      do_action( 'wpfclientify-process-entry', $params );
+      //do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
       // wpfunos-visitas-entrada
       do_action('wpfunos-visitas-entrada',array(

@@ -51,7 +51,6 @@ window.onload = function () {
 
 document.addEventListener('readystatechange', () => {
 	const headerTop = document.getElementById('wpfunos-header-bot')
-
 	document.addEventListener('scroll', () => {
 		if(window.scrollY > 360)
 			headerTop.classList.add('active')
@@ -61,17 +60,17 @@ document.addEventListener('readystatechange', () => {
 })
 console.log( "document loaded" );
 
-
+// Añadir cookie si esta conectado.
 var data = {
-	action: 'is_user_logged_in'
+    action: 'is_user_logged_in'
 };
-
 jQuery.post('/wp-admin/admin-ajax.php', data, function(response) {
-	if(response == 'yes') {
+    if(response == 'yes') {
 		document.cookie = "wpfunosloggedin=yes;expires=session; path=/;SameSite=Lax;secure";
-	}
+    }
 });
 
+// Guardar referer externo.
 var initreferrer = document.referrer;
 if(initreferrer.indexOf('funos.es') === -1 ) { // Check if the referer is your site or not. If not( return -1 ) set the localStorage.
 	sessionStorage.setItem("wpfunos_referrer", initreferrer);

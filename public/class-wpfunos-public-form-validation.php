@@ -59,11 +59,6 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
       }
     }
 
-    //Email aseguradoras
-    //email landings
-    //Email multistep
-    //emailasesor AsesoramientoGratuito
-    //email te llamamos gratis
     //
     //https://isitarealemail.com/getting-started/api
     //

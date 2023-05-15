@@ -16,12 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Wpfunos_Admin_AJAX extends Wpfunos_Admin {
 
   public function __construct( ) {
-    add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_precios', function () { $this->wpfunosProcesarPrecios();});
-    add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
-    add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_servicios', function () { $this->wpfunosProcesarServicios();});
-    add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_servicios', function () {$this->wpfunosProcesarServicios();});
-    add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () { $this->wpfunosProcesarPreciosV3();});
-    add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () {$this->wpfunosProcesarPreciosV3();});
+    //add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_precios', function () { $this->wpfunosProcesarPrecios();});
+    //add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_precios', function () {$this->wpfunosProcesarPrecios();});
+    //add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_servicios', function () { $this->wpfunosProcesarServicios();});
+    //add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_servicios', function () {$this->wpfunosProcesarServicios();});
+    //add_action('wp_ajax_nopriv_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () { $this->wpfunosProcesarPreciosV3();});
+    //add_action('wp_ajax_wpfunos_ajax_v3_procesar_actualizar_preciosV3', function () {$this->wpfunosProcesarPreciosV3();});
   }
 
   /*********************************/

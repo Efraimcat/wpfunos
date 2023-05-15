@@ -421,7 +421,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           "ceremonia" => $wpfceremonia,
           "origen" => 'Comparador funerarias'
         );
-        do_action( 'wpfclientify-process-entry', $params );
+        //do_action( 'wpfclientify-process-entry', $params );
         // END Clientify
       }// END if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') )
 
@@ -760,7 +760,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         "nombreFuneraria" => get_the_title( $servicio ),
         "telefonoServicio" => get_post_meta( $servicio, "wpfunos_servicioTelefono", true),
       );
-      do_action( 'wpfclientify-process-entry', $params );
+      //do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
     }
 
@@ -1057,7 +1057,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         "nombreFuneraria" => get_the_title( $servicio ),
         "telefonoServicio" => get_post_meta( $servicio, "wpfunos_servicioTelefono", true),
       );
-      do_action( 'wpfclientify-process-entry', $params );
+      //do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
     }
 
@@ -1358,7 +1358,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         "nombreFuneraria" => get_the_title( $servicio ),
         "telefonoServicio" => get_post_meta( $servicio, "wpfunos_servicioTelefono", true),
       );
-      do_action( 'wpfclientify-process-entry', $params );
+      //do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
     }
 
@@ -2046,7 +2046,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         "nombreFuneraria" => "",
         "telefonoServicio" => "",
       );
-      do_action( 'wpfclientify-process-entry', $params );
+      //do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
     }
     $result['type'] = "success";
