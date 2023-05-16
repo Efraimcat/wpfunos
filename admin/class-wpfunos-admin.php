@@ -58,6 +58,7 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildAPIDKV' ));
     //add_action('admin_init', array( $this, 'registerAndBuildAPIClientify' ));
+    add_action('admin_init', array( $this, 'registerAndBuildPopupsServicios' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsDireccionesIP' ));
     add_action('admin_init', array( $this, 'registerAndBuildFieldsPreciosPoblacion' ));
     //
@@ -219,6 +220,7 @@ class Wpfunos_Admin {
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', 'wpfunos-settings', array( $this, 'displayPluginAdminSettings' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', 'wpfunos-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración correo WpFunos', 'wpfunos'), esc_html__('Configuración correo', 'wpfunos'), 'administrator', 'wpfunos-mail', array( $this, 'displayPluginAdminMail' ));
+    add_submenu_page( 'wpfunosconfig', esc_html__('Configuración Popups Servicios WpFunos', 'wpfunos'), esc_html__('Poups servicios', 'wpfunos'), 'administrator', 'wpfunos-popups-servicios', array( $this, 'displayPluginAdminPopupsServicios' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración API Preventiva WpFunos', 'wpfunos'), esc_html__('Configuración API Preventiva', 'wpfunos'), 'administrator', 'wpfunos-APIPreventiva', array( $this, 'displayPluginAdminAPIPreventiva' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración API DKV WpFunos', 'wpfunos'), esc_html__('Configuración API DKV', 'wpfunos'), 'administrator', 'wpfunos-APIDKV', array( $this, 'displayPluginAdminAPIDKV' ));
     //add_submenu_page( 'wpfunosconfig', esc_html__('Configuración API Clientify WpFunos', 'wpfunos'), esc_html__('Configuración API Clientify', 'wpfunos'), 'administrator', 'wpfunos-APIClientify', array( $this, 'displayPluginAdminAPIClientify' ));
@@ -275,6 +277,18 @@ class Wpfunos_Admin {
     }
     require_once 'partials/admin-menu/wpfunos-admin-mail-display.php';
   }
+
+  /**
+  * Popups Servicios menu display.
+  */
+  public function displayPluginAdminPopupsServicios() {
+    if (isset($_GET['error_message'])) {
+      add_action('admin_notices', array($this,'wpfunosSettingsMessages'));
+      do_action('admin_notices', sanitize_text_field($_GET['error_message']));
+    }
+    require_once 'partials/admin-menu/wpfunos-admin-popups-servicios-display.php';
+  }
+
   /**
   * Api Preventiva menu display.
   */
@@ -424,7 +438,6 @@ class Wpfunos_Admin {
     require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildV2Mail6.php';
   }
 
-
   public function registerAndBuildMailDatosUsuario() {
     require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMailDatosUsuario.php';
   }
@@ -455,6 +468,7 @@ class Wpfunos_Admin {
   public function registerAndBuildMail8() {
     require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail8.php';
   }
+
   //public function registerAndBuildMail9() {
   //  require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildMail9.php';
   //}
@@ -477,6 +491,9 @@ class Wpfunos_Admin {
   //  require_once 'partials/registerAndBuild/clientify/wpfunos-admin-registerAndBuildAPIClientify.php';
   //}
 
+  public function registerAndBuildPopupsServicios() {
+    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildPopupsServicios.php';
+  }
   public function registerAndBuildFieldsDireccionesIP() {
     require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsDireccionesIP.php';
   }
