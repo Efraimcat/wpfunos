@@ -91,7 +91,7 @@ $(document).ready(function(){
         }); //on('submit_success'
 
         setTimeout(function(){
-          elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_06') ].showModal(); //Servicios Multistep (1)
+          elementorFrontend.documentsManager.documents[ WpfPopup.popup_06 ].showModal(); //Servicios Multistep (1)
           $.each( [ '#wpfunos-multistep-ahora', '#wpfunos-multistep-ahora-icon', '#wpfunos-multistep-prox', '#wpfunos-multistep-prox-icon' ], function( i, elem ) {
             $(elem).click( function(){
               if( i  == 0 || i == 1 ){
@@ -101,7 +101,7 @@ $(document).ready(function(){
                 console.log(FuncName+': cuando: Proximamente');
                 cuando = 'Proximamente';
               }
-              $('#elementor-popup-modal-' + getCookie('wpf_obj_id_06') ).hide(); //Servicios Multistep (1)
+              $('#elementor-popup-modal-' + WpfPopup.popup_06 ).hide(); //Servicios Multistep (1)
               if( $('#wpf-resultados-referencia').attr('wpfland') === '1'){
                 elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_10') ].showModal(); //Servicios Multistep (5)
               }else{

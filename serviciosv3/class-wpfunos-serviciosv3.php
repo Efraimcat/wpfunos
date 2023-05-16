@@ -178,6 +178,25 @@ class Wpfunos_ServiciosV3 {
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&land=1
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&wpfwpf=a3Q0Uld1M0RxY1RSTjcrMStLT3VadzZsSm45RGpnRHhXSHM2elhTZlJrbz0=
       /**?><script>console.log('Cargando popups Elementor.' );</script><?php **/
+      $wpfpopup = array(
+        'popup_01' => get_option('wpfunos_popupServicios_01'),
+        'popup_02' => get_option('wpfunos_popupServicios_02'),
+        'popup_03' => get_option('wpfunos_popupServicios_03'),
+        'popup_04' => get_option('wpfunos_popupServicios_04'),
+        'popup_05' => get_option('wpfunos_popupServicios_05'),
+        'popup_06' => get_option('wpfunos_popupServicios_06'),
+        'popup_07' => get_option('wpfunos_popupServicios_07'),
+        'popup_08' => get_option('wpfunos_popupServicios_08'),
+        'popup_09' => get_option('wpfunos_popupServicios_09'),
+        'popup_10' => get_option('wpfunos_popupServicios_10'),
+        'popup_11' => get_option('wpfunos_popupServicios_11'),
+        'popup_12' => get_option('wpfunos_popupServicios_12'),
+        'popup_13' => get_option('wpfunos_popupServicios_13'),
+        'popup_14' => get_option('wpfunos_popupServicios_14'),
+        'popup_15' => get_option('wpfunos_popupServicios_15'),
+      );
+
+
       $expiry = strtotime('+1 month');
       if (isset($_COOKIE['wp-wpml_current_language'])){
         setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email

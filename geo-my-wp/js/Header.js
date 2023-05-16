@@ -76,7 +76,7 @@ $ = jQuery.noConflict();
 $(document).ready(function(){
 	$(function fomulariocontacto(){
 		var checkExist = setInterval(function() {
-			if( document.getElementById('wpfTeLlamamosGratis') !== null ){ 
+			if( document.querySelector("form[name='TeLlamamosGratis']") ){
 				var listener = document.querySelector("form[name='TeLlamamosGratis'] input[name='form_fields[email]']");
 				if( listener.getAttribute('listener') !== 'true'  ) {
 					console.log( 'El campo existe.' );
@@ -96,9 +96,8 @@ $(document).ready(function(){
 	}); // Function END
 }); // Document ready END
 
-//wpfTeLlamamosGratis
 
-document.getElementById('wpfTeLlamamosGratis')
+if (typeof document.querySelector("form[name='TeLlamamosGratis'] input[name='form_fields[email]']") !== 'undefined')
 //TeLlamamosGratis
 //wpfunosDatosServiciosV3
 //PaginaFinanciacion
