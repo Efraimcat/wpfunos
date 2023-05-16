@@ -73,7 +73,7 @@ class Wpfunos_Public {
   public function wpfunosCorreoUsuarioPopupShortcode( $atts, $content = "" ) {
     if ( get_option('wpfunos_activarCorreoUsuarioContacto') ){
       $mensaje = get_option('wpfunos_mensajeCorreoUsuarioContacto');
-      $nombreUsuario = do_shortcode ('[field id="nombre"]');
+      $nombreUsuario = do_shortcode ('[field id="Nombre"]');
       $telefonoUsuario = do_shortcode ('[field id="telefono"]');
       $Email = do_shortcode ('[field id="email"]');
       $mensaje = str_replace( '[nombreUsuario]' , $nombreUsuario , $mensaje );

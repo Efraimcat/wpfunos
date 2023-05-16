@@ -297,11 +297,21 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 }
 
 #form-field-IP,
+#form-field-cuando,
+#form-field-destino,
+#form-field-ataud,
+#form-field-velatorio,
+#form-field-ceremonia,
 #form-field-donde{
 	display: none;
 }
 
 label[for="form-field-IP"],
+label[for="form-field-cuando"],
+label[for="form-field-destino"],
+label[for="form-field-ataud"],
+label[for="form-field-velatorio"],
+label[for="form-field-ceremonia"],
 label[for="form-field-donde"]{
 	display: none;
 }

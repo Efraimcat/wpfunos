@@ -1,7 +1,7 @@
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
-    $('#gmw-submit-8').hide();
+    //$('#gmw-submit-8').hide();
     var idioma_wpml = getCookie('wp-wpml_current_language');
 
     document.getElementById('gmw-address-field-8').addEventListener('change', function(){

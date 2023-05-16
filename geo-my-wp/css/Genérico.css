@@ -541,3 +541,10 @@ div.gmw-form-wrapper div.gmw-locator-button-wrapper.text:hover {
 		padding: 12px 14px;
 	}
 }
+
+#form-field-IP{
+	display: none;
+}
+label[for="form-field-IP"]{
+	display: none;
+}

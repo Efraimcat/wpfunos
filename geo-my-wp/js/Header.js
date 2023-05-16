@@ -20,10 +20,6 @@ $( document ).ready(function() {
  	});
 });
 </script>
-
-
-
-
 <script>
 window.onload = function () {
 	if( document.body.classList.contains( 'logged-in' )){
@@ -75,3 +71,36 @@ var initreferrer = document.referrer;
 if(initreferrer.indexOf('funos.es') === -1 ) { // Check if the referer is your site or not. If not( return -1 ) set the localStorage.
 	sessionStorage.setItem("wpfunos_referrer", initreferrer);
 }
+
+$ = jQuery.noConflict();
+$(document).ready(function(){
+	$(function fomulariocontacto(){
+		var checkExist = setInterval(function() {
+			if( document.getElementById('wpfTeLlamamosGratis') !== null ){ 
+				var listener = document.querySelector("form[name='TeLlamamosGratis'] input[name='form_fields[email]']");
+				if( listener.getAttribute('listener') !== 'true'  ) {
+					console.log( 'El campo existe.' );
+					listener.setAttribute('listener', 'true');
+					listener.addEventListener('change', function(){
+						console.log( 'El campo cambia a ' +  listener.value );
+						var email =  listener.value ;
+						var _hsq = window._hsq = window._hsq || [];
+						_hsq.push(["identify",{
+							email: email
+						}]);
+					}, false);
+				}// if( listener.getAttribute('listener') !== 'true'  )
+			}// if( document.querySelector("form[name='TeLlamamosGratis'")
+		}, 100); // check every 100ms
+		// Multistep Form END
+	}); // Function END
+}); // Document ready END
+
+//wpfTeLlamamosGratis
+
+document.getElementById('wpfTeLlamamosGratis')
+//TeLlamamosGratis
+//wpfunosDatosServiciosV3
+//PaginaFinanciacion
+//Formulario Colaborador Datos Usuario
+//AsesoramientoGratuito

@@ -97,11 +97,18 @@ function set_funos_referer() {
     set_transient( 'wpfunos-query-' .$userIP, $output, HOUR_IN_SECONDS );
   }
 
-  $userIP = apply_filters('wpfunos_userIP','dummy');
   $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
   if( $referer != '' && !strpos($referer, '/funos.es') && !strpos($referer, '/FUNOS.ES') ){
     set_transient( 'wpfunos-referer-' .$userIP, $referer, HOUR_IN_SECONDS );
   }
+
+  $wpfutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+  if( $wpfutk != '' ){
+    if( !get_transient('wpfunos-utk-' .$userIP ) ){
+      set_transient( 'wpfunos-utk-' .$userIP, $wpfutk, HOUR_IN_SECONDS );
+    }
+  }
+
 }
 add_action( 'init', 'set_funos_referer' );
 
