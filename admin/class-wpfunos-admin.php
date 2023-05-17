@@ -149,23 +149,6 @@ class Wpfunos_Admin {
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-admin.js', array( 'jquery' ), $this->version, false );
     wp_localize_script( $this->plugin_name, 'WpfAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
-    wp_add_inline_script( $this->plugin_name, 'const WpfPopup = ' . json_encode( array(
-      'popup_01' => get_option('wpfunos_popupServicios_01'),
-      'popup_02' => get_option('wpfunos_popupServicios_02'),
-      'popup_03' => get_option('wpfunos_popupServicios_03'),
-      'popup_04' => get_option('wpfunos_popupServicios_04'),
-      'popup_05' => get_option('wpfunos_popupServicios_05'),
-      'popup_06' => get_option('wpfunos_popupServicios_06'),
-      'popup_07' => get_option('wpfunos_popupServicios_07'),
-      'popup_08' => get_option('wpfunos_popupServicios_08'),
-      'popup_09' => get_option('wpfunos_popupServicios_09'),
-      'popup_10' => get_option('wpfunos_popupServicios_10'),
-      'popup_11' => get_option('wpfunos_popupServicios_11'),
-      'popup_12' => get_option('wpfunos_popupServicios_12'),
-      'popup_13' => get_option('wpfunos_popupServicios_13'),
-      'popup_14' => get_option('wpfunos_popupServicios_14'),
-      'popup_15' => get_option('wpfunos_popupServicios_15')
-    ) ), 'before' );
   }
 
   /*********************************/

@@ -131,6 +131,7 @@ class Wpfunos_Public {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Enviar SMS' );
       do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . $fields['telefono'] );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-analytics: ' . $_COOKIE['cookielawinfo-checkbox-analytics']  );
 
       $request = '{
         "api_key":"4b66b40a110c408e8651eb971591f03e",
@@ -184,10 +185,20 @@ class Wpfunos_Public {
       $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS['body'] );
       do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
       //
-      $expiry = strtotime('+1 month');
-      if( ! isset( $_COOKIE['wpfn'] ) ) setcookie('wpfn', sanitize_text_field($fields['nombre']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-      if( ! isset( $_COOKIE['wpfe'] ) ) setcookie('wpfe', sanitize_text_field($fields['email']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-      if( ! isset( $_COOKIE['wpft'] ) ) setcookie('wpft', sanitize_text_field($fields['telefono']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+      $expiry = strtotime('+1 year');
+      //if( ! isset( $_COOKIE['wpfn'] ) ) setcookie('wpfn', sanitize_text_field($fields['Nombre']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+      //if( ! isset( $_COOKIE['wpfe'] ) ) setcookie('wpfe', sanitize_text_field($fields['email']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+      //if( ! isset( $_COOKIE['wpft'] ) ) setcookie('wpft', sanitize_text_field($fields['telefono']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+      //
+      if( isset( $_COOKIE['wpfu'] ) ){
+        $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+        //do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
+        $wpfu->name = $fields['Nombre'];
+        $wpfu->email = $fields['email'];
+        $wpfu->phone = $fields['telefono'];
+        $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );
+        setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+      }
       //
       do_action('wpfunos-visitas-entrada',array( 'tipo' => '6', ) );
 
@@ -360,6 +371,13 @@ class Wpfunos_Public {
     $nacimiento = (isset($record['nacimiento'])) ? $record['nacimiento'] : '';
     $cuando = (isset($record['cuando'])) ? $record['cuando'] : '';
     $cp = (isset($record['cp'])) ? $record['cp'] : '';
+    $wpfads = ( isset( $_COOKIE['cookielawinfo-checkbox-advertisement'] ) ) ? $_COOKIE['cookielawinfo-checkbox-advertisement'] : '' ;
+    $wpfana = ( isset( $_COOKIE['cookielawinfo-checkbox-analytics'] ) ) ?     $_COOKIE['cookielawinfo-checkbox-analytics'] : '' ;
+    $wpffun = ( isset( $_COOKIE['cookielawinfo-checkbox-functional'] ) ) ?    $_COOKIE['cookielawinfo-checkbox-functional'] : '' ;
+    $wpfnec = ( isset( $_COOKIE['cookielawinfo-checkbox-necessary'] ) ) ?     $_COOKIE['cookielawinfo-checkbox-necessary'] : '' ;
+    $wpfnon = ( isset( $_COOKIE['cookielawinfo-checkbox-non-necessary'] ) ) ? $_COOKIE['cookielawinfo-checkbox-non-necessary'] : '' ;
+    $wpfoth = ( isset( $_COOKIE['cookielawinfo-checkbox-others'] ) ) ?        $_COOKIE['cookielawinfo-checkbox-others'] : '' ;
+    $wpfper = ( isset( $_COOKIE['cookielawinfo-checkbox-performance'] ) ) ?   $_COOKIE['cookielawinfo-checkbox-performance'] : '' ;
 
     // [REQUIRED] define $items array
     // notice that last argument is ARRAY_A, so we will retrieve array
@@ -393,6 +411,13 @@ class Wpfunos_Public {
         'nacimiento' => $nacimiento,
         'cuando' => $cuando,
         'cp' => $cp,
+        'wpfads' => $wpfads,
+        'wpfana' => $wpfana,
+        'wpffun' => $wpffun,
+        'wpfnec' => $wpfnec,
+        'wpfnon' => $wpfnon,
+        'wpfoth' => $wpfoth,
+        'wpfper' => $wpfper,
         'contador' => $contador,
       )
     );

@@ -26,9 +26,6 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
       'time'	=> __( 'Fecha', 'wpfunos' ),
       'version'	=> __( 'Versión', 'wpfunos' ),
       'tipo' => __( 'Tipo', 'column name', 'wpfunos' ),
-      'wpfn' => __( 'wpfn', 'wpfunos' ),
-      'wpfe' => __( 'wpfe', 'wpfunos' ),
-      'wpft' => __( 'wpft', 'wpfunos' ),
       'nombre' => __( 'Nombre', 'wpfunos' ),
       'email' => __( 'Email', 'wpfunos' ),
       'telefono' => __( 'Teléfono', 'wpfunos' ),
@@ -46,6 +43,13 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
       'nacimiento' => __( 'nac', 'wpfunos' ),
       'cuando' => __( 'cuando', 'wpfunos' ),
       'cp' => __( 'cp', 'wpfunos' ),
+      'wpfads' => __( 'wpfads', 'wpfunos' ),
+      'wpfana' => __( 'wpfana', 'wpfunos' ),
+      'wpffun' => __( 'wpffun', 'wpfunos' ),
+      'wpfnec' => __( 'wpfnec', 'wpfunos' ),
+      'wpfnon' => __( 'wpfnon', 'wpfunos' ),
+      'wpfoth' => __( 'wpfoth', 'wpfunos' ),
+      'wpfper' => __( 'wpfper', 'wpfunos' ),
       'contador' => __( 'contador', 'wpfunos' ),
     );
     return $table_columns;
@@ -66,9 +70,6 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
       'time'	=> 'time',
       'version'	=> 'versión',
       'tipo' => 'tipo',
-      'wpfn' => 'wpfn',
-      'wpfe' => 'wpfe',
-      'wpft' => 'wpft',
       'nombre' => 'nombre',
       'email' => 'email',
       'telefono' => 'teléfono',
@@ -86,6 +87,13 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
       'nacimiento' => 'nacimiento',
       'cuando' => 'cuando',
       'cp' => 'cp',
+      'wpfads' => 'wpfads',
+      'wpfana' => 'wpfana',
+      'wpffun' => 'wpffun',
+      'wpfnec' => 'wpfnec',
+      'wpfnon' => 'wpfnon',
+      'wpfoth' => 'wpfoth',
+      'wpfper' => 'wpfper',
       'contador' => 'contador',
     );
   }
@@ -221,12 +229,28 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
       $loggeds = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT logged FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY logged ASC" ));
       $ips = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT ip FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY INET_ATON(ip)" ));
 
+      $wpfads = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT wpfads FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY wpfads ASC" ));
+      $wpfana = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT wpfana FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY wpfana ASC" ));
+      $wpffun = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT wpffun FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY wpffun ASC" ));
+      $wpfnec = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT wpfnec FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY wpfnec ASC" ));
+      $wpfnon = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT wpfnon FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY wpfnon ASC" ));
+      $wpfoth = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT wpfoth FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY wpfoth ASC" ));
+      $wpfper = $wpdb->get_results( $wpdb->prepare( "SELECT DISTINCT wpfper FROM ".$wpdb->prefix."wpf_visitas WHERE 1 = 1 ORDER BY wpfper ASC" ));
+
       $m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
       $d = isset( $_GET['d'] ) ? (int) $_GET['d'] : 0;
       $t = isset( $_GET['t'] ) ? $_GET['t'] : 0;
       $b = isset( $_GET['b'] ) ? $_GET['b'] : 0;
       $l = isset( $_GET['l'] ) ? $_GET['l'] : 0;
       $i = isset( $_GET['i'] ) ? $_GET['i'] : 0;
+
+      $n = isset( $_GET['n'] ) ? $_GET['n'] : 0;
+      $o = isset( $_GET['o'] ) ? $_GET['o'] : 0;
+      $p = isset( $_GET['p'] ) ? $_GET['p'] : 0;
+      $q = isset( $_GET['q'] ) ? $_GET['q'] : 0;
+      $r = isset( $_GET['r'] ) ? $_GET['r'] : 0;
+      $u = isset( $_GET['u'] ) ? $_GET['u'] : 0;
+      $v = isset( $_GET['v'] ) ? $_GET['v'] : 0;
 
       ?>
       <div class="alignleft actions">
@@ -305,6 +329,106 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
           }
           ?>
         </select>
+
+        <select name="n" id="filter-by-wpfads">
+          <option<?php selected( $n, 0 ); ?> value="0" data-rc="">Todas wpfads</option>
+          <?php
+          foreach ( $wpfads as $arc_row ) {
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $n, $arc_row->wpfads, false ),
+              esc_attr( $arc_row->wpfads ),
+              esc_attr( '&n='.$arc_row->wpfads ),
+              sprintf( __( '%1$s' ), $arc_row->wpfads )
+            );
+          }
+          ?>
+        </select>
+        <select name="o" id="filter-by-wpfana">
+          <option<?php selected( $o, 0 ); ?> value="0" data-rc="">Todas wpfana</option>
+          <?php
+          foreach ( $wpfana as $arc_row ) {
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $o, $arc_row->wpfana, false ),
+              esc_attr( $arc_row->wpfana ),
+              esc_attr( '&o='.$arc_row->wpfana ),
+              sprintf( __( '%1$s' ), $arc_row->wpfana )
+            );
+          }
+          ?>
+        </select>
+        <select name="p" id="filter-by-wpffun">
+          <option<?php selected( $p, 0 ); ?> value="0" data-rc="">Todas wpffun</option>
+          <?php
+          foreach ( $wpffun as $arc_row ) {
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $p, $arc_row->wpffun, false ),
+              esc_attr( $arc_row->wpffun ),
+              esc_attr( '&p='.$arc_row->wpffun ),
+              sprintf( __( '%1$s' ), $arc_row->wpffun )
+            );
+          }
+          ?>
+        </select>
+        <select name="q" id="filter-by-wpfnec">
+          <option<?php selected( $q, 0 ); ?> value="0" data-rc="">Todas wpfnec</option>
+          <?php
+          foreach ( $wpfnec as $arc_row ) {
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $q, $arc_row->wpfnec, false ),
+              esc_attr( $arc_row->wpfnec ),
+              esc_attr( '&q='.$arc_row->wpfnec ),
+              sprintf( __( '%1$s' ), $arc_row->wpfnec )
+            );
+          }
+          ?>
+        </select>
+        <select name="r" id="filter-by-wpfnon">
+          <option<?php selected( $r, 0 ); ?> value="0" data-rc="">Todas wpfnon</option>
+          <?php
+          foreach ( $wpfnon as $arc_row ) {
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $r, $arc_row->wpfnon, false ),
+              esc_attr( $arc_row->wpfnon ),
+              esc_attr( '&r='.$arc_row->wpfnon ),
+              sprintf( __( '%1$s' ), $arc_row->wpfnon )
+            );
+          }
+          ?>
+        </select>
+        <select name="u" id="filter-by-wpfoth">
+          <option<?php selected( $u, 0 ); ?> value="0" data-rc="">Todas wpfoth</option>
+          <?php
+          foreach ( $wpfoth as $arc_row ) {
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $u, $arc_row->wpfoth, false ),
+              esc_attr( $arc_row->wpfoth ),
+              esc_attr( '&u='.$arc_row->wpfoth ),
+              sprintf( __( '%1$s' ), $arc_row->wpfoth )
+            );
+          }
+          ?>
+        </select>
+        <select name="v" id="filter-by-wpfper">
+          <option<?php selected( $v, 0 ); ?> value="0" data-rc="">Todas wpfper</option>
+          <?php
+          foreach ( $wpfper as $arc_row ) {
+            printf(
+              "<option %s value='%s' data-rc='%s'>%s</option>\n",
+              selected( $v, $arc_row->wpfper, false ),
+              esc_attr( $arc_row->wpfper ),
+              esc_attr( '&v='.$arc_row->wpfper ),
+              sprintf( __( '%1$s' ), $arc_row->wpfper )
+            );
+          }
+          ?>
+        </select>
+
         <select name="i" id="filter-by-ip">
           <option<?php selected( $i, 0 ); ?> value="0" data-rc="">Todas las IP</option>
           <?php
@@ -326,6 +450,13 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
         jQuery('#filter-by-tipo option:selected').data('rc') +
         jQuery('#filter-by-mobile option:selected').data('rc') +
         jQuery('#filter-by-logged option:selected').data('rc') +
+        jQuery('#filter-by-wpfads option:selected').data('rc') +
+        jQuery('#filter-by-wpfana option:selected').data('rc') +
+        jQuery('#filter-by-wpffun option:selected').data('rc') +
+        jQuery('#filter-by-wpfnec option:selected').data('rc') +
+        jQuery('#filter-by-wpfnon option:selected').data('rc') +
+        jQuery('#filter-by-wpfoth option:selected').data('rc') +
+        jQuery('#filter-by-wpfper option:selected').data('rc') +
         jQuery('#filter-by-ip option:selected').data('rc') ;
         ">Filtrar</a>
       </div>
@@ -358,6 +489,29 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
     if (!empty($_REQUEST['i'])) {
       $user_query .= ' AND ip = "' . $_REQUEST['i'] . '"';
     }
+
+    if (!empty($_REQUEST['n'])) {
+      $user_query .= ' AND wpfads = "' . $_REQUEST['n'] . '"';
+    }
+    if (!empty($_REQUEST['o'])) {
+      $user_query .= ' AND wpfana = "' . $_REQUEST['n'] . '"';
+    }
+    if (!empty($_REQUEST['p'])) {
+      $user_query .= ' AND wpffun = "' . $_REQUEST['p'] . '"';
+    }
+    if (!empty($_REQUEST['q'])) {
+      $user_query .= ' AND wpfnec = "' . $_REQUEST['q'] . '"';
+    }
+    if (!empty($_REQUEST['r'])) {
+      $user_query .= ' AND wpfnon = "' . $_REQUEST['r'] . '"';
+    }
+    if (!empty($_REQUEST['u'])) {
+      $user_query .= ' AND wpfoth = "' . $_REQUEST['u'] . '"';
+    }
+    if (!empty($_REQUEST['v'])) {
+      $user_query .= ' AND wpfper = "' . $_REQUEST['v'] . '"';
+    }
+
     if (!empty($_REQUEST['d'])) {
       $search = $_REQUEST['d'];
       $year = substr($search,0,4);

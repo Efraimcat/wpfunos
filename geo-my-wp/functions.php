@@ -60,22 +60,26 @@ function add_meta_for_search_excluded()
 add_action('wp_head', 'add_meta_for_search_excluded');
 
 function set_funos_cookie() {
-  $expiry = strtotime('+1 month');
-
-  if (is_user_logged_in()){
-    global $current_user;
-    get_currentuserinfo();
-    $email = $current_user->user_email;
-    $name = $current_user->display_name;
-    $phone = str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
-    setcookie('wpfn', $name,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-    setcookie('wpfe', $email, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-    setcookie('wpft', $phone, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-    if ( current_user_can( 'funos_colaborador' ) ) {
-      setcookie('wpfcolab', 'yes', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-    }else{
-      if( isset( $_COOKIE['wpfcolab'] ) ) unset($_COOKIE['wpfcolab']);
-    }
+  $expiry = strtotime('+1 year');
+  global $current_user;
+  get_currentuserinfo();
+  $email = (is_user_logged_in()) ? $current_user->user_email : '' ;
+  $name = (is_user_logged_in()) ? $current_user->display_name : '' ;
+  $phone = (is_user_logged_in()) ? str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true )) : '' ;
+  if( !isset( $_COOKIE['wpfu'] ) ){
+    $colab = ( current_user_can( 'funos_colaborador' ) ) ? 'yes' : 'no' ;
+    $wpfu = array(
+      'name' => $email,
+      'email' => $name,
+      'phone' => $phone,
+      'colab' => $colab,
+      'lastserv' => '',
+      'lasttimeserv' => '',
+    );
+    $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );
+    setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+  }else{
+    setcookie('wpfu', $_COOKIE['wpfu'],  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
   }
 }
 add_action( 'init', 'set_funos_cookie' );

@@ -116,6 +116,13 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         cuando tinytext DEFAULT '' NOT NULL,
         cp tinytext DEFAULT '' NOT NULL,
         contador int(10),
+        wpfads varchar(10) DEFAULT '' NOT NULL,
+        wpfana varchar(10) DEFAULT '' NOT NULL,
+        wpffun varchar(10) DEFAULT '' NOT NULL,
+        wpfnec varchar(10) DEFAULT '' NOT NULL,
+        wpfnon varchar(10) DEFAULT '' NOT NULL,
+        wpfoth varchar(10) DEFAULT '' NOT NULL,
+        wpfper varchar(10) DEFAULT '' NOT NULL,
         PRIMARY KEY  (id)
       );";
 

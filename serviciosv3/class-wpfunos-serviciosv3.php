@@ -55,63 +55,6 @@ class Wpfunos_ServiciosV3 {
   * add_shortcode( 'wpfunos-v3-ubicacion', array( $this, 'wpfunosV3UbicacionShortcode' ));
   */
   public function wpfunosV3UbicacionShortcode($atts, $content = ""){
-    // WPML
-    $expiry = strtotime('+1 month');
-    if (isset($_COOKIE['wp-wpml_current_language'])){
-      setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
-      setcookie('wpf_obj_id_02', apply_filters( 'wpml_object_id', 56672, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles
-      setcookie('wpf_obj_id_03', apply_filters( 'wpml_object_id', 56676, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Presupuesto
-      setcookie('wpf_obj_id_04', apply_filters( 'wpml_object_id', 56680, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamar
-      setcookie('wpf_obj_id_05', apply_filters( 'wpml_object_id', 56684, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamame
-
-      setcookie('wpf_obj_id_06', apply_filters( 'wpml_object_id', 89340, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (1)
-      setcookie('wpf_obj_id_07', apply_filters( 'wpml_object_id', 89344, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (2)
-      setcookie('wpf_obj_id_08', apply_filters( 'wpml_object_id', 89348, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (3)
-      setcookie('wpf_obj_id_09', apply_filters( 'wpml_object_id', 89351, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (4)
-      setcookie('wpf_obj_id_10', apply_filters( 'wpml_object_id', 89354, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (5)
-
-      setcookie('wpf_obj_id_11', apply_filters( 'wpml_object_id', 84639, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (loader2)
-      setcookie('wpf_obj_id_12', apply_filters( 'wpml_object_id', 77005, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (entrada datos GTM)
-      setcookie('wpf_obj_id_13', apply_filters( 'wpml_object_id', 111301, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación
-      setcookie('wpf_obj_id_14', apply_filters( 'wpml_object_id', 111305, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación Genérico
-      setcookie('wpf_obj_id_15', apply_filters( 'wpml_object_id', 89948, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios cambiar distancia V3
-    }else{
-      setcookie('wpf_obj_id_01', 47448, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
-      setcookie('wpf_obj_id_02', 56672, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles
-      setcookie('wpf_obj_id_03', 56676, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Presupuesto
-      setcookie('wpf_obj_id_04', 56680, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamar
-      setcookie('wpf_obj_id_05', 56684, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamame
-
-      setcookie('wpf_obj_id_06', 89340, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (1)
-      setcookie('wpf_obj_id_07', 89344, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (2)
-      setcookie('wpf_obj_id_08', 89348, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (3)
-      setcookie('wpf_obj_id_09', 89351, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (4)
-      setcookie('wpf_obj_id_10', 89354, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (5)
-
-      setcookie('wpf_obj_id_11', 84639, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (loader2)
-      setcookie('wpf_obj_id_12', 77005, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (entrada datos GTM)
-      setcookie('wpf_obj_id_13', 111301, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación
-      setcookie('wpf_obj_id_14', 111305, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación Genérico
-      setcookie('wpf_obj_id_15', 89948, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios cambiar distancia V3
-    }
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_01'] ); //Servicios Enviar Email
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_02'] ); //Servicio Detalles
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_03'] ); //Servicio Presupuesto
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_04'] ); //Servicios Llamar
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_05'] ); //Servicios Llamame
-
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_06'] ); //Servicios Multistep (1)
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_07'] ); //Servicios Multistep (2)
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_08'] ); //Servicios Multistep (3)
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_09'] ); //Servicios Multistep (4)
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_10'] ); //Servicios Multistep (5)
-
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_11'] ); //Ventana Popup Esperando (loader2)
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_12'] ); //Ventana Popup Esperando (entrada datos GTM)
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_13'] ); //Servicios Financiación
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_14'] ); //Servicios Financiación Genérico
-    ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_15'] ); //Servicios cambiar distancia V3
-    // WPML
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '84626' ); //Ventana Popup Esperando (loader1)
     ElementorPro\Modules\Popup\Module::add_popup_to_location( '136469' ); //Ventana Popup Esperando (loader1)(CA)
 
@@ -126,10 +69,18 @@ class Wpfunos_ServiciosV3 {
   * add_shortcode( 'wpfunos-v3-ultima-busqueda', array( $this, 'wpfunosV3UltimaBusquedaShortcode' ));
   */
   public function wpfunosV3UltimaBusquedaShortcode($atts, $content = ""){
-    if( ! isset( $_COOKIE['wpflast'] ) ) return;
+    //
+    $wpflasttime = '';
+    if( isset( $_COOKIE['wpfu'] ) ){
+      $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+      //do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
+      $wpflast = $wpfu->lastserv;
+      $wpflasttime = $wpfu->lasttimeserv;
+    }
+    if( $wpflasttime == '' ) return;
     if( $_GET['autoload'] ){
       if( $_GET['autoload'] == 'yes' ){
-        $wpflasturl = apply_filters( 'wpfunos_crypt', $_COOKIE['wpflast'] , 'd' );
+        $wpflasturl = apply_filters( 'wpfunos_crypt', $wpflast , 'd' );
         ?>
         <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
         $ = jQuery.noConflict();
@@ -143,7 +94,7 @@ class Wpfunos_ServiciosV3 {
         <?php
       }
     }
-    $last = str_replace("+"," ",$_COOKIE['wpflasttime']);
+    $last = str_replace("+"," ",$wpflasttime );
     $_GET['wpflasttime'] = str_replace("-",":",$last);
     echo do_shortcode( '[elementor-template id="75197"]' );
     ?>
@@ -166,93 +117,53 @@ class Wpfunos_ServiciosV3 {
   * Recuperar última busqueda
   */
   public function wpfunosV3LastUrlShortcode( $atts, $content = "" ) {
-    $wpflasturl = apply_filters( 'wpfunos_crypt', $_COOKIE['wpflast'] , 'd' );
-    return $wpflasturl;
+    if( isset( $_COOKIE['wpfu'] ) ){
+      $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+      return apply_filters( 'wpfunos_crypt',$wpfu->lastserv , 'd' );
+    }
+    return ;
   }
 
   /**
   * add_shortcode( 'wpfunos-v3-resultados', array( $this, 'wpfunosV3ResultadosShortcode' ));
   */
   public function wpfunosV3ResultadosShortcode($atts, $content = ""){
+
+    if( !isset( $_COOKIE['cookielawinfo-checkbox-necessary'] ) ){
+      ?>
+      <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
+      $ = jQuery.noConflict();
+      $(document).ready(function(){
+        $(function(){
+          var URL = '/contacto';
+          window.open(URL,"_self");
+        });
+      });
+      </script>
+      <?php
+    }
+
     if( count($_GET) > 0 ){
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&land=1
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&wpfwpf=a3Q0Uld1M0RxY1RSTjcrMStLT3VadzZsSm45RGpnRHhXSHM2elhTZlJrbz0=
       /**?><script>console.log('Cargando popups Elementor.' );</script><?php **/
-      $wpfpopup = array(
-        'popup_01' => get_option('wpfunos_popupServicios_01'),
-        'popup_02' => get_option('wpfunos_popupServicios_02'),
-        'popup_03' => get_option('wpfunos_popupServicios_03'),
-        'popup_04' => get_option('wpfunos_popupServicios_04'),
-        'popup_05' => get_option('wpfunos_popupServicios_05'),
-        'popup_06' => get_option('wpfunos_popupServicios_06'),
-        'popup_07' => get_option('wpfunos_popupServicios_07'),
-        'popup_08' => get_option('wpfunos_popupServicios_08'),
-        'popup_09' => get_option('wpfunos_popupServicios_09'),
-        'popup_10' => get_option('wpfunos_popupServicios_10'),
-        'popup_11' => get_option('wpfunos_popupServicios_11'),
-        'popup_12' => get_option('wpfunos_popupServicios_12'),
-        'popup_13' => get_option('wpfunos_popupServicios_13'),
-        'popup_14' => get_option('wpfunos_popupServicios_14'),
-        'popup_15' => get_option('wpfunos_popupServicios_15'),
-      );
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '47448' ); //Servicios Enviar Email
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '56672' ); //Servicio Detalles
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '56676' ); //Servicio Presupuesto
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '56680' ); //Servicios Llamar
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '56684' ); //Servicios Llamame
 
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89340' ); //Servicios Multistep (1)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89344' ); //Servicios Multistep (2)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89348' ); //Servicios Multistep (3)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89351' ); //Servicios Multistep (4)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89354' ); //Servicios Multistep (5)
 
-      $expiry = strtotime('+1 month');
-      if (isset($_COOKIE['wp-wpml_current_language'])){
-        setcookie('wpf_obj_id_01', apply_filters( 'wpml_object_id', 47448, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
-        setcookie('wpf_obj_id_02', apply_filters( 'wpml_object_id', 56672, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles
-        setcookie('wpf_obj_id_03', apply_filters( 'wpml_object_id', 56676, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Presupuesto
-        setcookie('wpf_obj_id_04', apply_filters( 'wpml_object_id', 56680, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamar
-        setcookie('wpf_obj_id_05', apply_filters( 'wpml_object_id', 56684, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamame
-
-        setcookie('wpf_obj_id_06', apply_filters( 'wpml_object_id', 89340, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (1)
-        setcookie('wpf_obj_id_07', apply_filters( 'wpml_object_id', 89344, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (2)
-        setcookie('wpf_obj_id_08', apply_filters( 'wpml_object_id', 89348, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (3)
-        setcookie('wpf_obj_id_09', apply_filters( 'wpml_object_id', 89351, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (4)
-        setcookie('wpf_obj_id_10', apply_filters( 'wpml_object_id', 89354, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (5)
-
-        setcookie('wpf_obj_id_11', apply_filters( 'wpml_object_id', 84639, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (loader2)
-        setcookie('wpf_obj_id_12', apply_filters( 'wpml_object_id', 77005, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (entrada datos GTM)
-        setcookie('wpf_obj_id_13', apply_filters( 'wpml_object_id', 111301, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación
-        setcookie('wpf_obj_id_14', apply_filters( 'wpml_object_id', 111305, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación Genérico
-        setcookie('wpf_obj_id_15', apply_filters( 'wpml_object_id', 89948, 'post', TRUE ),  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios cambiar distancia V3
-      }else{
-        setcookie('wpf_obj_id_01', 47448, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Enviar Email
-        setcookie('wpf_obj_id_02', 56672, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Detalles
-        setcookie('wpf_obj_id_03', 56676, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicio Presupuesto
-        setcookie('wpf_obj_id_04', 56680, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamar
-        setcookie('wpf_obj_id_05', 56684, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Llamame
-
-        setcookie('wpf_obj_id_06', 89340, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (1)
-        setcookie('wpf_obj_id_07', 89344, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (2)
-        setcookie('wpf_obj_id_08', 89348, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (3)
-        setcookie('wpf_obj_id_09', 89351, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (4)
-        setcookie('wpf_obj_id_10', 89354, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Multistep (5)
-
-        setcookie('wpf_obj_id_11', 84639, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (loader2)
-        setcookie('wpf_obj_id_12', 77005, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Ventana Popup Esperando (entrada datos GTM)
-        setcookie('wpf_obj_id_13', 111301, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación
-        setcookie('wpf_obj_id_14', 111305, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios Financiación Genérico
-        setcookie('wpf_obj_id_15', 89948, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'samesite' => 'Lax',] ); //Servicios cambiar distancia V3
-      }
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_01'] ); //Servicios Enviar Email
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_02'] ); //Servicio Detalles
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_03'] ); //Servicio Presupuesto
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_04'] ); //Servicios Llamar
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_05'] ); //Servicios Llamame
-
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_06'] ); //Servicios Multistep (1)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_07'] ); //Servicios Multistep (2)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_08'] ); //Servicios Multistep (3)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_09'] ); //Servicios Multistep (4)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_10'] ); //Servicios Multistep (5)
-
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_11'] ); //Ventana Popup Esperando (loader2)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_12'] ); //Ventana Popup Esperando (entrada datos GTM)
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_13'] ); //Servicios Financiación
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_14'] ); //Servicios Financiación Genérico
-      ElementorPro\Modules\Popup\Module::add_popup_to_location( $_COOKIE['wpf_obj_id_15'] ); //Servicios cambiar distancia V3
-      // WPML
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '84639' ); //Ventana Popup Esperando (loader2)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '77005' ); //Ventana Popup Esperando (entrada datos GTM)
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '111301' ); //Servicios Financiación
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '111305' ); //Servicios Financiación Genérico
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '89948' ); //Servicios cambiar distancia V3
 
       /**?><script>console.log('Cargando popups Elementor END.' );</script><?php**/
 
@@ -305,28 +216,14 @@ class Wpfunos_ServiciosV3 {
       // END Excepción provincia
       // cookielawinfo-checkbox-functional = yes
       /**?><script>console.log('Comprobando Cookies.' );</script><?php**/
-      $expiry = strtotime('+1 month');
-      if (is_user_logged_in()){
-        $current_user = wp_get_current_user();
-        if( ! isset( $_COOKIE['wpfn'] ) ) setcookie('wpfn', sanitize_text_field( $current_user->display_name ), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-        if( ! isset( $_COOKIE['wpfe'] ) ) setcookie('wpfe', sanitize_text_field( $current_user->user_email ), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-        if( ! isset( $_COOKIE['wpft'] ) ) setcookie('wpft', sanitize_text_field( str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ))), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-        $_GET['usuario_telefono'] = str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
-        $_GET['Email'] = $current_user->user_email;
-        $_GET['nombreUsuario'] = $current_user->display_name;
-      }else{
-        if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){
-          if( ! isset( $_COOKIE['wpfn'] ) ) setcookie('wpfn', '', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-          if( ! isset( $_COOKIE['wpfe'] ) ) setcookie('wpfe', '', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-          if( ! isset( $_COOKIE['wpft'] ) ) setcookie('wpft', '', ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-          $_GET['usuario_telefono'] = $_COOKIE['wpft'];
-          $_GET['Email'] = $_COOKIE['wpfe'];
-          $_GET['nombreUsuario'] = $_COOKIE['wpfn'];
-        }else{
-          $_GET['usuario_telefono'] = '';
-          $_GET['Email'] = '';
-          $_GET['nombreUsuario'] = '';
-        }
+      $_GET['usuario_telefono'] = '';
+      $_GET['Email'] = '';
+      $_GET['nombreUsuario'] = '';
+      if( isset( $_COOKIE['wpfu'] ) ){
+        $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+        $_GET['nombreUsuario'] = $wpfu->name;
+        $_GET['Email'] = $wpfu->email;
+        $_GET['usuario_telefono'] = $wpfu->phone;
       }
       /**?><script>console.log('Comprobando Cookies END.' );</script><?php**/
       // End Comprobar cookies
@@ -379,10 +276,12 @@ class Wpfunos_ServiciosV3 {
           /** ?><script>console.log('Verificaciones entrada: Colaborador');</script><?php **/
           $Tienewpfwpf = 1;
 
+          $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+
           if( $IDusuario == 0 ) {
-            $nombre = $_COOKIE['wpfn'];
-            $email = $_COOKIE['wpfe'];
-            $phone = $_COOKIE['wpft'];
+            $nombre = $wpfu->name;
+            $email = $wpfu->email;
+            $phone = $wpfu->phone;
           }else{
             $nombre = get_post_meta( $IDusuario, 'wpfunos_userName', true );
             $email = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
@@ -396,14 +295,14 @@ class Wpfunos_ServiciosV3 {
         }else{  // es un usuario normal
 
           /** ?><script>console.log('Verificaciones entrada: Usuario');</script><?php **/
-
-          if( $_COOKIE['wpfn'] != '' ) { // tenemos sus datos
+          $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+          if( $wpfu->name != '' ) { // tenemos sus datos
             /** ?><script>console.log('Verificaciones entrada: Usuario con cookies');</script><?php **/
             $Tienewpfwpf = 1;
 
-            $nombre = $_COOKIE['wpfn'];
-            $email = $_COOKIE['wpfe'];
-            $phone = $_COOKIE['wpft'];
+            $nombre = $wpfu->name;
+            $email = $wpfu->email;
+            $phone = $wpfu->phone;
 
           }
 

@@ -428,9 +428,21 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       //Última Búsqueda
       if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){
         $expiry = strtotime('+1 year');
-        $wpflast = apply_filters( 'wpfunos_crypt', $URL , 'e' );
-        setcookie('wpflast', $wpflast, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-        setcookie('wpflasttime', date( 'd/m/y', current_time( 'timestamp', 0 ) ) , ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+        //setcookie('wpflast', $wpflast, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+        //setcookie('wpflasttime', date( 'd/m/y', current_time( 'timestamp', 0 ) ) , ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+        //
+        if( isset( $_COOKIE['wpfu'] ) ){
+          $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+          do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
+          $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+          $wpfu->lasttimeserv = date( 'd/m/y', current_time( 'timestamp', 0 ) );
+          $wpfu->name = $wpfnombre;
+          $wpfu->email = $wpfemail;
+          $wpfu->phone = $wpftelefono;
+          $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );
+          setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+        }
+        //
       }
       //Última Búsqueda END
 
@@ -2018,9 +2030,19 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       //Última Búsqueda
       if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){
         $expiry = strtotime('+1 year');
-        $wpflast = apply_filters( 'wpfunos_crypt', $URL , 'e' );
-        setcookie('wpflast', $wpflast, ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-        setcookie('wpflasttime', date( 'd/m/y', current_time( 'timestamp', 0 ) ) , ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+        //
+        if( isset( $_COOKIE['wpfu'] ) ){
+          $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+          do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
+          $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+          $wpfu->lasttimeserv = date( 'd/m/y', current_time( 'timestamp', 0 ) );
+          $wpfu->name = $wpfnombre;
+          $wpfu->email = $wpfemail;
+          $wpfu->phone = $wpftelefono;
+          $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );
+          setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+        }
+        //
       }
       //Última Búsqueda END
       // Clientify
@@ -2048,7 +2070,17 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       );
       //do_action( 'wpfclientify-process-entry', $params );
       // END Clientify
+    } //if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Filtros') )
+    //
+    if( isset( $_COOKIE['wpfu'] ) ){
+      $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+      do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
+      $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+      $wpfu->lasttimeserv = date( 'd/m/y', current_time( 'timestamp', 0 ) );
+      $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );
+      setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
     }
+    //
     $result['type'] = "success";
     $result['wpfurl'] = $URL;
     $result = json_encode($result);

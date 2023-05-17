@@ -21,9 +21,9 @@ $(document).ready(function(){
           var date = new Date();
           date.setTime(date.getTime() + (30*24*60*60*1000));
           expires = '; expires=' + date.toUTCString();
-          document.cookie = 'wpfn=' + $('#form-field-Nombre').val() + expires + '; path=/; SameSite=Lax; secure';
-          document.cookie = 'wpfe=' + $('#form-field-email').val() + expires + '; path=/; SameSite=Lax; secure';
-          document.cookie = 'wpft=' + $('#form-field-telefono').val() + expires + '; path=/; SameSite=Lax; secure';
+          //document.cookie = 'wpfn=' + $('#form-field-Nombre').val() + expires + '; path=/; SameSite=Lax; secure';
+          //document.cookie = 'wpfe=' + $('#form-field-email').val() + expires + '; path=/; SameSite=Lax; secure';
+          //document.cookie = 'wpft=' + $('#form-field-telefono').val() + expires + '; path=/; SameSite=Lax; secure';
 
           $('#wpf-resultados-referencia').attr('wpfnombre', $('#form-field-Nombre').val() );
 
@@ -43,9 +43,9 @@ $(document).ready(function(){
           params.set('cuando', cuando);
           params.set('CP', $('#wpf-resultados-referencia').attr('wpfcp') );
 
-          elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_11') ].showModal(); //Ventana Popup Esperando (loader2)
-          $('#elementor-popup-modal-'+getCookie('wpf_obj_id_10')).hide(); //Servicios Multistep (5)
-          elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_12') ].showModal(); //Ventana Popup Esperando (entrada datos GTM)
+          elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
+          $('#elementor-popup-modal-89354').hide(); //Servicios Multistep (5)
+          elementorFrontend.documentsManager.documents[ 77005 ].showModal(); //Ventana Popup Esperando (entrada datos GTM)
 
           $.ajax({
             type : 'post',
@@ -91,7 +91,7 @@ $(document).ready(function(){
         }); //on('submit_success'
 
         setTimeout(function(){
-          elementorFrontend.documentsManager.documents[ WpfPopup.popup_06 ].showModal(); //Servicios Multistep (1)
+          elementorFrontend.documentsManager.documents[ 89340 ].showModal(); //Servicios Multistep (1)
           $.each( [ '#wpfunos-multistep-ahora', '#wpfunos-multistep-ahora-icon', '#wpfunos-multistep-prox', '#wpfunos-multistep-prox-icon' ], function( i, elem ) {
             $(elem).click( function(){
               if( i  == 0 || i == 1 ){
@@ -101,11 +101,11 @@ $(document).ready(function(){
                 console.log(FuncName+': cuando: Proximamente');
                 cuando = 'Proximamente';
               }
-              $('#elementor-popup-modal-' + WpfPopup.popup_06 ).hide(); //Servicios Multistep (1)
+              $('#elementor-popup-modal-89340').hide(); //Servicios Multistep (1)
               if( $('#wpf-resultados-referencia').attr('wpfland') === '1'){
-                elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_10') ].showModal(); //Servicios Multistep (5)
+                elementorFrontend.documentsManager.documents[ 89354 ].showModal(); //Servicios Multistep (5)
               }else{
-                elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_07') ].showModal(); //Servicios Multistep (2)
+                elementorFrontend.documentsManager.documents[ 89344 ].showModal(); //Servicios Multistep (2)
                 $( '#wpfunos-multistep-entierro' ).click( wpfentierro );
                 $( '#wpfunos-multistep-entierro-icon' ).click( wpfentierro );
                 $( '#wpfunos-multistep-incineracion' ).click( wpfincineracion );
@@ -125,16 +125,16 @@ $(document).ready(function(){
         function wpfreligiosa(){    ceremonia = '4'; console.log(FuncName+': ceremonia: religiosa'); wpfprocessCeremonia(); }
 
         function wpfprocessDestino(){
-          $('#elementor-popup-modal-' + getCookie('wpf_obj_id_07') ).hide(); //Servicios Multistep (2)
-          elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_08') ].showModal(); //Servicios Multistep (3)
+          $('#elementor-popup-modal-89344').hide(); //Servicios Multistep (2)
+          elementorFrontend.documentsManager.documents[ 89348 ].showModal(); //Servicios Multistep (3)
           $( '#wpfunos-multistep-velatorio' ).click( wpfvelatorio );
           $( '#wpfunos-multistep-velatorio-icon' ).click( wpfvelatorio );
           $( '#wpfunos-multistep-sinvelatorio' ).click( wpfsinvelatorio );
           $( '#wpfunos-multistep-sinvelatorio-icon' ).click( wpfsinvelatorio );
         }
         function wpfprocessVelatorio(){
-          $('#elementor-popup-modal-' + getCookie('wpf_obj_id_08') ).hide(); //Servicios Multistep (3)
-          elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_09') ].showModal(); //Servicios Multistep (4)
+          $('#elementor-popup-modal-89348').hide(); //Servicios Multistep (3)
+          elementorFrontend.documentsManager.documents[ 89351 ].showModal(); //Servicios Multistep (4)
           $( '#wpfunos-multistep-sinceremonia' ).click( wpfsinceremonia );
           $( '#wpfunos-multistep-sinceremonia-icon' ).click( wpfsinceremonia );
           $( '#wpfunos-multistep-solosala' ).click( wpfsolosala );
@@ -146,8 +146,8 @@ $(document).ready(function(){
         }
         function wpfprocessCeremonia(){
           var params = new URLSearchParams(location.search);
-          $('#elementor-popup-modal-' + getCookie('wpf_obj_id_09') ).hide(); //Servicios Multistep (4)
-          elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_10') ].showModal(); //Servicios Multistep (5)
+          $('#elementor-popup-modal-89351').hide(); //Servicios Multistep (4)
+          elementorFrontend.documentsManager.documents[ 89354 ].showModal(); //Servicios Multistep (5)
           $( '#form-field-cuando' ).val(cuando);
           $( '#form-field-destino' ).val(destino);
           $( '#form-field-ataud' ).val(params.get('cf[resp2]'));

@@ -329,8 +329,8 @@ class Wpfunos_Utils {
   * Utility: Crypt/Decript HOOK: add_filter( 'wpfunos_crypt', array( $this, 'wpfunosSimpleCrypt' ), 10, 2 )
   * $_GET['wpf'] = apply_filters( 'wpfunos_crypt', $_GET['referencia'] . ', ' . $_GET['CP'] , 'e' );
   * $cryptcode = apply_filters( 'wpfunos_crypt', $_GET['wpf'], 'd' );
-  * $decode = partyo_simple_crypt( $code, 'd' );
-  * $codigo = partyo_simple_crypt( $link, 'e' );
+  * $decode = wpfunos_crypt( $code, 'd' );
+  * $codigo = wpfunos_crypt( $link, 'e' );
   */
   private function wpfunosSimpleCrypt( $string, $action = 'e' ) {
     $secret_key = 'WpFunos_secret_key';

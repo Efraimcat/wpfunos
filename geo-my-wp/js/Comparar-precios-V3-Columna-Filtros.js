@@ -19,7 +19,7 @@ $(document).ready(function(){
     // DONDE
     $.each( elementosDonde, function( i, elem ) {
       $(elem).click( function(){
-        elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_11') ].showModal(); //Ventana Popup Esperando (loader2)
+        elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
         window.location.href = idioma_URL+'/comparar-precios-nueva';
       });
     });
@@ -42,7 +42,7 @@ $(document).ready(function(){
         }else{
           params.set('cuando', 'Ahora');
         }
-        elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_11') ].showModal(); //Ventana Popup Esperando (loader2)
+        elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
         window.location.search = params.toString();
       });
     });
@@ -83,7 +83,7 @@ $(document).ready(function(){
         }else{
           params.set('orden', 'dist' );
         }
-        elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_11') ].showModal(); //Ventana Popup Esperando (loader2)
+        elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
         window.location.search = params.toString();
       });
     });
@@ -163,8 +163,8 @@ function wpfdistancia() {
       if( newdistance !== ''){
 
         $('#wpfunos-formulario-nueva-distancia').hide();
-        elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_11') ].showModal(); //Ventana Popup Esperando (loader2)
-        $('#elementor-popup-modal-' + getCookie('wpf_obj_id_15') ).hide(); //Servicios cambiar distancia V3
+        elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
+        $('#elementor-popup-modal-89948').hide(); //Servicios cambiar distancia V3
 
         if( parseInt(newdistance) < 5 ) newdistance = '5';
         if( parseInt(newdistance) > 200 ) newdistance = '200';
@@ -213,7 +213,7 @@ function wpfFunctionResp(event){
   console.log(FuncName+': click botón '+event.data.resp+' '+event.data.opcion);
 
   if( params.get('cf['+event.data.resp+']') !== event.data.opcion){
-    elementorFrontend.documentsManager.documents[ getCookie('wpf_obj_id_11') ].showModal(); //Ventana Popup Esperando (loader2)
+    elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
     params.set('cf['+event.data.resp+']', event.data.opcion );
     params.delete("wpfwpf");
 
