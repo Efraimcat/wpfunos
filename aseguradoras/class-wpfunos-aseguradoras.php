@@ -520,19 +520,6 @@ class Wpfunos_Aseguradoras {
         do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $request['response']  ) );
         do_action('wpfunos_log', $userIP.' - '.'$email: ' . $email );
       }
-      // Clientify
-      $params = array(
-        "clientifyaction" => 'Aseguradora botón '.$accion,
-        "email" => $email,
-        "nombre" => $nombre,
-        "phone" => $telefono,
-        "user_id" => $post_id,
-        "ubicacion" => $ubicacion,
-        "referencia" => $mensaje_referencia,
-        "origen" => 'Aseguradora botón '.$accion. ' ' .$api
-      );
-      //do_action( 'wpfclientify-process-entry', $params );
-      // END Clientify
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
       do_action('wpfunos_log', '==============' );

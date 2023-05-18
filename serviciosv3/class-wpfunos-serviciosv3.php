@@ -129,20 +129,6 @@ class Wpfunos_ServiciosV3 {
   */
   public function wpfunosV3ResultadosShortcode($atts, $content = ""){
 
-    if( !isset( $_COOKIE['cookielawinfo-checkbox-necessary'] ) ){
-      ?>
-      <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
-      $ = jQuery.noConflict();
-      $(document).ready(function(){
-        $(function(){
-          var URL = '/contacto';
-          window.open(URL,"_self");
-        });
-      });
-      </script>
-      <?php
-    }
-
     if( count($_GET) > 0 ){
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&land=1
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&wpfwpf=a3Q0Uld1M0RxY1RSTjcrMStLT3VadzZsSm45RGpnRHhXSHM2elhTZlJrbz0=
@@ -920,9 +906,6 @@ class Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
     do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
     do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-    do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
-    do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
-    do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
 
     if ( apply_filters('wpfunos_email_colaborador','wpfunosEntradaUbicacion') ) return;
 

@@ -548,3 +548,11 @@ div.gmw-form-wrapper div.gmw-locator-button-wrapper.text:hover {
 label[for="form-field-IP"]{
 	display: none;
 }
+
+#cookie-law-info-again{
+	z-index: 99999;
+}
+
+.elementor-field-group.e-form__buttons__wrapper.elementor-field-type-previous {
+	display: none;
+}

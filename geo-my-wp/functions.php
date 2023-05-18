@@ -84,6 +84,11 @@ function set_funos_cookie() {
 }
 add_action( 'init', 'set_funos_cookie' );
 
+function cargar_plantillas_globales() {
+  ElementorPro\Modules\Popup\Module::add_popup_to_location( '143773' ); //Servicios cambiar distancia V3
+}
+add_action( 'init', 'cargar_plantillas_globales' );
+
 function set_funos_referer() {
   //utm_campaign
   //
@@ -108,8 +113,16 @@ function set_funos_referer() {
 
   $wpfutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
   if( $wpfutk != '' ){
+    $utk['wpfutk'] = $wpfutk;
+    $utk['wpfads'] = $_COOKIE['cookielawinfo-checkbox-advertisement'];
+    $utk['wpfana'] = $_COOKIE['cookielawinfo-checkbox-analytics'];
+    $utk['wpffun'] = $_COOKIE['cookielawinfo-checkbox-functional'];
+    $utk['wpfnec'] = $_COOKIE['cookielawinfo-checkbox-necessary'];
+    $utk['wpfnon'] = $_COOKIE['cookielawinfo-checkbox-non-necessary'];
+    $utk['wpfoth'] = $_COOKIE['cookielawinfo-checkbox-others'];
+    $utk['wpfper'] = $_COOKIE['cookielawinfo-checkbox-performance'];
     if( !get_transient('wpfunos-utk-' .$userIP ) ){
-      set_transient( 'wpfunos-utk-' .$userIP, $wpfutk, HOUR_IN_SECONDS );
+      set_transient( 'wpfunos-utk-' .$userIP, $utk, HOUR_IN_SECONDS );
     }
   }
 

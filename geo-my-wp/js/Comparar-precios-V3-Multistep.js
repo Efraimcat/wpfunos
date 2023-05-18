@@ -43,9 +43,9 @@ $(document).ready(function(){
           params.set('cuando', cuando);
           params.set('CP', $('#wpf-resultados-referencia').attr('wpfcp') );
 
-          elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
+          elementorFrontend.documentsManager.documents[ '84639' ].showModal(); //Ventana Popup Esperando (loader2)
           $('#elementor-popup-modal-89354').hide(); //Servicios Multistep (5)
-          elementorFrontend.documentsManager.documents[ 77005 ].showModal(); //Ventana Popup Esperando (entrada datos GTM)
+          elementorFrontend.documentsManager.documents[ '77005' ].showModal(); //Ventana Popup Esperando (entrada datos GTM)
 
           $.ajax({
             type : 'post',
@@ -91,7 +91,7 @@ $(document).ready(function(){
         }); //on('submit_success'
 
         setTimeout(function(){
-          elementorFrontend.documentsManager.documents[ 89340 ].showModal(); //Servicios Multistep (1)
+          elementorFrontend.documentsManager.documents[ '89340' ].showModal(); //Servicios Multistep (1)
           $.each( [ '#wpfunos-multistep-ahora', '#wpfunos-multistep-ahora-icon', '#wpfunos-multistep-prox', '#wpfunos-multistep-prox-icon' ], function( i, elem ) {
             $(elem).click( function(){
               if( i  == 0 || i == 1 ){
@@ -103,9 +103,9 @@ $(document).ready(function(){
               }
               $('#elementor-popup-modal-89340').hide(); //Servicios Multistep (1)
               if( $('#wpf-resultados-referencia').attr('wpfland') === '1'){
-                elementorFrontend.documentsManager.documents[ 89354 ].showModal(); //Servicios Multistep (5)
+                elementorFrontend.documentsManager.documents[ '89354' ].showModal(); //Servicios Multistep (5)
               }else{
-                elementorFrontend.documentsManager.documents[ 89344 ].showModal(); //Servicios Multistep (2)
+                elementorFrontend.documentsManager.documents[ '89344' ].showModal(); //Servicios Multistep (2)
                 $( '#wpfunos-multistep-entierro' ).click( wpfentierro );
                 $( '#wpfunos-multistep-entierro-icon' ).click( wpfentierro );
                 $( '#wpfunos-multistep-incineracion' ).click( wpfincineracion );
@@ -126,7 +126,7 @@ $(document).ready(function(){
 
         function wpfprocessDestino(){
           $('#elementor-popup-modal-89344').hide(); //Servicios Multistep (2)
-          elementorFrontend.documentsManager.documents[ 89348 ].showModal(); //Servicios Multistep (3)
+          elementorFrontend.documentsManager.documents[ '89348' ].showModal(); //Servicios Multistep (3)
           $( '#wpfunos-multistep-velatorio' ).click( wpfvelatorio );
           $( '#wpfunos-multistep-velatorio-icon' ).click( wpfvelatorio );
           $( '#wpfunos-multistep-sinvelatorio' ).click( wpfsinvelatorio );
@@ -134,7 +134,7 @@ $(document).ready(function(){
         }
         function wpfprocessVelatorio(){
           $('#elementor-popup-modal-89348').hide(); //Servicios Multistep (3)
-          elementorFrontend.documentsManager.documents[ 89351 ].showModal(); //Servicios Multistep (4)
+          elementorFrontend.documentsManager.documents[ '89351' ].showModal(); //Servicios Multistep (4)
           $( '#wpfunos-multistep-sinceremonia' ).click( wpfsinceremonia );
           $( '#wpfunos-multistep-sinceremonia-icon' ).click( wpfsinceremonia );
           $( '#wpfunos-multistep-solosala' ).click( wpfsolosala );
@@ -147,7 +147,7 @@ $(document).ready(function(){
         function wpfprocessCeremonia(){
           var params = new URLSearchParams(location.search);
           $('#elementor-popup-modal-89351').hide(); //Servicios Multistep (4)
-          elementorFrontend.documentsManager.documents[ 89354 ].showModal(); //Servicios Multistep (5)
+          elementorFrontend.documentsManager.documents[ '89354' ].showModal(); //Servicios Multistep (5)
           $( '#form-field-cuando' ).val(cuando);
           $( '#form-field-destino' ).val(destino);
           $( '#form-field-ataud' ).val(params.get('cf[resp2]'));

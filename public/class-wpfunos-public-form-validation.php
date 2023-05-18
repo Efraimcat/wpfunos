@@ -46,6 +46,13 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - '.'Validación formulario: '. $form_name );
+    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-advertisement: ' . $_COOKIE['cookielawinfo-checkbox-advertisement']  );
+    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-analytics: ' . $_COOKIE['cookielawinfo-checkbox-analytics']  );
+    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-functional: ' . $_COOKIE['cookielawinfo-checkbox-functional']  );
+    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-necessary: ' . $_COOKIE['cookielawinfo-checkbox-necessary']  );
+    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-non-necessary: ' . $_COOKIE['cookielawinfo-checkbox-non-necessary']  );
+    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-others: ' . $_COOKIE['cookielawinfo-checkbox-others']  );
+    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-performance: ' . $_COOKIE['cookielawinfo-checkbox-performance']  );
 
     // Aseguradoras
 
@@ -64,7 +71,7 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
     //
     //Nombre
     if( $field = $this->wpfunos_elementor_get_field( 'Nombre', $record ) ){
-      do_action('wpfunos_log', $userIP.' - '.'Validación Nombre ' .$field['value'] );
+      do_action('wpfunos_log', $userIP.' - '.'Validación Nombre: ' .$field['value'] );
       if( preg_match_all('/[aeiou]/i',$field['value'],$matches) == 0 ){
         $ajax_handler->add_error( $field['id'], esc_html__('Introduce un nombre válido', 'wpfunos_es') );
         do_action('wpfunos_log', $userIP.' - '.'Validación Nombre: INCORRECTO (vocales)' );
@@ -84,7 +91,7 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
 
     // EMAIL
     if( $field = $this->wpfunos_elementor_get_field( 'email', $record ) ){
-      do_action('wpfunos_log', $userIP.' - '.'Validación email ' .$field['value'] );
+      do_action('wpfunos_log', $userIP.' - '.'Validación email: ' .$field['value'] );
 
       $email  = explode('@', $field['value']);
       $user   = $email[0];
@@ -138,11 +145,23 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
     // TELEFONO
     //
     if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
-      do_action('wpfunos_log', $userIP.' - '.'Validación teléfono ' .$field['value'] );
+      do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: ' .$field['value'] );
 
       $telefono = str_replace(" ","", $field['value'] );
       $telefono = str_replace("-","",$telefono);
       $telefono = str_replace("+34","",$telefono);
+
+      if( $field2 = $this->wpfunos_elementor_get_field( 'telefono2', $record ) ){
+        $telefono2 = str_replace(" ","", $field2['value'] );
+        $telefono2 = str_replace("-","",$telefono2);
+        $telefono2 = str_replace("+34","",$telefono2);
+        if( $telefono != $telefono2 ){
+          do_action('wpfunos_log', $userIP.' - '.'Validación teléfono2: ' .$field2['value'] );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
+          do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: INCORRECTO (diferentes números)' );
+        }
+      }
+
 
       $res = preg_replace("/[^0-9]/", "", $telefono );
       if( strlen($res) < 8 ){

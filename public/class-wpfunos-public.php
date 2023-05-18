@@ -131,7 +131,15 @@ class Wpfunos_Public {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - '.'Enviar SMS' );
       do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . $fields['telefono'] );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-advertisement: ' . $_COOKIE['cookielawinfo-checkbox-advertisement']  );
       do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-analytics: ' . $_COOKIE['cookielawinfo-checkbox-analytics']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-functional: ' . $_COOKIE['cookielawinfo-checkbox-functional']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-necessary: ' . $_COOKIE['cookielawinfo-checkbox-necessary']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-non-necessary: ' . $_COOKIE['cookielawinfo-checkbox-non-necessary']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-others: ' . $_COOKIE['cookielawinfo-checkbox-others']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-performance: ' . $_COOKIE['cookielawinfo-checkbox-performance']  );
+
+      $this->wpfunosVisitasEntrada(array( 'tipo' => '6',));
 
       $request = '{
         "api_key":"4b66b40a110c408e8651eb971591f03e",
@@ -186,9 +194,6 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
       //
       $expiry = strtotime('+1 year');
-      //if( ! isset( $_COOKIE['wpfn'] ) ) setcookie('wpfn', sanitize_text_field($fields['Nombre']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-      //if( ! isset( $_COOKIE['wpfe'] ) ) setcookie('wpfe', sanitize_text_field($fields['email']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
-      //if( ! isset( $_COOKIE['wpft'] ) ) setcookie('wpft', sanitize_text_field($fields['telefono']), ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
       //
       if( isset( $_COOKIE['wpfu'] ) ){
         $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
@@ -199,22 +204,6 @@ class Wpfunos_Public {
         $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );
         setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
       }
-      //
-      do_action('wpfunos-visitas-entrada',array( 'tipo' => '6', ) );
-
-      // Clientify
-      $params = array(
-        "clientifyaction" => 'Formulario te llamamos',
-        "pipeline" => "Servicios Funerarios",
-        "stage" => "nuevo interesado",
-        "email" => $fields['email'],
-        "nombre" => $fields['Nombre'],
-        "phone" => $fields['telefono'],
-        "form_name" => $form_name,
-        "origen" => 'Formulario te llamamos'
-      );
-      //do_action( 'wpfclientify-process-entry', $params );
-      // END Clientify
 
     }// if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name )
 
@@ -295,21 +284,6 @@ class Wpfunos_Public {
       );
       $post_id = wp_insert_post($my_post);
 
-      // Clientify
-      $params = array(
-        "clientifyaction" => 'Aseguradora entrada datos usuario',
-        "pipeline" => "Aseguradoras",
-        "stage" => "Nuevo interesado",
-        "email" => $fields['email'],
-        "nombre" => $fields['Nombre'],
-        "phone" => $fields['telefono'],
-        "user_id" => $post_id,
-        "form_name" => 'Entrada Aseguradora',
-        "referencia" => $fields['referencia'],
-        "origen" => 'Aseguradora entrada datos usuario'
-      );
-      //do_action( 'wpfclientify-process-entry', $params );
-      // END Clientify
       // wpfunos-visitas-entrada
       do_action('wpfunos-visitas-entrada',array(
         'tipo' => '2',
@@ -327,9 +301,6 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
       do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
       do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-      do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
-      do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
-      do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
       do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $fields['Nombre']  );
       do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
       do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $fields['referencia'] );
@@ -353,11 +324,6 @@ class Wpfunos_Public {
     $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
     $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
     $logged = (is_user_logged_in()) ? 'logged' : 'not logged';
-
-    $wpfn = (isset($_COOKIE['wpfn'])) ? $_COOKIE['wpfn'] : '';
-    $wpfe = (isset($_COOKIE['wpfe'])) ? $_COOKIE['wpfe'] : '';
-    $wpft = (isset($_COOKIE['wpft'])) ? $_COOKIE['wpft'] : '';
-
     $nombre = (isset($record['nombre'])) ? $record['nombre'] : '';
     $email = (isset($record['email'])) ? $record['email'] : '';
     $telefono = (isset($record['telefono'])) ? $record['telefono'] : '';

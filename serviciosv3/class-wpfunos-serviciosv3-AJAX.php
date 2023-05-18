@@ -119,9 +119,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
         do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
         do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-        do_action('wpfunos_log', $userIP.' - '.'cookie wpfe: ' . $_COOKIE['wpfe']);
-        do_action('wpfunos_log', $userIP.' - '.'cookie wpfn: ' . $_COOKIE['wpfn']);
-        do_action('wpfunos_log', $userIP.' - '.'cookie wpft: ' . $_COOKIE['wpft']);
         do_action('wpfunos_log', $userIP.' - '.'---' );
         do_action('wpfunos_log', $userIP.' - '.'Teléfono: ' . $wpftelefono);
 
@@ -403,26 +400,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         */
         // SMS
 
-        // Clientify
-        $params = array(
-          "clientifyaction" => 'Comparador funerarias',
-          "pipeline" => "Servicios Funerarios",
-          "stage" => "comparador funerarias",
-          "email" => $wpfemail,
-          "nombre" => $wpfnombre,
-          "phone" => $Telefono,
-          "user_id" => $post_id,
-          "ubicacion" => $wpfubic,
-          "referencia" => $wpfnewref,
-          "cuando" => $wpfcuando,
-          "destino" => $wpfdestino,
-          "ataud" => $wpfataud,
-          "velatorio" => $wpfvelatorio,
-          "ceremonia" => $wpfceremonia,
-          "origen" => 'Comparador funerarias'
-        );
-        //do_action( 'wpfclientify-process-entry', $params );
-        // END Clientify
       }// END if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') )
 
       //Última Búsqueda
@@ -750,30 +727,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       }
       // SMS
-      // Clientify
-      $params = array(
-        "clientifyaction" => 'Llamamos '.get_the_title( $servicio ),
-        "pipeline" => "Servicios Funerarios",
-        "stage" => "seleciono funeraria",
-        "email" => $transient_ref['wpfe'],
-        "nombre" => $transient_ref['wpfn'],
-        "phone" => $Telefono,
-        "user_id" => $post_id,
-        "ubicacion" => $transient_ref['wpfadr'],
-        "referencia" => $newref,
-        "cuando" => $wpfcuando,
-        "destino" => $nombredestino,
-        "ataud" => $nombreataud,
-        "velatorio" => $nombrevelatorio,
-        "ceremonia" => $nombredespedida,
-        "origen" => 'Servicio botón Llamamos',
-        "precio" => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
-        "nombreServicio" => $titulo,
-        "nombreFuneraria" => get_the_title( $servicio ),
-        "telefonoServicio" => get_post_meta( $servicio, "wpfunos_servicioTelefono", true),
-      );
-      //do_action( 'wpfclientify-process-entry', $params );
-      // END Clientify
     }
 
     $result['type'] = "success";
@@ -1047,30 +1000,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       }
       // SMS
-      // Clientify
-      $params = array(
-        "clientifyaction" => 'Llamar '.get_the_title( $servicio ),
-        "pipeline" => "Servicios Funerarios",
-        "stage" => "seleciono funeraria",
-        "email" => $transient_ref['wpfe'],
-        "nombre" => $transient_ref['wpfn'],
-        "phone" => $Telefono,
-        "user_id" => $post_id,
-        "ubicacion" => $transient_ref['wpfadr'],
-        "referencia" => $newref,
-        "cuando" => $wpfcuando,
-        "destino" => $nombredestino,
-        "ataud" => $nombreataud,
-        "velatorio" => $nombrevelatorio,
-        "ceremonia" => $nombredespedida,
-        "origen" => 'Servicio botón Llamar',
-        "precio" => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
-        "nombreServicio" => $titulo,
-        "nombreFuneraria" => get_the_title( $servicio ),
-        "telefonoServicio" => get_post_meta( $servicio, "wpfunos_servicioTelefono", true),
-      );
-      //do_action( 'wpfclientify-process-entry', $params );
-      // END Clientify
     }
 
     $result['type'] = "success";
@@ -1348,30 +1277,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       }
       // SMS
-      // Clientify
-      $params = array(
-        "clientifyaction" => 'Presupuesto '.get_the_title( $servicio ),
-        "pipeline" => "Servicios Funerarios",
-        "stage" => "seleciono funeraria",
-        "email" => $transient_ref['wpfe'],
-        "nombre" => $transient_ref['wpfn'],
-        "phone" => $Telefono,
-        "user_id" => $post_id,
-        "ubicacion" => $transient_ref['wpfadr'],
-        "referencia" => $newref,
-        "cuando" => $wpfcuando,
-        "destino" => $nombredestino,
-        "ataud" => $nombreataud,
-        "velatorio" => $nombrevelatorio,
-        "ceremonia" => $nombredespedida ,
-        "origen" => 'Servicio botón Presupuesto',
-        "precio" => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
-        "nombreServicio" => $titulo,
-        "nombreFuneraria" => get_the_title( $servicio ),
-        "telefonoServicio" => get_post_meta( $servicio, "wpfunos_servicioTelefono", true),
-      );
-      //do_action( 'wpfclientify-process-entry', $params );
-      // END Clientify
     }
 
     $result['type'] = "success";
@@ -2045,31 +1950,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         //
       }
       //Última Búsqueda END
-      // Clientify
-      $params = array(
-        "clientifyaction" => 'cambio filtro '.$cambios,
-        "pipeline" => "Servicios Funerarios",
-        "stage" => "comparador funerarias",
-        "cambios" => $cambios,
-        "email" => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ),
-        "nombre" => get_post_meta( $wpfidusuario, 'wpfunos_userName', true ),
-        "phone" =>  get_post_meta( $wpfidusuario, 'wpfunos_userPhone', true ),
-        "user_id" => $post_id,
-        "ubicacion" => get_post_meta( $wpfidusuario, 'wpfunos_userNombreSeleccionUbicacion', true ),
-        "referencia" => $wpfnewref,
-        "cuando" => "",
-        "destino" => $wpfdestino,
-        "ataud" => $wpfataud,
-        "velatorio" => $wpfvelatorio,
-        "ceremonia" => $wpfceremonia,
-        "origen" => 'Servicio filtro '.$cambios,
-        "precio" => "",
-        "nombreServicio" => "",
-        "nombreFuneraria" => "",
-        "telefonoServicio" => "",
-      );
-      //do_action( 'wpfclientify-process-entry', $params );
-      // END Clientify
     } //if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Filtros') )
     //
     if( isset( $_COOKIE['wpfu'] ) ){

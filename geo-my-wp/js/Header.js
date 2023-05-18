@@ -1,69 +1,22 @@
-<script>
-$ = jQuery.noConflict();
-$( document ).ready(function() {
-	$(function(){
-   	console.log( "document loaded" );
-		var url_string = window.location.href
-		var url = new URL(url_string);
-		var c = url.searchParams.get("wpf");
-		if(c !== null){
-			console.log( "wpf: " + c );
-			var date = new Date();
-      date.setTime(date.getTime() + (30*24*60*60*1000));
-      expires = "; expires=" + date.toUTCString();
-			document.cookie = "wpfunoswpf=" + c + expires + "; path=/; SameSite=Lax; secure";
-		}
-		if( document.body.classList.contains( 'logged-in' )){
-			console.log( "logged-in");
-			document.cookie = "wpfunosloggedin=yes; expires=session; path=/; SameSite=Lax; secure";
-		}
- 	});
-});
-</script>
-<script>
-window.onload = function () {
-	if( document.body.classList.contains( 'logged-in' )){
-		var chart = new CanvasJS.Chart("chartContainer", {
-			title: {
-				text: "Push-ups Over a Week"
-			},
-			axisY: {
-				title: "Number of Push-ups"
-			},
-			data: [{
-				type: "line",
-				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-			}]
-		});
-		chart.render();
-	}
-}
-</script>
-
-
-================================================================================
-05-09-2022
-================================================================================
-
 document.addEventListener('readystatechange', () => {
 	const headerTop = document.getElementById('wpfunos-header-bot')
 	document.addEventListener('scroll', () => {
 		if(window.scrollY > 360)
-			headerTop.classList.add('active')
+		headerTop.classList.add('active')
 		else
-			headerTop.classList.remove('active')
+		headerTop.classList.remove('active')
 	})
 })
 console.log( "document loaded" );
 
 // Añadir cookie si esta conectado.
 var data = {
-    action: 'is_user_logged_in'
+	action: 'is_user_logged_in'
 };
 jQuery.post('/wp-admin/admin-ajax.php', data, function(response) {
-    if(response == 'yes') {
+	if(response == 'yes') {
 		document.cookie = "wpfunosloggedin=yes;expires=session; path=/;SameSite=Lax;secure";
-    }
+	}
 });
 
 // Guardar referer externo.
@@ -73,33 +26,78 @@ if(initreferrer.indexOf('funos.es') === -1 ) { // Check if the referer is your s
 }
 
 $ = jQuery.noConflict();
-$(document).ready(function(){
-	$(function fomulariocontacto(){
-		var checkExist = setInterval(function() {
-			if( document.querySelector("form[name='TeLlamamosGratis']") ){
-				var listener = document.querySelector("form[name='TeLlamamosGratis'] input[name='form_fields[email]']");
-				if( listener.getAttribute('listener') !== 'true'  ) {
-					console.log( 'El campo existe.' );
-					listener.setAttribute('listener', 'true');
-					listener.addEventListener('change', function(){
-						console.log( 'El campo cambia a ' +  listener.value );
-						var email =  listener.value ;
-						var _hsq = window._hsq = window._hsq || [];
-						_hsq.push(["identify",{
-							email: email
-						}]);
-					}, false);
-				}// if( listener.getAttribute('listener') !== 'true'  )
-			}// if( document.querySelector("form[name='TeLlamamosGratis'")
-		}, 100); // check every 100ms
-		// Multistep Form END
-	}); // Function END
-}); // Document ready END
+$(document).on('elementor/popup/show', (event, id, instance) => {
+	console.log('id: ' + id);
+	//
+	$('#form-field-telefono2').attr("autocomplete", "off");
+	$('#form-field-telefono2').bind("cut copy paste", function(e) {
+		e.preventDefault();
+		//alert("You cannot paste into this text field.");
+		$('#tform-field-telefono2').bind("contextmenu", function(e) {
+			e.preventDefault();
+		});
+	});
+	//
+	// ID 54064 (TeLlamamosGratis)
+	// ID 69244 Asesoramiento gratuito v2 (AsesoramientoGratuito)
+	// ID 89354 Servicios Multistep V3 step 5 (wpfunosDatosServiciosV3)
+	// ID 118670 Te llamamos gratis Landings (TeLlamamosGratisLandings)
+	if( id == '54064' ){
+		wpfAlertPopups( 'TeLlamamosGratis', 'Nombre' );
+		wpfAlertPopups( 'TeLlamamosGratis', 'email' );
+		wpfAlertPopups( 'TeLlamamosGratis', 'telefono' );
+	}
+	if( id == '69244' ){
+		wpfAlertPopups( 'AsesoramientoGratuito', 'Nombre' );
+		wpfAlertPopups( 'AsesoramientoGratuito', 'email' );
+		wpfAlertPopups( 'AsesoramientoGratuito', 'telefono' );
+	}
+	if( id == '89354' ){
+		wpfAlertPopups( 'wpfunosDatosServiciosV3', 'Nombre' );
+		wpfAlertPopups( 'wpfunosDatosServiciosV3', 'email' );
+		wpfAlertPopups( 'wpfunosDatosServiciosV3', 'telefono' );
+	}
+	if( id == '118670' ){
+		wpfAlertPopups( 'TeLlamamosGratisLandings', 'Nombre' );
+		wpfAlertPopups( 'TeLlamamosGratisLandings', 'email' );
+		wpfAlertPopups( 'TeLlamamosGratisLandings', 'telefono' );
+	}
 
+	window.onload = () => {
+		const myInput = document.getElementById('form-field-telefono2');
+		myInput.onpaste = e => e.preventDefault();
+	}
+})
 
-if (typeof document.querySelector("form[name='TeLlamamosGratis'] input[name='form_fields[email]']") !== 'undefined')
-//TeLlamamosGratis
-//wpfunosDatosServiciosV3
-//PaginaFinanciacion
-//Formulario Colaborador Datos Usuario
-//AsesoramientoGratuito
+function wpfAlertPopups( form, input ){
+	var listener = document.querySelector("form[name='"+ form +"'] input[name='form_fields["+ input +"]']");
+	listener.addEventListener('change', function(){
+		console.log( 'El campo cambia a ' +  listener.value );
+		var wpfana = getCookie('cookielawinfo-checkbox-analytics');
+		if( wpfana != 'yes'){
+			//alert('Para poder continuar dando el servicio adecuado,\nnecesitamos que antes de continuar acceptes las cookies.');
+			$('#elementor-popup-modal-143773').hide()
+			elementorFrontend.documentsManager.documents[ '143773' ].showModal();
+			$( document ).on( 'click', '#wt-cli-accept-all-btn', function( event ) {
+				elementorProFrontend.modules.popup.closePopup( {}, event );
+			} );
+		}
+	});
+}
+
+function getCookie(c_name) {
+	var c_value = document.cookie,
+	c_start = c_value.indexOf(" " + c_name + "=");
+	if (c_start == -1) c_start = c_value.indexOf(c_name + "=");
+	if (c_start == -1) {
+		c_value = null;
+	} else {
+		c_start = c_value.indexOf("=", c_start) + 1;
+		var c_end = c_value.indexOf(";", c_start);
+		if (c_end == -1) {
+			c_end = c_value.length;
+		}
+		c_value = unescape(c_value.substring(c_start, c_end));
+	}
+	return c_value;
+}
