@@ -16,7 +16,13 @@ $(document).ready(function(){
 function wpfV3Llamamos() {
   var FuncName = getFuncName();
   console.log(FuncName+': Botón Llamamos: Servicio: ' + $(this).attr('wpfid') +' Título: ' + $(this).attr('wpftitulo') );
-  elementorFrontend.documentsManager.documents[ 56684 ].showModal(); //Servicios Te llamamos
+  //
+  elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+  $("#form-field-Accion").attr('value','llamen');
+  $("#form-field-Servicio").attr('value',$(this).attr('wpftitulo'));
+  $("#form-field-Precio").attr('value',$(this).attr('wpfp'));
+  //
+  elementorFrontend.documentsManager.documents[ '56684' ].showModal(); //Servicios Te llamamos
   $('#wpf-llamamos-respuesta-si').hide();
   $('#wpf-llamamos-respuesta-no').hide();
   $('#wpf-llamamos-respuesta-cerrar').hide();
@@ -60,7 +66,7 @@ function wpfV3Llamamos() {
 function wpfV3Llamar() {
   var FuncName = getFuncName();
   console.log(FuncName+': Botón Llamar: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
-  elementorFrontend.documentsManager.documents[ 56680 ].showModal(); //Servicios Llamar
+  elementorFrontend.documentsManager.documents[ '56680' ].showModal(); //Servicios Llamar
   $('#wpfunos-modal-llamar-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamar-telefono').html( $(this).attr('wpftelefono') );
   var params = new URLSearchParams(location.search);
@@ -109,7 +115,7 @@ function wpfV3Presupuesto() {
   var FuncName = getFuncName();
 
   console.log(FuncName+': Botón Presupuesto: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
-  elementorFrontend.documentsManager.documents[ 56676 ].showModal(); //56676 - Servicio Presupuesto
+  elementorFrontend.documentsManager.documents[ '56676' ].showModal(); //56676 - Servicio Presupuesto
   var checkExist = setInterval(function() {
     if( $('#wpfunos-modal-presupuesto-nombre').length != 0 ){
       clearInterval(checkExist);
@@ -164,7 +170,7 @@ function wpfV3EnviaPresupuesto() {
 function wpfV3Detalles() {
   var FuncName = getFuncName();
   console.log(FuncName+': Botón Detalles: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') + ' Financiación: ' + $(this).attr('wpffinanciacion') );
-  elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
+  elementorFrontend.documentsManager.documents[ '84639' ].showModal(); //Ventana Popup Esperando (loader2)
 
   wpfid = $(this).attr('wpfid');
   wpfn = $(this).attr('wpfn');
@@ -197,7 +203,7 @@ function wpfV3Detalles() {
       console.log(response)	;
       if(response.type === 'success') {
         console.log(FuncName+': success');
-        elementorFrontend.documentsManager.documents[ 56672 ].showModal(); //Servicio Detalles
+        elementorFrontend.documentsManager.documents[ '56672' ].showModal(); //Servicio Detalles
         $('#elementor-popup-modal-84639').hide(); //Ventana Popup Esperando (loader2)
         let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
         if ( isMobile ) {
@@ -256,7 +262,7 @@ function wpfV3DetallesLlamamos() {
   var FuncName = getFuncName();
   console.log(FuncName+': Botón Detalles Llamamos: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   $('#elementor-popup-modal-56672').hide(); //Servicio Detalles
-  elementorFrontend.documentsManager.documents[ 56684 ].showModal(); //Servicios Te llamamos
+  elementorFrontend.documentsManager.documents[ '56684' ].showModal(); //Servicios Te llamamos
   $('#wpf-llamamos-respuesta-si').hide();
   $('#wpf-llamamos-respuesta-no').hide();
   $('#wpf-llamamos-respuesta-cerrar').hide();
@@ -300,7 +306,7 @@ function wpfV3DetallesLlamar() {
   var FuncName = getFuncName();
   console.log(FuncName+': Botón Llamar: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   $('#elementor-popup-modal-56672').hide(); //Servicio Detalles
-  elementorFrontend.documentsManager.documents[ 56680 ].showModal(); //Servicios Llamar
+  elementorFrontend.documentsManager.documents[ '56680' ].showModal(); //Servicios Llamar
   $('#wpfunos-modal-llamar-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamar-telefono').html( $(this).attr('wpftelefono') );
   var params = new URLSearchParams(location.search);
@@ -345,7 +351,7 @@ function wpfV3DetallesEmail() {
   var FuncName = getFuncName();
   console.log(FuncName+': Botón Detalles email servicio: ' + $(this).attr('wpfid') + ' Precio: ' + $(this).attr('wpfp') + ' Título ' + $(this).attr('wpftitulo') );
   $('#elementor-popup-modal-56672').hide(); //Servicio Detalles
-  elementorFrontend.documentsManager.documents[ 47448 ].showModal(); //Servicios Enviar Email
+  elementorFrontend.documentsManager.documents[ '47448' ].showModal(); //Servicios Enviar Email
   $('#wpfunos-modal-email-email').html( $('#wpf-resultados-referencia').attr('wpfemail') );
   $.ajax({
     type : 'post',
@@ -385,7 +391,7 @@ function wpfV3DetallesPresupuesto() {
 
   console.log(FuncName+': Botón Presupuesto: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
   $('#elementor-popup-modal-56672').hide(); //Servicio Detalles
-  elementorFrontend.documentsManager.documents[ 56676 ].showModal(); //56676 - Servicio Presupuesto
+  elementorFrontend.documentsManager.documents[ '56676' ].showModal(); //56676 - Servicio Presupuesto
   var checkExist = setInterval(function() {
     if( $('#wpfunos-modal-presupuesto-nombre').length != 0 ){
       clearInterval(checkExist);
@@ -410,7 +416,7 @@ function wpfV3DetallesFinanciacion() {
 
   console.log(FuncName+': Botón Financiación: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
   $('#elementor-popup-modal-56672').hide(); //Servicio Detalles
-  elementorFrontend.documentsManager.documents[ 111301 ].showModal(); //56676 - Servicio Presupuesto
+  elementorFrontend.documentsManager.documents[ '111301' ].showModal(); //56676 - Servicio Presupuesto
 
   var checkExist = setInterval(function() {
     if( $('#wpf-financiacion-funeraria').length != 0 ){
@@ -461,7 +467,7 @@ function wpfV3Financiacion() {
   var FuncName = getFuncName();
 
   console.log(FuncName+': Botón Financiación: Servicio: ' + wpfid + ' Título: ' + wpftitulo );
-  elementorFrontend.documentsManager.documents[ 111305 ].showModal(); //Servicios Financiación Genérico
+  elementorFrontend.documentsManager.documents[ '111305' ].showModal(); //Servicios Financiación Genérico
   $('.elementor-field-group-plazos_inferior:eq(0)').hide();
   $('.elementor-field-group-plazos_superior:eq(0)').hide()
   $("#form-field-financiar").prop('disabled', true);

@@ -314,6 +314,9 @@ class Wpfunos_Public {
   *
   */
   public function wpfunosVisitasEntrada($record){
+    //$userIP = apply_filters('wpfunos_userIP','dummy');
+    //do_action('wpfunos_log', '==============' );
+    //do_action('wpfunos_log', $userIP.' - '.'wpfunosVisitasEntrada Tipo: ' .$record['tipo'] );
     if( !isset ( $record['tipo'] ) ) return;
 
     global $wpdb;
@@ -350,16 +353,12 @@ class Wpfunos_Public {
     $results = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE tipo = %s AND ip = %s", $record['tipo'], $ip ), ARRAY_A);
     $contador = 1;
     if( $results ) $contador=count($results)+1;
-
     $wpdb->insert(
       $table_name,
       array(
         'time' => current_time( 'mysql' ),
         'version' => $version,
         'tipo' => $record['tipo'],
-        'wpfn' => $wpfn,
-        'wpfe' => $wpfe,
-        'wpft' => $wpft,
         'nombre' => $nombre,
         'email' => $email,
         'telefono' => $telefono,

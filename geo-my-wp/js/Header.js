@@ -63,6 +63,17 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'telefono' );
 	}
 
+	if( id == '143788' ){ //AccionesFunerarias
+		var checkExist = setInterval(function() {
+			if( $("#form-field-OK").attr('value') == 'OK' ){
+				clearInterval(checkExist);
+				$("#botonConfirmacionFuneraria").trigger("click");
+				$('#elementor-popup-modal-143788').hide();
+			}
+		}, 100); // checkExist every 100ms
+	}
+
+
 	window.onload = () => {
 		const myInput = document.getElementById('form-field-telefono2');
 		myInput.onpaste = e => e.preventDefault();

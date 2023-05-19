@@ -315,3 +315,7 @@ label[for="form-field-ceremonia"],
 label[for="form-field-donde"]{
 	display: none;
 }
+
+.elementor-element.elementor-element-252828f.elementor-button-align-stretch.elementor-widget.elementor-widget-form {
+	display: none;
+}

@@ -31,6 +31,7 @@ class Wpfunos_ServiciosV3 {
     add_shortcode( 'wpfunos-v3-columna-derecha', array( $this, 'wpfunosV3ColumnaDerechaShortcode' ));
     add_shortcode( 'wpfunos-v3-imagenes', array( $this, 'wpfunosV3ImagesShortcode' ));
     add_shortcode( 'wpfunos-v3-estrellas', array( $this, 'wpfunosV3EstrellasShortcode' ));
+    add_shortcode( 'wpfunos-confirmacion', array( $this, 'wpfunosConfirmacionShortcode' ));
 
     add_action( 'wpfunos_v3_crear_trans_resultados', array( $this, 'wpfunosResultV3Save' ), 10, 2 );
     add_action( 'wpfunos_v3_confirmado_dummy', array( $this, 'wpfunosResultV3ConfirmadoDummy' ), 10, 2 );
@@ -150,6 +151,8 @@ class Wpfunos_ServiciosV3 {
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '111301' ); //Servicios Financiación
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '111305' ); //Servicios Financiación Genérico
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '89948' ); //Servicios cambiar distancia V3
+
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '143788' ); //AccionesFunerarias
 
       /**?><script>console.log('Cargando popups Elementor END.' );</script><?php**/
 
@@ -307,6 +310,8 @@ class Wpfunos_ServiciosV3 {
       mt_srand(time());
       $newref = 'funos-'.(string)mt_rand();
       $address = $_GET['address'][0];
+      $_GET['ubicacion'] = $address;
+      $_GET['wpfnewref'] = $newref;
       $cp = $_GET['CP'];
       $CP = $this->wpfunosCodigoPostal( $cp, $address );
 
@@ -549,6 +554,39 @@ class Wpfunos_ServiciosV3 {
       case 'confirmado': echo $_GET['valor-logo-confirmado'] ; break;
     }
   }
+
+  /*********************************/
+  /*****  BOTONES SERVICIOS   ******/
+  /*********************************/
+  /**
+  * Shortcode [wpfunos-confirmacion campo="Nombre"]
+  * add_shortcode( 'wpfunos-confirmacion', array( $this, 'wpfunosConfirmacionShortcode' ));
+  */
+  //  set_transient( 'wpfunos-wpfid-v3-' .$IP, $transient_data, HOUR_IN_SECONDS );
+  //$transient_ref = get_transient('wpfunos-wpfref-' .$IP );
+  public function wpfunosConfirmacionShortcode( $atts, $content = "" ) {
+    $a = shortcode_atts( array(
+      'campo'=>'',
+    ), $atts );
+    $userIP = apply_filters('wpfunos_userIP','dummy');
+    //$transient_ref = get_transient('wpfunos-wpfref-' .$userIP );
+    //do_action('wpfunos_log', $userIP.' - '.'wpfunos-confirmacion: ' .apply_filters('wpfunos_dumplog', $_GET ) );
+    switch ( $a['campo'] ) {
+      case 'Nombre': return $_GET['nombreUsuario']; break;
+      case 'email': return $_GET['Email']; break;
+      case 'telefono': return $_GET['usuario_telefono']; break;
+      case 'ubicacion': return $_GET['ubicacion']; break;
+      case 'cuando': return $_GET['cuando']; break;
+      case 'destino': return $_GET['cf']['resp1']; break;
+      case 'ataud': return $_GET['cf']['resp2']; break;
+      case 'velatorio': return $_GET['cf']['resp3']; break;
+      case 'ceremonia': return $_GET['cf']['resp4']; break;
+      case 'Referencia': return $_GET['wpfnewref']; break;
+
+      case 'OK': return 'OK'; break;
+    }
+  }
+
 
   /*********************************/
   /*****  HOOKS               ******/
