@@ -9,12 +9,13 @@ $(document).ready(function(){
     var FuncName = 'wpfColumnaFiltros';
     var params = new URLSearchParams(location.search);
     var orden = params.get('orden');
-    var idioma_wpml = getCookie('wp-wpml_current_language');
-    if (idioma_wpml === 'es'){
-      idioma_URL = '';
-    }else{
-      idioma_URL = idioma_wpml;
-    }
+    //var idioma_wpml = getCookie('wp-wpml_current_language');
+    //if (idioma_wpml === 'es'){
+    //  idioma_URL = '';
+    //}else{
+    //  idioma_URL = idioma_wpml;
+    //}
+    var idioma_wpml = '';
 
     // DONDE
     $.each( elementosDonde, function( i, elem ) {
@@ -213,9 +214,20 @@ function wpfFunctionResp(event){
   console.log(FuncName+': click botón '+event.data.resp+' '+event.data.opcion);
 
   if( params.get('cf['+event.data.resp+']') !== event.data.opcion){
+    //
+    //  wpfFunctionResp: click botón resp1 1
+    //
+    if( event.data.resp == 'resp1'){ var accion = 'Botón destino'; var campo = '#form-field-destino'; }
+    if( event.data.resp == 'resp2'){ var accion = 'Botón ataúd'; var campo = '#form-field-ataud'; }
+    if( event.data.resp == 'resp3'){ var accion = 'Botón velatorio'; var campo = '#form-field-velatorio'; }
+    if( event.data.resp == 'resp4'){ var accion = 'Botón ceremonia';  var campo = '#form-field-ceremonia'; }
+
+    //
     elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
     params.set('cf['+event.data.resp+']', event.data.opcion );
     params.delete("wpfwpf");
+
+    $('#wpf-resultados-referencia').attr('wpfurlfiltro','');
 
     $.ajax({
       type : 'post',
@@ -241,11 +253,32 @@ function wpfFunctionResp(event){
         console.log(response)	;
         if(response.type === 'success') {
           console.log(FuncName+': success');
-          window.location.href = response.wpfurl;
+
+          $('#wpf-resultados-referencia').attr('wpfurlfiltro', response.wpfurl );
+          elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+          $("#form-field-Accion").attr('value',accion);
+          $("#form-field-destino").attr('value', params.get('cf[resp1]') );
+          $("#form-field-ataud").attr('value', params.get('cf[resp2]') );
+          $("#form-field-velatorio").attr('value', params.get('cf[resp3]') );
+          $("#form-field-ceremonia").attr('value', params.get('cf[resp4]') );
+          $(campo).attr('value',event.data.opcion);
+          //window.location.href = response.wpfurl;
         } else {
           console.log(FuncName+': fail');
         }
       }
-    });// END AJAX
+    }); // END AJAX
+
+    //      window.location.href = response.wpfurl;
+
+    //elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+    //$("#form-field-Accion").attr('value',accion);
+    //$("#form-field-destino").attr('value', params.get('cf[resp1]') );
+    //$("#form-field-ataud").attr('value', params.get('cf[resp2]') );
+    //$("#form-field-velatorio").attr('value', params.get('cf[resp3]') );
+    //$("#form-field-ceremonia").attr('value', params.get('cf[resp4]') );
+    //$(campo).attr('value',event.data.opcion);
+
+
   }
 }

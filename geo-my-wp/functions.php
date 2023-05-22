@@ -63,9 +63,17 @@ function set_funos_cookie() {
   $expiry = strtotime('+1 year');
   global $current_user;
   get_currentuserinfo();
-  $email = (is_user_logged_in()) ? $current_user->user_email : '' ;
-  $name = (is_user_logged_in()) ? $current_user->display_name : '' ;
-  $phone = (is_user_logged_in()) ? str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true )) : '' ;
+
+  // Añadir cookie si esta conectado.
+
+  if ( is_user_logged_in() ) {
+    setcookie('wpfunosloggedin', 'yes',  ['expires' => 0, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+  }
+
+  $email = ( isset( $_COOKIE['wpfunosloggedin'] ) ) ? $current_user->user_email : '' ;
+  $name = ( isset( $_COOKIE['wpfunosloggedin'] ) ) ? $current_user->display_name : '' ;
+  $phone = ( isset( $_COOKIE['wpfunosloggedin'] ) ) ? str_replace(" ","",get_user_meta( $current_user->ID, 'wpfunos_telefono' , true )) : '' ;
+
   if( !isset( $_COOKIE['wpfu'] ) ){
     $colab = ( current_user_can( 'funos_colaborador' ) ) ? 'yes' : 'no' ;
     $wpfu = array(

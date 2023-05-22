@@ -277,6 +277,20 @@ class Wpfunos_ServiciosV3 {
             $phone = get_post_meta( $IDusuario, 'wpfunos_userPhone', true );
           }
 
+          if( $nombre == '' ){ // no tenemos sus datos
+            $current_user = wp_get_current_user();
+            $nombre = sanitize_text_field( $current_user->display_name );
+            $email = sanitize_text_field( $current_user->user_email );
+            $telefono = sanitize_text_field( get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
+
+            $expiry = strtotime('+1 year');
+            $wpfu->name = $nombre;
+            $wpfu->email = $email;
+            $wpfu->phone = $telefono ;
+            $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );
+            setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
+          }
+
         }elseif( $IDusuario == 0 ) {  // tiene código pero no existe.
 
           /** ?><script>console.log('Verificaciones entrada: Codigo wpf INCORRECTO');</script><?php **/
@@ -562,8 +576,6 @@ class Wpfunos_ServiciosV3 {
   * Shortcode [wpfunos-confirmacion campo="Nombre"]
   * add_shortcode( 'wpfunos-confirmacion', array( $this, 'wpfunosConfirmacionShortcode' ));
   */
-  //  set_transient( 'wpfunos-wpfid-v3-' .$IP, $transient_data, HOUR_IN_SECONDS );
-  //$transient_ref = get_transient('wpfunos-wpfref-' .$IP );
   public function wpfunosConfirmacionShortcode( $atts, $content = "" ) {
     $a = shortcode_atts( array(
       'campo'=>'',
@@ -577,10 +589,12 @@ class Wpfunos_ServiciosV3 {
       case 'telefono': return $_GET['usuario_telefono']; break;
       case 'ubicacion': return $_GET['ubicacion']; break;
       case 'cuando': return $_GET['cuando']; break;
+
       case 'destino': return $_GET['cf']['resp1']; break;
       case 'ataud': return $_GET['cf']['resp2']; break;
       case 'velatorio': return $_GET['cf']['resp3']; break;
       case 'ceremonia': return $_GET['cf']['resp4']; break;
+
       case 'Referencia': return $_GET['wpfnewref']; break;
 
       case 'OK': return 'OK'; break;

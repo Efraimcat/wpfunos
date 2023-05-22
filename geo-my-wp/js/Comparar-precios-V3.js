@@ -1,18 +1,12 @@
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){
-    //$('#gmw-submit-8').hide();
-    var idioma_wpml = getCookie('wp-wpml_current_language');
+    $('#gmw-submit-8').hide();
 
     document.getElementById('gmw-address-field-8').addEventListener('change', function(){
       document.getElementById("gmw-submit-8").disabled = true;
 
-      if (idioma_wpml === 'es'){
-        elementorFrontend.documentsManager.documents['84626'].showModal(); //show the popup
-      }
-      if (idioma_wpml === 'ca'){
-        elementorFrontend.documentsManager.documents['136491'].showModal(); //show the popup (CA)
-      }
+      elementorFrontend.documentsManager.documents['84626'].showModal(); //show the popup
 
       setTimeout(function() {
         var localidad = document.getElementById('gmw-address-field-8').value;
@@ -51,15 +45,6 @@ $(document).ready(function(){
     document.getElementById('gmw-cf-resp2-8').value = '2' ;
     document.getElementById('gmw-cf-resp3-8').value = '2' ;
     document.getElementById('gmw-cf-resp4-8').value = '2' ;
-
-
-    // WPML
-    var wpflabel = document.getElementsByClassName('gmw-field-label');
-    if (idioma_wpml === 'ca'){
-      wpflabel[0].innerHTML = 'On necessites el servei?';
-      $('#gmw-address-field-8').attr('placeholder','Introdueix la població');
-    }
-    // WPML
 
   });
   //getCookie('wp-wpml_current_language')

@@ -27,13 +27,13 @@ if(initreferrer.indexOf('funos.es') === -1 ) { // Check if the referer is your s
 
 $ = jQuery.noConflict();
 $(document).on('elementor/popup/show', (event, id, instance) => {
-	console.log('id: ' + id);
+	console.log('Popup id: ' + id);
 	//
-	$('#form-field-telefono2').attr("autocomplete", "off");
-	$('#form-field-telefono2').bind("cut copy paste", function(e) {
+	$('#telefono2').attr("autocomplete", "off");
+	$('#telefono2').bind("cut copy paste", function(e) {
 		e.preventDefault();
 		//alert("You cannot paste into this text field.");
-		$('#tform-field-telefono2').bind("contextmenu", function(e) {
+		$('#telefono2').bind("contextmenu", function(e) {
 			e.preventDefault();
 		});
 	});
@@ -46,6 +46,26 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 		wpfAlertPopups( 'TeLlamamosGratis', 'Nombre' );
 		wpfAlertPopups( 'TeLlamamosGratis', 'email' );
 		wpfAlertPopups( 'TeLlamamosGratis', 'telefono' );
+		$('#wpfTeLlamamosEnviar').hide();
+		$('#form-field-telefono2').hide();
+		$('#telefono2').hide();
+		$('#botonPaso2').hide();
+		$('#botonPaso1').click( function(){
+			//$('#elementor-popup-modal-47448').hide();
+			$('#wpfTeLlamamosGratis').hide();
+			$('#botonPaso1').hide();
+			$('#telefono2').show();
+			$('#botonPaso2').show();
+			$('#botonPaso2').click( function(){
+				$('#form-field-telefono2').val( $('#telefono2').val() );
+				$('#wpfTeLlamamosGratis').show();
+				$('#botonPaso1').show();
+				$('#telefono2').hide();
+				$('#botonPaso2').hide();
+				$("#wpfTeLlamamosEnviar").trigger("click");
+			} );
+		} );
+
 	}
 	if( id == '69244' ){
 		wpfAlertPopups( 'AsesoramientoGratuito', 'Nombre' );
@@ -62,22 +82,24 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'email' );
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'telefono' );
 	}
-
 	if( id == '143788' ){ //AccionesFunerarias
 		var checkExist = setInterval(function() {
 			if( $("#form-field-OK").attr('value') == 'OK' ){
 				clearInterval(checkExist);
 				$("#botonConfirmacionFuneraria").trigger("click");
 				$('#elementor-popup-modal-143788').hide();
+				if ( $('#wpf-resultados-referencia').attr('wpfurlfiltro') && $('#wpf-resultados-referencia').attr('wpfurlfiltro').val(
+					window.location.href = $('#wpf-resultados-referencia').attr('wpfurlfiltro');
+				}
 			}
 		}, 100); // checkExist every 100ms
 	}
-
-
-	window.onload = () => {
-		const myInput = document.getElementById('form-field-telefono2');
-		myInput.onpaste = e => e.preventDefault();
-	}
+	//window.onload = () => {
+	//	const myInput = document.getElementById('form-field-telefono2');
+	//	if (myInput) {
+	//		myInput.onpaste = e => e.preventDefault();
+	//	}
+	//}
 })
 
 function wpfAlertPopups( form, input ){

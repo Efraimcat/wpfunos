@@ -39,6 +39,7 @@ class Wpfunos_Public {
     add_shortcode( 'wpfunos-mensaje-usuario-correo-popup', array( $this, 'wpfunosCorreoUsuarioPopupShortcode' ));
     add_shortcode( 'wpfunos-financiacion', array( $this, 'wpfunosFinanciacionShortcode' ));
     add_shortcode( 'wpfunos-resultados', array( $this, 'wpfunosResultadosShortcode' ));
+    add_shortcode( 'wpfunos-datos-usuario', array( $this, 'wpfunosDatosUsuarioShortcode' ));
     add_action( 'elementor_pro/forms/new_record', array( $this, 'wpfunosFormNewrecord' ), 10, 2 );
     add_action( 'wpfunos-visitas-entrada', array( $this, 'wpfunosVisitasEntrada' ), 10, 1 );
 
@@ -387,5 +388,28 @@ class Wpfunos_Public {
       )
     );
   }
+
+  /*********************************/
+  /*****  DATOS USUARIO       ******/
+  /*********************************/
+  /**
+  * add_shortcode( 'wpfunos-datos-usuario', array( $this, 'wpfunosDatosUsuarioShortcode' ));
+  * Shortcode [wpfunos-datos-usuario dato="Nombre"]
+  */
+  public function wpfunosDatosUsuarioShortcode( $atts, $content = "" ) {
+    $a = shortcode_atts( array(
+      'dato'=>'',
+    ), $atts );
+    if( isset( $_COOKIE['wpfu'] ) ){
+      $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
+      if( $wpfu->phone == '' ) $wpfu->phone = '+34';
+      switch ( $a['dato'] ) {
+        case 'Nombre': return $wpfu->name ; break;
+        case 'email': return $wpfu->email ; break;
+        case 'telefono': return $wpfu->phone ; break;
+      }
+    }
+  }
+
 
 }

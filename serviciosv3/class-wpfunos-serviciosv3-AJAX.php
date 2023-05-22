@@ -410,7 +410,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         //
         if( isset( $_COOKIE['wpfu'] ) ){
           $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
-          do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
+          //do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
           $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
           $wpfu->lasttimeserv = date( 'd/m/y', current_time( 'timestamp', 0 ) );
           $wpfu->name = $wpfnombre;
@@ -1938,7 +1938,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         //
         if( isset( $_COOKIE['wpfu'] ) ){
           $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
-          do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
+          //do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
           $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
           $wpfu->lasttimeserv = date( 'd/m/y', current_time( 'timestamp', 0 ) );
           $wpfu->name = $wpfnombre;
@@ -1954,7 +1954,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     //
     if( isset( $_COOKIE['wpfu'] ) ){
       $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
-      do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
+      //do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
       $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
       $wpfu->lasttimeserv = date( 'd/m/y', current_time( 'timestamp', 0 ) );
       $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );

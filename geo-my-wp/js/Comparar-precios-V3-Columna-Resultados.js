@@ -15,20 +15,15 @@ $(document).ready(function(){
 //
 function wpfV3Llamamos() {
   var FuncName = getFuncName();
+  var params = new URLSearchParams(location.search);
+  var objeto = $(this);
   console.log(FuncName+': Botón Llamamos: Servicio: ' + $(this).attr('wpfid') +' Título: ' + $(this).attr('wpftitulo') );
-  //
-  elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
-  $("#form-field-Accion").attr('value','llamen');
-  $("#form-field-Servicio").attr('value',$(this).attr('wpftitulo'));
-  $("#form-field-Precio").attr('value',$(this).attr('wpfp'));
-  //
   elementorFrontend.documentsManager.documents[ '56684' ].showModal(); //Servicios Te llamamos
   $('#wpf-llamamos-respuesta-si').hide();
   $('#wpf-llamamos-respuesta-no').hide();
   $('#wpf-llamamos-respuesta-cerrar').hide();
   $('#wpfunos-modal-llamen-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamamos-telefono').html( $('#wpf-resultados-referencia').attr('wpftelefono') );
-  var params = new URLSearchParams(location.search);
   $.ajax({
     type : 'post',
     dataType : 'json',
@@ -58,18 +53,35 @@ function wpfV3Llamamos() {
       $('#wpf-llamamos-respuesta-cerrar').show();
     }
   }); //END AJAX
-  $('#wpf-llamamos-cerrar').click(function(){ $('#elementor-popup-modal-56684').hide(); });
+  $('#wpf-llamamos-cerrar').click(function( event ){
+    $('#elementor-popup-modal-56684').hide();
+    elementorProFrontend.modules.popup.closePopup( {}, event );
+    //
+    elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+    $("#form-field-Accion").attr('value','Te llamamos');
+    $("#form-field-Servicio").attr('value',objeto.attr('wpftitulo'));
+    $("#form-field-Precio").attr('value',objeto.attr('wpfp'));
+    $("#form-field-destino").attr( 'value', params.get('cf[resp1]') );
+    $("#form-field-ataud").attr('value', params.get('cf[resp2]') );
+    $("#form-field-velatorio").attr('value', params.get('cf[resp3]') );
+    $("#form-field-ceremonia").attr('value', params.get('cf[resp4]') );
+    //
+
+  });
 }
 //
 //  wpfV3Llamar()
 //
 function wpfV3Llamar() {
   var FuncName = getFuncName();
+  var params = new URLSearchParams(location.search);
+  var objeto = $(this);
   console.log(FuncName+': Botón Llamar: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   elementorFrontend.documentsManager.documents[ '56680' ].showModal(); //Servicios Llamar
   $('#wpfunos-modal-llamar-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamar-telefono').html( $(this).attr('wpftelefono') );
-  var params = new URLSearchParams(location.search);
+  $('#wpf-llamar-cerrar').hide();
+
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
   console.log(FuncName+': isMobile: '+isMobile);
   if ( isMobile ) {
@@ -97,12 +109,27 @@ function wpfV3Llamar() {
       console.log(response)	;
       if(response.type === 'success') {
         console.log(FuncName+': success');
+        $('#wpf-llamar-cerrar').show();
       } else {
         console.log(FuncName+': fail');
       }
     }
   });// END AJAX
-  $('#wpf-llamar-cerrar').click(function(){ $('#elementor-popup-modal-56680').hide(); });
+  $('#wpf-llamar-cerrar').click(function(event){
+    $('#elementor-popup-modal-56680').hide();
+    elementorProFrontend.modules.popup.closePopup( {}, event );
+    var params = new URLSearchParams(location.search);
+    //
+    elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+    $("#form-field-Accion").attr('value','Llamar');
+    $("#form-field-Servicio").attr('value',objeto.attr('wpftitulo'));
+    $("#form-field-Precio").attr('value',objeto.attr('wpfp'));
+    $("#form-field-destino").attr('value', params.get('cf[resp1]') );
+    $("#form-field-ataud").attr('value', params.get('cf[resp2]') );
+    $("#form-field-velatorio").attr('value', params.get('cf[resp3]') );
+    $("#form-field-ceremonia").attr('value', params.get('cf[resp4]') );
+    //
+  });
 }
 //
 //  wpfV3Presupuesto()
@@ -260,6 +287,8 @@ function wpfV3Detalles() {
 //
 function wpfV3DetallesLlamamos() {
   var FuncName = getFuncName();
+  var params = new URLSearchParams(location.search);
+  var objeto = $(this);
   console.log(FuncName+': Botón Detalles Llamamos: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   $('#elementor-popup-modal-56672').hide(); //Servicio Detalles
   elementorFrontend.documentsManager.documents[ '56684' ].showModal(); //Servicios Te llamamos
@@ -268,7 +297,6 @@ function wpfV3DetallesLlamamos() {
   $('#wpf-llamamos-respuesta-cerrar').hide();
   $('#wpfunos-modal-llamen-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamamos-telefono').html( $('#wpf-resultados-referencia').attr('wpftelefono') );
-  var params = new URLSearchParams(location.search);
   $.ajax({
     type : 'post',
     dataType : 'json',
@@ -297,19 +325,35 @@ function wpfV3DetallesLlamamos() {
       $('#wpf-llamamos-respuesta-cerrar').show();
     }
   });
-  $('#wpf-llamamos-cerrar').click( function(){ $('#elementor-popup-modal-56684').hide(); } );
+  $('#wpf-llamamos-cerrar').click( function(event){
+    $('#elementor-popup-modal-56684').hide();
+    elementorProFrontend.modules.popup.closePopup( {}, event );
+    //
+    elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+    $("#form-field-Accion").attr('value','Te llamamos');
+    $("#form-field-Servicio").attr('value',objeto.attr('wpftitulo'));
+    $("#form-field-Precio").attr('value',objeto.attr('wpfp'));
+    $("#form-field-destino").attr('value', params.get('cf[resp1]') );
+    $("#form-field-ataud").attr('value', params.get('cf[resp2]') );
+    $("#form-field-velatorio").attr('value', params.get('cf[resp3]') );
+    $("#form-field-ceremonia").attr('value', params.get('cf[resp4]') );
+    //
+
+  })
 }
 //
 //  wpfV3DetallesLlamar()
 //
 function wpfV3DetallesLlamar() {
   var FuncName = getFuncName();
+  var params = new URLSearchParams(location.search);
+  var objeto = $(this);
   console.log(FuncName+': Botón Llamar: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   $('#elementor-popup-modal-56672').hide(); //Servicio Detalles
   elementorFrontend.documentsManager.documents[ '56680' ].showModal(); //Servicios Llamar
   $('#wpfunos-modal-llamar-titulo').html( $(this).attr('wpftitulo') );
   $('#wpfunos-modal-llamar-telefono').html( $(this).attr('wpftelefono') );
-  var params = new URLSearchParams(location.search);
+  $('#wpf-llamar-cerrar').hide();
   let isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
   console.log(FuncName+': isMobile: '+isMobile);
   if ( isMobile ) {
@@ -337,12 +381,28 @@ function wpfV3DetallesLlamar() {
       console.log(response)	;
       if(response.type === 'success') {
         console.log(FuncName+': success');
+        $('#wpf-llamar-cerrar').show();
       } else {
         console.log(FuncName+': fail');
+        $('#wpf-llamar-cerrar').show();
       }
     }
   });// END AJAX
-  $('#wpf-llamar-cerrar').click(function(){ $('#elementor-popup-modal-56680').hide(); });
+  $('#wpf-llamar-cerrar').click(function(event){
+    $('#elementor-popup-modal-56680').hide();
+    elementorProFrontend.modules.popup.closePopup( {}, event );
+    var params = new URLSearchParams(location.search);
+    //
+    elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+    $("#form-field-Accion").attr('value','Llamar');
+    $("#form-field-Servicio").attr('value',objeto.attr('wpftitulo'));
+    $("#form-field-Precio").attr('value',objeto.attr('wpfp'));
+    $("#form-field-destino").attr('value', params.get('cf[resp1]') );
+    $("#form-field-ataud").attr('value', params.get('cf[resp2]') );
+    $("#form-field-velatorio").attr('value', params.get('cf[resp3]') );
+    $("#form-field-ceremonia").attr('value', params.get('cf[resp4]') );
+    //
+  });
 }
 //
 //  wpfV3DetallesEmail()

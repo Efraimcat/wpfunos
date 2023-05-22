@@ -302,7 +302,8 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 #form-field-ataud,
 #form-field-velatorio,
 #form-field-ceremonia,
-#form-field-donde{
+#form-field-donde
+#form-field-urlfiltro{
 	display: none;
 }
 
