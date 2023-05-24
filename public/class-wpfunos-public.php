@@ -140,7 +140,7 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-others: ' . $_COOKIE['cookielawinfo-checkbox-others']  );
       do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-performance: ' . $_COOKIE['cookielawinfo-checkbox-performance']  );
 
-      $this->wpfunosVisitasEntrada(array( 'tipo' => '6',));
+      $this->wpfunosVisitasEntrada(array( 'tipo' => '6'));
 
       $request = '{
         "api_key":"4b66b40a110c408e8651eb971591f03e",
@@ -162,12 +162,11 @@ class Wpfunos_Public {
         ]
       }';
 
-      $telSMS = str_replace(" ","", $fields['telefono'] );
-      $telSMS = str_replace("-","",$telSMS );
+      $telSMS = sanitize_text_field( str_replace( array( '-', ' ' ), '', $fields['telefono'] ) );
       if(substr($telSMS,0,1) == '+'){
         $telSMS = str_replace("+","",$telSMS );
       }else{
-        $telSMS = '34'.$telSMS ;
+        $telSMS = '34'.$telSMS;
       }
       if( site_url() === 'https://dev.funos.es'){
         $telSMS = '34690074497';

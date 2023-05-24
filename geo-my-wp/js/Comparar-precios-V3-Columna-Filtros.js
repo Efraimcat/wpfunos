@@ -15,13 +15,13 @@ $(document).ready(function(){
     //}else{
     //  idioma_URL = idioma_wpml;
     //}
-    var idioma_wpml = '';
+    //var idioma_wpml = '';
 
     // DONDE
     $.each( elementosDonde, function( i, elem ) {
       $(elem).click( function(){
         elementorFrontend.documentsManager.documents[ 84639 ].showModal(); //Ventana Popup Esperando (loader2)
-        window.location.href = idioma_URL+'/comparar-precios-nueva';
+        window.location.href = '/comparar-precios-nueva';
       });
     });
     $.each(['#wpfunos-v3-donde-texto','#wpfunos-v3-donde-texto-movil'], function( i, elem ){ $(elem).html( $('#wpf-resultados-referencia').attr('wpfubic') ); } );

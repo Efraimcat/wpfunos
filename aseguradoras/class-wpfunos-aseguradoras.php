@@ -318,16 +318,8 @@ class Wpfunos_Aseguradoras {
     $CP = get_post_meta( $usuario, 'wpfunos_userCP', true );
     $provincia = $this->wpfunosProvincia( $CP );
     $nombre = get_post_meta( $usuario, 'wpfunos_userName', true );
-    $telefono = get_post_meta( $usuario, 'wpfunos_userPhone', true );
-    // EBG 03-11-22
-    $telefono = str_replace(" ","", $telefono );
-    $telefono = str_replace("-","",$telefono);
-    //
-    // Nuevo formato número telefónico
-    //
-    //$telefono = str_replace("+","00",$telefono);
-    $telefono = str_replace("+34","",$telefono);
-    //
+    $telefono = sanitize_text_field( str_replace( array( '-', '+34', ' ' ), '', get_post_meta( $usuario, 'wpfunos_userPhone', true ) ) );
+
     $email = get_post_meta( $usuario, 'wpfunos_userMail', true );
 
     $api = get_post_meta( $servicio, 'wpfunos_aseguradorasAPI', true );

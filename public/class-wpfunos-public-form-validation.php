@@ -147,14 +147,10 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
     if( $field = $this->wpfunos_elementor_get_field( 'telefono', $record ) ){
       do_action('wpfunos_log', $userIP.' - '.'Validación teléfono: ' .$field['value'] );
 
-      $telefono = str_replace(" ","", $field['value'] );
-      $telefono = str_replace("-","",$telefono);
-      $telefono = str_replace("+34","",$telefono);
+      $telefono = sanitize_text_field( str_replace( array( '-', '+34', ' ' ), '', $field['value'] ) );
 
       if( $field2 = $this->wpfunos_elementor_get_field( 'telefono2', $record ) ){
-        $telefono2 = str_replace(" ","", $field2['value'] );
-        $telefono2 = str_replace("-","",$telefono2);
-        $telefono2 = str_replace("+34","",$telefono2);
+        $telefono2 = sanitize_text_field( str_replace( array( '-', '+34', ' ' ), '', $field2['value'] ) );
         if( $telefono != $telefono2 ){
           do_action('wpfunos_log', $userIP.' - '.'Validación teléfono2: ' .$field2['value'] );
           $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );

@@ -42,6 +42,7 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 	// ID 69244 Asesoramiento gratuito v2 (AsesoramientoGratuito)
 	// ID 89354 Servicios Multistep V3 step 5 (wpfunosDatosServiciosV3)
 	// ID 118670 Te llamamos gratis Landings (TeLlamamosGratisLandings)
+	// ID 111305 Servicios Pedir Financiación
 	if( id == '54064' ){
 		wpfAlertPopups( 'TeLlamamosGratis', 'Nombre' );
 		wpfAlertPopups( 'TeLlamamosGratis', 'email' );
@@ -82,13 +83,19 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'email' );
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'telefono' );
 	}
+	if( id == '111305' ){
+		wpfAlertPopups( 'PaginaFinanciacion', 'Nombre' );
+		wpfAlertPopups( 'PaginaFinanciacion', 'email' );
+		wpfAlertPopups( 'PaginaFinanciacion', 'telefono' );
+	}
 	if( id == '143788' ){ //AccionesFunerarias
 		var checkExist = setInterval(function() {
 			if( $("#form-field-OK").attr('value') == 'OK' ){
 				clearInterval(checkExist);
 				$("#botonConfirmacionFuneraria").trigger("click");
 				$('#elementor-popup-modal-143788').hide();
-				if ( $('#wpf-resultados-referencia').attr('wpfurlfiltro') && $('#wpf-resultados-referencia').attr('wpfurlfiltro').val(
+				if ( $('#wpf-resultados-referencia').attr('wpfurlfiltro') && $('#wpf-resultados-referencia').attr('wpfurlfiltro') != '' ){
+					console.log('wpfurlfiltro: ' + $('#wpf-resultados-referencia').attr('wpfurlfiltro'));
 					window.location.href = $('#wpf-resultados-referencia').attr('wpfurlfiltro');
 				}
 			}
