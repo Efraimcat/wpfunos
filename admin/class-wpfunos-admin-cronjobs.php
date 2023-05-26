@@ -765,6 +765,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
       $attachments = array( $file, $Excelfile );
       if( site_url() !== 'https://dev.funos.es'){
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: funos <clientes@funos.es>';
         $headers[] = 'Cc: comercial.alejandrolopez@yahoo.com, efraim@efraim.cat' ;
         wp_mail (  'clientes@funos.es' , 'Reporte usuarios' , $message, $headers, $attachments );
       }

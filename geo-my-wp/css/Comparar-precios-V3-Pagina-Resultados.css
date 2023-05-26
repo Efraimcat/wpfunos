@@ -303,6 +303,7 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 #form-field-velatorio,
 #form-field-ceremonia,
 #form-field-donde,
+#form-field-Referencia,
 #form-field-urlfiltro{
 	display: none;
 }
@@ -313,6 +314,7 @@ label[for="form-field-destino"],
 label[for="form-field-ataud"],
 label[for="form-field-velatorio"],
 label[for="form-field-ceremonia"],
+label[for="form-field-Referencia"],
 label[for="form-field-donde"]{
 	display: none;
 }

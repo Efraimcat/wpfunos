@@ -478,6 +478,7 @@ class Wpfunos_Aseguradoras {
         $mensaje_ip = ( 'Conflict' === $request['response']['message'] ) ? '<strong>CONFLICTO: PETICION DUPLICADA</strong>' : $userIP ;
 
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: funos <clientes@funos.es>';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPreventiva'), get_option('wpfunos_asuntoCorreoPreventiva') );
 
         $email_correo = get_option('wpfunos_mailCorreoPreventiva');
@@ -633,6 +634,7 @@ class Wpfunos_Aseguradoras {
     $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
     if ($IDusuario != 0){
       $headers[] = 'Content-Type: text/html; charset=UTF-8';
+      $headers[] = 'From: funos <clientes@funos.es>';
       $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoDatosEntradosAseguradora'), get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora') );
       //$texto =  esc_html__( get_option('wpfunos_mensajeCorreoDatosEntradosAseguradora'), 'wpfunos_mensajes');
       //$asunto = esc_html__( get_option('wpfunos_asuntoCorreoDatosEntradosAseguradora'), 'wpfunos_mensajes');

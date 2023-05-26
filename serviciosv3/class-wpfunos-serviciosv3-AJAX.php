@@ -234,6 +234,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         if( get_option('wpfunos_activarCorreov2Admin') ){
           unset($headers);
           $headers[] = 'Content-Type: text/html; charset=UTF-8';
+          $headers[] = 'From: funos <clientes@funos.es>';
           $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') );
           $mensaje = str_replace( '[email]' , $wpfemail , $mensaje );
           $mensaje = str_replace( '[referencia]' , $wpfnewref , $mensaje );
@@ -278,6 +279,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
             if( site_url() === 'https://dev.funos.es'){
               unset($headers);
               $headers[] = 'Content-Type: text/html; charset=UTF-8';
+              $headers[] = 'From: funos <clientes@funos.es>';
               wp_mail ( 'efraim@efraim.cat', get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
             }else{
               //
@@ -300,6 +302,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         if( get_option('wpfunos_activarCorreov2usuario') ){
           unset($headers);
           $headers[] = 'Content-Type: text/html; charset=UTF-8';
+          $headers[] = 'From: funos <clientes@funos.es>';
           $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreov2usuario'), get_option('wpfunos_asuntoCorreov2usuario') );
           $mensaje = str_replace( '[email]' , $wpfemail , $mensaje );
           $mensaje = str_replace( '[referencia]' , $wpfnewref , $mensaje );
@@ -594,6 +597,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( get_option('wpfunos_activarCorreoBoton1v2Admin') ){
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: funos <clientes@funos.es>';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1v2Admin'), get_option('wpfunos_asuntoCorreoBoton1v2Admin') );
 
         $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
@@ -639,6 +643,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( get_option('wpfunos_activarCorreoBoton1v2usuario') ){
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: funos <clientes@funos.es>';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1v2usuario'), get_option('wpfunos_asuntoCorreoBoton1v2usuario') );
 
         $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
@@ -866,6 +871,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( get_option('wpfunos_activarCorreoBoton2v2Admin') ){
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: funos <clientes@funos.es>';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2v2Admin'), get_option('wpfunos_asuntoCorreoBoton2v2Admin') );
 
         $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
@@ -912,6 +918,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( get_option('wpfunos_activarCorreoBoton2v2usuario') ){
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: funos <clientes@funos.es>';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2v2usuario'), get_option('wpfunos_asuntoCorreoBoton2v2usuario') );
 
         $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
@@ -1143,6 +1150,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( get_option('wpfunos_activarCorreoPresupuestoLead') ){
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: funos <clientes@funos.es>';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestoLead'), get_option('wpfunos_asuntoCorreoPresupuestoLead') );
 
         $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
@@ -1188,6 +1196,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( get_option('wpfunos_activarCorreoPresupuestousuario') ){
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: funos <clientes@funos.es>';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestousuario'), get_option('wpfunos_asuntoCorreoPresupuestousuario') );
 
         $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
@@ -1607,6 +1616,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       unset($headers);
       $headers[] = 'Content-Type: text/html; charset=UTF-8';
+      $headers[] = 'From: funos <clientes@funos.es>';
       $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoUsuarioDetalles'), get_option('wpfunos_asuntoCorreoUsuarioDetalles') );
 
       $mensaje = str_replace( '[email]' , $transient_ref['wpfe'] , $mensaje );
@@ -1897,6 +1907,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       if( get_option('wpfunos_activarCorreov2Admin') ){
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers[] = 'From: funos <clientes@funos.es>';
         $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') );
         $mensaje = str_replace( '[email]' , get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ) , $mensaje );
         $mensaje = str_replace( '[referencia]' , $wpfnewref .' (cambios '. $cambios .')' , $mensaje );
@@ -1919,6 +1930,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           if( site_url() === 'https://dev.funos.es'){
             unset($headers);
             $headers[] = 'Content-Type: text/html; charset=UTF-8';
+            $headers[] = 'From: funos <clientes@funos.es>';
             wp_mail ( 'efraim@efraim.cat', get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
           }else{
             wp_mail ( get_option('wpfunos_mailCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );

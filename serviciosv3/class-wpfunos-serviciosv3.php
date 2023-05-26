@@ -473,7 +473,7 @@ class Wpfunos_ServiciosV3 {
       //if( is_user_logged_in()  && get_current_user_id() == '7' ) {
       //if( apply_filters('wpfunos_reserved_email','dummy') ){
 
-      echo do_shortcode( '[elementor-template id="119957"]' );//Compara precios resultadosV3 Ventana Colaborador
+      //echo do_shortcode( '[elementor-template id="119957"]' );//Compara precios resultadosV3 Ventana Colaborador
     }
     // END VENTANA COLABORADOR
     //
@@ -590,10 +590,10 @@ class Wpfunos_ServiciosV3 {
       case 'ubicacion': return $_GET['ubicacion']; break;
       case 'cuando': return $_GET['cuando']; break;
 
-      case 'destino': return $_GET['cf']['resp1']; break;
-      case 'ataud': return $_GET['cf']['resp2']; break;
-      case 'velatorio': return $_GET['cf']['resp3']; break;
-      case 'ceremonia': return $_GET['cf']['resp4']; break;
+      case 'destino': if($_GET['cf']['resp1'] == '1' )return 'Entierro'; if($_GET['cf']['resp1'] == '2' )return 'Incineración'; ; break;
+      case 'ataud': if($_GET['cf']['resp2'] == '1' )return 'Ataúd medio'; if($_GET['cf']['resp2'] == '2' )return 'Ataúd económico'; if($_GET['cf']['resp2'] == '3' )return 'Ataúd premium'; break;
+      case 'velatorio': if($_GET['cf']['resp3'] == '1' )return 'Velatorio'; if($_GET['cf']['resp3'] == '2' )return 'Sin velatorio'; break;
+      case 'ceremonia': if($_GET['cf']['resp4'] == '1' )return 'Sin ceremonia'; if($_GET['cf']['resp4'] == '2' )return 'Solo sala'; if($_GET['cf']['resp4'] == '3' )return 'Ceremonia civil'; if($_GET['cf']['resp4'] == '4' )return 'Ceremonia religiosa'; break;
 
       case 'Referencia': return $_GET['wpfnewref']; break;
 

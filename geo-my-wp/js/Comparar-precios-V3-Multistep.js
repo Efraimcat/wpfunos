@@ -99,7 +99,7 @@ $(document).ready(function(){
                 cuando = 'Ahora';
               }else{
                 console.log(FuncName+': cuando: Proximamente');
-                cuando = 'Proximamente';
+                cuando = 'Próximamente';
               }
               $('#elementor-popup-modal-89340').hide(); //Servicios Multistep (1)
               if( $('#wpf-resultados-referencia').attr('wpfland') === '1'){
@@ -149,12 +149,20 @@ $(document).ready(function(){
           $('#elementor-popup-modal-89351').hide(); //Servicios Multistep (4)
           elementorFrontend.documentsManager.documents[ '89354' ].showModal(); //Servicios Multistep (5)
           $( '#form-field-cuando' ).val(cuando);
-          $( '#form-field-destino' ).val(destino);
-          $( '#form-field-ataud' ).val(params.get('cf[resp2]'));
-          $( '#form-field-velatorio' ).val(velatorio);
-          $( '#form-field-ceremonia' ).val(ceremonia);
+          if( destino == '1' ){ $( '#form-field-destino' ).val('Entierro'); }
+          if( destino == '2' ){ $( '#form-field-destino' ).val('Incineración'); }
+          if( params.get('cf[resp2]') == '1' ){ $( '#form-field-ataud' ).val('Ataúd medio'); }
+          if( params.get('cf[resp2]') == '2' ){ $( '#form-field-ataud' ).val('Ataúd económico'); }
+          if( params.get('cf[resp2]') == '3' ){ $( '#form-field-ataud' ).val('Ataúd premium'); }
+          if( velatorio == '1' ){ $( '#form-field-velatorio' ).val('Velatorio'); }
+          if( velatorio == '2' ){ $( '#form-field-velatorio' ).val('Sin velatorio'); }
+          if( ceremonia == '1' ){ $( '#form-field-ceremonia' ).val('Sin ceremonia'); }
+          if( ceremonia == '2' ){ $( '#form-field-ceremonia' ).val('Solo sala'); }
+          if( ceremonia == '3' ){ $( '#form-field-ceremonia' ).val('Ceremonia civil'); }
+          if( ceremonia == '4' ){ $( '#form-field-ceremonia' ).val('Ceremonia religiosa'); }
           $( '#form-field-IP' ).val($('#wpf-resultados-referencia').attr('wpfip'));
           $( '#form-field-donde' ).val($('#wpf-resultados-referencia').attr('wpfubic'));
+          $( '#form-field-Referencia' ).val( $('#wpf-resultados-referencia').attr('wpfnewref') );
         }
       }// hasAttribute('wpfmultistep'
     }, 100); // check every 100ms
