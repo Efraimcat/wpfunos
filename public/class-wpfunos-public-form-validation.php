@@ -43,17 +43,22 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
   public function wpfunosFormValidation($record, $ajax_handler){
     $form_name = $record->get_form_settings( 'form_name' );
     $userIP = apply_filters('wpfunos_userIP','dummy');
+
+    if( $form_name == 'ConfirmacionOk') return;
+
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - '.'Validación formulario: '. $form_name );
-    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-advertisement: ' . $_COOKIE['cookielawinfo-checkbox-advertisement']  );
     do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-analytics: ' . $_COOKIE['cookielawinfo-checkbox-analytics']  );
-    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-functional: ' . $_COOKIE['cookielawinfo-checkbox-functional']  );
-    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-necessary: ' . $_COOKIE['cookielawinfo-checkbox-necessary']  );
-    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-non-necessary: ' . $_COOKIE['cookielawinfo-checkbox-non-necessary']  );
-    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-others: ' . $_COOKIE['cookielawinfo-checkbox-others']  );
-    do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-performance: ' . $_COOKIE['cookielawinfo-checkbox-performance']  );
 
+    if( $form_name == 'wpfunosDatosServiciosV3'){
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-advertisement: ' . $_COOKIE['cookielawinfo-checkbox-advertisement']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-functional: ' . $_COOKIE['cookielawinfo-checkbox-functional']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-necessary: ' . $_COOKIE['cookielawinfo-checkbox-necessary']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-non-necessary: ' . $_COOKIE['cookielawinfo-checkbox-non-necessary']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-others: ' . $_COOKIE['cookielawinfo-checkbox-others']  );
+      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-performance: ' . $_COOKIE['cookielawinfo-checkbox-performance']  );
+    }
     // Aseguradoras
 
     if( "FormularioDatosAseguradoras" === $form_name ){

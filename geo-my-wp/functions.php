@@ -94,6 +94,7 @@ add_action( 'init', 'set_funos_cookie' );
 
 function cargar_plantillas_globales() {
   ElementorPro\Modules\Popup\Module::add_popup_to_location( '143773' ); //Servicios cambiar distancia V3
+  ElementorPro\Modules\Popup\Module::add_popup_to_location( '144166' ); //confirmación OK
 }
 add_action( 'init', 'cargar_plantillas_globales' );
 

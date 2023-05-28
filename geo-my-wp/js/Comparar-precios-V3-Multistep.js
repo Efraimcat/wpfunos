@@ -13,6 +13,9 @@ $(document).ready(function(){
         console.log(FuncName+': Lanzar Multistep Form');
 
         $( document ).on('submit_success', function(e, data){
+          if( typeof $('#wpf-resultados-referencia').attr('wpfurl') != 'undefined' ){
+            return;
+          }
           console.log(FuncName+': On Submit Success');
 
           $('#wpfunos-v3-enviar-datos').attr('disabled', 'disabled');
@@ -21,9 +24,6 @@ $(document).ready(function(){
           var date = new Date();
           date.setTime(date.getTime() + (30*24*60*60*1000));
           expires = '; expires=' + date.toUTCString();
-          //document.cookie = 'wpfn=' + $('#form-field-Nombre').val() + expires + '; path=/; SameSite=Lax; secure';
-          //document.cookie = 'wpfe=' + $('#form-field-email').val() + expires + '; path=/; SameSite=Lax; secure';
-          //document.cookie = 'wpft=' + $('#form-field-telefono').val() + expires + '; path=/; SameSite=Lax; secure';
 
           $('#wpf-resultados-referencia').attr('wpfnombre', $('#form-field-Nombre').val() );
 
@@ -76,7 +76,10 @@ $(document).ready(function(){
               console.log(response)	;
               if(response.type === 'success') {
                 console.log(FuncName+': success');
-                window.location.href = response.wpfurl;
+                $('#wpf-resultados-referencia').attr('wpfurl', response.wpfurl );
+                elementorFrontend.documentsManager.documents[ '144252' ].showModal(); //Confirmamción Datos Servicios OK
+                $("#form-field-URL").attr('value',$('#wpf-resultados-referencia').attr('wpfurl') );
+                //window.location.href = response.wpfurl;
               } else {
                 if(response.type === 'unwanted') {
                   console.log(FuncName+': unwanted');

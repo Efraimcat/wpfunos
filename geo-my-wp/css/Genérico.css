@@ -542,9 +542,14 @@ div.gmw-form-wrapper div.gmw-locator-button-wrapper.text:hover {
 	}
 }
 
+#form-field-accion,
+#form-field-ok,
 #form-field-IP{
 	display: none;
 }
+
+label[for="form-field-accion"],
+label[for="form-field-ok"],
 label[for="form-field-IP"]{
 	display: none;
 }
@@ -554,5 +559,9 @@ label[for="form-field-IP"]{
 }
 
 .elementor-field-group.e-form__buttons__wrapper.elementor-field-type-previous {
+	display: none;
+}
+
+#wpfConfirmacionok {
 	display: none;
 }

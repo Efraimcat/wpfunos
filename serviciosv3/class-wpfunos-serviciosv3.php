@@ -153,6 +153,7 @@ class Wpfunos_ServiciosV3 {
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '89948' ); //Servicios cambiar distancia V3
 
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '143788' ); //AccionesFunerarias
+      ElementorPro\Modules\Popup\Module::add_popup_to_location( '144252' ); //Confirmamción Datos Servicios OK
 
       /**?><script>console.log('Cargando popups Elementor END.' );</script><?php**/
 
@@ -473,7 +474,7 @@ class Wpfunos_ServiciosV3 {
       //if( is_user_logged_in()  && get_current_user_id() == '7' ) {
       //if( apply_filters('wpfunos_reserved_email','dummy') ){
 
-      //echo do_shortcode( '[elementor-template id="119957"]' );//Compara precios resultadosV3 Ventana Colaborador
+      echo do_shortcode( '[elementor-template id="119957"]' );//Compara precios resultadosV3 Ventana Colaborador
     }
     // END VENTANA COLABORADOR
     //
@@ -597,7 +598,7 @@ class Wpfunos_ServiciosV3 {
 
       case 'Referencia': return $_GET['wpfnewref']; break;
 
-      case 'OK': return 'OK'; break;
+      case 'ok': return 'ok'; break;
     }
   }
 

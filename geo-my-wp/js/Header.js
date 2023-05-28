@@ -47,31 +47,13 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 		wpfAlertPopups( 'TeLlamamosGratis', 'Nombre' );
 		wpfAlertPopups( 'TeLlamamosGratis', 'email' );
 		wpfAlertPopups( 'TeLlamamosGratis', 'telefono' );
-		$('#wpfTeLlamamosEnviar').hide();
-		$('#form-field-telefono2').hide();
-		$('#telefono2').hide();
-		$('#botonPaso2').hide();
-		$('#botonPaso1').click( function(){
-			//$('#elementor-popup-modal-47448').hide();
-			$('#wpfTeLlamamosGratis').hide();
-			$('#botonPaso1').hide();
-			$('#telefono2').show();
-			$('#botonPaso2').show();
-			$('#botonPaso2').click( function(){
-				$('#form-field-telefono2').val( $('#telefono2').val() );
-				$('#wpfTeLlamamosGratis').show();
-				$('#botonPaso1').show();
-				$('#telefono2').hide();
-				$('#botonPaso2').hide();
-				$("#wpfTeLlamamosEnviar").trigger("click");
-			} );
-		} );
-
+		wpfEnviarConfirmacion();
 	}
 	if( id == '69244' ){
 		wpfAlertPopups( 'AsesoramientoGratuito', 'Nombre' );
 		wpfAlertPopups( 'AsesoramientoGratuito', 'email' );
 		wpfAlertPopups( 'AsesoramientoGratuito', 'telefono' );
+		wpfEnviarConfirmacion();
 	}
 	if( id == '89354' ){
 		wpfAlertPopups( 'wpfunosDatosServiciosV3', 'Nombre' );
@@ -82,6 +64,7 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'Nombre' );
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'email' );
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'telefono' );
+		wpfEnviarConfirmacion();
 	}
 	if( id == '111305' ){
 		wpfAlertPopups( 'PaginaFinanciacion', 'Nombre' );
@@ -90,17 +73,29 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 	}
 	if( id == '143788' ){ //AccionesFunerarias
 		var checkExist = setInterval(function() {
-			if( $("#form-field-OK").attr('value') == 'OK' ){
+			if( $("#form-field-ok").attr('value') == 'ok' ){
 				clearInterval(checkExist);
-				$("#botonConfirmacionFuneraria").trigger("click");
-				$('#elementor-popup-modal-143788').hide();
-				if ( $('#wpf-resultados-referencia').attr('wpfurlfiltro') && $('#wpf-resultados-referencia').attr('wpfurlfiltro') != '' ){
-					console.log('wpfurlfiltro: ' + $('#wpf-resultados-referencia').attr('wpfurlfiltro'));
-					window.location.href = $('#wpf-resultados-referencia').attr('wpfurlfiltro');
-				}
+				setTimeout( function() {
+					$("#botonConfirmacionFuneraria").trigger("click");
+					$('#elementor-popup-modal-143788').hide();
+					if ( $('#wpf-resultados-referencia').attr('wpfurlfiltro') && $('#wpf-resultados-referencia').attr('wpfurlfiltro') != '' ){
+						console.log('wpfurlfiltro: ' + $('#wpf-resultados-referencia').attr('wpfurlfiltro'));
+						window.location.href = $('#wpf-resultados-referencia').attr('wpfurlfiltro');
+					}
+				}, 1000);
 			}
 		}, 100); // checkExist every 100ms
 	}
+	if( id == '144252' ){
+		console.log('submit_success');
+		var URL = $('#wpf-resultados-referencia').attr('wpfurl') ;
+		setTimeout( function() {
+			$("#wpfTeLlamamosEnviarConfirmacion").trigger("click");
+			$('#elementor-popup-modal-144252').hide();
+			window.location.href = URL;
+		}, 1000);
+	}
+
 	//window.onload = () => {
 	//	const myInput = document.getElementById('form-field-telefono2');
 	//	if (myInput) {
@@ -121,6 +116,20 @@ function wpfAlertPopups( form, input ){
 			$( document ).on( 'click', '#wt-cli-accept-all-btn', function( event ) {
 				elementorProFrontend.modules.popup.closePopup( {}, event );
 			} );
+		}
+	});
+}
+
+function wpfEnviarConfirmacion(){
+	$( document ).on('submit_success', function(e, data) {
+		if ($("#form-field-ok").attr('value') == 'ko'){
+			console.log('submit_success');
+			elementorFrontend.documentsManager.documents['144166'].showModal(); //Confirmación OK
+			$("#form-field-ok").attr('value','ok');
+			setTimeout( function() {
+				$("#wpfTeLlamamosEnviarConfirmacion").trigger("click");
+				$('#elementor-popup-modal-144166').hide();
+			}, 1000);
 		}
 	});
 }
