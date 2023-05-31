@@ -58,21 +58,21 @@ function wpfV3Llamamos() {
     elementorProFrontend.modules.popup.closePopup( {}, event );
     var params = new URLSearchParams(location.search);
     //
-    elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
-    $("#form-field-accion").attr('value','Te llamamos');
-    $("#form-field-Servicio").attr('value',objeto.attr('wpftitulo'));
-    $("#form-field-Precio").attr('value',objeto.attr('wpfp'));
-    if( params.get('cf[resp1]') == '1' ){ $( '#form-field-destino' ).val('Entierro'); }
-    if( params.get('cf[resp1]') == '2' ){ $( '#form-field-destino' ).val('Incineración'); }
-    if( params.get('cf[resp2]') == '1' ){ $( '#form-field-ataud' ).val('Ataúd medio'); }
-    if( params.get('cf[resp2]') == '2' ){ $( '#form-field-ataud' ).val('Ataúd económico'); }
-    if( params.get('cf[resp2]') == '3' ){ $( '#form-field-ataud' ).val('Ataúd premium'); }
-    if( params.get('cf[resp3]') == '1' ){ $( '#form-field-velatorio' ).val('Velatorio'); }
-    if( params.get('cf[resp3]') == '2' ){ $( '#form-field-velatorio' ).val('Sin velatorio'); }
-    if( params.get('cf[resp4]') == '1' ){ $( '#form-field-ceremonia' ).val('Sin ceremonia'); }
-    if( params.get('cf[resp4]') == '2' ){ $( '#form-field-ceremonia' ).val('Solo sala'); }
-    if( params.get('cf[resp4]') == '3' ){ $( '#form-field-ceremonia' ).val('Ceremonia civil'); }
-    if( params.get('cf[resp4]') == '4' ){ $( '#form-field-ceremonia' ).val('Ceremonia religiosa'); }
+    //elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+    //$('#form-field-accion').attr('value','Te llamamos');
+    //$('#form-field-Servicio').attr('value',objeto.attr('wpftitulo'));
+    //$('#form-field-Precio').attr('value',objeto.attr('wpfp'));
+    //if( params.get('cf[resp1]') == '1' ){ $( '#form-field-destino' ).val('Entierro'); }
+    //if( params.get('cf[resp1]') == '2' ){ $( '#form-field-destino' ).val('Incineración'); }
+    //if( params.get('cf[resp2]') == '1' ){ $( '#form-field-ataud' ).val('Ataúd medio'); }
+    //if( params.get('cf[resp2]') == '2' ){ $( '#form-field-ataud' ).val('Ataúd económico'); }
+    //if( params.get('cf[resp2]') == '3' ){ $( '#form-field-ataud' ).val('Ataúd premium'); }
+    //if( params.get('cf[resp3]') == '1' ){ $( '#form-field-velatorio' ).val('Velatorio'); }
+    //if( params.get('cf[resp3]') == '2' ){ $( '#form-field-velatorio' ).val('Sin velatorio'); }
+    //if( params.get('cf[resp4]') == '1' ){ $( '#form-field-ceremonia' ).val('Sin ceremonia'); }
+    //if( params.get('cf[resp4]') == '2' ){ $( '#form-field-ceremonia' ).val('Solo sala'); }
+    //if( params.get('cf[resp4]') == '3' ){ $( '#form-field-ceremonia' ).val('Ceremonia civil'); }
+    //if( params.get('cf[resp4]') == '4' ){ $( '#form-field-ceremonia' ).val('Ceremonia religiosa'); }
     //
   });
 }
@@ -127,22 +127,7 @@ function wpfV3Llamar() {
     elementorProFrontend.modules.popup.closePopup( {}, event );
     var params = new URLSearchParams(location.search);
     //
-    elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
-    $("#form-field-accion").attr('value','Llamar');
-    $("#form-field-Servicio").attr('value',objeto.attr('wpftitulo'));
-    $("#form-field-Precio").attr('value',objeto.attr('wpfp'));
-    if( params.get('cf[resp1]') == '1' ){ $( '#form-field-destino' ).val('Entierro'); }
-    if( params.get('cf[resp1]') == '2' ){ $( '#form-field-destino' ).val('Incineración'); }
-    if( params.get('cf[resp2]') == '1' ){ $( '#form-field-ataud' ).val('Ataúd medio'); }
-    if( params.get('cf[resp2]') == '2' ){ $( '#form-field-ataud' ).val('Ataúd económico'); }
-    if( params.get('cf[resp2]') == '3' ){ $( '#form-field-ataud' ).val('Ataúd premium'); }
-    if( params.get('cf[resp3]') == '1' ){ $( '#form-field-velatorio' ).val('Velatorio'); }
-    if( params.get('cf[resp3]') == '2' ){ $( '#form-field-velatorio' ).val('Sin velatorio'); }
-    if( params.get('cf[resp4]') == '1' ){ $( '#form-field-ceremonia' ).val('Sin ceremonia'); }
-    if( params.get('cf[resp4]') == '2' ){ $( '#form-field-ceremonia' ).val('Solo sala'); }
-    if( params.get('cf[resp4]') == '3' ){ $( '#form-field-ceremonia' ).val('Ceremonia civil'); }
-    if( params.get('cf[resp4]') == '4' ){ $( '#form-field-ceremonia' ).val('Ceremonia religiosa'); }
-
+    //elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
     //
   });
 }
@@ -167,8 +152,8 @@ function wpfV3Presupuesto() {
       $('#botonEnviarPresupuesto').attr('wpfp', wpfp);
       $('#botonEnviarPresupuesto').attr('wpftitulo', wpftitulo);
       $('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
-      $("#form-field-Servicio").attr('value',wpftitulo);
-      $("#form-field-Precio").attr('value',wpfp);
+      $('#form-field-Servicio').attr('value',wpftitulo);
+      $('#form-field-Precio').attr('value',wpfp);
     }
   }, 100); // check every 100ms
 }
@@ -178,6 +163,8 @@ function wpfV3Presupuesto() {
 function wpfV3EnviaPresupuesto() {
   var FuncName = getFuncName();
   var params = new URLSearchParams(location.search);
+  var titulo = $(this).attr('wpftitulo');
+  var precio = $(this).attr('wpfp');
   console.log(FuncName+': Botón Enviar presupuesto: Servicio: ' + $(this).attr('wpfid') + ' Título: ' + $(this).attr('wpftitulo') );
   console.log(FuncName+': Mensaje: ' + $('#form-field-mensajePresupuesto').val() );
 
@@ -207,6 +194,8 @@ function wpfV3EnviaPresupuesto() {
       }
     }
   });// END AJAX
+  //elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+  //
 }
 //
 //  wpfV3Detalles()
@@ -346,21 +335,7 @@ function wpfV3DetallesLlamamos() {
     $('#elementor-popup-modal-56684').hide();
     elementorProFrontend.modules.popup.closePopup( {}, event );
     //
-    elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
-    $("#form-field-accion").attr('value','Te llamamos');
-    $("#form-field-Servicio").attr('value',objeto.attr('wpftitulo'));
-    $("#form-field-Precio").attr('value',objeto.attr('wpfp'));
-    if( params.get('cf[resp1]') == '1' ){ $( '#form-field-destino' ).val('Entierro'); }
-    if( params.get('cf[resp1]') == '2' ){ $( '#form-field-destino' ).val('Incineración'); }
-    if( params.get('cf[resp2]') == '1' ){ $( '#form-field-ataud' ).val('Ataúd medio'); }
-    if( params.get('cf[resp2]') == '2' ){ $( '#form-field-ataud' ).val('Ataúd económico'); }
-    if( params.get('cf[resp2]') == '3' ){ $( '#form-field-ataud' ).val('Ataúd premium'); }
-    if( params.get('cf[resp3]') == '1' ){ $( '#form-field-velatorio' ).val('Velatorio'); }
-    if( params.get('cf[resp3]') == '2' ){ $( '#form-field-velatorio' ).val('Sin velatorio'); }
-    if( params.get('cf[resp4]') == '1' ){ $( '#form-field-ceremonia' ).val('Sin ceremonia'); }
-    if( params.get('cf[resp4]') == '2' ){ $( '#form-field-ceremonia' ).val('Solo sala'); }
-    if( params.get('cf[resp4]') == '3' ){ $( '#form-field-ceremonia' ).val('Ceremonia civil'); }
-    if( params.get('cf[resp4]') == '4' ){ $( '#form-field-ceremonia' ).val('Ceremonia religiosa'); }
+    //elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
     //
 
   })
@@ -417,22 +392,7 @@ function wpfV3DetallesLlamar() {
     elementorProFrontend.modules.popup.closePopup( {}, event );
     var params = new URLSearchParams(location.search);
     //
-    elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
-    $("#form-field-accion").attr('value','Llamar');
-    $("#form-field-Servicio").attr('value',objeto.attr('wpftitulo'));
-    $("#form-field-Precio").attr('value',objeto.attr('wpfp'));
-    if( params.get('cf[resp1]') == '1' ){ $( '#form-field-destino' ).val('Entierro'); }
-    if( params.get('cf[resp1]') == '2' ){ $( '#form-field-destino' ).val('Incineración'); }
-    if( params.get('cf[resp2]') == '1' ){ $( '#form-field-ataud' ).val('Ataúd medio'); }
-    if( params.get('cf[resp2]') == '2' ){ $( '#form-field-ataud' ).val('Ataúd económico'); }
-    if( params.get('cf[resp2]') == '3' ){ $( '#form-field-ataud' ).val('Ataúd premium'); }
-    if( params.get('cf[resp3]') == '1' ){ $( '#form-field-velatorio' ).val('Velatorio'); }
-    if( params.get('cf[resp3]') == '2' ){ $( '#form-field-velatorio' ).val('Sin velatorio'); }
-    if( params.get('cf[resp4]') == '1' ){ $( '#form-field-ceremonia' ).val('Sin ceremonia'); }
-    if( params.get('cf[resp4]') == '2' ){ $( '#form-field-ceremonia' ).val('Solo sala'); }
-    if( params.get('cf[resp4]') == '3' ){ $( '#form-field-ceremonia' ).val('Ceremonia civil'); }
-    if( params.get('cf[resp4]') == '4' ){ $( '#form-field-ceremonia' ).val('Ceremonia religiosa'); }
-
+    //elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
     //
   });
 }
@@ -493,8 +453,8 @@ function wpfV3DetallesPresupuesto() {
       $('#botonEnviarPresupuesto').attr('wpfp', wpfp);
       $('#botonEnviarPresupuesto').attr('wpftitulo', wpftitulo);
       $('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
-      $("#form-field-Servicio").attr('value',wpftitulo);
-      $("#form-field-Precio").attr('value',wpfp);
+      $('#form-field-Servicio').attr('value',wpftitulo);
+      $('#form-field-Precio').attr('value',wpfp);
     }
   }, 100); // check every 100ms
 }
@@ -530,8 +490,8 @@ function wpfV3DetallesFinanciacion() {
       $('#form-field-wpfp').val( wpfp );
       $('#form-field-wpftitulo').val( wpftitulo );
       $('#form-field-wpftipo').val( $('.elementor-element-6472ad92')[0].childNodes[1].innerText );
-      $("#form-field-Servicio").attr('value',wpftitulo);
-      $("#form-field-Precio").attr('value',wpfp);
+      $('#form-field-Servicio').attr('value',wpftitulo);
+      $('#form-field-Precio').attr('value',wpfp);
     }
   }, 100); // check every 100ms
   setInterval(function() {
@@ -572,8 +532,8 @@ function wpfV3Financiacion() {
   //$('#form-field-email').val(getCookie('wpfe'));
   //$('#form-field-telefono').val(getCookie('wpft'));
   $('#form-field-importe').val( wpfp );
-  $("#form-field-Servicio").attr('value',wpftitulo);
-  $("#form-field-Precio").attr('value',wpfp);
+  $('#form-field-Servicio').attr('value',wpftitulo);
+  $('#form-field-Precio').attr('value',wpfp);
   setInterval(function() {
     if( $('#form-field-importe').length == 0 ) return;
     $('#form-field-financiar').val( $('#form-field-importe').val() - $('#form-field-entrada').val() );

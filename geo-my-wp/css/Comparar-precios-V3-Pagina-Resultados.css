@@ -46,7 +46,7 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
     text-align: center;
   }
   .elementor-90421 .elementor-element.elementor-element-b332e9f , .elementor-90421 .elementor-element.elementor-element-99cb1c3 ,.elementor-90421 .elementor-element.elementor-element-d67d5f2,
-	.elementor-89344 .elementor-element.elementor-element-32e6adb, .elementor-89344 .elementor-element.elementor-element-20a19f27, .elementor-89344 .elementor-element.elementor-element-318c396e, .elementor-89344 .elementor-element.elementor-element-1380f279{
+  .elementor-89344 .elementor-element.elementor-element-32e6adb, .elementor-89344 .elementor-element.elementor-element-20a19f27, .elementor-89344 .elementor-element.elementor-element-318c396e, .elementor-89344 .elementor-element.elementor-element-1380f279{
     width: 100% !important;
   }
   .elementor-90421 .elementor-element.elementor-element-0aad611 {
@@ -289,11 +289,11 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 }
 
 .elementor-element.elementor-element-3d638325.e-con-boxed.e-con {
-	display: none;
+  display: none;
 }
 
 .elementor-field-type-hidden {
-	display: none;
+  display: none;
 }
 
 #form-field-IP,
@@ -307,7 +307,7 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 #form-field-Servicio,
 #form-field-Precio,
 #form-field-urlfiltro{
-	display: none;
+  display: none;
 }
 
 label[for="form-field-IP"],
@@ -320,14 +320,17 @@ label[for="form-field-Referencia"],
 label[for="form-field-Servicio"],
 label[for="form-field-Precio"],
 label[for="form-field-donde"]{
-	display: none;
+  display: none;
 }
 
 #wpfConfirmacionDatosUsuariook {
-	display: none;
+  display: none;
+}
+#wpfConfirmacionko {
+  display: none;
 }
 
 
 .elementor-element.elementor-element-252828f.elementor-button-align-stretch.elementor-widget.elementor-widget-form {
-	display: none;
+  display: none;
 }

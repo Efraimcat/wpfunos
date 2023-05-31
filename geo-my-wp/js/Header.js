@@ -47,13 +47,11 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 		wpfAlertPopups( 'TeLlamamosGratis', 'Nombre' );
 		wpfAlertPopups( 'TeLlamamosGratis', 'email' );
 		wpfAlertPopups( 'TeLlamamosGratis', 'telefono' );
-		wpfEnviarConfirmacion();
 	}
 	if( id == '69244' ){
 		wpfAlertPopups( 'AsesoramientoGratuito', 'Nombre' );
 		wpfAlertPopups( 'AsesoramientoGratuito', 'email' );
 		wpfAlertPopups( 'AsesoramientoGratuito', 'telefono' );
-		wpfEnviarConfirmacion();
 	}
 	if( id == '89354' ){
 		wpfAlertPopups( 'wpfunosDatosServiciosV3', 'Nombre' );
@@ -64,36 +62,11 @@ $(document).on('elementor/popup/show', (event, id, instance) => {
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'Nombre' );
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'email' );
 		wpfAlertPopups( 'TeLlamamosGratisLandings', 'telefono' );
-		wpfEnviarConfirmacion();
 	}
 	if( id == '111305' ){
 		wpfAlertPopups( 'PaginaFinanciacion', 'Nombre' );
 		wpfAlertPopups( 'PaginaFinanciacion', 'email' );
 		wpfAlertPopups( 'PaginaFinanciacion', 'telefono' );
-	}
-	if( id == '143788' ){ //AccionesFunerarias
-		var checkExist = setInterval(function() {
-			if( $("#form-field-ok").attr('value') == 'ok' ){
-				clearInterval(checkExist);
-				setTimeout( function() {
-					$("#botonConfirmacionFuneraria").trigger("click");
-					$('#elementor-popup-modal-143788').hide();
-					if ( $('#wpf-resultados-referencia').attr('wpfurlfiltro') && $('#wpf-resultados-referencia').attr('wpfurlfiltro') != '' ){
-						console.log('wpfurlfiltro: ' + $('#wpf-resultados-referencia').attr('wpfurlfiltro'));
-						window.location.href = $('#wpf-resultados-referencia').attr('wpfurlfiltro');
-					}
-				}, 1000);
-			}
-		}, 100); // checkExist every 100ms
-	}
-	if( id == '144252' ){
-		console.log('submit_success');
-		var URL = $('#wpf-resultados-referencia').attr('wpfurl') ;
-		setTimeout( function() {
-			$("#wpfTeLlamamosEnviarConfirmacion").trigger("click");
-			$('#elementor-popup-modal-144252').hide();
-			window.location.href = URL;
-		}, 1000);
 	}
 
 	//window.onload = () => {
@@ -120,20 +93,6 @@ function wpfAlertPopups( form, input ){
 	});
 }
 
-function wpfEnviarConfirmacion(){
-	$( document ).on('submit_success', function(e, data) {
-		if ($("#form-field-ok").attr('value') == 'ko'){
-			console.log('submit_success');
-			elementorFrontend.documentsManager.documents['144166'].showModal(); //Confirmación OK
-			$("#form-field-ok").attr('value','ok');
-			setTimeout( function() {
-				$("#wpfTeLlamamosEnviarConfirmacion").trigger("click");
-				$('#elementor-popup-modal-144166').hide();
-			}, 1000);
-		}
-	});
-}
-
 function getCookie(c_name) {
 	var c_value = document.cookie,
 	c_start = c_value.indexOf(" " + c_name + "=");
@@ -149,4 +108,18 @@ function getCookie(c_name) {
 		c_value = unescape(c_value.substring(c_start, c_end));
 	}
 	return c_value;
+}
+
+function sendlog(message){
+	$.ajax({
+		type : 'post',
+		url: 'https://funos.es/wp-json/wpfapi/v1/publiclog?log=' + message ,
+		contentType: 'application/json',
+		headers: {
+			'Authorization': 'Basic '+WpfAjax.basic,
+		},
+		success: function(result){
+			console.log('Envio log confirmación '+result);
+		}
+	});
 }

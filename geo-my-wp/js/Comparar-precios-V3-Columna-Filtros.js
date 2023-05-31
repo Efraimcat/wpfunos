@@ -254,22 +254,22 @@ function wpfFunctionResp(event){
         if(response.type === 'success') {
           console.log(FuncName+': success');
 
-          $('#wpf-resultados-referencia').attr('wpfurlfiltro', response.wpfurl );
-          elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
-          $("#form-field-accion").attr('value',accion);
-          if( params.get('cf[resp1]') == '1' ){ $( '#form-field-destino' ).val('Entierro'); }
-          if( params.get('cf[resp1]') == '2' ){ $( '#form-field-destino' ).val('Incineración'); }
-          if( params.get('cf[resp2]') == '1' ){ $( '#form-field-ataud' ).val('Ataúd medio'); }
-          if( params.get('cf[resp2]') == '2' ){ $( '#form-field-ataud' ).val('Ataúd económico'); }
-          if( params.get('cf[resp2]') == '3' ){ $( '#form-field-ataud' ).val('Ataúd premium'); }
-          if( params.get('cf[resp3]') == '1' ){ $( '#form-field-velatorio' ).val('Velatorio'); }
-          if( params.get('cf[resp3]') == '2' ){ $( '#form-field-velatorio' ).val('Sin velatorio'); }
-          if( params.get('cf[resp4]') == '1' ){ $( '#form-field-ceremonia' ).val('Sin ceremonia'); }
-          if( params.get('cf[resp4]') == '2' ){ $( '#form-field-ceremonia' ).val('Solo sala'); }
-          if( params.get('cf[resp4]') == '3' ){ $( '#form-field-ceremonia' ).val('Ceremonia civil'); }
-          if( params.get('cf[resp4]') == '4' ){ $( '#form-field-ceremonia' ).val('Ceremonia religiosa'); }
-          $(campo).attr('value',event.data.opcion);
-          //window.location.href = response.wpfurl;
+          //$('#wpf-resultados-referencia').attr('wpfurlfiltro', response.wpfurl );
+          //elementorFrontend.documentsManager.documents[ '143788' ].showModal(); //AccionesFunerarias
+          //$("#form-field-accion").attr('value',accion);
+          //if( params.get('cf[resp1]') == '1' ){ $( '#form-field-destino' ).val('Entierro'); }
+          //if( params.get('cf[resp1]') == '2' ){ $( '#form-field-destino' ).val('Incineración'); }
+          //if( params.get('cf[resp2]') == '1' ){ $( '#form-field-ataud' ).val('Ataúd medio'); }
+          //if( params.get('cf[resp2]') == '2' ){ $( '#form-field-ataud' ).val('Ataúd económico'); }
+          //if( params.get('cf[resp2]') == '3' ){ $( '#form-field-ataud' ).val('Ataúd premium'); }
+          //if( params.get('cf[resp3]') == '1' ){ $( '#form-field-velatorio' ).val('Velatorio'); }
+          //if( params.get('cf[resp3]') == '2' ){ $( '#form-field-velatorio' ).val('Sin velatorio'); }
+          //if( params.get('cf[resp4]') == '1' ){ $( '#form-field-ceremonia' ).val('Sin ceremonia'); }
+          //if( params.get('cf[resp4]') == '2' ){ $( '#form-field-ceremonia' ).val('Solo sala'); }
+          //if( params.get('cf[resp4]') == '3' ){ $( '#form-field-ceremonia' ).val('Ceremonia civil'); }
+          //if( params.get('cf[resp4]') == '4' ){ $( '#form-field-ceremonia' ).val('Ceremonia religiosa'); }
+          //$(campo).attr('value',event.data.opcion);
+          window.location.href = response.wpfurl;
         } else {
           console.log(FuncName+': fail');
         }

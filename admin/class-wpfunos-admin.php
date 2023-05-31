@@ -47,14 +47,14 @@ class Wpfunos_Admin {
     add_action('admin_init', array( $this, 'registerAndBuildFields' ));						// Compara Debug
     add_action('admin_init', array( $this, 'registerAndBuildFieldsConfImagenes' ));			// Compara Configuración Imágenes
     add_action('admin_init', array( $this, 'registerAndBuildFieldsAseguradoras' ));			// Compara Debug
-    add_action('admin_init', array( $this, 'registerAndBuildFieldsPagina' ));				// Página inicial
-    add_action('admin_init', array( $this, 'registerAndBuildFieldsDatos' ));				// Compara Datos
+    //add_action('admin_init', array( $this, 'registerAndBuildFieldsPagina' ));				// Página inicial V1
+    //add_action('admin_init', array( $this, 'registerAndBuildFieldsDatos' ));				// Compara Datos V1
     add_action('admin_init', array( $this, 'registerAndBuildFieldsResultados' )); 			// Compara Resultados cabecera y Pie
-    add_action('admin_init', array( $this, 'registerAndBuildFieldsConfirmado' )); 			// Compara Resultados Confirmado superior e inferior
-    add_action('admin_init', array( $this, 'registerAndBuildFieldsConfirmadoDescuento' ));	// Compara Resultados confirmado Descuento superior e inferior
-    add_action('admin_init', array( $this, 'registerAndBuildFieldsSinConfirmar' ));			// Compara Resultados Sin Confirmar superior e inferior
-    add_action('admin_init', array( $this, 'registerAndBuildFieldsSinPrecio' ));			// Compara Resultados Sin Precio superior e inferior
-    add_action('admin_init', array( $this, 'registerAndBuildFieldsServiciosV2' ));			// Compara Resultados Sin Precio superior e inferior
+    //add_action('admin_init', array( $this, 'registerAndBuildFieldsConfirmado' )); 			// Compara Resultados Confirmado superior e inferior
+    //add_action('admin_init', array( $this, 'registerAndBuildFieldsConfirmadoDescuento' ));	// Compara Resultados confirmado Descuento superior e inferior
+    //add_action('admin_init', array( $this, 'registerAndBuildFieldsSinConfirmar' ));			// Compara Resultados Sin Confirmar superior e inferior
+    //add_action('admin_init', array( $this, 'registerAndBuildFieldsSinPrecio' ));			// Compara Resultados Sin Precio superior e inferior
+    //add_action('admin_init', array( $this, 'registerAndBuildFieldsServiciosV2' ));			// Compara Resultados Sin Precio superior e inferior
     add_action('admin_init', array( $this, 'registerAndBuildAPIPreventiva' ));
     add_action('admin_init', array( $this, 'registerAndBuildAPIDKV' ));
     //add_action('admin_init', array( $this, 'registerAndBuildAPIClientify' ));
@@ -148,7 +148,8 @@ class Wpfunos_Admin {
   }
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-admin.js', array( 'jquery' ), $this->version, false );
-    wp_localize_script( $this->plugin_name, 'WpfAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+    //wp_localize_script( $this->plugin_name, 'WpfAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+    wp_localize_script( $this->plugin_name, 'WpfAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'basic' => 'ZWZyYWltOkNsNHIgdGlWNSB6Z1J3IGRLR1kgQThOTCBSdUxY') );
   }
 
   /*********************************/
@@ -380,9 +381,9 @@ class Wpfunos_Admin {
   public function registerAndBuildFieldsAseguradoras() {
     require_once 'partials/registerAndBuild/aseguradoras/wpfunos-admin-registerAndBuildAseguradoras.php';
   }
-  public function registerAndBuildFieldsPagina() {
-    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildPagina.php';
-  }
+  //public function registerAndBuildFieldsPagina() {
+  //require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildPagina.php';
+  //}
   //
   public function registerAndBuildMailInicial() {
     require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildMailInicial.php';
@@ -497,30 +498,30 @@ class Wpfunos_Admin {
   public function registerAndBuildFieldsDireccionesIP() {
     require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsDireccionesIP.php';
   }
-  public function registerAndBuildFieldsDatos() {
-    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsDatos.php';
-  }
+  //public function registerAndBuildFieldsDatos() {
+  //  require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsDatos.php';
+  //}
   public function registerAndBuildFieldsResultados() {
     require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsResultados.php';
   }
-  public function registerAndBuildFieldsConfirmado() {
-    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsConfirmado.php';
-  }
-  public function registerAndBuildFieldsConfirmadoDescuento() {
-    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsConfirmadoDescuento.php';
-  }
-  public function registerAndBuildFieldsSinConfirmar() {
-    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsSinConfirmar.php';
-  }
-  public function registerAndBuildFieldsSinPrecio() {
-    require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsSinPrecio.php';
-  }
+  //public function registerAndBuildFieldsConfirmado() {
+  //  require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsConfirmado.php';
+  //}
+  //public function registerAndBuildFieldsConfirmadoDescuento() {
+  //  require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsConfirmadoDescuento.php';
+  //}
+  //public function registerAndBuildFieldsSinConfirmar() {
+  //  require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsSinConfirmar.php';
+  //}
+  //public function registerAndBuildFieldsSinPrecio() {
+  //  require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsSinPrecio.php';
+  //}
   public function registerAndBuildFieldsPreciosPoblacion() {
     require_once 'partials/registerAndBuild/wpfunos-admin-registerAndBuildFieldsPreciosPoblacion.php';
   }
-  public function registerAndBuildFieldsServiciosV2(){
-    require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildServiciosV2.php';
-  }
+  //public function registerAndBuildFieldsServiciosV2(){
+  //  require_once 'partials/registerAndBuild/V2/wpfunos-admin-registerAndBuildServiciosV2.php';
+  //}
 
 
   /**

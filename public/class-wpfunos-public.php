@@ -25,6 +25,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 * 8 - Usuario pide presupuesto aseguradoras
 * 9 - Usuario pide correo detalles
 */
+/**
+* CODIGOS MODULOS
+*
+* 0000 //uncategorized
+*
+* 0100 //class-wpfunos-public.php
+* 0101 //class-wpfunos-public-form-validation.php
+*
+* 0200 //class-wpfunos-aseguradoras.php
+*
+* 0300 //class-wpfunos-directorio.php
+* 0301 //class-wpfunos-directorio-defunciones-list-table.php
+* 0302 //class-wpfunos-directorio-shortcodes.php
+* 0303 //class-wpfunos-directorio-widgets.php
+*
+* 0400 //class-wpfunos-precios-poblacion.php
+*
+* 0500 //class-wpfunos-serviciosv3.php
+* 0501 //class-wpfunos-serviciosv3-AJAX.php
+*
+* 0600 //class-wpfunos-utils.php
+*
+* 2000 //wpfAPI
+*/
 
 require_once 'class-wpfunos-public-form-validation.php';
 
@@ -131,15 +155,15 @@ class Wpfunos_Public {
       //https://funoslink.net/decM
       $userIP = apply_filters('wpfunos_userIP','dummy');
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Enviar SMS' );
-      do_action('wpfunos_log', $userIP.' - '.'$Telefono: ' . $fields['telefono'] );
-      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-advertisement: ' . $_COOKIE['cookielawinfo-checkbox-advertisement']  );
-      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-analytics: ' . $_COOKIE['cookielawinfo-checkbox-analytics']  );
-      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-functional: ' . $_COOKIE['cookielawinfo-checkbox-functional']  );
-      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-necessary: ' . $_COOKIE['cookielawinfo-checkbox-necessary']  );
-      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-non-necessary: ' . $_COOKIE['cookielawinfo-checkbox-non-necessary']  );
-      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-others: ' . $_COOKIE['cookielawinfo-checkbox-others']  );
-      do_action('wpfunos_log', $userIP.' - '.'cookielawinfo-checkbox-performance: ' . $_COOKIE['cookielawinfo-checkbox-performance']  );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Enviar SMS' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'$Telefono: ' . $fields['telefono'] );
+      //do_action('wpfunos_log', $userIP.' - 0100 '.'cookielawinfo-checkbox-advertisement: ' . $_COOKIE['cookielawinfo-checkbox-advertisement']  );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'cookielawinfo-checkbox-analytics: ' . $_COOKIE['cookielawinfo-checkbox-analytics']  );
+      //do_action('wpfunos_log', $userIP.' - 0100 '.'cookielawinfo-checkbox-functional: ' . $_COOKIE['cookielawinfo-checkbox-functional']  );
+      //do_action('wpfunos_log', $userIP.' - 0100 '.'cookielawinfo-checkbox-necessary: ' . $_COOKIE['cookielawinfo-checkbox-necessary']  );
+      //do_action('wpfunos_log', $userIP.' - 0100 '.'cookielawinfo-checkbox-non-necessary: ' . $_COOKIE['cookielawinfo-checkbox-non-necessary']  );
+      //do_action('wpfunos_log', $userIP.' - 0100 '.'cookielawinfo-checkbox-others: ' . $_COOKIE['cookielawinfo-checkbox-others']  );
+      //do_action('wpfunos_log', $userIP.' - 0100 '.'cookielawinfo-checkbox-performance: ' . $_COOKIE['cookielawinfo-checkbox-performance']  );
 
       $this->wpfunosVisitasEntrada(array( 'tipo' => '6'));
 
@@ -183,7 +207,7 @@ class Wpfunos_Public {
       $request = str_replace ( '[fecha1]' , $date1->format("Y-m-d H:i:s") , $request );
       $request = str_replace ( '[fecha2]' , $date2->format("Y-m-d H:i:s") , $request );
       //
-      //do_action('wpfunos_log', $userIP.' - '.'$request: ' . $request );
+      //do_action('wpfunos_log', $userIP.' - 0100 '.'$request: ' . $request );
 
       $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
         'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
@@ -192,13 +216,13 @@ class Wpfunos_Public {
       ));
 
       $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS['body'] );
-      do_action('wpfunos_log', $userIP.' - '.'Body Respuesta: ' . $userAPIMessage  );
+      //do_action('wpfunos_log', $userIP.' - 0100 '.'Body Respuesta: ' . $userAPIMessage  );
       //
       $expiry = strtotime('+1 year');
       //
       if( isset( $_COOKIE['wpfu'] ) ){
         $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
-        //do_action('wpfunos_log', $userIP.' - '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
+        //do_action('wpfunos_log', $userIP.' - 0100 '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
         $wpfu->name = $fields['Nombre'];
         $wpfu->email = $fields['email'];
         $wpfu->phone = $fields['telefono'];
@@ -298,14 +322,14 @@ class Wpfunos_Public {
       ) );
       //
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Recogida datos usuario' );
-      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-      do_action('wpfunos_log', $userIP.' - '.'Nombre: ' .  $fields['Nombre']  );
-      do_action('wpfunos_log', $userIP.' - '.'Post ID: ' .  $post_id  );
-      do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $fields['referencia'] );
-      do_action('wpfunos_log', $userIP.' - '.'Telefono: ' . $fields['telefono'] );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Recogida datos usuario' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'mobile: ' . $mobile);
+      do_action('wpfunos_log', $userIP.' - 0100 '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Nombre: ' .  $fields['Nombre']  );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Post ID: ' .  $post_id  );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'referencia: ' . $fields['referencia'] );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Telefono: ' . $fields['telefono'] );
     }// if( $form_name == 'FormularioDatosAseguradoras' )
   } // public function wpfunosFormNewrecord($record, $handler)
 
@@ -317,7 +341,7 @@ class Wpfunos_Public {
   public function wpfunosVisitasEntrada($record){
     //$userIP = apply_filters('wpfunos_userIP','dummy');
     //do_action('wpfunos_log', '==============' );
-    //do_action('wpfunos_log', $userIP.' - '.'wpfunosVisitasEntrada Tipo: ' .$record['tipo'] );
+    //do_action('wpfunos_log', $userIP.' - 0100 '.'wpfunosVisitasEntrada Tipo: ' .$record['tipo'] );
     if( !isset ( $record['tipo'] ) ) return;
 
     global $wpdb;

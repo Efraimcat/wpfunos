@@ -75,11 +75,7 @@ $(document).ready(function(){
             success: function(response) {
               console.log(response)	;
               if(response.type === 'success') {
-                console.log(FuncName+': success');
-                $('#wpf-resultados-referencia').attr('wpfurl', response.wpfurl );
-                elementorFrontend.documentsManager.documents[ '144252' ].showModal(); //Confirmamción Datos Servicios OK
-                $("#form-field-URL").attr('value',$('#wpf-resultados-referencia').attr('wpfurl') );
-                //window.location.href = response.wpfurl;
+                window.location.href = response.wpfurl;
               } else {
                 if(response.type === 'unwanted') {
                   console.log(FuncName+': unwanted');
@@ -95,6 +91,7 @@ $(document).ready(function(){
 
         setTimeout(function(){
           elementorFrontend.documentsManager.documents[ '89340' ].showModal(); //Servicios Multistep (1)
+          wpfAlertCookies();
           $.each( [ '#wpfunos-multistep-ahora', '#wpfunos-multistep-ahora-icon', '#wpfunos-multistep-prox', '#wpfunos-multistep-prox-icon' ], function( i, elem ) {
             $(elem).click( function(){
               if( i  == 0 || i == 1 ){
@@ -109,6 +106,7 @@ $(document).ready(function(){
                 elementorFrontend.documentsManager.documents[ '89354' ].showModal(); //Servicios Multistep (5)
               }else{
                 elementorFrontend.documentsManager.documents[ '89344' ].showModal(); //Servicios Multistep (2)
+                wpfAlertCookies();
                 $( '#wpfunos-multistep-entierro' ).click( wpfentierro );
                 $( '#wpfunos-multistep-entierro-icon' ).click( wpfentierro );
                 $( '#wpfunos-multistep-incineracion' ).click( wpfincineracion );
@@ -130,6 +128,7 @@ $(document).ready(function(){
         function wpfprocessDestino(){
           $('#elementor-popup-modal-89344').hide(); //Servicios Multistep (2)
           elementorFrontend.documentsManager.documents[ '89348' ].showModal(); //Servicios Multistep (3)
+          wpfAlertCookies();
           $( '#wpfunos-multistep-velatorio' ).click( wpfvelatorio );
           $( '#wpfunos-multistep-velatorio-icon' ).click( wpfvelatorio );
           $( '#wpfunos-multistep-sinvelatorio' ).click( wpfsinvelatorio );
@@ -138,6 +137,7 @@ $(document).ready(function(){
         function wpfprocessVelatorio(){
           $('#elementor-popup-modal-89348').hide(); //Servicios Multistep (3)
           elementorFrontend.documentsManager.documents[ '89351' ].showModal(); //Servicios Multistep (4)
+          wpfAlertCookies();
           $( '#wpfunos-multistep-sinceremonia' ).click( wpfsinceremonia );
           $( '#wpfunos-multistep-sinceremonia-icon' ).click( wpfsinceremonia );
           $( '#wpfunos-multistep-solosala' ).click( wpfsolosala );
@@ -151,6 +151,7 @@ $(document).ready(function(){
           var params = new URLSearchParams(location.search);
           $('#elementor-popup-modal-89351').hide(); //Servicios Multistep (4)
           elementorFrontend.documentsManager.documents[ '89354' ].showModal(); //Servicios Multistep (5)
+          wpfAlertCookies();
           $( '#form-field-cuando' ).val(cuando);
           if( destino == '1' ){ $( '#form-field-destino' ).val('Entierro'); }
           if( destino == '2' ){ $( '#form-field-destino' ).val('Incineración'); }
@@ -167,6 +168,19 @@ $(document).ready(function(){
           $( '#form-field-donde' ).val($('#wpf-resultados-referencia').attr('wpfubic'));
           $( '#form-field-Referencia' ).val( $('#wpf-resultados-referencia').attr('wpfnewref') );
         }
+
+        function wpfAlertCookies(){
+          var wpfana = getCookie('cookielawinfo-checkbox-analytics');
+          if( wpfana != 'yes'){
+            //alert('Para poder continuar dando el servicio adecuado,\nnecesitamos que antes de continuar acceptes las cookies.');
+            $('#elementor-popup-modal-143773').hide()
+            elementorFrontend.documentsManager.documents[ '143773' ].showModal();
+            $( document ).on( 'click', '#wt-cli-accept-all-btn', function( event ) {
+              elementorProFrontend.modules.popup.closePopup( {}, event );
+            } );
+          }
+        }
+
       }// hasAttribute('wpfmultistep'
     }, 100); // check every 100ms
     // Multistep Form END

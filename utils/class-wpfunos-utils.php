@@ -48,9 +48,10 @@ class Wpfunos_Utils {
   public function enqueue_styles() {
     wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpfunos-utils.css', array(), $this->version, 'all' );
   }
+  //$apipass = base64_encode( get_option( 'wpfunos_APIPreventivaUsuarioPreventiva') . ':' . get_option( 'wpfunos_APIPreventivaPasswordPreventiva')  )
   public function enqueue_scripts() {
     wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpfunos-utils.js', array( 'jquery' ), $this->version, false );
-    wp_localize_script( $this->plugin_name, 'WpfAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+    wp_localize_script( $this->plugin_name, 'WpfAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ), 'basic' => base64_encode( get_option( 'wpfunos_usuarioAPIpubliclog') . ':' . get_option( 'wpfunos_passAPIpubliclog') ) ) );
   }
   /*********************************/
   /*****                      ******/
@@ -552,6 +553,7 @@ class Wpfunos_Utils {
       "654783912",
       "657707520",
       "659877776",
+      "677484082",
       "677721152",
       "679164346",
       "696459706",

@@ -66,10 +66,10 @@ class Wpfunos_Aseguradoras {
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Acciones Botones Aseguradora: ERROR' );
-      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'Acciones Botones Aseguradora: ERROR' );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'mobile: ' . $mobile);
+      do_action('wpfunos_log', $userIP.' - 0200 '.'logged: ' .$log  );
     }
   }
 
@@ -107,14 +107,14 @@ class Wpfunos_Aseguradoras {
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Página Resultados Aseguradoras' );
-      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-      do_action('wpfunos_log', $userIP.' - '.'$_GET[wpf]: ' . $_GET['wpf'] );
-      do_action('wpfunos_log', $userIP.' - '.'$cryptcode: ' . $cryptcode );
-      do_action('wpfunos_log', $userIP.' - '.'$_GET[referencia]: ' . $_GET['referencia'] );
-      do_action('wpfunos_log', $userIP.' - '.'$_GET[CP]: ' . $_GET['CP'] );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'Página Resultados Aseguradoras' );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'mobile: ' . $mobile);
+      do_action('wpfunos_log', $userIP.' - 0200 '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'$_GET[wpf]: ' . $_GET['wpf'] );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'$cryptcode: ' . $cryptcode );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'$_GET[referencia]: ' . $_GET['referencia'] );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'$_GET[CP]: ' . $_GET['CP'] );
       $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
       if( $IDusuario != 0 && strlen( $_GET['CP']) > 1 ){
         // Solo enviar lead si no se ha enviado anteriormente.
@@ -388,14 +388,14 @@ class Wpfunos_Aseguradoras {
     $log = (is_user_logged_in()) ? 'logged' : 'not logged';
     $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
     do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', $userIP.' - '.'API Aseguradoras.' );
-    do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-    do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-    do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-    do_action('wpfunos_log', $userIP.' - '.'API: '.$api );
-    do_action('wpfunos_log', $userIP.' - '.'Request: $URL: ' .  $URL );
-    do_action('wpfunos_log', $userIP.' - '.'Request: $headers: ' .  apply_filters('wpfunos_dumplog', $headers ) );
-    do_action('wpfunos_log', $userIP.' - '.'Request: $body: ' .  $body );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'API Aseguradoras.' );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'mobile: ' . $mobile);
+    do_action('wpfunos_log', $userIP.' - 0200 '.'logged: ' .$log  );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'API: '.$api );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'Request: $URL: ' .  $URL );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'Request: $headers: ' .  apply_filters('wpfunos_dumplog', $headers ) );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'Request: $body: ' .  $body );
 
     if( apply_filters('wpfunos_reserved_email','wpfunosAPIAseguradora') ) return 'Admin user';
 
@@ -408,11 +408,11 @@ class Wpfunos_Aseguradoras {
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Mensaje de error en la petición API.' );
-      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-      do_action('wpfunos_log', $userIP.' - '.'Request: Error message: ' .  $request->get_error_message() );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'Mensaje de error en la petición API.' );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'mobile: ' . $mobile);
+      do_action('wpfunos_log', $userIP.' - 0200 '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'Request: Error message: ' .  $request->get_error_message() );
       return 'Error';
     }
 
@@ -506,34 +506,34 @@ class Wpfunos_Aseguradoras {
         $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', '==============' );
-        do_action('wpfunos_log', $userIP.' - '.'Enviar correo detalles Preventiva' );
-        do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-        do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-        do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-        do_action('wpfunos_log', $userIP.' - '.'$headers: ' . apply_filters('wpfunos_dumplog', $request['response']  ) );
-        do_action('wpfunos_log', $userIP.' - '.'$email: ' . $email );
+        do_action('wpfunos_log', $userIP.' - 0200 '.'Enviar correo detalles Preventiva' );
+        do_action('wpfunos_log', $userIP.' - 0200 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+        do_action('wpfunos_log', $userIP.' - 0200 '.'mobile: ' . $mobile);
+        do_action('wpfunos_log', $userIP.' - 0200 '.'logged: ' .$log  );
+        do_action('wpfunos_log', $userIP.' - 0200 '.'$headers: ' . apply_filters('wpfunos_dumplog', $request['response']  ) );
+        do_action('wpfunos_log', $userIP.' - 0200 '.'$email: ' . $email );
       }
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Petición API correcta' );
-      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-      do_action('wpfunos_log', $userIP.' - '.'ID: ' .  $post_id );
-      do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'Petición API correcta' );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'mobile: ' . $mobile);
+      do_action('wpfunos_log', $userIP.' - 0200 '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'ID: ' .  $post_id );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'referencia: ' . $referencia );
       $mensaje_return = ( 'Conflict' === $request['response']['message'] ) ? 'Conflict' : 'OK:' . $referencia ;
       return $mensaje_return;
     }else{
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Petición API devuelve errores' );
-      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-      do_action('wpfunos_log', $userIP.' - '.'Error: ' .  $request['response']['message'] );
-      do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'Petición API devuelve errores' );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'mobile: ' . $mobile);
+      do_action('wpfunos_log', $userIP.' - 0200 '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'Error: ' .  $request['response']['message'] );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'referencia: ' . $referencia );
       return $request['response']['message'];
     }
 
@@ -606,12 +606,12 @@ class Wpfunos_Aseguradoras {
     $log = (is_user_logged_in()) ? 'logged' : 'not logged';
     $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
     do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', $userIP.' - '.'Enviar Cold Lead a ELECTIUM' );
-    do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-    do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-    do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-    do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
-    do_action('wpfunos_log', $userIP.' - '.'IDusuario: ' . $IDusuario );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'Enviar Cold Lead a ELECTIUM' );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'mobile: ' . $mobile);
+    do_action('wpfunos_log', $userIP.' - 0200 '.'logged: ' .$log  );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'referencia: ' . $referencia );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'IDusuario: ' . $IDusuario );
 
     if ($IDusuario != 0){
 
@@ -680,12 +680,12 @@ class Wpfunos_Aseguradoras {
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - '.'Enviar correo entrada datos aseguradoras al admin' );
-      do_action('wpfunos_log', $userIP.' - '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-      do_action('wpfunos_log', $userIP.' - '.'mobile: ' . $mobile);
-      do_action('wpfunos_log', $userIP.' - '.'logged: ' .$log  );
-      do_action('wpfunos_log', $userIP.' - '.'referencia: ' . $referencia );
-      do_action('wpfunos_log', $userIP.' - '.'mailCorreoDatosEntradosAseguradora: ' . get_option('wpfunos_mailCorreoDatosEntradosAseguradora') );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'Enviar correo entrada datos aseguradoras al admin' );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'mobile: ' . $mobile);
+      do_action('wpfunos_log', $userIP.' - 0200 '.'logged: ' .$log  );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'referencia: ' . $referencia );
+      do_action('wpfunos_log', $userIP.' - 0200 '.'mailCorreoDatosEntradosAseguradora: ' . get_option('wpfunos_mailCorreoDatosEntradosAseguradora') );
 
     }
 

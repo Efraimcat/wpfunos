@@ -196,6 +196,12 @@ function wpfunos_login_redirect( $url, $request, $user ) {
 }
 add_filter( 'login_redirect', 'wpfunos_login_redirect', 10, 3 );
 
+
+add_filter( 'wp_mail_from', 'my_mail_from' );
+function my_mail_from( $email ) {
+	return "clientes@funos.es";
+}
+
 /*
 * WOOCOMMERCE
 */
