@@ -135,13 +135,13 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       //
       //$URL = home_url().$wpml_path.'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
       $URL = home_url().'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
+      $userURL = apply_filters('wpfunos_shortener', $URL );
 
       do_action('wpfunos_update phone',$wpftelefono);
 
       $Telefono = apply_filters('wpfunos_telefono_formateado', $wpftelefono );
 
       if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') ){
-        $userURL = apply_filters('wpfunos_shortener', $URL );
 
         $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '0' );
         //'wpfunos_userVisitas' => $contador,
@@ -387,7 +387,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           'method'      => 'POST',
         ));
 
-        $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
+        $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS['body'] );
         //do_action('wpfunos_log', $userIP.' - 0501 '.'Body Respuesta: ' . $userAPIMessage  );
         /**
         * [headers] = Object (Requests_Utility_CaseInsensitiveDictionary)</br> |   date -> String: 'Fri, 10 Mar 2023 00:44:27 GMT'</br> |   server -> String: 'Apache'</br> |
@@ -402,12 +402,29 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         * [http_response] = Object (WP_HTTP_Requests_Response)</br> |   data -> NULL</br> |   headers -> NULL</br> |   status -> NULL'
         */
         // SMS
-        //HUBSPOT
-
-        //HUBSPOT
-
       }// END if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') )
-
+      //HUBSPOT
+      $params = array(
+        'userID' => $post_id,
+        'nombre' => $wpfnombre,
+        'email' => $wpfemail,
+        'telefono' => $Telefono,
+        'ubicacion' => $wpfubic,
+        'cuando' => $wpfcuando,
+        'destino' => $wpfdestino,
+        'ataud' => $wpfataud,
+        'velatorio' => $wpfvelatorio,
+        'ceremonia' => $wpfceremonia,
+        'referencia' => $wpfnewref,
+        'accion' => 'Datos usuario funerarias',
+        'ok' => 'ok',
+        'ip' => $userIP,
+      );
+      sleep(1);
+      do_action('wpfhubspot-contact-OK', array( 'userID' => $post_id, 'email' => $wpfemail, 'ok' => 'ko' ) );
+      sleep(1);
+      do_action('wpfhubspot-contact-OK', $params );
+      //HUBSPOT
       //Última Búsqueda
       if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){
         $expiry = strtotime('+1 year');
@@ -417,7 +434,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         if( isset( $_COOKIE['wpfu'] ) ){
           $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
           //do_action('wpfunos_log', $userIP.' - 0501 '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
-          $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+          //$userURL = apply_filters('wpfunos_shortener', $URL );
+          //$wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+          $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $userURL , 'e' );
           $wpfu->lasttimeserv = date( 'd/m/y', current_time( 'timestamp', 0 ) );
           $wpfu->name = $wpfnombre;
           $wpfu->email = $wpfemail;
@@ -619,7 +638,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         $mensaje = str_replace( '[nombreFuneraria]' , get_the_title( $servicio ) , $mensaje );
         $mensaje = str_replace( '[telefonoServicio]' , get_post_meta( $servicio, "wpfunos_servicioTelefono", true)  , $mensaje );
         $mensaje = str_replace( '[comentarios]' , get_post_meta( $servicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) , $mensaje );
-        $mensaje = str_replace( '[comentariosUsuario]' , apply_filters('wpfunos_comentario', $mensajeusuario ) , $mensaje );
+        $mensaje = str_replace( '[comentariosUsuario]' , wp_kses_post( $message ) , $mensaje );
 
         $mensaje = str_replace( '[logoServicio]' , wp_get_attachment_image (  get_post_meta( $servicio, 'wpfunos_servicioLogo', true ) , 'full' ) , $mensaje );
         $mensaje = str_replace( '[imagenconfirmado]' , wp_get_attachment_image ( 83459 , 'full') , $mensaje );
@@ -665,7 +684,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         $mensaje = str_replace( '[nombreFuneraria]' , get_the_title( $servicio ) , $mensaje );
         $mensaje = str_replace( '[telefonoServicio]' , get_post_meta( $servicio, "wpfunos_servicioTelefono", true)  , $mensaje );
         $mensaje = str_replace( '[comentarios]' , get_post_meta( $servicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) , $mensaje );
-        $mensaje = str_replace( '[comentariosUsuario]' , apply_filters('wpfunos_comentario', $mensajeusuario ) , $mensaje );
+        $mensaje = str_replace( '[comentariosUsuario]' , wp_kses_post( $message ) , $mensaje );
 
         $mensaje = str_replace( '[logoServicio]' , wp_get_attachment_image (  get_post_meta( $servicio, 'wpfunos_servicioLogo', true ) , 'full' ) , $mensaje );
         $mensaje = str_replace( '[imagenconfirmado]' , wp_get_attachment_image ( 83459 , 'full') , $mensaje );
@@ -1828,9 +1847,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
     $wpfwpf = apply_filters( 'wpfunos_crypt', $wpfnewref , 'e' );
     $URL = home_url().'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
+    $userURL = apply_filters('wpfunos_shortener', $URL );
 
     if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Filtros') ){
-      $userURL = apply_filters('wpfunos_shortener', $URL );
       $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '0' );
       switch((int)$wpfresp1){
         case 1: $wpfdestino = esc_html__('Entierro', 'wpfunos_es'); break;
@@ -1954,7 +1973,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         if( isset( $_COOKIE['wpfu'] ) ){
           $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
           //do_action('wpfunos_log', $userIP.' - 0501 '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
-          $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+          //$userURL = apply_filters('wpfunos_shortener', $URL );
+          //$wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+          $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $userURL , 'e' );
           $wpfu->lasttimeserv = date( 'd/m/y', current_time( 'timestamp', 0 ) );
           $wpfu->name = $wpfnombre;
           $wpfu->email = $wpfemail;
@@ -1970,7 +1991,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     if( isset( $_COOKIE['wpfu'] ) ){
       $wpfu = json_decode( apply_filters( 'wpfunos_crypt', $_COOKIE['wpfu'], 'd' ) );
       //do_action('wpfunos_log', $userIP.' - 0501 '.'wpfu: ' .apply_filters('wpfunos_dumplog', $wpfu ) );
-      $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+      //$userURL = apply_filters('wpfunos_shortener', $URL );
+      //$wpfu->lastserv = apply_filters( 'wpfunos_crypt', $URL , 'e' );
+      $wpfu->lastserv = apply_filters( 'wpfunos_crypt', $userURL , 'e' );
       $wpfu->lasttimeserv = date( 'd/m/y', current_time( 'timestamp', 0 ) );
       $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );
       setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );

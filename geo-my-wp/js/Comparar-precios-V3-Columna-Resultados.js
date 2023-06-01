@@ -151,7 +151,9 @@ function wpfV3Presupuesto() {
       $('#botonEnviarPresupuesto').attr('wpfid', wpfid);
       $('#botonEnviarPresupuesto').attr('wpfp', wpfp);
       $('#botonEnviarPresupuesto').attr('wpftitulo', wpftitulo);
-      $('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
+      //$('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
+      $('#form-field-wpfunosoculto').attr('value',$('#wpf-resultados-referencia').attr('wpfidusuario'));
+      $('#form-field-IDservicio').attr('value',wpfid);
       $('#form-field-Servicio').attr('value',wpftitulo);
       $('#form-field-Precio').attr('value',wpfp);
     }
@@ -452,7 +454,8 @@ function wpfV3DetallesPresupuesto() {
       $('#botonEnviarPresupuesto').attr('wpfid', wpfid);
       $('#botonEnviarPresupuesto').attr('wpfp', wpfp);
       $('#botonEnviarPresupuesto').attr('wpftitulo', wpftitulo);
-      $('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
+      //$('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
+      $('#form-field-IDservicio').attr('value',wpfid);
       $('#form-field-Servicio').attr('value',wpftitulo);
       $('#form-field-Precio').attr('value',wpfp);
     }

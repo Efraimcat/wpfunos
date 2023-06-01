@@ -135,27 +135,22 @@ class Wpfunos_ServiciosV3 {
     if( !isset( $_COOKIE['cookielawinfo-checkbox-analytics'] ) ){
       ?>
       <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
-      $ = jQuery.noConflict();
-      $(document).ready(function(){
-        $(function(){
-          window.open('/comparar-precios-nueva',"_self");
-        });
-      });
+      window.open('/comparar-precios-nueva',"_self");
       </script>
       <?php
     }
     if( count($_GET) > 0 ){
-      if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
-      if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
-      if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Entrada página de resultados' );
-      if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,100) ) );
+      //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
+      //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
+      //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Entrada página de resultados' );
+      //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,100) ) );
       //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'URL: ' .add_query_arg( NULL, NULL ) );
-      if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'$_COOKIE[-analytics]: ' .$_COOKIE['cookielawinfo-checkbox-analytics'] );
-      if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'$_COOKIE[wpfu]: ' .substr($_COOKIE['wpfu'],0,10) );
+      //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'$_COOKIE[-analytics]: ' .$_COOKIE['cookielawinfo-checkbox-analytics'] );
+      //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'$_COOKIE[wpfu]: ' .substr($_COOKIE['wpfu'],0,10) );
 
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=2&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&land=1
       //https://funos.es/comparar-precios-resultados?address[]=Barcelona&post[]=precio_serv_wpfunos&cf[resp1]=2&cf[resp2]=2&cf[resp3]=1&cf[resp4]=2&distance=20&units=metric&paged=1&per_page=50&lat=41.387397&lng=2.168568&form=8&action=fs&CP=undefined&orden=dist&cuando=Ahora&wpfwpf=a3Q0Uld1M0RxY1RSTjcrMStLT3VadzZsSm45RGpnRHhXSHM2elhTZlJrbz0=
-      /**?><script>console.log('Cargando popups Elementor.' );</script><?php **/
+      ?><script>console.log('Cargando popups Elementor.' );</script><?php
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '47448' ); //Servicios Enviar Email
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '56672' ); //Servicio Detalles
       ElementorPro\Modules\Popup\Module::add_popup_to_location( '56676' ); //Servicio Presupuesto
@@ -178,7 +173,7 @@ class Wpfunos_ServiciosV3 {
       //ElementorPro\Modules\Popup\Module::add_popup_to_location( '144252' ); //Confirmamción Datos Servicios OK
       //ElementorPro\Modules\Popup\Module::add_popup_to_location( '144331' ); //Confirmación botones KO
 
-      /**?><script>console.log('Cargando popups Elementor END.' );</script><?php**/
+      ?><script>console.log('Cargando popups Elementor END.' );</script><?php
 
       /**?><script>console.log('Comprobando direcciones especiales.' );</script><?php**/
 
@@ -238,8 +233,8 @@ class Wpfunos_ServiciosV3 {
         $_GET['Email'] = $wpfu->email;
         $_GET['usuario_telefono'] = $wpfu->phone;
       }
-      if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
-      if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Comprueba cookies: usuario: ' .$_GET['nombreUsuario']. ' mail: ' .$_GET['Email']. ' tel: ' .$_GET['usuario_telefono'] );
+      //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
+      //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Comprueba cookies: usuario: ' .$_GET['nombreUsuario']. ' mail: ' .$_GET['Email']. ' tel: ' .$_GET['usuario_telefono'] );
       /**?><script>console.log('Comprobando Cookies END.' );</script><?php**/
       // End Comprobar cookies
 
@@ -283,8 +278,8 @@ class Wpfunos_ServiciosV3 {
 
         /** ?><script>console.log('Verificaciones entrada: SI tiene código wpf: <?php  echo $wpfwpf; ?> => <?php  echo $IDusuario; ?>' );</script><?php **/
         // Comprobar cambios en URL
-        if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
-        if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Comprueba cookies: $IDusuario: ' .$IDusuario );
+        //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
+        //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Comprueba cookies: $IDusuario: ' .$IDusuario );
 
         // END Comprobar cambios en URL
         if( apply_filters('wpfunos_email_colaborador','Verificaciones entrada: SI tiene código wpf') ){  // usuario colaborador. Tomamos los datos de usuario de la entrada wpf
@@ -430,8 +425,8 @@ class Wpfunos_ServiciosV3 {
       if( !isset( $_GET['cuando'] ) || $Tienewpfwpf == 0 ){
 
         /** ?><script>console.log('Sin entrada de usuario.' );</script><?php **/
-        if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
-        if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Entrada Multistep' );
+        //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
+        //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Entrada Multistep' );
 
         $this->wpfunosEntradaResultados(); //registro entrada página resultados antes de entrar datos personales
 
@@ -508,8 +503,8 @@ class Wpfunos_ServiciosV3 {
     //
     /** ?><script>console.log('Resultados.' );</script><?php **/
     $userIP = apply_filters('wpfunos_userIP','dummy');
-    if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
-    if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Muestra resultados' );
+    //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
+    //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Muestra resultados' );
     echo do_shortcode( '[gmw_ajax_form search_results="8"]' );
     /** ?><script>console.log('Resultados END.' );</script><?php **/
     $_GET['seccionClass-presupuesto'] = 'wpf-presupuesto-si';
@@ -985,11 +980,11 @@ class Wpfunos_ServiciosV3 {
 
     $log = (is_user_logged_in()) ? 'logged' : 'not logged';
     $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
-    if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
-    if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Entrada comparador página ubicación' );
-    if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-    if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'mobile: ' . $mobile);
-    if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'logged: ' .$log  );
+    //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
+    //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'Entrada comparador página ubicación' );
+    //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+    //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'mobile: ' . $mobile);
+    //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', $userIP.' - 0500 '.'logged: ' .$log  );
 
     if ( apply_filters('wpfunos_email_colaborador','wpfunosEntradaUbicacion') ) return;
 

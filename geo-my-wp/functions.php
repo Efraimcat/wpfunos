@@ -94,7 +94,9 @@ add_action( 'init', 'set_funos_cookie' );
 
 function cargar_plantillas_globales() {
   ElementorPro\Modules\Popup\Module::add_popup_to_location( '143773' ); //Servicios cambiar distancia V3
-  ElementorPro\Modules\Popup\Module::add_popup_to_location( '144166' ); //confirmación OK
+  ElementorPro\Modules\Popup\Module::add_popup_to_location( '69244' ); //Asesoramiento gratuito
+  ElementorPro\Modules\Popup\Module::add_popup_to_location( '54064' ); //Te llamamos gratis
+  ElementorPro\Modules\Popup\Module::add_popup_to_location( '118670' ); //Te llamamos gratis Landings
 }
 add_action( 'init', 'cargar_plantillas_globales' );
 
@@ -199,7 +201,7 @@ add_filter( 'login_redirect', 'wpfunos_login_redirect', 10, 3 );
 
 add_filter( 'wp_mail_from', 'my_mail_from' );
 function my_mail_from( $email ) {
-	return "clientes@funos.es";
+  return "clientes@funos.es";
 }
 
 /*

@@ -229,7 +229,12 @@ class Wpfunos_Public {
         $codigo = apply_filters( 'wpfunos_crypt', json_encode($wpfu), 'e' );
         setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
       }
-
+      //HUBSPOT
+      if( "TeLlamamosGratisLandings" == $form_name ) $accion = 'Te Llamamos Gratis Landings';
+      if( "AsesoramientoGratuito" == $form_name ) $accion = 'Asesoramiento Gratuito';
+      if( "TeLlamamosGratis" == $form_name ) $accion = 'Te Llamamos Gratis';
+      do_action('wpfhubspot-contact-OK', array( 'userID' => '0', 'email' => $fields['email'], 'telefono' => $fields['telefono'], 'nombre' => $fields['Nombre'], 'ok' => 'ok', 'accion' => $accion ) );
+      //HUBSPOT
     }// if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name )
 
     if( $form_name == 'FormularioDatosAseguradoras' ){
@@ -331,6 +336,238 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - 0100 '.'referencia: ' . $fields['referencia'] );
       do_action('wpfunos_log', $userIP.' - 0100 '.'Telefono: ' . $fields['telefono'] );
     }// if( $form_name == 'FormularioDatosAseguradoras' )
+
+
+    if( $form_name == 'FormularioPresupuesto' ){
+      $userIP = apply_filters('wpfunos_userIP','dummy');
+      $IDservicio = sanitize_text_field( $fields['IDservicio'] );
+      $servicio = sanitize_text_field( $fields['Servicio'] );
+      $precio = sanitize_text_field( $fields['Precio'] );
+      $message = sanitize_text_field( $fields['mensajePresupuesto'] );
+      $IDusuario = sanitize_text_field( $fields['wpfunosoculto'] );
+      $email_usuario = sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userMail', true ) );
+
+      //  EBG 03-11-22
+      //$nombre = $_POST['nombre'];
+      //$email = $_POST['email'];
+      //$phone = $_POST['phone'];
+      //$wpfcuando = $_POST['cuando'];
+
+      if( $IDusuario != 0 ) {
+        mt_srand(time());
+        $referencia = 'funos-'.(string)mt_rand();
+      }
+
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Servicio Boton Presupuesto' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Servicio titulo: ' . $servicio );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'$IDusuario: ' . $IDusuario );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Servicio ' . $IDservicio );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Mensaje: ' . $message );
+
+      if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Presupuesto') ){
+
+        switch( $_GET['cf']['resp1'] ) { case '1': $destino = 'E' ; $nombredestino = esc_html__('Entierro', 'wpfunos_es'); break; case '2': $destino = 'I' ; $nombredestino = esc_html__('Incineración', 'wpfunos_es'); break; }
+        switch( $_GET['cf']['resp2'] ) { case '1': $ataud = 'M' ; $nombreataud = esc_html__('Ataúd medio', 'wpfunos_es'); break; case '2': $ataud = 'E' ; $nombreataud = esc_html__('Ataúd económico', 'wpfunos_es'); break; case '3': $ataud = 'P' ; $nombreataud = esc_html__('Ataúd premium', 'wpfunos_es'); break; }
+        switch( $_GET['cf']['resp3'] ) { case '1': $velatorio = 'V' ; $nombrevelatorio = esc_html__('Velatorio', 'wpfunos_es') ; break; case '2': $velatorio = 'S' ; $nombrevelatorio = esc_html__('Sin velatorio', 'wpfunos_es') ; break; }
+        switch( $_GET['cf']['resp4'] ) { case '1': $despedida = 'S' ; $nombredespedida = esc_html__('Sin ceremonia', 'wpfunos_es') ; break; case '2': $despedida = 'O' ; $nombredespedida = esc_html__('Solo sala', 'wpfunos_es') ; break; case '3': $despedida = 'C' ; $nombredespedida = esc_html__('Ceremonia civil', 'wpfunos_es') ; break; case '4': $despedida = 'R' ; $nombredespedida = esc_html__('Ceremonia religiosa', 'wpfunos_es') ; break; }
+        $log = (is_user_logged_in()) ? 'logged' : 'not logged';
+        $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
+
+        $my_post = array(
+          'post_title' => $referencia,
+          'post_type' => 'usuarios_wpfunos',
+          'post_status'  => 'publish',
+          'meta_input'   => array(
+            'wpfunos_TimeStamp' => date( 'd-m-Y H:i:s', current_time( 'timestamp', 0 ) ),
+            'wpfunos_userMail' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userMail', true ) ),
+            'wpfunos_userReferencia' => sanitize_text_field( $referencia ),
+            'wpfunos_userName' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userName', true ) ),
+            'wpfunos_userPhone' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userPhone', true ) ),
+            'wpfunos_userCP' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userCP', true ) ),
+            'wpfunos_userAccion' => '5',
+            'wpfunos_userNombreAccion' => 'Botón pedir presupuesto',
+            'wpfunos_userNombreSeleccionUbicacion' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionUbicacion', true ) ),
+            'wpfunos_userNombreSeleccionDistancia' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionDistancia', true ) ),
+            'wpfunos_userNombreSeleccionServicio' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionServicio', true ) ),
+            'wpfunos_userNombreSeleccionAtaud' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionAtaud', true ) ),
+            'wpfunos_userNombreSeleccionVelatorio' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionVelatorio', true ) ),
+            'wpfunos_userNombreSeleccionDespedida' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionDespedida', true ) ),
+            'wpfunos_userServicio' => sanitize_text_field( $IDservicio ),
+            'wpfunos_userServicioEnviado' => true,
+            'wpfunos_userAceptaPolitica' => true,
+            'wpfunos_userServicioTitulo' => sanitize_text_field( get_the_title( $IDservicio ) ),
+            'wpfunos_userServicioEmpresa' => sanitize_text_field( get_post_meta( $IDservicio, 'wpfunos_servicioEmpresa', true ) ),
+            'wpfunos_userServicioPoblacion' => sanitize_text_field( get_post_meta( $IDservicio, 'wpfunos_servicioPoblacion', true ) ),
+            'wpfunos_userServicioProvincia' => sanitize_text_field( get_post_meta( $IDservicio, 'wpfunos_servicioProvincia', true ) ),
+            'wpfunos_userPrecio' => number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€',
+            'wpfunos_userComentarios' => wp_kses_post( $message ),
+            'wpfunos_userIP' => sanitize_text_field( $userIP ),
+            'wpfunos_userLAT' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userLAT', true ) ),
+            'wpfunos_userLNG' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userLNG', true ) ),
+            'wpfunos_userPluginVersion' => sanitize_text_field( $this->version ),
+            'wpfunos_Dummy' => true,
+            'wpfunos_userLog' => $log,
+            'wpfunos_userMobile' => $mobile,
+          ),
+        );
+
+        $post_id = wp_insert_post($my_post);
+        do_action('wpfunos_log', $userIP.' - 0100 '.'Post ID: ' .  $post_id  );
+
+        if( get_option('wpfunos_activarCorreoPresupuestoLead') ){
+          unset($headers);
+          $headers[] = 'Content-Type: text/html; charset=UTF-8';
+          $headers[] = 'From: funos <clientes@funos.es>';
+          $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestoLead'), get_option('wpfunos_asuntoCorreoPresupuestoLead') );
+
+          $mensaje = str_replace( '[email]' , get_post_meta( $post_id , 'wpfunos_userMail', true ), $mensaje );
+          $mensaje = str_replace( '[nombreUsuario]' , get_post_meta( $post_id , 'wpfunos_userName', true ) , $mensaje );
+          $mensaje = str_replace( '[telefonoUsuario]' , get_post_meta( $post_id , 'wpfunos_userPhone', true ) , $mensaje );
+          $mensaje = str_replace( '[referencia]' , $referencia , $mensaje );
+          $mensaje = str_replace( '[IP]' , $userIP , $mensaje );
+          $mensaje = str_replace( '[poblacion]' , get_post_meta( $post_id , 'wpfunos_userNombreSeleccionUbicacion', true ) , $mensaje );
+          $mensaje = str_replace( '[CP]' , get_post_meta( $post_id , 'wpfunos_userCP', true ) , $mensaje );
+          $mensaje = str_replace( '[destino]' , get_post_meta( $post_id, 'wpfunos_userNombreSeleccionServicio', true ) , $mensaje );
+          $mensaje = str_replace( '[ataud]' , get_post_meta( $post_id, 'wpfunos_userNombreSeleccionAtaud', true ) , $mensaje );
+          $mensaje = str_replace( '[velatorio]' , get_post_meta( $post_id, 'wpfunos_userNombreSeleccionVelatorio', true ) , $mensaje );
+          $mensaje = str_replace( '[ceremonia]' , get_post_meta( $post_id, 'wpfunos_userNombreSeleccionDespedida', true ) , $mensaje );
+          $mensaje = str_replace( '[precio]' , number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€' , $mensaje );
+          $mensaje = str_replace( '[nombreServicio]' , $servicio , $mensaje );
+          $mensaje = str_replace( '[nombreFuneraria]' , get_the_title( $IDservicio ) , $mensaje );
+          $mensaje = str_replace( '[telefonoServicio]' , get_post_meta( $IDservicio, "wpfunos_servicioTelefono", true)  , $mensaje );
+          $mensaje = str_replace( '[comentarios]' , get_post_meta( $IDservicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) , $mensaje );
+          $mensaje = str_replace( '[comentariosUsuario]' , wp_kses_post( $message ) , $mensaje );
+
+          $mensaje = str_replace( '[logoServicio]' , wp_get_attachment_image (  get_post_meta( $IDservicio, 'wpfunos_servicioLogo', true ) , 'full' ) , $mensaje );
+          $mensaje = str_replace( '[imagenconfirmado]' , wp_get_attachment_image ( 83459 , 'full') , $mensaje );
+          $mensaje = str_replace( '[nombrepack]' , get_post_meta( $IDservicio, 'wpfunos_servicioPackNombre', true ) , $mensaje );
+          $mensaje = str_replace( '[textoprecio]' , get_post_meta( $IDservicio, 'wpfunos_servicioTextoPrecio', true ) , $mensaje );
+
+          do_action('wpfunos_log', '==============' );
+          if( site_url() === 'https://dev.funos.es'){
+            wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoPresupuestoLead') , $mensaje, $headers );
+            do_action('wpfunos_log', $userIP.' - 0501 '.'Enviado correo pedir presupuesto efraim@efraim.cat' );
+          }else{
+            if(!empty( get_option('wpfunos_mailCorreoCcoPresupuestoLead' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPresupuestoLead' ) ;
+            if(!empty( get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPresupuestoLead' ) ;
+            wp_mail (  get_post_meta( $IDservicio, 'wpfunos_servicioEmail', true ) , get_option('wpfunos_asuntoCorreoPresupuestoLead') , $mensaje, $headers );
+            do_action('wpfunos_log', $userIP.' - 0501 '.'Enviado correo pedir presupuesto ' . get_post_meta( $IDservicio, 'wpfunos_servicioEmail', true ) );
+          }
+          update_post_meta( $post_id, 'wpfunos_userLead', true );
+
+          //do_action('wpfunos_log', $userIP.' - 0501 '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
+          do_action('wpfunos_log', $userIP.' - 0501 '.'Nombre: ' . sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userName', true ) ) ) ;
+          do_action('wpfunos_log', $userIP.' - 0501 '.'referencia: ' . $referencia );
+
+        }
+        if( get_option('wpfunos_activarCorreoPresupuestousuario') ){
+          unset($headers);
+          $headers[] = 'Content-Type: text/html; charset=UTF-8';
+          $headers[] = 'From: funos <clientes@funos.es>';
+          $mensaje = apply_filters( 'wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestousuario'), get_option('wpfunos_asuntoCorreoPresupuestousuario') );
+
+          $mensaje = str_replace( '[email]' , get_post_meta( $post_id , 'wpfunos_userMail', true ), $mensaje );
+          $mensaje = str_replace( '[nombreUsuario]' , get_post_meta( $post_id , 'wpfunos_userName', true ) , $mensaje );
+          $mensaje = str_replace( '[telefonoUsuario]' , get_post_meta( $post_id , 'wpfunos_userPhone', true ) , $mensaje );
+          $mensaje = str_replace( '[referencia]' , $referencia , $mensaje );
+          $mensaje = str_replace( '[IP]' , $userIP , $mensaje );
+          $mensaje = str_replace( '[poblacion]' , get_post_meta( $post_id , 'wpfunos_userNombreSeleccionUbicacion', true ) , $mensaje );
+          $mensaje = str_replace( '[CP]' , get_post_meta( $post_id , 'wpfunos_userCP', true ) , $mensaje );
+          $mensaje = str_replace( '[destino]' , get_post_meta( $post_id, 'wpfunos_userNombreSeleccionServicio', true ) , $mensaje );
+          $mensaje = str_replace( '[ataud]' , get_post_meta( $post_id, 'wpfunos_userNombreSeleccionAtaud', true ) , $mensaje );
+          $mensaje = str_replace( '[velatorio]' , get_post_meta( $post_id, 'wpfunos_userNombreSeleccionVelatorio', true ) , $mensaje );
+          $mensaje = str_replace( '[ceremonia]' , get_post_meta( $post_id, 'wpfunos_userNombreSeleccionDespedida', true ) , $mensaje );
+          $mensaje = str_replace( '[precio]' , number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€' , $mensaje );
+          $mensaje = str_replace( '[nombreServicio]' , $servicio , $mensaje );
+          $mensaje = str_replace( '[nombreFuneraria]' , get_the_title( $IDservicio ) , $mensaje );
+          $mensaje = str_replace( '[telefonoServicio]' , get_post_meta( $IDservicio, "wpfunos_servicioTelefono", true)  , $mensaje );
+          $mensaje = str_replace( '[comentarios]' , get_post_meta( $IDservicio, 'wpfunos_servicio'.$destino.$ataud.$velatorio.$despedida.'_Comentario', true) , $mensaje );
+          $mensaje = str_replace( '[comentariosUsuario]' , wp_kses_post( $message ), $mensaje );
+
+          $mensaje = str_replace( '[logoServicio]' , wp_get_attachment_image (  get_post_meta( $IDservicio, 'wpfunos_servicioLogo', true ) , 'full' ) , $mensaje );
+          $mensaje = str_replace( '[imagenconfirmado]' , wp_get_attachment_image ( 83459 , 'full') , $mensaje );
+          $mensaje = str_replace( '[nombrepack]' , get_post_meta( $IDservicio, 'wpfunos_servicioPackNombre', true ) , $mensaje );
+          $mensaje = str_replace( '[textoprecio]' , get_post_meta( $IDservicio, 'wpfunos_servicioTextoPrecio', true ) , $mensaje );
+
+          do_action('wpfunos_log', '==============' );
+          if( site_url() === 'https://dev.funos.es'){
+            wp_mail (  'efraim@efraim.cat' , get_option('wpfunos_asuntoCorreoPresupuestousuario') , $mensaje, $headers );
+            do_action('wpfunos_log', $userIP.' - 0501 '.'Enviado correo pedir presupuesto efraim@efraim.cat' );
+          }else{
+            if(!empty( get_option('wpfunos_mailCorreoCcoPresupuestousuario' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPresupuestousuario' ) ;
+            if(!empty( get_option('wpfunos_mailCorreoBccPresupuestousuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPresupuestousuario' ) ;
+            $headers[]   = 'Reply-To: Clientes Funos <clientes@funos.es>';
+            wp_mail ( get_post_meta( $post_id , 'wpfunos_userMail', true ) , get_option('wpfunos_asuntoCorreoPresupuestousuario') , $mensaje, $headers );
+            do_action('wpfunos_log', $userIP.' - 0501 '.'Enviado correo pedir presupuesto usuario ' . get_post_meta( $post_id , 'wpfunos_userMail', true ) );
+          }
+
+          //do_action('wpfunos_log', $userIP.' - 0501 '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
+          do_action('wpfunos_log', $userIP.' - 0501 '.'Nombre: ' . sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userName', true ) ) ) ;
+          do_action('wpfunos_log', $userIP.' - 0501 '.'referencia: ' . $referencia );
+
+        }
+        // SMS
+        if( strlen( get_post_meta( $IDservicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
+          do_action('wpfunos_log', '==============' );
+          do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar SMS Presupuesto Servicio' );
+          do_action('wpfunos_log', $userIP.' - 0501 '.'$Telefono: ' . get_post_meta( $IDservicio, "wpfunos_servicioTelefonoSMS", true) );
+
+          $request = '{
+            "api_key":"4b66b40a110c408e8651eb971591f03e",
+            "report_url":"https://funos.es/",
+            "concat":1,
+            "messages":[
+              {
+                "from":"34606902525",
+                "to":"[numero_SMS]",
+                "text":"Hola. Has recibido una solicitud de FUNOS\\nNombre: [nombre_SMS]\\nTel: [telefono_SMS]\\nMás info por email",
+                "send_at": "2020-01-23 12:00:00"
+              }
+            ]
+          }';
+
+          $telSMS = str_replace(" ","", get_post_meta( $IDservicio, "wpfunos_servicioTelefonoSMS", true) );
+          $telSMS = str_replace("-","",$telSMS );
+          if(substr($telSMS,0,1) == '+'){
+            $telSMS = str_replace("+","",$telSMS );
+          }else{
+            $telSMS = '34'.$telSMS ;
+          }
+          if( site_url() === 'https://dev.funos.es'){
+            $telSMS = '34690074497';
+          }
+          $request = str_replace ( '[numero_SMS]' , $telSMS , $request );
+          $request = str_replace ( '[nombre_SMS]' , get_post_meta( $IDusuario, 'wpfunos_userName', true ) , $request );
+          $request = str_replace ( '[telefono_SMS]' , get_post_meta( $post_id , 'wpfunos_userPhone', true ) , $request );
+
+          //do_action('wpfunos_log', $userIP.' - 0501 '.'$request: ' . $request );
+
+          $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+            'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+            'body'        => $request,
+            'method'      => 'POST',
+          ));
+
+          $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS['body'] );
+          do_action('wpfunos_log', $userIP.' - 0501 '.'Body Respuesta: ' . $userAPIMessage  );
+
+        }
+        // SMS
+        //HUBSPOT
+        $Nombre = get_post_meta( $post_id , 'wpfunos_userName', true );
+        $telefono = get_post_meta( $post_id , 'wpfunos_userPhone', true );
+        $servicio = sanitize_text_field( get_the_title( $IDservicio ) );
+        $precio = number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€' ;
+        do_action('wpfhubspot-contact-OK', array( 'userID' => $IDusuario, 'email' => $email_usuario, 'telefono' => $telefono, 'nombre' => $Nombre,'ok' => 'ko', 'accion' => 'Servicio pedir presupuesto', 'servicio' => $servicio, 'precio' => $precio ) );
+        sleep(1);
+        do_action('wpfhubspot-contact-OK', array( 'userID' => $IDusuario, 'email' => $email_usuario, 'ok' => 'ok' ) );
+        //HUBSPOT
+      }// if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Presupuesto') )
+
+    }
+
+
   } // public function wpfunosFormNewrecord($record, $handler)
 
   /**
