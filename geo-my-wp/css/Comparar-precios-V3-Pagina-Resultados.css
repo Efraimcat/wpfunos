@@ -306,7 +306,9 @@ div.gmw-ajax-results-wrapper .gmw-ajax-filters, div.gmw-ajax-results-wrapper .gm
 #form-field-Referencia,
 #form-field-Servicio,
 #form-field-IDservicio,
+#form-field-IDusuario,
 #form-field-Precio,
+#form-field-HubspotUTK,
 #form-field-urlfiltro{
   display: none;
 }
@@ -320,7 +322,9 @@ label[for="form-field-ceremonia"],
 label[for="form-field-Referencia"],
 label[for="form-field-Servicio"],
 label[for="form-field-IDservicio"],
+label[for="form-field-IDusuario"],
 label[for="form-field-Precio"],
+label[for="form-field-HubspotUTK"],
 label[for="form-field-donde"]{
   display: none;
 }

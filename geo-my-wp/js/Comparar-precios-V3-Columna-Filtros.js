@@ -247,6 +247,7 @@ function wpfFunctionResp(event){
         'wpfresp2' : $('#wpf-resultados-referencia').attr('wpfresp2'),
         'wpfresp3' : $('#wpf-resultados-referencia').attr('wpfresp3'),
         'wpfresp4' : $('#wpf-resultados-referencia').attr('wpfresp4'),
+        'hubspotutk': $('#wpf-resultados-referencia').attr('wpfhutk'),
       },
       success: function(response) {
         console.log(FuncName+': wpfunos_ajax_v3_filtros response:');

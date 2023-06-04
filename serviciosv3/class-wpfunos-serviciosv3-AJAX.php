@@ -67,6 +67,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $wpfdist = $_POST["wpfdist"];
     $wpflat = $_POST["wpflat"];
     $wpflng = $_POST["wpflng"];
+    $hubspotutk = $_POST["hubspotutk"];
 
     if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$wpfip ) ) {
       $result['type'] = "Bad nonce";
@@ -111,24 +112,24 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       do_action('wpfunos_log', $userIP.' - 0501 '.'Ajax: wpfresp2 ' .$wpfresp2. ' - ' .$wpfataud );
       do_action('wpfunos_log', $userIP.' - 0501 '.'Ajax: wpfresp3 ' .$wpfresp3. ' - ' .$wpfvelatorio );
       do_action('wpfunos_log', $userIP.' - 0501 '.'Ajax: wpfresp4 ' .$wpfresp4. ' - ' .$wpfceremonia );
+      do_action('wpfunos_log', $userIP.' - 0501 '.'Ajax: $hubspotutk ' .$hubspotutk );
 
       //$this->wpfunosServiciosv2Indeseados( $wpfemail, $wpftelefono );
-      if( apply_filters('wpfunos_bloqueo_numeros',$wpftelefono) ){
-        do_action('wpfunos_log', '==============' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'Entrada no deseada' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'mobile: ' . $mobile);
-        do_action('wpfunos_log', $userIP.' - 0501 '.'logged: ' .$log  );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'---' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'Teléfono: ' . $wpftelefono);
-
-        $result['type'] = "unwanted";
-        $result = json_encode($result);
-        echo $result;
-        // don't forget to end your scripts with a die() function - very important
-        die();
-      }
-
+      //if( apply_filters('wpfunos_bloqueo_numeros',$wpftelefono) ){
+      //  do_action('wpfunos_log', '==============' );
+      //  do_action('wpfunos_log', $userIP.' - 0501 '.'Entrada no deseada' );
+      //  do_action('wpfunos_log', $userIP.' - 0501 '.'referer: ' . apply_filters('wpfunos_dumplog', substr(sanitize_text_field( $_SERVER['HTTP_REFERER'] ),0,150) ) );
+      //  do_action('wpfunos_log', $userIP.' - 0501 '.'mobile: ' . $mobile);
+      //  do_action('wpfunos_log', $userIP.' - 0501 '.'logged: ' .$log  );
+      //  do_action('wpfunos_log', $userIP.' - 0501 '.'---' );
+      //  do_action('wpfunos_log', $userIP.' - 0501 '.'Teléfono: ' . $wpftelefono);
+      //
+      //  $result['type'] = "unwanted";
+      //  $result = json_encode($result);
+      //  echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      //  die();
+      //}
       $wpfwpf = apply_filters( 'wpfunos_crypt', $wpfnewref , 'e' );
 
       //$wpml_path = ( $_COOKIE['wp-wpml_current_language'] == 'es') ? '' : '/'. $_COOKIE['wp-wpml_current_language'] ;
@@ -166,6 +167,8 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos_es') ; break;
         }
         $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara post' );
         $my_post = array(
           'post_title' => $wpfnewref,
           'post_type' => 'usuarios_wpfunos',
@@ -202,10 +205,12 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
             'wpfunos_Dummy' => true,
             'wpfunos_userLog' => $log,
             'wpfunos_userMobile' => $mobile,
+            'wpfunos_userHubspotUTK' => $hubspotutk,
           ),
         );
         $post_id = wp_insert_post($my_post);
-
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Inserta nueva entrada' );
         // wpfunos-visitas-entrada
         do_action('wpfunos-visitas-entrada',array(
           'tipo' => '5',
@@ -336,7 +341,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
         // SMS
         do_action('wpfunos_log', '==============' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar SMS' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio SMS' );
         do_action('wpfunos_log', $userIP.' - 0501 '.'$Telefono: ' . $Telefono );
 
         $request = '{
@@ -388,6 +393,8 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         ));
 
         $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS['body'] );
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio SMS' );
         //do_action('wpfunos_log', $userIP.' - 0501 '.'Body Respuesta: ' . $userAPIMessage  );
         /**
         * [headers] = Object (Requests_Utility_CaseInsensitiveDictionary)</br> |   date -> String: 'Fri, 10 Mar 2023 00:44:27 GMT'</br> |   server -> String: 'Apache'</br> |
@@ -404,12 +411,13 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         // SMS
       }// END if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') )
       //HUBSPOT
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
       $params = array(
-        'userID' => $post_id,
         'nombre' => $wpfnombre,
         'email' => $wpfemail,
         'telefono' => $Telefono,
-        'ubicacion' => $wpfubic,
+        'donde' => $wpfubic,
         'cuando' => $wpfcuando,
         'destino' => $wpfdestino,
         'ataud' => $wpfataud,
@@ -417,13 +425,27 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         'ceremonia' => $wpfceremonia,
         'referencia' => $wpfnewref,
         'accion' => 'Datos usuario funerarias',
-        'ok' => 'ok',
         'ip' => $userIP,
+        'ok' => 'ok',
+        'hubspotutk' => $hubspotutk,
+        'pageUri' => $URL,
+        'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
       );
-      sleep(1);
-      do_action('wpfhubspot-contact-OK', array( 'userID' => $post_id, 'email' => $wpfemail, 'ok' => 'ko' ) );
-      sleep(1);
-      do_action('wpfhubspot-contact-OK', $params );
+      do_action('wpfhubspot-send-form', $params );
+      //sleep(1);
+      //$params = array(
+      //  'email' => $wpfemail,
+      //  'ok' => 'ok',
+      //  'hubspotutk' => $hubspotutk,
+      //  'accion' => 'Datos usuario funerarias',
+      //  'ip' => $userIP,
+      //  'pageUri' => $URL,
+      //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+      //);
+      //do_action('wpfhubspot-send-form', $params );
+
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
       //HUBSPOT
       //Última Búsqueda
       if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){
@@ -504,6 +526,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
     $wpfcuando = $_POST['cuando'];
+    $hubspotutk = $_POST['hubspotutk'];
     //  EBG 03-11-22
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
@@ -604,6 +627,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           'wpfunos_Dummy' => true,
           'wpfunos_userLog' => $log,
           'wpfunos_userMobile' => $mobile,
+          'wpfunos_userHubspotUTK' => $hubspotutk,
         ),
       );
 
@@ -754,7 +778,39 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       }
       // SMS
-    }
+    }//if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Llamamos') )
+    //HUBSPOT
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    $params = array(
+      'nombre' => $nombre ,
+      'email' => $email,
+      'telefono' => $phone,
+      'ok' => 'ok',
+      'accion' => 'Datos usuario funerarias llamamos',
+      'servicio' => $titulo,
+      'precio' => $precio,
+      'ip' => $userIP,
+      'referencia' => $newref,
+      'hubspotutk' => $hubspotutk,
+      'pageUri' => 'https://funos.es/comparar-precios-resultados',
+      'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+    );
+    do_action('wpfhubspot-send-form', $params );
+    //sleep(1);
+    //$params = array(
+    //  'email' => $email,
+    //  'ip' => $userIP,
+    //  'ok' => 'ok',
+    //  'hubspotutk' => $hubspotutk,
+    //  'accion' => 'Datos usuario funerarias llamamos',
+    //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
+    //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+    //);
+    //do_action('wpfhubspot-send-form', $params );
+
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar Formulario Hubspot' );
+    //HUBSPOT
 
     $result['type'] = "success";
     $result['newref'] = $newref;
@@ -763,7 +819,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     echo $result;
     // don't forget to end your scripts with a die() function - very important
     die();
-  }
+  }//public function wpfunosV3Llamamos
 
   /*********************************/
   /*****  AJAX                ******/
@@ -784,6 +840,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $wpfcuando = $_POST['cuando'];
+    $hubspotutk = $_POST['hubspotutk'];
     //
     $IP = apply_filters('wpfunos_userIP','dummy');
 
@@ -879,6 +936,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           'wpfunos_Dummy' => true,
           'wpfunos_userLog' => $log,
           'wpfunos_userMobile' => $mobile,
+          'wpfunos_userHubspotUTK' => $hubspotutk,
         ),
       );
 
@@ -1029,8 +1087,39 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       }
       // SMS
-    }
+    }//if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Llamar') )
+    //HUBSPOT
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    $params = array(
+      'nombre' => $nombre ,
+      'email' => $email,
+      'telefono' => $phone,
+      'ok' => 'ok',
+      'accion' => 'Datos usuario funerarias llamar',
+      'servicio' => $titulo,
+      'precio' => $precio,
+      'ip' => $userIP,
+      'referencia' => $newref,
+      'hubspotutk' => $hubspotutk,
+      'pageUri' => 'https://funos.es/comparar-precios-resultados',
+      'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+    );
+    do_action('wpfhubspot-send-form', $params );
+    //sleep(1);
+    //$params = array(
+    //  'email' => $email,
+    //  'ip' => $userIP,
+    //  'ok' => 'ok',
+    //  'hubspotutk' => $hubspotutk,
+    //  'accion' => 'Datos usuario funerarias llamar',
+    //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
+    //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+    //);
+    //do_action('wpfhubspot-send-form', $params );
 
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar Formulario Hubspot' );
+    //HUBSPOT
     $result['type'] = "success";
     $result['newref'] = $newref;
     $result['transient'] = $transient_ref;
@@ -1038,7 +1127,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     echo $result;
     // don't forget to end your scripts with a die() function - very important
     die();
-  }
+  }//public function wpfunosV3Llamar()
 
   /*********************************/
   /*****  AJAX                ******/
@@ -1060,6 +1149,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $wpfcuando = $_POST['cuando'];
+    $hubspotutk = $_POST['hubspotutk'];
     //
     $IP = apply_filters('wpfunos_userIP','dummy');
 
@@ -1157,6 +1247,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           'wpfunos_Dummy' => true,
           'wpfunos_userLog' => $log,
           'wpfunos_userMobile' => $mobile,
+          'wpfunos_userHubspotUTK' => $hubspotutk,
         ),
       );
 
@@ -1308,8 +1399,40 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       }
       // SMS
-    }
+    }//if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Presupuesto') )
+    //HUBSPOT
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    $params = array(
+      'nombre' => $nombre ,
+      'email' => $email,
+      'telefono' => $phone,
+      'mensaje' => $mensajeusuario,
+      'ok' => 'ok',
+      'accion' => 'Datos usuario funerarias Presupuesto',
+      'servicio' => $titulo,
+      'precio' => $precio,
+      'ip' => $userIP,
+      'referencia' => $newref,
+      'hubspotutk' => $hubspotutk,
+      'pageUri' => 'https://funos.es/comparar-precios-resultados',
+      'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+    );
+    do_action('wpfhubspot-send-form', $params );
+    //sleep(1);
+    //$params = array(
+    //  'email' => $email,
+    //  'ip' => $userIP,
+    //  'ok' => 'ok',
+    //  'hubspotutk' => $hubspotutk,
+    //  'accion' => 'Datos usuario funerarias Presupuesto',
+    //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
+    //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+    //);
+    //do_action('wpfhubspot-send-form', $params );
 
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar Formulario Hubspot' );
+    //HUBSPOT
     $result['type'] = "success";
     $result['newref'] = $newref;
     $result['transient'] = $transient_ref;
@@ -1794,6 +1917,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $wpfresp2 = $_POST["wpfresp2"];
     $wpfresp3 = $_POST["wpfresp3"];
     $wpfresp4 = $_POST["wpfresp4"];
+    $hubspotutk = $_POST['hubspotutk'];
 
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '==============' );
@@ -1852,23 +1976,23 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Filtros') ){
       $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '0' );
       switch((int)$wpfresp1){
-        case 1: $wpfdestino = esc_html__('Entierro', 'wpfunos_es'); break;
-        case 2: $wpfdestino = esc_html__('Incineración', 'wpfunos_es'); break;
+        case 1: $wpfdestino = esc_html__('Entierro', 'wpfunos_es'); $hcampo = 'destino'; $hvalor = 'Entierro'; break;
+        case 2: $wpfdestino = esc_html__('Incineración', 'wpfunos_es');  $hcampo = 'destino'; $hvalor = 'Incineración'; break;
       }
       switch((int)$wpfresp2){
-        case 1: $wpfataud = esc_html__('Ataúd medio', 'wpfunos_es') ; break;
-        case 2: $wpfataud = esc_html__('Ataúd económico', 'wpfunos_es') ; break;
-        case 3: $wpfataud = esc_html__('Ataúd premium', 'wpfunos_es') ; break;
+        case 1: $wpfataud = esc_html__('Ataúd medio', 'wpfunos_es'); $hcampo = 'ataud'; $hvalor = 'Ataúd medio'; break;
+        case 2: $wpfataud = esc_html__('Ataúd económico', 'wpfunos_es'); $hcampo = 'ataud'; $hvalor = 'Ataúd económico'; break;
+        case 3: $wpfataud = esc_html__('Ataúd premium', 'wpfunos_es'); $hcampo = 'ataud'; $hvalor = 'Ataúd premium'; break;
       }
       switch((int)$wpfresp3){
-        case 1: $wpfvelatorio = esc_html__('Velatorio', 'wpfunos_es') ; break;
-        case 2: $wpfvelatorio = esc_html__('Sin velatorio', 'wpfunos_es') ; break;
+        case 1: $wpfvelatorio = esc_html__('Velatorio', 'wpfunos_es'); $hcampo = 'velatorio'; $hvalor = 'Velatorio'; break;
+        case 2: $wpfvelatorio = esc_html__('Sin velatorio', 'wpfunos_es'); $hcampo = 'velatorio'; $hvalor = 'Sin velatorio'; break;
       }
       switch((int)$wpfresp4){
-        case 1: $wpfceremonia = esc_html__('Sin ceremonia', 'wpfunos_es') ; break;
-        case 2: $wpfceremonia = esc_html__('Solo sala', 'wpfunos_es') ; break;
-        case 3: $wpfceremonia = esc_html__('Ceremonia civil', 'wpfunos_es') ; break;
-        case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos_es') ; break;
+        case 1: $wpfceremonia = esc_html__('Sin ceremonia', 'wpfunos_es'); $hcampo = 'ceremonia'; $hvalor = 'Sin ceremonia'; break;
+        case 2: $wpfceremonia = esc_html__('Solo sala', 'wpfunos_es'); $hcampo = 'ceremonia'; $hvalor = 'Solo sala'; break;
+        case 3: $wpfceremonia = esc_html__('Ceremonia civil', 'wpfunos_es'); $hcampo = 'ceremonia'; $hvalor = 'Ceremonia civil'; break;
+        case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos_es'); $hcampo = 'ceremonia'; $hvalor = 'Ceremonia religiosa'; break;
       }
 
       $my_post = array(
@@ -1907,6 +2031,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           'wpfunos_Dummy' => true,
           'wpfunos_userLog' => $log,
           'wpfunos_userMobile' => $mobile,
+          'wpfunos_userHubspotUTK' => $hubspotutk,
         ),
       );
       $post_id = wp_insert_post($my_post);
@@ -1999,6 +2124,39 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
     }
     //
+    //HUBSPOT
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    $params = array(
+      'nombre' => get_post_meta( $wpfidusuario, 'wpfunos_userName', true ),
+      'email' => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ),
+      'telefono' => get_post_meta( $wpfidusuario, 'wpfunos_userPhone', true ),
+      'referencia' => $wpfnewref,
+      'ok' => 'ok',
+      'filtro' => $cambios,
+      'accion' => 'Datos usuario funerarias filtros ' .$cambios,
+      $hcampo => $hvalor,
+      'ip' => $userIP,
+      'hubspotutk' => $hubspotutk,
+      'pageUri' => 'https://funos.es/comparar-precios-resultados',
+      'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+    );
+    do_action('wpfhubspot-send-form', $params );
+    //sleep(1);
+    //$params = array(
+    //  'email' => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ),
+    //  'ip' => $userIP,
+    //  'ok' => 'ok',
+    //  'hubspotutk' => $hubspotutk,
+    //  'accion' => 'Datos usuario funerarias filtros ' .$cambios,
+    //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
+    //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+    //);
+    //do_action('wpfhubspot-send-form', $params );
+
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar Formulario Hubspot' );
+    //HUBSPOT
+
     $result['type'] = "success";
     $result['wpfurl'] = $URL;
     $result = json_encode($result);

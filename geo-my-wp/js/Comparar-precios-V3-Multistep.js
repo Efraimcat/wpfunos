@@ -71,6 +71,8 @@ $(document).ready(function(){
               'wpflat' : $('#wpf-resultados-referencia').attr('wpflat'),
               'wpflng' : $('#wpf-resultados-referencia').attr('wpflng'),
               'wpfland' : $('#wpf-resultados-referencia').attr('wpfland'),
+              'hubspotutk' : getCookie('hubspotutk'),
+              //Datos usuario funerarias
             },
             success: function(response) {
               console.log(response)	;
@@ -167,6 +169,8 @@ $(document).ready(function(){
           $( '#form-field-IP' ).val($('#wpf-resultados-referencia').attr('wpfip'));
           $( '#form-field-donde' ).val($('#wpf-resultados-referencia').attr('wpfubic'));
           $( '#form-field-Referencia' ).val( $('#wpf-resultados-referencia').attr('wpfnewref') );
+          //$( '#form-field-HubspotUTK' ).val(  getCookie('hubspotutk') );
+          //var wpfana = getCookie('cookielawinfo-checkbox-analytics');HubspotUTK
         }
 
         function wpfAlertCookies(){

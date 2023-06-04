@@ -132,13 +132,6 @@ class Wpfunos_ServiciosV3 {
     global $wp;
     $userIP = apply_filters('wpfunos_userIP','dummy');
 
-    if( !isset( $_COOKIE['cookielawinfo-checkbox-analytics'] ) ){
-      ?>
-      <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
-      window.open('/comparar-precios-nueva',"_self");
-      </script>
-      <?php
-    }
     if( count($_GET) > 0 ){
       //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
       //if( strlen( $_COOKIE['wpfu'] ) > 1 ) do_action('wpfunos_log', '==============' );
@@ -361,6 +354,7 @@ class Wpfunos_ServiciosV3 {
       $wpfcolabnombre = sanitize_text_field( $current_user->display_name );
       $wpfcolabemail = sanitize_text_field( $current_user->user_email );
       $wpfcolabtelefono = sanitize_text_field( get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
+      $hubspotutk = sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userHubspotUTK' , true ));
       $_GET['AttsV3'] = 'wpfn|' .$nonce. '
       wpfip|' .$IP. '
       wpfnewref|' .$newref. '
@@ -381,6 +375,7 @@ class Wpfunos_ServiciosV3 {
       wpfcuando|' .$_GET['cuando']. '
       wpfland|' .$_GET['land']. '
       wpfIDusuario|' .$IDusuario. '
+      wpfhutk|' .$hubspotutk. '
       wpfhomeURL|' .home_url(). '
       wpfresp1|' .$_GET['cf']['resp1']. '
       wpfresp2|' .$_GET['cf']['resp2']. '

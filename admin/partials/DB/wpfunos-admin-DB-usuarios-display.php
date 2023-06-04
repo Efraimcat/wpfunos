@@ -384,6 +384,11 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_userHubspotIDusuario','name' => 'wpfunos_userHubspotIDusuario','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
         </tr>
+        <tr>
+          <td><?php esc_html_e('HubspotUTK', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_userHubspotUTK','name' => 'wpfunos_userHubspotUTK','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''));?></td>
+        </tr>
 
         <tr>
           <td><?php esc_html_e('resp', 'wpfunos');?></td>

@@ -102,6 +102,7 @@ $userLog = sanitize_text_field( $_POST['wpfunos_userLog'] );
 $userMobile = sanitize_text_field( $_POST['wpfunos_userMobile'] );
 
 $userHubspotIDusuario  = sanitize_text_field( $_POST['wpfunos_userHubspotIDusuario'] );
+$userHubspotUTK  = sanitize_text_field( $_POST['wpfunos_userHubspotUTK'] );
 
 $resp1 = sanitize_text_field( $_POST['resp1'] );
 $resp2 = sanitize_text_field( $_POST['resp2'] );
@@ -198,6 +199,7 @@ update_post_meta($post_id, 'wpfunos_userLog', $userLog);
 update_post_meta($post_id, 'wpfunos_userMobile', $userMobile);
 
 update_post_meta($post_id, 'wpfunos_userHubspotIDusuario', $userHubspotIDusuario);
+update_post_meta($post_id, 'wpfunos_userHubspotUTK', $userHubspotUTK);
 
 update_post_meta($post_id, 'resp1', $resp1);
 update_post_meta($post_id, 'resp2', $resp2);

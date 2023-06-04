@@ -38,6 +38,7 @@ function wpfV3Llamamos() {
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
       'cuando': params.get('cuando'),
+      'hubspotutk': $('#wpf-resultados-referencia').attr('wpfhutk'),
     },
     success: function(response) {
       console.log(FuncName+': wpfunos_ajax_v3_llamamos response:');
@@ -110,6 +111,7 @@ function wpfV3Llamar() {
       'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
+      'hubspotutk': $('#wpf-resultados-referencia').attr('wpfhutk'),
     },
     success: function(response) {
       console.log(FuncName+': wpfunos_ajax_v3_llamar response:');
@@ -151,7 +153,7 @@ function wpfV3Presupuesto() {
       $('#botonEnviarPresupuesto').attr('wpfid', wpfid);
       $('#botonEnviarPresupuesto').attr('wpfp', wpfp);
       $('#botonEnviarPresupuesto').attr('wpftitulo', wpftitulo);
-      //$('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
+      $('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
       $('#form-field-wpfunosoculto').attr('value',$('#wpf-resultados-referencia').attr('wpfidusuario'));
       $('#form-field-IDservicio').attr('value',wpfid);
       $('#form-field-Servicio').attr('value',wpftitulo);
@@ -185,6 +187,7 @@ function wpfV3EnviaPresupuesto() {
       'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
+      'hubspotutk': $('#wpf-resultados-referencia').attr('wpfhutk'),
     },
     success: function(response) {
       console.log(FuncName+': wpfunos_ajax_v3_presupuesto response:');
@@ -316,6 +319,7 @@ function wpfV3DetallesLlamamos() {
       'precio' : $(this).attr('wpfp'),
       'titulo' : $(this).attr('wpftitulo'),
       'cuando' : params.get('cuando'),
+      'hubspotutk': $('#wpf-resultados-referencia').attr('wpfhutk'),
       'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
@@ -373,6 +377,7 @@ function wpfV3DetallesLlamar() {
       'precio' : $(this).attr('wpfp'),
       'titulo' : $(this).attr('wpftitulo'),
       'cuando' : params.get('cuando'),
+      'hubspotutk': $('#wpf-resultados-referencia').attr('wpfhutk'),
       'nombre' : $('#wpf-resultados-referencia').attr('wpfnombre'),
       'email' : $('#wpf-resultados-referencia').attr('wpfemail'),
       'phone' : $('#wpf-resultados-referencia').attr('wpftelefono'),
@@ -454,7 +459,7 @@ function wpfV3DetallesPresupuesto() {
       $('#botonEnviarPresupuesto').attr('wpfid', wpfid);
       $('#botonEnviarPresupuesto').attr('wpfp', wpfp);
       $('#botonEnviarPresupuesto').attr('wpftitulo', wpftitulo);
-      //$('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
+      $('#botonEnviarPresupuesto').click( wpfV3EnviaPresupuesto );
       $('#form-field-IDservicio').attr('value',wpfid);
       $('#form-field-Servicio').attr('value',wpftitulo);
       $('#form-field-Precio').attr('value',wpfp);
@@ -537,6 +542,7 @@ function wpfV3Financiacion() {
   $('#form-field-importe').val( wpfp );
   $('#form-field-Servicio').attr('value',wpftitulo);
   $('#form-field-Precio').attr('value',wpfp);
+  $('#form-field-IDusuario').attr('value',$('#wpf-resultados-referencia').attr('wpfidusuario'));
   setInterval(function() {
     if( $('#form-field-importe').length == 0 ) return;
     $('#form-field-financiar').val( $('#form-field-importe').val() - $('#form-field-entrada').val() );

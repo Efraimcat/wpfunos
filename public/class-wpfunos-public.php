@@ -48,6 +48,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 * 0600 //class-wpfunos-utils.php
 *
 * 2000 //wpfAPI
+*
+* 3000 //wpfhubspot
 */
 
 require_once 'class-wpfunos-public-form-validation.php';
@@ -230,10 +232,37 @@ class Wpfunos_Public {
         setcookie('wpfu', $codigo,  ['expires' => $expiry, 'path' => COOKIEPATH, 'domain' => COOKIE_DOMAIN, 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',] );
       }
       //HUBSPOT
-      if( "TeLlamamosGratisLandings" == $form_name ) $accion = 'Te Llamamos Gratis Landings';
-      if( "AsesoramientoGratuito" == $form_name ) $accion = 'Asesoramiento Gratuito';
-      if( "TeLlamamosGratis" == $form_name ) $accion = 'Te Llamamos Gratis';
-      do_action('wpfhubspot-contact-OK', array( 'userID' => '0', 'email' => $fields['email'], 'telefono' => $fields['telefono'], 'nombre' => $fields['Nombre'], 'ok' => 'ok', 'accion' => $accion ) );
+      global $wp;
+      if( "TeLlamamosGratisLandings" == $form_name ) $accion = 'Te llamamos gratis Landings';
+      if( "AsesoramientoGratuito" == $form_name ) $accion = 'Asesoramiento gratuito';
+      if( "TeLlamamosGratis" == $form_name ) $accion = 'Te llamamos gratis';
+      $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+      $params = array(
+        'nombre' => $fields['Nombre'],
+        'email' => $fields['email'],
+        'telefono' => $fields['telefono'],
+        'ok' => 'ok',
+        'accion' => $accion,
+        'ip' => $userIP,
+        'hubspotutk' => $hubspotutk,
+        'pageUri' => $fields['PageUri'],
+        'pageId' => $fields['PageName']
+      );
+      do_action('wpfhubspot-send-form', $params );
+      //sleep(1);
+      //$params2 = array(
+      //  'email' => $fields['email'],
+      //  'ip' => $userIP,
+      //  'ok' => 'ok',
+      //  'hubspotutk' => $hubspotutk,
+      //  'accion' => $accion,
+      //  'pageUri' => $fields['PageUri'],
+      //  'pageId' => $fields['PageName']
+      //);
+      //do_action('wpfhubspot-send-form', $params2 );
+
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Enviar Formulario Hubspot' );
       //HUBSPOT
     }// if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name )
 
@@ -339,6 +368,11 @@ class Wpfunos_Public {
 
 
     if( $form_name == 'FormularioPresupuesto' ){
+
+      return;
+
+
+
       $userIP = apply_filters('wpfunos_userIP','dummy');
       $IDservicio = sanitize_text_field( $fields['IDservicio'] );
       $servicio = sanitize_text_field( $fields['Servicio'] );
@@ -554,18 +588,57 @@ class Wpfunos_Public {
 
         }
         // SMS
-        //HUBSPOT
-        $Nombre = get_post_meta( $post_id , 'wpfunos_userName', true );
-        $telefono = get_post_meta( $post_id , 'wpfunos_userPhone', true );
-        $servicio = sanitize_text_field( get_the_title( $IDservicio ) );
-        $precio = number_format( sanitize_text_field( $precio ), 0, ',', '.') . '€' ;
-        do_action('wpfhubspot-contact-OK', array( 'userID' => $IDusuario, 'email' => $email_usuario, 'telefono' => $telefono, 'nombre' => $Nombre,'ok' => 'ko', 'accion' => 'Servicio pedir presupuesto', 'servicio' => $servicio, 'precio' => $precio ) );
-        sleep(1);
-        do_action('wpfhubspot-contact-OK', array( 'userID' => $IDusuario, 'email' => $email_usuario, 'ok' => 'ok' ) );
-        //HUBSPOT
       }// if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Presupuesto') )
+    }//if( $form_name == 'FormularioPresupuesto' )
 
-    }
+    if( $form_name == 'PaginaFinanciacion' ){
+      $userIP = apply_filters('wpfunos_userIP','dummy');
+      $servicio = sanitize_text_field( $fields['Servicio'] );
+      $precio = sanitize_text_field( $fields['Precio'] );
+      $IDusuario = sanitize_text_field( $fields['IDusuario'] );
+      $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
+
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Servicio Botón Fininaciación' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Servicio titulo: ' . $servicio );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'$IDusuario: ' . $IDusuario );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Servicio ' . $servicio );
+
+      //HUBSPOT
+      $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+      $params = array(
+        'nombre' => sanitize_text_field( $transient_ref['wpfn'] ) ,
+        'email' => sanitize_text_field( $transient_ref['wpfe'] ),
+        'telefono' => sanitize_text_field( $transient_ref['wpft'] ),
+        'ok' => 'ok',
+        'accion' => 'Datos usuario funerarias financiación',
+        'servicio' => $servicio,
+        'precio' => $precio,
+        'entrada' => sanitize_text_field( $fields['entrada'] ),
+        'financiar' => sanitize_text_field( $fields['financiar'] ),
+        'ip' => $userIP,
+        'hubspotutk' => $hubspotutk,
+        'pageUri' => 'https://funos.es/comparar-precios-resultados',
+        'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+      );
+      do_action('wpfhubspot-send-form', $params );
+      //sleep(1);
+      //$params2 = array(
+      //  'email' => sanitize_text_field( $transient_ref['wpfe'] ),
+      //  'ip' => $userIP,
+      //  'ok' => 'ok',
+      //  'hubspotutk' => $hubspotutk,
+      //  'accion' => 'Datos usuario funerarias financiación',
+      //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
+      //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+      //);
+      //do_action('wpfhubspot-send-form', $params2 );
+
+
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Enviar Formulario Hubspot' );
+      //HUBSPOT
+    }//if( $form_name == 'PaginaFinanciacion' )
 
 
   } // public function wpfunosFormNewrecord($record, $handler)

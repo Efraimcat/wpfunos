@@ -358,6 +358,9 @@ class Wpfunos_Utils {
   * $newURL = apply_filters('wpfunos_shortener', $URL );
   */
   public function wpfunosShortener($original_url){
+
+    return $original_url;
+
     $short_url = $original_url;
     $cuttly_url = 'https://cutt.ly/api/api.php';
     $link = urlencode($original_url);
@@ -546,6 +549,7 @@ class Wpfunos_Utils {
       "630069601",
       "641518907",
       "644957578",
+      "645325695",
       "650205008",
       "650627593‬",
       "652552825",

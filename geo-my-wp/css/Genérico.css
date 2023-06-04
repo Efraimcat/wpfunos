@@ -544,12 +544,16 @@ div.gmw-form-wrapper div.gmw-locator-button-wrapper.text:hover {
 
 #form-field-accion,
 #form-field-ok,
+#form-field-PageUri,
+#form-field-PageName,
 #form-field-IP{
 	display: none;
 }
 
 label[for="form-field-accion"],
 label[for="form-field-ok"],
+label[for="form-field-PageUri"],
+label[for="form-field-PageName"],
 label[for="form-field-IP"]{
 	display: none;
 }
