@@ -249,6 +249,7 @@ class Wpfunos_Public {
         'pageId' => $fields['PageName']
       );
       do_action('wpfhubspot-send-form', $params );
+      do_action('wpfhubspot-usuarios',array( 'email' => $fields['email'], 'hubspotutk' => $hubspotutk ) );
       //sleep(1);
       //$params2 = array(
       //  'email' => $fields['email'],
@@ -622,6 +623,7 @@ class Wpfunos_Public {
         'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
       );
       do_action('wpfhubspot-send-form', $params );
+      do_action('wpfhubspot-usuarios',array( 'email' => $transient_ref['wpfe'], 'hubspotutk' => $hubspotutk ) );
       //sleep(1);
       //$params2 = array(
       //  'email' => sanitize_text_field( $transient_ref['wpfe'] ),

@@ -432,6 +432,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
       );
       do_action('wpfhubspot-send-form', $params );
+      do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
       //sleep(1);
       //$params = array(
       //  'email' => $wpfemail,
@@ -796,6 +797,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
     );
     do_action('wpfhubspot-send-form', $params );
+    do_action('wpfhubspot-usuarios',array( 'email' => $email, 'hubspotutk' => $hubspotutk ) );
     //sleep(1);
     //$params = array(
     //  'email' => $email,
@@ -1105,6 +1107,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
     );
     do_action('wpfhubspot-send-form', $params );
+    do_action('wpfhubspot-usuarios',array( 'email' => $email, 'hubspotutk' => $hubspotutk ) );
     //sleep(1);
     //$params = array(
     //  'email' => $email,
@@ -1418,6 +1421,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
     );
     do_action('wpfhubspot-send-form', $params );
+    do_action('wpfhubspot-usuarios',array( 'email' => $email, 'hubspotutk' => $hubspotutk ) );
     //sleep(1);
     //$params = array(
     //  'email' => $email,
@@ -1924,6 +1928,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', $wpfip.' - 0501 '.'Cambios en filtros' );
     do_action('wpfunos_log', $wpfip.' - 0501 '.'Parámetro: ' . $param );
     do_action('wpfunos_log', $wpfip.' - 0501 '.'Valor: ' . $valor );
+    do_action('wpfunos_log', $wpfip.' - 0501 '.'Nombre: ' . $wpfnombre );
+    do_action('wpfunos_log', $wpfip.' - 0501 '.'Referencia: ' . $wpfnewref );
+    do_action('wpfunos_log', $wpfip.' - 0501 '.'IDusuario: ' . $wpfidusuario );
 
     if ( !wp_verify_nonce( $wpnonce, "wpfunos_serviciosv3_nonce".$wpfip ) ) {
       $result['type'] = "Bad nonce";
@@ -2141,6 +2148,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
     );
     do_action('wpfhubspot-send-form', $params );
+    do_action('wpfhubspot-usuarios',array( 'email' => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ), 'hubspotutk' => $hubspotutk ) );
     //sleep(1);
     //$params = array(
     //  'email' => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ),

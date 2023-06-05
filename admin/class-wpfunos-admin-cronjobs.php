@@ -220,10 +220,22 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         PRIMARY KEY  (id)
       );";
 
+      $table_name = $wpdb->prefix . 'wpf_hubspotusers';
+      $sqlhubspotusers = "CREATE TABLE $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        ultima datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        email tinytext DEFAULT '' NOT NULL,
+        ip tinytext DEFAULT '' NOT NULL,
+        hubspotutk tinytext DEFAULT '' NOT NULL,
+        PRIMARY KEY  (id)
+      );";
+
       require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
       dbDelta( $sqlvisitas );
       dbDelta( $sqldefunciones );
       dbDelta( $sqlmasterdatos );
+      dbDelta( $sqlhubspotusers );
       update_option( "wpf_db_version", WPFUNOS_DB_VERSION );
     }
     $this->custom_logs('Wpfunos Database ENDS' );
