@@ -24,6 +24,7 @@ class Wpfunos_Utils {
     add_action( 'wpfunos_update phone', array( $this, 'wpfunosUpdatePhone' ), 10, 1 );
     add_filter( 'wpfunos_reserved_email', array( $this, 'wpfunosReservedEmailAction' ), 10, 1 );
     add_filter( 'wpfunos_email_colaborador', array( $this, 'wpfunosColabEmailAction' ), 10, 1 );
+    add_filter( 'wpfunos_pruebas_email', array( $this, 'wpfunosPruebasEmailAction' ), 10, 1 );
     add_filter( 'wpfunos_ip_visits', array( $this, 'wpfunos_visitas_IP' ), 10, 3 );
     add_filter( 'wpfunos_count_visits', array( $this, 'wpfunos_contador_visitas' ), 10, 3 );
     add_filter( 'wpfunos_dumplog', array ( $this, 'dumpPOST'), 10, 1);
@@ -113,6 +114,21 @@ class Wpfunos_Utils {
       $direccion = trim( $direccion );
       if( $direccion == $current_user->user_email ){
         //$this->custom_logs( $this->dumpPOST($userIP.' - '.'wpfunos_DireccionesColaboradores true: ' .$current_user->user_email. ' acción: ' .$accion  ) );
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+  * Utility: Comprobar si la dirección email es de pruebas
+  */
+  public function wpfunosPruebasEmailAction( $email ) {
+    $opcion = get_option( 'wpfunos_DireccionesPruebas' );
+    $direcciones = explode ( ",", $opcion );
+    foreach( $direcciones as $direccion ) {
+      $direccion = trim( $direccion );
+      if( $direccion == $email ){
         return true;
       }
     }
@@ -525,6 +541,7 @@ class Wpfunos_Utils {
   * $Telefono = apply_filters('wpfunos_telefono_formateado',$telefono );
   */
   public function wpfTelefonoFormateado( $telefono ){
+    $telefono = trim($telefono);
     $tel = str_replace(" ","", $telefono );
     $tel = str_replace("-","",$tel);
     if(substr($tel,0,1) == '+'){
@@ -544,6 +561,7 @@ class Wpfunos_Utils {
       "602008096",
       "607045749",
       "611789307",
+      "612532541",
       "616306397",
       "627499881",
       "630069601",
@@ -560,6 +578,7 @@ class Wpfunos_Utils {
       "677484082",
       "677721152",
       "679164346",
+      "695969960",
       "696459706",
       "768546345"
     );
@@ -582,6 +601,7 @@ class Wpfunos_Utils {
       "333333333",
       "444444444",
       "555555555",
+      "5555551212",
       "600000000",
       "601001001",
       "611111111",
@@ -594,6 +614,7 @@ class Wpfunos_Utils {
       "666666668",
       "666778899",
       "777777777",
+      "79775360836",
       "888888888",
       "900000000",
       "999999999",
@@ -613,12 +634,14 @@ class Wpfunos_Utils {
     $nombre  = apply_filters('wpfunos_acentos_minusculas',$nom);
 
     $bloqueos = array(
+      "Eric Jones",
       "hola",
+      "Nidia Tickell",
       "pepito",
     );
 
     foreach( $bloqueos AS $bloqueo ) {
-      if( $bloqueo == $nombre ) return true;
+      if( $bloqueo == $nom ) return true;
     }
     return false;
   }
@@ -629,10 +652,48 @@ class Wpfunos_Utils {
   */
   public function wpfbloqueoEmail( $email ){
     $bloqueos = array(
+      "aaa@aaa.es",
       "aaaa@gmail.com",
+      "abc@yahoo.es",
       "abcdef@gmail.com",
-      "pepito@gmail.com",
+      "abel@gmail.com",
+      "alejandro@gmail.com",
+      "alex@gmail.com",
+      "asd@gmail.com",
+      "camilo@hotmail.com",
+      "daniel@gmail.com",
+      "daniel123@hotmail.com",
+      "ericjonesmyemail@gmail.com",
+      "florence@gmail.com",
+      "gomez@gmail.com",
+      "gred@gmail.com",
+      "info@live.com",
+      "irene@hotmail.com",
+      "jajajaja@gmail.com",
+      "jdoe@mail.com",
+      "johndoe@gmail.com",
+      "jose3@gmail.com",
+      "josepereira@hotmail.com",
+      "lolo@gmail.com",
+      "louis@hotmail.com",
+      "m.kulikov@chaybpz.bizml.ru",
+      "mama@gmail.com",
+      "maria@gmail.com",
+      "my@yahoo.com",
+      "nose@hotmail.com",
       "notiene@gmail.com",
+      "notengo@yahoo.es",
+      "paco@gmail.com",
+      "pepito@gmail.com",
+      "pipi@gmail.com",
+      "pollo@gmail.com",
+      "test@gmail.com",
+      "sasas@gmail.com",
+      "sonia@gmail.com",
+      "tara@hotmail.com",
+      "veronica@gmail.com",
+      "wang@gmail.com",
+      "xax@gmail.com",
     );
 
     foreach( $bloqueos AS $bloqueo ) {

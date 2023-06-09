@@ -120,3 +120,52 @@ function product_description_in_new_email_notification( $item_id, $item, $order 
   }
 }
 add_action( 'woocommerce_order_item_meta_end', 'product_description_in_new_email_notification', 10, 4 );
+
+/*
+* Enviar formulario Hubspot
+*
+*https://www.businessbloomer.com/woocommerce-easily-get-order-info-total-items-etc-from-order-object/
+*/
+function wpfunos_thankyou_hubspot($order_id) {
+  $order = wc_get_order( $order_id );
+  //HUBSPOT
+  $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+  $IP = apply_filters('wpfunos_userIP','dummy');
+  foreach ( $order->get_items() as $item_id => $item ) {
+    $product_name = $item->get_name();
+  }
+  do_action('wpfunos_log', '==============' );
+  do_action('wpfunos_log', $userIP.' - 0000 '.'Prepara envio Hubspot WooCommerce' );
+  $params = array(
+    'nombre' => $order->get_formatted_billing_full_name(),
+    'email' => $order->get_billing_email(),
+    'telefono' => $order->get_billing_phone(),
+    'address' => $order->get_billing_address_1(),
+    'city' => $order->get_billing_city(),
+    'zip' => $order->get_billing_postcode(),
+    'state' => $order->get_billing_state(),
+    'ecommerce_nombre_difunto' => $order->get_meta('nombredifunto'),
+    'ecommerce_nif'  => $order->get_meta('nif'),
+    'ecommerce_nif_difunto' => $order->get_meta('dnidifunto'),
+    'ecommerce_notas_pedido' => $order->get_customer_note(),
+    'ecommerce_pedido' => $order->get_id(),
+    'ecommerce_producto' => $product_name,
+    'ecommerce_subtotal' => $order->get_line_subtotal(),
+    'ecommerce_total' => $order->get_line_total(),
+    'ecommerce_impuestos' => $order->get_line_tax(),
+    'ecommerce_metodo_pago' => $order->get_payment_method(),
+    'accion' => 'ECommerce finalizar compra',
+    'ip' => $IP,
+    'ok' => 'ok',
+    'hubspotutk' => $hubspotutk,
+    'pageUri' => 'https://funos.es/finalizar-compra',
+    'pageId' => 'Finalizar compra - Funos - Comparador de Funerarias'
+  );
+  do_action('wpfhubspot-send-form', $params );
+  do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
+
+  do_action('wpfunos_log', '==============' );
+  do_action('wpfunos_log', $userIP.' - 0000 '.'Finaliza envio formulario Hubspot WooCommerce' );
+  //HUBSPOT
+}
+add_action( 'woocommerce_thankyou', 'wpfunos_thankyou_hubspot' );

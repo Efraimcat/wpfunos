@@ -287,18 +287,12 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
               $headers[] = 'From: funos <clientes@funos.es>';
               wp_mail ( 'efraim@efraim.cat', get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
             }else{
-              //
-              //
-              //
-              wp_mail ( get_option('wpfunos_mailCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
-              //
-              //
-              //
+              if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) wp_mail ( get_option('wpfunos_mailCorreov2Admin'), get_option('wpfunos_asuntoCorreov2Admin') , $mensaje, $headers );
             }
 
-            do_action('wpfunos_log', '==============' );
-            do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar correo entrada datos al admin' );
-            do_action('wpfunos_log', $userIP.' - 0501 '.'referencia: ' . $wpfnewref );
+            if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) do_action('wpfunos_log', '==============' );
+            if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar correo entrada datos al admin' );
+            if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) do_action('wpfunos_log', $userIP.' - 0501 '.'referencia: ' . $wpfnewref );
             //do_action('wpfunos_log', $userIP.' - 0501 '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
             //do_action('wpfunos_log', $userIP.' - 0501 '.'mailCorreov2Admin: ' . get_option('wpfunos_mailCorreov2Admin') );
           }
@@ -331,8 +325,8 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
             if(!empty( get_option('wpfunos_mailCorreoCcov2usuario' ) ) ) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcov2usuario' ) ;
             if(!empty( get_option('wpfunos_mailCorreoBccv2usuario' ) ) ) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccv2usuario' ) ;
             $headers[]   = 'Reply-To: Clientes Funos <clientes@funos.es>';
-            wp_mail ( $wpfemail , get_option('wpfunos_asuntoCorreov2usuario') , $mensaje, $headers );
-            do_action('wpfunos_log', $userIP.' - 0501 '.'Enviado correo al usuario ' .$wpfemail. ' con su búsqueda');
+            if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) wp_mail ( $wpfemail , get_option('wpfunos_asuntoCorreov2usuario') , $mensaje, $headers );
+            if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) do_action('wpfunos_log', $userIP.' - 0501 '.'Enviado correo al usuario ' .$wpfemail. ' con su búsqueda');
           }
           //do_action('wpfunos_log', $userIP.' - 0501 '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
           do_action('wpfunos_log', $userIP.' - 0501 '.'Nombre: ' . $wpfnombre );
@@ -340,9 +334,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         }
 
         // SMS
-        do_action('wpfunos_log', '==============' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio SMS' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'$Telefono: ' . $Telefono );
+        if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) do_action('wpfunos_log', '==============' );
+        if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio SMS' );
+        if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) do_action('wpfunos_log', $userIP.' - 0501 '.'$Telefono: ' . $Telefono );
 
         $request = '{
           "api_key":"4b66b40a110c408e8651eb971591f03e",
@@ -385,16 +379,16 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         $request = str_replace ( '[fecha2]' , $date2->format("Y-m-d H:i:s") , $request );
         //
         //do_action('wpfunos_log', $userIP.' - 0501 '.'$request: ' . $request );
-
-        $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
-          'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
-          'body'        => $request,
-          'method'      => 'POST',
-        ));
-
-        $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS['body'] );
-        do_action('wpfunos_log', '==============' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio SMS' );
+        if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ) {
+          $SMS = wp_remote_post( 'https://api.gateway360.com/api/3.0/sms/send', array(
+            'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+            'body'        => $request,
+            'method'      => 'POST',
+          ));
+          $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS['body'] );
+          do_action('wpfunos_log', '==============' );
+          do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio SMS' );
+        }
         //do_action('wpfunos_log', $userIP.' - 0501 '.'Body Respuesta: ' . $userAPIMessage  );
         /**
         * [headers] = Object (Requests_Utility_CaseInsensitiveDictionary)</br> |   date -> String: 'Fri, 10 Mar 2023 00:44:27 GMT'</br> |   server -> String: 'Apache'</br> |
@@ -411,42 +405,45 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         // SMS
       }// END if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') )
       //HUBSPOT
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
-      $params = array(
-        'nombre' => $wpfnombre,
-        'email' => $wpfemail,
-        'telefono' => $Telefono,
-        'donde' => $wpfubic,
-        'cuando' => $wpfcuando,
-        'destino' => $wpfdestino,
-        'ataud' => $wpfataud,
-        'velatorio' => $wpfvelatorio,
-        'ceremonia' => $wpfceremonia,
-        'referencia' => $wpfnewref,
-        'accion' => 'Datos usuario funerarias',
-        'ip' => $userIP,
-        'ok' => 'ok',
-        'hubspotutk' => $hubspotutk,
-        'pageUri' => $URL,
-        'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
-      );
-      do_action('wpfhubspot-send-form', $params );
-      do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
-      //sleep(1);
-      //$params = array(
-      //  'email' => $wpfemail,
-      //  'ok' => 'ok',
-      //  'hubspotutk' => $hubspotutk,
-      //  'accion' => 'Datos usuario funerarias',
-      //  'ip' => $userIP,
-      //  'pageUri' => $URL,
-      //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
-      //);
-      //do_action('wpfhubspot-send-form', $params );
+      if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ){
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
+        $params = array(
+          'nombre' => $wpfnombre,
+          'email' => $wpfemail,
+          'telefono' => $Telefono,
+          'donde' => $wpfubic,
+          'distancia' => $wpfdist,
+          'cuando' => $wpfcuando,
+          'destino' => $wpfdestino,
+          'ataud' => $wpfataud,
+          'velatorio' => $wpfvelatorio,
+          'ceremonia' => $wpfceremonia,
+          'referencia' => $wpfnewref,
+          'accion' => 'Datos usuario funerarias',
+          'ip' => $userIP,
+          'ok' => 'ok',
+          'hubspotutk' => $hubspotutk,
+          'pageUri' => $URL,
+          'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+        );
+        do_action('wpfhubspot-send-form', $params );
+        do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
+        //sleep(1);
+        //$params = array(
+        //  'email' => $wpfemail,
+        //  'ok' => 'ok',
+        //  'hubspotutk' => $hubspotutk,
+        //  'accion' => 'Datos usuario funerarias',
+        //  'ip' => $userIP,
+        //  'pageUri' => $URL,
+        //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+        //);
+        //do_action('wpfhubspot-send-form', $params );
 
-      do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
+      }
       //HUBSPOT
       //Última Búsqueda
       if( $_COOKIE['cookielawinfo-checkbox-functional'] == 'yes' ){
@@ -543,6 +540,14 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       die();
     }
 
+    if( apply_filters( 'wpfunos_pruebas_email', $email ) ){
+      $result['type'] = "pruebas@funos.es";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
     if( $transient_ref === false ){
       $result['type'] = "No transient";
@@ -566,6 +571,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       die();
     }
     $userIP = apply_filters('wpfunos_userIP','dummy');
+    do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Llegada ajax Servicio Boton llamen' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Ajax: wpfnombre ' .$transient_ref['wpfn'] );
@@ -735,7 +741,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // SMS
       if( strlen( get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
         do_action('wpfunos_log', '==============' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar SMS llamamos Servicio' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio SMS llamamos Servicio' );
         do_action('wpfunos_log', $userIP.' - 0501 '.'$Telefono: ' . get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
 
         $request = '{
@@ -776,11 +782,14 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
         $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
         //do_action('wpfunos_log', $userIP.' - 0501 '.'Body Respuesta: ' . $userAPIMessage  );
-
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio SMS' );
       }
       // SMS
     }//if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Llamamos') )
     //HUBSPOT
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
     $params = array(
       'nombre' => $nombre ,
@@ -811,7 +820,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     //do_action('wpfhubspot-send-form', $params );
 
     do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar Formulario Hubspot' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
     //HUBSPOT
 
     $result['type'] = "success";
@@ -854,6 +863,14 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       die();
     }
 
+    if( apply_filters( 'wpfunos_pruebas_email', $email ) ){
+      $result['type'] = "pruebas@funos.es";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+
     $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
     if( $transient_ref === false ){
       $result['type'] = "No transient";
@@ -877,6 +894,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       die();
     }
     $userIP = apply_filters('wpfunos_userIP','dummy');
+    do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Llegada ajax Servicio Boton llamar' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Ajax: wpfnombre ' .$transient_ref['wpfn'] );
@@ -1045,7 +1063,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // SMS
       if( strlen( get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
         do_action('wpfunos_log', '==============' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar SMS Llamar Servicio' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio SMS Llamar Servicio' );
         do_action('wpfunos_log', $userIP.' - 0501 '.'$Telefono: ' . get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
 
         $request = '{
@@ -1086,11 +1104,14 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
         $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
         //do_action('wpfunos_log', $userIP.' - 0501 '.'Body Respuesta: ' . $userAPIMessage  );
-
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio SMS' );
       }
       // SMS
     }//if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Llamar') )
     //HUBSPOT
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
     $params = array(
       'nombre' => $nombre ,
@@ -1121,7 +1142,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     //do_action('wpfhubspot-send-form', $params );
 
     do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar Formulario Hubspot' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
     //HUBSPOT
     $result['type'] = "success";
     $result['newref'] = $newref;
@@ -1164,6 +1185,15 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // don't forget to end your scripts with a die() function - very important
       die();
     }
+
+    if( apply_filters( 'wpfunos_pruebas_email', $email ) ){
+      $result['type'] = "pruebas@funos.es";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+
     //  EBG 03-11-22
     $transient_ref['wpfn'] = $nombre;
     $transient_ref['wpfe'] = $email;
@@ -1188,6 +1218,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     }
 
     $userIP = apply_filters('wpfunos_userIP','dummy');
+    do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Llegada ajax Servicio Boton Presupuesto' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Ajax: wpfnombre ' .$transient_ref['wpfn'] );
@@ -1358,7 +1389,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // SMS
       if( strlen( get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) ) > 1){
         do_action('wpfunos_log', '==============' );
-        do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar SMS Presupuesto Servicio' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio SMS Presupuesto Servicio' );
         do_action('wpfunos_log', $userIP.' - 0501 '.'$Telefono: ' . get_post_meta( $servicio, "wpfunos_servicioTelefonoSMS", true) );
 
         $request = '{
@@ -1399,11 +1430,14 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
         $userAPIMessage = apply_filters('wpfunos_dumplog', $SMS[body] );
         //do_action('wpfunos_log', $userIP.' - 0501 '.'Body Respuesta: ' . $userAPIMessage  );
-
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio SMS' );
       }
       // SMS
     }//if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Presupuesto') )
     //HUBSPOT
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
     $params = array(
       'nombre' => $nombre ,
@@ -1435,7 +1469,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     //do_action('wpfhubspot-send-form', $params );
 
     do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar Formulario Hubspot' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
     //HUBSPOT
     $result['type'] = "success";
     $result['newref'] = $newref;
@@ -1657,6 +1691,15 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       // don't forget to end your scripts with a die() function - very important
       die();
     }
+
+    if( apply_filters( 'wpfunos_pruebas_email', $email ) ){
+      $result['type'] = "pruebas@funos.es";
+      $result = json_encode($result);
+      echo $result;
+      // don't forget to end your scripts with a die() function - very important
+      die();
+    }
+
     //  EBG 03-11-22
     $transient_ref['wpfn'] = $nombre;
     $transient_ref['wpfe'] = $email;
@@ -1980,7 +2023,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $URL = home_url().'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
     $userURL = apply_filters('wpfunos_shortener', $URL );
 
-    if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Filtros') ){
+    if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Filtros') && ! apply_filters( 'wpfunos_pruebas_email', get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ) ) ){
       $contador = $this->wpfunosV3ContadorEntradas( $wpfip, '0' );
       switch((int)$wpfresp1){
         case 1: $wpfdestino = esc_html__('Entierro', 'wpfunos_es'); $hcampo = 'destino'; $hvalor = 'Entierro'; break;
@@ -2132,23 +2175,43 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     }
     //
     //HUBSPOT
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    //case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos_es'); $hcampo = 'ceremonia'; $hvalor = 'Ceremonia religiosa'; break;
+    $hvalor = 'ko';
+    if( $cambios == 'distancia') $hvalor = $valor;
+    if( $cambios == 'destino' && $wpfresp1 == '1' ) $hvalor = 'Entierro';
+    if( $cambios == 'destino' && $wpfresp1 == '2' ) $hvalor = 'Incineración';
+    if( $cambios == 'ataúd' && $wpfresp1 == '1' ) $hvalor = 'Ataúd medio';
+    if( $cambios == 'ataúd' && $wpfresp1 == '2' ) $hvalor = 'Ataúd económico';
+    if( $cambios == 'ataúd' && $wpfresp1 == '3' ) $hvalor = 'Ataúd premium';
+    if( $cambios == 'velatorio' && $wpfresp1 == '1' ) $hvalor = 'Velatorio';
+    if( $cambios == 'velatorio' && $wpfresp1 == '2' ) $hvalor = 'Sin velatorio';
+    if( $cambios == 'ceremonia' && $wpfresp1 == '1' ) $hvalor = 'Sin ceremonia';
+    if( $cambios == 'ceremonia' && $wpfresp1 == '2' ) $hvalor = 'Solo sala';
+    if( $cambios == 'ceremonia' && $wpfresp1 == '3' ) $hvalor = 'Ceremonia civil';
+    if( $cambios == 'ceremonia' && $wpfresp1 == '4' ) $hvalor = 'Ceremonia religiosa';
+    $hutknombre = ( $wpfidusuario == '0') ? 'Efraim Bayarri' : get_post_meta( $wpfidusuario, 'wpfunos_userName', true ) ;
+    $hutkemail = ( $wpfidusuario == '0') ? 'efraim@efraim.cat' : get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ) ;
+    $hutkphone = ( $wpfidusuario == '0') ? '690 07 44 97' : get_post_meta( $wpfidusuario, 'wpfunos_userPhone', true ) ;
     $params = array(
-      'nombre' => get_post_meta( $wpfidusuario, 'wpfunos_userName', true ),
-      'email' => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ),
-      'telefono' => get_post_meta( $wpfidusuario, 'wpfunos_userPhone', true ),
+      'nombre' => $hutknombre,
+      'email' => $hutkemail,
+      'telefono' => $hutkphone,
       'referencia' => $wpfnewref,
       'ok' => 'ok',
       'filtro' => $cambios,
       'accion' => 'Datos usuario funerarias filtros ' .$cambios,
-      $hcampo => $hvalor,
+      $cambios => $hvalor,
       'ip' => $userIP,
       'hubspotutk' => $hubspotutk,
       'pageUri' => 'https://funos.es/comparar-precios-resultados',
       'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
     );
-    do_action('wpfhubspot-send-form', $params );
-    do_action('wpfhubspot-usuarios',array( 'email' => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ), 'hubspotutk' => $hubspotutk ) );
+    $email = get_post_meta( $wpfidusuario, 'wpfunos_userMail', true );
+    if( ! apply_filters( 'wpfunos_pruebas_email', $email ) ) do_action('wpfhubspot-send-form', $params );
+    if( ! apply_filters( 'wpfunos_pruebas_email', $email ) ) do_action('wpfhubspot-usuarios',array( 'email' => $hutkemail, 'hubspotutk' => $hubspotutk ) );
     //sleep(1);
     //$params = array(
     //  'email' => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ),
@@ -2162,7 +2225,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     //do_action('wpfhubspot-send-form', $params );
 
     do_action('wpfunos_log', '==============' );
-    do_action('wpfunos_log', $userIP.' - 0501 '.'Enviar Formulario Hubspot' );
+    do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
     //HUBSPOT
 
     $result['type'] = "success";

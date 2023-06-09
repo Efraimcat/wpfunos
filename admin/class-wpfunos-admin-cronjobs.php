@@ -228,6 +228,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         email tinytext DEFAULT '' NOT NULL,
         ip tinytext DEFAULT '' NOT NULL,
         hubspotutk tinytext DEFAULT '' NOT NULL,
+        referencias mediumtext DEFAULT '' NOT NULL,
         PRIMARY KEY  (id)
       );";
 

@@ -51,10 +51,10 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
 
     if( "FormularioDatosAseguradoras" === $form_name ){
       if( $field = $this->wpfunos_elementor_get_field( 'nacimiento', $record ) ){
-        do_action('wpfunos_log', $userIP.' - 0101 '.'Validación nacimiento ' .$field['value'] );
+        //do_action('wpfunos_log', $userIP.' - 0101 '.'Validación nacimiento ' .$field['value'] );
         if( (int)$field['value'] < date("Y") - 100 || (int)$field['value'] > date("Y") - 18 ){
           $ajax_handler->add_error( $field['id'], esc_html__('Año de nacimiento inválido. Introduce tu año de nacimiento p.ej: 1990', 'wpfunos_es') );
-          do_action('wpfunos_log', $userIP.' - 0101 '.'Validación nacimiento: INCORRECTO' );
+          //do_action('wpfunos_log', $userIP.' - 0101 '.'Validación nacimiento: INCORRECTO' );
         }
       }
     }
@@ -111,6 +111,12 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
         $user   = $email[0];
         $domain = $email[1];
 
+        //if( $userIP == get_option( 'wpfunos_IpHubspot' ) && $field['value'] != get_option( 'wpfunos_EmailHubspot' ) && $_COOKIE['hubspotutk'] == get_option( 'wpfunos_UtkHubspot' ) ){
+        if( $userIP == get_option( 'wpfunos_IpHubspot' ) && $params["email"] != get_option( 'wpfunos_EmailHubspot' ) &&  stripos(get_option( 'wpfunos_UtkHubspot' ), $_COOKIE['hubspotutk'] ) !== false ){
+          $ajax_handler->add_error( $field['id'], esc_html__('Utiliza el modo incognito para hacer nuevas entradas o utiliza el correo "clientes@funos.es".', 'wpfunos_es') );
+          do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: INCORRECTO (Alejandro)' );
+        }
+
         if ( strlen( $user ) < 4 ){
           $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
           do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: INCORRECTO (nombre)' );
@@ -126,18 +132,13 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
           do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: INCORRECTO (dns)' );
         }
 
-        if ( 'clientes@funos.es' == $field['value']) {
-          //  $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
-          //  do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: INCORRECTO (clientes)' );
-        }
+        //$request_context = stream_context_create( array( 'http' => array( 'header'  => "Authorization: Bearer " . 'c6a7df9e-a854-48a6-a555-79c6fdcdf47d' ) ));
+        //$result_json = file_get_contents("https://isitarealemail.com/api/email/validate?email=" . $field['value'], false, $request_context);
 
-        $request_context = stream_context_create( array( 'http' => array( 'header'  => "Authorization: Bearer " . 'c6a7df9e-a854-48a6-a555-79c6fdcdf47d' ) ));
-        $result_json = file_get_contents("https://isitarealemail.com/api/email/validate?email=" . $field['value'], false, $request_context);
-
-        if (json_decode($result_json, true)['status'] == "invalid") {
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
-          do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: INCORRECTO (Real Email)' );
-        }
+        //if (json_decode($result_json, true)['status'] == "invalid") {
+        //  $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
+        //  do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: INCORRECTO (Real Email)' );
+        //}
 
         if ( 'arjona400@gmail.com' == $field['value']) {
           $ajax_handler->add_error( $field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es') );
@@ -181,7 +182,7 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
 
         if( apply_filters('wpfunos_bloqueo_tels',$telefono) ){
           $ajax_handler->add_error( $field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es') );
-          do_action('wpfunos_log', $userIP.' - 0101 '.'Validación teléfono: INCORRECTO' );
+          do_action('wpfunos_log', $userIP.' - 0101 '.'Validación teléfono: INVALIDO' );
         }
 
         //if ( 1 !== preg_match( '/^[9|8|6|7][0-9]{8}$/', $telefono ) ) {

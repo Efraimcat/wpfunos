@@ -321,6 +321,7 @@ class Wpfunos_Aseguradoras {
     $telefono = sanitize_text_field( str_replace( array( '-', '+34', ' ' ), '', get_post_meta( $usuario, 'wpfunos_userPhone', true ) ) );
 
     $email = get_post_meta( $usuario, 'wpfunos_userMail', true );
+    if( apply_filters( 'wpfunos_pruebas_email', $email ) ) return;
 
     $api = get_post_meta( $servicio, 'wpfunos_aseguradorasAPI', true );
 
@@ -465,6 +466,7 @@ class Wpfunos_Aseguradoras {
         'IDstamp' => $_COOKIE['wpfid'],
         'wpfunos_userLog' => $log,
         'wpfunos_userMobile' => $mobile,
+        'wpfunos_userHubspotUTK' => $_COOKIE['hubspotutk'],
       ),
     );
 
@@ -603,6 +605,9 @@ class Wpfunos_Aseguradoras {
     $referencia = $_GET['referencia'];
     $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
 
+    $email =  get_post_meta( $IDusuario, 'wpfunos_userMail' , true );
+    if( apply_filters( 'wpfunos_pruebas_email', $email ) ) return;
+
     $log = (is_user_logged_in()) ? 'logged' : 'not logged';
     $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
     do_action('wpfunos_log', '==============' );
@@ -618,6 +623,31 @@ class Wpfunos_Aseguradoras {
       // Desactivar para pruebas
       if( site_url() === 'https://funos.es'){
         $this->wpfunosAPIAseguradora( $IDusuario, 39084, 'Cold Lead', "" );
+        //HUBSPOT
+        $hubspotutk = sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userHubspotUTK' , true ));
+        if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0200 '.'Prepara envio Hubspot' );
+        $params = array(
+          'nombre' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userName' , true )),
+          'email' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userMail' , true )),
+          'telefono' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userPhone' , true )),
+          'donde' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionUbicacion' , true )),
+          'accion' => 'Datos usuario aseguradoras Cold Lead',
+          'ip' => $userIP,
+          'ok' => 'ok',
+          'hubspotutk' => $hubspotutk,
+          'pageUri' => 'https://funos.es/compara-precios-aseguradoras',
+          'pageId' => 'Compara Precios Aseguradoras y Planes Funerarios - Funos - Comparador de Funerarias'
+        );
+        do_action('wpfhubspot-send-form', $params );
+        do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
+
+        do_action('wpfunos_log', '==============' );
+        do_action('wpfunos_log', $userIP.' - 0200 '.'Finaliza envio formulario Hubspot' );
+        //HUBSPOT
+
       }
 
     }
@@ -632,6 +662,10 @@ class Wpfunos_Aseguradoras {
     $userIP = apply_filters('wpfunos_userIP','dummy');
     $referencia = $_GET['referencia'];
     $IDusuario = apply_filters('wpfunos_userID', $_GET['referencia'] );
+
+    $email = get_post_meta( $IDusuario, 'wpfunos_userMail', true );
+    if( apply_filters( 'wpfunos_pruebas_email', $email ) ) return;
+
     if ($IDusuario != 0){
       $headers[] = 'Content-Type: text/html; charset=UTF-8';
       $headers[] = 'From: funos <clientes@funos.es>';
@@ -717,6 +751,30 @@ class Wpfunos_Aseguradoras {
     }
 
     $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje, "Llamamos" );
+    //HUBSPOT
+    $hubspotutk = sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userHubspotUTK' , true ));
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'Prepara envio Hubspot' );
+    $params = array(
+      'nombre' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userName' , true )),
+      'email' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userMail' , true )),
+      'telefono' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userPhone' , true )),
+      'donde' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userNombreSeleccionUbicacion' , true )),
+      'accion' => 'Datos usuario aseguradoras llamamos',
+      'ip' => $IP,
+      'ok' => 'ok',
+      'hubspotutk' => $hubspotutk,
+      'pageUri' => 'https://funos.es/compara-precios-aseguradoras',
+      'pageId' => 'Compara Precios Aseguradoras y Planes Funerarios - Funos - Comparador de Funerarias'
+    );
+    do_action('wpfhubspot-send-form', $params );
+    do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
+
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'Finaliza envio formulario Hubspot' );
+    //HUBSPOT
 
     $result['type'] = "success";
     $result['respuesta'] = $respuesta;
@@ -753,6 +811,30 @@ class Wpfunos_Aseguradoras {
     }
 
     $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje, "Presupuesto" );
+    //HUBSPOT
+    $hubspotutk = sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userHubspotUTK' , true ));
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'Prepara envio Hubspot' );
+    $params = array(
+      'nombre' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userName' , true )),
+      'email' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userMail' , true )),
+      'telefono' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userPhone' , true )),
+      'donde' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userNombreSeleccionUbicacion' , true )),
+      'accion' => 'Datos usuario aseguradoras presupuesto',
+      'ip' => $IP,
+      'ok' => 'ok',
+      'hubspotutk' => $hubspotutk,
+      'pageUri' => 'https://funos.es/compara-precios-aseguradoras',
+      'pageId' => 'Compara Precios Aseguradoras y Planes Funerarios - Funos - Comparador de Funerarias'
+    );
+    do_action('wpfhubspot-send-form', $params );
+    do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
+
+    do_action('wpfunos_log', '==============' );
+    do_action('wpfunos_log', $userIP.' - 0200 '.'Finaliza envio formulario Hubspot' );
+    //HUBSPOT
 
     $result['type'] = "success";
     $result['respuesta'] = $respuesta;

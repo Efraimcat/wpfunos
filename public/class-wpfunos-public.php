@@ -152,6 +152,8 @@ class Wpfunos_Public {
       $fields[ $id ] = $field['value'];
     }
 
+    if( apply_filters( 'wpfunos_pruebas_email', $fields['email'] ) ) return;
+
     if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name ){
 
       //https://funoslink.net/decM
@@ -233,6 +235,8 @@ class Wpfunos_Public {
       }
       //HUBSPOT
       global $wp;
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Prepara envio Hubspot' );
       if( "TeLlamamosGratisLandings" == $form_name ) $accion = 'Te llamamos gratis Landings';
       if( "AsesoramientoGratuito" == $form_name ) $accion = 'Asesoramiento gratuito';
       if( "TeLlamamosGratis" == $form_name ) $accion = 'Te llamamos gratis';
@@ -241,6 +245,7 @@ class Wpfunos_Public {
         'nombre' => $fields['Nombre'],
         'email' => $fields['email'],
         'telefono' => $fields['telefono'],
+        'mensaje' => $fields['mensaje'],
         'ok' => 'ok',
         'accion' => $accion,
         'ip' => $userIP,
@@ -263,7 +268,7 @@ class Wpfunos_Public {
       //do_action('wpfhubspot-send-form', $params2 );
 
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - 0100 '.'Enviar Formulario Hubspot' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Finaliza envio formulario Hubspot' );
       //HUBSPOT
     }// if( "TeLlamamosGratisLandings" == $form_name || "AsesoramientoGratuito" == $form_name || "TeLlamamosGratis" == $form_name )
 
@@ -365,6 +370,9 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - 0100 '.'Post ID: ' .  $post_id  );
       do_action('wpfunos_log', $userIP.' - 0100 '.'referencia: ' . $fields['referencia'] );
       do_action('wpfunos_log', $userIP.' - 0100 '.'Telefono: ' . $fields['telefono'] );
+      //HUBSPOT
+
+      //HUBSPOT
     }// if( $form_name == 'FormularioDatosAseguradoras' )
 
 
@@ -606,6 +614,8 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - 0100 '.'Servicio ' . $servicio );
 
       //HUBSPOT
+      do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Prepara envio Hubspot' );
       $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
       $params = array(
         'nombre' => sanitize_text_field( $transient_ref['wpfn'] ) ,
@@ -638,7 +648,7 @@ class Wpfunos_Public {
 
 
       do_action('wpfunos_log', '==============' );
-      do_action('wpfunos_log', $userIP.' - 0100 '.'Enviar Formulario Hubspot' );
+      do_action('wpfunos_log', $userIP.' - 0100 '.'Finaliza envio formulario Hubspot' );
       //HUBSPOT
     }//if( $form_name == 'PaginaFinanciacion' )
 
