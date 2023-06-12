@@ -1,3 +1,4 @@
+// /compara-precios-aseguradoras?address
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){

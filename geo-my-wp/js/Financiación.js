@@ -1,3 +1,4 @@
+// /financiacion-funeral
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){

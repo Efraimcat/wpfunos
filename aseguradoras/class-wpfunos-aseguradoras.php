@@ -623,6 +623,8 @@ class Wpfunos_Aseguradoras {
       // Desactivar para pruebas
       if( site_url() === 'https://funos.es'){
         $this->wpfunosAPIAseguradora( $IDusuario, 39084, 'Cold Lead', "" );
+        $seleccion = get_post_meta( $IDusuario, 'wpfunos_userSeleccion', true );
+        $respuesta = (explode(',',$seleccion));
         //HUBSPOT
         $hubspotutk = sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userHubspotUTK' , true ));
         if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
@@ -630,19 +632,20 @@ class Wpfunos_Aseguradoras {
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - 0200 '.'Prepara envio Hubspot' );
         $params = array(
-          'nombre' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userName' , true )),
+          'firstname' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userName' , true )),
           'email' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userMail' , true )),
-          'telefono' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userPhone' , true )),
+          'phone' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userPhone' , true )),
           'donde' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userNombreSeleccionUbicacion' , true )),
           'accion' => 'Datos usuario aseguradoras Cold Lead',
           'ip' => $userIP,
+          'nacimiento' => $respuesta[3],
           'ok' => 'ok',
           'hubspotutk' => $hubspotutk,
           'pageUri' => 'https://funos.es/compara-precios-aseguradoras',
           'pageId' => 'Compara Precios Aseguradoras y Planes Funerarios - Funos - Comparador de Funerarias'
         );
         do_action('wpfhubspot-send-form', $params );
-        do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
+        do_action('wpfhubspot-usuarios',array( 'email' => sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userMail' , true )), 'hubspotutk' => $hubspotutk ) );
 
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - 0200 '.'Finaliza envio formulario Hubspot' );
@@ -754,23 +757,26 @@ class Wpfunos_Aseguradoras {
     //HUBSPOT
     $hubspotutk = sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userHubspotUTK' , true ));
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    $seleccion = get_post_meta( $usuario, 'wpfunos_userSeleccion', true );
+    $respuesta = (explode(',',$seleccion));
 
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0200 '.'Prepara envio Hubspot' );
     $params = array(
-      'nombre' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userName' , true )),
+      'firstname' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userName' , true )),
       'email' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userMail' , true )),
-      'telefono' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userPhone' , true )),
+      'phone' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userPhone' , true )),
       'donde' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userNombreSeleccionUbicacion' , true )),
       'accion' => 'Datos usuario aseguradoras llamamos',
       'ip' => $IP,
+      'nacimiento' => $respuesta[3],
       'ok' => 'ok',
       'hubspotutk' => $hubspotutk,
       'pageUri' => 'https://funos.es/compara-precios-aseguradoras',
       'pageId' => 'Compara Precios Aseguradoras y Planes Funerarios - Funos - Comparador de Funerarias'
     );
     do_action('wpfhubspot-send-form', $params );
-    do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
+    do_action('wpfhubspot-usuarios',array( 'email' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userMail' , true )), 'hubspotutk' => $hubspotutk ) );
 
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0200 '.'Finaliza envio formulario Hubspot' );
@@ -814,23 +820,26 @@ class Wpfunos_Aseguradoras {
     //HUBSPOT
     $hubspotutk = sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userHubspotUTK' , true ));
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    $seleccion = get_post_meta( $usuario, 'wpfunos_userSeleccion', true );
+    $respuesta = (explode(',',$seleccion));
 
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0200 '.'Prepara envio Hubspot' );
     $params = array(
-      'nombre' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userName' , true )),
+      'firstname' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userName' , true )),
       'email' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userMail' , true )),
-      'telefono' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userPhone' , true )),
+      'phone' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userPhone' , true )),
       'donde' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userNombreSeleccionUbicacion' , true )),
       'accion' => 'Datos usuario aseguradoras presupuesto',
       'ip' => $IP,
+      'nacimiento' => $respuesta[3],
       'ok' => 'ok',
       'hubspotutk' => $hubspotutk,
       'pageUri' => 'https://funos.es/compara-precios-aseguradoras',
       'pageId' => 'Compara Precios Aseguradoras y Planes Funerarios - Funos - Comparador de Funerarias'
     );
     do_action('wpfhubspot-send-form', $params );
-    do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
+    do_action('wpfhubspot-usuarios',array( 'email' => sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userMail' , true )), 'hubspotutk' => $hubspotutk ) );
 
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0200 '.'Finaliza envio formulario Hubspot' );

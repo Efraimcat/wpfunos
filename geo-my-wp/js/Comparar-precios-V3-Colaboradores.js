@@ -1,3 +1,4 @@
+//  	/comparar-precios-resultados
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){

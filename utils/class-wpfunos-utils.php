@@ -563,6 +563,7 @@ class Wpfunos_Utils {
       "611789307",
       "612532541",
       "616306397",
+      "619665325",
       "627499881",
       "630069601",
       "641518907",
@@ -596,6 +597,7 @@ class Wpfunos_Utils {
   public function wpfbloqueoTels( $numero ){
     $bloqueos = array(
       "000000000",
+      "01.28.72.96.62",
       "111111111",
       "222222222",
       "333333333",
@@ -636,6 +638,7 @@ class Wpfunos_Utils {
     $bloqueos = array(
       "Eric Jones",
       "hola",
+      "Howard Alpert",
       "Nidia Tickell",
       "pepito",
     );
@@ -659,6 +662,7 @@ class Wpfunos_Utils {
       "abel@gmail.com",
       "alejandro@gmail.com",
       "alex@gmail.com",
+      "alpert.howard@gmail.com",
       "asd@gmail.com",
       "camilo@hotmail.com",
       "daniel@gmail.com",

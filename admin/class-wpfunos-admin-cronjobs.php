@@ -123,6 +123,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin {
         wpfnon varchar(10) DEFAULT '' NOT NULL,
         wpfoth varchar(10) DEFAULT '' NOT NULL,
         wpfper varchar(10) DEFAULT '' NOT NULL,
+        hutk varchar(50) DEFAULT '' NOT NULL,
         PRIMARY KEY  (id)
       );";
 

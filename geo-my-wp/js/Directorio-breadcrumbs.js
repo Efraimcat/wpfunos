@@ -1,3 +1,4 @@
+//   All Website
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){

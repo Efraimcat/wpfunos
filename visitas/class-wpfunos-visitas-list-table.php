@@ -50,6 +50,7 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
       'wpfnon' => __( 'wpfnon', 'wpfunos' ),
       'wpfoth' => __( 'wpfoth', 'wpfunos' ),
       'wpfper' => __( 'wpfper', 'wpfunos' ),
+      'hutk' => __( 'hutk', 'wpfunos' ),
       'contador' => __( 'contador', 'wpfunos' ),
     );
     return $table_columns;
@@ -175,7 +176,8 @@ class Wpfunos_Visitas_List_Table extends WP_List_Table {
   */
   public function column_default( $item, $column_name ) {
     switch ( $column_name ) {
-      case 'referer': return substr( $item[$column_name],0,50 );
+      case 'referer': return substr( $item[$column_name],0,50 );break;
+      case 'hutk': if( strlen ($item[$column_name]) > 1) return substr( $item[$column_name],0,10 ).'..';break;
       //		case 'user_registered':
       //		case 'ID':
       //			return $item[$column_name];

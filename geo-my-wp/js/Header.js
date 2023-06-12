@@ -1,3 +1,4 @@
+// All Website
 document.addEventListener('readystatechange', () => {
 	const headerTop = document.getElementById('wpfunos-header-bot')
 	document.addEventListener('scroll', () => {

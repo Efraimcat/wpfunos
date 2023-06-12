@@ -1,4 +1,5 @@
 
+//  	/comparar-precios-resultados
 $ = jQuery.noConflict();
 $(document).ready(function(){
   setInterval(function() {

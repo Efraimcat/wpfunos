@@ -1,3 +1,5 @@
+//  	/comparar-precios-nueva
+//    /ca/comparar-preus
 $ = jQuery.noConflict();
 $(document).ready(function(){
   $(function(){

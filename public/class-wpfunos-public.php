@@ -242,9 +242,9 @@ class Wpfunos_Public {
       if( "TeLlamamosGratis" == $form_name ) $accion = 'Te llamamos gratis';
       $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
       $params = array(
-        'nombre' => $fields['Nombre'],
+        'firstname' => $fields['Nombre'],
         'email' => $fields['email'],
-        'telefono' => $fields['telefono'],
+        'phone' => $fields['telefono'],
         'mensaje' => $fields['mensaje'],
         'ok' => 'ok',
         'accion' => $accion,
@@ -345,6 +345,7 @@ class Wpfunos_Public {
           'IDstamp' => $_COOKIE[ 'wpfid' ],
           'wpfunos_userLog' => $log,
           'wpfunos_userMobile' => $mobile,
+          'wpfunos_userHubspotUTK' => $_COOKIE['hubspotutk'],
         ),
       );
       $post_id = wp_insert_post($my_post);
@@ -354,7 +355,7 @@ class Wpfunos_Public {
         'tipo' => '2',
         'nombre' => sanitize_text_field( $fields['Nombre'] ),
         'email' => sanitize_text_field( $fields['email'] ),
-        'telefono' => sanitize_text_field( $fields['telefono'] ),
+        'phone' => sanitize_text_field( $fields['telefono'] ),
         'postID' => $post_id,
         'poblacion' => sanitize_text_field( $fields['address'] ),
         'nacimiento' => sanitize_text_field( $fields['nacimiento'] ),
@@ -452,6 +453,7 @@ class Wpfunos_Public {
             'wpfunos_Dummy' => true,
             'wpfunos_userLog' => $log,
             'wpfunos_userMobile' => $mobile,
+            'wpfunos_userHubspotUTK' => $_COOKIE['hubspotutk'],
           ),
         );
 
@@ -608,6 +610,7 @@ class Wpfunos_Public {
       $transient_ref = get_transient('wpfunos-wpfref-v3-' .$IP );
 
       do_action('wpfunos_log', '==============' );
+      do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - 0100 '.'Servicio Botón Fininaciación' );
       do_action('wpfunos_log', $userIP.' - 0100 '.'Servicio titulo: ' . $servicio );
       do_action('wpfunos_log', $userIP.' - 0100 '.'$IDusuario: ' . $IDusuario );
@@ -618,9 +621,9 @@ class Wpfunos_Public {
       do_action('wpfunos_log', $userIP.' - 0100 '.'Prepara envio Hubspot' );
       $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
       $params = array(
-        'nombre' => sanitize_text_field( $transient_ref['wpfn'] ) ,
-        'email' => sanitize_text_field( $transient_ref['wpfe'] ),
-        'telefono' => sanitize_text_field( $transient_ref['wpft'] ),
+        'firstname' => sanitize_text_field( $fields['Nombre'] ) ,
+        'email' => sanitize_text_field( $fields['email'] ),
+        'phone' => sanitize_text_field( $fields['telefono'] ),
         'ok' => 'ok',
         'accion' => 'Datos usuario funerarias financiación',
         'servicio' => $servicio,
@@ -694,6 +697,7 @@ class Wpfunos_Public {
     $wpfnon = ( isset( $_COOKIE['cookielawinfo-checkbox-non-necessary'] ) ) ? $_COOKIE['cookielawinfo-checkbox-non-necessary'] : '' ;
     $wpfoth = ( isset( $_COOKIE['cookielawinfo-checkbox-others'] ) ) ?        $_COOKIE['cookielawinfo-checkbox-others'] : '' ;
     $wpfper = ( isset( $_COOKIE['cookielawinfo-checkbox-performance'] ) ) ?   $_COOKIE['cookielawinfo-checkbox-performance'] : '' ;
+    $hutk = ( isset( $_COOKIE['hubspotutk'] ) ) ?   $_COOKIE['hubspotutk'] : '' ;
 
     // [REQUIRED] define $items array
     // notice that last argument is ARRAY_A, so we will retrieve array
@@ -729,7 +733,7 @@ class Wpfunos_Public {
         'wpfnec' => $wpfnec,
         'wpfnon' => $wpfnon,
         'wpfoth' => $wpfoth,
-        'wpfper' => $wpfper,
+        'hutk' => $hutk,
         'contador' => $contador,
       )
     );

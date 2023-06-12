@@ -66,6 +66,14 @@ add_settings_field(
   'wpfunos_direccionesip_section',
   array('type' => 'input','subtype' => 'text','id' => 'wpfunos_UtkHubspot','name' => 'wpfunos_UtkHubspot','required' => 'true','get_options_list' => '','value_type' => 'normal','size' => 120,'wp_data' => 'option')
 );
+add_settings_field(
+  'wpfunos_HubspotEmailNo',
+  'Email no registrados Hubspot<h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_HubspotEmailNo)</h6><h6 style="font-weight: 400;font-size: 12px;">Lista de correos separadas mediante comas</h6>',
+  array( $this, 'wpfunos_render_settings_field' ),
+  'wpfunos_DireccionesIP_settings',
+  'wpfunos_direccionesip_section',
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_HubspotEmailNo','name' => 'wpfunos_HubspotEmailNo','required' => 'true','get_options_list' => '','value_type' => 'normal','size' => 120,'wp_data' => 'option')
+);
 
 register_setting('wpfunos_DireccionesIP_settings', 'wpfunos_DireccionesIPDesarrollo');
 register_setting('wpfunos_DireccionesIP_settings', 'wpfunos_DireccionesColaboradores');
@@ -73,3 +81,4 @@ register_setting('wpfunos_DireccionesIP_settings', 'wpfunos_DireccionesPruebas')
 register_setting('wpfunos_DireccionesIP_settings', 'wpfunos_EmailHubspot');
 register_setting('wpfunos_DireccionesIP_settings', 'wpfunos_IpHubspot');
 register_setting('wpfunos_DireccionesIP_settings', 'wpfunos_UtkHubspot');
+register_setting('wpfunos_DireccionesIP_settings', 'wpfunos_HubspotEmailNo');

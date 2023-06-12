@@ -409,9 +409,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
         $params = array(
-          'nombre' => $wpfnombre,
+          'firstname' => $wpfnombre,
           'email' => $wpfemail,
-          'telefono' => $Telefono,
+          'phone' => $Telefono,
           'donde' => $wpfubic,
           'distancia' => $wpfdist,
           'cuando' => $wpfcuando,
@@ -792,9 +792,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
     $params = array(
-      'nombre' => $nombre ,
+      'firstname' => $nombre ,
       'email' => $email,
-      'telefono' => $phone,
+      'phone' => $phone,
       'ok' => 'ok',
       'accion' => 'Datos usuario funerarias llamamos',
       'servicio' => $titulo,
@@ -1114,9 +1114,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
     $params = array(
-      'nombre' => $nombre ,
+      'firstname' => $nombre ,
       'email' => $email,
-      'telefono' => $phone,
+      'phone' => $phone,
       'ok' => 'ok',
       'accion' => 'Datos usuario funerarias llamar',
       'servicio' => $titulo,
@@ -1440,9 +1440,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
     $params = array(
-      'nombre' => $nombre ,
+      'firstname' => $nombre ,
       'email' => $email,
-      'telefono' => $phone,
+      'phone' => $phone,
       'mensaje' => $mensajeusuario,
       'ok' => 'ok',
       'accion' => 'Datos usuario funerarias Presupuesto',
@@ -2196,9 +2196,9 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $hutkemail = ( $wpfidusuario == '0') ? 'efraim@efraim.cat' : get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ) ;
     $hutkphone = ( $wpfidusuario == '0') ? '690 07 44 97' : get_post_meta( $wpfidusuario, 'wpfunos_userPhone', true ) ;
     $params = array(
-      'nombre' => $hutknombre,
+      'firstname' => $hutknombre,
       'email' => $hutkemail,
-      'telefono' => $hutkphone,
+      'phone' => $hutkphone,
       'referencia' => $wpfnewref,
       'ok' => 'ok',
       'filtro' => $cambios,
