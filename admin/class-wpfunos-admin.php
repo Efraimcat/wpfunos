@@ -213,10 +213,10 @@ class Wpfunos_Admin {
   */
   public function addPluginAdminMenu() {
     //add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
-    add_menu_page( 'Comparador', 'Índice comparador', 'administrator', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Comparador', 'Índice comparador', 'funos_comparador', $this->plugin_name, array( $this, 'display_plugin_admin_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     add_menu_page( 'Configuración', 'Índice configuración', 'administrator', 'wpfunosconfig', array( $this, 'display_plugin_admin_config_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'Landings Población', 'Índice landings población', 'editorlandings', 'wpfunosprecios_poblacion', array( $this, 'display_plugin_admin_precios_poblacion_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
-    add_menu_page( 'Directorio', 'Índice Directorio', 'editorlandings','wpfunos_directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Landings Población', 'Índice landings población', 'funos_landings', 'wpfunosprecios_poblacion', array( $this, 'display_plugin_admin_precios_poblacion_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
+    add_menu_page( 'Directorio', 'Índice Directorio', 'funos_directorio','wpfunos_directorio', array( $this, 'display_plugin_admin_directorio_dashboard' ), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26 );
     // add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', 'wpfunos-settings', array( $this, 'displayPluginAdminSettings' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', 'wpfunos-aseguradoras', array( $this, 'displayPluginAdminAseguradoras' ));
@@ -227,7 +227,7 @@ class Wpfunos_Admin {
     //add_submenu_page( 'wpfunosconfig', esc_html__('Configuración API Clientify WpFunos', 'wpfunos'), esc_html__('Configuración API Clientify', 'wpfunos'), 'administrator', 'wpfunos-APIClientify', array( $this, 'displayPluginAdminAPIClientify' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Configuración Direcciones IP WpFunos', 'wpfunos'), esc_html__('Configuración Direcciones IP', 'wpfunos'), 'administrator', 'wpfunos-direccionesIP', array( $this, 'displayPluginAdminDireccionesIP' ));
     add_submenu_page( 'wpfunosconfig', esc_html__('Logs WpFunos', 'wpfunos'), esc_html__('Logs', 'wpfunos'), 'administrator', 'wpfunos-logs', array( $this, 'displayPluginAdminLogs' ));
-    add_submenu_page( 'wpfunosprecios_poblacion', esc_html__('Configuración precios población WpFunos', 'wpfunos'), esc_html__('Configuración precios población', 'wpfunos'), 'administrator', 'wpfunos-settingspreciospoblacion', array( $this, 'displayPreciosPoblacionSettings' ));
+    add_submenu_page( 'wpfunosprecios_poblacion', esc_html__('Configuración precios población WpFunos', 'wpfunos'), esc_html__('Configuración precios población', 'wpfunos'), 'funos_landings', 'wpfunos-settingspreciospoblacion', array( $this, 'displayPreciosPoblacionSettings' ));
     add_submenu_page( 'wpfunos_directorio', esc_html__('Import-Export Directorio', 'wpfunos'), esc_html__('Import-Export', 'wpfunos'), 'administrator', 'wpfunos-import-export-directorio', array( $this, 'displayImportExportDirectorio' ));
   }
 

@@ -88,18 +88,27 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
       //Nombre
       if( $field = $this->wpfunos_elementor_get_field( 'Nombre', $record ) ){
         do_action('wpfunos_log', $userIP.' - 0101 '.'Validación Nombre: ' .$field['value'] );
+        $nombreyapellidos  = explode(' ', $field['value']);
+        $nombre = $nombreyapellidos[0];
+        $apellidos =  trim( substr( $field['value'] , strlen($nombre) ) );
+
+        if( $apellidos == '' ){
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce los apellidos también', 'wpfunos_es') );
+          do_action('wpfunos_log', $userIP.' - 0101 '.'Validación Nombre: INCORRECTO (sin apellidos)' );
+        }
+
         if( preg_match_all('/[aeiou]/i',$field['value'],$matches) == 0 ){
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un nombre válido', 'wpfunos_es') );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce nombre y apellidos válidos', 'wpfunos_es') );
           do_action('wpfunos_log', $userIP.' - 0101 '.'Validación Nombre: INCORRECTO (vocales)' );
         }
 
         if( strlen( $field['value']) < 4 ){
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un nombre válido', 'wpfunos_es') );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce nombre y apellidos válidos', 'wpfunos_es') );
           do_action('wpfunos_log', $userIP.' - 0101 '.'Validación Nombre: INCORRECTO (corto)' );
         }
 
         if( apply_filters('wpfunos_bloqueo_nombre',$field['value']) ){
-          $ajax_handler->add_error( $field['id'], esc_html__('Introduce un nombre válido', 'wpfunos_es') );
+          $ajax_handler->add_error( $field['id'], esc_html__('Introduce nombre y apellidos válidos', 'wpfunos_es') );
           do_action('wpfunos_log', $userIP.' - 0101 '.'Validación Nombre: INCORRECTO (inválido)' );
         }
 
@@ -114,21 +123,15 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
         $domain = $email[1];
 
         //if( $userIP == get_option( 'wpfunos_IpHubspot') && stripos(get_option( 'wpfunos_UtkHubspot' ), $_COOKIE['hubspotutk'] ) !== false ){
-        if(
-          stripos( get_option( 'wpfunos_IpHubspot' ), $userIP ) !== false  &&
-          stripos( get_option( 'wpfunos_UtkHubspot' ), $_COOKIE['hubspotutk'] ) !== false
-        ){
-          if ( is_user_logged_in() ) {
-            do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: Alejandro conectado.' );
-          }else{
-            do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: Alejandro sin conectar.' );
-          }
-          global $wpdb;
-          $table_name = $wpdb->prefix . 'wpf_hubspotusers';
-          $results = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE email = %s", $field['value'] ), ARRAY_A);
-          if ( !is_array( $results ) ) {
-            $ajax_handler->add_error( $field['id'], esc_html__('Correo sin registrar. Utiliza el modo incognito para hacer esta entrada.', 'wpfunos_es') );
-            do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: INCORRECTO (Alejandro)' );
+        if( stripos( get_option( 'wpfunos_IpHubspot' ), $userIP ) !== false  &&  is_user_logged_in() ){
+          if( $field['id'] != 'pruebas@funos.es' ){
+            global $wpdb;
+            $table_name = $wpdb->prefix . 'wpf_hubspotusers';
+            $results = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $table_name WHERE email = %s", $field['value'] ), ARRAY_A);
+            if( is_null($results) || !empty($wpdb->last_error) ) {
+              $ajax_handler->add_error( $field['id'], esc_html__('Correo sin registrar. Utiliza el modo incógnito, sin login, para hacer esta entrada.', 'wpfunos_es') );
+              do_action('wpfunos_log', $userIP.' - 0101 '.'Validación email: INCORRECTO (Colaborador)' );
+            }
           }
         }
 

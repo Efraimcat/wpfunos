@@ -405,14 +405,31 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         // SMS
       }// END if( ! apply_filters('wpfunos_reserved_email','wpfunosV3Multiform') )
       //HUBSPOT
+      $provincia = 'Desconocida';
+      $codigo_provincia = substr( $wpfcp, 0, 2 );
+      $args = array(
+        'post_type' => 'provincias_wpfunos',
+        'meta_key' =>  'wpfunos_provinciasCodigo',
+        'meta_value' => $codigo_provincia,
+      );
+      $post_list = get_posts( $args );
+      if( $post_list ){
+        foreach ( $post_list as $post ){
+          $provincia =  get_post_meta( $post->ID, 'wpfunos_provinciasProvincia', true );
+        }
+      }
+      //
+      //
       if( ! apply_filters( 'wpfunos_pruebas_email', $wpfemail ) ){
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
+        $phone =  apply_filters('wpfunos_telefono_formateado_hubspot',$Telefono );
         $params = array(
           'firstname' => $wpfnombre,
           'email' => $wpfemail,
-          'phone' => $Telefono,
+          'phone' => $phone,
           'donde' => $wpfubic,
+          'provincia' => $provincia,
           'distancia' => $wpfdist,
           'cuando' => $wpfcuando,
           'destino' => $wpfdestino,
@@ -422,24 +439,12 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
           'referencia' => $wpfnewref,
           'accion' => 'Datos usuario funerarias',
           'ip' => $userIP,
-          'ok' => 'ok',
           'hubspotutk' => $hubspotutk,
           'pageUri' => $URL,
           'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
         );
         do_action('wpfhubspot-send-form', $params );
         do_action('wpfhubspot-usuarios',array( 'email' => $wpfemail, 'hubspotutk' => $hubspotutk ) );
-        //sleep(1);
-        //$params = array(
-        //  'email' => $wpfemail,
-        //  'ok' => 'ok',
-        //  'hubspotutk' => $hubspotutk,
-        //  'accion' => 'Datos usuario funerarias',
-        //  'ip' => $userIP,
-        //  'pageUri' => $URL,
-        //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
-        //);
-        //do_action('wpfhubspot-send-form', $params );
 
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
@@ -791,13 +796,21 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    $tel =  apply_filters('wpfunos_telefono_formateado_hubspot',$phone );
     $params = array(
       'firstname' => $nombre ,
       'email' => $email,
-      'phone' => $phone,
-      'ok' => 'ok',
+      'phone' => $tel,
       'accion' => 'Datos usuario funerarias llamamos',
       'servicio' => $titulo,
+
+      'serviciotitulo' =>  get_the_title( $servicio ),
+      'servicioempresa' => get_post_meta( $servicio, 'wpfunos_servicioEmpresa', true ),
+      'serviciotelefono' => get_post_meta( $servicio, 'wpfunos_servicioTelefono', true ),
+      'serviciopoblacion' => get_post_meta( $servicio, 'wpfunos_servicioPoblacion', true ),
+      'servicioprovincia' => get_post_meta( $servicio, 'wpfunos_servicioProvincia', true ),
+      'serviciodireccion' => get_post_meta( $servicio, 'wpfunos_servicioDireccion', true ),
+
       'precio' => $precio,
       'ip' => $userIP,
       'referencia' => $newref,
@@ -807,17 +820,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     );
     do_action('wpfhubspot-send-form', $params );
     do_action('wpfhubspot-usuarios',array( 'email' => $email, 'hubspotutk' => $hubspotutk ) );
-    //sleep(1);
-    //$params = array(
-    //  'email' => $email,
-    //  'ip' => $userIP,
-    //  'ok' => 'ok',
-    //  'hubspotutk' => $hubspotutk,
-    //  'accion' => 'Datos usuario funerarias llamamos',
-    //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
-    //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
-    //);
-    //do_action('wpfhubspot-send-form', $params );
 
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
@@ -1113,13 +1115,22 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    $tel =  apply_filters('wpfunos_telefono_formateado_hubspot',$phone );
+
     $params = array(
       'firstname' => $nombre ,
       'email' => $email,
-      'phone' => $phone,
-      'ok' => 'ok',
+      'phone' => $tel,
       'accion' => 'Datos usuario funerarias llamar',
       'servicio' => $titulo,
+
+      'serviciotitulo' =>  get_the_title( $servicio ),
+      'servicioempresa' => get_post_meta( $servicio, 'wpfunos_servicioEmpresa', true ),
+      'serviciotelefono' => get_post_meta( $servicio, 'wpfunos_servicioTelefono', true ),
+      'serviciopoblacion' => get_post_meta( $servicio, 'wpfunos_servicioPoblacion', true ),
+      'servicioprovincia' => get_post_meta( $servicio, 'wpfunos_servicioProvincia', true ),
+      'serviciodireccion' => get_post_meta( $servicio, 'wpfunos_servicioDireccion', true ),
+
       'precio' => $precio,
       'ip' => $userIP,
       'referencia' => $newref,
@@ -1129,17 +1140,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     );
     do_action('wpfhubspot-send-form', $params );
     do_action('wpfhubspot-usuarios',array( 'email' => $email, 'hubspotutk' => $hubspotutk ) );
-    //sleep(1);
-    //$params = array(
-    //  'email' => $email,
-    //  'ip' => $userIP,
-    //  'ok' => 'ok',
-    //  'hubspotutk' => $hubspotutk,
-    //  'accion' => 'Datos usuario funerarias llamar',
-    //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
-    //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
-    //);
-    //do_action('wpfhubspot-send-form', $params );
 
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
@@ -1439,14 +1439,22 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    $tel =  apply_filters('wpfunos_telefono_formateado_hubspot',$phone );
     $params = array(
       'firstname' => $nombre ,
       'email' => $email,
-      'phone' => $phone,
+      'phone' => $tel,
       'mensaje' => $mensajeusuario,
-      'ok' => 'ok',
       'accion' => 'Datos usuario funerarias Presupuesto',
       'servicio' => $titulo,
+
+      'serviciotitulo' =>  get_the_title( $servicio ),
+      'servicioempresa' => get_post_meta( $servicio, 'wpfunos_servicioEmpresa', true ),
+      'serviciotelefono' => get_post_meta( $servicio, 'wpfunos_servicioTelefono', true ),
+      'serviciopoblacion' => get_post_meta( $servicio, 'wpfunos_servicioPoblacion', true ),
+      'servicioprovincia' => get_post_meta( $servicio, 'wpfunos_servicioProvincia', true ),
+      'serviciodireccion' => get_post_meta( $servicio, 'wpfunos_servicioDireccion', true ),
+
       'precio' => $precio,
       'ip' => $userIP,
       'referencia' => $newref,
@@ -1456,17 +1464,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     );
     do_action('wpfhubspot-send-form', $params );
     do_action('wpfhubspot-usuarios',array( 'email' => $email, 'hubspotutk' => $hubspotutk ) );
-    //sleep(1);
-    //$params = array(
-    //  'email' => $email,
-    //  'ip' => $userIP,
-    //  'ok' => 'ok',
-    //  'hubspotutk' => $hubspotutk,
-    //  'accion' => 'Datos usuario funerarias Presupuesto',
-    //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
-    //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
-    //);
-    //do_action('wpfhubspot-send-form', $params );
 
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );
@@ -2178,6 +2175,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
     if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+
     //case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos_es'); $hcampo = 'ceremonia'; $hvalor = 'Ceremonia religiosa'; break;
     $hvalor = 'ko';
     if( $cambios == 'distancia') $hvalor = $valor;
@@ -2195,12 +2193,13 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $hutknombre = ( $wpfidusuario == '0') ? 'Efraim Bayarri' : get_post_meta( $wpfidusuario, 'wpfunos_userName', true ) ;
     $hutkemail = ( $wpfidusuario == '0') ? 'efraim@efraim.cat' : get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ) ;
     $hutkphone = ( $wpfidusuario == '0') ? '690 07 44 97' : get_post_meta( $wpfidusuario, 'wpfunos_userPhone', true ) ;
+    //$telefono = get_post_meta( $wpfidusuario, 'wpfunos_userPhone', true );
+    $tel =  apply_filters('wpfunos_telefono_formateado_hubspot', $hutkphone );
     $params = array(
       'firstname' => $hutknombre,
       'email' => $hutkemail,
-      'phone' => $hutkphone,
+      'phone' => $tel,
       'referencia' => $wpfnewref,
-      'ok' => 'ok',
       'filtro' => $cambios,
       'accion' => 'Datos usuario funerarias filtros ' .$cambios,
       $cambios => $hvalor,
@@ -2212,17 +2211,6 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     $email = get_post_meta( $wpfidusuario, 'wpfunos_userMail', true );
     if( ! apply_filters( 'wpfunos_pruebas_email', $email ) ) do_action('wpfhubspot-send-form', $params );
     if( ! apply_filters( 'wpfunos_pruebas_email', $email ) ) do_action('wpfhubspot-usuarios',array( 'email' => $hutkemail, 'hubspotutk' => $hubspotutk ) );
-    //sleep(1);
-    //$params = array(
-    //  'email' => get_post_meta( $wpfidusuario, 'wpfunos_userMail', true ),
-    //  'ip' => $userIP,
-    //  'ok' => 'ok',
-    //  'hubspotutk' => $hubspotutk,
-    //  'accion' => 'Datos usuario funerarias filtros ' .$cambios,
-    //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
-    //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
-    //);
-    //do_action('wpfhubspot-send-form', $params );
 
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Finaliza envio formulario Hubspot' );

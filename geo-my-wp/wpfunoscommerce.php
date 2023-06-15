@@ -156,7 +156,6 @@ function wpfunos_thankyou_hubspot($order_id) {
     'ecommerce_metodo_pago' => $order->get_payment_method(),
     'accion' => 'ECommerce finalizar compra',
     'ip' => $IP,
-    'ok' => 'ok',
     'hubspotutk' => $hubspotutk,
     'pageUri' => 'https://funos.es/finalizar-compra',
     'pageId' => 'Finalizar compra - Funos - Comparador de Funerarias'

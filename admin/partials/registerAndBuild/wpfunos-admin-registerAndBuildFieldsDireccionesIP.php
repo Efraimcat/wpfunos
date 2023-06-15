@@ -28,7 +28,7 @@ add_settings_field(
 );
 add_settings_field(
   'wpfunos_DireccionesColaboradores',
-  'Correos Colaboradores <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_DireccionesColaboradores)</h6><h6 style="font-weight: 400;font-size: 12px;">Lista de direcciones email separadas mediante comas</h6>',
+  'Correos Colaboradores<h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_DireccionesColaboradores)</h6><h6 style="font-weight: 400;font-size: 12px;">Lista de direcciones email separadas mediante comas</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_DireccionesIP_settings',
   'wpfunos_direccionesip_section',
@@ -36,7 +36,7 @@ add_settings_field(
 );
 add_settings_field(
   'wpfunos_DireccionesPruebas',
-  'Correos Colaboradores <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_DireccionesPruebas)</h6><h6 style="font-weight: 400;font-size: 12px;">Lista de direcciones email separadas mediante comas</h6>',
+  'Correos Pruebas (no generan correos ni llamadas) <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_DireccionesPruebas)</h6><h6 style="font-weight: 400;font-size: 12px;">Lista de direcciones email separadas mediante comas</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_DireccionesIP_settings',
   'wpfunos_direccionesip_section',

@@ -41,6 +41,8 @@ class Wpfunos_Utils {
     add_filter( 'wpfunos_bloqueo_email', array( $this, 'wpfbloqueoEmail' ), 10, 1 );
     add_filter( 'wpfunos_acentos_minusculas', array( $this, 'wpfAcentosMinusculas' ), 10, 1 );
     add_filter( 'wpfunos_telefono_formateado', array( $this, 'wpfTelefonoFormateado' ), 10, 1 );
+    add_filter( 'wpfunos_telefono_formateado_hubspot', array( $this, 'wpfTelefonoFormateadoHubspot' ), 10, 1 );
+    add_filter( 'wpfunos_generate_random_string', array( $this, 'wpfGenerateRandomString' ), 10, 1 );
 
     add_action( 'wp_footer', array( $this, 'wpfunos_SIWG_init' ), 10, 1 );
     add_action( 'wp_ajax_nopriv_wpfunos-SIWG-google-login', array( $this, 'wpfunos_SIWG_google_login' ), 10, 1 );
@@ -553,6 +555,35 @@ class Wpfunos_Utils {
   }
 
   /**
+  * add_filter( 'wpfunos_telefono_formateado_hubspot', array( $this, 'wpfTelefonoFormateadoHubspot' ), 10, 1 );
+  * $Telefono = apply_filters('wpfunos_telefono_formateado_hubspot',$telefono );
+  */
+  public function wpfTelefonoFormateadoHubspot( $telefono ){
+    $tel = sanitize_text_field( str_replace( array( '-', ' ', '(', ')' ), '', trim($telefono) ) );
+    if(substr($tel,0,1) == '+'){
+      $phone =  substr($tel,0,3) .' '. substr($tel,3,3) .' '. substr($tel,6,2) .' '. substr($tel,8,2) .' '. substr($tel,10,2)  .' '. substr($tel,12,2)  .' '. substr($tel,14,2)  .' '. substr($tel,16,2);
+    }else{
+      $phone =  '+34 '. substr($tel,0,3) .' '. substr($tel,3,2) .' '. substr($tel,5,2) .' '. substr($tel,7,2) .' '. substr($tel,9,2) .' '. substr($tel,11,2) .' '. substr($tel,13,2);
+    }
+    return $phone;
+  }
+
+  /**
+  * add_filter( 'wpfunos_generate_random_string', array( $this, 'wpfGenerateRandomString' ), 10, 1 );
+  * https://stackoverflow.com/questions/4356289/php-random-string-generator
+  */
+  public function wpfGenerateRandomString($length = 32) {
+    $characters = '0123456789abcdef';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+      $randomString .= $characters[random_int(0, $charactersLength - 1)];
+    }
+    return $randomString;
+  }
+
+
+  /**
   * add_filter( 'wpfunos_bloqueo_numeros', array( $this, 'wpfbloqueoNumeros' ), 10, 1 );
   * if( apply_filters('wpfunos_bloqueo_numeros','630069601') )
   */
@@ -639,12 +670,14 @@ class Wpfunos_Utils {
       "Eric Jones",
       "hola",
       "Howard Alpert",
+      'Loyd Elyard',
       "Nidia Tickell",
       "pepito",
+      "Quentin Armour",
     );
 
     foreach( $bloqueos AS $bloqueo ) {
-      if( $bloqueo == $nom ) return true;
+      if( strtolower($bloqueo) == strtolower($nom) ) return true;
     }
     return false;
   }
@@ -663,8 +696,11 @@ class Wpfunos_Utils {
       "alejandro@gmail.com",
       "alex@gmail.com",
       "alpert.howard@gmail.com",
+      'anto@gmail.com',
+      'armour.quentin@gmail.com',
       "asd@gmail.com",
       "camilo@hotmail.com",
+      'correo@hotmail.com',
       "daniel@gmail.com",
       "daniel123@hotmail.com",
       "ericjonesmyemail@gmail.com",
@@ -678,16 +714,19 @@ class Wpfunos_Utils {
       "johndoe@gmail.com",
       "jose3@gmail.com",
       "josepereira@hotmail.com",
+      "loyd.elyard@gmail.com",
       "lolo@gmail.com",
       "louis@hotmail.com",
       "m.kulikov@chaybpz.bizml.ru",
       "mama@gmail.com",
       "maria@gmail.com",
       "my@yahoo.com",
+      "nick@funos.es",
       "nose@hotmail.com",
       "notiene@gmail.com",
       "notengo@yahoo.es",
       "paco@gmail.com",
+      "pepe@hotmail.com",
       "pepito@gmail.com",
       "pipi@gmail.com",
       "pollo@gmail.com",
@@ -701,7 +740,7 @@ class Wpfunos_Utils {
     );
 
     foreach( $bloqueos AS $bloqueo ) {
-      if( $bloqueo == $email ) return true;
+      if( $bloqueo == strtolower($email) ) return true;
     }
     return false;
   }

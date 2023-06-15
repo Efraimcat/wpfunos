@@ -639,7 +639,6 @@ class Wpfunos_Aseguradoras {
           'accion' => 'Datos usuario aseguradoras Cold Lead',
           'ip' => $userIP,
           'nacimiento' => $respuesta[3],
-          'ok' => 'ok',
           'hubspotutk' => $hubspotutk,
           'pageUri' => 'https://funos.es/compara-precios-aseguradoras',
           'pageId' => 'Compara Precios Aseguradoras y Planes Funerarios - Funos - Comparador de Funerarias'

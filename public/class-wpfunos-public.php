@@ -241,12 +241,12 @@ class Wpfunos_Public {
       if( "AsesoramientoGratuito" == $form_name ) $accion = 'Asesoramiento gratuito';
       if( "TeLlamamosGratis" == $form_name ) $accion = 'Te llamamos gratis';
       $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+      $phone = apply_filters('wpfunos_telefono_formateado', sanitize_text_field( $fields['telefono'] ) );
       $params = array(
         'firstname' => $fields['Nombre'],
         'email' => $fields['email'],
-        'phone' => $fields['telefono'],
+        'phone' => $phone,
         'mensaje' => $fields['mensaje'],
-        'ok' => 'ok',
         'accion' => $accion,
         'ip' => $userIP,
         'hubspotutk' => $hubspotutk,
@@ -255,17 +255,6 @@ class Wpfunos_Public {
       );
       do_action('wpfhubspot-send-form', $params );
       do_action('wpfhubspot-usuarios',array( 'email' => $fields['email'], 'hubspotutk' => $hubspotutk ) );
-      //sleep(1);
-      //$params2 = array(
-      //  'email' => $fields['email'],
-      //  'ip' => $userIP,
-      //  'ok' => 'ok',
-      //  'hubspotutk' => $hubspotutk,
-      //  'accion' => $accion,
-      //  'pageUri' => $fields['PageUri'],
-      //  'pageId' => $fields['PageName']
-      //);
-      //do_action('wpfhubspot-send-form', $params2 );
 
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - 0100 '.'Finaliza envio formulario Hubspot' );
@@ -620,11 +609,11 @@ class Wpfunos_Public {
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - 0100 '.'Prepara envio Hubspot' );
       $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+      $phone = apply_filters('wpfunos_telefono_formateado', sanitize_text_field( $fields['telefono'] ) );
       $params = array(
         'firstname' => sanitize_text_field( $fields['Nombre'] ) ,
         'email' => sanitize_text_field( $fields['email'] ),
-        'phone' => sanitize_text_field( $fields['telefono'] ),
-        'ok' => 'ok',
+        'phone' => $phone,
         'accion' => 'Datos usuario funerarias financiación',
         'servicio' => $servicio,
         'precio' => $precio,
@@ -637,18 +626,6 @@ class Wpfunos_Public {
       );
       do_action('wpfhubspot-send-form', $params );
       do_action('wpfhubspot-usuarios',array( 'email' => $transient_ref['wpfe'], 'hubspotutk' => $hubspotutk ) );
-      //sleep(1);
-      //$params2 = array(
-      //  'email' => sanitize_text_field( $transient_ref['wpfe'] ),
-      //  'ip' => $userIP,
-      //  'ok' => 'ok',
-      //  'hubspotutk' => $hubspotutk,
-      //  'accion' => 'Datos usuario funerarias financiación',
-      //  'pageUri' => 'https://funos.es/comparar-precios-resultados',
-      //  'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
-      //);
-      //do_action('wpfhubspot-send-form', $params2 );
-
 
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - 0100 '.'Finaliza envio formulario Hubspot' );
