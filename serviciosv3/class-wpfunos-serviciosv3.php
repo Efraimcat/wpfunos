@@ -355,6 +355,7 @@ class Wpfunos_ServiciosV3 {
       $wpfcolabemail = sanitize_text_field( $current_user->user_email );
       $wpfcolabtelefono = sanitize_text_field( get_user_meta( $current_user->ID, 'wpfunos_telefono' , true ));
       $hubspotutk = sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userHubspotUTK' , true ));
+      if( $hubspotutk == '') $hubspotutk = 'fe23'.apply_filters('wpfunos_generate_random_string', 28 );
       $_GET['AttsV3'] = 'wpfn|' .$nonce. '
       wpfip|' .$IP. '
       wpfnewref|' .$newref. '

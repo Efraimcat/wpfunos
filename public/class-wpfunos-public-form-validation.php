@@ -44,8 +44,11 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
     $form_name = $record->get_form_settings( 'form_name' );
     $userIP = apply_filters('wpfunos_userIP','dummy');
 
-    if( $form_name == 'ConfirmacionOk') return;
-    if( $form_name == 'ConfirmacionDatosUsuarioOk') return;
+    //if( isset( $_COOKIE['hubspotutk'] ) ){
+    //  if( $field = $this->wpfunos_elementor_get_field( 'email', $record ) ){
+    //    do_action('wpfhubspot-usuarios',array( 'email' => $field['value'], 'hubspotutk' => $_COOKIE['hubspotutk'] ) );
+    //  }
+    //}
 
     // Aseguradoras
 
@@ -124,6 +127,7 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public {
 
         //if( $userIP == get_option( 'wpfunos_IpHubspot') && stripos(get_option( 'wpfunos_UtkHubspot' ), $_COOKIE['hubspotutk'] ) !== false ){
         if( stripos( get_option( 'wpfunos_IpHubspot' ), $userIP ) !== false  &&  is_user_logged_in() ){
+          do_action('wpfunos_log', $userIP.' - 0101 Colaborador conectado. Cookie: '. $_COOKIE['hubspotutk'] );
           if( $field['id'] != 'pruebas@funos.es' ){
             global $wpdb;
             $table_name = $wpdb->prefix . 'wpf_hubspotusers';

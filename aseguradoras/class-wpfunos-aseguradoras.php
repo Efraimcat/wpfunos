@@ -434,6 +434,7 @@ class Wpfunos_Aseguradoras {
     }
     $log = (is_user_logged_in()) ? 'logged' : 'not logged';
     $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
+    $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
     $my_post = array(
       'post_title' => $referencia,
       'post_type' => 'usuarios_wpfunos',
@@ -466,7 +467,7 @@ class Wpfunos_Aseguradoras {
         'IDstamp' => $_COOKIE['wpfid'],
         'wpfunos_userLog' => $log,
         'wpfunos_userMobile' => $mobile,
-        'wpfunos_userHubspotUTK' => $_COOKIE['hubspotutk'],
+        'wpfunos_userHubspotUTK' => $hubspotutk,
       ),
     );
 
@@ -627,7 +628,7 @@ class Wpfunos_Aseguradoras {
         $respuesta = (explode(',',$seleccion));
         //HUBSPOT
         $hubspotutk = sanitize_text_field( get_post_meta( $IDusuario, 'wpfunos_userHubspotUTK' , true ));
-        if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+        if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
 
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - 0200 '.'Prepara envio Hubspot' );
@@ -755,7 +756,7 @@ class Wpfunos_Aseguradoras {
     $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje, "Llamamos" );
     //HUBSPOT
     $hubspotutk = sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userHubspotUTK' , true ));
-    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
     $seleccion = get_post_meta( $usuario, 'wpfunos_userSeleccion', true );
     $respuesta = (explode(',',$seleccion));
 
@@ -818,7 +819,7 @@ class Wpfunos_Aseguradoras {
     $respuesta = $this->wpfunosAPIAseguradora( $usuario, $servicio, $mensaje, "Presupuesto" );
     //HUBSPOT
     $hubspotutk = sanitize_text_field( get_post_meta( $usuario, 'wpfunos_userHubspotUTK' , true ));
-    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
     $seleccion = get_post_meta( $usuario, 'wpfunos_userSeleccion', true );
     $respuesta = (explode(',',$seleccion));
 

@@ -2,9 +2,9 @@
 Contributors: efraimcat
 Donate link: https://efraim.cat
 Tags: comments, spam
-Requires at least: 6.1.1
-Tested up to: 6.2
-Stable tag: 3.9.0
+Requires at least: 6.2
+Tested up to: 6.2.2
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

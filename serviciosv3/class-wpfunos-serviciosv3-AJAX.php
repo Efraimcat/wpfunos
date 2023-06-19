@@ -169,6 +169,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
         do_action('wpfunos_log', '==============' );
         do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara post' );
+        if( $hubspotutk == '') $hubspotutk = 'fe23'.apply_filters('wpfunos_generate_random_string', 28 );
         $my_post = array(
           'post_title' => $wpfnewref,
           'post_type' => 'usuarios_wpfunos',
@@ -602,7 +603,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
 
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
-
+      if( $hubspotutk == '') $hubspotutk = 'fe23'.apply_filters('wpfunos_generate_random_string', 28 );
       $my_post = array(
         'post_title' => $newref,
         'post_type' => 'usuarios_wpfunos',
@@ -795,7 +796,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     //HUBSPOT
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
-    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
     $tel =  apply_filters('wpfunos_telefono_formateado_hubspot',$phone );
     $params = array(
       'firstname' => $nombre ,
@@ -921,7 +922,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       //'wpfunos_userVisitas' => $contador,
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
-
+      if( $hubspotutk == '') $hubspotutk = 'fe23'.apply_filters('wpfunos_generate_random_string', 28 );
       $my_post = array(
         'post_title' => $newref,
         'post_type' => 'usuarios_wpfunos',
@@ -1114,7 +1115,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     //HUBSPOT
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
-    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
     $tel =  apply_filters('wpfunos_telefono_formateado_hubspot',$phone );
 
     $params = array(
@@ -1244,7 +1245,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
       //'wpfunos_userVisitas' => $contador,
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
-
+      if( $hubspotutk == '') $hubspotutk = 'fe23'.apply_filters('wpfunos_generate_random_string', 28 );
       $my_post = array(
         'post_title' => $newref,
         'post_type' => 'usuarios_wpfunos',
@@ -1438,7 +1439,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     //HUBSPOT
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
-    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
     $tel =  apply_filters('wpfunos_telefono_formateado_hubspot',$phone );
     $params = array(
       'firstname' => $nombre ,
@@ -2041,7 +2042,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
         case 3: $wpfceremonia = esc_html__('Ceremonia civil', 'wpfunos_es'); $hcampo = 'ceremonia'; $hvalor = 'Ceremonia civil'; break;
         case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos_es'); $hcampo = 'ceremonia'; $hvalor = 'Ceremonia religiosa'; break;
       }
-
+      if( $hubspotutk == '') $hubspotutk = 'fe23'.apply_filters('wpfunos_generate_random_string', 28 );
       $my_post = array(
         'post_title' => $wpfnewref,
         'post_type' => 'usuarios_wpfunos',
@@ -2174,7 +2175,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3 {
     //HUBSPOT
     do_action('wpfunos_log', '==============' );
     do_action('wpfunos_log', $userIP.' - 0501 '.'Prepara envio Hubspot' );
-    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+    if( $hubspotutk == '' ) $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
 
     //case 4: $wpfceremonia = esc_html__('Ceremonia religiosa', 'wpfunos_es'); $hcampo = 'ceremonia'; $hvalor = 'Ceremonia religiosa'; break;
     $hvalor = 'ko';

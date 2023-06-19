@@ -240,7 +240,7 @@ class Wpfunos_Public {
       if( "TeLlamamosGratisLandings" == $form_name ) $accion = 'Te llamamos gratis Landings';
       if( "AsesoramientoGratuito" == $form_name ) $accion = 'Asesoramiento gratuito';
       if( "TeLlamamosGratis" == $form_name ) $accion = 'Te llamamos gratis';
-      $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+      $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
       $phone = apply_filters('wpfunos_telefono_formateado', sanitize_text_field( $fields['telefono'] ) );
       $params = array(
         'firstname' => $fields['Nombre'],
@@ -303,6 +303,7 @@ class Wpfunos_Public {
       $referer = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
       $log = (is_user_logged_in()) ? 'logged' : 'not logged';
       $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
+      $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
       $my_post = array(
         'post_title' => $fields['referencia'],
         'post_type' => 'usuarios_wpfunos',
@@ -334,7 +335,7 @@ class Wpfunos_Public {
           'IDstamp' => $_COOKIE[ 'wpfid' ],
           'wpfunos_userLog' => $log,
           'wpfunos_userMobile' => $mobile,
-          'wpfunos_userHubspotUTK' => $_COOKIE['hubspotutk'],
+          'wpfunos_userHubspotUTK' => $hubspotutk,
         ),
       );
       $post_id = wp_insert_post($my_post);
@@ -406,7 +407,7 @@ class Wpfunos_Public {
         switch( $_GET['cf']['resp4'] ) { case '1': $despedida = 'S' ; $nombredespedida = esc_html__('Sin ceremonia', 'wpfunos_es') ; break; case '2': $despedida = 'O' ; $nombredespedida = esc_html__('Solo sala', 'wpfunos_es') ; break; case '3': $despedida = 'C' ; $nombredespedida = esc_html__('Ceremonia civil', 'wpfunos_es') ; break; case '4': $despedida = 'R' ; $nombredespedida = esc_html__('Ceremonia religiosa', 'wpfunos_es') ; break; }
         $log = (is_user_logged_in()) ? 'logged' : 'not logged';
         $mobile = (apply_filters('wpfunos_is_mobile','' )) ? 'mobile' : 'desktop';
-
+        $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
         $my_post = array(
           'post_title' => $referencia,
           'post_type' => 'usuarios_wpfunos',
@@ -442,7 +443,7 @@ class Wpfunos_Public {
             'wpfunos_Dummy' => true,
             'wpfunos_userLog' => $log,
             'wpfunos_userMobile' => $mobile,
-            'wpfunos_userHubspotUTK' => $_COOKIE['hubspotutk'],
+            'wpfunos_userHubspotUTK' => $hubspotutk,
           ),
         );
 
@@ -608,7 +609,7 @@ class Wpfunos_Public {
       //HUBSPOT
       do_action('wpfunos_log', '==============' );
       do_action('wpfunos_log', $userIP.' - 0100 '.'Prepara envio Hubspot' );
-      $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : '' ;
+      $hubspotutk = ( isset( $_COOKIE['hubspotutk'] ) ) ? $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
       $phone = apply_filters('wpfunos_telefono_formateado', sanitize_text_field( $fields['telefono'] ) );
       $params = array(
         'firstname' => sanitize_text_field( $fields['Nombre'] ) ,
@@ -674,7 +675,7 @@ class Wpfunos_Public {
     $wpfnon = ( isset( $_COOKIE['cookielawinfo-checkbox-non-necessary'] ) ) ? $_COOKIE['cookielawinfo-checkbox-non-necessary'] : '' ;
     $wpfoth = ( isset( $_COOKIE['cookielawinfo-checkbox-others'] ) ) ?        $_COOKIE['cookielawinfo-checkbox-others'] : '' ;
     $wpfper = ( isset( $_COOKIE['cookielawinfo-checkbox-performance'] ) ) ?   $_COOKIE['cookielawinfo-checkbox-performance'] : '' ;
-    $hutk = ( isset( $_COOKIE['hubspotutk'] ) ) ?   $_COOKIE['hubspotutk'] : '' ;
+    $hutk = ( isset( $_COOKIE['hubspotutk'] ) ) ?   $_COOKIE['hubspotutk'] : 'fe23'.apply_filters('wpfunos_generate_random_string', 28 ) ;
 
     // [REQUIRED] define $items array
     // notice that last argument is ARRAY_A, so we will retrieve array
