@@ -56,7 +56,7 @@ add_settings_field(
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_DireccionesIP_settings',
   'wpfunos_direccionesip_section',
-  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_IpHubspot','name' => 'wpfunos_IpHubspot','required' => 'true','get_options_list' => '','value_type' => 'normal','wp_data' => 'option')
+  array('type' => 'input','subtype' => 'text','id' => 'wpfunos_IpHubspot','name' => 'wpfunos_IpHubspot','required' => 'true','get_options_list' => '','value_type' => 'normal','size' => 120,'wp_data' => 'option')
 );
 add_settings_field(
   'wpfunos_UtkHubspot',
