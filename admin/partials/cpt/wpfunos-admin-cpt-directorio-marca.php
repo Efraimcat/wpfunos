@@ -44,4 +44,4 @@ $customPostTypeArgs = array(
   'map_meta_cap' => true,
 );
 // Post type, $args - the Post Type string can be MAX 20 characters
-register_post_type( 'directorio_marcas', $customPostTypeArgs );
+//register_post_type( 'directorio_marcas', $customPostTypeArgs );
