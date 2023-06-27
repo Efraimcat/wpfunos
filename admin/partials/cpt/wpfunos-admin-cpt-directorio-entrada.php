@@ -105,4 +105,4 @@ register_taxonomy(
 );
 register_taxonomy_for_object_type( 'directorio_marca', 'directorio_entrada' );
 register_taxonomy_for_object_type( 'directorio_marca', 'directorio_funeraria' );
-register_taxonomy_for_object_type( 'directorio_marca', 'directorio_marcas' );
+//register_taxonomy_for_object_type( 'directorio_marca', 'directorio_marcas' );

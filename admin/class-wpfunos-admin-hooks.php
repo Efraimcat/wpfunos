@@ -27,7 +27,7 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
 
     add_action('save_post_directorio_entrada', array( $this, 'wpfunosGuardarEntradaDirectorio' ), 10, 1 );
     add_action('save_post_directorio_funeraria', array( $this, 'wpfunosGuardarFunerariaDirectorio' ), 10, 1 );
-    add_action('save_post_directorio_marcas', array( $this, 'wpfunosGuardarMarcasDirectorio' ), 10, 1 );
+    //add_action('save_post_directorio_marcas', array( $this, 'wpfunosGuardarMarcasDirectorio' ), 10, 1 );
   }
 
   public function wpfunosGuardarServicio( $post_id ){
@@ -721,21 +721,21 @@ class Wpfunos_Admin_Hooks extends Wpfunos_Admin {
   * add_action('save_post_directorio_marcas', array( $this, 'wpfunosGuardarMarcasDirectorio' ), 10, 1 );
   *
   */
-  public function wpfunosGuardarMarcasDirectorio( $post_id ){
-    $this->custom_logs('wpfunosGuardarMarcasDirectorio' );
-    $this->custom_logs('$post_id: ' .$post_id. ' (' .get_the_title( $post_id). ')' );
-    remove_action( 'save_post_directorio_marcas', array( $this, 'wpfunosGuardarMarcasDirectorio' ) );
+  //public function wpfunosGuardarMarcasDirectorio( $post_id ){
+  //  $this->custom_logs('wpfunosGuardarMarcasDirectorio' );
+  //  $this->custom_logs('$post_id: ' .$post_id. ' (' .get_the_title( $post_id). ')' );
+  //  remove_action( 'save_post_directorio_marcas', array( $this, 'wpfunosGuardarMarcasDirectorio' ) );
 
-    $post = get_post( $post_id );
+  //  $post = get_post( $post_id );
     //$this->custom_logs('wpfunosCheckFunerariaDirectorioValues: ' .get_post_meta(  $post_id , 'wpfunos_funerariaDirectorioShortcode', true ) );
     //$shortcode_id = get_post_meta( $post_id, 'wpfunos_marcaDirectorioShortcode', true );
     //$post->post_content = get_post_meta( $shortcode_id, 'wpfunos_shortcodeDirectorioShortcode', true );
     //wp_update_post( $post );
 
-    add_action('save_post_directorio_marcas', array( $this, 'wpfunosGuardarMarcasDirectorio' ), 10, 1 );
-    $this->custom_logs('wpfunosGuardarMarcasDirectorio ENDS' );
-    $this->custom_logs('---');
-  }
+  //  add_action('save_post_directorio_marcas', array( $this, 'wpfunosGuardarMarcasDirectorio' ), 10, 1 );
+  //  $this->custom_logs('wpfunosGuardarMarcasDirectorio ENDS' );
+  //  $this->custom_logs('---');
+  //}
   /** **/
   /** **/
   /** **/
