@@ -700,6 +700,7 @@ class Wpfunos_Utils
     $bloqueos = array(
       "Eric Jones",
       "hola",
+      "Harriet Howchin",
       "Howard Alpert",
       'Loyd Elyard',
       "Nidia Tickell",
@@ -739,6 +740,7 @@ class Wpfunos_Utils
       "florence@gmail.com",
       "gomez@gmail.com",
       "gred@gmail.com",
+      "harriet.howchin@gmail.com",
       "info@live.com",
       "irene@hotmail.com",
       "jajajaja@gmail.com",

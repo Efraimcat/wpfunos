@@ -127,7 +127,6 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio {
         //echo '<br/>Categorias';
         echo '<ul id="wpfarchive-0" class="wpfarchive-count-' .count($categorias). '">';
         echo '<li><a href="'.home_url().'/funerarias">Funerarias</a></li>';
-        echo '<li><a href="'.home_url().'/marcas">Marcas</a></li>';
         echo '<li><a href="'.home_url().'/tanatorios">Tanatorios</a></li>';
         echo '</ul>';
       }
