@@ -658,30 +658,49 @@ class Wpfunos_Public
 
       do_action('wpfunos_log', '==============');
       do_action('wpfunos_log', '==============');
-      do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Servicio Botón Fininaciación');
-      do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Servicio titulo: ' . $servicio);
-      do_action('wpfunos_log', $userIP . ' - 0100 ' . '$IDusuario: ' . $IDusuario);
-      do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Servicio ' . $servicio);
-
+      if ($servicio == '') {
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Página Fininaciación');
+      } else {
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Servicio Botón Fininaciación');
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Servicio titulo: ' . $servicio);
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . '$IDusuario: ' . $IDusuario);
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Servicio ' . $servicio);
+      }
       //HUBSPOT
       do_action('wpfunos_log', '==============');
       do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Prepara envio Hubspot');
       $hubspotutk = (isset($_COOKIE['hubspotutk'])) ? $_COOKIE['hubspotutk'] : 'fe23' . apply_filters('wpfunos_generate_random_string', 28);
       $phone = apply_filters('wpfunos_telefono_formateado', sanitize_text_field($fields['telefono']));
-      $params = array(
-        'firstname' => sanitize_text_field($fields['Nombre']),
-        'email' => sanitize_text_field($fields['email']),
-        'phone' => $phone,
-        'accion' => 'Datos usuario funerarias financiación',
-        'servicio' => $servicio,
-        'precio' => $precio,
-        'entrada' => sanitize_text_field($fields['entrada']),
-        'financiar' => sanitize_text_field($fields['financiar']),
-        'ip' => $userIP,
-        'hubspotutk' => $hubspotutk,
-        'pageUri' => 'https://funos.es/comparar-precios-resultados',
-        'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
-      );
+      if ($servicio == '') {
+        $params = array(
+          'firstname' => sanitize_text_field($fields['Nombre']),
+          'email' => sanitize_text_field($fields['email']),
+          'phone' => $phone,
+          'accion' => 'Formulario pagina financiacion',
+          'importe' => sanitize_text_field($fields['importe']),
+          'entrada' => sanitize_text_field($fields['entrada']),
+          'financiar' => sanitize_text_field($fields['financiar']),
+          'ip' => $userIP,
+          'hubspotutk' => $hubspotutk,
+          'pageUri' => 'https://funos.es/financiacion-funeral',
+          'pageId' => 'Financiación del funeral - Funos - Comparador de Funerarias'
+        );
+      } else {
+        $params = array(
+          'firstname' => sanitize_text_field($fields['Nombre']),
+          'email' => sanitize_text_field($fields['email']),
+          'phone' => $phone,
+          'accion' => 'Datos usuario funerarias financiación',
+          'servicio' => $servicio,
+          'precio' => $precio,
+          'entrada' => sanitize_text_field($fields['entrada']),
+          'financiar' => sanitize_text_field($fields['financiar']),
+          'ip' => $userIP,
+          'hubspotutk' => $hubspotutk,
+          'pageUri' => 'https://funos.es/comparar-precios-resultados',
+          'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
+        );
+      }
       do_action('wpfhubspot-send-form', $params);
       do_action('wpfhubspot-usuarios', array('email' => $fields['email'], 'hubspotutk' => $hubspotutk));
 
