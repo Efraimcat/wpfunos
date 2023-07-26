@@ -1,83 +1,83 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
   exit; // Exit if accessed directly.
 }
 /**
-* The admin-specific functionality of the plugin.
-*
-* @link       https://github.com/Efraimcat/wpfunos/
-* @since      1.0.0
-*
-* @package    Wpfunos
-* @subpackage Wpfunos/admin/partials/DB
-* @author     Efraim Bayarri <efraim@efraim.cat>
-*/
+ * The admin-specific functionality of the plugin.
+ *
+ * @link       https://github.com/Efraimcat/wpfunos/
+ * @since      1.0.0
+ *
+ * @package    Wpfunos
+ * @subpackage Wpfunos/admin/partials/DB
+ * @author     Efraim Bayarri <efraim@efraim.cat>
+ */
 ?>
 <style>
-.media-browse {
-  cursor: pointer;
-}
+  .media-browse {
+    cursor: pointer;
+  }
 </style>
 <div class="directorio_entrada_wpfunos_containers">
   <ul class="directorio_entrada_wpfunos_data_metabox">
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Nombre', 'wpfunos');?></td>
+          <td><?php esc_html_e('Nombre', 'wpfunos'); ?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Direccion', 'wpfunos');?></td>
+          <td><?php esc_html_e('Direccion', 'wpfunos'); ?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Correo', 'wpfunos');?></td>
+          <td><?php esc_html_e('Correo', 'wpfunos'); ?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Teléfono', 'wpfunos');?></td>
+          <td><?php esc_html_e('Teléfono', 'wpfunos'); ?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioNombre','name' => 'wpfunos_entradaDirectorioNombre','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioNombre', 'name' => 'wpfunos_entradaDirectorioNombre', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30)); ?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioDireccion','name' => 'wpfunos_entradaDirectorioDireccion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioDireccion', 'name' => 'wpfunos_entradaDirectorioDireccion', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30)); ?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioCorreo','name' => 'wpfunos_entradaDirectorioCorreo','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioCorreo', 'name' => 'wpfunos_entradaDirectorioCorreo', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30)); ?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioTelefono','name' => 'wpfunos_entradaDirectorioTelefono','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID , 'size' => 30 ));?></td>
-        </tr>
-      </table>
-    </li>
-    <hr/>
-    <li class="directorio_entrada_wpfunos_list">
-      <table>
-        <tr>
-          <td><?php esc_html_e('Población', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Códigos provincia', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Funerarias asociadas al tanatorio', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Street view', 'wpfunos');?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Carrusel', 'wpfunos');?></td>
-        </tr>
-        <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioPoblacion','name' => 'wpfunos_entradaDirectorioPoblacion','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioCodigoProvincia','name' => 'wpfunos_entradaDirectorioCodigoProvincia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioFuneraria','name' => 'wpfunos_entradaDirectorioFuneraria','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30  ));?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioStreetView','name' => 'wpfunos_entradaDirectorioStreetView','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioCarrusel','name' => 'wpfunos_entradaDirectorioCarrusel','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 15  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioTelefono', 'name' => 'wpfunos_entradaDirectorioTelefono', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30)); ?></td>
         </tr>
       </table>
     </li>
-    <hr/>
+    <hr />
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Shortcode plantilla tanatorio', 'wpfunos');?></td>
+          <td><?php esc_html_e('Población', 'wpfunos'); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Códigos provincia', 'wpfunos'); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Funerarias asociadas al tanatorio', 'wpfunos'); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Street view', 'wpfunos'); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Carrusel', 'wpfunos'); ?></td>
+        </tr>
+        <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioPoblacion', 'name' => 'wpfunos_entradaDirectorioPoblacion', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30)); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioCodigoProvincia', 'name' => 'wpfunos_entradaDirectorioCodigoProvincia', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30)); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioFuneraria', 'name' => 'wpfunos_entradaDirectorioFuneraria', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30)); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioStreetView', 'name' => 'wpfunos_entradaDirectorioStreetView', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 15)); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioCarrusel', 'name' => 'wpfunos_entradaDirectorioCarrusel', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 15)); ?></td>
+        </tr>
+      </table>
+    </li>
+    <hr />
+    <li class="directorio_entrada_wpfunos_list">
+      <table>
+        <tr>
+          <td><?php esc_html_e('Shortcode plantilla tanatorio', 'wpfunos'); ?></td>
         </tr>
         <tr>
           <td>
-            <select name="wpfunos_entradaDirectorioShortcode" id="wpfunos_entradaDirectorioShortcode" style="width: 272px" >
+            <select name="wpfunos_entradaDirectorioShortcode" id="wpfunos_entradaDirectorioShortcode" style="width: 272px">
               <?php
               $args = array(
                 'post_type' => 'directorio_shortcode',
@@ -86,13 +86,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                 'orderby' => 'title',
                 'order' => 'ASC',
               );
-              $shortcodes = get_posts( $args );
-              foreach( $shortcodes as $shortcode ) {
-                ?>
-                <option value="<?php echo $shortcode->ID; ?>"
-                  <?php if (get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioShortcode', true ) == $shortcode->ID ) echo 'selected="selected"'; ?> ><?php echo get_the_title( $shortcode->ID) ?>
+              $shortcodes = get_posts($args);
+              foreach ($shortcodes as $shortcode) {
+              ?>
+                <option value="<?php echo $shortcode->ID; ?>" <?php if (get_post_meta($post->ID, 'wpfunos_entradaDirectorioShortcode', true) == $shortcode->ID) echo 'selected="selected"'; ?>><?php echo get_the_title($shortcode->ID) ?>
                 </option>
-                <?php
+              <?php
               }
               ?>
             </select>
@@ -100,63 +99,63 @@ if ( ! defined( 'ABSPATH' ) ) {
         </tr>
       </table>
     </li>
-    <hr/>
-    <h2><?php esc_html_e('Campos calculados de la landing del valor entrado en el campo población', 'wpfunos');?></h2>
+    <hr />
+    <h2><?php esc_html_e('Campos calculados de la landing del valor entrado en el campo población', 'wpfunos'); ?></h2>
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Latitud', 'wpfunos');?></td>
+          <td><?php esc_html_e('Latitud', 'wpfunos'); ?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Longitud', 'wpfunos');?></td>
+          <td><?php esc_html_e('Longitud', 'wpfunos'); ?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Distancia', 'wpfunos');?></td>
+          <td><?php esc_html_e('Distancia', 'wpfunos'); ?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('URL Landings población', 'wpfunos');?></td>
+          <td><?php esc_html_e('URL Landings población', 'wpfunos'); ?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLongitud','name' => 'wpfunos_entradaDirectorioLongitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30 , 'placeholder' => 'solo utilizar en caso de excepción' ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioLongitud', 'name' => 'wpfunos_entradaDirectorioLongitud', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30, 'placeholder' => 'solo utilizar en caso de excepción')); ?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLatitud','name' => 'wpfunos_entradaDirectorioLatitud','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30 , 'placeholder' => 'solo utilizar en caso de excepción' ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioLatitud', 'name' => 'wpfunos_entradaDirectorioLatitud', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30, 'placeholder' => 'solo utilizar en caso de excepción')); ?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLBuscadorDistancia','name' => 'wpfunos_entradaDirectorioURLBuscadorDistancia','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 30, 'placeholder' => 'solo utilizar en caso de excepción' ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioURLBuscadorDistancia', 'name' => 'wpfunos_entradaDirectorioURLBuscadorDistancia', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 30, 'placeholder' => 'solo utilizar en caso de excepción')); ?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLLandings','name' => 'wpfunos_entradaDirectorioURLLandings','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 40, 'placeholder' => 'solo utilizar en caso de excepción'  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioURLLandings', 'name' => 'wpfunos_entradaDirectorioURLLandings', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'size' => 40, 'placeholder' => 'solo utilizar en caso de excepción')); ?></td>
         </tr>
       </table>
     </li>
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('URL Buscador', 'wpfunos');?></td>
+          <td><?php esc_html_e('URL Buscador', 'wpfunos'); ?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioURLBuscador','name' => 'wpfunos_entradaDirectorioURLBuscador','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID ,'disabled' => '', 'size' => 150 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioURLBuscador', 'name' => 'wpfunos_entradaDirectorioURLBuscador', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '', 'size' => 150)); ?></td>
         </tr>
       </table>
     </li>
     <li class="directorio_entrada_wpfunos_list" style="display: none;">
       <table>
         <tr>
-          <td><?php esc_html_e('Imagenes', 'wpfunos');?></td>
+          <td><?php esc_html_e('Imagenes', 'wpfunos'); ?></td>
         </tr>
         <tr>
           <td style="vertical-align: middle;">
             <?php
-            $imagenes = (explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioImagenes', true )));
-            if( get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioImagenes', true ) == ''){
-              $output = wp_get_attachment_image( "39978", array('150', '150'), "", array( "class" => "media-browse" ) );
-              echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagenes"', $output );
+            $imagenes = (explode(',', get_post_meta($post->ID, 'wpfunos_entradaDirectorioImagenes', true)));
+            if (get_post_meta($post->ID, 'wpfunos_entradaDirectorioImagenes', true) == '') {
+              $output = wp_get_attachment_image("39978", array('150', '150'), "", array("class" => "media-browse"));
+              echo str_replace('class="media-browse"', 'class="media-browse"  data-media-id="#Imagenes"', $output);
             }
-            foreach( $imagenes as $imagen ){
-              $output = wp_get_attachment_image( $imagen, array('150', '150'), "", array( "class" => "media-browse" ) );
-              echo str_replace( 'class="media-browse"', 'class="media-browse"  data-media-id="#Imagenes"', $output );
+            foreach ($imagenes as $imagen) {
+              $output = wp_get_attachment_image($imagen, array('150', '150'), "", array("class" => "media-browse"));
+              echo str_replace('class="media-browse"', 'class="media-browse"  data-media-id="#Imagenes"', $output);
             }
             ?>
           </td>
         </tr>
         <tr>
-          <td style="vertical-align: middle;" >
-            <?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'Imagenes','name' => 'wpfunos_entradaDirectorioImagenes','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID ));?>
+          <td style="vertical-align: middle;">
+            <?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'Imagenes', 'name' => 'wpfunos_entradaDirectorioImagenes', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID)); ?>
           </td>
         </tr>
       </table>
@@ -164,26 +163,26 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Entierro desde', 'wpfunos');?></td>
+          <td><?php esc_html_e('Entierro desde', 'wpfunos'); ?></td>
           <td style="width:5px;"></td>
-          <td><?php esc_html_e('Incineración desde', 'wpfunos');?></td>
+          <td><?php esc_html_e('Incineración desde', 'wpfunos'); ?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioEntierroDesde','name' => 'wpfunos_entradaDirectorioEntierroDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID ,'disabled' => '', 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioEntierroDesde', 'name' => 'wpfunos_entradaDirectorioEntierroDesde', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?></td>
           <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioIncineracionDesde','name' => 'wpfunos_entradaDirectorioIncineracionDesde','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => '', 'size' => 7  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioIncineracionDesde', 'name' => 'wpfunos_entradaDirectorioIncineracionDesde', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?></td>
         </tr>
       </table>
     </li>
-    <hr/>
-    <h2><?php esc_html_e('Landings para el cálculo de precios', 'wpfunos');?></h2>
+    <hr />
+    <h2><?php esc_html_e('Landings para el cálculo de precios', 'wpfunos'); ?></h2>
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Landings existentes según el contenido del campo código de provincia', 'wpfunos');?></td>
+          <td><?php esc_html_e('Landings existentes según el contenido del campo código de provincia', 'wpfunos'); ?></td>
         </tr>
         <tr style="display: none;">
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioLandings','name' => 'wpfunos_entradaDirectorioLandings','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioLandings', 'name' => 'wpfunos_entradaDirectorioLandings', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '')); ?></td>
         </tr>
       </table>
     </li>
@@ -191,12 +190,12 @@ if ( ! defined( 'ABSPATH' ) ) {
       <table>
         <tr>
           <?php
-          $codigos = (explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioCodigoProvincia', true )));
-          for ( $x = 0; $x <= 2; $x++ ) {
-            $codigo[$x] = ( isset( $codigos[$x] ) ) ? $codigo[$x] = $codigos[$x] : $codigo[$x] = '99';
+          $codigos = (explode(',', get_post_meta($post->ID, 'wpfunos_entradaDirectorioCodigoProvincia', true)));
+          for ($x = 0; $x <= 2; $x++) {
+            $codigo[$x] = (isset($codigos[$x])) ? $codigo[$x] = $codigos[$x] : $codigo[$x] = '99';
             //$this->custom_logs('$codigos: $x=' .$x. ' : ' .$codigo[$x] );
           }
-          if( strlen( $codigo[0] ) > 1 ){
+          if (strlen($codigo[0]) > 1) {
             $args = array(
               'post_type' => 'precio_funer_wpfunos',
               'post_status'  => 'publish',
@@ -205,39 +204,39 @@ if ( ! defined( 'ABSPATH' ) ) {
               'order' => 'ASC',
               'meta_query' => array(
                 'relation' => 'OR',
-                array( 'key' => 'wpfunos_precioFunerariaCodigoPoblacion', 'value' => $codigo[0], 'compare' => 'LIKE', ),
-                array( 'key' => 'wpfunos_precioFunerariaCodigoPoblacion', 'value' => $codigo[1], 'compare' => 'LIKE', ),
-                array( 'key' => 'wpfunos_precioFunerariaCodigoPoblacion', 'value' => $codigo[2], 'compare' => 'LIKE', ),
+                array('key' => 'wpfunos_precioFunerariaCodigoPoblacion', 'value' => $codigo[0], 'compare' => 'LIKE',),
+                array('key' => 'wpfunos_precioFunerariaCodigoPoblacion', 'value' => $codigo[1], 'compare' => 'LIKE',),
+                array('key' => 'wpfunos_precioFunerariaCodigoPoblacion', 'value' => $codigo[2], 'compare' => 'LIKE',),
               ),
             );
-            $landings = get_posts( $args );
+            $landings = get_posts($args);
             //$this->custom_logs('$landings(count): ' .count($landings) );
-            $paginas = (explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioLandings', true )));
-            foreach( $landings as $landing ){
-              $check='';
-              foreach( $paginas as $pagina ){
-                if( $landing->ID == $pagina ) $check='checked';
+            $paginas = (explode(',', get_post_meta($post->ID, 'wpfunos_entradaDirectorioLandings', true)));
+            foreach ($landings as $landing) {
+              $check = '';
+              foreach ($paginas as $pagina) {
+                if ($landing->ID == $pagina) $check = 'checked';
               }
-              ?>
-              <tr>
-                <td><input type="checkbox" id="landingDirectorio-<?php echo $landing->ID?>" name="landingDirectorio-<?php echo $landing->ID?>" size="40" value="1" <?php echo $check?>/></td>
-                <td><?php esc_html_e( get_the_title( $landing->ID).' ('.$landing->ID.')' );?></td>
-              </tr>
-              <?php
+          ?>
+        <tr>
+          <td><input type="checkbox" id="landingDirectorio-<?php echo $landing->ID ?>" name="landingDirectorio-<?php echo $landing->ID ?>" size="40" value="1" <?php echo $check ?> /></td>
+          <td><?php esc_html_e(get_the_title($landing->ID) . ' (' . $landing->ID . ')'); ?></td>
+        </tr>
+    <?php
             }
           }
-          ?>
-        </tr>
+    ?>
+    </tr>
       </table>
     </li>
-    <hr/>
+    <hr />
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Tanatorios cercanos', 'wpfunos');?></td>
+          <td><?php esc_html_e('Tanatorios cercanos', 'wpfunos'); ?></td>
         </tr>
         <tr style="display: none;">
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioTanatoriosCercanos','name' => 'wpfunos_entradaDirectorioTanatoriosCercanos','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID,'disabled' => ''  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioTanatoriosCercanos', 'name' => 'wpfunos_entradaDirectorioTanatoriosCercanos', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '')); ?></td>
         </tr>
       </table>
     </li>
@@ -245,12 +244,12 @@ if ( ! defined( 'ABSPATH' ) ) {
       <table>
         <tr>
           <?php
-          $codigos = (explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioCodigoProvincia', true )));
-          for ( $x = 0; $x <= 2; $x++ ) {
-            $codigo[$x] = ( isset( $codigos[$x] ) ) ? $codigo[$x] = $codigos[$x] : $codigo[$x] = '99';
+          $codigos = (explode(',', get_post_meta($post->ID, 'wpfunos_entradaDirectorioCodigoProvincia', true)));
+          for ($x = 0; $x <= 2; $x++) {
+            $codigo[$x] = (isset($codigos[$x])) ? $codigo[$x] = $codigos[$x] : $codigo[$x] = '99';
             //$this->custom_logs('$codigos: $x=' .$x. ' : ' .$codigo[$x] );
           }
-          if( strlen( $codigo[0] ) > 1 ){
+          if (strlen($codigo[0]) > 1) {
             $args = array(
               'post_type' => 'directorio_entrada',
               'post_status'  => 'publish',
@@ -259,38 +258,38 @@ if ( ! defined( 'ABSPATH' ) ) {
               'order' => 'ASC',
               'meta_query' => array(
                 'relation' => 'OR',
-                array( 'key' => 'wpfunos_entradaDirectorioCodigoProvincia', 'value' => $codigo[0], 'compare' => 'LIKE', ),
+                array('key' => 'wpfunos_entradaDirectorioCodigoProvincia', 'value' => $codigo[0], 'compare' => 'LIKE',),
               ),
             );
-            $tanatorios = get_posts( $args );
+            $tanatorios = get_posts($args);
             //$this->custom_logs('$landings(count): ' .count($landings) );
-            $paginas = (explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioTanatoriosCercanos', true )));
-            foreach( $tanatorios as $tanatorio ){
-              $check='';
-              foreach( $paginas as $pagina ){
-                if( $tanatorio->ID == $pagina ) $check='checked';
+            $paginas = (explode(',', get_post_meta($post->ID, 'wpfunos_entradaDirectorioTanatoriosCercanos', true)));
+            foreach ($tanatorios as $tanatorio) {
+              $check = '';
+              foreach ($paginas as $pagina) {
+                if ($tanatorio->ID == $pagina) $check = 'checked';
               }
-              if( $post->ID == $tanatorio->ID) continue;
-              ?>
-              <tr>
-                <td><input type="checkbox" id="tanatoriosDirectorio-<?php echo $tanatorio->ID?>" name="tanatoriosDirectorio-<?php echo $tanatorio->ID?>" size="40" value="1" <?php echo $check?>/></td>
-                <td><?php esc_html_e( get_the_title( $tanatorio->ID).' ('.$tanatorio->ID.')' );?></td>
-              </tr>
-              <?php
+              if ($post->ID == $tanatorio->ID) continue;
+          ?>
+        <tr>
+          <td><input type="checkbox" id="tanatoriosDirectorio-<?php echo $tanatorio->ID ?>" name="tanatoriosDirectorio-<?php echo $tanatorio->ID ?>" size="40" value="1" <?php echo $check ?> /></td>
+          <td><?php esc_html_e(get_the_title($tanatorio->ID) . ' (' . $tanatorio->ID . ')'); ?></td>
+        </tr>
+    <?php
             }
           }
-          ?>
-        </tr>
+    ?>
+    </tr>
       </table>
     </li>
-    <hr/>
+    <hr />
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Servicios', 'wpfunos');?></td>
+          <td><?php esc_html_e('Servicios', 'wpfunos'); ?></td>
         </tr>
         <tr style="display: none;">
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioServicios','name' => 'wpfunos_entradaDirectorioServicios','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioServicios', 'name' => 'wpfunos_entradaDirectorioServicios', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID)); ?></td>
         </tr>
       </table>
     </li>
@@ -306,57 +305,81 @@ if ( ! defined( 'ABSPATH' ) ) {
             'orderby' => 'meta_value',
             'order' => 'ASC',
           );
-          $servicios = get_posts( $args );
-          $paginas = (explode(',',get_post_meta(  $post->ID , 'wpfunos_entradaDirectorioServicios', true )));
-          foreach( $servicios as $servicio ){
-            $check='';
-            foreach( $paginas as $pagina ){
-              if( $servicio->ID == $pagina ) $check='checked';
+          $servicios = get_posts($args);
+          $paginas = (explode(',', get_post_meta($post->ID, 'wpfunos_entradaDirectorioServicios', true)));
+          foreach ($servicios as $servicio) {
+            $check = '';
+            foreach ($paginas as $pagina) {
+              if ($servicio->ID == $pagina) $check = 'checked';
             }
-            ?>
-            <tr>
-              <td><input type="checkbox" id="servicioDirectorio-<?php echo $servicio->ID?>" name="servicioDirectorio-<?php echo $servicio->ID?>" size="40" value="1" <?php echo $check?>/></td>
-              <td><?php esc_html_e( get_post_meta(  $servicio->ID , 'wpfunos_servicioDirectorioNombre', true ) );?></td>
-            </tr>
-            <?php
-          }
           ?>
+        <tr>
+          <td><input type="checkbox" id="servicioDirectorio-<?php echo $servicio->ID ?>" name="servicioDirectorio-<?php echo $servicio->ID ?>" size="40" value="1" <?php echo $check ?> /></td>
+          <td><?php esc_html_e(get_post_meta($servicio->ID, 'wpfunos_servicioDirectorioNombre', true)); ?></td>
         </tr>
+      <?php
+          }
+      ?>
+      </tr>
       </table>
     </li>
-    <hr/>
+    <hr />
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Últimas defunciones', 'wpfunos');?></td>
+          <td><?php esc_html_e('Últimas defunciones', 'wpfunos'); ?></td>
         </tr>
         <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_entradaDirectorioUltimasDefunciones','name' => 'wpfunos_entradaDirectorioUltimasDefunciones','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID  ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioUltimasDefunciones', 'name' => 'wpfunos_entradaDirectorioUltimasDefunciones', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID)); ?></td>
         </tr>
       </table>
     </li>
-    <hr/>
+    <hr />
     <?php // provide textarea name for $_POST variable
-    $notes_entradaDirectorioDescripcion = get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcion', true );
-    $args_entradaDirectorioDescripcion = array( 'textarea_name' => 'wpfunos_entradaDirectorioDescripcion', 'textarea_rows' => 8);
-    $notes_entradaDirectorioHorario = get_post_meta( $post->ID, 'wpfunos_entradaDirectorioHorario', true );
-    $args_entradaDirectorioHorario = array( 'textarea_name' => 'wpfunos_entradaDirectorioHorario', 'textarea_rows' => 8);
-    $notes_entradaDirectorioComoLlegar = get_post_meta( $post->ID, 'wpfunos_entradaDirectorioComoLlegar', true );
-    $args_entradaDirectorioComoLlegar = array( 'textarea_name' => 'wpfunos_entradaDirectorioComoLlegar', 'textarea_rows' => 8);
-    $notes_entradaDirectorioDescripcionServicios = get_post_meta( $post->ID, 'wpfunos_entradaDirectorioDescripcionServicios', true );
-    $args_entradaDirectorioDescripcionServicios = array( 'textarea_name' => 'wpfunos_entradaDirectorioDescripcionServicios', 'textarea_rows' => 8);
+    $notes_entradaDirectorioDescripcion = get_post_meta($post->ID, 'wpfunos_entradaDirectorioDescripcion', true);
+    $args_entradaDirectorioDescripcion = array('textarea_name' => 'wpfunos_entradaDirectorioDescripcion', 'textarea_rows' => 8);
+    $notes_entradaDirectorioHorario = get_post_meta($post->ID, 'wpfunos_entradaDirectorioHorario', true);
+    $args_entradaDirectorioHorario = array('textarea_name' => 'wpfunos_entradaDirectorioHorario', 'textarea_rows' => 8);
+    $notes_entradaDirectorioComoLlegar = get_post_meta($post->ID, 'wpfunos_entradaDirectorioComoLlegar', true);
+    $args_entradaDirectorioComoLlegar = array('textarea_name' => 'wpfunos_entradaDirectorioComoLlegar', 'textarea_rows' => 8);
+    $notes_entradaDirectorioDescripcionServicios = get_post_meta($post->ID, 'wpfunos_entradaDirectorioDescripcionServicios', true);
+    $args_entradaDirectorioDescripcionServicios = array('textarea_name' => 'wpfunos_entradaDirectorioDescripcionServicios', 'textarea_rows' => 8);
+
+    $notes_entradaDirectorioFAQUbicacion = get_post_meta($post->ID, 'wpfunos_entradaDirectorioFAQUbicacion', true);
+    $args_entradaDirectorioFAQUbicacion = array('textarea_name' => 'wpfunos_entradaDirectorioFAQUbicacion', 'textarea_rows' => 8);
+    $notes_entradaDirectorioFAQHorario = get_post_meta($post->ID, 'wpfunos_entradaDirectorioFAQHorario', true);
+    $args_entradaDirectorioFAQHorario = array('textarea_name' => 'wpfunos_entradaDirectorioFAQHorario', 'textarea_rows' => 8);
+    $notes_entradaDirectorioFAQTransporte = get_post_meta($post->ID, 'wpfunos_entradaDirectorioFAQTransporte', true);
+    $args_entradaDirectorioFAQTransporte = array('textarea_name' => 'wpfunos_entradaDirectorioFAQTransporte', 'textarea_rows' => 8);
+    $notes_entradaDirectorioFAQCoche = get_post_meta($post->ID, 'wpfunos_entradaDirectorioFAQCoche', true);
+    $args_entradaDirectorioFAQCoche = array('textarea_name' => 'wpfunos_entradaDirectorioFAQCoche', 'textarea_rows' => 8);
     ?>
     <li><label for="wpfunos_entradaDirectorioDescripcion" style="font-size: 32px;">Descripción</label>
-      <?php	wp_editor( $notes_entradaDirectorioDescripcion, 'wpfunos_entradaDirectorioDescripcion',$args_entradaDirectorioDescripcion); ?>
+      <?php wp_editor($notes_entradaDirectorioDescripcion, 'wpfunos_entradaDirectorioDescripcion', $args_entradaDirectorioDescripcion); ?>
     </li>
     <li><label for="wpfunos_entradaDirectorioHorario" style="font-size: 32px;">Horario</label>
-      <?php	wp_editor( $notes_entradaDirectorioHorario, 'wpfunos_entradaDirectorioHorario',$args_entradaDirectorioHorario); ?>
+      <?php wp_editor($notes_entradaDirectorioHorario, 'wpfunos_entradaDirectorioHorario', $args_entradaDirectorioHorario); ?>
     </li>
     <li><label for="wpfunos_entradaDirectorioComoLlegar" style="font-size: 32px;">Como llegar</label>
-      <?php	wp_editor( $notes_entradaDirectorioComoLlegar, 'wpfunos_entradaDirectorioComoLlegar',$args_entradaDirectorioComoLlegar); ?>
+      <?php wp_editor($notes_entradaDirectorioComoLlegar, 'wpfunos_entradaDirectorioComoLlegar', $args_entradaDirectorioComoLlegar); ?>
     </li>
     <li><label for="wpfunos_entradaDirectorioDescripcionServicios" style="font-size: 32px;">Descripción servicios</label>
-      <?php	wp_editor( $notes_entradaDirectorioDescripcionServicios, 'wpfunos_entradaDirectorioDescripcionServicios',$args_entradaDirectorioDescripcionServicios); ?>
+      <?php wp_editor($notes_entradaDirectorioDescripcionServicios, 'wpfunos_entradaDirectorioDescripcionServicios', $args_entradaDirectorioDescripcionServicios); ?>
+    </li>
+    <hr />
+    <h2 style="font-size: 40px;font-weight: 700;">FAQ</h2>
+    <hr />
+    <li><label for="wpfunos_entradaDirectorioFAQUbicacion" style="font-size: 32px;">Dónde está ubicado</label>
+      <?php wp_editor($notes_entradaDirectorioFAQUbicacion, 'wpfunos_entradaDirectorioFAQUbicacion', $args_entradaDirectorioFAQUbicacion); ?>
+    </li>
+    <li><label for="wpfunos_entradaDirectorioFAQHorario" style="font-size: 32px;">Cuál es el horario</label>
+      <?php wp_editor($notes_entradaDirectorioFAQHorario, 'wpfunos_entradaDirectorioFAQHorario', $args_entradaDirectorioFAQHorario); ?>
+    </li>
+    <li><label for="wpfunos_entradaDirectorioFAQTransporte" style="font-size: 32px;">Cómo llegar en transporte público</label>
+      <?php wp_editor($notes_entradaDirectorioFAQTransporte, 'wpfunos_entradaDirectorioFAQTransporte', $args_entradaDirectorioFAQTransporte); ?>
+    </li>
+    <li><label for="wpfunos_entradaDirectorioFAQCoche" style="font-size: 32px;">Cómo llegar en coche</label>
+      <?php wp_editor($notes_entradaDirectorioFAQCoche, 'wpfunos_entradaDirectorioFAQCoche', $args_entradaDirectorioFAQCoche); ?>
     </li>
   </ul>
 </div>
@@ -364,108 +387,108 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 <script>
-// https://gist.github.com/RadGH/9144771 - WordPress media "browse" button
-$ = jQuery.noConflict();
-$( document ).ready(function() {
-  $(function(){
-    console.log( "document loaded" );
+  // https://gist.github.com/RadGH/9144771 - WordPress media "browse" button
+  $ = jQuery.noConflict();
+  $(document).ready(function() {
+    $(function() {
+      console.log("document loaded");
 
-    var media_properties = ['id', 'title', 'filename', 'url', 'link', 'alt', 'author', 'description', 'caption', 'name', 'status', 'uploadedTo', 'date', 'modified', 'menuOrder', 'mime', 'type', 'subtype', 'icon', 'dateFormatted', 'nonces', 'editLink', 'sizes', 'height', 'width', 'orientation', 'compat'];
+      var media_properties = ['id', 'title', 'filename', 'url', 'link', 'alt', 'author', 'description', 'caption', 'name', 'status', 'uploadedTo', 'date', 'modified', 'menuOrder', 'mime', 'type', 'subtype', 'icon', 'dateFormatted', 'nonces', 'editLink', 'sizes', 'height', 'width', 'orientation', 'compat'];
 
 
-    $('.media-remove').on('click', function(e) {
-      e.preventDefault();
+      $('.media-remove').on('click', function(e) {
+        e.preventDefault();
 
-      if ($(this).attr('data-browse-button')) var $browse = $($(this).attr('data-browse-button'));
-      else var $browse = $(this).siblings('.media-browse');
+        if ($(this).attr('data-browse-button')) var $browse = $($(this).attr('data-browse-button'));
+        else var $browse = $(this).siblings('.media-browse');
 
-      if (!$browse.length) {
-        alert('No sibling browse button found, or the data-browse-button attribute had no matching elements');
-        return false;
-      }
-
-      $browse.data('attachment', false).trigger('attachment-removed');
-
-      // Trigger the update for the browse button's fields
-      for (i = 0; i < media_properties.length; i++) {
-        var media_key = media_properties[i];
-        var selector = $browse.attr('data-media-' + media_key); // data-media-url, data-media-link, data-media-height
-
-        if (selector) {
-          var $target = jQuery(selector);
-
-          if ($target.length) {
-            $target.val('').trigger('media-updated').trigger('change');
-          }
+        if (!$browse.length) {
+          alert('No sibling browse button found, or the data-browse-button attribute had no matching elements');
+          return false;
         }
-      }
 
-      return false;
-    });
+        $browse.data('attachment', false).trigger('attachment-removed');
 
-    var file_frame;
-    $('.media-browse').on('click', function(e) {
-      e.preventDefault();
-
-      var $this = $(this);
-
-      if (!wp || !wp.media) {
-        alert('The media gallery is not available. You must admin_enqueue this function: wp_enqueue_media()');
-        return;
-      }
-
-      // If the media frame already exists, reopen it.
-      if (file_frame) {
-        file_frame.open();
-        return;
-      }
-
-      // Create the media frame.
-      file_frame = wp.media.frames.file_frame = wp.media({
-        title: $this.attr('data-media-title') || 'Browsing Media',
-        button: {
-          text: $this.attr('data-media-text') || 'Select',
-        },
-        multiple: true // Set to true to allow multiple files to be selected
-      });
-
-      // When an image is selected, run a callback.
-      file_frame.on('select', function() {
-        // We set multiple to false so only get one image from the uploader
-        attachment = file_frame.state().get('selection').first().toJSON();
-
-        // Extend this plugin yourself by binding the "attachment-selected" event to the button.
-        $this.data('attachment', attachment).trigger('attachment-selected');
-
-        // Allow each file property to be assigned to a field. Fields are referenced by the button's data attrbiutes
-        // All methods support a data attribute.
-        // data-media-{index}
-        // Example:
-        // attachment.url is assigned to the element matching the value of the "data-media-url" attribute (if available)
+        // Trigger the update for the browse button's fields
         for (i = 0; i < media_properties.length; i++) {
           var media_key = media_properties[i];
-          var selector = $this.attr('data-media-' + media_key); // data-media-url, data-media-link, data-media-height
+          var selector = $browse.attr('data-media-' + media_key); // data-media-url, data-media-link, data-media-height
 
           if (selector) {
-            var $target = $(selector);
+            var $target = jQuery(selector);
 
-            if (!$target.length) {
-              if (console && console.log) {
-                console.log('Selector contains zero matched elements:', selector, 'Value expected:', attachment[media_key]);
-                continue;
-              }
+            if ($target.length) {
+              $target.val('').trigger('media-updated').trigger('change');
             }
-
-            // Assign the target field the given value, and trigger two events for developers to check for
-            $target.val(attachment[media_key]).trigger('media-updated').trigger('change');
           }
         }
+
+        return false;
       });
 
-      // Finally, open the modal
-      file_frame.open();
+      var file_frame;
+      $('.media-browse').on('click', function(e) {
+        e.preventDefault();
 
+        var $this = $(this);
+
+        if (!wp || !wp.media) {
+          alert('The media gallery is not available. You must admin_enqueue this function: wp_enqueue_media()');
+          return;
+        }
+
+        // If the media frame already exists, reopen it.
+        if (file_frame) {
+          file_frame.open();
+          return;
+        }
+
+        // Create the media frame.
+        file_frame = wp.media.frames.file_frame = wp.media({
+          title: $this.attr('data-media-title') || 'Browsing Media',
+          button: {
+            text: $this.attr('data-media-text') || 'Select',
+          },
+          multiple: true // Set to true to allow multiple files to be selected
+        });
+
+        // When an image is selected, run a callback.
+        file_frame.on('select', function() {
+          // We set multiple to false so only get one image from the uploader
+          attachment = file_frame.state().get('selection').first().toJSON();
+
+          // Extend this plugin yourself by binding the "attachment-selected" event to the button.
+          $this.data('attachment', attachment).trigger('attachment-selected');
+
+          // Allow each file property to be assigned to a field. Fields are referenced by the button's data attrbiutes
+          // All methods support a data attribute.
+          // data-media-{index}
+          // Example:
+          // attachment.url is assigned to the element matching the value of the "data-media-url" attribute (if available)
+          for (i = 0; i < media_properties.length; i++) {
+            var media_key = media_properties[i];
+            var selector = $this.attr('data-media-' + media_key); // data-media-url, data-media-link, data-media-height
+
+            if (selector) {
+              var $target = $(selector);
+
+              if (!$target.length) {
+                if (console && console.log) {
+                  console.log('Selector contains zero matched elements:', selector, 'Value expected:', attachment[media_key]);
+                  continue;
+                }
+              }
+
+              // Assign the target field the given value, and trigger two events for developers to check for
+              $target.val(attachment[media_key]).trigger('media-updated').trigger('change');
+            }
+          }
+        });
+
+        // Finally, open the modal
+        file_frame.open();
+
+      });
     });
   });
-});
 </script>

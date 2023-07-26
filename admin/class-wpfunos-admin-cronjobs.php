@@ -276,12 +276,14 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin
     $args = array(
       'post_type' => 'servicios_wpfunos',
       'post_status' => 'publish',
+      'posts_per_page' => -1,
       'meta_query' => array(
         array('key' => 'wpfunos_servicioActivo', 'value' => '1', 'compare' => '=',),
       ),
     );
     $servicios_list = get_posts($args);
     if ($servicios_list) {
+      $this->custom_logs('Wpfunos Acutalizar Indices: count: ' . count($servicios_list));
       foreach ($servicios_list as $servicio) {
         $nombre_servicio = get_the_title($servicio->ID);
         $titulo_servicio = get_post_meta($servicio->ID, 'wpfunos_servicioNombre', true);
@@ -345,6 +347,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin
                     'wpfunos_servicioPrecio' => $precio_tipo,
                   ),
                 );
+                if ($indice->ID == 121151) $this->custom_logs('Wpfunos Acutalizar Indices: PARLA ');
                 wp_update_post($post_update);
               }
             } else { // No existe el índice: Create

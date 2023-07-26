@@ -37,6 +37,7 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio
     add_shortcode('wpfunos-directorio-tanatorio-ficha-cercano-imagen', array($this, 'wpfunosDirectorioTanatorioFichaCercanoImagenShortcode'));
     add_shortcode('wpfunos-directorio-tanatorio-ficha-cercano-titulo', array($this, 'wpfunosDirectorioTanatorioFichaCercanoTituloShortcode'));
     add_shortcode('wpfunos-directorio-tanatorio-ficha-cercano-poblacion', array($this, 'wpfunosDirectorioTanatorioFichaCercanoPoblacionShortcode'));
+    add_shortcode('wpfunos-directorio-tanatorio-ficha-schema-faq', array($this, 'wpfunosDirectorioTanatorioFichaSchemaFAQShortcode'));
   }
 
   /**
@@ -480,7 +481,7 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio
   public function wpfunosDirectorioTanatorioFichaCercanoImagenShortcode($atts, $content = "")
   {
     $servicio = $_GET['cercanosid'];
-    echo '<img src="' . esc_url(get_the_post_thumbnail_url($servicio,array(300,300))) . '">';
+    echo '<img src="' . esc_url(get_the_post_thumbnail_url($servicio, array(300, 300))) . '">';
   }
 
   /**
@@ -500,4 +501,28 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio
     $servicio = $_GET['cercanosid'];
     echo '<span class="wpfunoscercanopoblacion">' . get_post_meta($servicio, 'wpfunos_entradaDirectorioPoblacion', true) . '</span>';
   }
+
+  /**
+   * add_shortcode('wpfunos-directorio-tanatorio-ficha-schema-faq', array($this, 'wpfunosDirectorioTanatorioFichaSchemaFAQShortcode'));
+   */
+  public function wpfunosDirectorioTanatorioFichaSchemaFAQShortcode($atts, $content = "")
+  {
+    /** 
+     *  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+     *   <h2 itemprop="name">What is the return policy?</h2>
+     *   <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+     *    <div itemprop="text">
+     *     Most unopened items in new condition and returned within <b>90 days</b> will receive a refund or exchange. Some items have a modified return policy noted on the receipt or packing slip. Items that are opened or damaged or do not have a receipt may be denied a refund or exchange. Items purchased online or in-store may be returned to any store.
+     *     <br /><p>Online purchases may be returned via a major parcel carrier. <a href="https://example.com/returns"> Click here </a> to initiate a return.</p>
+     *    </div>
+     *   </div>
+     *  </div>
+     */
+    $post_id = get_the_ID();
+    $ubicacion = get_post_meta($post_id, 'wpfunos_entradaDirectorioFAQUbicacion', true);
+    /**?><script>console.log('Ubicación: <?php  echo strlen($ubicacion); ?>' );</script><?php*/
+    if (strlen($ubicacion) > 0){
+      echo do_shortcode('[elementor-template id="146825"]');
+    }
+    
 }

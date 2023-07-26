@@ -74,6 +74,12 @@ register_taxonomy(
     'show_admin_column'          => true,
     'show_in_nav_menus'          => true,
     'show_tagcloud'              => true,
+    'capabilities'      => array(
+      'manage_terms'  => 'funos_directorio',
+      'edit_terms'    => 'funos_directorio',
+      'delete_terms'  => 'funos_directorio',
+      'assign_terms'  => 'funos_directorio'
+    )
   )
 );
 register_taxonomy_for_object_type('directorio_poblacion', 'directorio_entrada');

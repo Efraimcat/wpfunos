@@ -43,7 +43,7 @@ class Wpfunos_Admin
     add_action('init', array($this, 'directorio_servicios_custom_post_type'));
     //add_action('init', array( $this, 'directorio_defuncion_custom_post_type' ));
     add_action('init', array($this, 'directorio_shortcode_custom_post_type'));
-
+    add_action('init', array($this, 'directorio_amavir_custom_post_type'));
 
     add_action('admin_menu', array($this, 'addPluginAdminMenu'), 9);
     add_action('admin_init', array($this, 'registerAndBuildFields'));            // Compara Debug
@@ -226,6 +226,7 @@ class Wpfunos_Admin
     add_menu_page('Configuración', 'Índice configuración', 'administrator', 'wpfunosconfig', array($this, 'display_plugin_admin_config_dashboard'), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26);
     add_menu_page('Landings Población', 'Índice landings población', 'funos_landings', 'wpfunosprecios_poblacion', array($this, 'display_plugin_admin_precios_poblacion_dashboard'), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26);
     add_menu_page('Directorio', 'Índice Directorio', 'funos_directorio', 'wpfunos_directorio', array($this, 'display_plugin_admin_directorio_dashboard'), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26);
+    add_menu_page('Prescriptores', 'Índice prescriptores', 'funos_directorio', 'wpfunos_prescriptores', array($this, 'display_plugin_admin_prescriptores_dashboard'), plugin_dir_url(dirname(__FILE__)) . 'admin/img/funos-logo-01.png', 26);
     // add_submenu_page( string $parent_slug, string $page_title, string $menu_title, string $capability, string $menu_slug, callable $function = '', int $position = null )
     add_submenu_page('wpfunosconfig', esc_html__('Configuración servicios WpFunos', 'wpfunos'), esc_html__('Configuración servicios', 'wpfunos'), 'administrator', 'wpfunos-settings', array($this, 'displayPluginAdminSettings'));
     add_submenu_page('wpfunosconfig', esc_html__('Configuración aseguradoras WpFunos', 'wpfunos'), esc_html__('Configuración aseguradoras', 'wpfunos'), 'administrator', 'wpfunos-aseguradoras', array($this, 'displayPluginAdminAseguradoras'));
@@ -256,6 +257,10 @@ class Wpfunos_Admin
     require_once 'partials/admin-menu/wpfunos-admin-display.php';
   }
   public function display_plugin_admin_directorio_dashboard()
+  {
+    require_once 'partials/admin-menu/wpfunos-admin-display.php';
+  }
+  public function display_plugin_admin_prescriptores_dashboard()
   {
     require_once 'partials/admin-menu/wpfunos-admin-display.php';
   }
@@ -1241,6 +1246,13 @@ class Wpfunos_Admin
   public function directorio_shortcode_custom_post_type()
   {
     require_once 'partials/cpt/wpfunos-admin-cpt-directorio-shortcode.php';
+  }
+  /**
+   * Directorio Amavir:
+   */
+  public function directorio_amavir_custom_post_type()
+  {
+    //require_once 'partials/cpt/wpfunos-admin-cpt-directorio-amavir.php';
   }
 
   /*********************************/

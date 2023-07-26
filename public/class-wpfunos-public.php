@@ -50,6 +50,8 @@ if (!defined('ABSPATH')) {
  * 2000 //wpfAPI
  *
  * 3000 //wpfhubspot
+ * 
+ * 4000 //WooCommerce
  */
 
 require_once 'class-wpfunos-public-form-validation.php';
@@ -660,17 +662,29 @@ class Wpfunos_Public
       do_action('wpfunos_log', '==============');
       if ($servicio == '') {
         do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Página Fininaciación');
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'importe ' . $fields['importe']);
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'entrada ' . $fields['entrada']);
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Financiar ' . $fields['financiar']);
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Plazos inferior ' . $fields['plazos_inferior']);
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Plazos superior ' . $fields['plazos_superior']);
       } else {
         do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Servicio Botón Fininaciación');
         do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Servicio titulo: ' . $servicio);
         do_action('wpfunos_log', $userIP . ' - 0100 ' . '$IDusuario: ' . $IDusuario);
         do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Servicio ' . $servicio);
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Financiar ' . $fields['financiar']);
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Plazos inferior ' . $fields['plazos_inferior']);
+        do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Plazos superior ' . $fields['plazos_superior']);
       }
       //HUBSPOT
       do_action('wpfunos_log', '==============');
       do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Prepara envio Hubspot');
       $hubspotutk = (isset($_COOKIE['hubspotutk'])) ? $_COOKIE['hubspotutk'] : 'fe23' . apply_filters('wpfunos_generate_random_string', 28);
-      $phone = apply_filters('wpfunos_telefono_formateado', sanitize_text_field($fields['telefono']));
+      $phone = apply_filters('wpfunos_telefono_formateado_hubspot', sanitize_text_field($fields['telefono']));
+      $plazos = $fields['plazos_inferior'];
+      if (((int)$fields['importe'] - (int)$fields['entrada']) > 1500) {
+        $plazos = $fields['plazos_superior'];
+      }
       if ($servicio == '') {
         $params = array(
           'firstname' => sanitize_text_field($fields['Nombre']),
@@ -680,6 +694,7 @@ class Wpfunos_Public
           'importe' => sanitize_text_field($fields['importe']),
           'entrada' => sanitize_text_field($fields['entrada']),
           'financiar' => sanitize_text_field($fields['financiar']),
+          'plazos' => $plazos,
           'ip' => $userIP,
           'hubspotutk' => $hubspotutk,
           'pageUri' => 'https://funos.es/financiacion-funeral',
@@ -695,6 +710,7 @@ class Wpfunos_Public
           'precio' => $precio,
           'entrada' => sanitize_text_field($fields['entrada']),
           'financiar' => sanitize_text_field($fields['financiar']),
+          'plazos' => $plazos,
           'ip' => $userIP,
           'hubspotutk' => $hubspotutk,
           'pageUri' => 'https://funos.es/comparar-precios-resultados',

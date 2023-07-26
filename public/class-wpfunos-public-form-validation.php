@@ -116,6 +116,12 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public
           $ajax_handler->add_error($field['id'], esc_html__('Introduce nombre y apellidos válidos', 'wpfunos_es'));
           do_action('wpfunos_log', $userIP . ' - 0101 ' . 'Validación Nombre: INCORRECTO (inválido)');
         }
+
+        if ($userIP == '185.59.64.8') {
+          $ajax_handler->add_error($field['id'], esc_html__('ERROR EN LA ENTRADA', 'wpfunos_es'));
+          do_action('wpfunos_log', $userIP . ' - 0101 ' . 'Validación IP: INCORRECTO (185.59.64.8)');
+        }
+
       }
 
       // EMAIL
@@ -172,6 +178,12 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public
           $ajax_handler->add_error($field['id'], esc_html__('Introduce una dirección de correo válida', 'wpfunos_es'));
           do_action('wpfunos_log', $userIP . ' - 0101 ' . 'Validación email: INCORRECTO (BLOQUEADO)');
         }
+
+        if ($userIP == '185.59.64.8') {
+          $ajax_handler->add_error($field['id'], esc_html__('ERROR EN LA ENTRADA', 'wpfunos_es'));
+          do_action('wpfunos_log', $userIP . ' - 0101 ' . 'Validación IP: INCORRECTO (185.59.64.8)');
+        }
+
       }
 
       // TELEFONO
@@ -210,6 +222,12 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public
           $ajax_handler->add_error($field['id'], esc_html__('Introduce un número de teléfono válido', 'wpfunos_es'));
           do_action('wpfunos_log', $userIP . ' - 0101 ' . 'Validación teléfono: BLOQUEADO');
         }
+
+        if ($userIP == '185.59.64.8') {
+          $ajax_handler->add_error($field['id'], esc_html__('ERROR EN LA ENTRADA', 'wpfunos_es'));
+          do_action('wpfunos_log', $userIP . ' - 0101 ' . 'Validación IP: INCORRECTO (185.59.64.8)');
+        }
+        
       }
       do_action('wpfunos_log', $userIP . ' - 0101 ' . 'Validación formulario: FINAL');
     } // if( "FormularioDatosAseguradoras" === $form_name ||

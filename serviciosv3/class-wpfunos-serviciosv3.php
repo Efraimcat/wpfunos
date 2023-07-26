@@ -247,6 +247,7 @@ class Wpfunos_ServiciosV3
       // wpfunos-visitas-entrada
       if (isset($_GET['land']) && !isset($_GET['wpfwpf'])) {
         /** ?><script>console.log('Entrada directa landing.' );</script><?php **/
+        $address = $_GET['address'][0];
         $cp = $_GET['CP'];
         $CP = $this->wpfunosCodigoPostal($cp, $address);
         $address = (isset($_GET['poblacion'])) ? $_GET['poblacion'] : $_GET['address'][0];
@@ -790,7 +791,7 @@ class Wpfunos_ServiciosV3
 
       $transient_id = get_transient('wpfunos-wpfid-v3-' . $IP);
 
-      if (isset($_GET['orden']) && $_GET['orden'] == 'precios') {
+      if (isset($_GET['orden']) && $_GET['orden'] == 'precio') {
         $columns = array_column($wpfunos_confirmado, 2);
         array_multisort($columns, SORT_ASC, $wpfunos_confirmado);
       }
@@ -857,8 +858,8 @@ class Wpfunos_ServiciosV3
         </center>
       </div>
       <?php
-
-      if (isset($_GET['orden']) && $_GET['orden'] == 'precios') {
+      ?><script>console.log('$_GET[orden]: <?php  echo $_GET['orden']; ?>' );</script><?php
+      if (isset($_GET['orden']) && $_GET['orden'] == 'precio') {
         $columns = array_column($wpfunos_confirmado, 2);
         array_multisort($columns, SORT_ASC, $wpfunos_confirmado);
       }
@@ -974,7 +975,7 @@ class Wpfunos_ServiciosV3
       </div>
       <?php
 
-      if (isset($_GET['orden']) && $_GET['orden'] == 'precios') {
+      if (isset($_GET['orden']) && $_GET['orden'] == 'precio') {
         $columns = array_column($wpfunos_sinconfirmar, 2);
         array_multisort($columns, SORT_ASC, $wpfunos_sinconfirmar);
       }

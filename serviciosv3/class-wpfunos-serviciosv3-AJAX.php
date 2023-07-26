@@ -197,8 +197,20 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
       //
       //$URL = home_url().$wpml_path.'/comparar-precios-resultados?' .$wpfurl. '&wpfwpf=' .$wpfwpf;
       $URL = home_url() . '/comparar-precios-resultados?' . $wpfurl . '&wpfwpf=' . $wpfwpf;
+      //
+      $orden = '';
+      parse_str($URL);
+      if ($wpfresp3 == '2' && $wpfresp4 == '1') {
+        if ($orden == 'dist') {
+          $URL = str_replace('&orden=dist', '&orden=precio', $URL);
+        }
+      } else {
+        if ($orden == 'precio') {
+          $URL = str_replace('&orden=precio', '&orden=dist', $URL);
+        }
+      }
+      //
       $userURL = apply_filters('wpfunos_shortener', $URL);
-
       do_action('wpfunos_update phone', $wpftelefono);
 
       $Telefono = apply_filters('wpfunos_telefono_formateado', $wpftelefono);
