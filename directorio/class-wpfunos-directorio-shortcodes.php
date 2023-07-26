@@ -520,9 +520,8 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio
      */
     $post_id = get_the_ID();
     $ubicacion = get_post_meta($post_id, 'wpfunos_entradaDirectorioFAQUbicacion', true);
-    /**?><script>console.log('Ubicación: <?php  echo strlen($ubicacion); ?>' );</script><?php*/
-    if (strlen($ubicacion) > 0){
+    if (strlen($ubicacion) > 0) {
       echo do_shortcode('[elementor-template id="146825"]');
     }
-    
+  }
 }
