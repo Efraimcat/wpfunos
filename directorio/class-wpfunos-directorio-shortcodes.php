@@ -38,6 +38,7 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio
     add_shortcode('wpfunos-directorio-tanatorio-ficha-cercano-titulo', array($this, 'wpfunosDirectorioTanatorioFichaCercanoTituloShortcode'));
     add_shortcode('wpfunos-directorio-tanatorio-ficha-cercano-poblacion', array($this, 'wpfunosDirectorioTanatorioFichaCercanoPoblacionShortcode'));
     add_shortcode('wpfunos-directorio-tanatorio-ficha-schema-faq', array($this, 'wpfunosDirectorioTanatorioFichaSchemaFAQShortcode'));
+    add_shortcode('wpfunos-directorio-tanatorio-imagen-parking', array($this, 'wpfunosDirectorioTanatorioImagenParkingShortcode'));
   }
 
   /**
@@ -215,10 +216,10 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio
     $provincia = strtolower(get_the_category_by_ID($term_list[0]->parent));
     $poblacion = strtolower(get_the_category_by_ID($term_list[0]->term_taxonomy_id));
 
-    $link_poblacion = '<a href="' . home_url() . '/tanatorios/' . $provincia . '/' . $poblacion . '">población de ' . ucfirst($poblacion) . '</a>';
-    $link_provincia = '<a href="' . home_url() . '/tanatorios/' . $provincia . '">provincia de ' . ucfirst($provincia) . '</a>';
+    $link_poblacion = '<a href="' . home_url() . '/tanatorios/' . $provincia . '/' . $poblacion . '">Tanatorios en la ciudad de ' . ucfirst($poblacion) . '</a>';
+    $link_provincia = '<a href="' . home_url() . '/tanatorios/' . $provincia . '">Tanatorios en la provincia de ' . ucfirst($provincia) . '</a>';
 
-    echo 'Ver todos los tanatorios de la ' . $link_poblacion . ' o de la ' . $link_provincia . '.';
+    echo 'Ver todos los ' . $link_poblacion . ' o ' . $link_provincia . '.';
   }
 
   /**
@@ -523,5 +524,14 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio
     if (strlen($ubicacion) > 0) {
       echo do_shortcode('[elementor-template id="146825"]');
     }
+  }
+
+  /**
+   * add_shortcode('wpfunos-directorio-tanatorio-imagen-parking', array($this, 'wpfunosDirectorioTanatorioImagenParkingShortcode'));
+   */
+  public function wpfunosDirectorioTanatorioImagenParkingShortcode($atts, $content = "")
+  {
+    $post_id = get_the_ID();
+    echo wp_get_attachment_image(get_post_meta($post_id, 'wpfunos_entradaDirectorioImagenes', true), 'full');
   }
 }

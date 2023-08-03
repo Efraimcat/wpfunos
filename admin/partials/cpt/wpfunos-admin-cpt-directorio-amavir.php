@@ -36,7 +36,7 @@ $customPostTypeArgs = array(
   'exclude_from_search' => false,
   'show_ui' => true,
   'show_in_menu' => 'wpfunos_prescriptores',
-  'supports' => array('title', 'custom_fields', 'editor', 'author', 'thumbnail', 'excerpt'),
+  'supports' => array('title', 'custom_fields', 'author', 'thumbnail', 'excerpt'),
   'capability_type' => 'post',
   'capabilities' => array('create_posts' => true),
   'rewrite' => array('with_front' => false), 'capability_type' => 'post',

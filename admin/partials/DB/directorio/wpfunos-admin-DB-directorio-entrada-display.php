@@ -133,10 +133,27 @@ if (!defined('ABSPATH')) {
         </tr>
       </table>
     </li>
-    <li class="directorio_entrada_wpfunos_list" style="display: none;">
+    <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Imagenes', 'wpfunos'); ?></td>
+          <td><?php esc_html_e('Entierro desde', 'wpfunos'); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php esc_html_e('Incineración desde', 'wpfunos'); ?></td>
+        </tr>
+        <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioEntierroDesde', 'name' => 'wpfunos_entradaDirectorioEntierroDesde', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?></td>
+          <td style="width:5px;"></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioIncineracionDesde', 'name' => 'wpfunos_entradaDirectorioIncineracionDesde', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?></td>
+        </tr>
+      </table>
+    </li>
+    <hr />
+
+
+    <li class="directorio_entrada_wpfunos_list">
+      <table>
+        <tr>
+          <td><?php esc_html_e('Imagen parking', 'wpfunos'); ?></td>
         </tr>
         <tr>
           <td style="vertical-align: middle;">
@@ -160,21 +177,9 @@ if (!defined('ABSPATH')) {
         </tr>
       </table>
     </li>
-    <li class="directorio_entrada_wpfunos_list">
-      <table>
-        <tr>
-          <td><?php esc_html_e('Entierro desde', 'wpfunos'); ?></td>
-          <td style="width:5px;"></td>
-          <td><?php esc_html_e('Incineración desde', 'wpfunos'); ?></td>
-        </tr>
-        <tr>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioEntierroDesde', 'name' => 'wpfunos_entradaDirectorioEntierroDesde', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?></td>
-          <td style="width:5px;"></td>
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioIncineracionDesde', 'name' => 'wpfunos_entradaDirectorioIncineracionDesde', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '', 'size' => 7)); ?></td>
-        </tr>
-      </table>
-    </li>
     <hr />
+
+
     <h2><?php esc_html_e('Landings para el cálculo de precios', 'wpfunos'); ?></h2>
     <li class="directorio_entrada_wpfunos_list">
       <table>

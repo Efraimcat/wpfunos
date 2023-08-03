@@ -111,6 +111,7 @@ class Wpfunos_Admin
     add_action('add_meta_boxes_directorio_defuncion', array($this, 'setupdirectorio_defuncionMetaboxes'));
     add_action('add_meta_boxes_directorio_shortcode', array($this, 'setupdirectorio_shortcodeMetaboxes'));
     //add_action('add_meta_boxes_directorio_marcas', array( $this, 'setupdirectorio_marcasMetaboxes' ));
+    add_action('add_meta_boxes_directorio_amavir', array($this, 'setupdirectorio_amavirMetaboxes'));
 
     add_action('save_post_usuarios_wpfunos', array($this, 'saveusuarios_wpfunosMetaBoxData'));
     add_action('save_post_servicios_wpfunos', array($this, 'saveservicios_wpfunosMetaBoxData'));
@@ -130,6 +131,7 @@ class Wpfunos_Admin
     add_action('save_post_directorio_defuncion', array($this, 'savedirectorio_defuncionMetaBoxData'));
     add_action('save_post_directorio_shortcode', array($this, 'savedirectorio_shortcodeMetaBoxData'));
     //add_action('save_post_directorio_marcas', array( $this, 'savedirectorio_marcasMetaBoxData' ));
+    add_action('save_post_directorio_amavir', array($this, 'savedirectorio_amavirMetaBoxData'));
 
     add_action('wpfunos_hojas_calculo', array($this, 'wpfunosHojasCalculo'), 10, 1);
     add_action('wpfunos_enlaces_landings', array($this, 'wpfunosEnlacesLandings'), 10, 1);
@@ -959,6 +961,10 @@ class Wpfunos_Admin
   //public function setupdirectorio_marcasMetaboxes(){
   //  add_meta_box('directorio_marcas_data_meta_box', esc_html__('Información', 'wpfunos'), array($this,'directorio_marcas_data_meta_box'), 'directorio_marcas', 'normal', 'high' );
   //}
+  public function setupdirectorio_amavirMetaboxes()
+  {
+    add_meta_box('directorio_amavir_data_meta_box', esc_html__('Información', 'wpfunos'), array($this, 'directorio_amavir_data_meta_box'), 'directorio_amavir', 'normal', 'high');
+  }
 
   /*********************************/
   /*****  SALVAR DATOS META CPT ****/
@@ -1118,6 +1124,14 @@ class Wpfunos_Admin
   //  if (! current_user_can('manage_options')) return;
   //  require_once 'partials/DB/directorio/wpfunos-admin-DB-directorio-marca-fields.php';
   //}
+  public function savedirectorio_amavirMetaBoxData($post_id)
+  {
+    if (!isset($_POST['wpfunos_directorio_amavir_meta_box_nonce'])) return;
+    if (!wp_verify_nonce($_POST['wpfunos_directorio_amavir_meta_box_nonce'], 'wpfunos_directorio_amavir_meta_box')) return;
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('manage_options')) return;
+    require_once 'partials/DB/directorio/wpfunos-admin-DB-directorio-amavir-fields.php';
+  }
   /*********************************/
   /*****  CPT                 ******/
   /*********************************/
@@ -1252,7 +1266,7 @@ class Wpfunos_Admin
    */
   public function directorio_amavir_custom_post_type()
   {
-    //require_once 'partials/cpt/wpfunos-admin-cpt-directorio-amavir.php';
+    require_once 'partials/cpt/wpfunos-admin-cpt-directorio-amavir.php';
   }
 
   /*********************************/
@@ -1352,7 +1366,11 @@ class Wpfunos_Admin
   //  wp_nonce_field( 'wpfunos_directorio_marcas_meta_box', 'wpfunos_directorio_marcas_meta_box_nonce' );
   //  require_once 'partials/DB/directorio/wpfunos-admin-DB-directorio-marca-display.php';
   //}
-
+  public function directorio_amavir_data_meta_box($post)
+  {
+    wp_nonce_field('wpfunos_directorio_amavir_meta_box', 'wpfunos_directorio_amavir_meta_box_nonce');
+    require_once 'partials/DB/directorio/wpfunos-admin-DB-directorio-amavir-display.php';
+  }
   /*********************************/
   /*****  RENDERS             ******/
   /*********************************/

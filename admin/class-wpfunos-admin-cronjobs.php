@@ -45,7 +45,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin
   public function wpfunosHourlyMaintenance()
   {
     $this->wpfunosMaintenancePreciosv1Preciosv2();
-    $this->wpfunosMaintenanceAcutalizarIndices();
+    //$this->wpfunosMaintenanceAcutalizarIndices();
     return;
   }
 
@@ -288,6 +288,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin
         $nombre_servicio = get_the_title($servicio->ID);
         $titulo_servicio = get_post_meta($servicio->ID, 'wpfunos_servicioNombre', true);
         $direccion_servicio = get_post_meta($servicio->ID, 'wpfunos_servicioDireccion', true);
+        //$this->custom_logs('Wpfunos Acutalizar Indices: servicio ==> ' . $servicio->ID . ' <== ' . $nombre_servicio);
 
         foreach ($tipos as $tipo) {
 
@@ -718,7 +719,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin
     foreach ($files as $file) {
       if (substr($file, -4) == '.log') {
         $this->custom_logs('Logfile: ' . $file . ' -> ' . date("d-m-Y H:i:s", filemtime($upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file)));
-        if (time() > strtotime('+1 week', filemtime($upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file))) {
+        if (time() > strtotime('+3 days', filemtime($upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file))) {
           $oldfile = $this->gzCompressFile($upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file);
           $this->custom_logs('Old logfile: ' . $oldfile);
           unlink($upload_dir['basedir'] . '/' . 'wpfunos-logs/' . $file);

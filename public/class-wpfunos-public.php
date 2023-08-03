@@ -725,6 +725,32 @@ class Wpfunos_Public
       //HUBSPOT
     } //if( $form_name == 'PaginaFinanciacion' )
 
+    if ($form_name == 'fomulario de contacto') {
+      $userIP = apply_filters('wpfunos_userIP', 'dummy');
+      do_action('wpfunos_log', '==============');
+      do_action('wpfunos_log', '==============');
+      do_action('wpfunos_log', $userIP . ' - 0100 ' . 'fomulario de contacto');
+      do_action('wpfunos_log', '==============');
+      do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Prepara envio Hubspot');
+      $hubspotutk = (isset($_COOKIE['hubspotutk'])) ? $_COOKIE['hubspotutk'] : 'fe23' . apply_filters('wpfunos_generate_random_string', 28);
+      $phone = apply_filters('wpfunos_telefono_formateado_hubspot', sanitize_text_field($fields['phone']));
+      $params = array(
+        'firstname' => sanitize_text_field($fields['name']),
+        'email' => sanitize_text_field($fields['email']),
+        'phone' => $phone,
+        'mensaje' => $fields['message'],
+        'accion' => 'fomulario de contacto',
+        'ip' => $userIP,
+        'hubspotutk' => $hubspotutk,
+        'pageUri' => 'https://funos.es/contacto',
+        'pageId' => 'Contacto - Funos - Comparador de Funerarias'
+      );
+      do_action('wpfhubspot-send-form', $params);
+      do_action('wpfhubspot-usuarios', array('email' => $fields['email'], 'hubspotutk' => $hubspotutk));
+
+      do_action('wpfunos_log', '==============');
+      do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Finaliza envio formulario Hubspot');
+    }
 
   } // public function wpfunosFormNewrecord($record, $handler)
 
