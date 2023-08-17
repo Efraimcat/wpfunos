@@ -14,6 +14,8 @@ if (!defined('ABSPATH')) {
  */
 $DirectorioAmavirShortcode = sanitize_text_field($_POST['wpfunos_DirectorioAmavirShortcode']);
 $DirectorioAmavirOrigen = sanitize_text_field($_POST['wpfunos_DirectorioAmavirOrigen']);
+$DirectorioAmavirPoblacion = sanitize_text_field($_POST['wpfunos_DirectorioAmavirPoblacion']);
 
 update_post_meta($post_id, 'wpfunos_DirectorioAmavirShortcode', $DirectorioAmavirShortcode);
 update_post_meta($post_id, 'wpfunos_DirectorioAmavirOrigen', $DirectorioAmavirOrigen);
+update_post_meta($post_id, 'wpfunos_DirectorioAmavirPoblacion', $DirectorioAmavirPoblacion);

@@ -3,8 +3,8 @@ Contributors: efraimcat
 Donate link: https://efraim.cat
 Tags: comments, spam
 Requires at least: 6.2
-Tested up to: 6.2.2
-Stable tag: 4.0.13
+Tested up to: 6.3
+Stable tag: 4.0.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

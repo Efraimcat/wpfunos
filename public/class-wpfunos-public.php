@@ -199,7 +199,7 @@ class Wpfunos_Public
           {
             "from":"34606902525",
             "to":"[numero_SMS]",
-            "text":"Descuento 50% en las principales funerarias. Asesoramiento profesional. Te ayudamos en todo.\\nGestoría gratis.\\nValoración 5* en Google.\\nLee las reseñas: [enlace_SMS]",
+            "text":"Descuento 50% en funerarias. Asesoramiento sin compromiso. Te ayudamos en todo.\\nGestoria y Asesoramiento legal y fiscal gratis.\\nValoración 5* en Google.\\nLeelas: [enlace_SMS]",
             "send_at": "[fecha2]"
           }
         ]
@@ -682,6 +682,8 @@ class Wpfunos_Public
       $hubspotutk = (isset($_COOKIE['hubspotutk'])) ? $_COOKIE['hubspotutk'] : 'fe23' . apply_filters('wpfunos_generate_random_string', 28);
       $phone = apply_filters('wpfunos_telefono_formateado_hubspot', sanitize_text_field($fields['telefono']));
       $plazos = $fields['plazos_inferior'];
+      global $wp;  
+      $current_url = home_url(add_query_arg(array($_GET), $wp->request));
       if (((int)$fields['importe'] - (int)$fields['entrada']) > 1500) {
         $plazos = $fields['plazos_superior'];
       }
@@ -697,7 +699,7 @@ class Wpfunos_Public
           'plazos' => $plazos,
           'ip' => $userIP,
           'hubspotutk' => $hubspotutk,
-          'pageUri' => 'https://funos.es/financiacion-funeral',
+          'pageUri' => $current_url,
           'pageId' => 'Financiación del funeral - Funos - Comparador de Funerarias'
         );
       } else {
@@ -713,7 +715,7 @@ class Wpfunos_Public
           'plazos' => $plazos,
           'ip' => $userIP,
           'hubspotutk' => $hubspotutk,
-          'pageUri' => 'https://funos.es/comparar-precios-resultados',
+          'pageUri' => $current_url,
           'pageId' => 'Comparar precios resultados - Funos - Comparador de Funerarias'
         );
       }
@@ -734,6 +736,8 @@ class Wpfunos_Public
       do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Prepara envio Hubspot');
       $hubspotutk = (isset($_COOKIE['hubspotutk'])) ? $_COOKIE['hubspotutk'] : 'fe23' . apply_filters('wpfunos_generate_random_string', 28);
       $phone = apply_filters('wpfunos_telefono_formateado_hubspot', sanitize_text_field($fields['phone']));
+      global $wp;  
+      $current_url = home_url(add_query_arg(array($_GET), $wp->request));
       $params = array(
         'firstname' => sanitize_text_field($fields['name']),
         'email' => sanitize_text_field($fields['email']),
@@ -742,7 +746,36 @@ class Wpfunos_Public
         'accion' => 'fomulario de contacto',
         'ip' => $userIP,
         'hubspotutk' => $hubspotutk,
-        'pageUri' => 'https://funos.es/contacto',
+        'pageUri' => $current_url,
+        'pageId' => 'Contacto - Funos - Comparador de Funerarias'
+      );
+      do_action('wpfhubspot-send-form', $params);
+      do_action('wpfhubspot-usuarios', array('email' => $fields['email'], 'hubspotutk' => $hubspotutk));
+
+      do_action('wpfunos_log', '==============');
+      do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Finaliza envio formulario Hubspot');
+    }
+
+    if ($form_name == 'Pedir presupuesto') {
+      $userIP = apply_filters('wpfunos_userIP', 'dummy');
+      do_action('wpfunos_log', '==============');
+      do_action('wpfunos_log', '==============');
+      do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Pagina pedir presupuesto');
+      do_action('wpfunos_log', '==============');
+      do_action('wpfunos_log', $userIP . ' - 0100 ' . 'Prepara envio Hubspot');
+      $hubspotutk = (isset($_COOKIE['hubspotutk'])) ? $_COOKIE['hubspotutk'] : 'fe23' . apply_filters('wpfunos_generate_random_string', 28);
+      $phone = apply_filters('wpfunos_telefono_formateado_hubspot', sanitize_text_field($fields['phone']));
+      global $wp;  
+      $current_url = home_url(add_query_arg(array($_GET), $wp->request));
+      $params = array(
+        'firstname' => sanitize_text_field($fields['name']),
+        'email' => sanitize_text_field($fields['email']),
+        'phone' => $phone,
+        'mensaje' => $fields['message'],
+        'accion' => 'Pagina pedir presupuesto',
+        'ip' => $userIP,
+        'hubspotutk' => $hubspotutk,
+        'pageUri' => $current_url,
         'pageId' => 'Contacto - Funos - Comparador de Funerarias'
       );
       do_action('wpfhubspot-send-form', $params);
@@ -864,4 +897,5 @@ class Wpfunos_Public
       }
     }
   }
+
 }

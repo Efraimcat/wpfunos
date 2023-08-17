@@ -80,7 +80,7 @@ class Wpfunos_Directorio_Widgets extends Wpfunos_Directorio
         $termchildren = get_term_children($term->term_id, $custom_taxonomy);
         foreach ($termchildren as $child) {
           $term_child = get_term_by('id', $child, $custom_taxonomy);
-          $namearray[$term_child->name] = get_term_link($term_child->slug, $custom_taxonomy);
+          if ($term_child->count > 0) $namearray[$term_child->name] = get_term_link($term_child->slug, $custom_taxonomy);
         }
         ksort($namearray);
 

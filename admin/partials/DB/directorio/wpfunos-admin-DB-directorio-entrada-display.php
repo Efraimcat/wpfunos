@@ -238,59 +238,6 @@ if (!defined('ABSPATH')) {
     <li class="directorio_entrada_wpfunos_list">
       <table>
         <tr>
-          <td><?php esc_html_e('Tanatorios cercanos', 'wpfunos'); ?></td>
-        </tr>
-        <tr style="display: none;">
-          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input', 'subtype' => 'text', 'id' => 'wpfunos_entradaDirectorioTanatoriosCercanos', 'name' => 'wpfunos_entradaDirectorioTanatoriosCercanos', 'required' => 'required', 'get_options_list' => '', 'value_type' => 'normal', 'wp_data' => 'post_meta', 'post_id' => $post->ID, 'disabled' => '')); ?></td>
-        </tr>
-      </table>
-    </li>
-    <li class="directorio_entrada_wpfunos_list">
-      <table>
-        <tr>
-          <?php
-          $codigos = (explode(',', get_post_meta($post->ID, 'wpfunos_entradaDirectorioCodigoProvincia', true)));
-          for ($x = 0; $x <= 2; $x++) {
-            $codigo[$x] = (isset($codigos[$x])) ? $codigo[$x] = $codigos[$x] : $codigo[$x] = '99';
-            //$this->custom_logs('$codigos: $x=' .$x. ' : ' .$codigo[$x] );
-          }
-          if (strlen($codigo[0]) > 1) {
-            $args = array(
-              'post_type' => 'directorio_entrada',
-              'post_status'  => 'publish',
-              'posts_per_page' => -1,
-              'orderby' => 'title',
-              'order' => 'ASC',
-              'meta_query' => array(
-                'relation' => 'OR',
-                array('key' => 'wpfunos_entradaDirectorioCodigoProvincia', 'value' => $codigo[0], 'compare' => 'LIKE',),
-              ),
-            );
-            $tanatorios = get_posts($args);
-            //$this->custom_logs('$landings(count): ' .count($landings) );
-            $paginas = (explode(',', get_post_meta($post->ID, 'wpfunos_entradaDirectorioTanatoriosCercanos', true)));
-            foreach ($tanatorios as $tanatorio) {
-              $check = '';
-              foreach ($paginas as $pagina) {
-                if ($tanatorio->ID == $pagina) $check = 'checked';
-              }
-              if ($post->ID == $tanatorio->ID) continue;
-          ?>
-        <tr>
-          <td><input type="checkbox" id="tanatoriosDirectorio-<?php echo $tanatorio->ID ?>" name="tanatoriosDirectorio-<?php echo $tanatorio->ID ?>" size="40" value="1" <?php echo $check ?> /></td>
-          <td><?php esc_html_e(get_the_title($tanatorio->ID) . ' (' . $tanatorio->ID . ')'); ?></td>
-        </tr>
-    <?php
-            }
-          }
-    ?>
-    </tr>
-      </table>
-    </li>
-    <hr />
-    <li class="directorio_entrada_wpfunos_list">
-      <table>
-        <tr>
           <td><?php esc_html_e('Servicios', 'wpfunos'); ?></td>
         </tr>
         <tr style="display: none;">

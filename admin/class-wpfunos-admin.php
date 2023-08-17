@@ -829,7 +829,7 @@ class Wpfunos_Admin
     <hr />
     <p><strong><?php esc_html_e('En el cuerpo del mensaje se pueden utilizar las siguientes variables:', 'wpfunos'); ?></strong></p>
     <p>[nombre], [telefono], [email], [CP], [poblacion], [distancia], [referencia]</p>
-    <p>[destino], [ataud], [velatorio], [ceremonia], [IP], [URL]</p>
+    <p>[cuando], [destino], [ataud], [velatorio], [ceremonia], [IP], [URL]</p>
     <hr />
   <?php
   }

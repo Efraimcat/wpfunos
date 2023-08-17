@@ -117,11 +117,6 @@ class Wpfunos_Public_Form_Validation extends Wpfunos_Public
           do_action('wpfunos_log', $userIP . ' - 0101 ' . 'Validación Nombre: INCORRECTO (inválido)');
         }
 
-        if ($userIP == '185.59.64.8') {
-          $ajax_handler->add_error($field['id'], esc_html__('ERROR EN LA ENTRADA', 'wpfunos_es'));
-          do_action('wpfunos_log', $userIP . ' - 0101 ' . 'Validación IP: INCORRECTO (185.59.64.8)');
-        }
-
       }
 
       // EMAIL

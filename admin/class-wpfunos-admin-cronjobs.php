@@ -26,7 +26,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin
   public function wpfunosMaintenance()
   {
     $this->wpfunosMaintenanceLogRotate();
-    $this->wpfunosMaintenanceUsuariosCSV();
+    //$this->wpfunosMaintenanceUsuariosCSV();
     return;
   }
 
@@ -45,7 +45,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin
   public function wpfunosHourlyMaintenance()
   {
     $this->wpfunosMaintenancePreciosv1Preciosv2();
-    //$this->wpfunosMaintenanceAcutalizarIndices();
+    $this->wpfunosMaintenanceAcutalizarIndices();
     return;
   }
 
@@ -366,7 +366,7 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin
               );
               $newpost_id = wp_insert_post($my_post);
               $this->custom_logs('Crear índice: ' . $nombre_servicio . ' (' . $servicio->ID . ') => ' . $newpost_id);
-              gmw_update_post_location($newpost_id, $direccion_servicion, 7, $direccion_servicio, true);
+              gmw_update_post_location($newpost_id, $direccion_servicio, 7, $direccion_servicio, true);
             }
           } else { //strlen ( $precio_tipo ) == 0 NO tiene precio. Borrar el ínidice si existe
             if ($indices_list) {

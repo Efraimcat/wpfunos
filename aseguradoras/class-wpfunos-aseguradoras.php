@@ -676,6 +676,8 @@ class Wpfunos_Aseguradoras
 
         do_action('wpfunos_log', '==============');
         do_action('wpfunos_log', $userIP . ' - 0200 ' . 'Prepara envio Hubspot');
+        global $wp;  
+        $current_url = home_url(add_query_arg(array($_GET), $wp->request));
         $params = array(
           'firstname' => sanitize_text_field(get_post_meta($IDusuario, 'wpfunos_userName', true)),
           'email' => sanitize_text_field(get_post_meta($IDusuario, 'wpfunos_userMail', true)),
@@ -805,6 +807,8 @@ class Wpfunos_Aseguradoras
 
     do_action('wpfunos_log', '==============');
     do_action('wpfunos_log', $userIP . ' - 0200 ' . 'Prepara envio Hubspot');
+    global $wp;  
+    $current_url = home_url(add_query_arg(array($_GET), $wp->request));
     $params = array(
       'firstname' => sanitize_text_field(get_post_meta($usuario, 'wpfunos_userName', true)),
       'email' => sanitize_text_field(get_post_meta($usuario, 'wpfunos_userMail', true)),
@@ -815,7 +819,7 @@ class Wpfunos_Aseguradoras
       'nacimiento' => $respuesta[3],
       'ok' => 'ok',
       'hubspotutk' => $hubspotutk,
-      'pageUri' => 'https://funos.es/compara-precios-aseguradoras',
+      'pageUri' => $current_url,
       'pageId' => 'Compara Precios Aseguradoras y Planes Funerarios - Funos - Comparador de Funerarias'
     );
     do_action('wpfhubspot-send-form', $params);
@@ -869,6 +873,8 @@ class Wpfunos_Aseguradoras
 
     do_action('wpfunos_log', '==============');
     do_action('wpfunos_log', $userIP . ' - 0200 ' . 'Prepara envio Hubspot');
+    global $wp;  
+    $current_url = home_url(add_query_arg(array($_GET), $wp->request));
     $params = array(
       'firstname' => sanitize_text_field(get_post_meta($usuario, 'wpfunos_userName', true)),
       'email' => sanitize_text_field(get_post_meta($usuario, 'wpfunos_userMail', true)),
@@ -879,7 +885,7 @@ class Wpfunos_Aseguradoras
       'nacimiento' => $respuesta[3],
       'ok' => 'ok',
       'hubspotutk' => $hubspotutk,
-      'pageUri' => 'https://funos.es/compara-precios-aseguradoras',
+      'pageUri' => $current_url,
       'pageId' => 'Compara Precios Aseguradoras y Planes Funerarios - Funos - Comparador de Funerarias'
     );
     do_action('wpfhubspot-send-form', $params);
