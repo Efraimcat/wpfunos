@@ -166,3 +166,6 @@ update_post_meta($post_id, 'SeoDesde', $SeoDesde);
 update_post_meta($post_id, 'wpfunos_EnlaceDistancia', $precioFunerariaEnlaceDistancia);
 update_post_meta($post_id, 'wpfunos_EnlaceLatitud', $precioFunerariaEnlaceLatitud);
 update_post_meta($post_id, 'wpfunos_EnlaceLonguitud', $precioFunerariaEnlaceLonguitud);
+
+$direccion = $precioFunerariaPoblacion.', '.$precioFunerariaProvincia.', España';
+gmw_update_post_location($post_id, $direccion, 7, $direccion, true);

@@ -991,6 +991,10 @@ class Wpfunos_Admin_Cronjobs extends Wpfunos_Admin
           // WPML
 
         }
+
+        //$direccion = get_post_meta($post->ID, 'wpfunos_precioFunerariaPoblacion', true).', '.get_post_meta($post->ID, 'wpfunos_precioFunerariaProvincia', true).', España';
+        //gmw_update_post_location($post->ID, $direccion, 7, $direccion, true);
+
       endforeach;
     }
     $this->custom_logs('Posts: ' . count($post_list));

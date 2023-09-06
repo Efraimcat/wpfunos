@@ -216,8 +216,8 @@ class Wpfunos_Directorio_Shortcodes extends Wpfunos_Directorio
     $provincia = strtolower(get_the_category_by_ID($term_list[0]->parent));
     $poblacion = strtolower(get_the_category_by_ID($term_list[0]->term_taxonomy_id));
 
-    $link_poblacion = '<a href="' . home_url() . '/tanatorios/' . $provincia . '/' . $poblacion . '">Tanatorios en la ciudad de ' . ucfirst($poblacion) . '</a>';
-    $link_provincia = '<a href="' . home_url() . '/tanatorios/' . $provincia . '">Tanatorios en la provincia de ' . ucfirst($provincia) . '</a>';
+    $link_poblacion = '<a href="' . home_url() . '/tanatorios/' . apply_filters('wpfunos_acentos_minusculas', str_replace(" ", "-",$provincia)) . '/' . apply_filters('wpfunos_acentos_minusculas',str_replace(" ", "-",$poblacion)) . '">Tanatorios en la ciudad de ' . ucfirst($poblacion) . '</a>';
+    $link_provincia = '<a href="' . home_url() . '/tanatorios/' . apply_filters('wpfunos_acentos_minusculas', str_replace(" ", "-",$provincia)) . '">Tanatorios en la provincia de ' . ucfirst($provincia) . '</a>';
 
     echo 'Ver todos los ' . $link_poblacion . ' o ' . $link_provincia . '.';
   }

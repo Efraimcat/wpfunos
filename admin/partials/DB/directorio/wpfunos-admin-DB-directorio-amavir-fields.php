@@ -18,4 +18,13 @@ $DirectorioAmavirPoblacion = sanitize_text_field($_POST['wpfunos_DirectorioAmavi
 
 update_post_meta($post_id, 'wpfunos_DirectorioAmavirShortcode', $DirectorioAmavirShortcode);
 update_post_meta($post_id, 'wpfunos_DirectorioAmavirOrigen', $DirectorioAmavirOrigen);
-update_post_meta($post_id, 'wpfunos_DirectorioAmavirPoblacion', $DirectorioAmavirPoblacion);
+
+$poblacion = get_post_meta($DirectorioAmavirOrigen, 'wpfunos_entradaDirectorioPoblacion', true);
+update_post_meta($post_id, 'wpfunos_DirectorioAmavirPoblacion', $poblacion);
+
+$direccion = get_post_meta($DirectorioAmavirOrigen, 'wpfunos_entradaDirectorioDireccion', true);
+gmw_update_post_location($post_id, $direccion, 7, $direccion, true);
+
+$destacada = get_post_meta( $DirectorioAmavirOrigen, '_thumbnail_id', true );
+set_post_thumbnail( $post_id, $destacada );
+
