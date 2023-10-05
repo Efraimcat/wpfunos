@@ -471,7 +471,7 @@ class Wpfunos_PreciosPoblacion
           // WPML
           $servicioTrad = apply_filters('wpml_object_id', $post->ID, 'post', TRUE);
           $titulo = get_post_meta($servicioTrad, 'wpfunos_provinciasTitulo', true);
-          $comentarios = get_post_meta($servicioTrad, 'wpfunos_provinciasComentarios', true);
+          $comentarios = strip_tags(get_post_meta($servicioTrad, 'wpfunos_provinciasComentarios', true), '');
           // WPML
 
           if ($check == '1') {
@@ -514,10 +514,10 @@ class Wpfunos_PreciosPoblacion
           // WPML
           $servicioTrad = apply_filters('wpml_object_id', $post->ID, 'post', TRUE);
           $titulo = get_post_meta($servicioTrad, 'wpfunos_provinciasTitulo', true);
-          $comentarios = get_post_meta($servicioTrad, 'wpfunos_provinciasComentarios', true);
+          $comentarios = strip_tags(get_post_meta($servicioTrad, 'wpfunos_provinciasComentarios', true), '');
           // WPML
 
-          $comentarios = get_post_meta($post->ID, 'wpfunos_provinciasComentarios', true);
+          $comentarios = strip_tags(get_post_meta($post->ID, 'wpfunos_provinciasComentarios', true), '');
           if ($check == '1') {
             $_GET['prov_zona_titulo'] = $titulo;
             $_GET['prov_zona_comentarios'] = $comentarios;
@@ -558,7 +558,7 @@ class Wpfunos_PreciosPoblacion
           // WPML
           $servicioTrad = apply_filters('wpml_object_id', $post->ID, 'post', TRUE);
           $titulo = get_post_meta($servicioTrad, 'wpfunos_provinciasTitulo', true);
-          $comentarios = get_post_meta($servicioTrad, 'wpfunos_provinciasComentarios', true);
+          $comentarios = strip_tags(get_post_meta($servicioTrad, 'wpfunos_provinciasComentarios', true), '');
           // WPML
 
           if ($check == '1') {

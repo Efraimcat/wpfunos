@@ -567,7 +567,7 @@ class Wpfunos_ServiciosV3
         // WPML
         $servicioTrad = apply_filters('wpml_object_id', $post->ID, 'post', TRUE);
         $titulo = get_post_meta($servicioTrad, 'wpfunos_provinciasTitulo', true);
-        $comentarios = get_post_meta($servicioTrad, 'wpfunos_provinciasComentarios', true);
+        $comentarios = strip_tags(get_post_meta($servicioTrad, 'wpfunos_provinciasComentarios', true), '');
         // WPML
 
         if ($check == '1') {
@@ -691,6 +691,7 @@ class Wpfunos_ServiciosV3
    */
   public function wpfunosResultV3Save($results)
   {
+//    do_action('wpfunos_log','results: ' . apply_filters('wpfunos_dumplog', $results));
     $wpfunos_confirmado = [];
     $wpfunos_sinconfirmar = [];
     $wpf_search = [];

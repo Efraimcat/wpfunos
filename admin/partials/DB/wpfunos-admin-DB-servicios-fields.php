@@ -27,6 +27,7 @@ $servicioLead = sanitize_text_field( $_POST['wpfunos_servicioLead'] );
 $servicioLead2 = sanitize_text_field( $_POST['wpfunos_servicioLead2'] );
 $servicioValoracion = sanitize_text_field( $_POST['wpfunos_servicioValoracion'] );
 $servicioActivo = sanitize_text_field( $_POST['wpfunos_servicioActivo'] );
+$servicioPlanes = sanitize_text_field( $_POST['wpfunos_servicioPlanes'] );
 
 $servicioBotonesLlamar = sanitize_text_field( $_POST['wpfunos_servicioBotonesLlamar'] );
 $servicioBotonPresupuesto = sanitize_text_field( $_POST['wpfunos_servicioBotonPresupuesto'] );
@@ -98,6 +99,7 @@ $servicioDespedida_2Comentario = wp_kses_post( $_POST['wpfunos_servicioDespedida
 $servicioDespedida_3Comentario = wp_kses_post( $_POST['wpfunos_servicioDespedida_3Comentario'] );
 
 $servicioPosiblesExtras = wp_kses_post( $_POST['wpfunos_servicioPosiblesExtras'] );
+$servicioPlanesComentario = wp_kses_post( $_POST['wpfunos_servicioPlanesComentario'] );
 
 //Entierro + Ataúd económico + Sin velatorio + Sin ceremonia
 $servicioEESS = sanitize_text_field( $_POST['wpfunos_servicioEESS'] );
@@ -405,6 +407,7 @@ update_post_meta($post_id, 'wpfunos_servicioLead', $servicioLead);
 update_post_meta($post_id, 'wpfunos_servicioLead2', $servicioLead2);
 update_post_meta($post_id, 'wpfunos_servicioValoracion', $servicioValoracion);
 update_post_meta($post_id, 'wpfunos_servicioActivo', $servicioActivo);
+update_post_meta($post_id, 'wpfunos_servicioPlanes', $servicioPlanes);
 
 update_post_meta($post_id, 'wpfunos_servicioBotonesLlamar', $servicioBotonesLlamar);
 update_post_meta($post_id, 'wpfunos_servicioBotonPresupuesto', $servicioBotonPresupuesto);
@@ -473,8 +476,7 @@ update_post_meta($post_id, 'wpfunos_servicioDespedida_1Comentario', $servicioDes
 update_post_meta($post_id, 'wpfunos_servicioDespedida_2Comentario', $servicioDespedida_2Comentario);
 update_post_meta($post_id, 'wpfunos_servicioDespedida_3Comentario', $servicioDespedida_3Comentario);
 update_post_meta($post_id, 'wpfunos_servicioPosiblesExtras', $servicioPosiblesExtras);
-
-
+update_post_meta($post_id, 'wpfunos_servicioPlanesComentario', $servicioPlanesComentario);
 
 //Entierro + Ataúd económico + Sin velatorio + Sin ceremonia
 update_post_meta($post_id, 'wpfunos_servicioEESS', $servicioEESS);

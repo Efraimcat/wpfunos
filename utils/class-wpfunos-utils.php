@@ -557,6 +557,11 @@ class Wpfunos_Utils
       array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
       $cadena
     );
+    $cadena = str_replace(
+      array('ñ', 'Ñ','ç','Ç',"'"),
+      array('n', 'N','c','C',""),
+      $cadena
+    );
     $cadena = strtolower($cadena);
     return $cadena;
   }
