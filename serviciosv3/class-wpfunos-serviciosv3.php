@@ -40,6 +40,7 @@ class Wpfunos_ServiciosV3
     add_action('wpfunos_v3_sinconfirmar_dummy', array($this, 'wpfunosResultV3SinConfirmarDummy'), 10, 2);
     add_action('wpfunos_v3_confirmado', array($this, 'wpfunosResultV3Confirmado'), 10, 2);
     add_action('wpfunos_v3_sinconfirmar', array($this, 'wpfunosResultV3SinConfirmar'), 10, 2);
+    add_action( 'wpfunos_v3_planes', array( $this, 'wpfunosResultV3Planes' ), 10, 2 );
 
     $this->wpfunos_ServiciosV3_AJAX = new Wpfunos_ServiciosV3_AJAX();
   }
@@ -473,22 +474,27 @@ class Wpfunos_ServiciosV3
        *</script>
        *<?php
        **/
+      /**?>
+       *<script type="text/javascript" id="wpfunos-serviciosv3-autoload">
+       *$ = jQuery.noConflict();
+       *$(document).ready(function(){
+       * $(function(){
+       *  window.open('/',"_self");
+       * });
+       *});
+       *</script>
+       *<?php
+       */
       ?>
-      <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
-        $ = jQuery.noConflict();
-        $(document).ready(function() {
-          $(function() {
-            var idioma_wpml = getCookie('wp-wpml_current_language');
-            if (idioma_wpml === 'es') {
-              var URL = '/comparar-precios-nueva';
-            } else {
-              var URL = '/' + idioma_wpml + '/comparar-precios-nueva';
-            }
-            window.open(URL, "_self");
-          });
+       <script type="text/javascript" id="wpfunos-serviciosv3-autoload">
+       $ = jQuery.noConflict();
+       $(document).ready(function(){
+        $(function(){
+         window.open('/',"_self");
         });
-      </script>
-    <?php
+       });
+       </script>
+       <?php
     } //END count($_GET) > 0
 
   }
@@ -694,6 +700,7 @@ class Wpfunos_ServiciosV3
 //    do_action('wpfunos_log','results: ' . apply_filters('wpfunos_dumplog', $results));
     $wpfunos_confirmado = [];
     $wpfunos_sinconfirmar = [];
+    $wpfunos_planes = [];
     $wpf_search = [];
     $valores = [];
     $mas_barato = 0;
@@ -711,6 +718,7 @@ class Wpfunos_ServiciosV3
       $wpf_search[] = array($resultado->ID, $resultado->distance);
       $servicioID = get_post_meta($resultado->ID, 'wpfunos_servicioPrecioID', true);
       $servicioPrecio = get_post_meta($resultado->ID, 'wpfunos_servicioPrecio', true);
+      $ServicioFunerario = get_post_meta($servicioID, 'wpfunos_servicioServicioFunerario', true);
 
       // TODO: Comprobar precio = 0:
 
@@ -720,8 +728,9 @@ class Wpfunos_ServiciosV3
         if ($mas_barato == 0 || (int)$servicioPrecio < $mas_barato) $mas_barato = (int)$servicioPrecio;
       }
       //
-      if ('si' == $activo && 'si' == $confirmado && $servicioPrecio != '') $wpfunos_confirmado[] = array($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance);
-      if ('si' == $activo && 'no' == $confirmado && $servicioPrecio != '') $wpfunos_sinconfirmar[] = array($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance);
+      if ('si' == $activo && 'si' == $confirmado && $servicioPrecio != '' && $ServicioFunerario == 1) $wpfunos_confirmado[] = array($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance);
+      if ('si' == $activo && 'no' == $confirmado && $servicioPrecio != '' && $ServicioFunerario == 1) $wpfunos_sinconfirmar[] = array($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance);
+      if ('si' == $activo && 'si' == $confirmado && get_post_meta($servicioID, 'wpfunos_servicioPlanes', true) == 1) $wpfunos_planes[] = array($servicioID, $resultado->ID, $servicioPrecio, $resultado->distance);
 
       $seccionClass_financiacion = (get_post_meta($servicioID, 'wpfunos_servicioBotonFinanciacion', true)) ? 'wpf-financiacion-si' : 'wpf-financiacion-no';
       $seccionClass_presupuesto = (get_post_meta($servicioID, 'wpfunos_servicioBotonPresupuesto', true)) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
@@ -760,6 +769,7 @@ class Wpfunos_ServiciosV3
       'wpfprice' => $mas_barato,
       'wpfcon' => $wpfunos_confirmado,
       'wpfsin' => $wpfunos_sinconfirmar,
+      'wpfplan' => $wpfunos_planes,
       'wpfcampo' => $respuesta['resp1']['inicial'] . $respuesta['resp2']['inicial'] . $respuesta['resp3']['inicial'] . $respuesta['resp4']['inicial'],
       'valor-logo-confirmado' => wp_get_attachment_image(83459, array(66, 66)),
       'valor-logo-no-confirmado' => wp_get_attachment_image(83458, array(66, 66)),
@@ -837,6 +847,88 @@ class Wpfunos_ServiciosV3
   {
   }
 
+  /**
+   * Crear ficha confirmado
+   *
+   * add_action( 'wpfunos_v3_planes', array( $this, 'wpfunosResultV3Planes' ), 10, 2 );
+   * do_action( 'wpfunos_v3_planes', $wpfunos_planes );
+   *
+   */
+  public function wpfunosResultV3Planes($wpfunos_planes)
+  {
+    if (is_array($wpfunos_planes) && count($wpfunos_planes) != 0) {
+      $IP = apply_filters('wpfunos_userIP', 'dummy');
+      ?>
+      <div class="wpfunos-titulo" id="wpfunos-titulo-planes">
+        <p></p>
+        <center>
+          <h2>
+            <?php
+            esc_html_e('Planes funerarios', 'wpfunos_es')
+            ?></h2>
+        </center>
+      </div>
+      <?php
+      $transient_id = get_transient('wpfunos-wpfid-v3-' . $IP);
+
+      $_GET['valor-logo-confirmado'] = ($transient_id === false) ? wp_get_attachment_image(83459, array(66, 66)) : $transient_id["valor-logo-confirmado"];
+
+      $nonce = wp_create_nonce("wpfunos_serviciosv3_nonce" . $IP);
+      $respuesta = $this->wpfunosFiltros();
+
+      //$_GET['valor-servicio'] = $respuesta['resp1']['texto'] . ', ' . $respuesta['resp2']['texto'] . ', ' . $respuesta['resp3']['texto'] . ', ' . $respuesta['resp4']['texto'];
+      $address = (isset($_GET['poblacion'])) ? $_GET['poblacion'] : $_GET['address'][0];
+      foreach ($wpfunos_planes as $value) {
+        $_GET['valor-logo'] = $transient_id['wpfvalor'][$value[0]]['valor_logo'];
+        $_GET['valor-nombre'] = $transient_id['wpfvalor'][$value[0]]['valor_nombre'];
+        $_GET['valor-valoracion'] = $transient_id['wpfvalor'][$value[0]]['valor_valoracion'];
+        $_GET['valor-precio'] = $transient_id['wpfvalor'][$value[0]]['valor_precio'];
+        $_GET['valor-direccion'] = $transient_id['wpfvalor'][$value[0]]['valor_direccion'];
+
+        $_GET['AttsServicio'] = 'wpfid|' . $value[0] . '
+        wpfn|' . $nonce . '
+        wpfp|' . $value[2] . '
+        wpfdistancia|' . $value[3] . '
+        wpftitulo|' . $transient_id['wpfvalor'][$value[0]]['valor_nombre'] . '
+        wpftelefono|' . str_replace(" ", "", $transient_id['wpfvalor'][$value[0]]['valor_telefono']) . '
+        wpffinanciacion|' . get_post_meta($value[0], 'wpfunos_servicioBotonFinanciacion', true);
+        $_GET['valor-textoprecio'] = get_post_meta($value[0], 'wpfunos_servicioTextoPrecio', true);
+        //$_GET['valor-nombrepack'] = get_post_meta($value[0], 'wpfunos_servicioPackNombre', true);
+        $_GET['valoracion'] = get_post_meta($value[0], 'wpfunos_servicioValoracion', true);
+        $_GET['seccionID-servicio'] = $value[0];
+        $_GET['seccionID-precio'] = 'wpf-precio-' . $value[0];
+        $_GET['valor-distancia'] = $value[3];
+        $_GET['seccionClass_financiacion'] = (get_post_meta($value[0], 'wpfunos_servicioBotonFinanciacion', true)) ? 'wpf-financiacion-si' : 'wpf-financiacion-no';
+        $_GET['seccionClass-presupuesto'] = (get_post_meta($value[0], 'wpfunos_servicioBotonPresupuesto', true)) ? 'wpf-presupuesto-si' : 'wpf-presupuesto-no';
+        $_GET['seccionClass-llamadas'] = (get_post_meta($value[0], 'wpfunos_servicioBotonesLlamar', true)) ? 'wpf-llamadas-si' : 'wpf-llamadas-no';
+        //
+        $precio_anterior = ' ';
+        $campo = $respuesta['resp1']['inicial'] . $respuesta['resp2']['inicial'] . $respuesta['resp3']['inicial'] . $respuesta['resp4']['inicial'];
+        $valor_anterior = (get_post_meta($value[0], 'wpfunos_servicio' . $campo . '_anterior', true));
+        if ($valor_anterior != '') {
+          $precio_anterior = number_format($valor_anterior, 0, ',', '.') . '€';
+        }
+        $_GET['valor-precio-anterior'] = $precio_anterior;
+        //
+        $_GET['valor-empresa'] = '';
+        $valor = get_post_meta($value[0], 'wpfunos_servicioEmpresa', true);
+        if (apply_filters('wpfunos_email_colaborador', 'Mostrar servicioEmpresa ' . $valor)) {  // usuario colaborador.
+          $_GET['valor-empresa'] = $valor;
+        }
+        if( get_post_meta($value[0], 'wpfunos_servicioPlanesSinPrecio', true) == 1){
+          $_GET['valor-precio'] = 'pedir presupuesto';
+        }
+        ?>
+        <div class="wpfunos-busqueda-contenedor" id="wpfunos-busqueda-resultado-<?php echo $value[0]; ?>">
+          <?php
+          echo do_shortcode('[elementor-template id="157353"]'); //Compara precios resultadosV3
+          ?>
+        </div>
+        <?php
+
+      }
+    }
+  }
   /**
    * Crear ficha confirmado
    *

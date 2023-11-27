@@ -116,6 +116,8 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
       die();
     }
 
+    if ( $wpfcuando == 'Planes' ) $wpfcuando = 'Planes funerarios';
+
     if ('' != $wpfnombre && '' != $wpfemail && '' != $wpftelefono) {
 
       switch ((int)$wpfresp1) {
@@ -173,6 +175,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Ajax: wpfresp2 ' . $wpfresp2 . ' - ' . $wpfataud);
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Ajax: wpfresp3 ' . $wpfresp3 . ' - ' . $wpfvelatorio);
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Ajax: wpfresp4 ' . $wpfresp4 . ' - ' . $wpfceremonia);
+      do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Ajax: wpfcuando ' . $wpfcuando);
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Ajax: $hubspotutk ' . $hubspotutk);
 
       //$this->wpfunosServiciosv2Indeseados( $wpfemail, $wpftelefono );
@@ -796,12 +799,22 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'referencia: ' . $newref);
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Post ID: ' .  $post_id);
 
+
+      if ($wpfcuando == 'Planes'){
+        $mensaje = apply_filters('wpfunos_message_format', get_option('wpfunos_mensajeCorreoPreventiva'), get_option('wpfunos_asuntoCorreoPreventiva'));
+        $asunto = get_option('wpfunos_asuntoCorreoPreventiva');
+        $mailCco = get_option('wpfunos_mailCorreoCcoPreventiva');
+        $mailBcc = get_option('wpfunos_mailCorreoBccPreventiva');
+      }else{
+        $mensaje = apply_filters('wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1v2Admin'), get_option('wpfunos_asuntoCorreoBoton1v2Admin'));
+        $asunto = get_option('wpfunos_asuntoCorreoBoton1v2Admin');
+        $mailCco = get_option('wpfunos_mailCorreoCcoBoton1v2Admin');
+        $mailBcc = get_option('wpfunos_mailCorreoBccBoton1v2Admin');
+      }
       if (get_option('wpfunos_activarCorreoBoton1v2Admin')) {
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $headers[] = 'From: funos <clientes@funos.es>';
-        $mensaje = apply_filters('wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton1v2Admin'), get_option('wpfunos_asuntoCorreoBoton1v2Admin'));
-
         $mensaje = str_replace('[email]', $transient_ref['wpfe'], $mensaje);
         $mensaje = str_replace('[nombreUsuario]', $transient_ref['wpfn'], $mensaje);
         $mensaje = str_replace('[telefonoUsuario]', $Telefono, $mensaje);
@@ -819,29 +832,30 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
         $mensaje = str_replace('[telefonoServicio]', get_post_meta($servicio, "wpfunos_servicioTelefono", true), $mensaje);
         $mensaje = str_replace('[comentarios]', get_post_meta($servicio, 'wpfunos_servicio' . $destino . $ataud . $velatorio . $despedida . '_Comentario', true), $mensaje);
         $mensaje = str_replace('[comentariosUsuario]', wp_kses_post($message), $mensaje);
-
         $mensaje = str_replace('[logoServicio]', wp_get_attachment_image(get_post_meta($servicio, 'wpfunos_servicioLogo', true), 'full'), $mensaje);
         $mensaje = str_replace('[imagenconfirmado]', wp_get_attachment_image(83459, 'full'), $mensaje);
         $mensaje = str_replace('[nombrepack]', get_post_meta($servicio, 'wpfunos_servicioPackNombre', true), $mensaje);
         $mensaje = str_replace('[textoprecio]', get_post_meta($servicio, 'wpfunos_servicioTextoPrecio', true), $mensaje);
-
         $userIP = apply_filters('wpfunos_userIP', 'dummy');
         do_action('wpfunos_log', '==============');
         if (site_url() === 'https://dev.funos.es') {
-          wp_mail('efraim@efraim.cat', get_option('wpfunos_asuntoCorreoBoton1v2Admin'), $mensaje, $headers);
+          wp_mail('efraim@efraim.cat', $asunto, $mensaje, $headers);
           do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Enviado correo lead1 efraim@efraim.cat');
         } else {
-          if (!empty(get_option('wpfunos_mailCorreoCcoBoton1v2Admin'))) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1v2Admin');
-          if (!empty(get_option('wpfunos_mailCorreoBccBoton1v2Admin'))) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1v2Admin');
-          wp_mail(get_post_meta($_POST['servicio'], 'wpfunos_servicioEmail', true), get_option('wpfunos_asuntoCorreoBoton1v2Admin'), $mensaje, $headers);
+          if ( $mailCco != '') $headers[] = 'Cc: ' . $mailCco;
+          if ( $mailBcc != '') $headers[] = 'Bcc: ' . $mailBcc;
+          //if (!empty(get_option('wpfunos_mailCorreoCcoBoton1v2Admin'))) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton1v2Admin');
+          //if (!empty(get_option('wpfunos_mailCorreoBccBoton1v2Admin'))) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton1v2Admin');
+          wp_mail(get_post_meta($_POST['servicio'], 'wpfunos_servicioEmail', true), $asunto, $mensaje, $headers);
           do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Enviando correo a funeraria. Correo: ' . get_post_meta($_POST['servicio'], 'wpfunos_servicioEmail', true));
         }
         update_post_meta($post_id, 'wpfunos_userLead', true);
-
         //do_action('wpfunos_log', $userIP.' - 0501 '.'$headers: ' . apply_filters('wpfunos_dumplog', $headers  ) );
         do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Nombre: ' . $transient_ref['wpfn']);
         do_action('wpfunos_log', $userIP . ' - 0501 ' . 'referencia: ' . $newref);
       }
+
+
       if (get_option('wpfunos_activarCorreoBoton1v2usuario')) {
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
@@ -1165,11 +1179,22 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'referencia: ' . $newref);
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Post ID: ' .  $post_id);
 
+      if ($wpfcuando == 'Planes'){
+        $mensaje = apply_filters('wpfunos_message_format', get_option('wpfunos_mensajeCorreoPreventiva'), get_option('wpfunos_asuntoCorreoPreventiva'));
+        $asunto = get_option('wpfunos_asuntoCorreoPreventiva');
+        $mailCco = get_option('wpfunos_mailCorreoCcoPreventiva');
+        $mailBcc = get_option('wpfunos_mailCorreoBccPreventiva');
+      }else{
+        $mensaje = apply_filters('wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2v2Admin'), get_option('wpfunos_asuntoCorreoBoton2v2Admin'));
+        $asunto = get_option('wpfunos_asuntoCorreoBoton2v2Admin');
+        $mailCco = get_option('wpfunos_mailCorreoCcoBoton2v2Admin');
+        $mailBcc = get_option('wpfunos_mailCorreoBccBoton2v2Admin');
+      }
+      
       if (get_option('wpfunos_activarCorreoBoton2v2Admin')) {
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $headers[] = 'From: funos <clientes@funos.es>';
-        $mensaje = apply_filters('wpfunos_message_format', get_option('wpfunos_mensajeCorreoBoton2v2Admin'), get_option('wpfunos_asuntoCorreoBoton2v2Admin'));
 
         $mensaje = str_replace('[email]', $transient_ref['wpfe'], $mensaje);
         $mensaje = str_replace('[nombreUsuario]', $transient_ref['wpfn'], $mensaje);
@@ -1199,9 +1224,11 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
           wp_mail('efraim@efraim.cat', get_option('wpfunos_asuntoCorreoBoton2v2Admin'), $mensaje, $headers);
           do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Enviado correo lead2 efraim@efraim.cat');
         } else {
-          if (!empty(get_option('wpfunos_mailCorreoCcoBoton2v2Admin'))) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2v2Admin');
-          if (!empty(get_option('wpfunos_mailCorreoBccBoton2v2Admin'))) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2v2Admin');
-          wp_mail(get_post_meta($_POST['servicio'], 'wpfunos_servicioEmail', true), get_option('wpfunos_asuntoCorreoBoton2v2Admin'), $mensaje, $headers);
+          if ( $mailCco != '') $headers[] = 'Cc: ' . $mailCco;
+          if ( $mailBcc != '') $headers[] = 'Bcc: ' . $mailBcc;
+          //if (!empty(get_option('wpfunos_mailCorreoCcoBoton2v2Admin'))) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoBoton2v2Admin');
+          //if (!empty(get_option('wpfunos_mailCorreoBccBoton2v2Admin'))) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccBoton2v2Admin');
+          wp_mail(get_post_meta($_POST['servicio'], 'wpfunos_servicioEmail', true), $asunto, $mensaje, $headers);
           do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Enviado correo lead2 ' . get_post_meta($_POST['servicio'], 'wpfunos_servicioEmail', true));
         }
         //
@@ -1538,11 +1565,23 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'referencia: ' . $newref);
       do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Post ID: ' .  $post_id);
 
+
+      if ($wpfcuando == 'Planes'){
+        $mensaje = apply_filters('wpfunos_message_format', get_option('wpfunos_mensajeCorreoPreventiva'), get_option('wpfunos_asuntoCorreoPreventiva'));
+        $asunto = get_option('wpfunos_asuntoCorreoPreventiva');
+        $mailCco = get_option('wpfunos_mailCorreoCcoPreventiva');
+        $mailBcc = get_option('wpfunos_mailCorreoBccPreventiva');
+      }else{
+        $mensaje = apply_filters('wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestoLead'), get_option('wpfunos_asuntoCorreoPresupuestoLead'));
+        $asunto = get_option('wpfunos_asuntoCorreoPresupuestoLead');
+        $mailCco = get_option('wpfunos_mailCorreoCcoPresupuestoLead');
+        $mailBcc = get_option('wpfunos_mailCorreoBccPresupuestoLead');
+      }
+
       if (get_option('wpfunos_activarCorreoPresupuestoLead')) {
         unset($headers);
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $headers[] = 'From: funos <clientes@funos.es>';
-        $mensaje = apply_filters('wpfunos_message_format', get_option('wpfunos_mensajeCorreoPresupuestoLead'), get_option('wpfunos_asuntoCorreoPresupuestoLead'));
 
         $mensaje = str_replace('[email]', $transient_ref['wpfe'], $mensaje);
         $mensaje = str_replace('[nombreUsuario]', $transient_ref['wpfn'], $mensaje);
@@ -1572,9 +1611,11 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
           wp_mail('efraim@efraim.cat', get_option('wpfunos_asuntoCorreoPresupuestoLead'), $mensaje, $headers);
           do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Enviado correo pedir presupuesto efraim@efraim.cat');
         } else {
-          if (!empty(get_option('wpfunos_mailCorreoCcoPresupuestoLead'))) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPresupuestoLead');
-          if (!empty(get_option('wpfunos_mailCorreoBccPresupuestoLead'))) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPresupuestoLead');
-          wp_mail(get_post_meta($_POST['servicio'], 'wpfunos_servicioEmail', true), get_option('wpfunos_asuntoCorreoPresupuestoLead'), $mensaje, $headers);
+          if ( $mailCco != '') $headers[] = 'Cc: ' . $mailCco;
+          if ( $mailBcc != '') $headers[] = 'Bcc: ' . $mailBcc;
+          //if (!empty(get_option('wpfunos_mailCorreoCcoPresupuestoLead'))) $headers[] = 'Cc: ' . get_option('wpfunos_mailCorreoCcoPresupuestoLead');
+          //if (!empty(get_option('wpfunos_mailCorreoBccPresupuestoLead'))) $headers[] = 'Bcc: ' . get_option('wpfunos_mailCorreoBccPresupuestoLead');
+          wp_mail(get_post_meta($_POST['servicio'], 'wpfunos_servicioEmail', true), $asunto, $mensaje, $headers);
           do_action('wpfunos_log', $userIP . ' - 0501 ' . 'Enviado correo pedir presupuesto ' . get_post_meta($_POST['servicio'], 'wpfunos_servicioEmail', true));
         }
         update_post_meta($post_id, 'wpfunos_userLead', true);
@@ -1747,6 +1788,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
     $resp2 = $_POST['resp2'];
     $resp3 = $_POST['resp3'];
     $resp4 = $_POST['resp4'];
+    $cuando = $_POST['cuando'];
 
     $IP = apply_filters('wpfunos_userIP', 'dummy');
 
@@ -1837,8 +1879,14 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
     // La cantidad de traducciones que el comentario calculado genera no permite su uso.
     // El cálculo del comentario se hace en la función "wpfunosMaintenanceComentariosFunerarias" en class-wpfunos-admin.php ( sobre la linea 1400 el 14-12-22)
     //
-
-    $comentarios = '<h3><strong>' . esc_html__('Qúe está incluido en el precio', 'wpfunos_es') . '</strong></h3><p></p>';
+    $comentarios = '';
+    if ($cuando == 'Planes') {
+      $customfield_content = apply_filters('the_content', get_post_meta($servicio, 'wpfunos_servicioPlanesComentario', true));
+      $customfield_content = str_replace(']]>', ']]&gt;', $customfield_content);
+      $comentarios .= $customfield_content;
+    }
+    
+    $comentarios .= '<h3><strong>' . esc_html__('Qúe está incluido en el precio', 'wpfunos_es') . '</strong></h3><p></p>';
 
     // WPML
     $servicioTrad = apply_filters('wpml_object_id', $servicio, 'post', TRUE);
@@ -1930,8 +1978,10 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
     // WPML
 
     $result['valor_nombrepack'] = get_post_meta($servicioTrad, 'wpfunos_servicioPackNombre', true);
+    if ($cuando == 'Planes') $result['valor_nombrepack'] = '';
     $result['valor_valoracion'] = get_post_meta($servicio, 'wpfunos_servicioValoracion', true);
     $result['valor_precio'] = number_format($precio, 0, ',', '.') . '€';
+    if ($cuando == 'Planes') $result['valor_precio'] = '';
     $result['valor_textoprecio'] = get_post_meta($servicioTrad, 'wpfunos_servicioTextoPrecio', true);
     $result['valor_direccion'] = get_post_meta($servicio, 'wpfunos_servicioDireccion', true);
     $result['valor_distancia'] = $distancia;
@@ -1971,6 +2021,7 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
+    $cuando = $_POST['cuando'];
     //
     $IP = apply_filters('wpfunos_userIP', 'dummy');
 
@@ -2072,7 +2123,13 @@ class Wpfunos_ServiciosV3_AJAX extends Wpfunos_ServiciosV3
       // El cálculo del comentario se hace en la función "wpfunosMaintenanceComentariosFunerarias" en class-wpfunos-admin.php ( sobre la linea 1400 el 14-12-22)
       //
       //
-      $comentarios = '<h3><strong>' . esc_html__('Qúe está incluido en el precio', 'wpfunos_es') . '</strong></h3><p></p>';
+      $comentarios = '';
+      if ($cuando == 'Planes') {
+        $customfield_content = apply_filters('the_content', get_post_meta($servicio, 'wpfunos_servicioPlanesComentario', true));
+        $customfield_content = str_replace(']]>', ']]&gt;', $customfield_content);
+        $comentarios .= $customfield_content;
+      }
+      $comentarios .= '<h3><strong>' . esc_html__('Qúe está incluido en el precio', 'wpfunos_es') . '</strong></h3><p></p>';
       $comentarios .= '<h4><strong>' . esc_html__('Detalles de servicio base', 'wpfunos_es') . '</strong></h3>';
 
       $customfield_content = apply_filters('the_content', get_post_meta($servicio, 'wpfunos_servicioPrecioBaseComentario', true));

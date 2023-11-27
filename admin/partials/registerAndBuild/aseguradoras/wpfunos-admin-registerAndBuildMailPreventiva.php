@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 */
 add_settings_section(
   'wpfunos_mailpreventiva_section',    						// ID used to identify this section and with which to register options
-  '<span id="wpfunos-api-preventiva">Correo Aviso Envio API</span>',        				// Title to be displayed on the administration page
+  '<span id="wpfunos-api-preventiva">Correo Aseguradora</span>',        				// Title to be displayed on the administration page
   array( $this, 'wpfunos_display_mail_account_Preventiva' ),	// Callback used to render the description of the section
   'wpfunos_mail_settings_aseguradoras'                 					// Page on which to add this section of options
 );
 // Activar Mail Correo Aviso Envio API Preventiva
 add_settings_field(
   'wpfunos_activarCorreoPreventiva',
-  'Activar Correo Aviso Envio API <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoPreventiva)</h6>',
+  'Activar Correo Aviso Envio <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_activarCorreoPreventiva)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_aseguradoras',
   'wpfunos_mailpreventiva_section',
@@ -30,7 +30,7 @@ add_settings_field(
 // Destino Mail Correo Aviso Envio API Preventiva
 add_settings_field(
   'wpfunos_mailCorreoPreventiva',
-  'Mail Correo Aviso Envio API <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoPreventiva)</h6>',
+  'Mail Correo Aviso Envio <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoPreventiva)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_aseguradoras',
   'wpfunos_mailpreventiva_section',
@@ -39,7 +39,7 @@ add_settings_field(
 // Destino Mail Correo Cco Aviso Envio API Preventiva
 add_settings_field(
   'wpfunos_mailCorreoCcoPreventiva',
-  'Mail Correo Cco Aviso Envio API <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoPreventiva)</h6>',
+  'Mail Correo Cco Aviso Envio <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoCcoPreventiva)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_aseguradoras',
   'wpfunos_mailpreventiva_section',
@@ -48,7 +48,7 @@ add_settings_field(
 // Destino Mail Correo Bcc Aviso Envio API Preventiva
 add_settings_field(
   'wpfunos_mailCorreoBccPreventiva',
-  'Mail Correo Bcc Aviso Envio API <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccPreventiva)</h6>',
+  'Mail Correo Bcc Aviso Envio <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mailCorreoBccPreventiva)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_aseguradoras',
   'wpfunos_mailpreventiva_section',
@@ -57,7 +57,7 @@ add_settings_field(
 // Asunto Mail Correo Boton 2 Lead
 add_settings_field(
   'wpfunos_asuntoCorreoPreventiva',
-  'Asunto Correo Aviso Envio API <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreoPreventiva)</h6>',
+  'Asunto Correo Aviso Envio <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_asuntoCorreoPreventiva)</h6>',
   array( $this, 'wpfunos_render_settings_field' ),
   'wpfunos_mail_settings_aseguradoras',
   'wpfunos_mailpreventiva_section',
@@ -66,7 +66,7 @@ add_settings_field(
 // Mensaje Mail Correo Boton 2 Lead
 add_settings_field(
   'wpfunos_mensajeCorreoPreventiva',
-  'Mensaje Correo Aviso Envio API <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoPreventiva)</h6>',
+  'Mensaje Correo Aviso Envio <h6 style="font-style: italic;font-weight: 400;font-size: 12px;">(wpfunos_mensajeCorreoPreventiva)</h6>',
   array( $this, 'wpfunos_intro_render' ),
   'wpfunos_mail_settings_aseguradoras',
   'wpfunos_mailpreventiva_section',

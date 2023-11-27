@@ -62,6 +62,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="servicios_wpfunos_list">
       <table>
         <tr>
+          <td><?php esc_html_e('Zona', 'wpfunos');?></td>
+          <td style="width:5px;"></td>
           <td><?php esc_html_e('Email', 'wpfunos');?></td>
           <td style="width:5px;"></td>
           <td><?php esc_html_e('Teléfono', 'wpfunos');?></td>
@@ -71,6 +73,8 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php esc_html_e('Valoración', 'wpfunos');?></td>
         </tr>
         <tr>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioZona','name' => 'wpfunos_servicioZona','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
+          <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioEmail','name' => 'wpfunos_servicioEmail','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  ));?></td>
           <td style="width:5px;"></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'text','id' => 'wpfunos_servicioTelefono','name' => 'wpfunos_servicioTelefono','required' => 'required','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 20  )); ?></td>
@@ -141,17 +145,20 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="servicios_wpfunos_list">
       <table style="width:100%">
         <tr>
-          <td style="width:20%"><?php esc_html_e('Lead (entrada de datos)', 'wpfunos');?></td>
-          <td style="width:20%"><?php esc_html_e('Lead (resultado busqueda)', 'wpfunos');?></td>
-          <td style="width:20%"><?php esc_html_e('Precio confirmado', 'wpfunos');?></td>
-          <td style="width:20%"><?php esc_html_e('Activo', 'wpfunos');?></td>
-          <td style="width:20%"><?php esc_html_e('Planes funerarios', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Lead (entrada de datos)', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Lead (resultado busqueda)', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Precio confirmado', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Activo', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Servicio funerario', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Planes funerarios', 'wpfunos');?></td>
+          
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioLead','name' => 'wpfunos_servicioLead','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 )); ?></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioLead2','name' => 'wpfunos_servicioLead2','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioPrecioConfirmado','name' => 'wpfunos_servicioPrecioConfirmado','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7  ));?></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioActivo','name' => 'wpfunos_servicioActivo','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioServicioFunerario','name' => 'wpfunos_servicioServicioFunerario','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioPlanes','name' => 'wpfunos_servicioPlanes','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
         </tr>
       </table>
@@ -159,11 +166,12 @@ if ( ! defined( 'ABSPATH' ) ) {
     <li class="servicios_wpfunos_list">
       <table style="width:100%">
         <tr>
-          <td style="width:20%"><?php esc_html_e('Botones llamar', 'wpfunos');?></td>
-          <td style="width:20%"><?php esc_html_e('Botón presupuesto', 'wpfunos');?></td>
-          <td style="width:20%"><?php esc_html_e('Botón financiación', 'wpfunos');?></td>
-          <td style="width:20%"><?php esc_html_e('Bloquear comentarios', 'wpfunos');?></td>
-          <td style="width:20%"><?php esc_html_e('Actualizar comentarios', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Botones llamar', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Botón presupuesto', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Botón financiación', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Bloquear comentarios', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Actualizar comentarios', 'wpfunos');?></td>
+          <td style="width:16%"><?php esc_html_e('Planes sin precio', 'wpfunos');?></td>
         </tr>
         <tr>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBotonesLlamar','name' => 'wpfunos_servicioBotonesLlamar','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
@@ -171,6 +179,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBotonFinanciacion','name' => 'wpfunos_servicioBotonFinanciacion','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioBloquearComentario','name' => 'wpfunos_servicioBloquearComentario','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
           <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioActualizarComentario','name' => 'wpfunos_servicioActualizarComentario','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
+          <td><?php $this->wpfunos_render_settings_field(array('type' => 'input','subtype' => 'checkbox','id' => 'wpfunos_servicioPlanesSinPrecio','name' => 'wpfunos_servicioPlanesSinPrecio','required' => '','get_options_list' => '','value_type' => 'normal','wp_data' => 'post_meta','post_id' => $post->ID, 'size' => 7 ));?></td>
         </tr>
       </table>
     </li>
